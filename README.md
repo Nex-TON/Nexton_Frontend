@@ -1,1 +1,1 @@
-# Hack-a-TON
+# Nexton - LSD project on TON network
