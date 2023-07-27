@@ -1,27 +1,40 @@
-# React + TypeScript + Vite
+# Hack_a_TON_Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Hack_a_TON_Frontend README
+This frontend code is for setting up a Nexton Web App using React.js.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+## Dependencies
+```
+"@aws-crypto/sha256-js": "^5.0.0",
+"@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+"@orbs-network/ton-access": "^2.3.3",
+"@tonconnect/ui-react": "^1.0.0-beta.6",
+"react": "^18.2.0",
+"react-dom": "^18.2.0",
+"react-router-dom": "^6.14.2",
+"recoil": "^0.7.7",
+"recoil-persist": "^5.1.0",
+"rollup-plugin-node-polyfills": "^0.2.1",
+"styled-components": "^6.0.5",
+"ton": "^13.5.0",
+"ton-core": "^0.49.1",
+"ton-crypto": "^3.2.0"
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Getting Started
+To start the react, you can use the following command:
+
+**step1**
+```
+git clone https://github.com/Nex-TON/Hack-a-TON_Frontend.git
+cd Hack-a-TON_Frontend
+```
+**step2**
+```
+yarn
+```
+**step3**
+```
+yarn run dev 
+yarn run dev --host // for mobile
+```
