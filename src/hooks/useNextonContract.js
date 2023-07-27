@@ -5,7 +5,7 @@ import { NexTon } from "./tact_NexTon";
 import useTonConnect from "./useTonConnect";
 
 function useNextonContract() {
-  const contractAddress = "EQCY_ODi6mZJC1m7RNr6QoweWvumtebT-G21Yn_V2U7x5i2c";
+  const contractAddress = "EQCQih3SDKBwHVdCs5gCXJBIxD42agoC0gOJU1SBhqI8ThIc";
   const client = useTonClient();
   const { sender, address } = useTonConnect();
 
