@@ -1,28 +1,27 @@
-# Nexton 
-### LSD project on TON network
-![NEXTON_logo_purple](https://github.com/Nex-TON/Hack-a-TON/assets/96057861/0267ccc6-2612-4800-ab27-b49fe597a8e0)
+# React + TypeScript + Vite
 
-## What is Nexton? 
-Nexton is a yield optimizer based on liquid staking that offers liquidity for staked assets. It appeals to large TON holders who are not active in Defi protocols by providing them with a secure way to earn maximum staking profits. Additionally, it guarantees LPs a maximum 40% APY, making it an attractive option for entering the TON ecosystem.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Simply put, LPs provide liquidity to enable nominators to execute a feature for maximizing staking rewards while LPs receive incentives, on the other side, nominators are going to earn optimum rewards while they retaining NFT during lock-up period. Under the hood, this protocol is connected to TON nominator pool. It means all of provided liqudity and requested amount of staking assets are staked, then each stakeholder could optimized profits. Furthermore, it would be connected to existing staking-related protocols as long as we could make synergy with them.
+Currently, two official plugins are available:
 
-# Structs
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-# Getting started
+## Expanding the ESLint configuration
 
-## Initialize
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-## Quick start
+- Configure the top-level `parserOptions` property like this:
 
-### More functions
+```js
+   parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+   },
+```
 
-# More Info & Demo 
-> Demo 
-> Desc
-
-# How to use
-### First, Connect Wallet to our product by inviting and running Nexton_Bot into your TG chat.
-### Second, If you want to get more incentive, provide liquidity into LP pool. (Min. 10,000 TON)
-### Third, Stake and earn maximzied staking rewards
-### Finally, Check your NFT and accruing rewards on My asset.
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
