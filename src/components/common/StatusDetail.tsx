@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
+import { LP_POOL } from "../../constants/Lp Pool";
 
 interface StatusDetailProps {
   type: string;
@@ -35,9 +36,9 @@ const StatusDetail = (props: StatusDetailProps) => {
   useEffect(() => {
     if (setMaxLeverage) {
       setMaxLeverage(
-        (Number(input) + Number(0.8)) / Number(input) > 5
+        (Number(input) + Number(LP_POOL / 100)) / Number(input) > 5
           ? 5
-          : (Number(input) + Number(0.8)) / Number(input)
+          : (Number(input) + Number(LP_POOL / 100)) / Number(input)
       );
     }
   }, [input, setMaxLeverage]);
@@ -53,7 +54,7 @@ const StatusDetail = (props: StatusDetailProps) => {
         <LeverageDetailText>Available Amount</LeverageDetailText>
         <div>
           <LeverageDetailText style={{ marginRight: "1.3rem" }}>
-            0.8
+            {LP_POOL / 100}
           </LeverageDetailText>
           <LeverageDetailText>TON</LeverageDetailText>
         </div>
@@ -71,7 +72,7 @@ const StatusDetail = (props: StatusDetailProps) => {
             <LeverageDetailText>Total Liquidity Provision </LeverageDetailText>
             <div>
               <LeverageDetailText style={{ marginRight: "1.3rem" }}>
-                000.000
+                {LP_POOL}
               </LeverageDetailText>
               <LeverageDetailText>TON</LeverageDetailText>
             </div>

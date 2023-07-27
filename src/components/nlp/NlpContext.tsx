@@ -33,7 +33,10 @@ const NlpContext = (props: NlpContextProps) => {
           <TokenText>TON</TokenText>
         </RightSection>
       </NlpInputWrapper>
-      <BalanceBlock>Balance: {balance.toFixed(3)}</BalanceBlock>
+      <BalanceBlock>
+        <MinimumText>Minimum Amount 10,000 TON</MinimumText>
+        <BalanceText>Balance : {balance.toFixed(3)}</BalanceText>
+      </BalanceBlock>
     </NlpContextWrapper>
   );
 };
@@ -110,11 +113,19 @@ const TonImg = styled.img`
 `;
 
 const BalanceBlock = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   width: 100%;
   margin-top: 1rem;
+`;
 
-  ${({ theme }) => theme.fonts.Telegram_Medium_2};
+const MinimumText = styled.span`
+  color: #767680;
+  ${({ theme }) => theme.fonts.Telegram_Caption_2};
+`;
+const BalanceText = styled.span`
   color: #3e4064;
-
-  text-align: right;
+  ${({ theme }) => theme.fonts.Telegram_Medium_2};
 `;

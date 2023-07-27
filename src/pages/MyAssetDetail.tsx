@@ -6,8 +6,14 @@ import FooterButton from "../components/common/FooterButton";
 import * as Contract from "./../hooks/useNextonContract";
 import { UserDeposit } from "../hooks/tact_NexTon";
 import IcBack from "../assets/icons/ic_back.svg";
+import { useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { stakingAtom } from "../lib/atom/staking";
 
 const MyAssetDetail = () => {
+  const stakingInfo = useRecoilValue(stakingAtom);
+  const { id } = useParams();
+
   const { sendMessage } = Contract.useNextonContract();
 
   return (
@@ -17,9 +23,9 @@ const MyAssetDetail = () => {
         <MyAssetHeaderTop>My Asset</MyAssetHeaderTop>
         <MyAssetHeaderBottom>NFT Details</MyAssetHeaderBottom>
       </MyAssetHeaderBox>
-      <DetailNftImage />
+      <DetailNftImage lockup={stakingInfo[id].lockup} />
       <DetailNftInfo />
-      <DetailStakingInfo />
+      <DetailStakingInfo stakingId={id} />
       <FooterButton
         title="Withdraw"
         onClick={() => {

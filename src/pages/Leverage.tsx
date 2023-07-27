@@ -7,12 +7,28 @@ import IcBack from "../assets/icons/ic_back.svg";
 import * as Contract from "./../hooks/useNextonContract";
 import { UserDeposit } from "../hooks/tact_NexTon";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { stakingAtom } from "../lib/atom/staking";
+import { StakingProps } from "../types/staking";
+import { getLockUpDate } from "../utils/getLockupDate";
 
 const Leverage = () => {
   const { sendMessage } = Contract.useNextonContract();
+
+  const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
   const [input, setInput] = useState("");
   const [maxLeverage, setMaxLeverage] = useState(0);
   const [ratio, setRatio] = useState(1.0);
+
+  const getDepoist = () => {
+    const newDepoist: StakingProps = {
+      principal: input,
+      leverage: ratio,
+      lockup: getLockUpDate(input, ratio),
+    };
+
+    setStakingInfo((prev) => [...prev, newDepoist]);
+  };
 
   return (
     <LeverageWrapper>
@@ -30,7 +46,7 @@ const Leverage = () => {
         title="Confirm"
         input={input}
         ratio={ratio}
-        onClick={() => {
+        onClick={async () => {
           const data = (): UserDeposit => {
             return {
               $$type: "UserDeposit",
@@ -38,7 +54,6 @@ const Leverage = () => {
               leverage: 0n,
             };
           };
-          console.log(data());
           sendMessage(data());
         }}
       />

@@ -1,10 +1,16 @@
 import styled from "styled-components";
 import NftItem from "../../common/NftItem";
 
-const DetailNftImage = () => {
+interface DetailNftImageProps {
+  lockup: number;
+}
+
+const DetailNftImage = (props: DetailNftImageProps) => {
+  const { lockup } = props;
+
   return (
     <DetailNftImageWrapper>
-      <NftItem />
+      <NftItem lockup={lockup} />
     </DetailNftImageWrapper>
   );
 };

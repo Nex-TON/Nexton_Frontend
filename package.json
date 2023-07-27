@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.2",
     "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "styled-components": "^6.0.5",
     "ton": "^13.5.0",

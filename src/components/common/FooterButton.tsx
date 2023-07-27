@@ -7,9 +7,13 @@ interface FooterButtonProps {
 }
 
 const FooterButton = (props: FooterButtonProps) => {
-  const { title, onClick } = props;
+  const { input, title, onClick } = props;
 
-  return <FooterButtonWrapper onClick={onClick}>{title}</FooterButtonWrapper>;
+  return Number(input) < 0.2 ? (
+    <FooterButtonWrapper disabled={true}>{title}</FooterButtonWrapper>
+  ) : (
+    <FooterButtonWrapper onClick={onClick}>{title}</FooterButtonWrapper>
+  );
 };
 
 export default FooterButton;

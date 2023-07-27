@@ -1,13 +1,16 @@
 import styled from "styled-components";
 import DetailTitle from "./common/DetailTitle";
 import DetailInfoList from "./common/DetailInfoList";
+import useTonConnect from "../../../hooks/useTonConnect";
 
 const DetailNftInfo = () => {
+  const { address } = useTonConnect();
+
   return (
     <DetailNftInfoWrapper>
       <DetailTitle title="NFT Info" />
-      <DetailInfoList title="Token ID" desc="542394...817863" />
-      <DetailInfoList title="Token Standard" desc="???" />
+      <DetailInfoList title="Token ID" desc="0001" />
+      <DetailInfoList title="Token Standard" desc="TEP 62" />
       <DetailInfoList title="Network" desc="TON" />
     </DetailNftInfoWrapper>
   );
