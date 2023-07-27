@@ -97,7 +97,7 @@ const RightSection = styled.div`
 const TokenText = styled.span`
   margin-left: 0.7rem;
 
-  font-family: SF Pro;
+  font-family: Pretendard;
   font-size: 1.4rem;
   font-style: normal;
   font-weight: 700;
