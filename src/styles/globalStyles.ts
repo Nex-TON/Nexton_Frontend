@@ -152,7 +152,7 @@ ${reset}
     overflow-y: auto;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
-    color-scheme: light only;
+    background-color: #fff;
 
 
 
