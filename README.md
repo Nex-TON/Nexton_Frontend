@@ -38,3 +38,6 @@ yarn
 yarn run dev 
 yarn run dev --host // for mobile
 ```
+
+## Page UI
+![image](https://github.com/Nex-TON/Hack-a-TON_Frontend/assets/64398993/7eed6ce2-a343-48f0-a79c-da72de6c7e56)
