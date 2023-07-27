@@ -1,6 +1,4 @@
 # Hack_a_TON_Frontend
-
-Hack_a_TON_Frontend README
 This frontend code is for setting up a Nexton Web App using React.js.
 
 ## Dependencies
@@ -24,16 +22,16 @@ This frontend code is for setting up a Nexton Web App using React.js.
 ## Getting Started
 To start the react, you can use the following command:
 
-**step1**
+**Step1**
 ```
 git clone https://github.com/Nex-TON/Hack-a-TON_Frontend.git
 cd Hack-a-TON_Frontend
 ```
-**step2**
+**Step2**
 ```
 yarn
 ```
-**step3**
+**Step3**
 ```
 yarn run dev 
 yarn run dev --host // for mobile
