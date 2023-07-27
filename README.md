@@ -1,5 +1,6 @@
 # Hack_a_TON_Frontend
-This frontend code is for setting up a Nexton Web App using React.js.
+This frontend code is for setting up a Nexton Web App using React.js.   
+It acts as client Part of the project
 
 ## Dependencies
 ```
