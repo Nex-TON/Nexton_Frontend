@@ -7,14 +7,17 @@ import IcBack from "../assets/icons/ic_back.svg";
 import * as Contract from "./../hooks/useNextonContract";
 import { UserDeposit } from "../hooks/tact_NexTon";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { stakingAtom } from "../lib/atom/staking";
 import { StakingProps } from "../types/staking";
 import { getLockUpDate } from "../utils/getLockupDate";
+import { sendMessageBot } from "../api/sendMessage";
+import { chatState } from "../lib/atom/chatState";
 
 const Leverage = () => {
   const { sendMessage } = Contract.useNextonContract();
 
+  const chatId = useRecoilValue(chatState);
   const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
   const [input, setInput] = useState("");
   const [maxLeverage, setMaxLeverage] = useState(0);
@@ -56,6 +59,7 @@ const Leverage = () => {
           };
           sendMessage(data());
           getDepoist();
+          sendMessageBot(chatId);
         }}
       />
     </LeverageWrapper>
