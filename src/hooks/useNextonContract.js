@@ -22,7 +22,7 @@ function useNextonContract() {
       if (nextonContract) {
         return await nextonContract.send(
           sender,
-          { value: toNano("0.23") },
+          { value: toNano("0.24") },
           data
         );
       } else {
