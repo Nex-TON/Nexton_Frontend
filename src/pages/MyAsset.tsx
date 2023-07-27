@@ -8,7 +8,7 @@ const MyAsset = () => {
       <BackImg src={IcBack} onClick={() => window.history.back()} />
       <MyAssetHeaderBox>
         <MyAssetHeaderTop>My Asset</MyAssetHeaderTop>
-        <MyAssetHeaderBottom>Staking NFT</MyAssetHeaderBottom>
+        <MyAssetHeaderBottom>NFT</MyAssetHeaderBottom>
       </MyAssetHeaderBox>
       <MyAssetContent />
     </MyAssetWrapper>
@@ -23,7 +23,9 @@ const MyAssetWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
 
-  position: absolute;
+  width: 100%;
+
+  position: relative;
 
   padding: 2.9rem 1.6rem 1.4rem 1.6rem;
 `;
