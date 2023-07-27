@@ -11,7 +11,6 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { stakingAtom } from "../lib/atom/staking";
 import { StakingProps } from "../types/staking";
 import { getLockUpDate } from "../utils/getLockupDate";
-import { sendMessageBot } from "../api/sendMessage";
 import { chatState } from "../lib/atom/chatState";
 
 const Leverage = () => {
@@ -59,7 +58,6 @@ const Leverage = () => {
           };
           sendMessage(data());
           getDepoist();
-          sendMessageBot(chatId);
         }}
       />
     </LeverageWrapper>
