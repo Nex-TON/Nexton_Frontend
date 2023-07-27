@@ -32,6 +32,7 @@ const MyAssetDetail = () => {
           const data = (): UserDeposit => {
             return {
               $$type: "UserDeposit",
+              queryId: BigInt(Date.now()),
               lockPeriod: 0n,
               leverage: 0n,
             };
