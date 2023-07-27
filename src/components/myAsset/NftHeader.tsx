@@ -1,10 +1,13 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { stakingAtom } from "../../lib/atom/staking";
 
 const NftHeader = () => {
+  const stakingInfo = useRecoilValue(stakingAtom);
   return (
     <NftHeaderWrapper>
       <HeaderText style={{ paddingRight: "1.9rem" }}>Total NFT</HeaderText>
-      <HeaderText>10</HeaderText>
+      <HeaderText>{stakingInfo?.length}</HeaderText>
     </NftHeaderWrapper>
   );
 };

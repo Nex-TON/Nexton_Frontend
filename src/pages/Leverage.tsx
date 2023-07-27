@@ -7,10 +7,11 @@ import IcBack from "../assets/icons/ic_back.svg";
 import * as Contract from "./../hooks/useNextonContract";
 import { UserDeposit } from "../hooks/tact_NexTon";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { stakingAtom } from "../lib/atom/staking";
 import { StakingProps } from "../types/staking";
 import { getLockUpDate } from "../utils/getLockupDate";
+import { chatState } from "../lib/atom/chatState";
 import useTonConnect from "../hooks/useTonConnect";
 import BasicModal from "../components/modals/BasicModal";
 
@@ -18,10 +19,11 @@ const Leverage = () => {
     const [modal, setModal] = useState(false);
     const { sendMessage } = Contract.useNextonContract();
 
-    const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
-    const [input, setInput] = useState("");
-    const [maxLeverage, setMaxLeverage] = useState(0);
-    const [ratio, setRatio] = useState(1.0);
+  const chatId = useRecoilValue(chatState);
+  const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
+  const [input, setInput] = useState("");
+  const [maxLeverage, setMaxLeverage] = useState(0);
+  const [ratio, setRatio] = useState(1.0);
 
     const getDepoist = () => {
         const newDepoist: StakingProps = {
@@ -60,6 +62,7 @@ const Leverage = () => {
                     };
                     await sendMessage(data());
                     setModal(true);
+                    getDepoist();
                 }}
             />
         </LeverageWrapper>

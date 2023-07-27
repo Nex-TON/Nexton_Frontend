@@ -28,7 +28,6 @@ const NFtListWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  flex: 1;
   gap: 2rem;
 
   width: 100%;
