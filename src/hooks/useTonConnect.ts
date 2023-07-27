@@ -47,7 +47,7 @@ export default function useTonConnect() {
     wallet,
     sender: {
       send: async (args: any) => {
-        tonConnectUI.sendTransaction({
+        await tonConnectUI.sendTransaction({
           messages: [
             {
               address: args.to.toString(),

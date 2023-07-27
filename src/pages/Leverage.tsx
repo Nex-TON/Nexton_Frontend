@@ -11,72 +11,77 @@ import { useRecoilState } from "recoil";
 import { stakingAtom } from "../lib/atom/staking";
 import { StakingProps } from "../types/staking";
 import { getLockUpDate } from "../utils/getLockupDate";
+import useTonConnect from "../hooks/useTonConnect";
+import BasicModal from "../components/modals/BasicModal";
 
 const Leverage = () => {
-  const { sendMessage } = Contract.useNextonContract();
+    const [modal, setModal] = useState(false);
+    const { sendMessage } = Contract.useNextonContract();
 
-  const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
-  const [input, setInput] = useState("");
-  const [maxLeverage, setMaxLeverage] = useState(0);
-  const [ratio, setRatio] = useState(1.0);
+    const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
+    const [input, setInput] = useState("");
+    const [maxLeverage, setMaxLeverage] = useState(0);
+    const [ratio, setRatio] = useState(1.0);
 
-  const getDepoist = () => {
-    const newDepoist: StakingProps = {
-      principal: input,
-      leverage: ratio,
-      lockup: getLockUpDate(input, ratio),
+    const getDepoist = () => {
+        const newDepoist: StakingProps = {
+            principal: input,
+            leverage: ratio,
+            lockup: getLockUpDate(input, ratio),
+        };
+
+        setStakingInfo((prev) => [...prev, newDepoist]);
     };
 
-    setStakingInfo((prev) => [...prev, newDepoist]);
-  };
-
-  return (
-    <LeverageWrapper>
-      <BackImg src={IcBack} onClick={() => window.history.back()} />
-      <Step1 input={input} setInput={setInput} />
-      <Step2
-        input={input}
-        maxLeverage={maxLeverage}
-        setMaxLeverage={setMaxLeverage}
-        ratio={ratio}
-        setRatio={setRatio}
-      />
-      <Step3 input={input} ratio={ratio} />
-      <FooterButton
-        title="Confirm"
-        input={input}
-        ratio={ratio}
-        onClick={async () => {
-          const data = (): UserDeposit => {
-            return {
-              $$type: "UserDeposit",
-              lockPeriod: 0n,
-              leverage: 0n,
-            };
-          };
-          sendMessage(data());
-        }}
-      />
-    </LeverageWrapper>
-  );
+    return (
+        <LeverageWrapper>
+          {modal && <BasicModal setModal={setModal}/>}
+            <BackImg src={IcBack} onClick={() => window.history.back()} />
+            <Step1 input={input} setInput={setInput} />
+            <Step2
+                input={input}
+                maxLeverage={maxLeverage}
+                setMaxLeverage={setMaxLeverage}
+                ratio={ratio}
+                setRatio={setRatio}
+            />
+            <Step3 input={input} ratio={ratio} />
+            <FooterButton
+                title="Confirm"
+                input={input}
+                ratio={ratio}
+                onClick={async () => {
+                    const data = (): UserDeposit => {
+                        return {
+                            $$type: "UserDeposit",
+                            lockPeriod: 0n,
+                            leverage: 0n,
+                        };
+                    };
+                    await sendMessage(data());
+                    setModal(true);
+                }}
+            />
+        </LeverageWrapper>
+    );
 };
 
 export default Leverage;
 
 const LeverageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 
-  padding: 4.5rem 1.2rem 1.3rem 1.2rem;
+    padding: 4.5rem 1.2rem 1.3rem 1.2rem;
 `;
 
 const BackImg = styled.img`
-  position: absolute;
-  left: 1.5rem;
-  top: 4.4rem;
+    position: absolute;
+    left: 1.5rem;
+    top: 4.4rem;
 
-  cursor: pointer;
+    cursor: pointer;
 `;
