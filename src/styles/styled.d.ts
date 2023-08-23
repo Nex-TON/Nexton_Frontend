@@ -18,6 +18,18 @@ declare module "styled-components" {
       Telegram_Footnote: SerializedStyles;
       Telegram_Caption_1: SerializedStyles;
       Telegram_Caption_2: SerializedStyles;
+      Nexton_Headline_Large: SerializedStyles;
+      Nexton_Title_Large: SerializedStyles;
+      Nexton_Image_Title: SerializedStyles;
+      Nexton_Title_Medium: SerializedStyles;
+      Nexton_Title_Medium_2: SerializedStyles;
+      Nexton_Body_Text_Large: SerializedStyles;
+      Nexton_Body_Text_Medium: SerializedStyles;
+      Nexton_Body_Text_Medium_2: SerializedStyles;
+      Nexton_Body_Text_Medium_3: SerializedStyles;
+      Nexton_Body_Text_Small: SerializedStyles;
+      Nexton_Label_Large: SerializedStyles;
+      Nexton_Label_Medium: SerializedStyles;
     };
   }
 }
