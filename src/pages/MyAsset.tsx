@@ -5,10 +5,15 @@ import IcBack from "../assets/icons/ic_back.svg";
 const MyAsset = () => {
   return (
     <MyAssetWrapper>
-      <BackImg src={IcBack} onClick={() => window.history.back()} />
       <MyAssetHeaderBox>
-        <MyAssetHeaderTop>My Asset</MyAssetHeaderTop>
-        <MyAssetHeaderBottom>NFT</MyAssetHeaderBottom>
+        <BackImageBox>
+          <BackImg
+            src={IcBack}
+            onClick={() => window.history.back()}
+            width={10}
+          />
+        </BackImageBox>
+        <MyAssetHeaderTop>MY asset</MyAssetHeaderTop>
       </MyAssetHeaderBox>
       <MyAssetContent />
     </MyAssetWrapper>
@@ -31,29 +36,34 @@ const MyAssetWrapper = styled.div`
 `;
 
 const MyAssetHeaderBox = styled.div`
+  display: flex;
+  align-items: center;
+
   width: 100%;
-  text-align: center;
 `;
 
 const MyAssetHeaderTop = styled.span`
-  ${({ theme }) => theme.fonts.Telegram_Caption_2};
+  padding-top: 1rem;
+
   color: #45464f;
-`;
-const MyAssetHeaderBottom = styled.p`
-  ${({ theme }) => theme.fonts.Telegram_Title_1};
-  background: var(
-    --gradation,
-    linear-gradient(137deg, #6bd3ff 0%, #3461ff 100%)
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  ${({ theme }) => theme.fonts.Telegram_Title_3_1};
 `;
 
-const BackImg = styled.img`
-  position: absolute;
-  left: 1.5rem;
-  top: 2.8rem;
+const BackImageBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  width: 3.4rem;
+  height: 3.4rem;
+  margin-right: 10.2rem;
+
+  border-radius: 50%;
+  background-color: #f9f9ff;
+  box-shadow: 0px 0px 20px 0px #e1e4e6;
 
   cursor: pointer;
 `;
+
+const BackImg = styled.img``;

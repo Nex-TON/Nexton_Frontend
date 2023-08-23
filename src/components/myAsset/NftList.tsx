@@ -1,22 +1,50 @@
-import styled from "styled-components";
-import NftItem from "../common/NftItem";
-import { useRecoilValue } from "recoil";
-import { stakingAtom } from "../../lib/atom/staking";
+import styled, { css } from "styled-components";
+import IcReload from "../../assets/icons/MyAsset/ic_reload.svg";
+import Icfilter from "../../assets/icons/MyAsset/ic_filter.svg";
+import { useState } from "react";
+import NftItem from "./NftItem";
+import NFTFilter from "./modal/NFTFilter";
 
 const NftList = () => {
-  const stakingInfo = useRecoilValue(stakingAtom);
+  const [isSelect, setIsSelect] = useState([true, false]);
 
+  const handleSelect = (index: number) => {
+    if (index === 1) {
+      setIsSelect([true, false]);
+    } else {
+      setIsSelect([false, true]);
+    }
+  };
+
+  const handleReload = () => {
+    setIsSelect([true, false]);
+  };
   return (
     <NFtListWrapper>
-      {stakingInfo.map(({ principal, leverage, lockup }, index) => (
-        <NftItem
-          key={index}
-          idx={index}
-          principal={principal}
-          leverage={leverage}
-          lockup={lockup}
-        />
-      ))}
+      <NftListHeader>
+        <NFTFilter />
+        <NFTListHeaderLeft>
+          <NFTReloadBox onClick={handleReload}>
+            <img src={IcReload} alt="reload" />
+          </NFTReloadBox>
+          <NFTSelectBox active={isSelect[0]} onClick={() => handleSelect(1)}>
+            Stake
+          </NFTSelectBox>
+          <NFTSelectBox active={isSelect[1]} onClick={() => handleSelect(2)}>
+            Collateralized
+          </NFTSelectBox>
+        </NFTListHeaderLeft>
+        <NFTSelectBox active>
+          Period
+          <img src={Icfilter} alt="filter" />
+        </NFTSelectBox>
+      </NftListHeader>
+      <NFTItemWrapper>
+        <NftItem />
+        <NftItem />
+        <NftItem />
+        <NftItem />
+      </NFTItemWrapper>
     </NFtListWrapper>
   );
 };
@@ -24,18 +52,7 @@ const NftList = () => {
 export default NftList;
 
 const NFtListWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 2rem;
-
   width: 100%;
-  height: 50rem;
-  padding: 1.6rem;
-  margin-top: 2rem;
-
-  overflow: auto;
 
   &::-webkit-scrollbar {
     width: 4px;
@@ -53,4 +70,80 @@ const NFtListWrapper = styled.div`
     margin-bottom: 3px;
     background-clip: padding-box;
   }
+`;
+
+const NftListHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+
+  width: 100%;
+  padding: 1.2rem;
+
+  border-radius: 1rem 1rem 0 0;
+  background-color: #f9f9ff;
+`;
+
+const NFTListHeaderLeft = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+`;
+
+const NFTReloadBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 2.6rem;
+  height: 2.6rem;
+
+  border-radius: 50%;
+  background-color: #f9f9ff;
+  box-shadow: 0 0 2rem 0 rgba(198, 197, 208, 0.3);
+`;
+
+const NFTSelectBox = styled.button<{ active?: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 0.6rem 1rem;
+
+  border: 0.1rem solid #f2f2f7;
+  border-radius: 2rem;
+  background-color: #f9f9ff;
+
+  ${({ theme }) => theme.fonts.Telegram_Caption_2};
+
+  ${({ active }) =>
+    active
+      ? css`
+          border: none;
+          background-color: #f9f9ff;
+          box-shadow: 0px 0px 20px 0px rgba(198, 197, 208, 0.3);
+          color: #5e6162;
+        `
+      : css`
+          border: 0.1rem solid #f2f2f7;
+          background-color: #f9f9ff;
+          color: #90909a;
+        `}
+  outline: none;
+  cursor: pointer;
+`;
+
+const NFTItemWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.6rem;
+
+  width: 100%;
+  height: 50vh;
+  padding: 3rem;
+
+  background-color: #fff;
+
+  overflow: scroll;
 `;

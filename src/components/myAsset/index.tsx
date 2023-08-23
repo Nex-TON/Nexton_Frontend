@@ -7,7 +7,7 @@ const MyAssetContent = () => {
     <MyAssetContentWrapper>
       <NftHeader />
       <NftList />
-      <CloseBtn onClick={() => window.history.back()}>Close</CloseBtn>
+      {/* <CloseBtn onClick={() => window.history.back()}>Close</CloseBtn> */}
     </MyAssetContentWrapper>
   );
 };
