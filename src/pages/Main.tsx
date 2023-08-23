@@ -1,12 +1,15 @@
 import styled from "styled-components";
-import IcMainIcon from "../assets/icons/ic_mainIcon.svg";
+import MainImage from "../assets/image/MainImage.png";
 import TonWallet from "../components/main/TonWallet";
 import Menu from "../components/main/Menu";
 
 const Main = () => {
   return (
     <MainWrapper>
-      <MainIcon src={IcMainIcon} alt="mainIcon" />
+      <MainImageBox>
+        <MainIcon src={MainImage} alt="MainImage" />
+        <MainImageTitle>NEXTON</MainImageTitle>
+      </MainImageBox>
       <TonWallet />
       <Menu />
     </MainWrapper>
@@ -22,7 +25,24 @@ const MainWrapper = styled.div`
   align-items: center;
 
   width: 100%;
-  padding: 4.6rem 2.6rem;
+  padding: 4.6rem 1.5rem;
 `;
 
-const MainIcon = styled.img``;
+const MainImageBox = styled.div`
+  position: relative;
+`;
+
+const MainIcon = styled.img`
+  width: 100%;
+
+  border-radius: 1rem;
+`;
+
+const MainImageTitle = styled.span`
+  position: absolute;
+  top: 6.1rem;
+  left: 3.2rem;
+
+  color: #fff;
+  ${({ theme }) => theme.fonts.Nexton_Image_Title};
+`;
