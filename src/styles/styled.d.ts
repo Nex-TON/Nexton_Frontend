@@ -16,7 +16,9 @@ declare module "styled-components" {
       Telegram_SubHeadline_1: SerializedStyles;
       Telegram_SubHeadline_2: SerializedStyles;
       Telegram_Footnote: SerializedStyles;
+      Telegram_Footnote_1: SerializedStyles;
       Telegram_Caption_1: SerializedStyles;
+      Telegram_Caption_1_1: SerializedStyles;
       Telegram_Caption_2: SerializedStyles;
       Nexton_Headline_Large: SerializedStyles;
       Nexton_Title_Large: SerializedStyles;
@@ -24,6 +26,7 @@ declare module "styled-components" {
       Nexton_Title_Medium: SerializedStyles;
       Nexton_Title_Medium_2: SerializedStyles;
       Nexton_Body_Text_Large: SerializedStyles;
+      Nexton_Body_Text_Large_2: SerializedStyles;
       Nexton_Body_Text_Medium: SerializedStyles;
       Nexton_Body_Text_Medium_2: SerializedStyles;
       Nexton_Body_Text_Medium_3: SerializedStyles;

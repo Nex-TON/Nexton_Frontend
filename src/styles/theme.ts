@@ -105,12 +105,28 @@ const fonts = {
     line-height: 1.8rem; /* 138.462% */
     letter-spacing: -0.0078rem;
   `,
+  Telegram_Footnote_1: css`
+    font-family: "Pretendard";
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 510;
+    line-height: 1.8rem; /* 138.462% */
+    letter-spacing: -0.0078rem;
+  `,
   Telegram_Caption_1: css`
     font-family: "Pretendard";
     font-size: 1.2rem;
     font-style: normal;
     font-weight: 400;
     line-height: 1.6rem; /* 133.333% */
+  `,
+  Telegram_Caption_1_1: css`
+    font-family: "Pretendard";
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 590;
+    line-height: 1.4rem; /* 133.333% */
+    letter-spacing: -0.012px;
   `,
   Telegram_Caption_2: css`
     font-family: "Pretendard";
@@ -159,6 +175,13 @@ const fonts = {
   Nexton_Body_Text_Large: css`
     font-family: "Montserrat";
     font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 2.6rem;
+  `,
+  Nexton_Body_Text_Large_2: css`
+    font-family: "Montserrat";
+    font-size: 1.7rem;
     font-style: normal;
     font-weight: 600;
     line-height: 2.6rem;

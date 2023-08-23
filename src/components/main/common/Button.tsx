@@ -89,7 +89,7 @@ const StyledButton = styled.button`
 
   border: none;
   border-radius: 1rem;
-  background-color: white;
+  background-color: #f2f2f7;
   ${({ theme }) => theme.fonts.Telegram_Medium_1};
   color: #ffffff;
 

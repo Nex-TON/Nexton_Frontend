@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 import Step1 from "../components/lerverage/Step1";
 import Step2 from "../components/lerverage/Step2";
 import Step3 from "../components/lerverage/Step3";
@@ -14,16 +14,21 @@ import { getLockUpDate } from "../utils/getLockupDate";
 import { chatState } from "../lib/atom/chatState";
 import useTonConnect from "../hooks/useTonConnect";
 import BasicModal from "../components/modals/BasicModal";
+import BorderLine from "../components/lerverage/common/BorderLine";
+import NFTPreview from "../components/lerverage/NFTPreview/NFTPreview";
 
 const Leverage = () => {
-  const [modal, setModal] = useState(false);
+  const [isMovePreview, setIsMovePreview] = useState(false);
   const { sendMessage } = Contract.useNextonContract();
 
-  const chatId = useRecoilValue(chatState);
-  const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
+  const [, setStakingInfo] = useRecoilState(stakingAtom);
   const [input, setInput] = useState("");
   const [maxLeverage, setMaxLeverage] = useState(0);
   const [ratio, setRatio] = useState(1.0);
+
+  const handleMovePreview = () => {
+    setIsMovePreview((prev) => !prev);
+  };
 
   const getDepoist = () => {
     const newDepoist: StakingProps = {
@@ -35,11 +40,13 @@ const Leverage = () => {
     setStakingInfo((prev) => [...prev, newDepoist]);
   };
 
-  return (
+  return isMovePreview ? (
+    <NFTPreview handleMovePreview={handleMovePreview} />
+  ) : (
     <LeverageWrapper>
-      {modal && <BasicModal setModal={setModal} />}
       <BackImg src={IcBack} onClick={() => window.history.back()} />
       <Step1 input={input} setInput={setInput} />
+      <BorderLine />
       <Step2
         input={input}
         maxLeverage={maxLeverage}
@@ -47,25 +54,16 @@ const Leverage = () => {
         ratio={ratio}
         setRatio={setRatio}
       />
+      <BorderLine />
       <Step3 input={input} ratio={ratio} />
-      <FooterButton
-        title="Confirm"
-        input={input}
-        ratio={ratio}
-        onClick={async () => {
-          const data = (): UserDeposit => {
-            return {
-              $$type: "UserDeposit",
-              queryId: BigInt(Date.now()),
-              lockPeriod: 0n,
-              leverage: 0n,
-            };
-          };
-          await sendMessage(data());
-          setModal(true);
-          getDepoist();
-        }}
-      />
+      <FooterWrapper>
+        <FooterButton
+          title="Confirm"
+          input={input}
+          ratio={ratio}
+          onClick={handleMovePreview}
+        />
+      </FooterWrapper>
     </LeverageWrapper>
   );
 };
@@ -79,7 +77,7 @@ const LeverageWrapper = styled.div`
   align-items: center;
   position: relative;
 
-  padding: 4.5rem 1.2rem 1.3rem 1.2rem;
+  padding: 4.5rem 0 1.3rem 0;
 `;
 
 const BackImg = styled.img`
@@ -88,4 +86,9 @@ const BackImg = styled.img`
   top: 4.4rem;
 
   cursor: pointer;
+`;
+
+const FooterWrapper = styled.div`
+  width: 100%;
+  padding: 0 1rem;
 `;
