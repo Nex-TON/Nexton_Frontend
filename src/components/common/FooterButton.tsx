@@ -24,7 +24,7 @@ const FooterButtonWrapper = styled.button`
   align-items: center;
 
   width: 100%;
-  padding: 1.6rem 13.9rem;
+  height: 5rem;
 
   border: none;
   border-radius: 1.2rem;

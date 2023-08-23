@@ -27,7 +27,7 @@ export default SliderBox;
 
 const SliderWrapper = styled.div`
   width: 100%;
-  margin-bottom: 2.1rem;
+  margin-bottom: 2.6rem;
 `;
 
 const SliderTextBox = styled.div`
@@ -35,7 +35,7 @@ const SliderTextBox = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  margin-top: 2.3rem;
+  margin-top: 2rem;
 
   ${({ theme }) => theme.fonts.Telegram_Medium_2};
   color: #000000;

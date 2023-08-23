@@ -92,20 +92,15 @@ const LerverageDetailWrapper = styled.div`
   align-items: flex-start;
 
   width: 100%;
-  padding: 1.6rem 1.8rem;
+  padding: 1.4rem 2rem;
 
-  border: 0.1rem solid #d1d1d6;
   border-radius: 1rem;
+  background-color: #f9f9ff;
 `;
 
 const LeverageDetailText = styled.span`
   color: #8e8e93;
-  font-family: Pretendard;
-  font-size: 1.3rem;
-  font-style: normal;
-  font-weight: 510;
-  line-height: 1.8rem; /* 138.462% */
-  letter-spacing: -0.0078rem;
+  ${({ theme }) => theme.fonts.Telegram_Footnote_1};
 `;
 
 const AvailableBox = styled.div`

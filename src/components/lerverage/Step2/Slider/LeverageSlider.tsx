@@ -71,7 +71,7 @@ const StyledReactSlider = styled(Slider)(() => ({
       right: "-1.2rem",
       // margin: "0 1.2rem",
       borderRadius: "2rem",
-      backgroundColor: "#F2F2F7",
+      backgroundColor: "#FFF",
       zIndex: -1,
     },
   },

@@ -11,6 +11,7 @@ const Max = (props: MaxProps) => {
   const handleMaxInput = () => {
     setInput(String(balance.toFixed(3)));
   };
+
   return <MaxWrapper onClick={handleMaxInput}>MAX</MaxWrapper>;
 };
 
@@ -21,9 +22,9 @@ const MaxWrapper = styled.button`
 
   border: none;
   border-radius: 0.4rem;
-  background-color: #1f53ff;
+  background-color: #ccf3ff;
   ${({ theme }) => theme.fonts.Telegram_Footnote};
-  color: #ffffff;
+  color: #20a9f6;
 
   outline: none;
   cursor: pointer;

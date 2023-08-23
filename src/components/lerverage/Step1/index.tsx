@@ -19,8 +19,9 @@ const Step1 = (props: Step1Props) => {
       <Title title="Put stake amount" />
       <LeverageInput input={input} setInput={setInput} />
       <BalanceWrapper>
-        <MinimumText>Minimum Amount 0.2 TON</MinimumText>
-        <BalanceText>Balance : {balance.toFixed(3)}</BalanceText>
+        <BalanceText>
+          Balance : {balance > 0 ? balance.toFixed(3) : `-.---`}
+        </BalanceText>
       </BalanceWrapper>
     </Step1Wrapper>
   );
@@ -44,10 +45,6 @@ const BalanceWrapper = styled.div`
   margin-top: 1.6rem;
 `;
 
-const MinimumText = styled.span`
-  color: #767680;
-  ${({ theme }) => theme.fonts.Telegram_Caption_2};
-`;
 const BalanceText = styled.span`
   color: #3e4064;
   ${({ theme }) => theme.fonts.Telegram_Medium_2};

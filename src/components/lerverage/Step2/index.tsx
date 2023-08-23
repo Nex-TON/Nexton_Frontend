@@ -38,5 +38,4 @@ const Step2Wrapper = styled.div`
   align-items: center;
 
   width: 85%;
-  margin-top: 4.7rem;
 `;

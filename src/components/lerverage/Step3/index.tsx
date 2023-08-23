@@ -17,7 +17,7 @@ const Step3 = (props: Step3Props) => {
         <Step3Desc>Check your lock-up period</Step3Desc>
       </Step3DescWrapper>
       <Step3LockUpWrapper>
-        <Title3_1> Lock-up period</Title3_1>
+        <Title3_1>Lock-up period</Title3_1>
         <Step3DaysWrapper>
           <Title3_1 style={{ marginRight: "2.1rem" }}>
             {getLockUpDate(input, ratio)}
@@ -38,19 +38,22 @@ const Step3Wrapper = styled.div`
   align-items: center;
 
   width: 90%;
-  margin-top: 4.7rem;
+
   margin-bottom: 4.6rem;
 `;
 
 const Step3DescWrapper = styled.div`
   width: 100%;
+  margin-bottom: 2.6rem;
+
+  text-align: center;
 `;
 
 const Step3Desc = styled.div`
   margin-bottom: 1rem;
 
-  ${({ theme }) => theme.fonts.Telegram_Medium_2};
-  color: #007aff;
+  color: #45464f;
+  ${({ theme }) => theme.fonts.Telegram_Title_3_1};
 `;
 
 const Step3LockUpWrapper = styled.div`
@@ -59,6 +62,7 @@ const Step3LockUpWrapper = styled.div`
   align-items: center;
 
   width: 100%;
+  padding: 0 1rem;
 
   color: #45464f;
 `;

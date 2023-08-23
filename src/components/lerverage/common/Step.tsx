@@ -17,26 +17,15 @@ const StepWrapper = styled.button<{ step?: string }>`
   justify-content: center;
   align-items: center;
 
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.2rem;
   padding: 0.6rem 1.6rem;
 
   border: none;
   border-radius: 2rem;
   background-color: #007aff;
   color: #ffffff;
-  font-family: Pretendard;
-  font-size: 1.1rem;
-  font-style: normal;
-  font-weight: 590;
-  line-height: 1.3rem; /* 118.182% */
-  letter-spacing: 0.0066rem;
+  ${({ theme }) => theme.fonts.Telegram_Caption_2};
 
   cursor: pointer;
   outline: none;
-
-  ${({ step }) =>
-    step === "Step3" &&
-    css`
-      margin-bottom: 2.4rem;
-    `}
 `;
