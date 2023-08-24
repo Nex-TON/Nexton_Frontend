@@ -6,24 +6,43 @@ import IcCardCheckActive from "../../assets/icons/MyAsset/ic_cardCheck_active.sv
 import IcCoinsDisable from "../../assets/icons/MyAsset/ic_coins_disable.svg";
 import IcCoinsActive from "../../assets/icons/MyAsset/ic_coins_active.svg";
 
-const NftHeader = () => {
+interface NftHeaderProps {
+  myAssetMenu: string;
+  handleChangeMyAssetMenu: (type: string) => void;
+}
+
+const NftHeader = (props: NftHeaderProps) => {
+  const { myAssetMenu, handleChangeMyAssetMenu } = props;
+
   return (
     <NftHeaderWrapper>
-      <NFTHeadingItem>
+      <NFTHeadingItem onClick={() => handleChangeMyAssetMenu("NFT")}>
         <NFTHeadingImageBox>
-          <img src={IcCardDisable} alt="card" />
+          {myAssetMenu === "NFT" ? (
+            <img src={IcCardActive} alt="card" />
+          ) : (
+            <img src={IcCardDisable} alt="card" />
+          )}
         </NFTHeadingImageBox>
         <NFTHeadingItemText>NFT</NFTHeadingItemText>
       </NFTHeadingItem>
-      <NFTHeadingItem>
+      <NFTHeadingItem onClick={() => handleChangeMyAssetMenu("Unstaking")}>
         <NFTHeadingImageBox>
-          <img src={IcCardCheckDisable} alt="cardCheck" />
+          {myAssetMenu === "Unstaking" ? (
+            <img src={IcCardCheckActive} alt="cardCheck" />
+          ) : (
+            <img src={IcCardCheckDisable} alt="cardCheck" />
+          )}
         </NFTHeadingImageBox>
         <NFTHeadingItemText>Unstaking</NFTHeadingItemText>
       </NFTHeadingItem>
-      <NFTHeadingItem>
+      <NFTHeadingItem onClick={() => handleChangeMyAssetMenu("Reward")}>
         <NFTHeadingImageBox>
-          <img src={IcCoinsDisable} alt="coins" />
+          {myAssetMenu === "Reward" ? (
+            <img src={IcCoinsActive} alt="cardCheck" />
+          ) : (
+            <img src={IcCoinsDisable} alt="cardCheck" />
+          )}
         </NFTHeadingImageBox>
         <NFTHeadingItemText>Reward</NFTHeadingItemText>
       </NFTHeadingItem>

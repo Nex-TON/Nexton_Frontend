@@ -1,12 +1,24 @@
 import styled from "styled-components";
 import NftHeader from "./NftHeader";
-import NftList from "./NftList";
+import NftList from "./NFT/NftList";
+import { useState } from "react";
+import UnstakingList from "./Unstaking/UnstakingList";
 
 const MyAssetContent = () => {
+  const [myAssetMenu, setMyAssetMenu] = useState("NFT");
+
+  const handleChangeMyAssetMenu = (type: string) => {
+    setMyAssetMenu(type);
+  };
+
   return (
     <MyAssetContentWrapper>
-      <NftHeader />
-      <NftList />
+      <NftHeader
+        myAssetMenu={myAssetMenu}
+        handleChangeMyAssetMenu={handleChangeMyAssetMenu}
+      />
+      {myAssetMenu === "NFT" && <NftList />}
+      {myAssetMenu === "Unstaking" && <UnstakingList />}
     </MyAssetContentWrapper>
   );
 };
