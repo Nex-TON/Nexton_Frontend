@@ -1,63 +1,46 @@
 import { css, styled } from "styled-components";
 import IcCheck from "../../../assets/icons/MyAsset/ic_check.svg";
-import { useState } from "react";
+import useMyAssetFilter from "../../../hooks/Filter/useMyAssetFilter";
 
 const NFTFilter = () => {
-  const [checkPeriod, setCheckPeriod] = useState([false, false, false, false]);
-  const [period, setPeriod] = useState("");
-
-  const handleCheckPeriod = (type: string) => {
-    switch (type) {
-      case "ongoing":
-        setCheckPeriod([true, false, false, false]);
-        setPeriod(type);
-        break;
-      case "forthcoming":
-        setCheckPeriod([false, true, false, false]);
-        setPeriod(type);
-        break;
-      case "expired":
-        setCheckPeriod([false, false, true, false]);
-        setPeriod(type);
-        break;
-      case "all":
-        setCheckPeriod([false, false, false, true]);
-        setPeriod(type);
-        break;
-    }
-  };
+  const { activeOpacity, checkPeriod, period, handleCheckPeriod } =
+    useMyAssetFilter();
 
   return (
     <NFTFilterWrapper>
       <NFTFilterUl>
         <NFTFilterLi
-          onClick={() => handleCheckPeriod("ongoing")}
+          onClick={() => handleCheckPeriod("Ongoing")}
           check={checkPeriod[0]}
           period={period}
+          activeOpacity={activeOpacity}
         >
           Ongoing
-          <NFTStatus type="ongoing" />
+          <NFTStatus type="Ongoing" />
         </NFTFilterLi>
         <NFTFilterLi
-          onClick={() => handleCheckPeriod("forthcoming")}
+          onClick={() => handleCheckPeriod("Forthcoming")}
           check={checkPeriod[1]}
+          activeOpacity={activeOpacity}
         >
           Forthcoming
-          <NFTStatus type="forthcoming" />
+          <NFTStatus type="Forthcoming" />
         </NFTFilterLi>
         <NFTFilterLi
-          onClick={() => handleCheckPeriod("expired")}
+          onClick={() => handleCheckPeriod("Expired")}
           check={checkPeriod[2]}
+          activeOpacity={activeOpacity}
         >
           Expired
-          <NFTStatus type="expired" />
+          <NFTStatus type="Expired" />
         </NFTFilterLi>
         <NFTFilterLi
-          onClick={() => handleCheckPeriod("all")}
+          onClick={() => handleCheckPeriod("All")}
           check={checkPeriod[3]}
+          period={period}
         >
           All
-          <img src={IcCheck} alt="check" />
+          <img src={IcCheck} alt="check" width={16} height={16} />
         </NFTFilterLi>
       </NFTFilterUl>
     </NFTFilterWrapper>
@@ -68,7 +51,7 @@ export default NFTFilter;
 
 const NFTFilterWrapper = styled.div`
   position: absolute;
-  top: 4.4rem;
+  top: 5rem;
   right: 1.2rem;
 
   border-radius: 1rem;
@@ -81,34 +64,71 @@ const NFTFilterUl = styled.ul`
   margin: 0;
   padding: 0;
 `;
-const NFTFilterLi = styled.li<{ check: boolean; period?: string }>`
+const NFTFilterLi = styled.li<{
+  check: boolean;
+  period?: string;
+  activeOpacity?: boolean;
+}>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
 
-  padding: 1rem 1.2rem;
+  padding: 1.3rem 1.8rem;
 
   color: #5e6162;
-  ${({ theme }) => theme.fonts.Telegram_Caption_2};
+
+  ${({ theme }) => theme.fonts.Telegram_Footnote};
+
+  ${({ activeOpacity }) =>
+    activeOpacity &&
+    css`
+      opacity: 0.3;
+    `}
+
+  ${({ check, period }) =>
+    check &&
+    period === "Ongoing" &&
+    css`
+      border-radius: 1rem 1rem 0 0;
+      background-color: #e5e5ea;
+    `}
+
+    ${({ check, period }) =>
+    check &&
+    period === "All" &&
+    css`
+      border-radius: 0 0 1rem 1rem;
+      background-color: #e5e5ea;
+    `}
+      
+
+  ${({ check }) =>
+    check &&
+    css`
+      background-color: #e5e5ea;
+    `}
+
+    transition: all 0.2s ease-in-out;
 `;
+
 const NFTStatus = styled.div<{ type?: string }>`
-  width: 1rem;
-  height: 1rem;
+  width: 1.4rem;
+  height: 1.4rem;
 
   border-radius: 50%;
   ${({ type }) =>
-    type === "ongoing" &&
+    type === "Ongoing" &&
     css`
       background: linear-gradient(90deg, #61b5f2 0%, #98a1fe 100%);
     `}
   ${({ type }) =>
-    type === "forthcoming" &&
+    type === "Forthcoming" &&
     css`
       background: linear-gradient(140deg, #ff8c73 0%, #ffe0b0 100%);
     `}
       ${({ type }) =>
-    type === "expired" &&
+    type === "Expired" &&
     css`
       background: linear-gradient(127deg, #a2a9bc 0%, #e5edff 100%);
     `}
