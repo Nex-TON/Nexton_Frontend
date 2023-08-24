@@ -47,7 +47,7 @@ function BasicModal({ toggleModal }) {
 
 export default BasicModal;
 
-const ModalHeader = styled.div`
+export const ModalHeader = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -56,7 +56,7 @@ const ModalHeader = styled.div`
   margin-bottom: 6rem;
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   position: fixed;
 
   top: 20rem;
@@ -77,14 +77,14 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
-const Title = styled.p`
+export const Title = styled.p`
   color: #007aff;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2}
 
   margin-bottom: 1.2rem;
 `;
 
-const SubTitle = styled.p`
+export const SubTitle = styled.p`
   font-family: "pretendard";
   font-size: 1.4rem;
   font-style: normal;
@@ -94,7 +94,7 @@ const SubTitle = styled.p`
   margin-bottom: 7rem;
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -108,13 +108,7 @@ const Button = styled.button`
   padding: 1.2rem 8.2rem;
   background: #007aff;
 
-  text-align: center;
-  font-family: "pretendard";
-  font-size: 1.3rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 1.8rem; /* 138.462% */
-  letter-spacing: -0.078px;
+  ${({ theme }) => theme.fonts.Telegram_Medium_2};
 
   border: none;
   box-shadow: 0 0 2rem 0 rgba(198, 197, 208, 0.3);
