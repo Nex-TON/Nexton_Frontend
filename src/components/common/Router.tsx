@@ -4,6 +4,7 @@ import Leverage from "../../pages/Leverage";
 import Nlp from "../../pages/Nlp";
 import MyAsset from "../../pages/MyAsset";
 import MyAssetDetail from "../../pages/MyAssetDetail";
+import Detail from "../myAsset/detail/Detail";
 
 const Router = () => {
   return (
@@ -13,7 +14,7 @@ const Router = () => {
         <Route path="/leverage" element={<Leverage />} />
         <Route path="/nlp" element={<Nlp />} />
         <Route path="/myasset" element={<MyAsset />} />
-        <Route path="/myasset/:id" element={<MyAssetDetail />} />
+        <Route path="/myasset/:id" element={<Detail />} />
       </Routes>
     </BrowserRouter>
   );
