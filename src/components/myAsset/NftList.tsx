@@ -4,8 +4,10 @@ import Icfilter from "../../assets/icons/MyAsset/ic_filter.svg";
 import { useState } from "react";
 import NftItem from "./NftItem";
 import NFTFilter from "./modal/NFTFilter";
+import useMyAssetFilter from "../../hooks/Filter/useMyAssetFilter";
 
 const NftList = () => {
+  const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [isSelect, setIsSelect] = useState([true, false]);
 
   const handleSelect = (index: number) => {
@@ -22,7 +24,7 @@ const NftList = () => {
   return (
     <NFtListWrapper>
       <NftListHeader>
-        <NFTFilter />
+        {isOpenFilter && <NFTFilter />}
         <NFTListHeaderLeft>
           <NFTReloadBox onClick={handleReload}>
             <img src={IcReload} alt="reload" />
@@ -34,7 +36,7 @@ const NftList = () => {
             Collateralized
           </NFTSelectBox>
         </NFTListHeaderLeft>
-        <NFTSelectBox active>
+        <NFTSelectBox active onClick={() => setIsOpenFilter((prev) => !prev)}>
           Period
           <img src={Icfilter} alt="filter" />
         </NFTSelectBox>
@@ -96,8 +98,8 @@ const NFTReloadBox = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 3rem;
+  height: 3rem;
 
   border-radius: 50%;
   background-color: #f9f9ff;
@@ -115,7 +117,7 @@ const NFTSelectBox = styled.button<{ active?: boolean }>`
   border-radius: 2rem;
   background-color: #f9f9ff;
 
-  ${({ theme }) => theme.fonts.Telegram_Caption_2};
+  ${({ theme }) => theme.fonts.Telegram_Footnote};
 
   ${({ active }) =>
     active
@@ -140,7 +142,7 @@ const NFTItemWrapper = styled.div`
   gap: 1.6rem;
 
   width: 100%;
-  height: 50vh;
+  height: 55vh;
   padding: 3rem;
 
   background-color: #fff;
