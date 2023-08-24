@@ -6,7 +6,8 @@ import FooterButton from "../../common/FooterButton";
 import { UserDeposit } from "../../../hooks/tact_NexTon";
 import * as Contract from "../../../hooks/useNextonContract";
 import BasicModal from "../../modals/BasicModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import BackButton from "../../common/BackButton";
 
 interface NFTPreviewProps {
   handleMovePreview: () => void;
@@ -22,13 +23,15 @@ const NFTPreview = (props: NFTPreviewProps) => {
     setModal((prev) => !prev);
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <NFTPreviewWrapper>
       {modal && <BasicModal toggleModal={toggleModal} />}
       <NFTPreviewHeader>
-        <BackImageBox>
-          <BackImage src={Icback} alt="back" onClick={handleMovePreview} />
-        </BackImageBox>
+        <BackButton margin handleMovePreview={handleMovePreview} />
         Staking NFT Preview
       </NFTPreviewHeader>
       <NftPreviewImage />
@@ -62,15 +65,16 @@ const NFTPreview = (props: NFTPreviewProps) => {
 export default NFTPreview;
 
 const NFTPreviewWrapper = styled.div`
+  position: relative;
+
   width: 100%;
-  padding: 4.5rem 1.7rem 0 1.7rem;
+  padding: 3.5rem 1.7rem 0 1.7rem;
 `;
 
 const NFTPreviewHeader = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  gap: 5.1rem;
 
   width: 100%;
   margin-bottom: 2rem;
@@ -78,24 +82,6 @@ const NFTPreviewHeader = styled.div`
   color: #45464f;
   ${({ theme }) => theme.fonts.Telegram_Title_3_1};
 `;
-
-const BackImageBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-
-  width: 2.6rem;
-  height: 2.6rem;
-
-  border-radius: 50%;
-  background-color: #f9f9ff;
-  box-shadow: 0px 0px 20px 0px #e1e4e6;
-
-  cursor: pointer;
-`;
-
-const BackImage = styled.img``;
 
 const NFTPreviewConfirmBox = styled.div`
   display: flex;
