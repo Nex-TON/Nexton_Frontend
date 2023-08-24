@@ -1,18 +1,13 @@
 import styled from "styled-components";
 import MyAssetContent from "../components/myAsset";
 import IcBack from "../assets/icons/ic_back.svg";
+import BackButton from "../components/common/BackButton";
 
 const MyAsset = () => {
   return (
     <MyAssetWrapper>
       <MyAssetHeaderBox>
-        <BackImageBox>
-          <BackImg
-            src={IcBack}
-            onClick={() => window.history.back()}
-            width={10}
-          />
-        </BackImageBox>
+        <BackButton />
         <MyAssetHeaderTop>MY asset</MyAssetHeaderTop>
       </MyAssetHeaderBox>
       <MyAssetContent />
@@ -37,6 +32,7 @@ const MyAssetWrapper = styled.div`
 
 const MyAssetHeaderBox = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
 
   width: 100%;
@@ -48,22 +44,3 @@ const MyAssetHeaderTop = styled.span`
   color: #45464f;
   ${({ theme }) => theme.fonts.Telegram_Title_3_1};
 `;
-
-const BackImageBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-
-  width: 3.4rem;
-  height: 3.4rem;
-  margin-right: 10.2rem;
-
-  border-radius: 50%;
-  background-color: #f9f9ff;
-  box-shadow: 0px 0px 20px 0px #e1e4e6;
-
-  cursor: pointer;
-`;
-
-const BackImg = styled.img``;

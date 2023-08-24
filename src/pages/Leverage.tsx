@@ -5,17 +5,15 @@ import Step3 from "../components/lerverage/Step3";
 import FooterButton from "../components/common/FooterButton";
 import IcBack from "../assets/icons/ic_back.svg";
 import * as Contract from "./../hooks/useNextonContract";
-import { UserDeposit } from "../hooks/tact_NexTon";
 import { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { stakingAtom } from "../lib/atom/staking";
 import { StakingProps } from "../types/staking";
 import { getLockUpDate } from "../utils/getLockupDate";
-import { chatState } from "../lib/atom/chatState";
-import useTonConnect from "../hooks/useTonConnect";
-import BasicModal from "../components/modals/BasicModal";
+
 import BorderLine from "../components/lerverage/common/BorderLine";
 import NFTPreview from "../components/lerverage/NFTPreview/NFTPreview";
+import BackButton from "../components/common/BackButton";
 
 const Leverage = () => {
   const [isMovePreview, setIsMovePreview] = useState(false);
@@ -44,7 +42,9 @@ const Leverage = () => {
     <NFTPreview handleMovePreview={handleMovePreview} />
   ) : (
     <LeverageWrapper>
-      <BackImg src={IcBack} onClick={() => window.history.back()} />
+      <LeverageHeaderBox>
+        <BackButton />
+      </LeverageHeaderBox>
       <Step1 input={input} setInput={setInput} />
       <BorderLine />
       <Step2
@@ -80,14 +80,13 @@ const LeverageWrapper = styled.div`
   padding: 4.5rem 0 1.3rem 0;
 `;
 
-const BackImg = styled.img`
-  position: absolute;
-  left: 1.5rem;
-  top: 4.4rem;
+const LeverageHeaderBox = styled.div`
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
 
-  cursor: pointer;
+  width: 100%;
 `;
-
 const FooterWrapper = styled.div`
   width: 100%;
   padding: 0 1rem;
