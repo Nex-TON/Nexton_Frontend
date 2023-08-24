@@ -5,10 +5,13 @@ import { useState } from "react";
 import NftItem from "./NftItem";
 import NFTFilter from "./modal/NFTFilter";
 import useMyAssetFilter from "../../hooks/Filter/useMyAssetFilter";
+import { useNavigate } from "react-router-dom";
 
 const NftList = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [isSelect, setIsSelect] = useState([true, false]);
+
+  const navigate = useNavigate();
 
   const handleSelect = (index: number) => {
     if (index === 1) {
@@ -20,6 +23,10 @@ const NftList = () => {
 
   const handleReload = () => {
     setIsSelect([true, false]);
+  };
+
+  const handleMoveDetail = () => {
+    navigate("/myasset/1");
   };
   return (
     <NFtListWrapper>
@@ -42,7 +49,7 @@ const NftList = () => {
         </NFTSelectBox>
       </NftListHeader>
       <NFTItemWrapper>
-        <NftItem />
+        <NftItem handleMoveDetail={handleMoveDetail} />
         <NftItem />
         <NftItem />
         <NftItem />

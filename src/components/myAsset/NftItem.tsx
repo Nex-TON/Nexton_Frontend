@@ -1,9 +1,9 @@
 import { css, styled } from "styled-components";
 import NFTOngoing from "../../assets/image/NftOngoing.png";
 
-const NftItem = () => {
+const NftItem = ({ handleMoveDetail }: { handleMoveDetail?: () => void }) => {
   return (
-    <NFTItemWrapper>
+    <NFTItemWrapper onClick={handleMoveDetail}>
       <NFTImage
         src={NFTOngoing}
         alt="NFTOngoing"
