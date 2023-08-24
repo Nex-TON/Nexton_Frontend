@@ -3,7 +3,6 @@ import Main from "../../pages/Main";
 import Leverage from "../../pages/Leverage";
 import Nlp from "../../pages/Nlp";
 import MyAsset from "../../pages/MyAsset";
-import MyAssetDetail from "../../pages/MyAssetDetail";
 import Detail from "../myAsset/detail/Detail";
 
 const Router = () => {

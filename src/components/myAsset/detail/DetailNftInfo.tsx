@@ -2,11 +2,12 @@ import { css, styled } from "styled-components";
 import DetailNFTInfoHeader from "./DetailNFTInfoHeader";
 import IcTonSymbol from "../../../assets/icons/myAsset/ic_tonSymbol.svg";
 
-const DetailNftInfo = ({
-  handleMoveUnstaking,
-}: {
+interface DetailNftInfoProps {
   handleMoveUnstaking: () => void;
-}) => {
+}
+const DetailNftInfo = (props: DetailNftInfoProps) => {
+  const { handleMoveUnstaking } = props;
+
   return (
     <DetailNftInfoWrapper>
       <DetailNFTInfoHeader title="NFT info" />
