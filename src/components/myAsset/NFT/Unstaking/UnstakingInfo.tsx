@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import IcTonSymbol from "../../../assets/icons/MyAsset/ic_tonSymbol.svg";
+import IcTonSymbol from "../../../../assets/icons/MyAsset/ic_tonSymbol.svg";
 
 const UnstakingInfo = () => {
   return (

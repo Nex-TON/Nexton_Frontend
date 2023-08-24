@@ -1,5 +1,5 @@
 import { css, styled } from "styled-components";
-import NFTOngoing from "../../assets/image/NftOngoing.png";
+import NFTOngoing from "../../../assets/image/NftOngoing.png";
 
 const NftItem = ({ handleMoveDetail }: { handleMoveDetail?: () => void }) => {
   return (

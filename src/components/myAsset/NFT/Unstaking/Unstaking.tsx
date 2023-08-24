@@ -1,9 +1,9 @@
 import { styled } from "styled-components";
-import BackButton from "../../common/BackButton";
+import BackButton from "../../../common/BackButton";
 import UnstakingPreview from "./UnstakingPreview";
 import UnstakingInfo from "./UnstakingInfo";
 import { useState } from "react";
-import UnstakingModal from "../modal/UnstakingModal";
+import UnstakingModal from "../../modal/UnstakingModal";
 
 const Unstaking = ({
   handleMoveUnstaking,

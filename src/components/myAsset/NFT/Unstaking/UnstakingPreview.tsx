@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import NftPreviewExpired from "../../../assets/image/NftPreviewExpired.png";
+import NftPreviewExpired from "../../../../assets/image/NftPreviewExpired.png";
 
 const UnstakingPreview = () => {
   return (

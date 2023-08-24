@@ -3,7 +3,7 @@ import BackButton from "../../common/BackButton";
 import DetailNFTPreview from "./DetailNFTPreview";
 import DetailNftInfo from "./DetailNFTInfo";
 import { useState } from "react";
-import Unstaking from "../unstaking/Unstaking";
+import Unstaking from "../NFT/Unstaking/Unstaking";
 
 const Detail = () => {
   const [isMoveUnstaking, setIsMoveUnstaking] = useState(false);

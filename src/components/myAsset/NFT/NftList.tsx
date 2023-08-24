@@ -1,10 +1,9 @@
 import styled, { css } from "styled-components";
-import IcReload from "../../assets/icons/MyAsset/ic_reload.svg";
-import Icfilter from "../../assets/icons/MyAsset/ic_filter.svg";
+import IcReload from "../../../assets/icons/MyAsset/ic_reload.svg";
+import Icfilter from "../../../assets/icons/MyAsset/ic_filter.svg";
 import { useState } from "react";
 import NftItem from "./NftItem";
-import NFTFilter from "./modal/NFTFilter";
-import useMyAssetFilter from "../../hooks/Filter/useMyAssetFilter";
+import NFTFilter from "../modal/NFTFilter";
 import { useNavigate } from "react-router-dom";
 
 const NftList = () => {
@@ -50,6 +49,10 @@ const NftList = () => {
       </NftListHeader>
       <NFTItemWrapper>
         <NftItem handleMoveDetail={handleMoveDetail} />
+        <NftItem />
+        <NftItem />
+        <NftItem />
+        <NftItem />
         <NftItem />
         <NftItem />
         <NftItem />
@@ -149,10 +152,7 @@ const NFTItemWrapper = styled.div`
   gap: 1.6rem;
 
   width: 100%;
-  height: 55vh;
   padding: 3rem;
 
   background-color: #fff;
-
-  overflow: scroll;
 `;
