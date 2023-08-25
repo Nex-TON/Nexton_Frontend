@@ -1,14 +1,22 @@
 import { css, styled } from "styled-components";
 import NFTOngoing from "../../../assets/image/NftOngoing.png";
+import { useRecoilValue } from "recoil";
+import { imageSizeAtom } from "../../../lib/atom/imageSize";
 
 const DetailNFTPreview = () => {
+  const imageSize = useRecoilValue(imageSizeAtom);
+
+  console.log(imageSize);
   return (
     <DetailNFTPreviewWrapper>
       <NFTImageWrapper>
         <NFTImage
           src={NFTOngoing}
           alt="NFTOngoing"
-          style={{ width: "100%", height: "100%" }}
+          style={{
+            width: `${imageSize.width}px`,
+            height: `${imageSize.height}px`,
+          }}
         />
         <NFTDDayText>D-Day</NFTDDayText>
         <NFTExpiredDateText>Expired Date</NFTExpiredDateText>
@@ -28,14 +36,19 @@ const DetailNFTPreviewWrapper = styled.div`
   width: 100%;
   padding: 2rem 0;
 
+  @media (max-width: 375px) {
+    padding: 2rem 0;
+  }
+
+  @media (max-width: 500px) {
+    padding: 3rem 0;
+  }
+
   background-color: #1a1b23;
 `;
 
 const NFTImageWrapper = styled.div`
   position: relative;
-
-  width: 14.2rem;
-  height: 16rem;
 
   border-radius: 1rem;
 `;

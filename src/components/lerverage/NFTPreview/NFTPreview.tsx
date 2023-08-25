@@ -68,7 +68,12 @@ const NFTPreviewWrapper = styled.div`
   position: relative;
 
   width: 100%;
-  padding: 3.5rem 1.7rem 0 1.7rem;
+
+  padding: 3.5rem 2.3rem 0 2.3rem;
+
+  @media (max-width: 500px) {
+    padding: 3.5rem 1.7rem 0 1.7rem;
+  }
 `;
 
 const NFTPreviewHeader = styled.div`

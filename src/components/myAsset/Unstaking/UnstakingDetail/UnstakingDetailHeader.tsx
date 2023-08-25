@@ -18,7 +18,9 @@ const UnstakingDetailHeader = (props: UnstakingDetailHeaderProps) => {
           <BackWrapper onClick={handleMoveUnstakingDetail}>
             <img src={IcBack} alt="back" />
           </BackWrapper>
-          <UnstakingDetailTitle>Unstaking NFT</UnstakingDetailTitle>
+          <UnstakingDetailTitle onClick={() => setIsOpenDesc((prev) => !prev)}>
+            Unstaking NFT
+          </UnstakingDetailTitle>
           {isOpenDesc ? (
             <img src={IcUp} alt="up" onClick={() => setIsOpenDesc(false)} />
           ) : (

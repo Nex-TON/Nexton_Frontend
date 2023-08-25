@@ -40,8 +40,9 @@ const MainIcon = styled.img`
 
 const MainImageTitle = styled.span`
   position: absolute;
-  top: 6.1rem;
-  left: 3.2rem;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
 
   color: #fff;
   ${({ theme }) => theme.fonts.Nexton_Image_Title};

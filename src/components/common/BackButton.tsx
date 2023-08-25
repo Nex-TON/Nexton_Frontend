@@ -1,23 +1,41 @@
 import { css, styled } from "styled-components";
 import IcBack from "../../assets/icons/ic_back.svg";
+import { useNavigate } from "react-router-dom";
 
 interface BackButtonProps {
   type?: string;
   margin?: boolean;
   unstaking?: boolean;
+  loan?: boolean;
+  loanMain?: boolean;
   handleMovePreview?: () => void;
   handleMoveUnstaking?: () => void;
+  handleMoveLoan?: () => void;
+  handleMoveMain?: () => void;
 }
 
 const BackButton = (props: BackButtonProps) => {
-  const { type, margin, unstaking, handleMovePreview, handleMoveUnstaking } =
-    props;
+  const {
+    type,
+    margin,
+    unstaking,
+    loan,
+    loanMain,
+    handleMovePreview,
+    handleMoveUnstaking,
+    handleMoveLoan,
+    handleMoveMain,
+  } = props;
 
   const handleBack = () => {
     if (margin) {
       handleMovePreview();
     } else if (unstaking) {
       handleMoveUnstaking();
+    } else if (loan) {
+      handleMoveLoan();
+    } else if (loanMain) {
+      handleMoveMain();
     } else {
       window.history.back();
     }

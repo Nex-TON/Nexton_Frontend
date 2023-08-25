@@ -1,13 +1,27 @@
 import { css, styled } from "styled-components";
 import NFTOngoing from "../../../assets/image/NftOngoing.png";
+import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { imageSizeAtom } from "../../../lib/atom/imageSize";
 
 const NftItem = ({ handleMoveDetail }: { handleMoveDetail?: () => void }) => {
+  const [imageSize, setImageSize] = useRecoilState(imageSizeAtom);
+
+  const handleMouseMove = (event: React.MouseEvent<HTMLImageElement>) => {
+    const rect = (event.target as HTMLImageElement).getBoundingClientRect();
+    setImageSize({ width: rect?.width, height: rect?.height });
+  };
+
   return (
     <NFTItemWrapper onClick={handleMoveDetail}>
       <NFTImage
         src={NFTOngoing}
         alt="NFTOngoing"
-        style={{ width: "100%", height: "100%" }}
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+        onClick={handleMouseMove}
       />
       <NFTDDayText>D-Day</NFTDDayText>
       <NFTExpiredDateText>Expired Date</NFTExpiredDateText>
@@ -21,7 +35,7 @@ export default NftItem;
 const NFTItemWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 16rem;
+  aspect-ratio: 1/1.1;
 
   border-radius: 1rem;
 `;

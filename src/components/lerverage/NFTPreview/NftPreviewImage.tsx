@@ -19,7 +19,6 @@ const NftPreviewImageWrapper = styled.div`
   position: relative;
 
   width: 100%;
-  height: 34rem;
 `;
 
 const NFTPreviewImageBox = styled.img`

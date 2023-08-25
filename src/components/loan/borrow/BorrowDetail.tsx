@@ -2,13 +2,19 @@ import { styled } from "styled-components";
 import LoanHeader from "../common/LoanHeader";
 import BackButton from "../../common/BackButton";
 import BorrowDetailInfo from "./BorrowDetailInfo";
+import { useNavigate } from "react-router-dom";
 
 const BorrowDetail = () => {
+  const navigate = useNavigate();
+
+  const handleMoveLoan = () => {
+    navigate("/loan");
+  };
   return (
     <BorrowDetailWrapper>
       <LoanHeader type="detail" />
       <BorrowDetailHeader>
-        <BackButton type="detail" />
+        <BackButton type="detail" handleMoveLoan={handleMoveLoan} loan />
         Borrow NXT
       </BorrowDetailHeader>
       <BorrowDetailInfo />

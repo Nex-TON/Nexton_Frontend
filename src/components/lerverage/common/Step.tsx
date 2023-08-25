@@ -12,7 +12,7 @@ const Step = (props: StepProps) => {
 
 export default Step;
 
-const StepWrapper = styled.button<{ step?: string }>`
+const StepWrapper = styled.div<{ step?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,7 +25,4 @@ const StepWrapper = styled.button<{ step?: string }>`
   background-color: #007aff;
   color: #ffffff;
   ${({ theme }) => theme.fonts.Telegram_Caption_2};
-
-  cursor: pointer;
-  outline: none;
 `;

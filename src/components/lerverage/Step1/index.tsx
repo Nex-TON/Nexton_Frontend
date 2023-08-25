@@ -34,6 +34,8 @@ const Step1Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
 `;
 
 const BalanceWrapper = styled.div`

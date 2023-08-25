@@ -80,8 +80,8 @@ const StyledButton = styled.button`
   align-items: center;
   position: relative;
 
-  width: 10.8rem;
-  height: 10.8rem;
+  width: 100%;
+  padding-bottom: 100%;
   padding: 0 0 1.1rem 1.1rem;
 
   border: none;
@@ -92,6 +92,7 @@ const StyledButton = styled.button`
 
   box-shadow: 0 0 2rem 0 rgba(198, 197, 208, 0.3);
 
+  aspect-ratio: 1 / 1;
   cursor: pointer;
 `;
 
