@@ -21,6 +21,7 @@ declare module "styled-components" {
       Telegram_Caption_1_1: SerializedStyles;
       Telegram_Caption_2: SerializedStyles;
       Telegram_Caption_3: SerializedStyles;
+      Telegram_Caption_4: SerializedStyles;
       Nexton_Headline_Large: SerializedStyles;
       Nexton_Title_Large: SerializedStyles;
       Nexton_Image_Title: SerializedStyles;

@@ -143,6 +143,13 @@ const fonts = {
     font-weight: 400;
     line-height: 1.5rem; /* 118.182% */
   `,
+  Telegram_Caption_4: css`
+    font-family: Pretendard;
+    font-size: 1.1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 2rem;
+  `,
   Nexton_Headline_Large: css`
     font-family: "Montserrat";
     font-size: 4rem;
