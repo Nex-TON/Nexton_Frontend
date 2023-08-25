@@ -153,6 +153,8 @@ ${reset}
     scrollbar-width: none; /* 파이어폭스 */
     background-color: #f2f2f7;
 
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+
 
 
     input[type="number"]::-webkit-outer-spin-button,
