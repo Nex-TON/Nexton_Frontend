@@ -1,6 +1,6 @@
 import { css, styled } from "styled-components";
 import DetailNFTInfoHeader from "./DetailNFTInfoHeader";
-import IcTonSymbol from "../../../assets/icons/myAsset/ic_tonSymbol.svg";
+import IcTonSymbol from "../../../assets/icons/MyAsset/ic_tonSymbol.svg";
 import { useNavigate } from "react-router-dom";
 
 interface DetailNftInfoProps {
