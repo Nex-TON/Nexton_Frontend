@@ -33,9 +33,9 @@ const UnstakingList = () => {
               </ClaimButton>
             </UnstakingListBottom>
           </UnstakingListWrapper>
-          <UnstakingDetailBox>
+          <UnstakingDetailBox onClick={handleMoveUnstakingDetail}>
             <UnstakingDetailRightBox>Details</UnstakingDetailRightBox>
-            <UnstakingArrowBox onClick={handleMoveUnstakingDetail}>
+            <UnstakingArrowBox>
               <img src={IcArrow} alt="arrow" width={18} />
             </UnstakingArrowBox>
           </UnstakingDetailBox>

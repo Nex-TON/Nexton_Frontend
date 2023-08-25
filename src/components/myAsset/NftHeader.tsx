@@ -24,7 +24,13 @@ const NftHeader = (props: NftHeaderProps) => {
             <img src={IcCardDisable} alt="card" />
           )}
         </NFTHeadingImageBox>
-        <NFTHeadingItemText>NFT</NFTHeadingItemText>
+        {myAssetMenu === "NFT" ? (
+          <NFTHeadingItemText>NFT</NFTHeadingItemText>
+        ) : (
+          <NFTHeadingItemText style={{ color: "#90909A" }}>
+            NFT
+          </NFTHeadingItemText>
+        )}
       </NFTHeadingItem>
       <NFTHeadingItem onClick={() => handleChangeMyAssetMenu("Unstaking")}>
         <NFTHeadingImageBox>
@@ -34,7 +40,13 @@ const NftHeader = (props: NftHeaderProps) => {
             <img src={IcCardCheckDisable} alt="cardCheck" />
           )}
         </NFTHeadingImageBox>
-        <NFTHeadingItemText>Unstaking</NFTHeadingItemText>
+        {myAssetMenu === "Unstaking" ? (
+          <NFTHeadingItemText>Unstaking</NFTHeadingItemText>
+        ) : (
+          <NFTHeadingItemText style={{ color: "#90909A" }}>
+            Unstaking
+          </NFTHeadingItemText>
+        )}
       </NFTHeadingItem>
       <NFTHeadingItem onClick={() => handleChangeMyAssetMenu("Reward")}>
         <NFTHeadingImageBox>
@@ -44,7 +56,9 @@ const NftHeader = (props: NftHeaderProps) => {
             <img src={IcCoinsDisable} alt="cardCheck" />
           )}
         </NFTHeadingImageBox>
-        <NFTHeadingItemText>Reward</NFTHeadingItemText>
+        <NFTHeadingItemText style={{ color: "#90909A" }}>
+          Reward
+        </NFTHeadingItemText>
       </NFTHeadingItem>
     </NftHeaderWrapper>
   );

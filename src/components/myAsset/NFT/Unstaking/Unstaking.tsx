@@ -62,7 +62,7 @@ const UnstakingMessageBox = styled.div`
   width: 100%;
 
   color: #5e6162;
-  ${({ theme }) => theme.fonts.Telegram_Caption_2};
+  ${({ theme }) => theme.fonts.Telegram_Caption_1};
   text-align: center;
 `;
 

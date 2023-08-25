@@ -1,12 +1,15 @@
 import { css, styled } from "styled-components";
 import DetailNFTInfoHeader from "./DetailNFTInfoHeader";
 import IcTonSymbol from "../../../assets/icons/myAsset/ic_tonSymbol.svg";
+import { useNavigate } from "react-router-dom";
 
 interface DetailNftInfoProps {
   handleMoveUnstaking: () => void;
 }
 const DetailNftInfo = (props: DetailNftInfoProps) => {
   const { handleMoveUnstaking } = props;
+
+  const navigate = useNavigate();
 
   return (
     <DetailNftInfoWrapper>
@@ -56,7 +59,9 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
       <ButtonWrapper>
         {/* <StyledButton>Unlock</StyledButton>
         <StyledButton type="borrow">Collateralizing</StyledButton> */}
-        <StyledButton type="borrow">Collateralizing</StyledButton>
+        <StyledButton type="borrow" onClick={() => navigate("/loan/1")}>
+          Collateralizing
+        </StyledButton>
         <StyledButton type="unstaking" onClick={handleMoveUnstaking}>
           Unstaking
         </StyledButton>
@@ -111,6 +116,7 @@ const ButtonWrapper = styled.div`
   gap: 1.5rem;
 
   width: 100%;
+  margin-top: 0.8rem;
 `;
 
 const StyledButton = styled.button<{ type?: string }>`
@@ -119,8 +125,7 @@ const StyledButton = styled.button<{ type?: string }>`
   align-items: center;
 
   width: 100%;
-  height: 4.6rem;
-  padding: 1.2rem 0;
+  padding: 1.6rem 0;
 
   border: none;
   border-radius: 1.2rem;
