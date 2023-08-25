@@ -11,7 +11,7 @@ interface ButtonProps {
   top?: string;
   bottom?: string;
   title?: string;
-  page: string;
+  page?: string;
   type: string;
 }
 const Button = (props: ButtonProps) => {
@@ -29,6 +29,9 @@ const Button = (props: ButtonProps) => {
       case "Myasset":
         navigate("/myasset");
         break;
+      case "Loan":
+        navigate("/loan");
+        break;
       default:
         break;
     }
@@ -38,22 +41,16 @@ const Button = (props: ButtonProps) => {
     switch (type) {
       case "leverage":
         return <StyledImage src={IcMenuLeverage} alt="Leverage" marginTop />;
-        break;
       case "NXT":
         return <StyledImage src={IcMenuNxt} alt="NXT" />;
-        break;
       case "Loan":
         return <StyledImage src={IcMenuLoan} alt="Loan" />;
-        break;
       case "NLP":
         return <StyledImage src={IcMenuCoin} alt="Coin" />;
-        break;
       case "Swap":
         return <StyledImage src={IcMenuSwap} alt="Swap" />;
-        break;
       case "Asset":
         return <StyledImage src={IcMenuAsset} alt="Asset" />;
-        break;
     }
   };
 

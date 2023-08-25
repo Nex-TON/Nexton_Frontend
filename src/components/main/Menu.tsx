@@ -8,10 +8,10 @@ const Menu = () => {
       <MenuTitle>Menu</MenuTitle>
       <MenuList>
         <Button top="Leverage" bottom="stake" page="Stake" type="leverage" />
+        <Button title="Loan" page="Loan" type="Loan" />
         <Button top="NXT" bottom="stake" page="NXT" type="NXT" />
-        <Button title="Loan" page="Myasset" type="Loan" />
-        <Button title="NLP" page="Myasset" type="NLP" />
-        <Button title="Swap" page="Myasset" type="Swap" />
+        <Button title="NLP" type="NLP" />
+        <Button title="Swap" type="Swap" />
         <Button title="My asset" page="Myasset" type="Asset" />
       </MenuList>
     </MenuWrapper>
