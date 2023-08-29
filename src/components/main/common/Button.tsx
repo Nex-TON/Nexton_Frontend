@@ -6,6 +6,7 @@ import IcMenuLoan from "../../../assets/icons/Landing/ic_menuLoan.svg";
 import IcMenuCoin from "../../../assets/icons/Landing/ic_menuCoin.svg";
 import IcMenuSwap from "../../../assets/icons/Landing/ic_menuSwap.svg";
 import IcMenuAsset from "../../../assets/icons/Landing/ic_menuMyAsset.svg";
+import IcMenuCoinDisable from "../../../assets/icons/Landing/ic_menuCoin_Disable.svg";
 
 interface ButtonProps {
   top?: string;
@@ -46,7 +47,7 @@ const Button = (props: ButtonProps) => {
       case "Loan":
         return <StyledImage src={IcMenuLoan} alt="Loan" />;
       case "NLP":
-        return <StyledImage src={IcMenuCoin} alt="Coin" />;
+        return <StyledImage src={IcMenuCoinDisable} alt="Coin" />;
       case "Swap":
         return <StyledImage src={IcMenuSwap} alt="Swap" />;
       case "Asset":
@@ -57,6 +58,13 @@ const Button = (props: ButtonProps) => {
   return (
     <StyledButton onClick={moveToPage}>
       {SelectImage(type)}
+      {type === "NLP" && (
+        <CommingSoonText>
+          Coming
+          <br />
+          soon
+        </CommingSoonText>
+      )}
       <StyleTextBox>
         {type === "leverage" || type === "NXT" ? (
           <>
@@ -64,7 +72,7 @@ const Button = (props: ButtonProps) => {
             <StyleText>{bottom}</StyleText>
           </>
         ) : (
-          <StyleText>{title}</StyleText>
+          <StyleText type={type}>{title}</StyleText>
         )}
       </StyleTextBox>
     </StyledButton>
@@ -81,8 +89,6 @@ const StyledButton = styled.button`
   position: relative;
 
   width: 100%;
-  padding-bottom: 100%;
-  padding: 0 0 1.1rem 1.1rem;
 
   border: none;
   border-radius: 1rem;
@@ -119,7 +125,20 @@ const StyleTextBox = styled.div`
   bottom: 1.1rem;
   left: 1.1rem;
 `;
-const StyleText = styled.span`
-  color: #767680;
+const StyleText = styled.span<{ type?: string }>`
+  color: ${({ type }) => (type === "NLP" ? "#abaab4" : "#23232A")};
   ${({ theme }) => theme.fonts.Nexton_Label_Medium};
+`;
+
+const CommingSoonText = styled.div`
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  margin-top: 0.5rem;
+
+  color: #0088cc;
+  ${({ theme }) => theme.fonts.Nexton_Comming_Soon};
+
+  text-align: center;
 `;
