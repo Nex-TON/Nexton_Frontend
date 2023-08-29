@@ -30,9 +30,9 @@ const LeverageInputWrapper = styled.div`
 
   width: 90%;
   margin-top: 3rem;
-  padding: 1.9rem 1.4rem 1.6rem 2.3rem;
+  padding: 1.9rem 1.2rem 1.6rem 2.3rem;
 
-  border-radius: 1rem;
+  border-radius: 4rem;
   background-color: #fff;
 `;
 
