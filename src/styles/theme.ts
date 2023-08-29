@@ -242,6 +242,13 @@ const fonts = {
     font-weight: 600;
     line-height: 1.6rem;
   `,
+  Nexton_Comming_Soon: css`
+    font-family: "Montserrat";
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.6rem;
+  `,
 };
 
 const theme: DefaultTheme = {
