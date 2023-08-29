@@ -32,7 +32,7 @@ export default LeverageSlider;
 
 const StyledReactSlider = styled(Slider)(() => ({
   width: "100%",
-  height: "0.8rem",
+  height: "1.4rem",
   left: "50%",
   top: "0%",
   transform: "translateX(-50%)",
@@ -42,8 +42,8 @@ const StyledReactSlider = styled(Slider)(() => ({
     color: "#3E4064",
   },
   "& .MuiSlider-thumb": {
-    width: "1.2rem",
-    height: "1.2rem",
+    width: "1.6rem",
+    height: "1.6rem",
     borderRadius: 100,
     color: "#007AFF",
 
@@ -51,7 +51,7 @@ const StyledReactSlider = styled(Slider)(() => ({
   },
   "& .MuiSlider-rail": {
     opacity: 100,
-    height: "1rem",
+    height: "1.4rem",
     color: "#007AFF",
     borderRadius: 20,
     width: "100%",
@@ -92,7 +92,7 @@ const StyledReactSlider = styled(Slider)(() => ({
   "& .MuiSlider-markLabel": {
     color: "#C7C7CC",
     fontFamily: "Pretendard",
-    fontWeight: 500,
-    fontSize: "1.12rem",
+    fontWeight: 510,
+    fontSize: "1.1rem",
   },
 }));
