@@ -27,7 +27,7 @@ const UnstakingList = () => {
               </UnstakingTopDesc>
             </UnstakingListTop>
             <UnstakingListBottom>
-              <UnstakingMainText>0 N/T</UnstakingMainText>
+              <UnstakingMainText>0 TON</UnstakingMainText>
               <ClaimButton>
                 Claim <img src={IcClaimDisable} alt="claim" />
               </ClaimButton>
