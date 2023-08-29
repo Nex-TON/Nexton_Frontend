@@ -18,11 +18,10 @@ const StepWrapper = styled.div<{ step?: string }>`
   align-items: center;
 
   margin-bottom: 1.2rem;
-  padding: 0.6rem 1.6rem;
+  padding: 0.7rem 1.2rem;
 
-  border: none;
+  border: 0.1rem solid #0088cc;
   border-radius: 2rem;
-  background-color: #007aff;
-  color: #ffffff;
+  color: #0088cc;
   ${({ theme }) => theme.fonts.Telegram_Caption_2};
 `;
