@@ -17,7 +17,7 @@ const Step2 = (props: Step2Props) => {
   return (
     <Step2Wrapper>
       <Step title="Step 2" />
-      <Title title="Set Leverage Times" />
+      <Title title="Set Leverage  Multiplier" />
       <SliderBox ratio={ratio} setRatio={setRatio} />
       <StatusDetail
         type="Leverage"
