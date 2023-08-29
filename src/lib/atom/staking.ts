@@ -4,8 +4,11 @@ import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
 
-export const stakingAtom = atom<StakingProps[]>({
+export const stakingAtom = atom<StakingProps>({
   key: "stakingAtom",
-  default: [],
-  effects_UNSTABLE: [persistAtom],
+  default: {
+    principal: "",
+    leverage: 0,
+    lockup: 0,
+  },
 });
