@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import LeverageSlider from "./LeverageSlider";
+import { useEffect, useState } from "react";
 
 interface SliderBoxProps {
   ratio: number;
@@ -8,6 +9,17 @@ interface SliderBoxProps {
 
 const SliderBox = (props: SliderBoxProps) => {
   const { ratio, setRatio } = props;
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  useEffect(() => {
+    if (ratio > 1) {
+      setIsDisabled(true);
+      setRatio(1.0);
+      setTimeout(() => {
+        setIsDisabled(false);
+      }, 1000);
+    }
+  }, [ratio]);
 
   return (
     <SliderWrapper>
@@ -19,6 +31,11 @@ const SliderBox = (props: SliderBoxProps) => {
           <span>TON/1yr</span>
         </SliderTextRightBox>
       </SliderTextBox>
+      {isDisabled && (
+        <LeverageErrorBox>
+          Please adjust leverage times with the max leverage times listed below.
+        </LeverageErrorBox>
+      )}
     </SliderWrapper>
   );
 };
@@ -46,4 +63,12 @@ const SliderTextRightBox = styled.div`
     ${({ theme }) => theme.fonts.Telegram_Medium_2};
     color: #000000;
   }
+`;
+
+const LeverageErrorBox = styled.div`
+  width: 100%;
+  margin: 1rem 0 2rem 0;
+
+  color: #0088cc;
+  ${({ theme }) => theme.fonts.Telegram_Caption_1};
 `;
