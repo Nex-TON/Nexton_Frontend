@@ -9,13 +9,13 @@ export const numberCutter = (num: number) => {
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   // 소수 부분이 없거나 길이가 부족한 경우 채움
-  if (!parts[1]) {
-    parts[1] = "000";
-  } else if (parts[1].length === 1) {
-    parts[1] += "00";
-  } else if (parts[1].length === 2) {
-    parts[1] += "0";
-  }
+  // if (!parts[1]) {
+  //   parts[1] = "000";
+  // } else if (parts[1].length === 1) {
+  //   parts[1] += "00";
+  // } else if (parts[1].length === 2) {
+  //   parts[1] += "0";
+  // }
 
   return parts.join(".");
 };
