@@ -3,6 +3,7 @@ import Step from "../common/Step";
 import Title from "../common/Title";
 import LeverageInput from "./LeverageInput";
 import useTonConnect from "../../../hooks/useTonConnect";
+import { numberCutter } from "../../../utils/numberCutter";
 
 interface Step1Props {
   input: string;
@@ -20,7 +21,7 @@ const Step1 = (props: Step1Props) => {
       <LeverageInput input={input} setInput={setInput} />
       <BalanceWrapper>
         <BalanceText>
-          Balance : {balance > 0 ? balance.toFixed(3) : `-.---`}
+          Balance : {balance > 0 ? numberCutter(balance) : `-.---`}
         </BalanceText>
       </BalanceWrapper>
     </Step1Wrapper>

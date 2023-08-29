@@ -10,16 +10,12 @@ interface NFTPreviewInfoProps {
 const NFTPreviewInfo = (props: NFTPreviewInfoProps) => {
   const { stakingInfo } = props;
 
-  function fixBalance(arg0: number): import("react").ReactNode {
-    throw new Error("Function not implemented.");
-  }
-
   return (
     <NFTPreviewInfoWrapper>
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Principal</NFTPreviewInfoItemText>
         <NFTPreviewInfoItemText>
-          {stakingInfo.principal} TON
+          {Number(stakingInfo.principal).toLocaleString()} TON
         </NFTPreviewInfoItemText>
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>
