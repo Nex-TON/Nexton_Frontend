@@ -55,6 +55,10 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
           <DetailInfoItemText>Protocol Fees</DetailInfoItemText>
           <DetailInfoItemText>TON</DetailInfoItemText>
         </DetailInfoItem>
+        <DetailInfoItem>
+          <DetailInfoItemText>Current accrued Rewards</DetailInfoItemText>
+          <DetailInfoItemText>TON</DetailInfoItemText>
+        </DetailInfoItem>
       </DetailInfoItemWrapper>
       <ButtonWrapper>
         {/* <StyledButton>Unlock</StyledButton>
