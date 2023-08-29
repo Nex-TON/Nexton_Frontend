@@ -48,7 +48,7 @@ const NftHeader = (props: NftHeaderProps) => {
           </NFTHeadingItemText>
         )}
       </NFTHeadingItem>
-      <NFTHeadingItem onClick={() => handleChangeMyAssetMenu("Reward")}>
+      <NFTHeadingItem>
         <NFTHeadingImageBox>
           {myAssetMenu === "Reward" ? (
             <img src={IcCoinsActive} alt="cardCheck" />

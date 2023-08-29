@@ -39,6 +39,16 @@ const UnstakingPreviewWrapper = styled.div`
 
 const UnstakingPreviewImageWrapper = styled.div`
   position: relative;
+
+  width: 100%;
+
+  @media (max-width: 500px) {
+    padding: 0 1.7rem;
+  }
+
+  img {
+    width: 100%;
+  }
 `;
 
 const UnstakingPreviewTop = styled.div`
@@ -48,8 +58,8 @@ const UnstakingPreviewTop = styled.div`
   align-items: flex-start;
   gap: 1.1rem;
   position: absolute;
-  top: 2rem;
-  left: 2.5rem;
+  top: 3rem;
+  left: 4.5rem;
 `;
 
 const UnstakingPreviewTopTitle = styled.span`
@@ -67,7 +77,7 @@ const UnstakingPreviewBottom = styled.div`
   flex-direction: column;
   position: absolute;
   bottom: 2.1rem;
-  left: 2.5rem;
+  left: 4.5rem;
 `;
 const UnstakingPreviewBottomDesc = styled.p`
   color: #fff;

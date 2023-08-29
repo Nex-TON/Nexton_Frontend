@@ -67,7 +67,7 @@ const SliderTextRightBox = styled.div`
 
 const LeverageErrorBox = styled.div`
   width: 100%;
-  margin: 1rem 0 2rem 0;
+  margin: 1rem 0 0.6rem 0;
 
   color: #0088cc;
   ${({ theme }) => theme.fonts.Telegram_Caption_1};
