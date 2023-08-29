@@ -1,11 +1,10 @@
-import { css, styled } from "styled-components";
+import { styled } from "styled-components";
 import Step1 from "../components/lerverage/Step1";
 import Step2 from "../components/lerverage/Step2";
 import Step3 from "../components/lerverage/Step3";
 import FooterButton from "../components/common/FooterButton";
-import IcBack from "../assets/icons/ic_back.svg";
 import * as Contract from "./../hooks/useNextonContract";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { stakingAtom } from "../lib/atom/staking";
 import { StakingProps } from "../types/staking";
@@ -14,10 +13,13 @@ import { getLockUpDate } from "../utils/getLockupDate";
 import BorderLine from "../components/lerverage/common/BorderLine";
 import NFTPreview from "../components/lerverage/NFTPreview/NFTPreview";
 import BackButton from "../components/common/BackButton";
+import { getTelegramId } from "../api/getTelegramId";
+import useTonConnect from "../hooks/useTonConnect";
 
 const Leverage = () => {
   const [isMovePreview, setIsMovePreview] = useState(false);
   const { sendMessage } = Contract.useNextonContract();
+  const { address } = useTonConnect();
 
   const [, setStakingInfo] = useRecoilState(stakingAtom);
   const [input, setInput] = useState("");
@@ -25,18 +27,24 @@ const Leverage = () => {
   const [ratio, setRatio] = useState(1.0);
 
   const handleMovePreview = () => {
-    setIsMovePreview((prev) => !prev);
-  };
-
-  const getDepoist = () => {
     const newDepoist: StakingProps = {
       principal: input,
       leverage: ratio,
       lockup: getLockUpDate(input, ratio),
     };
 
-    setStakingInfo((prev) => [...prev, newDepoist]);
+    setStakingInfo(newDepoist);
+    setIsMovePreview((prev) => !prev);
   };
+
+  const handleGetTelegramId = async (address: string) => {
+    const response = await getTelegramId(address);
+    console.log(response);
+  };
+
+  useEffect(() => {
+    handleGetTelegramId(address);
+  }, []);
 
   return isMovePreview ? (
     <NFTPreview handleMovePreview={handleMovePreview} />

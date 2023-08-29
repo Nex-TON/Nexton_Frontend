@@ -1,13 +1,19 @@
 import { css, styled } from "styled-components";
 import NFTPreview from "../../../assets/image/NftPreview.png";
+import { lockUpDateChanger } from "../../../utils/dateChanger";
 
-const NftPreviewImage = () => {
+interface NftPreviewImageProps {
+  lockup: number;
+}
+
+const NftPreviewImage = (props: NftPreviewImageProps) => {
+  const { lockup } = props;
+
   return (
     <NftPreviewImageWrapper>
       <NFTPreviewImageBox src={NFTPreview} alt="NFTPreview" />
-      <NFTPreviewImageText type="top">D-Day</NFTPreviewImageText>
       <NFTPreviewImageText type="bottom">
-        Expired Date dd.mm.yy
+        Expired Date {lockUpDateChanger(lockup, "expired")}
       </NFTPreviewImageText>
     </NftPreviewImageWrapper>
   );
@@ -28,18 +34,9 @@ const NFTPreviewImageBox = styled.img`
 
 const NFTPreviewImageText = styled.span<{ type: string }>`
   position: absolute;
-  color: #fff;
+  top: 2.5rem;
+  left: 2.8rem;
 
-  ${({ type }) =>
-    type === "top"
-      ? css`
-          top: 2.1rem;
-          left: 2.8rem;
-          ${({ theme }) => theme.fonts.Telegram_SemiBold};
-        `
-      : css`
-          top: 6.1rem;
-          left: 2.8rem;
-          ${({ theme }) => theme.fonts.Telegram_Medium_1};
-        `}
+  color: #fff;
+  ${({ theme }) => theme.fonts.Telegram_Medium_1};
 `;

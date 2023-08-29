@@ -1,11 +1,26 @@
 import { css, styled } from "styled-components";
+import { StakingProps } from "../../../types/staking";
+import { getProtocolFee } from "../../../utils/getProtocolFee";
+import { numberCutter } from "../../../utils/numberCutter";
 
-const NFTPreviewInfo = () => {
+interface NFTPreviewInfoProps {
+  stakingInfo: StakingProps;
+}
+
+const NFTPreviewInfo = (props: NFTPreviewInfoProps) => {
+  const { stakingInfo } = props;
+
+  function fixBalance(arg0: number): import("react").ReactNode {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <NFTPreviewInfoWrapper>
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Principal</NFTPreviewInfoItemText>
-        <NFTPreviewInfoItemText>40,000 TON</NFTPreviewInfoItemText>
+        <NFTPreviewInfoItemText>
+          {stakingInfo.principal} TON
+        </NFTPreviewInfoItemText>
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Transaction Fee</NFTPreviewInfoItemText>
@@ -13,19 +28,30 @@ const NFTPreviewInfo = () => {
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Leveraged</NFTPreviewInfoItemText>
-        <NFTPreviewInfoItemText>x 2.5</NFTPreviewInfoItemText>
+        <NFTPreviewInfoItemText>
+          x {stakingInfo.leverage}
+        </NFTPreviewInfoItemText>
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Lock-up period</NFTPreviewInfoItemText>
-        <NFTPreviewInfoItemText>150 Days</NFTPreviewInfoItemText>
+        <NFTPreviewInfoItemText>
+          {stakingInfo.lockup} Days
+        </NFTPreviewInfoItemText>
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Protocol Fees</NFTPreviewInfoItemText>
-        <NFTPreviewInfoItemText>9.2%</NFTPreviewInfoItemText>
+        <NFTPreviewInfoItemText>
+          {numberCutter(
+            getProtocolFee(stakingInfo.principal, stakingInfo.leverage)
+          )}
+          %
+        </NFTPreviewInfoItemText>
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText type="bold">Total</NFTPreviewInfoItemText>
-        <NFTPreviewInfoItemText type="bold">40,000 TON</NFTPreviewInfoItemText>
+        <NFTPreviewInfoItemText type="bold">
+          {stakingInfo.principal} TON
+        </NFTPreviewInfoItemText>
       </NFTPreviewInfoItem>
     </NFTPreviewInfoWrapper>
   );

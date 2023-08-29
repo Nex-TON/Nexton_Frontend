@@ -8,6 +8,8 @@ import * as Contract from "../../../hooks/useNextonContract";
 import BasicModal from "../../modals/BasicModal";
 import { useEffect, useState } from "react";
 import BackButton from "../../common/BackButton";
+import { useRecoilValue } from "recoil";
+import { stakingAtom } from "../../../lib/atom/staking";
 
 interface NFTPreviewProps {
   handleMovePreview: () => void;
@@ -15,6 +17,7 @@ interface NFTPreviewProps {
 
 const NFTPreview = (props: NFTPreviewProps) => {
   const { handleMovePreview } = props;
+  const stakingInfo = useRecoilValue(stakingAtom);
 
   const { sendMessage } = Contract.useNextonContract();
   const [modal, setModal] = useState(false);
@@ -34,8 +37,8 @@ const NFTPreview = (props: NFTPreviewProps) => {
         <BackButton margin handleMovePreview={handleMovePreview} />
         Staking NFT Preview
       </NFTPreviewHeader>
-      <NftPreviewImage />
-      <NFTPreviewInfo />
+      <NftPreviewImage lockup={stakingInfo.lockup} />
+      <NFTPreviewInfo stakingInfo={stakingInfo} />
       <NFTPreviewConfirmBox>
         <NFTPreviewConfirmText>
           Please check your NFT details periodically
