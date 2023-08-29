@@ -37,7 +37,7 @@ const MenuTitle = styled.span`
 
 const MenuList = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(10.8rem, 1fr));
+  grid-template-columns: repeat(3, minmax(10.8rem, 1fr));
   gap: 1.2rem;
 
   width: 100%;
