@@ -6,6 +6,7 @@ import MyAsset from "../../pages/MyAsset";
 import Detail from "../myAsset/detail/Detail";
 import Loan from "../../pages/Loan";
 import BorrowDetail from "../loan/borrow/BorrowDetail";
+import Swap from "../../pages/Swap";
 
 const Router = () => {
   return (
@@ -15,6 +16,7 @@ const Router = () => {
         <Route path="/leverage" element={<Leverage />} />
         <Route path="/loan" element={<Loan />} />
         <Route path="/loan/:id" element={<BorrowDetail />} />
+        <Route path="/swap" element={<Swap />} />
         <Route path="/nlp" element={<Nlp />} />
         <Route path="/myasset" element={<MyAsset />} />
         <Route path="/myasset/:id" element={<Detail />} />
