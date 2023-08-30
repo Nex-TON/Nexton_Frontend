@@ -5,7 +5,7 @@ import { NexTon } from "./tact_NexTon";
 import useTonConnect from "./useTonConnect";
 
 function useNextonContract() {
-  const contractAddress = "EQCQih3SDKBwHVdCs5gCXJBIxD42agoC0gOJU1SBhqI8ThIc";
+  const contractAddress = `${import.meta.env.VITE_CONTRACT_ADDRESS}`;
   const client = useTonClient();
   const { sender, address } = useTonConnect();
 
@@ -18,11 +18,11 @@ function useNextonContract() {
 
   return {
     address: nextonContract?.address.toString(),
-    sendMessage: async (data) => {
+    sendMessage: async (data, value) => {
       if (nextonContract) {
         return await nextonContract.send(
           sender,
-          { value: toNano("0.24") },
+          { value: toNano(value) },
           data
         );
       } else {
