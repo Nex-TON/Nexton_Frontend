@@ -15,12 +15,14 @@ import NFTPreview from "../components/lerverage/NFTPreview/NFTPreview";
 import BackButton from "../components/common/BackButton";
 import { getTelegramId } from "../api/getTelegramId";
 import useTonConnect from "../hooks/useTonConnect";
+import { telegramAtom } from "../lib/atom/telegram";
 
 const Leverage = () => {
   const [isMovePreview, setIsMovePreview] = useState(false);
   const { sendMessage } = Contract.useNextonContract();
   const { address } = useTonConnect();
 
+  const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
   const [, setStakingInfo] = useRecoilState(stakingAtom);
   const [input, setInput] = useState("");
   const [maxLeverage, setMaxLeverage] = useState(0);
@@ -28,6 +30,8 @@ const Leverage = () => {
 
   const handleMovePreview = () => {
     const newDepoist: StakingProps = {
+      id: Number(telegramId),
+      address,
       principal: input,
       leverage: ratio,
       lockup: getLockUpDate(input, ratio),
@@ -39,7 +43,7 @@ const Leverage = () => {
 
   const handleGetTelegramId = async (address: string) => {
     const response = await getTelegramId(address);
-    console.log(response);
+    setTelegramId(response[0]._id);
   };
 
   useEffect(() => {
