@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import BackButton from "../../common/BackButton";
 import { useRecoilValue } from "recoil";
 import { stakingAtom } from "../../../lib/atom/staking";
+import { postStakingInfo } from "../../../api/postStakingInfo";
 
 interface NFTPreviewProps {
   handleMovePreview: () => void;
@@ -24,6 +25,20 @@ const NFTPreview = (props: NFTPreviewProps) => {
 
   const toggleModal = () => {
     setModal((prev) => !prev);
+  };
+
+  const handleMinting = async () => {
+    const response = await postStakingInfo({
+      id: stakingInfo.id,
+      leverage: stakingInfo.leverage,
+      address: stakingInfo.address,
+      amount: stakingInfo.principal,
+      lockPeriod: stakingInfo.lockup.toString(),
+    });
+
+    if (response === 200) {
+      toggleModal();
+    }
   };
 
   useEffect(() => {
@@ -58,7 +73,7 @@ const NFTPreview = (props: NFTPreviewProps) => {
           //   setModal(true);
           //   getDepoist();
           // }}
-          onClick={toggleModal}
+          onClick={handleMinting}
         />
       </NFTPreviewConfirmBox>
     </NFTPreviewWrapper>
