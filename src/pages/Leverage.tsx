@@ -43,7 +43,7 @@ const Leverage = () => {
 
   const handleGetTelegramId = async (address: string) => {
     const response = await getTelegramId(address);
-    setTelegramId(response[0]._id);
+    setTelegramId(response[0]?._id);
   };
 
   useEffect(() => {

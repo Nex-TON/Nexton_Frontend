@@ -27,6 +27,7 @@ const NFTPreview = (props: NFTPreviewProps) => {
     setModal((prev) => !prev);
   };
 
+  //minting 된 nft 서버 호출
   const handleMinting = async () => {
     const response = await postStakingInfo({
       id: stakingInfo.id,
@@ -37,6 +38,15 @@ const NFTPreview = (props: NFTPreviewProps) => {
     });
 
     if (response === 200) {
+      const data = (): UserDeposit => {
+        return {
+          $$type: "UserDeposit",
+          queryId: BigInt(Date.now()),
+          lockPeriod: 0n,
+          leverage: 0n,
+        };
+      };
+      await sendMessage(data(), stakingInfo.principal);
       toggleModal();
     }
   };
@@ -45,6 +55,7 @@ const NFTPreview = (props: NFTPreviewProps) => {
     window.scrollTo(0, 0);
   }, []);
 
+  console.log(modal);
   return (
     <NFTPreviewWrapper>
       {modal && <BasicModal toggleModal={toggleModal} />}
@@ -58,23 +69,7 @@ const NFTPreview = (props: NFTPreviewProps) => {
         <NFTPreviewConfirmText>
           Please check your NFT details periodically
         </NFTPreviewConfirmText>
-        <FooterButton
-          title="Confirm"
-          // onClick={async () => {
-          //   const data = (): UserDeposit => {
-          //     return {
-          //       $$type: "UserDeposit",
-          //       queryId: BigInt(Date.now()),
-          //       lockPeriod: 0n,
-          //       leverage: 0n,
-          //     };
-          //   };
-          //   await sendMessage(data());
-          //   setModal(true);
-          //   getDepoist();
-          // }}
-          onClick={handleMinting}
-        />
+        <FooterButton title="Confirm" onClick={handleMinting} />
       </NFTPreviewConfirmBox>
     </NFTPreviewWrapper>
   );
