@@ -3,23 +3,33 @@ import LoanHeader from "../common/LoanHeader";
 import BackButton from "../../common/BackButton";
 import BorrowDetailInfo from "./BorrowDetailInfo";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import BasicModal from "../modal/BasicModal";
 
 const BorrowDetail = () => {
   const navigate = useNavigate();
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const handleToggleModal = () => {
+    setIsOpenModal((prev) => !prev);
+  };
 
   const handleMoveLoan = () => {
     navigate("/loan");
   };
   return (
-    <BorrowDetailWrapper>
-      <LoanHeader type="detail" />
-      <BorrowDetailHeader>
-        <BackButton type="detail" handleMoveLoan={handleMoveLoan} loan />
-        Borrow NXT
-      </BorrowDetailHeader>
-      <BorrowDetailInfo />
-      <ConfirmButton>Confirm</ConfirmButton>
-    </BorrowDetailWrapper>
+    <>
+      {isOpenModal && <BasicModal toggleModal={handleToggleModal} />}
+      <BorrowDetailWrapper>
+        <LoanHeader type="detail" />
+        <BorrowDetailHeader>
+          <BackButton type="detail" handleMoveLoan={handleMoveLoan} loan />
+          Borrow NXT
+        </BorrowDetailHeader>
+        <BorrowDetailInfo />
+        <ConfirmButton onClick={handleToggleModal}>Confirm</ConfirmButton>
+      </BorrowDetailWrapper>
+    </>
   );
 };
 
