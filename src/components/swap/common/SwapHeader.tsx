@@ -64,14 +64,14 @@ const SwapNavBox = styled.div`
 
 const SwapButtton = styled.button<{ click: boolean }>`
   width: 50%;
-  padding: 0.4rem 1rem;
+  padding: 0.8rem 1rem;
 
   border: none;
   border-radius: 3rem;
   background-color: #f9f9ff;
   box-shadow: 0px 4px 4px 0px rgba(225, 228, 230, 0.5);
   color: ${({ click }) => (click ? "#007AFF" : "#76797A")};
-  ${({ theme }) => theme.fonts.Telegram_Caption_4};
+  ${({ theme }) => theme.fonts.Telegram_Caption_1_1};
 
   transition: all 0.3s ease-in-out;
   outline: none;
