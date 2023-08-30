@@ -144,7 +144,7 @@ const fonts = {
     line-height: 1.5rem; /* 118.182% */
   `,
   Telegram_Caption_4: css`
-    font-family: Pretendard;
+    font-family: "Pretendard";
     font-size: 1.1rem;
     font-style: normal;
     font-weight: 600;
