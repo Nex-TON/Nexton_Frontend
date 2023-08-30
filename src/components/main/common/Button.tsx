@@ -33,6 +33,9 @@ const Button = (props: ButtonProps) => {
       case "Loan":
         navigate("/loan");
         break;
+      case "Swap":
+        navigate("/swap");
+        break;
       default:
         break;
     }
