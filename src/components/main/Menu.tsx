@@ -11,7 +11,7 @@ const Menu = () => {
         <Button title="Loan" page="Loan" type="Loan" />
         <Button top="NXT" bottom="stake" page="NXT" type="NXT" />
         <Button title="NLP" type="NLP" />
-        <Button title="Swap" type="Swap" />
+        <Button title="Swap" type="Swap" page="Swap" />
         <Button title="My asset" page="Myasset" type="Asset" />
       </MenuList>
     </MenuWrapper>
