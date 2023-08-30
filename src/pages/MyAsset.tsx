@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import MyAssetContent from "../components/myAsset";
-import IcBack from "../assets/icons/ic_back.svg";
 import BackButton from "../components/common/BackButton";
 
 const MyAsset = () => {
