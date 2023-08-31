@@ -27,8 +27,6 @@ export default function useTonConnect() {
       const newBalance = await client.getBalance(
         Address.parse(wallet.account.address)
       );
-      console.log("newBalance.toString()");
-      console.log(newBalance.toString());
       const calcBalance = (
         (parseInt(newBalance.toString()) / 10 ** 9) *
         1.0
