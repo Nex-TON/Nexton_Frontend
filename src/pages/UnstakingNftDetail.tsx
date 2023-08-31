@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import UnstakingModal from "../components/myAsset/modal/UnstakingModal";
 import BackButton from "../components/common/BackButton";
 import UnstakingPreview from "../components/myAsset/NFT/Unstaking/UnstakingPreview";
 import UnstakingInfo from "../components/myAsset/NFT/Unstaking/UnstakingInfo";
 import { useLocation, useNavigate } from "react-router-dom";
+
+const tele = (window as any).Telegram.WebApp;
 
 const UnstakingNftDetail = () => {
   const [toggleModal, setToggleModal] = useState(false);
@@ -13,12 +15,26 @@ const UnstakingNftDetail = () => {
     setToggleModal((prev) => !prev);
   };
 
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        window.history.back();
+      });
+    }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
+  }, []);
+
   return (
     <>
       {toggleModal && <UnstakingModal handleToggleModal={handleToggleModal} />}
       <UnstakingWrapper>
         <UnstakingHeader>
-          <BackButton />
+          {/* <BackButton /> */}
           Unstaking NFT
         </UnstakingHeader>
         <UnstakingPreview />
