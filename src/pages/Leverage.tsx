@@ -74,7 +74,7 @@ const Leverage = () => {
         tele.BackButton.offClick("backButtonClicked");
       }
     };
-  }, [navigate]);
+  }, []);
 
   return isMovePreview ? (
     <NFTPreview handleMovePreview={handleMovePreview} />

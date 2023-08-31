@@ -66,13 +66,13 @@ const NFTPreview = (props: NFTPreviewProps) => {
         navigate("/leverage");
       });
     }
+    window.scrollTo(0, 0);
 
     return () => {
       if (tele) {
         tele.BackButton.offClick("backButtonClicked");
       }
     };
-    window.scrollTo(0, 0);
   }, []);
 
   return (
