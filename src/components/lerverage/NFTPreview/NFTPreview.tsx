@@ -59,8 +59,6 @@ const NFTPreview = (props: NFTPreviewProps) => {
   useEffect(() => {
     if (tele) {
       tele.ready();
-      tele.MainButton.hide();
-      tele.BackButton.hide();
       tele.MainButton.text = "Confirm";
       tele.MainButton.show();
       tele.BackButton.show();
@@ -68,6 +66,12 @@ const NFTPreview = (props: NFTPreviewProps) => {
         navigate("/leverage");
       });
     }
+
+    return () => {
+      if (tele) {
+        tele.BackButton.offEvent("backButtonClicked");
+      }
+    };
     window.scrollTo(0, 0);
   }, []);
 
