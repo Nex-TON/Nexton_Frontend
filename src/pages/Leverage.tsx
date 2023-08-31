@@ -16,6 +16,7 @@ import BackButton from "../components/common/BackButton";
 import { getTelegramId } from "../api/getTelegramId";
 import useTonConnect from "../hooks/useTonConnect";
 import { telegramAtom } from "../lib/atom/telegram";
+import { useNavigate } from "react-router-dom";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -29,6 +30,8 @@ const Leverage = () => {
   const [input, setInput] = useState("");
   const [maxLeverage, setMaxLeverage] = useState(0);
   const [ratio, setRatio] = useState(1.0);
+
+  const navigate = useNavigate();
 
   const handleGetTelegramId = async (address: string) => {
     if (!address) return;
@@ -63,7 +66,7 @@ const Leverage = () => {
       tele.MainButton.show();
       tele.BackButton.show();
       tele.BackButton.onClick = () => {
-        window.history.back();
+        navigate("/");
       };
     }
   });
