@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
 import SwapBox from "../common/SwapBox";
 import LiquidityPair from "./LiquidityPair";
+import LiquidityBox from "../common/LiquidityBox";
+import Button from "../common/Button";
 
 const LiquiditySection = () => {
   return (
@@ -10,6 +12,8 @@ const LiquiditySection = () => {
       <LiquiditytitleBox>Amount</LiquiditytitleBox>
       <SwapBox type="top" />
       <SwapBox type="bottom" />
+      <LiquidityBox type="liquidity" />
+      <Button title="Confirm" />
     </LiquiditySectionWrapper>
   );
 };

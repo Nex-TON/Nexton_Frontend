@@ -2,10 +2,15 @@ import { styled } from "styled-components";
 import IcTon from "../../../assets/icons/Swap/ic_ton.svg";
 import IcNxt from "../../../assets/icons/Swap/ic_nxt.svg";
 
-const LiquiditySubBox = () => {
+interface LiquiditySubBoxProps {
+  title: string;
+}
+const LiquiditySubBox = (props: LiquiditySubBoxProps) => {
+  const { title } = props;
+
   return (
     <LiquiditySubBoxWrapper>
-      <LiquiditySubBoxTop>Total Tokens Locked</LiquiditySubBoxTop>
+      <LiquiditySubBoxTop>{title}</LiquiditySubBoxTop>
       <LiquidityTokenBox>
         <LiquidityTokenSubBox>
           <img src={IcTon} alt="ton" />
