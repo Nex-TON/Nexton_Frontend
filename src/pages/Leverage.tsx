@@ -65,9 +65,9 @@ const Leverage = () => {
       tele.MainButton.text = "Hello";
       tele.MainButton.show();
       tele.BackButton.show();
-      tele.BackButton.onClick = () => {
+      tele.onEvent("backButtonClicked", () => {
         navigate("/");
-      };
+      });
     }
   });
 
