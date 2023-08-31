@@ -65,16 +65,16 @@ const Leverage = () => {
       tele.MainButton.text = "Confirm";
       tele.MainButton.show();
       tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
+      tele.BackButton.onClick("backButtonClicked", () => {
         navigate("/");
       });
     }
     return () => {
       if (tele) {
-        tele.BackButton.offEvent("backButtonClicked");
+        tele.BackButton.offClick("backButtonClicked");
       }
     };
-  });
+  }, [navigate]);
 
   return isMovePreview ? (
     <NFTPreview handleMovePreview={handleMovePreview} />
