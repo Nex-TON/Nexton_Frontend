@@ -17,6 +17,7 @@ interface MainButton {
 }
 interface BackButton {
   isVisible: boolean;
+  show(): void;
 }
 
 declare global {

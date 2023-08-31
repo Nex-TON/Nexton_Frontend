@@ -57,6 +57,7 @@ const Leverage = () => {
       tele.ready();
       tele.MainButton.text = "Hello";
       tele.MainButton.show();
+      tele.BackButton.isVisible;
     }
   });
 
