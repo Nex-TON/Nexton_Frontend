@@ -54,7 +54,7 @@ const Leverage = () => {
 
   useEffect(() => {
     tele?.ready();
-    tele?.BackButton.show();
+    tele?.BackButton.isVisible;
   });
 
   return isMovePreview ? (
