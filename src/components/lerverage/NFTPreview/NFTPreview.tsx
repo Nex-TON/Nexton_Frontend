@@ -67,10 +67,6 @@ const NFTPreview = (props: NFTPreviewProps) => {
       });
     }
     window.scrollTo(0, 0);
-
-    return () => {
-      tele.offEvent("backButtonClicked");
-    };
   }, []);
 
   return (
