@@ -69,6 +69,12 @@ const Leverage = () => {
         navigate("/");
       });
     }
+
+    return () => {
+      tele.offEvent("backButtonClicked", () => {
+        navigate("/");
+      });
+    };
   });
 
   return isMovePreview ? (
