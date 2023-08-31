@@ -44,7 +44,7 @@ const Button = (props: ButtonProps) => {
   const SelectImage = (type: string) => {
     switch (type) {
       case "leverage":
-        return <StyledImage src={IcMenuLeverage} alt="Leverage" marginTop />;
+        return <StyledImage src={IcMenuLeverage} alt="Leverage" margintop />;
       case "NXT":
         return <StyledImage src={IcMenuNxt} alt="NXT" />;
       case "Loan":
@@ -105,13 +105,13 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
-const StyledImage = styled.img<{ marginTop?: boolean }>`
+const StyledImage = styled.img<{ margintop?: boolean }>`
   position: absolute;
   top: 1.1rem;
   right: 1.1rem;
 
-  ${({ marginTop }) =>
-    marginTop &&
+  ${({ margintop }) =>
+    margintop &&
     css`
       top: 0;
       right: 0;
