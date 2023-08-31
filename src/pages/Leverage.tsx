@@ -30,27 +30,31 @@ const Leverage = () => {
   const [maxLeverage, setMaxLeverage] = useState(0);
   const [ratio, setRatio] = useState(1.0);
 
-  const handleMovePreview = () => {
-    const newDepoist: StakingProps = {
-      id: Number(telegramId),
-      address,
-      principal: input,
-      leverage: ratio,
-      lockup: getLockUpDate(input, ratio),
-    };
-
-    setStakingInfo(newDepoist);
-    setIsMovePreview((prev) => !prev);
-  };
-
   const handleGetTelegramId = async (address: string) => {
+    if (!address) return;
     const response = await getTelegramId(address);
+
     setTelegramId(response[0]?._id);
   };
 
   useEffect(() => {
     handleGetTelegramId(address);
-  }, []);
+  });
+
+  const handleMovePreview = () => {
+    if (telegramId) {
+      const newDepoist: StakingProps = {
+        id: Number(telegramId),
+        address,
+        principal: input,
+        leverage: ratio,
+        lockup: getLockUpDate(input, ratio),
+      };
+
+      setStakingInfo(newDepoist);
+      setIsMovePreview((prev) => !prev);
+    }
+  };
 
   useEffect(() => {
     if (tele) {
@@ -58,6 +62,9 @@ const Leverage = () => {
       tele.MainButton.text = "Hello";
       tele.MainButton.show();
       tele.BackButton.show();
+      tele.BackButton.onClick = () => {
+        window.history.back();
+      };
     }
   });
 
