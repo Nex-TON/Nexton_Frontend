@@ -60,6 +60,7 @@ const NFTPreview = (props: NFTPreviewProps) => {
     if (tele) {
       tele.ready();
       tele.MainButton.hide();
+      tele.BackButton.hide();
       tele.MainButton.text = "Confirm";
       tele.MainButton.show();
       tele.BackButton.show();
