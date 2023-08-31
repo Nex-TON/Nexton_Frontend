@@ -1,19 +1,17 @@
 import { styled } from "styled-components";
-import BackButton from "../../common/BackButton";
-import DetailNFTPreview from "./DetailNFTPreview";
-import { useState } from "react";
-import Unstaking from "../NFT/Unstaking/Unstaking";
-import DetailNftInfo from "./DetailNFTInfo";
+import BackButton from "../components/common/BackButton";
+import DetailNFTPreview from "../components/myAsset/detail/DetailNFTPreview";
+import DetailNftInfo from "../components/myAsset/detail/DetailNFTInfo";
+import { useNavigate } from "react-router-dom";
 
-const Detail = () => {
-  const [isMoveUnstaking, setIsMoveUnstaking] = useState(false);
+const StakingNftDetail = () => {
+  const navigate = useNavigate();
 
   const handleMoveUnstaking = () => {
-    setIsMoveUnstaking((prev) => !prev);
+    navigate("/unstaking/1");
   };
-  return isMoveUnstaking ? (
-    <Unstaking handleMoveUnstaking={handleMoveUnstaking} />
-  ) : (
+
+  return (
     <DetailWrapper>
       <DetailHeader>
         <BackButton />
@@ -25,7 +23,7 @@ const Detail = () => {
   );
 };
 
-export default Detail;
+export default StakingNftDetail;
 
 const DetailWrapper = styled.div`
   display: flex;

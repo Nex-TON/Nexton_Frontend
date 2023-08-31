@@ -1,15 +1,17 @@
 import { styled } from "styled-components";
 import IcNxt from "../../../assets/icons/Swap/ic_nxt.svg";
 import IcTon from "../../../assets/icons/Swap/ic_ton.svg";
+import { numberCutter } from "../../../utils/numberCutter";
 
 interface SwapBoxProps {
   type: string;
-  text: string;
+  text?: string;
   select?: string;
+  balance?: number;
 }
 
 const SwapBox = (props: SwapBoxProps) => {
-  const { type, text, select } = props;
+  const { type, text, select, balance } = props;
 
   return (
     <SwapBoxWrapper>
@@ -35,7 +37,7 @@ const SwapBox = (props: SwapBoxProps) => {
       </SwapMiddleBox>
       <BalanceBox>
         <span>Balance</span>
-        <span>0.000</span>
+        <span>{balance ? `${numberCutter(balance)}` : "0.000"}</span>
       </BalanceBox>
     </SwapBoxWrapper>
   );
@@ -85,6 +87,7 @@ const SwapMiddleBox = styled.div`
   align-items: center;
   gap: 4rem;
 
+  width: 100%;
   margin: 1rem 0;
 `;
 

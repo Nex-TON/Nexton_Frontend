@@ -1,26 +1,26 @@
-import { styled } from "styled-components";
-import BackButton from "../../../common/BackButton";
-import UnstakingPreview from "./UnstakingPreview";
-import UnstakingInfo from "./UnstakingInfo";
 import { useState } from "react";
-import UnstakingModal from "../../modal/UnstakingModal";
+import { styled } from "styled-components";
+import UnstakingModal from "../components/myAsset/modal/UnstakingModal";
+import BackButton from "../components/common/BackButton";
+import UnstakingPreview from "../components/myAsset/NFT/Unstaking/UnstakingPreview";
+import UnstakingInfo from "../components/myAsset/NFT/Unstaking/UnstakingInfo";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Unstaking = ({
-  handleMoveUnstaking,
-}: {
-  handleMoveUnstaking: () => void;
-}) => {
+const UnstakingNftDetail = () => {
+  const { state } = useLocation();
   const [toggleModal, setToggleModal] = useState(false);
 
+  console.log(state);
   const handleToggleModal = () => {
     setToggleModal((prev) => !prev);
   };
+
   return (
     <>
       {toggleModal && <UnstakingModal handleToggleModal={handleToggleModal} />}
       <UnstakingWrapper>
         <UnstakingHeader>
-          <BackButton unstaking handleMoveUnstaking={handleMoveUnstaking} />
+          <BackButton />
           Unstaking NFT
         </UnstakingHeader>
         <UnstakingPreview />
@@ -36,7 +36,7 @@ const Unstaking = ({
   );
 };
 
-export default Unstaking;
+export default UnstakingNftDetail;
 
 const UnstakingWrapper = styled.div`
   display: flex;

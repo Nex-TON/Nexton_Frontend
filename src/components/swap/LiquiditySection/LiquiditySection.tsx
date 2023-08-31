@@ -3,15 +3,18 @@ import SwapBox from "../common/SwapBox";
 import LiquidityPair from "./LiquidityPair";
 import LiquidityBox from "../common/LiquidityBox";
 import Button from "../common/Button";
+import useTonConnect from "../../../hooks/useTonConnect";
 
 const LiquiditySection = () => {
+  const { balance } = useTonConnect();
+
   return (
     <LiquiditySectionWrapper>
       <LiquiditytitleBox>Liquidity Pair</LiquiditytitleBox>
       <LiquidityPair />
       <LiquiditytitleBox>Amount</LiquiditytitleBox>
       <SwapBox type="top" />
-      <SwapBox type="bottom" />
+      <SwapBox type="bottom" balance={balance} />
       <LiquidityBox type="liquidity" />
       <Button title="Confirm" />
     </LiquiditySectionWrapper>

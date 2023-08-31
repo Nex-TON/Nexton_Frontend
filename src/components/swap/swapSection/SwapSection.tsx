@@ -5,9 +5,11 @@ import LiquidityBox from "../common/LiquidityBox";
 import SwapRatio from "./SwapRatio";
 import Button from "../common/Button";
 import { useState } from "react";
+import useTonConnect from "../../../hooks/useTonConnect";
 
 const SwapSection = () => {
   const [switchToken, setSwitchToken] = useState(false);
+  const { balance } = useTonConnect();
 
   const handleSwitchToken = () => {
     setSwitchToken((prev) => !prev);
@@ -21,13 +23,18 @@ const SwapSection = () => {
         </SwapArrowBox>
         {switchToken ? (
           <>
-            <SwapBox type="bottom" select="swap" text="from" />
+            <SwapBox
+              type="bottom"
+              select="swap"
+              text="from"
+              balance={balance}
+            />
             <SwapBox type="top" select="swap" text="to" />
           </>
         ) : (
           <>
             <SwapBox type="top" select="swap" text="from" />
-            <SwapBox type="bottom" select="swap" text="to" />
+            <SwapBox type="bottom" select="swap" text="to" balance={balance} />
           </>
         )}
       </SwapWrapper>
@@ -52,6 +59,8 @@ const SwapSectionWrapper = styled.div`
 
 const SwapWrapper = styled.div`
   position: relative;
+
+  width: 100%;
 `;
 
 const SwapArrowBox = styled.div`

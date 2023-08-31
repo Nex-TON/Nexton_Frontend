@@ -36,7 +36,10 @@ const LiquidityPairWrapper = styled.div`
 
 const LiquidityPairTokenBox = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
+
+  width: 100%;
 
   color: #09090a;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
@@ -45,7 +48,6 @@ const LiquidityPairTokenBox = styled.div`
 const LiquiditySlash = styled.div`
   width: 0.2rem;
   height: 100%;
-  margin: 0 5.8rem;
 
   border-radius: 1rem;
   background-color: #e5e5ea;

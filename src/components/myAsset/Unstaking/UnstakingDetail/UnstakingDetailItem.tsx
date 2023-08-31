@@ -1,9 +1,14 @@
 import { css, styled } from "styled-components";
 import IcTon from "../../../../assets/icons/MyAsset/ic_tonSymbol.svg";
+import { useNavigate } from "react-router-dom";
 
 const UnstakingDetailItem = () => {
+  const navigate = useNavigate();
+
   return (
-    <UnstakingDetailItemWrapper>
+    <UnstakingDetailItemWrapper
+      onClick={() => navigate("/unstaking/1", { state: "view" })}
+    >
       <UnstakingDetailTopBox>
         <UnstakingDetailId>
           09987 <img src={IcTon} alt="tonSymbol" />

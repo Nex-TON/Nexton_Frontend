@@ -3,10 +3,11 @@ import Main from "../../pages/Main";
 import Leverage from "../../pages/Leverage";
 import Nlp from "../../pages/Nlp";
 import MyAsset from "../../pages/MyAsset";
-import Detail from "../myAsset/detail/Detail";
 import Loan from "../../pages/Loan";
 import BorrowDetail from "../loan/borrow/BorrowDetail";
 import Swap from "../../pages/Swap";
+import StakingNftDetail from "../../pages/StakingNftDetail";
+import UnstakingNftDetail from "../../pages/UnstakingNftDetail";
 
 const Router = () => {
   return (
@@ -19,7 +20,9 @@ const Router = () => {
         <Route path="/swap" element={<Swap />} />
         <Route path="/nlp" element={<Nlp />} />
         <Route path="/myasset" element={<MyAsset />} />
-        <Route path="/myasset/:id" element={<Detail />} />
+        <Route path="/myasset/:id" element={<StakingNftDetail />} />
+        <Route path="/unstaking/:id" element={<UnstakingNftDetail />} />
+        <Route path="/unstaking/view/:id" element={<UnstakingNftDetail />} />
       </Routes>
     </BrowserRouter>
   );
