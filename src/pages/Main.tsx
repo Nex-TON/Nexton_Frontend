@@ -2,8 +2,19 @@ import styled from "styled-components";
 import MainImage from "../assets/image/MainImage.png";
 import TonWallet from "../components/main/TonWallet";
 import Menu from "../components/main/Menu";
+import { useEffect } from "react";
+
+const tele = (window as any).Telegram.WebApp;
 
 const Main = () => {
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.MainButton.hide();
+      tele.BackButton.hide();
+    }
+  });
+
   return (
     <MainWrapper>
       <MainImageBox>

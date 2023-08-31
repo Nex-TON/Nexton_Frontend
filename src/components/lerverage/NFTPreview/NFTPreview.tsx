@@ -11,6 +11,9 @@ import BackButton from "../../common/BackButton";
 import { useRecoilValue } from "recoil";
 import { stakingAtom } from "../../../lib/atom/staking";
 import { postStakingInfo } from "../../../api/postStakingInfo";
+import { useNavigate } from "react-router-dom";
+
+const tele = (window as any).Telegram.WebApp;
 
 interface NFTPreviewProps {
   handleMovePreview: () => void;
@@ -22,6 +25,8 @@ const NFTPreview = (props: NFTPreviewProps) => {
 
   const { sendMessage } = Contract.useNextonContract();
   const [modal, setModal] = useState(false);
+
+  const navigate = useNavigate();
 
   const toggleModal = () => {
     setModal((prev) => !prev);
@@ -52,10 +57,19 @@ const NFTPreview = (props: NFTPreviewProps) => {
   };
 
   useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.MainButton.hide();
+      tele.MainButton.text = "Confirm";
+      tele.MainButton.show();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        navigate("/leverage");
+      });
+    }
     window.scrollTo(0, 0);
   }, []);
 
-  console.log(modal);
   return (
     <NFTPreviewWrapper>
       {modal && <BasicModal toggleModal={toggleModal} />}

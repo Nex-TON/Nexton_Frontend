@@ -62,7 +62,7 @@ const Leverage = () => {
   useEffect(() => {
     if (tele) {
       tele.ready();
-      tele.MainButton.text = "Hello";
+      tele.MainButton.text = "Confirm";
       tele.MainButton.show();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
