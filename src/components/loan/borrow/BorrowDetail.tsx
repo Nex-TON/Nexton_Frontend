@@ -3,8 +3,10 @@ import LoanHeader from "../common/LoanHeader";
 import BackButton from "../../common/BackButton";
 import BorrowDetailInfo from "./BorrowDetailInfo";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BasicModal from "../modal/BasicModal";
+
+const tele = (window as any).Telegram.WebApp;
 
 const BorrowDetail = () => {
   const navigate = useNavigate();
@@ -17,6 +19,20 @@ const BorrowDetail = () => {
   const handleMoveLoan = () => {
     navigate("/loan");
   };
+
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        window.history.back();
+      });
+    }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
+  }, []);
   return (
     <>
       {isOpenModal && <BasicModal toggleModal={handleToggleModal} />}

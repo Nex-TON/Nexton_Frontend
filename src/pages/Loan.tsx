@@ -1,8 +1,28 @@
 import { styled } from "styled-components";
 import LoanList from "../components/loan/LoanList";
 import LoanHeader from "../components/loan/common/LoanHeader";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+const tele = (window as any).Telegram.WebApp;
 
 const Loan = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        navigate("/");
+      });
+    }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
+  }, []);
+
   return (
     <LoanWrapper>
       <LoanHeader />
