@@ -14,7 +14,7 @@ const LoanHeader = ({ type }: { type?: string }) => {
         <LoanHeaderTop>Deposit NFT, Borrow $NXT</LoanHeaderTop>
       ) : (
         <LoanHeaderBox>
-          <BackButton loanMain handleMoveMain={handleMoveMain} />
+          {/* <BackButton loanMain handleMoveMain={handleMoveMain} /> */}
           <LoanHeaderTop>Deposit NFT, Borrow $NXT</LoanHeaderTop>
         </LoanHeaderBox>
       )}

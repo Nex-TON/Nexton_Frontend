@@ -39,7 +39,7 @@ const BorrowDetail = () => {
       <BorrowDetailWrapper>
         <LoanHeader type="detail" />
         <BorrowDetailHeader>
-          <BackButton type="detail" handleMoveLoan={handleMoveLoan} loan />
+          {/* <BackButton type="detail" handleMoveLoan={handleMoveLoan} loan /> */}
           Borrow NXT
         </BorrowDetailHeader>
         <BorrowDetailInfo />

@@ -1,10 +1,14 @@
 import { styled } from "styled-components";
 import SwapHeader from "../components/swap/common/SwapHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SwapSection from "../components/swap/swapSection/SwapSection";
 import LiquiditySection from "../components/swap/LiquiditySection/LiquiditySection";
+import { useNavigate } from "react-router-dom";
+
+const tele = (window as any).Telegram.WebApp;
 
 const Swap = () => {
+  const navigate = useNavigate();
   const [isClick, setIsClick] = useState([true, false]);
 
   const handleSwitchNav = (idx: number) => {
@@ -14,6 +18,20 @@ const Swap = () => {
       setIsClick([false, true]);
     }
   };
+
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        navigate("/");
+      });
+    }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
+  }, []);
 
   return (
     <SwapWrapper>

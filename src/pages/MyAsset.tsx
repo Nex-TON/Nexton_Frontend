@@ -1,12 +1,32 @@
 import styled from "styled-components";
 import MyAssetContent from "../components/myAsset";
 import BackButton from "../components/common/BackButton";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+const tele = (window as any).Telegram.WebApp;
 
 const MyAsset = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        navigate("/");
+      });
+    }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
+  }, []);
+
   return (
     <MyAssetWrapper>
       <MyAssetHeaderBox>
-        <BackButton />
+        {/* <BackButton /> */}
         <MyAssetHeaderTop>MY asset</MyAssetHeaderTop>
       </MyAssetHeaderBox>
       <MyAssetContent />

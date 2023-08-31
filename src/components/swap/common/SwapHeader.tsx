@@ -20,7 +20,7 @@ const SwapHeader = (props: SwapHeaderProps) => {
   return (
     <>
       <SwapHeaderBox>
-        <BackButton loanMain handleMoveMain={handleMoveMain} />
+        {/* <BackButton loanMain handleMoveMain={handleMoveMain} /> */}
         <SwapHeaderTop>Swap</SwapHeaderTop>
       </SwapHeaderBox>
       <SwapNavBox>

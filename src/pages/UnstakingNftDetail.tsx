@@ -7,10 +7,8 @@ import UnstakingInfo from "../components/myAsset/NFT/Unstaking/UnstakingInfo";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const UnstakingNftDetail = () => {
-  const { state } = useLocation();
   const [toggleModal, setToggleModal] = useState(false);
 
-  console.log(state);
   const handleToggleModal = () => {
     setToggleModal((prev) => !prev);
   };

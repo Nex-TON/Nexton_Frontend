@@ -3,6 +3,9 @@ import BackButton from "../components/common/BackButton";
 import DetailNFTPreview from "../components/myAsset/detail/DetailNFTPreview";
 import DetailNftInfo from "../components/myAsset/detail/DetailNFTInfo";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
+const tele = (window as any).Telegram.WebApp;
 
 const StakingNftDetail = () => {
   const navigate = useNavigate();
@@ -11,10 +14,24 @@ const StakingNftDetail = () => {
     navigate("/unstaking/1");
   };
 
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        navigate("/myasset");
+      });
+    }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
+  }, []);
+
   return (
     <DetailWrapper>
       <DetailHeader>
-        <BackButton />
+        {/* <BackButton /> */}
         Staking NFT
       </DetailHeader>
       <DetailNFTPreview />
