@@ -4,27 +4,19 @@ import IcTon from "../../../assets/icons/Swap/ic_ton.svg";
 
 interface SwapBoxProps {
   type: string;
+  text: string;
   select?: string;
 }
 
 const SwapBox = (props: SwapBoxProps) => {
-  const { type, select } = props;
+  const { type, text, select } = props;
 
   return (
     <SwapBoxWrapper>
       {select === "swap" && (
         <SwapBoxTop>
-          {type === "top" ? (
-            <>
-              <SwapFromText style={{ marginRight: "1rem" }}>From</SwapFromText>
-              <SwapCaption2>$8.86</SwapCaption2>
-            </>
-          ) : (
-            <>
-              <SwapFromText style={{ marginRight: "1rem" }}>To</SwapFromText>
-              <SwapCaption2>$8.86</SwapCaption2>
-            </>
-          )}
+          <SwapFromText style={{ marginRight: "1rem" }}>{text}</SwapFromText>
+          <SwapCaption2>$8.86</SwapCaption2>
         </SwapBoxTop>
       )}
       <SwapMiddleBox>

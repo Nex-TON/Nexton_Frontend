@@ -4,16 +4,32 @@ import IcSwapArrow from "../../../assets/icons/Swap/ic_swap_arrow.svg";
 import LiquidityBox from "../common/LiquidityBox";
 import SwapRatio from "./SwapRatio";
 import Button from "../common/Button";
+import { useState } from "react";
 
 const SwapSection = () => {
+  const [switchToken, setSwitchToken] = useState(false);
+
+  const handleSwitchToken = () => {
+    setSwitchToken((prev) => !prev);
+  };
+
   return (
     <SwapSectionWrapper>
       <SwapWrapper>
-        <SwapArrowBox>
+        <SwapArrowBox onClick={handleSwitchToken}>
           <img src={IcSwapArrow} alt="swapArrow" />
         </SwapArrowBox>
-        <SwapBox type="top" select="swap" />
-        <SwapBox type="bottom" select="swap" />
+        {switchToken ? (
+          <>
+            <SwapBox type="bottom" select="swap" text="from" />
+            <SwapBox type="top" select="swap" text="to" />
+          </>
+        ) : (
+          <>
+            <SwapBox type="top" select="swap" text="from" />
+            <SwapBox type="bottom" select="swap" text="to" />
+          </>
+        )}
       </SwapWrapper>
       <LiquidityBox type="swap" />
       <SwapRatio />
