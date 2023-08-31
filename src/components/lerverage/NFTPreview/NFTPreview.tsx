@@ -62,16 +62,14 @@ const NFTPreview = (props: NFTPreviewProps) => {
       tele.MainButton.text = "Confirm";
       tele.MainButton.show();
       tele.BackButton.show();
-      tele.BackButton.onClick("backButtonClicked", () => {
+      tele.onEvent("backButtonClicked", () => {
         navigate("/leverage");
       });
     }
     window.scrollTo(0, 0);
 
     return () => {
-      if (tele) {
-        tele.BackButton.offClick("backButtonClicked");
-      }
+      tele.offEvent("backButtonClicked");
     };
   }, []);
 
