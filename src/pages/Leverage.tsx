@@ -17,7 +17,7 @@ import { getTelegramId } from "../api/getTelegramId";
 import useTonConnect from "../hooks/useTonConnect";
 import { telegramAtom } from "../lib/atom/telegram";
 
-const tele = (window as any).Telegram.Webapp;
+const tele = window.Telegram.Webapp;
 
 const Leverage = () => {
   const [isMovePreview, setIsMovePreview] = useState(false);
