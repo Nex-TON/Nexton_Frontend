@@ -13,6 +13,7 @@ interface WebApp {
 interface MainButton {
   text: string;
   isVisible: boolean;
+  show(): void;
 }
 interface BackButton {
   isVisible: boolean;

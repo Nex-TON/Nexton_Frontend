@@ -17,7 +17,7 @@ import { getTelegramId } from "../api/getTelegramId";
 import useTonConnect from "../hooks/useTonConnect";
 import { telegramAtom } from "../lib/atom/telegram";
 
-const tele = window.Telegram.Webapp;
+const tele = (window as any).Telegram.WebApp;
 
 const Leverage = () => {
   const [isMovePreview, setIsMovePreview] = useState(false);
@@ -55,8 +55,8 @@ const Leverage = () => {
   useEffect(() => {
     if (tele) {
       tele.ready();
-      tele.MainButton.text = "hello";
-      tele.MainButton.isVisible = true;
+      tele.MainButton.text = "Hello";
+      tele.MainButton.show();
     }
   });
 
