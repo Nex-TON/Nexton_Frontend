@@ -1,19 +1,73 @@
 import { styled } from "styled-components";
 import LiquiditySubBox from "./LiquiditySubBox";
+import IcArrowUp from "../../../assets/icons/MyAsset/ic_arrow_up.svg";
+import IcArrowDown from "../../../assets/icons/MyAsset/ic_arrow_down.svg";
+import IcNxt from "../../../assets/icons/Swap/ic_nxt.svg";
+import IcTon from "../../../assets/icons/Swap/ic_ton.svg";
 
-const LiquidityBox = () => {
+import { useState } from "react";
+
+interface LiquidityBoxProps {
+  type?: string;
+}
+
+const LiquidityBox = (props: LiquidityBoxProps) => {
+  const { type } = props;
+  const [isOpenLiquidity, setIsOpenLiquidity] = useState(false);
+
   return (
     <LiquidityBoxWrapper>
-      <LiquidityBoxTop>Pool Liquidity</LiquidityBoxTop>
-      <LiquidityDescBox>
-        <span>TVL</span>
-        <span>$ 251.52m</span>
-      </LiquidityDescBox>
-      <LiquiditySubBox />
-      <LiquidityDescBox>
-        <span>24h Fee</span>
-        <span>$ 79.82K</span>
-      </LiquidityDescBox>
+      <LiquidityBoxTop>
+        Pool Liquidity
+        {type === "liquidity" &&
+          (isOpenLiquidity ? (
+            <img
+              src={IcArrowUp}
+              alt="arrowDown"
+              onClick={() => setIsOpenLiquidity(false)}
+            />
+          ) : (
+            <img
+              src={IcArrowDown}
+              alt="arrowUp"
+              onClick={() => setIsOpenLiquidity(true)}
+            />
+          ))}
+      </LiquidityBoxTop>
+      {type === "swap" ? (
+        <>
+          <LiquidityDescBox>
+            <span>TVL</span>
+            <span>$ 251.52m</span>
+          </LiquidityDescBox>
+          <LiquiditySubBox title="Total Tokens Locked" />
+          <LiquidityDescBox>
+            <span>24h Fee</span>
+            <span>$ 79.82K</span>
+          </LiquidityDescBox>
+        </>
+      ) : (
+        isOpenLiquidity && (
+          <>
+            <TotalValueBox>
+              <span>Total Value</span>
+              <TotalValueTokenBox>
+                <TokenNameBox>
+                  <img src={IcNxt} alt="nxt" />
+                  <span>NXT</span>
+                  <span>000,000k</span>
+                </TokenNameBox>
+                <TokenNameBox>
+                  <img src={IcTon} alt="ton" />
+                  <span>TON</span>
+                  <span>000,000k</span>
+                </TokenNameBox>
+              </TotalValueTokenBox>
+            </TotalValueBox>
+            <LiquiditySubBox title="Current Price" />
+          </>
+        )
+      )}
     </LiquidityBoxWrapper>
   );
 };
@@ -52,6 +106,40 @@ const LiquidityDescBox = styled.div`
 
   width: 100%;
   margin-top: 1.9rem;
+
+  span {
+    color: #46494a;
+    ${({ theme }) => theme.fonts.Nexton_Label_Medium};
+  }
+`;
+
+const TotalValueBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  width: 100%;
+  margin-top: 2rem;
+
+  span {
+    color: #46494a;
+    ${({ theme }) => theme.fonts.Nexton_Label_Medium};
+  }
+`;
+
+const TotalValueTokenBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const TokenNameBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 
   span {
     color: #46494a;
