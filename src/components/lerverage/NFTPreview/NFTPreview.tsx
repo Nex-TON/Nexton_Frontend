@@ -59,7 +59,7 @@ const NFTPreview = (props: NFTPreviewProps) => {
   useEffect(() => {
     if (tele) {
       tele.ready();
-      tele.MainButton.text = "Confirm";
+      tele.MainButton.text = "Hello";
       tele.MainButton.show();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
