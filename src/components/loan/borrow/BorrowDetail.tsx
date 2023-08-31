@@ -25,7 +25,7 @@ const BorrowDetail = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        window.history.back();
+        navigate("/loan");
       });
     }
 
