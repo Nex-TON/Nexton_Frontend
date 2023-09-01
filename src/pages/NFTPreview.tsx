@@ -57,9 +57,7 @@ const NFTPreview = () => {
       tele.MainButton.text = "Confirm";
       tele.MainButton.show();
       tele.BackButton.show();
-      tele.onEvent("mainButtonClicked", () => {
-        handleMinting();
-      });
+      tele.onEvent("mainButtonClicked", handleMinting);
       tele.onEvent("backButtonClicked", () => {
         navigate("/leverage");
       });
