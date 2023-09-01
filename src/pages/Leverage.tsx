@@ -74,9 +74,9 @@ const Leverage = () => {
 
   return (
     <LeverageWrapper>
-      <LeverageHeaderBox>
+      {/* <LeverageHeaderBox>
         <BackButton />
-      </LeverageHeaderBox>
+      </LeverageHeaderBox> */}
       <Step1 input={input} setInput={setInput} />
       <BorderLine />
       <Step2

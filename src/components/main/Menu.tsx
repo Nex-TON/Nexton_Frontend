@@ -9,9 +9,9 @@ const Menu = () => {
       <MenuList>
         <Button top="Leverage" bottom="stake" page="Stake" type="leverage" />
         <Button title="Loan" page="Loan" type="Loan" />
-        <Button top="NXT" bottom="stake" page="NXT" type="NXT" />
-        <Button title="NLP" type="NLP" />
         <Button title="Swap" type="Swap" page="Swap" />
+        <Button title="NLP" type="NLP" unused />
+        <Button top="NXT" bottom="stake" page="NXT" type="NXT" unused />
         <Button title="My asset" page="Myasset" type="Asset" />
       </MenuList>
     </MenuWrapper>

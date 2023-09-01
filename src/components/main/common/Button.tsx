@@ -7,6 +7,8 @@ import IcMenuCoin from "../../../assets/icons/Landing/ic_menuCoin.svg";
 import IcMenuSwap from "../../../assets/icons/Landing/ic_menuSwap.svg";
 import IcMenuAsset from "../../../assets/icons/Landing/ic_menuMyAsset.svg";
 import IcMenuCoinDisable from "../../../assets/icons/Landing/ic_menuCoin_Disable.svg";
+import IcMenuNxtDisable from "../../../assets/icons/Landing/ic_menuNxt_Disable.svg";
+import GradientBox from "../../common/GradientBox";
 
 interface ButtonProps {
   top?: string;
@@ -14,10 +16,11 @@ interface ButtonProps {
   title?: string;
   page?: string;
   type: string;
+  unused?: boolean;
 }
 const Button = (props: ButtonProps) => {
   const navigate = useNavigate();
-  const { top, bottom, title, page, type } = props;
+  const { top, bottom, title, page, type, unused } = props;
 
   const moveToPage = () => {
     switch (page) {
@@ -46,7 +49,7 @@ const Button = (props: ButtonProps) => {
       case "leverage":
         return <StyledImage src={IcMenuLeverage} alt="Leverage" margintop />;
       case "NXT":
-        return <StyledImage src={IcMenuNxt} alt="NXT" />;
+        return <StyledImage src={IcMenuNxtDisable} alt="NXT" />;
       case "Loan":
         return <StyledImage src={IcMenuLoan} alt="Loan" />;
       case "NLP":
@@ -61,21 +64,15 @@ const Button = (props: ButtonProps) => {
   return (
     <StyledButton onClick={moveToPage}>
       {SelectImage(type)}
-      {type === "NLP" && (
-        <CommingSoonText>
-          Coming
-          <br />
-          soon
-        </CommingSoonText>
-      )}
+      {unused && <GradientBox />}
       <StyleTextBox>
         {type === "leverage" || type === "NXT" ? (
           <>
-            <StyleText>{top}</StyleText>
-            <StyleText>{bottom}</StyleText>
+            <StyleText unused={unused}>{top}</StyleText>
+            <StyleText unused={unused}>{bottom}</StyleText>
           </>
         ) : (
-          <StyleText type={type}>{title}</StyleText>
+          <StyleText unused={unused}>{title}</StyleText>
         )}
       </StyleTextBox>
     </StyledButton>
@@ -128,8 +125,8 @@ const StyleTextBox = styled.div`
   bottom: 1.1rem;
   left: 1.1rem;
 `;
-const StyleText = styled.span<{ type?: string }>`
-  color: ${({ type }) => (type === "NLP" ? "#abaab4" : "#23232A")};
+const StyleText = styled.span<{ unused: boolean }>`
+  color: ${({ unused }) => (unused ? "#abaab4" : "#23232A")};
   ${({ theme }) => theme.fonts.Nexton_Label_Medium};
 `;
 
@@ -144,4 +141,5 @@ const CommingSoonText = styled.div`
   ${({ theme }) => theme.fonts.Nexton_Comming_Soon};
 
   text-align: center;
+  z-index: 1;
 `;
