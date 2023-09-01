@@ -21,7 +21,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Token Standard</DetailInfoItemText>
-          <DetailInfoItemText>???</DetailInfoItemText>
+          <DetailInfoItemText>TEP 62</DetailInfoItemText>
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Network</DetailInfoItemText>
@@ -37,7 +37,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
       <DetailInfoItemWrapper>
         <DetailInfoItem>
           <DetailInfoItemText>Principal</DetailInfoItemText>
-          <DetailInfoItemText>133123123</DetailInfoItemText>
+          <DetailInfoItemText>133123123 TON</DetailInfoItemText>
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Leveraged</DetailInfoItemText>
