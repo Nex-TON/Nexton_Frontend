@@ -20,7 +20,6 @@ import { useNavigate } from "react-router-dom";
 const tele = (window as any).Telegram.WebApp;
 
 const Leverage = () => {
-  const [isMovePreview, setIsMovePreview] = useState(false);
   const { sendMessage } = Contract.useNextonContract();
   const { address } = useTonConnect();
 
@@ -61,22 +60,25 @@ const Leverage = () => {
   useEffect(() => {
     if (tele) {
       tele.ready();
+      tele.MainButton.text = "Confirm";
+      tele.MainButton.show();
       tele.BackButton.show();
+      tele.onEvent("mainButtonClicked", () => {
+        navigate("/leverage/preview");
+      });
       tele.onEvent("backButtonClicked", () => {
         navigate("/");
       });
     }
 
     return () => {
+      tele.offEvent("mainButtonClicked");
       tele.offEvent("backButtonClicked");
     };
   }, []);
 
   return (
     <LeverageWrapper>
-      {/* <LeverageHeaderBox>
-        <BackButton />
-      </LeverageHeaderBox> */}
       <Step1 input={input} setInput={setInput} />
       <BorderLine />
       <Step2
@@ -88,14 +90,14 @@ const Leverage = () => {
       />
       <BorderLine />
       <Step3 input={input} ratio={ratio} />
-      <FooterWrapper>
+      {/* <FooterWrapper>
         <FooterButton
           title="Confirm"
           input={input}
           ratio={ratio}
           onClick={handleMovePreview}
         />
-      </FooterWrapper>
+      </FooterWrapper> */}
     </LeverageWrapper>
   );
 };
