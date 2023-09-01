@@ -11,7 +11,6 @@ import { StakingProps } from "../types/staking";
 import { getLockUpDate } from "../utils/getLockupDate";
 
 import BorderLine from "../components/lerverage/common/BorderLine";
-import NFTPreview from "../components/lerverage/NFTPreview/NFTPreview";
 import BackButton from "../components/common/BackButton";
 import { getTelegramId } from "../api/getTelegramId";
 import useTonConnect from "../hooks/useTonConnect";

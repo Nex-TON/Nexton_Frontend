@@ -8,7 +8,7 @@ import BorrowDetail from "../loan/borrow/BorrowDetail";
 import Swap from "../../pages/Swap";
 import StakingNftDetail from "../../pages/StakingNftDetail";
 import UnstakingNftDetail from "../../pages/UnstakingNftDetail";
-import NFTPreview from "../lerverage/NFTPreview/NFTPreview";
+import NFTPreview from "../../pages/NFTPreview";
 
 const Router = () => {
   return (

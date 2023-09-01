@@ -1,16 +1,16 @@
 import { styled } from "styled-components";
 import Icback from "../../../assets/icons/ic_back.svg";
-import NftPreviewImage from "./NftPreviewImage";
-import NFTPreviewInfo from "./NFTPreviewInfo";
-import FooterButton from "../../common/FooterButton";
-import { UserDeposit } from "../../../hooks/tact_NexTon";
-import * as Contract from "../../../hooks/useNextonContract";
-import BasicModal from "../../modals/BasicModal";
+import NftPreviewImage from "../components/lerverage/NFTPreview/NftPreviewImage";
+import NFTPreviewInfo from "../components/lerverage/NFTPreview/NFTPreviewInfo";
+import FooterButton from "../components/common/FooterButton";
+import { UserDeposit } from "../hooks/tact_NexTon";
+import * as Contract from "../hooks/useNextonContract";
+import BasicModal from "../components/modals/BasicModal";
 import { useEffect, useState } from "react";
-import BackButton from "../../common/BackButton";
+import BackButton from "../components/common/BackButton";
 import { useRecoilValue } from "recoil";
-import { stakingAtom } from "../../../lib/atom/staking";
-import { postStakingInfo } from "../../../api/postStakingInfo";
+import { stakingAtom } from "../lib/atom/staking";
+import { postStakingInfo } from "../api/postStakingInfo";
 import { useNavigate } from "react-router-dom";
 
 const tele = (window as any).Telegram.WebApp;
