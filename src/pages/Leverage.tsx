@@ -47,7 +47,7 @@ const Leverage = () => {
       const newDepoist: StakingProps = {
         id: Number(telegramId),
         address,
-        principal: "10",
+        principal: input,
         leverage: ratio,
         lockup: getLockUpDate(input, ratio),
       };
@@ -91,14 +91,14 @@ const Leverage = () => {
       />
       <BorderLine />
       <Step3 input={input} ratio={ratio} />
-      {/* <FooterWrapper>
+      <FooterWrapper>
         <FooterButton
           title="Confirm"
           input={input}
           ratio={ratio}
           onClick={handleMovePreview}
         />
-      </FooterWrapper> */}
+      </FooterWrapper>
     </LeverageWrapper>
   );
 };
