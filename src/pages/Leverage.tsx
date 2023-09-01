@@ -55,15 +55,13 @@ const Leverage = () => {
       };
 
       setStakingInfo(newDepoist);
-      setIsMovePreview((prev) => !prev);
+      navigate("/leverage/preview");
     }
   };
 
   useEffect(() => {
     if (tele) {
       tele.ready();
-      tele.MainButton.text = "Confirm";
-      tele.MainButton.show();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
         navigate("/");
@@ -75,9 +73,7 @@ const Leverage = () => {
     };
   }, []);
 
-  return isMovePreview ? (
-    <NFTPreview handleMovePreview={handleMovePreview} />
-  ) : (
+  return (
     <LeverageWrapper>
       <LeverageHeaderBox>
         <BackButton />

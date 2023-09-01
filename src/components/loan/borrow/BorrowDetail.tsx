@@ -16,10 +16,6 @@ const BorrowDetail = () => {
     setIsOpenModal((prev) => !prev);
   };
 
-  const handleMoveLoan = () => {
-    navigate("/loan");
-  };
-
   useEffect(() => {
     if (tele) {
       tele.ready();

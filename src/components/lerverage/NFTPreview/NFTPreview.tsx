@@ -15,12 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 const tele = (window as any).Telegram.WebApp;
 
-interface NFTPreviewProps {
-  handleMovePreview: () => void;
-}
-
-const NFTPreview = (props: NFTPreviewProps) => {
-  const { handleMovePreview } = props;
+const NFTPreview = () => {
   const stakingInfo = useRecoilValue(stakingAtom);
 
   const { sendMessage } = Contract.useNextonContract();
@@ -59,21 +54,23 @@ const NFTPreview = (props: NFTPreviewProps) => {
   useEffect(() => {
     if (tele) {
       tele.ready();
-      tele.MainButton.text = "Hello";
-      tele.MainButton.show();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
         navigate("/leverage");
       });
     }
     window.scrollTo(0, 0);
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
   }, []);
 
   return (
     <NFTPreviewWrapper>
       {modal && <BasicModal toggleModal={toggleModal} />}
       <NFTPreviewHeader>
-        <BackButton margin handleMovePreview={handleMovePreview} />
+        {/* <BackButton margin handleMovePreview={handleMovePreview} /> */}
         Staking NFT Preview
       </NFTPreviewHeader>
       <NftPreviewImage lockup={stakingInfo.lockup} />

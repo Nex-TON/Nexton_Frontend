@@ -8,6 +8,7 @@ import BorrowDetail from "../loan/borrow/BorrowDetail";
 import Swap from "../../pages/Swap";
 import StakingNftDetail from "../../pages/StakingNftDetail";
 import UnstakingNftDetail from "../../pages/UnstakingNftDetail";
+import NFTPreview from "../lerverage/NFTPreview/NFTPreview";
 
 const Router = () => {
   return (
@@ -15,6 +16,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/leverage" element={<Leverage />} />
+        <Route path="/leverage/preview" element={<NFTPreview />} />
         <Route path="/loan" element={<Loan />} />
         <Route path="/loan/:id" element={<BorrowDetail />} />
         <Route path="/swap" element={<Swap />} />
