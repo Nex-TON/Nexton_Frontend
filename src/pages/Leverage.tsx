@@ -63,7 +63,20 @@ const Leverage = () => {
       tele.MainButton.text = "Confirm";
       tele.MainButton.show();
       tele.BackButton.show();
-      tele.onEvent("mainButtonClicked", handleMovePreview);
+      tele.onEvent("mainButtonClicked", () => {
+        if (telegramId) {
+          const newDepoist: StakingProps = {
+            id: Number(telegramId),
+            address,
+            principal: input,
+            leverage: ratio,
+            lockup: getLockUpDate(input, ratio),
+          };
+
+          setStakingInfo(newDepoist);
+          navigate("/leverage/preview");
+        }
+      });
       tele.onEvent("backButtonClicked", () => {
         navigate("/");
       });
