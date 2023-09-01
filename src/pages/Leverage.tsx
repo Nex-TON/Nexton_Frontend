@@ -60,20 +60,13 @@ const Leverage = () => {
   useEffect(() => {
     if (tele) {
       tele.ready();
-      tele.MainButton.text = "Confirm";
-      tele.MainButton.show();
       tele.BackButton.show();
-
-      tele.onEvent("mainButtonClicked", () => {
-        handleMovePreview();
-      });
       tele.onEvent("backButtonClicked", () => {
         navigate("/");
       });
     }
 
     return () => {
-      tele.onEvent("mainButtonClicked");
       tele.offEvent("backButtonClicked");
     };
   }, []);
