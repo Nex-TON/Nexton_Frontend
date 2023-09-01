@@ -60,30 +60,13 @@ const Leverage = () => {
   useEffect(() => {
     if (tele) {
       tele.ready();
-      tele.MainButton.text = "Confirm";
-      tele.MainButton.show();
       tele.BackButton.show();
-      tele.onEvent("mainButtonClicked", () => {
-        if (telegramId) {
-          const newDepoist: StakingProps = {
-            id: Number(telegramId),
-            address,
-            principal: input,
-            leverage: ratio,
-            lockup: getLockUpDate(input, ratio),
-          };
-
-          setStakingInfo(newDepoist);
-          navigate("/leverage/preview");
-        }
-      });
       tele.onEvent("backButtonClicked", () => {
         navigate("/");
       });
     }
 
     return () => {
-      tele.offEvent("mainButtonClicked");
       tele.offEvent("backButtonClicked");
     };
   }, []);
@@ -101,14 +84,14 @@ const Leverage = () => {
       />
       <BorderLine />
       <Step3 input={input} ratio={ratio} />
-      {/* <FooterWrapper>
+      <FooterWrapper>
         <FooterButton
           title="Confirm"
           input={input}
           ratio={ratio}
           onClick={handleMovePreview}
         />
-      </FooterWrapper> */}
+      </FooterWrapper>
     </LeverageWrapper>
   );
 };

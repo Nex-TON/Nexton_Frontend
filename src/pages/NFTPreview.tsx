@@ -54,11 +54,7 @@ const NFTPreview = () => {
   useEffect(() => {
     if (tele) {
       tele.ready();
-      tele.MainButton.text = "Confirm";
-      tele.MainButton.show();
       tele.BackButton.show();
-
-      tele.onEvent("mainButtonClicked", handleMinting);
       tele.onEvent("backButtonClicked", () => {
         navigate("/leverage");
       });
@@ -66,7 +62,6 @@ const NFTPreview = () => {
     window.scrollTo(0, 0);
 
     return () => {
-      tele.offEvent("mainButtonClicked");
       tele.offEvent("backButtonClicked");
     };
   }, []);
@@ -84,7 +79,7 @@ const NFTPreview = () => {
         <NFTPreviewConfirmText>
           Please check your NFT details periodically
         </NFTPreviewConfirmText>
-        {/* <FooterButton title="Confirm" onClick={handleMinting} /> */}
+        <FooterButton title="Confirm" onClick={handleMinting} />
       </NFTPreviewConfirmBox>
     </NFTPreviewWrapper>
   );
