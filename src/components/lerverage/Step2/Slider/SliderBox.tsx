@@ -17,7 +17,7 @@ const SliderBox = (props: SliderBoxProps) => {
       setRatio(1.0);
       setTimeout(() => {
         setIsDisabled(false);
-      }, 1000);
+      }, 1500);
     }
   }, [ratio]);
 
@@ -33,7 +33,7 @@ const SliderBox = (props: SliderBoxProps) => {
       </SliderTextBox>
       {isDisabled && (
         <LeverageErrorBox>
-          Please adjust leverage times with the max leverage times listed below.
+          Please adjust leverage times with the max leverage multiplier.
         </LeverageErrorBox>
       )}
     </SliderWrapper>

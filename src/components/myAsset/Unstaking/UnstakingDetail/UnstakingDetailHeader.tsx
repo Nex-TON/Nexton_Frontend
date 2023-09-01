@@ -35,15 +35,14 @@ const UnstakingDetailHeader = (props: UnstakingDetailHeaderProps) => {
         <UnstakingNftDescBox>
           <div>
             <UnstakingNftDesc>
-              Unstaking will take approximately 7days to complete.
+              Unstaking will take approximately 7days to complete. Your
             </UnstakingNftDesc>
             <UnstakingNftDesc>
-              Your transaction history will be burned. Once you’ve had
+              transaction history will be burned. Once you’ve had run burning
             </UnstakingNftDesc>
             <UnstakingNftDesc>
-              run burning NFT and unstaking, canceling transaction
+              NFT and unstaking, canceling transaction can not be accepted.
             </UnstakingNftDesc>
-            <UnstakingNftDesc>can not be accepted.</UnstakingNftDesc>
           </div>
         </UnstakingNftDescBox>
       )}
@@ -96,12 +95,11 @@ const UnstakingDetailRightText = styled.span`
 
 const UnstakingNftDescBox = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
   width: 100%;
-  padding: 1.4rem 0;
+  padding: 1.4rem;
 
   border-bottom: 0.1rem solid #e5e5ea;
 `;
