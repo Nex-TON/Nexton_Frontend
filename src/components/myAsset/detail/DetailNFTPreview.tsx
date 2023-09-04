@@ -6,7 +6,6 @@ import { imageSizeAtom } from "../../../lib/atom/imageSize";
 const DetailNFTPreview = () => {
   const imageSize = useRecoilValue(imageSizeAtom);
 
-  console.log(imageSize);
   return (
     <DetailNFTPreviewWrapper>
       <NFTImageWrapper>
@@ -20,7 +19,7 @@ const DetailNFTPreview = () => {
         />
         <NFTDDayText>D-Day</NFTDDayText>
         <NFTExpiredDateText>Expired Date</NFTExpiredDateText>
-        <NFTExpiredDateText date>dd.mm.yy</NFTExpiredDateText>
+        <NFTExpiredDateText $date>dd.mm.yy</NFTExpiredDateText>
       </NFTImageWrapper>
     </DetailNFTPreviewWrapper>
   );
@@ -66,7 +65,7 @@ const NFTDDayText = styled.span`
   ${({ theme }) => theme.fonts.Telegram_SemiBold};
 `;
 
-const NFTExpiredDateText = styled.span<{ date?: boolean }>`
+const NFTExpiredDateText = styled.span<{ $date?: boolean }>`
   position: absolute;
   bottom: 2.5rem;
   left: 1.3rem;
@@ -74,8 +73,8 @@ const NFTExpiredDateText = styled.span<{ date?: boolean }>`
   color: #fff;
   ${({ theme }) => theme.fonts.Telegram_Caption_2};
 
-  ${({ date }) =>
-    date &&
+  ${({ $date }) =>
+    $date &&
     css`
       bottom: 1rem;
     `}
