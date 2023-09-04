@@ -11,7 +11,6 @@ import { StakingProps } from "../types/staking";
 import { getLockUpDate } from "../utils/getLockupDate";
 
 import BorderLine from "../components/lerverage/common/BorderLine";
-import BackButton from "../components/common/BackButton";
 import { getTelegramId } from "../api/getTelegramId";
 import useTonConnect from "../hooks/useTonConnect";
 import { telegramAtom } from "../lib/atom/telegram";
@@ -60,6 +59,7 @@ const Leverage = () => {
   useEffect(() => {
     if (tele) {
       tele.ready();
+      tele.setHeaderColor("#f2f2f2");
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
         navigate("/");
