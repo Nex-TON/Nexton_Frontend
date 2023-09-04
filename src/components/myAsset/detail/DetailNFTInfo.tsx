@@ -40,12 +40,16 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
           <DetailInfoItemText>133123123 TON</DetailInfoItemText>
         </DetailInfoItem>
         <DetailInfoItem>
+          <DetailInfoItemText>Nominator Pool</DetailInfoItemText>
+          <DetailInfoItemText>-----</DetailInfoItemText>
+        </DetailInfoItem>
+        <DetailInfoItem>
           <DetailInfoItemText>Leveraged</DetailInfoItemText>
           <DetailInfoItemText>x 2.5</DetailInfoItemText>
         </DetailInfoItem>
         <DetailInfoItem>
-          <DetailInfoItemText>Timelocks</DetailInfoItemText>
-          <DetailInfoItemText>Days left</DetailInfoItemText>
+          <DetailInfoItemText>Lockup period</DetailInfoItemText>
+          <DetailInfoItemText>60 days</DetailInfoItemText>
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Unstakable date</DetailInfoItemText>
@@ -53,11 +57,15 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Protocol Fees</DetailInfoItemText>
-          <DetailInfoItemText>TON</DetailInfoItemText>
+          <DetailInfoItemText>0.02%</DetailInfoItemText>
         </DetailInfoItem>
         <DetailInfoItem>
-          <DetailInfoItemText>Current accrued Rewards</DetailInfoItemText>
-          <DetailInfoItemText>TON</DetailInfoItemText>
+          <DetailInfoItemText>Staking APR</DetailInfoItemText>
+          <DetailInfoItemText>5%</DetailInfoItemText>
+        </DetailInfoItem>
+        <DetailInfoItem>
+          <DetailInfoItemText>Total Amount</DetailInfoItemText>
+          <DetailInfoItemText>10,000 TON</DetailInfoItemText>
         </DetailInfoItem>
       </DetailInfoItemWrapper>
       <ButtonWrapper>
