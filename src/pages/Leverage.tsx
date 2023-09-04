@@ -59,7 +59,8 @@ const Leverage = () => {
   useEffect(() => {
     if (tele) {
       tele.ready();
-      tele.setHeaderColor("#f2f2f2");
+      tele.themeParams.secondary_bg_color = "#f2f2f2";
+      tele.setHeaderColor("secondary_bg_color");
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
         navigate("/");

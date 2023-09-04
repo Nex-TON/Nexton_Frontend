@@ -25,11 +25,10 @@ const GradientBoxWrapper = styled.div`
   height: 90%;
 
   border-radius: 50%;
-
   background: radial-gradient(
-    90% 90% at 50% 50%,
+    60.61% 60.61% at 50% 50%,
     #f2f2f7 0%,
-    rgba(242, 242, 247, 0) 100%
+    rgba(242, 242, 247, 0) 82.33%
   );
 `;
 
