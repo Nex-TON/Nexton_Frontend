@@ -29,26 +29,23 @@ const NFTPreview = () => {
 
   //minting 된 nft 서버 호출
   const handleMinting = async () => {
-    const response = await postStakingInfo({
+    const data = (): UserDeposit => {
+      return {
+        $$type: "UserDeposit",
+        queryId: BigInt(Date.now()),
+        lockPeriod: 0n,
+        leverage: 0n,
+      };
+    };
+    await sendMessage(data(), stakingInfo.principal);
+    await postStakingInfo({
       id: stakingInfo.id,
       leverage: stakingInfo.leverage,
       address: stakingInfo.address,
       amount: stakingInfo.principal,
       lockPeriod: stakingInfo.lockup.toString(),
     });
-
-    if (response === 200) {
-      const data = (): UserDeposit => {
-        return {
-          $$type: "UserDeposit",
-          queryId: BigInt(Date.now()),
-          lockPeriod: 0n,
-          leverage: 0n,
-        };
-      };
-      await sendMessage(data(), stakingInfo.principal);
-      toggleModal();
-    }
+    toggleModal();
   };
 
   useEffect(() => {
