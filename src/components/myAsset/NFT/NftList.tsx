@@ -1,16 +1,18 @@
 import styled, { css } from "styled-components";
 import IcReload from "../../../assets/icons/MyAsset/ic_reload.svg";
 import Icfilter from "../../../assets/icons/MyAsset/ic_filter.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NftItem from "./NftItem";
 import NFTFilter from "../modal/NFTFilter";
-import { useNavigate } from "react-router-dom";
+import { getAllStakeInfo } from "../../../api/getAllStakeInfo";
+import useTonConnect from "../../../hooks/useTonConnect";
 
 const NftList = () => {
+  const { address } = useTonConnect();
+
+  const [stakedInfo, setStakedInfo] = useState([]);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [isSelect, setIsSelect] = useState([true, false]);
-
-  const navigate = useNavigate();
 
   const handleSelect = (index: number) => {
     if (index === 1) {
@@ -20,13 +22,21 @@ const NftList = () => {
     }
   };
 
+  const handleGetStakedInfo = async (address: string) => {
+    const response = await getAllStakeInfo(address);
+    setStakedInfo(response);
+  };
+
   const handleReload = () => {
     setIsSelect([true, false]);
   };
 
-  const handleMoveDetail = () => {
-    navigate("/myasset/1");
-  };
+  useEffect(() => {
+    if (address) {
+      handleGetStakedInfo(address);
+    }
+  }, [address]);
+
   return (
     <NFtListWrapper>
       <NftListHeader>
@@ -35,28 +45,29 @@ const NftList = () => {
           <NFTReloadBox onClick={handleReload}>
             <img src={IcReload} alt="reload" />
           </NFTReloadBox>
-          <NFTSelectBox active={isSelect[0]} onClick={() => handleSelect(1)}>
+          <NFTSelectBox $active={isSelect[0]} onClick={() => handleSelect(1)}>
             Stake
           </NFTSelectBox>
-          <NFTSelectBox active={isSelect[1]} onClick={() => handleSelect(2)}>
+          <NFTSelectBox $active={isSelect[1]} onClick={() => handleSelect(2)}>
             Collateralized
           </NFTSelectBox>
         </NFTListHeaderLeft>
-        <NFTSelectBox active onClick={() => setIsOpenFilter((prev) => !prev)}>
+        <NFTSelectBox $active onClick={() => setIsOpenFilter((prev) => !prev)}>
           Period
           <img src={Icfilter} alt="filter" />
         </NFTSelectBox>
       </NftListHeader>
-      <NFTItemWrapper>
-        <NftItem handleMoveDetail={handleMoveDetail} />
-        <NftItem />
-        <NftItem />
-        <NftItem />
-        <NftItem />
-        <NftItem />
-        <NftItem />
-        <NftItem />
-      </NFTItemWrapper>
+      {stakedInfo && stakedInfo.length > 0 ? (
+        <NFTItemWrapper>
+          {stakedInfo.map((item, idx) => (
+            <NftItem key={idx} item={item} />
+          ))}
+        </NFTItemWrapper>
+      ) : (
+        <ExtraBox>
+          <span>Empty NFT</span>
+        </ExtraBox>
+      )}
     </NFtListWrapper>
   );
 };
@@ -116,7 +127,7 @@ const NFTReloadBox = styled.div`
   box-shadow: 0 0 2rem 0 rgba(198, 197, 208, 0.3);
 `;
 
-const NFTSelectBox = styled.button<{ active?: boolean }>`
+const NFTSelectBox = styled.button<{ $active?: boolean }>`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -129,8 +140,8 @@ const NFTSelectBox = styled.button<{ active?: boolean }>`
 
   ${({ theme }) => theme.fonts.Telegram_Footnote};
 
-  ${({ active }) =>
-    active
+  ${({ $active }) =>
+    $active
       ? css`
           border: none;
           background-color: #f9f9ff;
@@ -152,7 +163,23 @@ const NFTItemWrapper = styled.div`
   gap: 1.6rem;
 
   width: 100%;
+  height: 100%;
   padding: 3rem;
 
+  border-radius: 0 0 1rem 1rem;
   background-color: #fff;
+`;
+
+const ExtraBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 60vh;
+
+  border-radius: 0 0 1rem 1rem;
+  background-color: #fff;
+  color: #45464f;
+  ${({ theme }) => theme.fonts.Telegram_Title_3_1};
 `;
