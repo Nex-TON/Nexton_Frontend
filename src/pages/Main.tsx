@@ -10,6 +10,8 @@ const Main = () => {
   useEffect(() => {
     if (tele) {
       tele.ready();
+      tele.themeParams.secondary_bg_color = "#f2f2f2";
+      tele.setHeaderColor("secondary_bg_color");
       tele.MainButton.hide();
       tele.BackButton.hide();
     }
