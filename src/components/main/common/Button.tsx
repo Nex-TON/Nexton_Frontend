@@ -47,7 +47,7 @@ const Button = (props: ButtonProps) => {
   const SelectImage = (type: string) => {
     switch (type) {
       case "leverage":
-        return <StyledImage src={IcMenuLeverage} alt="Leverage" margintop />;
+        return <StyledImage src={IcMenuLeverage} alt="Leverage" $margintop />;
       case "NXT":
         return <StyledImage src={IcMenuNxtDisable} alt="NXT" />;
       case "Loan":
@@ -68,11 +68,11 @@ const Button = (props: ButtonProps) => {
       <StyleTextBox>
         {type === "leverage" || type === "NXT" ? (
           <>
-            <StyleText unused={unused}>{top}</StyleText>
-            <StyleText unused={unused}>{bottom}</StyleText>
+            <StyleText $unused={unused}>{top}</StyleText>
+            <StyleText $unused={unused}>{bottom}</StyleText>
           </>
         ) : (
-          <StyleText unused={unused}>{title}</StyleText>
+          <StyleText $unused={unused}>{title}</StyleText>
         )}
       </StyleTextBox>
     </StyledButton>
@@ -102,13 +102,13 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
-const StyledImage = styled.img<{ margintop?: boolean }>`
+const StyledImage = styled.img<{ $margintop?: boolean }>`
   position: absolute;
   top: 1.1rem;
   right: 1.1rem;
 
-  ${({ margintop }) =>
-    margintop &&
+  ${({ $margintop }) =>
+    $margintop &&
     css`
       top: 0;
       right: 0;
@@ -125,8 +125,8 @@ const StyleTextBox = styled.div`
   bottom: 1.1rem;
   left: 1.1rem;
 `;
-const StyleText = styled.span<{ unused: boolean }>`
-  color: ${({ unused }) => (unused ? "#abaab4" : "#23232A")};
+const StyleText = styled.span<{ $unused: boolean }>`
+  color: ${({ $unused }) => ($unused ? "#abaab4" : "#23232A")};
   ${({ theme }) => theme.fonts.Nexton_Label_Medium};
 `;
 
