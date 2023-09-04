@@ -9,9 +9,10 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 const tele = (window as any).Telegram.WebApp;
 
 const UnstakingNftDetail = () => {
-  const { id } = useParams();
+  const location = useLocation();
   const [toggleModal, setToggleModal] = useState(false);
 
+  const { pathname } = location;
   const navigate = useNavigate();
 
   const handleToggleModal = () => {
@@ -45,9 +46,13 @@ const UnstakingNftDetail = () => {
         <UnstakingMessageBox>
           During this period you may not cancel the transaction.
         </UnstakingMessageBox>
-        <UnstakingButtonWrapper>
-          <UnstakingButton onClick={handleToggleModal}>Confirm</UnstakingButton>
-        </UnstakingButtonWrapper>
+        {!pathname.includes("view") && (
+          <UnstakingButtonWrapper>
+            <UnstakingButton onClick={handleToggleModal}>
+              Confirm
+            </UnstakingButton>
+          </UnstakingButtonWrapper>
+        )}
       </UnstakingWrapper>
     </>
   );
@@ -77,6 +82,7 @@ const UnstakingHeader = styled.div`
 
 const UnstakingMessageBox = styled.div`
   width: 100%;
+  margin-bottom: 2.3rem;
 
   color: #5e6162;
   ${({ theme }) => theme.fonts.Telegram_Caption_1};
@@ -85,7 +91,6 @@ const UnstakingMessageBox = styled.div`
 
 const UnstakingButtonWrapper = styled.div`
   width: 100%;
-  margin-top: 2.3rem;
   padding: 0 1.6rem;
 `;
 const UnstakingButton = styled.button`

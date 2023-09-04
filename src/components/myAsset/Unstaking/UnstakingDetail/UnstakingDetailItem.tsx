@@ -6,9 +6,7 @@ const UnstakingDetailItem = () => {
   const navigate = useNavigate();
 
   return (
-    <UnstakingDetailItemWrapper
-      onClick={() => navigate("/unstaking/1", { state: "view" })}
-    >
+    <UnstakingDetailItemWrapper onClick={() => navigate("/unstaking/view/1")}>
       <UnstakingDetailTopBox>
         <UnstakingDetailId>
           09987 <img src={IcTon} alt="tonSymbol" />
