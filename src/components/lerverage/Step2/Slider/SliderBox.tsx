@@ -27,7 +27,7 @@ const SliderBox = (props: SliderBoxProps) => {
       <SliderTextBox>
         Leveraged reward
         <SliderTextRightBox>
-          <span style={{ marginRight: "2.4rem" }}>x{ratio}</span>
+          <span style={{ marginRight: "2.4rem" }}>x{ratio.toFixed(1)}</span>
           <span>TON/1yr</span>
         </SliderTextRightBox>
       </SliderTextBox>

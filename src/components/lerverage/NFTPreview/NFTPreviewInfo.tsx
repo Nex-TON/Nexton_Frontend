@@ -25,7 +25,7 @@ const NFTPreviewInfo = (props: NFTPreviewInfoProps) => {
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Leveraged</NFTPreviewInfoItemText>
         <NFTPreviewInfoItemText>
-          x {stakingInfo.leverage}
+          x {stakingInfo.leverage.toFixed(1)}
         </NFTPreviewInfoItemText>
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>
