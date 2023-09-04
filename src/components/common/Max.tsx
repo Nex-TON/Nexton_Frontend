@@ -12,7 +12,11 @@ const Max = (props: MaxProps) => {
     setInput(String(balance.toFixed(3)));
   };
 
-  return <MaxWrapper onClick={handleMaxInput}>MAX</MaxWrapper>;
+  return (
+    <MaxWrapper disabled={!balance} onClick={handleMaxInput}>
+      MAX
+    </MaxWrapper>
+  );
 };
 
 export default Max;
