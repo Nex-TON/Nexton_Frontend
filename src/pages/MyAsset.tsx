@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import MyAssetContent from "../components/myAsset";
-import BackButton from "../components/common/BackButton";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -26,7 +25,6 @@ const MyAsset = () => {
   return (
     <MyAssetWrapper>
       <MyAssetHeaderBox>
-        {/* <BackButton /> */}
         <MyAssetHeaderTop>MY asset</MyAssetHeaderTop>
       </MyAssetHeaderBox>
       <MyAssetContent />
