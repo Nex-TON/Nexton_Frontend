@@ -59,9 +59,11 @@ const NftList = () => {
       </NftListHeader>
       {stakedInfo && stakedInfo.length > 0 ? (
         <NFTItemWrapper>
-          {stakedInfo.map((item, idx) => (
-            <NftItem key={idx} item={item} />
-          ))}
+          {stakedInfo
+            .sort((a, b) => b.timeStamp - a.timeStamp)
+            .map((item, idx) => (
+              <NftItem key={idx} item={item} />
+            ))}
         </NFTItemWrapper>
       ) : (
         <ExtraBox>
