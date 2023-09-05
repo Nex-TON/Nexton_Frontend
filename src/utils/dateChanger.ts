@@ -11,14 +11,20 @@ export const dateChangerShorter = (dateString: string) => {
   return `${day}/${month}/${year}`;
 };
 
-export const expiredDateChanger = (dateString: string, lockPeriod: number) => {
+export const expiredDateChanger = (
+  dateString: string,
+  lockPeriod: number,
+  type?: string
+) => {
   const dateObj = new Date(dateString);
   dateObj.setDate(dateObj.getDate() + lockPeriod);
   const year = String(dateObj.getFullYear()).slice(-2);
   const month = String(dateObj.getMonth() + 1).padStart(2, "0");
   const day = String(dateObj.getDate()).padStart(2, "0");
 
-  return `${day}.${month}.${year}`;
+  return type === "detail"
+    ? `${day}/${month}/${year}`
+    : `${day}.${month}.${year}`;
 };
 
 export const DDayChange = (dateString: string, lockPeriod: number) => {
