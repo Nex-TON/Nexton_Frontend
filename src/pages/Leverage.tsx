@@ -110,13 +110,6 @@ const LeverageWrapper = styled.div`
   padding: 4.5rem 0 1.3rem 0;
 `;
 
-const LeverageHeaderBox = styled.div`
-  display: flex;
-  align-items: center;
-  padding-left: 1rem;
-
-  width: 100%;
-`;
 const FooterWrapper = styled.div`
   width: 100%;
   padding: 0 1rem;
