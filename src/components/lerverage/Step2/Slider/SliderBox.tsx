@@ -24,13 +24,6 @@ const SliderBox = (props: SliderBoxProps) => {
   return (
     <SliderWrapper>
       <LeverageSlider ratio={ratio} setRatio={setRatio} />
-      <SliderTextBox>
-        Leveraged reward
-        <SliderTextRightBox>
-          <span style={{ marginRight: "2.4rem" }}>x{ratio.toFixed(1)}</span>
-          <span>TON/1yr</span>
-        </SliderTextRightBox>
-      </SliderTextBox>
       {isDisabled && (
         <LeverageErrorBox>
           Please adjust leverage times with the max leverage multiplier.

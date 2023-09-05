@@ -54,7 +54,8 @@ const StatusDetail = (props: StatusDetailProps) => {
         <LeverageDetailText>Available Amount</LeverageDetailText>
         <div>
           <LeverageDetailText style={{ marginRight: "1.3rem" }}>
-            {LP_POOL / 100}
+            {/* {LP_POOL / 100} */}
+            000.000
           </LeverageDetailText>
           <LeverageDetailText>TON</LeverageDetailText>
         </div>
@@ -64,7 +65,7 @@ const StatusDetail = (props: StatusDetailProps) => {
           <>
             <LeverageDetailText>Max Leverage</LeverageDetailText>
             <LeverageDetailText>
-              {maxLeverage && checkMaxLeverage(maxLeverage)}
+              {/* {maxLeverage && checkMaxLeverage(maxLeverage)} */}x 1.0
             </LeverageDetailText>
           </>
         ) : (

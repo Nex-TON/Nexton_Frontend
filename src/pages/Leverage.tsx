@@ -83,6 +83,9 @@ const Leverage = () => {
       />
       <BorderLine />
       <Step3 input={input} ratio={ratio} />
+      <LeverageBottomTextBox>
+        The NFT will contain the information
+      </LeverageBottomTextBox>
       <FooterWrapper>
         <FooterButton
           title="Confirm"
@@ -117,4 +120,14 @@ const LeverageHeaderBox = styled.div`
 const FooterWrapper = styled.div`
   width: 100%;
   padding: 0 1rem;
+`;
+
+const LeverageBottomTextBox = styled.div`
+  width: 100%;
+  margin-bottom: 0.9rem;
+
+  color: #007aff;
+  ${({ theme }) => theme.fonts.Telegram_Caption_1_1};
+
+  text-align: center;
 `;
