@@ -6,7 +6,6 @@ import { nftInfo } from "../../../types/Nft";
 import { numberCutter } from "../../../utils/numberCutter";
 import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
 import { getProtocolFee } from "../../../utils/getProtocolFee";
-import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 interface DetailNftInfoProps {
   item: nftInfo;
@@ -82,18 +81,13 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
       <ButtonWrapper>
         {DDayChange(timeStamp, lockPeriod) > 0 ? (
           <>
-            <MainButton text="Unlock" />
-            <MainButton
-              text="borrow"
-              onClick={() => navigate(`/loan/${nftId}`)}
-            />
-            {/* <StyledButton>Unlock</StyledButton>
+            <StyledButton>Unlock</StyledButton>
             <StyledButton
               type="borrow"
               onClick={() => navigate(`/loan/${nftId}`)}
             >
               Collateralizing
-            </StyledButton> */}
+            </StyledButton>
           </>
         ) : (
           <>

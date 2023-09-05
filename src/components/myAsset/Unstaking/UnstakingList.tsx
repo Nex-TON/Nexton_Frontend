@@ -2,9 +2,12 @@ import { styled } from "styled-components";
 import IcClaim from "../../../assets/icons/MyAsset/ic_claim.svg";
 import IcClaimDisable from "../../../assets/icons/MyAsset/ic_claim_disable.svg";
 import IcArrow from "../../../assets/icons/MyAsset/ic_arrow.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UnstakingDetail from "./UnstakingDetail/UnstakingDetail";
 import { useNavigate } from "react-router-dom";
+
+const tele = (window as any).Telegram.WebApp;
+
 const UnstakingList = () => {
   const [moveUnstakingDetail, setMoveUnstakingDetail] = useState(false);
   const navigate = useNavigate();
@@ -12,6 +15,20 @@ const UnstakingList = () => {
   const handleMoveUnstakingDetail = () => {
     setMoveUnstakingDetail((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        navigate("/myasset");
+      });
+    }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
+  }, []);
 
   return (
     <>

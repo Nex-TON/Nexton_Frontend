@@ -6,9 +6,13 @@ import NftItem from "./NftItem";
 import NFTFilter from "../modal/NFTFilter";
 import { getAllStakeInfo } from "../../../api/getAllStakeInfo";
 import useTonConnect from "../../../hooks/useTonConnect";
+import { useNavigate } from "react-router-dom";
+
+const tele = (window as any).Telegram.WebApp;
 
 const NftList = () => {
   const { address } = useTonConnect();
+  const navigate = useNavigate();
 
   const [stakedInfo, setStakedInfo] = useState([]);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
@@ -36,6 +40,20 @@ const NftList = () => {
       handleGetStakedInfo(address);
     }
   }, [address]);
+
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        navigate("/");
+      });
+    }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
+  }, []);
 
   return (
     <NFtListWrapper>
