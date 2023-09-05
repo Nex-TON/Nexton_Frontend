@@ -6,6 +6,7 @@ import SwapRatio from "./SwapRatio";
 import Button from "../common/Button";
 import { useState } from "react";
 import useTonConnect from "../../../hooks/useTonConnect";
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 const SwapSection = () => {
   const [switchToken, setSwitchToken] = useState(false);
@@ -40,7 +41,8 @@ const SwapSection = () => {
       </SwapWrapper>
       <LiquidityBox type="swap" />
       <SwapRatio />
-      <Button title="Swap" />
+      <MainButton text="Swap" />
+      {/* <Button title="Swap" /> */}
     </SwapSectionWrapper>
   );
 };

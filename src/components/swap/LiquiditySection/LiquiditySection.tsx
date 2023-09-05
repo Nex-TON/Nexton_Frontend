@@ -4,6 +4,7 @@ import LiquidityPair from "./LiquidityPair";
 import LiquidityBox from "../common/LiquidityBox";
 import Button from "../common/Button";
 import useTonConnect from "../../../hooks/useTonConnect";
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 const LiquiditySection = () => {
   const { balance } = useTonConnect();
@@ -16,7 +17,8 @@ const LiquiditySection = () => {
       <SwapBox type="top" />
       <SwapBox type="bottom" balance={balance} />
       <LiquidityBox type="liquidity" />
-      <Button title="Confirm" />
+      <MainButton text="Confirm" />
+      {/* <Button title="Confirm" /> */}
     </LiquiditySectionWrapper>
   );
 };

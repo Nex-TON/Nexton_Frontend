@@ -4,6 +4,7 @@ import BorrowDetailInfo from "./BorrowDetailInfo";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import BasicModal from "../modal/BasicModal";
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -39,7 +40,8 @@ const BorrowDetail = () => {
           Borrow NXT
         </BorrowDetailHeader> */}
         <BorrowDetailInfo />
-        <ConfirmButton onClick={handleToggleModal}>Confirm</ConfirmButton>
+        <MainButton text="Confirm" onClick={handleToggleModal} />
+        {/* <ConfirmButton onClick={handleToggleModal}>Confirm</ConfirmButton> */}
       </BorrowDetailWrapper>
     </>
   );

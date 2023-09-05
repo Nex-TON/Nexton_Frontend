@@ -5,6 +5,7 @@ import BackButton from "../components/common/BackButton";
 import UnstakingPreview from "../components/myAsset/NFT/Unstaking/UnstakingPreview";
 import UnstakingInfo from "../components/myAsset/NFT/Unstaking/UnstakingInfo";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -47,11 +48,12 @@ const UnstakingNftDetail = () => {
           During this period you may not cancel the transaction.
         </UnstakingMessageBox>
         {!pathname.includes("view") && (
-          <UnstakingButtonWrapper>
-            <UnstakingButton onClick={handleToggleModal}>
-              Confirm
-            </UnstakingButton>
-          </UnstakingButtonWrapper>
+          // <UnstakingButtonWrapper>
+          //   <UnstakingButton onClick={handleToggleModal}>
+          //     Confirm
+          //   </UnstakingButton>
+          // </UnstakingButtonWrapper>
+          <MainButton text="Confirm" onClick={handleToggleModal} />
         )}
       </UnstakingWrapper>
     </>

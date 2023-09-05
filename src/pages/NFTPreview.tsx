@@ -113,6 +113,8 @@ const NFTPreviewConfirmBox = styled.div`
   text-align: center;
 `;
 const NFTPreviewConfirmText = styled.span`
+  margin-bottom: 1.4rem;
+
   color: #007aff;
   ${({ theme }) => theme.fonts.Telegram_Caption_1_1};
 `;
