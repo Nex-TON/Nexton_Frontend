@@ -4,7 +4,6 @@ import IcClaimDisable from "../../../assets/icons/MyAsset/ic_claim_disable.svg";
 import IcArrow from "../../../assets/icons/MyAsset/ic_arrow.svg";
 import { useState } from "react";
 import UnstakingDetail from "./UnstakingDetail/UnstakingDetail";
-import { BackButton } from "@vkruglikov/react-telegram-web-app";
 import { useNavigate } from "react-router-dom";
 const UnstakingList = () => {
   const [moveUnstakingDetail, setMoveUnstakingDetail] = useState(false);
@@ -22,7 +21,6 @@ const UnstakingList = () => {
         />
       ) : (
         <>
-          <BackButton onClick={() => navigate("/myasset")} />
           <UnstakingListWrapper>
             <UnstakingListTop>
               <UnstakingMainText>Settled amount</UnstakingMainText>

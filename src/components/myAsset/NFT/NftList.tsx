@@ -40,17 +40,13 @@ const NftList = () => {
   return (
     <NFtListWrapper>
       <NftListHeader>
-        {isOpenFilter && <NFTFilter />}
+        {/* {isOpenFilter && <NFTFilter />} */}
         <NFTListHeaderLeft>
           <NFTReloadBox onClick={handleReload}>
             <img src={IcReload} alt="reload" />
           </NFTReloadBox>
-          <NFTSelectBox $active={isSelect[0]} onClick={() => handleSelect(1)}>
-            Stake
-          </NFTSelectBox>
-          <NFTSelectBox $active={isSelect[1]} onClick={() => handleSelect(2)}>
-            Collateralized
-          </NFTSelectBox>
+          <NFTSelectBox $active={isSelect[0]}>Stake</NFTSelectBox>
+          <NFTSelectBox $active={isSelect[1]}>Collateralized</NFTSelectBox>
         </NFTListHeaderLeft>
         <NFTSelectBox $active onClick={() => setIsOpenFilter((prev) => !prev)}>
           Period
