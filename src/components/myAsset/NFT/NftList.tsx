@@ -61,8 +61,8 @@ const NftList = () => {
         <NFTItemWrapper>
           {stakedInfo
             .sort((a, b) => b.timeStamp - a.timeStamp)
-            .map((item, idx) => (
-              <NftItem key={idx} item={item} />
+            .map((item) => (
+              <NftItem key={item.nftId} item={item} />
             ))}
         </NFTItemWrapper>
       ) : (

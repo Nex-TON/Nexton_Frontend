@@ -1,14 +1,24 @@
 import { css, styled } from "styled-components";
 import NFTOngoing from "../../../assets/image/NftOngoing.png";
+import NFTForthComing from "../../../assets/image/NftForthComing.png";
+import NFTExpired from "../../../assets/image/NftExpired.png";
 import { useRecoilValue } from "recoil";
 import { imageSizeAtom } from "../../../lib/atom/imageSize";
+import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
+import { nftInfo } from "../../../types/Nft";
 
-const DetailNFTPreview = () => {
+interface DetailNFTPreviewProps {
+  item: nftInfo;
+}
+
+const DetailNFTPreview = (props: DetailNFTPreviewProps) => {
+  const { item } = props;
+  const { timeStamp, lockPeriod } = item;
   const imageSize = useRecoilValue(imageSizeAtom);
 
-  return (
-    <DetailNFTPreviewWrapper>
-      <NFTImageWrapper>
+  const SwitchDDayNftImage = () => {
+    if (DDayChange(timeStamp, lockPeriod) > 55) {
+      return (
         <NFTImage
           src={NFTOngoing}
           alt="NFTOngoing"
@@ -17,9 +27,47 @@ const DetailNFTPreview = () => {
             height: `${imageSize.height}px`,
           }}
         />
-        <NFTDDayText>D-Day</NFTDDayText>
+      );
+    } else if (DDayChange(timeStamp, lockPeriod) > 0) {
+      return (
+        <NFTImage
+          src={NFTForthComing}
+          alt="NFTForthComing"
+          style={{
+            width: `${imageSize.width}px`,
+            height: `${imageSize.height}px`,
+          }}
+        />
+      );
+    } else {
+      return (
+        <NFTImage
+          src={NFTExpired}
+          alt="NFTExpired"
+          style={{
+            width: `${imageSize.width}px`,
+            height: `${imageSize.height}px`,
+          }}
+        />
+      );
+    }
+  };
+
+  return (
+    <DetailNFTPreviewWrapper>
+      <NFTImageWrapper>
+        {SwitchDDayNftImage()}
+        <NFTDDayText>
+          {DDayChange(timeStamp, lockPeriod) > 0
+            ? `D-${DDayChange(timeStamp, lockPeriod)}`
+            : DDayChange(timeStamp, lockPeriod) === 0
+            ? `D-Day`
+            : `D+${DDayChange(timeStamp, lockPeriod)}`}
+        </NFTDDayText>
         <NFTExpiredDateText>Expired Date</NFTExpiredDateText>
-        <NFTExpiredDateText $date>dd.mm.yy</NFTExpiredDateText>
+        <NFTExpiredDateText $date>
+          {expiredDateChanger(timeStamp, lockPeriod)}
+        </NFTExpiredDateText>
       </NFTImageWrapper>
     </DetailNFTPreviewWrapper>
   );

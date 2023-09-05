@@ -15,7 +15,7 @@ interface NftItemProps {
 
 const NftItem = (props: NftItemProps) => {
   const { item } = props;
-  const { timeStamp, lockPeriod } = item;
+  const { nftId, timeStamp, lockPeriod } = item;
 
   const [, setImageSize] = useRecoilState(imageSizeAtom);
 
@@ -27,7 +27,7 @@ const NftItem = (props: NftItemProps) => {
   };
 
   const handleMoveDetail = () => {
-    navigate("/myasset/1");
+    navigate(`/myasset/${nftId}`);
   };
 
   const SwitchDDayNftImage = () => {

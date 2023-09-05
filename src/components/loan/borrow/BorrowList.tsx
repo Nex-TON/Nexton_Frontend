@@ -2,25 +2,43 @@ import { styled } from "styled-components";
 import IcLoanArrow from "../../../assets/icons/Loan/ic_loan_arrow.svg";
 import { useNavigate } from "react-router-dom";
 import { NftStatus } from "../common/Nftstatus";
+import { nftInfo } from "../../../types/Nft";
+import { numberCutter } from "../../../utils/numberCutter";
+import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
 
-const BorrowList = () => {
+interface BorrowListProps {
+  item: nftInfo;
+}
+
+const BorrowList = (props: BorrowListProps) => {
+  const { nftId, amount, timeStamp, lockPeriod } = props.item;
+
   const navigate = useNavigate();
 
   return (
     <BorrowLlistWrapper>
       <BorrowListTop>
         <BorrowListTopLeft>
-          <NftStatus />
+          {DDayChange(timeStamp, lockPeriod) > 55 ? (
+            <NftStatus type="ongoing" />
+          ) : DDayChange(timeStamp, lockPeriod) === 0 ? (
+            <NftStatus type="expired" />
+          ) : (
+            <NftStatus type="forthComing" />
+          )}
           <div>
             <Caption3 style={{ color: "#000" }}>NFT</Caption3>
-            <LabelMedium style={{ color: "#000" }}> 0000</LabelMedium>
+            <LabelMedium style={{ color: "#000" }}>
+              {" "}
+              {String(nftId).padStart(5, "0")}
+            </LabelMedium>
           </div>
           <div style={{ marginLeft: "1.4rem" }}>
             <Caption3>Max.LTV</Caption3>
             <LabelMedium> 80%</LabelMedium>
           </div>
         </BorrowListTopLeft>
-        <BorrowButton onClick={() => navigate("/loan/1")}>
+        <BorrowButton onClick={() => navigate(`/loan/${nftId}`)}>
           Borrow
           <img src={IcLoanArrow} alt="loan" />
         </BorrowButton>
@@ -28,15 +46,17 @@ const BorrowList = () => {
       <BorrowListBottom>
         <BorrowListBottomTextBottom>
           <Caption3>Principal</Caption3>
-          <LabelMedium>0000 TON</LabelMedium>
+          <LabelMedium>{numberCutter(amount)} TON</LabelMedium>
         </BorrowListBottomTextBottom>
         <BorrowListBottomTextBottom>
           <Caption3>Evaluation</Caption3>
-          <LabelMedium>0000 TON</LabelMedium>
+          <LabelMedium>{numberCutter(amount)} TON</LabelMedium>
         </BorrowListBottomTextBottom>
         <BorrowListBottomTextBottom>
           <Caption3>Expired date</Caption3>
-          <LabelMedium>DD/MM/YY</LabelMedium>
+          <LabelMedium>
+            {expiredDateChanger(timeStamp, lockPeriod, "detail")}
+          </LabelMedium>
         </BorrowListBottomTextBottom>
       </BorrowListBottom>
     </BorrowLlistWrapper>

@@ -18,10 +18,6 @@ const NFTPreviewInfo = (props: NFTPreviewInfoProps) => {
           {Number(stakingInfo.principal).toLocaleString()} TON
         </NFTPreviewInfoItemText>
       </NFTPreviewInfoItem>
-      {/* <NFTPreviewInfoItem>
-        <NFTPreviewInfoItemText>Transaction Fee</NFTPreviewInfoItemText>
-        <NFTPreviewInfoItemText>40,000 TON</NFTPreviewInfoItemText>
-      </NFTPreviewInfoItem> */}
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Leveraged</NFTPreviewInfoItemText>
         <NFTPreviewInfoItemText>

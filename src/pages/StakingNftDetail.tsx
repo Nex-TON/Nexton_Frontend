@@ -1,18 +1,29 @@
 import { styled } from "styled-components";
-import BackButton from "../components/common/BackButton";
 import DetailNFTPreview from "../components/myAsset/detail/DetailNFTPreview";
 import DetailNftInfo from "../components/myAsset/detail/DetailNFTInfo";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getNFTDetail } from "../api/getNFTDetail";
 
 const tele = (window as any).Telegram.WebApp;
 
 const StakingNftDetail = () => {
+  const [stakedNftDetail, setStakedNftDetail] = useState([]);
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const getStakedNftDetail = async () => {
+    const response = await getNFTDetail(Number(id));
+    setStakedNftDetail(response);
+  };
 
   const handleMoveUnstaking = () => {
     navigate("/unstaking/1");
   };
+
+  useEffect(() => {
+    getStakedNftDetail();
+  }, [id]);
 
   useEffect(() => {
     if (tele) {
@@ -29,14 +40,17 @@ const StakingNftDetail = () => {
   }, []);
 
   return (
-    <DetailWrapper>
-      <DetailHeader>
-        {/* <BackButton /> */}
-        Staking NFT
-      </DetailHeader>
-      <DetailNFTPreview />
-      <DetailNftInfo handleMoveUnstaking={handleMoveUnstaking} />
-    </DetailWrapper>
+    stakedNftDetail &&
+    stakedNftDetail.length > 0 && (
+      <DetailWrapper>
+        <DetailHeader>Staking NFT</DetailHeader>
+        <DetailNFTPreview item={stakedNftDetail[0]} />
+        <DetailNftInfo
+          handleMoveUnstaking={handleMoveUnstaking}
+          item={stakedNftDetail[0]}
+        />
+      </DetailWrapper>
+    )
   );
 };
 

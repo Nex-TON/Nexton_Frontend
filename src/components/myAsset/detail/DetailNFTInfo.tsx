@@ -2,12 +2,18 @@ import { css, styled } from "styled-components";
 import DetailNFTInfoHeader from "./DetailNFTInfoHeader";
 import IcTonSymbol from "../../../assets/icons/MyAsset/ic_tonSymbol.svg";
 import { useNavigate } from "react-router-dom";
+import { nftInfo } from "../../../types/Nft";
+import { numberCutter } from "../../../utils/numberCutter";
+import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
+import { getProtocolFee } from "../../../utils/getProtocolFee";
 
 interface DetailNftInfoProps {
+  item: nftInfo;
   handleMoveUnstaking: () => void;
 }
 const DetailNftInfo = (props: DetailNftInfoProps) => {
-  const { handleMoveUnstaking } = props;
+  const { item, handleMoveUnstaking } = props;
+  const { nftId, amount, leverage, timeStamp, lockPeriod } = item;
 
   const navigate = useNavigate();
 
@@ -17,7 +23,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
       <DetailInfoItemWrapper>
         <DetailInfoItem>
           <DetailInfoItemText>Token ID</DetailInfoItemText>
-          <DetailInfoItemText>133123123</DetailInfoItemText>
+          <DetailInfoItemText>{nftId}</DetailInfoItemText>
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Token Standard</DetailInfoItemText>
@@ -37,7 +43,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
       <DetailInfoItemWrapper>
         <DetailInfoItem>
           <DetailInfoItemText>Principal</DetailInfoItemText>
-          <DetailInfoItemText>133123123 TON</DetailInfoItemText>
+          <DetailInfoItemText>{numberCutter(amount)} TON</DetailInfoItemText>
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Nominator Pool</DetailInfoItemText>
@@ -45,19 +51,23 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Leveraged</DetailInfoItemText>
-          <DetailInfoItemText>x 2.5</DetailInfoItemText>
+          <DetailInfoItemText>x {leverage.toFixed(1)}</DetailInfoItemText>
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Lockup period</DetailInfoItemText>
-          <DetailInfoItemText>60 days</DetailInfoItemText>
+          <DetailInfoItemText>{lockPeriod} days</DetailInfoItemText>
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Unstakable date</DetailInfoItemText>
-          <DetailInfoItemText>DD/MM/YY</DetailInfoItemText>
+          <DetailInfoItemText>
+            {expiredDateChanger(timeStamp, lockPeriod, "detail")}
+          </DetailInfoItemText>
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Protocol Fees</DetailInfoItemText>
-          <DetailInfoItemText>0.02%</DetailInfoItemText>
+          <DetailInfoItemText>
+            {numberCutter(getProtocolFee(String(amount), leverage))}%
+          </DetailInfoItemText>
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Staking APR</DetailInfoItemText>
@@ -65,18 +75,33 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Total Amount</DetailInfoItemText>
-          <DetailInfoItemText>10,000 TON</DetailInfoItemText>
+          <DetailInfoItemText>{numberCutter(amount)} TON</DetailInfoItemText>
         </DetailInfoItem>
       </DetailInfoItemWrapper>
       <ButtonWrapper>
-        {/* <StyledButton>Unlock</StyledButton>
-        <StyledButton type="borrow">Collateralizing</StyledButton> */}
-        <StyledButton type="borrow" onClick={() => navigate("/loan/1")}>
-          Collateralizing
-        </StyledButton>
-        <StyledButton type="unstaking" onClick={handleMoveUnstaking}>
-          Unstaking
-        </StyledButton>
+        {DDayChange(timeStamp, lockPeriod) > 0 ? (
+          <>
+            <StyledButton>Unlock</StyledButton>
+            <StyledButton
+              type="borrow"
+              onClick={() => navigate(`/loan/${nftId}`)}
+            >
+              Collateralizing
+            </StyledButton>
+          </>
+        ) : (
+          <>
+            <StyledButton
+              type="borrow"
+              onClick={() => navigate(`/loan/${nftId}`)}
+            >
+              Collateralizing
+            </StyledButton>
+            <StyledButton type="unstaking" onClick={handleMoveUnstaking}>
+              Unstaking
+            </StyledButton>
+          </>
+        )}
       </ButtonWrapper>
     </DetailNftInfoWrapper>
   );
@@ -141,17 +166,20 @@ const StyledButton = styled.button<{ type?: string }>`
 
   border: none;
   border-radius: 1.2rem;
-  background-color: #f9f9ff;
-  color: #09090a;
   ${({ type }) =>
     type === "borrow"
       ? css`
           background-color: #007aff;
           color: #fff;
         `
-      : css`
+      : type === "unstaking"
+      ? css`
           background-color: #33343e;
           color: #fff;
+        `
+      : css`
+          background-color: #f9f9ff;
+          color: #09090a;
         `}
   ${({ theme }) => theme.fonts.Telegram_SemiBold};
   box-shadow: 0px 0px 20px 0px rgba(198, 197, 208, 0.3);

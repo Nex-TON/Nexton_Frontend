@@ -1,53 +1,108 @@
 import { styled } from "styled-components";
 import { NftStatus } from "../common/Nftstatus";
 import IcLoanEqual from "../../../assets/icons/Loan/ic_loan_equal.svg";
+import { useParams } from "react-router-dom";
+import { getNFTDetail } from "../../../api/getNFTDetail";
+import { useEffect, useState } from "react";
+import { numberCutter } from "../../../utils/numberCutter";
+import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
 
 const BorrowDetailInfo = () => {
+  const { id } = useParams();
+  const [stakedNftDetail, setStakedNftDetail] = useState([]);
+
+  const getStakedNftDetail = async () => {
+    const response = await getNFTDetail(Number(id));
+    setStakedNftDetail(response);
+  };
+
+  useEffect(() => {
+    getStakedNftDetail();
+  }, [id]);
+
   return (
-    <>
-      <BorrowDetailInfoWrapper>
-        <BorrowDetailInfoTop>
-          <BodyTextMedium2>Collateralizing NFT info</BodyTextMedium2>
-          <BorrowDetailInfoTopNftBox>
-            <NftStatus style={{ width: "1.6rem", height: "1.6rem" }} />
-            NFT 0000
-          </BorrowDetailInfoTopNftBox>
-        </BorrowDetailInfoTop>
-        <BorrowListBottom>
-          <BorrowListBottomTextBottom>
-            <Caption3>Principal</Caption3>
-            <LabelMedium>0000 TON</LabelMedium>
-          </BorrowListBottomTextBottom>
-          <BorrowListBottomTextBottom>
-            <Caption3>Evaluation</Caption3>
-            <LabelMedium>0000 TON</LabelMedium>
-          </BorrowListBottomTextBottom>
-          <BorrowListBottomTextBottom>
-            <Caption3>Expired date</Caption3>
-            <LabelMedium>DD/MM/YY</LabelMedium>
-          </BorrowListBottomTextBottom>
-        </BorrowListBottom>
-      </BorrowDetailInfoWrapper>
-      <BorrowLTVBox>
-        <BorrowShadowBox>
-          <BodyTextMedium2 style={{ marginBottom: "1.6rem" }}>
-            LTV
-          </BodyTextMedium2>
-          <BodyTextMedium2 style={{ textAlign: "right" }}>80%</BodyTextMedium2>
-        </BorrowShadowBox>
-        <img src={IcLoanEqual} alt="equal" />
-        <BorrowShadowBox type="right">
-          <BorrowShadowInnerBox>
-            <BodyTextMedium2>Borrow</BodyTextMedium2>
-            <Caption3>1NXT = n TON</Caption3>
-          </BorrowShadowInnerBox>
-          <BorrowShadowInnerBox>
-            <BodyTextMedium2>100,000,000</BodyTextMedium2>
-            <BodyTextMedium2>NXT</BodyTextMedium2>
-          </BorrowShadowInnerBox>
-        </BorrowShadowBox>
-      </BorrowLTVBox>
-    </>
+    stakedNftDetail &&
+    stakedNftDetail.length > 0 && (
+      <>
+        <BorrowDetailInfoWrapper>
+          <BorrowDetailInfoTop>
+            <BodyTextMedium2>Collateralizing NFT info</BodyTextMedium2>
+            <BorrowDetailInfoTopNftBox>
+              {DDayChange(
+                stakedNftDetail[0].timeStamp,
+                stakedNftDetail[0].lockPeriod
+              ) > 55 ? (
+                <NftStatus
+                  type="ongoing"
+                  style={{ width: "1.6rem", height: "1.6rem" }}
+                />
+              ) : DDayChange(
+                  stakedNftDetail[0].timeStamp,
+                  stakedNftDetail[0].lockPeriod
+                ) === 0 ? (
+                <NftStatus
+                  type="expired"
+                  style={{ width: "1.6rem", height: "1.6rem" }}
+                />
+              ) : (
+                <NftStatus
+                  type="forthComing"
+                  style={{ width: "1.6rem", height: "1.6rem" }}
+                />
+              )}
+              NFT {String(stakedNftDetail[0].nftId).padStart(5, "0")}
+            </BorrowDetailInfoTopNftBox>
+          </BorrowDetailInfoTop>
+          <BorrowListBottom>
+            <BorrowListBottomTextBottom>
+              <Caption3>Principal</Caption3>
+              <LabelMedium>
+                {numberCutter(stakedNftDetail[0].amount)} TON
+              </LabelMedium>
+            </BorrowListBottomTextBottom>
+            <BorrowListBottomTextBottom>
+              <Caption3>Evaluation</Caption3>
+              <LabelMedium>
+                {numberCutter(stakedNftDetail[0].amount)} TON
+              </LabelMedium>
+            </BorrowListBottomTextBottom>
+            <BorrowListBottomTextBottom>
+              <Caption3>Expired date</Caption3>
+              <LabelMedium>
+                {expiredDateChanger(
+                  stakedNftDetail[0].timeStamp,
+                  stakedNftDetail[0].lockPeriod,
+                  "detail"
+                )}
+              </LabelMedium>
+            </BorrowListBottomTextBottom>
+          </BorrowListBottom>
+        </BorrowDetailInfoWrapper>
+        <BorrowLTVBox>
+          <BorrowShadowBox>
+            <BodyTextMedium2 style={{ marginBottom: "1.6rem" }}>
+              LTV
+            </BodyTextMedium2>
+            <BodyTextMedium2 style={{ textAlign: "right" }}>
+              80%
+            </BodyTextMedium2>
+          </BorrowShadowBox>
+          <img src={IcLoanEqual} alt="equal" />
+          <BorrowShadowBox type="right">
+            <BorrowShadowInnerBox>
+              <BodyTextMedium2>Borrow</BodyTextMedium2>
+              <Caption3>1NXT = n TON</Caption3>
+            </BorrowShadowInnerBox>
+            <BorrowShadowInnerBox>
+              <BodyTextMedium2>
+                {numberCutter(stakedNftDetail[0].amount * 0.8)}
+              </BodyTextMedium2>
+              <BodyTextMedium2>NXT</BodyTextMedium2>
+            </BorrowShadowInnerBox>
+          </BorrowShadowBox>
+        </BorrowLTVBox>
+      </>
+    )
   );
 };
 
@@ -147,6 +202,7 @@ const BorrowShadowInnerBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 
   width: 100%;
 
