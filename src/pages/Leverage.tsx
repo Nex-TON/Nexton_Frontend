@@ -15,6 +15,7 @@ import { getTelegramId } from "../api/getTelegramId";
 import useTonConnect from "../hooks/useTonConnect";
 import { telegramAtom } from "../lib/atom/telegram";
 import { useNavigate } from "react-router-dom";
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -86,14 +87,15 @@ const Leverage = () => {
       <LeverageBottomTextBox>
         The NFT will contain the information
       </LeverageBottomTextBox>
-      <FooterWrapper>
+      {/* <FooterWrapper>
         <FooterButton
           title="Confirm"
           input={input}
           ratio={ratio}
           onClick={handleMovePreview}
         />
-      </FooterWrapper>
+      </FooterWrapper> */}
+      <MainButton text="Confirm" onClick={handleMovePreview} />
     </LeverageWrapper>
   );
 };
