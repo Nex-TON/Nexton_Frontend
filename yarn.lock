@@ -1783,6 +1783,11 @@
     "@babel/plugin-transform-react-jsx-source" "^7.22.5"
     react-refresh "^0.14.0"
 
+"@vkruglikov/react-telegram-web-app@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@vkruglikov/react-telegram-web-app/-/react-telegram-web-app-2.1.1.tgz#56bd3a782135c7f3a2145eb98521bd355a4224e0"
+  integrity sha512-rIDAPVVDiZ7ektbTkjWmP88+xokYuE2Gjt5NCMkthsqcv1vzc9fUQOjvfFXA7i6Kob+5308acv2S3E3TdHR43A==
+
 abort-controller@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/abort-controller/-/abort-controller-3.0.0.tgz#eaf54d53b62bae4138e809ca225c8439a6efb392"
