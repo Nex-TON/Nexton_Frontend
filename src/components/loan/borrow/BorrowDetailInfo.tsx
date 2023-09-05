@@ -115,7 +115,6 @@ const BorrowDetailInfoWrapper = styled.div`
   align-items: center;
 
   width: 100%;
-  margin-top: 2.2rem;
 
   border-radius: 2rem;
   box-shadow: 0px 4px 6px 0px rgba(225, 228, 230, 0.5);

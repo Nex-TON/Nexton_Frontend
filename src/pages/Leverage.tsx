@@ -43,6 +43,7 @@ const Leverage = () => {
   });
 
   const handleMovePreview = () => {
+    if (Number(input) < 0.2) return;
     if (telegramId) {
       const newDepoist: StakingProps = {
         id: Number(telegramId),
@@ -122,7 +123,7 @@ const LeverageBottomTextBox = styled.div`
   margin-bottom: 0.9rem;
 
   color: #007aff;
-  ${({ theme }) => theme.fonts.Telegram_Caption_1_1};
+  ${({ theme }) => theme.fonts.Telegram_Footnote_1};
 
   text-align: center;
 `;
