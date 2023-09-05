@@ -10,7 +10,7 @@ const BoderLineWrapper = styled.div`
   width: 100%;
   height: 0.4rem;
 
-  margin: 2.2rem 0;
+  margin: 3.8rem 0;
 
   border-radius: 2rem;
   background: var(linear-gradient(159deg, #f3f6fc 0%, #e6e7f7 100%));

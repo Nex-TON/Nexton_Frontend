@@ -17,21 +17,13 @@ const LiquidityBox = (props: LiquidityBoxProps) => {
 
   return (
     <LiquidityBoxWrapper>
-      <LiquidityBoxTop>
+      <LiquidityBoxTop onClick={() => setIsOpenLiquidity((prev) => !prev)}>
         Pool Liquidity
         {type === "liquidity" &&
           (isOpenLiquidity ? (
-            <img
-              src={IcArrowUp}
-              alt="arrowDown"
-              onClick={() => setIsOpenLiquidity(false)}
-            />
+            <img src={IcArrowUp} alt="arrowDown" />
           ) : (
-            <img
-              src={IcArrowDown}
-              alt="arrowUp"
-              onClick={() => setIsOpenLiquidity(true)}
-            />
+            <img src={IcArrowDown} alt="arrowUp" />
           ))}
       </LiquidityBoxTop>
       {type === "swap" ? (

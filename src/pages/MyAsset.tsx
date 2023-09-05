@@ -44,7 +44,7 @@ const MyAssetWrapper = styled.div`
 
   position: relative;
 
-  padding: 2.9rem 1.6rem 1.4rem 1.6rem;
+  padding: 2.9rem 1.6rem 0rem 1.6rem;
 `;
 
 const MyAssetHeaderBox = styled.div`

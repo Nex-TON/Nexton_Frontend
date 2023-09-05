@@ -34,10 +34,10 @@ const BorrowDetail = () => {
       {isOpenModal && <BasicModal toggleModal={handleToggleModal} />}
       <BorrowDetailWrapper>
         <LoanHeader type="detail" />
-        <BorrowDetailHeader>
-          {/* <BackButton type="detail" handleMoveLoan={handleMoveLoan} loan /> */}
+        {/* <BorrowDetailHeader>
+          <BackButton type="detail" handleMoveLoan={handleMoveLoan} loan />
           Borrow NXT
-        </BorrowDetailHeader>
+        </BorrowDetailHeader> */}
         <BorrowDetailInfo />
         <ConfirmButton onClick={handleToggleModal}>Confirm</ConfirmButton>
       </BorrowDetailWrapper>

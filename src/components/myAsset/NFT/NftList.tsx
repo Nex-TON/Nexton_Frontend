@@ -161,14 +161,15 @@ const NFTSelectBox = styled.button<{ $active?: boolean }>`
 
 const NFTItemWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(14.2rem, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(16rem, auto));
+
   gap: 1.6rem;
 
   width: 100%;
   height: 100%;
   padding: 3rem;
 
-  border-radius: 0 0 1rem 1rem;
   background-color: #fff;
 `;
 
