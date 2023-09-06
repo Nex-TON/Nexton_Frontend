@@ -4,4 +4,5 @@ export interface nftInfo {
   leverage: number;
   lockPeriod: number;
   timeStamp: string;
+  nominator: string;
 }
