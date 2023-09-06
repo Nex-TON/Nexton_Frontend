@@ -17,10 +17,6 @@ const StakingNftDetail = () => {
     setStakedNftDetail(response);
   };
 
-  const handleMoveUnstaking = () => {
-    navigate("/unstaking/1");
-  };
-
   useEffect(() => {
     getStakedNftDetail();
   }, [id]);
@@ -45,10 +41,7 @@ const StakingNftDetail = () => {
       <DetailWrapper>
         <DetailHeader>Staking NFT</DetailHeader>
         <DetailNFTPreview item={stakedNftDetail[0]} />
-        <DetailNftInfo
-          handleMoveUnstaking={handleMoveUnstaking}
-          item={stakedNftDetail[0]}
-        />
+        <DetailNftInfo item={stakedNftDetail[0]} />
       </DetailWrapper>
     )
   );

@@ -78,7 +78,7 @@ const NftItem = (props: NftItemProps) => {
           ? `D-${DDayChange(timeStamp, lockPeriod)}`
           : DDayChange(timeStamp, lockPeriod) === 0
           ? `D-Day`
-          : `D+${DDayChange(timeStamp, lockPeriod)}`}
+          : `D+${DDayChange(timeStamp, lockPeriod) * -1}`}
       </NFTDDayText>
       <NFTExpiredDateText>Expired Date</NFTExpiredDateText>
       <NFTExpiredDateText $date>

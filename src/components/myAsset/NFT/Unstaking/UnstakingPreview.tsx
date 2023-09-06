@@ -1,15 +1,25 @@
 import { styled } from "styled-components";
 import NftPreviewExpired from "../../../../assets/image/NftPreviewExpired.png";
+import { nftInfo } from "../../../../types/Nft";
+import { expiredDateChanger } from "../../../../utils/dateChanger";
 
-const UnstakingPreview = () => {
+interface UnstakingPreviewProps {
+  item: nftInfo;
+}
+
+const UnstakingPreview = (props: UnstakingPreviewProps) => {
+  const { nftId, timeStamp, lockPeriod } = props.item;
+
   return (
     <UnstakingPreviewWrapper>
       <UnstakingPreviewImageWrapper>
         <img src={NftPreviewExpired} alt="expired" />
         <UnstakingPreviewTop>
-          <UnstakingPreviewTopTitle>NFT ID 00000</UnstakingPreviewTopTitle>
+          <UnstakingPreviewTopTitle>
+            NFT ID {String(nftId).padStart(5, "0")}
+          </UnstakingPreviewTopTitle>
           <UnstakingPreviewTopDesc>
-            Expired Date dd.mm.yy
+            Expired Date {expiredDateChanger(timeStamp, lockPeriod, "detail")}
           </UnstakingPreviewTopDesc>
         </UnstakingPreviewTop>
         <UnstakingPreviewBottom>

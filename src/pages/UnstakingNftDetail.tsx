@@ -6,18 +6,26 @@ import UnstakingPreview from "../components/myAsset/NFT/Unstaking/UnstakingPrevi
 import UnstakingInfo from "../components/myAsset/NFT/Unstaking/UnstakingInfo";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import { getNFTDetail } from "../api/getNFTDetail";
 
 const tele = (window as any).Telegram.WebApp;
 
 const UnstakingNftDetail = () => {
-  const location = useLocation();
+  const [stakedNftDetail, setStakedNftDetail] = useState([]);
   const [toggleModal, setToggleModal] = useState(false);
 
+  const { id } = useParams();
+  const location = useLocation();
   const { pathname } = location;
   const navigate = useNavigate();
 
   const handleToggleModal = () => {
     setToggleModal((prev) => !prev);
+  };
+
+  const getStakedNftDetail = async () => {
+    const response = await getNFTDetail(Number(id));
+    setStakedNftDetail(response);
   };
 
   useEffect(() => {
@@ -34,28 +42,34 @@ const UnstakingNftDetail = () => {
     };
   }, []);
 
+  useEffect(() => {
+    getStakedNftDetail();
+  }, [id]);
+
   return (
     <>
       {toggleModal && <UnstakingModal handleToggleModal={handleToggleModal} />}
-      <UnstakingWrapper>
-        <UnstakingHeader>
-          {/* <BackButton /> */}
-          Unstaking NFT
-        </UnstakingHeader>
-        <UnstakingPreview />
-        <UnstakingInfo />
-        <UnstakingMessageBox>
-          During this period you may not cancel the transaction.
-        </UnstakingMessageBox>
-        {!pathname.includes("view") && (
-          // <UnstakingButtonWrapper>
-          //   <UnstakingButton onClick={handleToggleModal}>
-          //     Confirm
-          //   </UnstakingButton>
-          // </UnstakingButtonWrapper>
-          <MainButton text="Confirm" onClick={handleToggleModal} />
-        )}
-      </UnstakingWrapper>
+      {stakedNftDetail && stakedNftDetail.length > 0 && (
+        <UnstakingWrapper>
+          <UnstakingHeader>
+            {/* <BackButton /> */}
+            Unstaking NFT
+          </UnstakingHeader>
+          <UnstakingPreview item={stakedNftDetail[0]} />
+          <UnstakingInfo item={stakedNftDetail[0]} />
+          <UnstakingMessageBox>
+            During this period you may not cancel the transaction.
+          </UnstakingMessageBox>
+          {!pathname.includes("view") && (
+            // <UnstakingButtonWrapper>
+            //   <UnstakingButton onClick={handleToggleModal}>
+            //     Confirm
+            //   </UnstakingButton>
+            // </UnstakingButtonWrapper>
+            <MainButton text="Confirm" onClick={handleToggleModal} />
+          )}
+        </UnstakingWrapper>
+      )}
     </>
   );
 };

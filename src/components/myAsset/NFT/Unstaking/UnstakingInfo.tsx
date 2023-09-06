@@ -1,12 +1,28 @@
 import { styled } from "styled-components";
 import IcTonSymbol from "../../../../assets/icons/MyAsset/ic_tonSymbol.svg";
+import { nftInfo } from "../../../../types/Nft";
+import { numberCutter } from "../../../../utils/numberCutter";
+import { expiredDateChanger } from "../../../../utils/dateChanger";
 
-const UnstakingInfo = () => {
+interface UnstakingInfoProps {
+  item: nftInfo;
+}
+
+const UnstakingInfo = (props: UnstakingInfoProps) => {
+  const { amount, leverage, lockPeriod, timeStamp } = props.item;
+
+  const currentDate = new Date();
+  const oneAndHalfDays = 1.5 * 24 * 60 * 60 * 1000;
+  const newDate = new Date(currentDate.getTime() + oneAndHalfDays);
+  const year = String(newDate.getFullYear()).slice(-2);
+  const month = String(newDate.getMonth() + 1).padStart(2, "0");
+  const day = String(newDate.getDate()).padStart(2, "0");
+
   return (
     <UnstakingInfoWrapper>
       <UnstakingBoldWrapper>
         <UnstakingBoldText>Principal</UnstakingBoldText>
-        <UnstakingBoldText>0.000 TON</UnstakingBoldText>
+        <UnstakingBoldText>{numberCutter(amount)} TON</UnstakingBoldText>
       </UnstakingBoldWrapper>
       <UnstakingBoldWrapper>
         <UnstakingBoldText>Rewards</UnstakingBoldText>
@@ -19,7 +35,7 @@ const UnstakingInfo = () => {
         <UnstakingInfoBottomBox>
           <UnstakingBottomText>staked principal</UnstakingBottomText>
           <UnstakingInfoBottomRightBox>
-            <UnstakingBottomText>0.000</UnstakingBottomText>
+            <UnstakingBottomText>{numberCutter(amount)}</UnstakingBottomText>
             <img src={IcTonSymbol} alt="tonSymbol" />
             <UnstakingBottomText>TON</UnstakingBottomText>
           </UnstakingInfoBottomRightBox>
@@ -27,7 +43,11 @@ const UnstakingInfo = () => {
         <UnstakingInfoBottomBox>
           <UnstakingBottomText>Leveraged amount</UnstakingBottomText>
           <UnstakingInfoBottomRightBox>
-            <UnstakingBottomText>0.000</UnstakingBottomText>
+            <UnstakingBottomText>
+              {leverage === 1
+                ? `0.0000`
+                : numberCutter(amount * leverage - amount)}
+            </UnstakingBottomText>
             <img src={IcTonSymbol} alt="tonSymbol" />
             <UnstakingBottomText>TON</UnstakingBottomText>
           </UnstakingInfoBottomRightBox>
@@ -40,12 +60,14 @@ const UnstakingInfo = () => {
         </UnstakingBoldWrapper>
         <UnstakingInfoBottomBox>
           <UnstakingBottomText>Unstaking period</UnstakingBottomText>
-          <UnstakingBottomText>0 Day</UnstakingBottomText>
+          <UnstakingBottomText>1.5 Day</UnstakingBottomText>
         </UnstakingInfoBottomBox>
         <UnstakingInfoBottomBox>
           <UnstakingInfoBottomBox>
             <UnstakingBottomText>Date of Unstaking</UnstakingBottomText>
-            <UnstakingBottomText>01D/01M/2023Y</UnstakingBottomText>
+            <UnstakingBottomText>
+              {day}.{month}.{year}
+            </UnstakingBottomText>
           </UnstakingInfoBottomBox>
         </UnstakingInfoBottomBox>
       </UnstakingInfoBottomWrapper>

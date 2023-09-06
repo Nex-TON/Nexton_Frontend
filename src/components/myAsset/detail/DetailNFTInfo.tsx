@@ -9,10 +9,9 @@ import { getProtocolFee } from "../../../utils/getProtocolFee";
 
 interface DetailNftInfoProps {
   item: nftInfo;
-  handleMoveUnstaking: () => void;
 }
 const DetailNftInfo = (props: DetailNftInfoProps) => {
-  const { item, handleMoveUnstaking } = props;
+  const { item } = props;
   const { nftId, amount, leverage, timeStamp, lockPeriod } = item;
 
   const navigate = useNavigate();
@@ -23,7 +22,9 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
       <DetailInfoItemWrapper>
         <DetailInfoItem>
           <DetailInfoItemText>Token ID</DetailInfoItemText>
-          <DetailInfoItemText>{nftId}</DetailInfoItemText>
+          <DetailInfoItemText>
+            {String(nftId).padStart(5, "0")}
+          </DetailInfoItemText>
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Token Standard</DetailInfoItemText>
@@ -97,7 +98,10 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
             >
               Collateralizing
             </StyledButton>
-            <StyledButton type="unstaking" onClick={handleMoveUnstaking}>
+            <StyledButton
+              type="unstaking"
+              onClick={() => navigate(`/unstaking/${nftId}`)}
+            >
               Unstaking
             </StyledButton>
           </>
