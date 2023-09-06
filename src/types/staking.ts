@@ -5,3 +5,9 @@ export interface StakingProps {
   leverage: number;
   lockup: number;
 }
+
+export interface UnstakingProps {
+  telegramId: number;
+  nftId: number;
+  address: string;
+}
