@@ -9,6 +9,7 @@ import Swap from "../../pages/Swap";
 import StakingNftDetail from "../../pages/StakingNftDetail";
 import UnstakingNftDetail from "../../pages/UnstakingNftDetail";
 import NFTPreview from "../../pages/NFTPreview";
+import NominatorList from "../../pages/NominatorList";
 
 const Router = () => {
   return (
@@ -16,6 +17,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/leverage" element={<Leverage />} />
+        <Route path="/leverage/nominator" element={<NominatorList />} />
         <Route path="/leverage/preview" element={<NFTPreview />} />
         <Route path="/loan" element={<Loan />} />
         <Route path="/loan/:id" element={<BorrowDetail />} />
