@@ -43,6 +43,7 @@ const NFTPreview = () => {
       address: stakingInfo.address,
       amount: stakingInfo.principal,
       lockPeriod: stakingInfo.lockup.toString(),
+      nominator: stakingInfo.nominator,
     });
     toggleModal();
   };

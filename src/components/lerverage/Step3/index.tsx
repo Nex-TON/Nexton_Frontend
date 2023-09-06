@@ -12,7 +12,7 @@ const Step3 = (props: Step3Props) => {
 
   return (
     <Step3Wrapper>
-      <Step title="Step 3" step="Step3" />
+      <Step title="Step 4" step="Step3" />
       <Step3DescWrapper>
         <Step3Desc>Check your lock-up period</Step3Desc>
       </Step3DescWrapper>

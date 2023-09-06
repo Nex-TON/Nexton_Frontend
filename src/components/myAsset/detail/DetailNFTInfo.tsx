@@ -6,13 +6,14 @@ import { nftInfo } from "../../../types/Nft";
 import { numberCutter } from "../../../utils/numberCutter";
 import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
 import { getProtocolFee } from "../../../utils/getProtocolFee";
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 interface DetailNftInfoProps {
   item: nftInfo;
 }
 const DetailNftInfo = (props: DetailNftInfoProps) => {
   const { item } = props;
-  const { nftId, amount, leverage, timeStamp, lockPeriod } = item;
+  const { nftId, amount, leverage, timeStamp, lockPeriod, nominator } = item;
 
   const navigate = useNavigate();
 
@@ -48,7 +49,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Nominator Pool</DetailInfoItemText>
-          <DetailInfoItemText>-----</DetailInfoItemText>
+          <DetailInfoItemText>{nominator}</DetailInfoItemText>
         </DetailInfoItem>
         <DetailInfoItem>
           <DetailInfoItemText>Leveraged</DetailInfoItemText>
@@ -81,30 +82,17 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
       </DetailInfoItemWrapper>
       <ButtonWrapper>
         {DDayChange(timeStamp, lockPeriod) > 0 ? (
-          <>
-            <StyledButton>Unlock</StyledButton>
-            <StyledButton
-              type="borrow"
-              onClick={() => navigate(`/loan/${nftId}`)}
-            >
-              Collateralizing
-            </StyledButton>
-          </>
+          <MainButton
+            text="Collateralizing"
+            onClick={() => navigate(`/loan/${nftId}`)}
+          />
         ) : (
-          <>
-            <StyledButton
-              type="borrow"
-              onClick={() => navigate(`/loan/${nftId}`)}
-            >
-              Collateralizing
-            </StyledButton>
-            <StyledButton
-              type="unstaking"
-              onClick={() => navigate(`/unstaking/${nftId}`)}
-            >
-              Unstaking
-            </StyledButton>
-          </>
+          <MainButton
+            text="Unstaking"
+            color="#31333e"
+            textColor="#fff"
+            onClick={() => navigate(`/unstaking/${nftId}`)}
+          />
         )}
       </ButtonWrapper>
     </DetailNftInfoWrapper>

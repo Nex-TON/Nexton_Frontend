@@ -25,7 +25,7 @@ const UnstakingInfo = (props: UnstakingInfoProps) => {
         <UnstakingBoldText>0.000 TON</UnstakingBoldText>
       </UnstakingBoldWrapper>
       <UnstakingInfoBottomWrapper>
-        <UnstakingBottomText style={{ marginBottom: "1.4rem" }}>
+        {/* <UnstakingBottomText style={{ marginBottom: "1.4rem" }}>
           Generated from
         </UnstakingBottomText>
         <UnstakingInfoBottomBox>
@@ -47,12 +47,12 @@ const UnstakingInfo = (props: UnstakingInfoProps) => {
             <img src={IcTonSymbol} alt="tonSymbol" />
             <UnstakingBottomText>TON</UnstakingBottomText>
           </UnstakingInfoBottomRightBox>
-        </UnstakingInfoBottomBox>
+        </UnstakingInfoBottomBox> */}
         <UnstakingBoldWrapper
           style={{ marginTop: "3rem", marginBottom: "1.4rem" }}
         >
           <UnstakingBoldText>Available in</UnstakingBoldText>
-          <UnstakingBoldText>D-day 01H/30M</UnstakingBoldText>
+          <UnstakingBoldText> ＜ 36H </UnstakingBoldText>
         </UnstakingBoldWrapper>
         <UnstakingInfoBottomBox>
           <UnstakingBottomText>Unstaking period</UnstakingBottomText>

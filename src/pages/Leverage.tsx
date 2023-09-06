@@ -5,7 +5,7 @@ import Step3 from "../components/lerverage/Step3";
 import FooterButton from "../components/common/FooterButton";
 import * as Contract from "./../hooks/useNextonContract";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { stakingAtom } from "../lib/atom/staking";
 import { StakingProps } from "../types/staking";
 import { getLockUpDate } from "../utils/getLockupDate";
@@ -16,6 +16,8 @@ import useTonConnect from "../hooks/useTonConnect";
 import { telegramAtom } from "../lib/atom/telegram";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import Nominator from "../components/lerverage/Nominator";
+import { nominatorAtom } from "../lib/atom/nominator";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -28,6 +30,7 @@ const Leverage = () => {
   const [input, setInput] = useState("");
   const [maxLeverage, setMaxLeverage] = useState(0);
   const [ratio, setRatio] = useState(1.0);
+  const nominatorName = useRecoilValue(nominatorAtom);
 
   const navigate = useNavigate();
 
@@ -51,6 +54,7 @@ const Leverage = () => {
         principal: input,
         leverage: ratio,
         lockup: getLockUpDate(input, ratio),
+        nominator: nominatorName,
       };
 
       setStakingInfo(newDepoist);
@@ -75,6 +79,8 @@ const Leverage = () => {
   return (
     <LeverageWrapper>
       <Step1 input={input} setInput={setInput} />
+      <BorderLine />
+      <Nominator />
       <BorderLine />
       <Step2
         input={input}

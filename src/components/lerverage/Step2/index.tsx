@@ -20,7 +20,7 @@ const Step2 = (props: Step2Props) => {
 
   return (
     <Step2Wrapper>
-      <Step title="Step 2" />
+      <Step title="Step 3" />
       <TitleBox>
         <Title title="Set Leverage  Multiplier" />
         {isOpenSlider ? (
