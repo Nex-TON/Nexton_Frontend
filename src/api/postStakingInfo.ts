@@ -6,6 +6,7 @@ interface postStakingInfoProps {
   address: string;
   amount: string;
   lockPeriod: string;
+  nominator: string;
 }
 
 export const postStakingInfo = async (stakingInfo: postStakingInfoProps) => {
