@@ -64,3 +64,14 @@ export const lockUpDateChanger = (date: number, type?: string) => {
 
   return formattedFutureDate;
 };
+
+export const UnstakingDateChanger = () => {
+  const currentDate = new Date();
+  const oneAndHalfDays = 1.5 * 24 * 60 * 60 * 1000;
+  const newDate = new Date(currentDate.getTime() + oneAndHalfDays);
+  const year = String(newDate.getFullYear()).slice(-2);
+  const month = String(newDate.getMonth() + 1).padStart(2, "0");
+  const day = String(newDate.getDate()).padStart(2, "0");
+
+  return `${day}.${month}.${year}`;
+};
