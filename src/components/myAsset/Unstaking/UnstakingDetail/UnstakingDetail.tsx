@@ -1,6 +1,9 @@
 import { styled } from "styled-components";
 import UnstakingDetailHeader from "./UnstakingDetailHeader";
 import UnstakingDetailList from "./UnstakingDetailList";
+import { useEffect, useState } from "react";
+import useTonConnect from "../../../../hooks/useTonConnect";
+import { getAllStakeInfo } from "../../../../api/getAllStakeInfo";
 
 interface UnstakingDetailProps {
   handleMoveUnstakingDetail: () => void;
@@ -8,13 +11,27 @@ interface UnstakingDetailProps {
 
 const UnstakingDetail = (props: UnstakingDetailProps) => {
   const { handleMoveUnstakingDetail } = props;
+  const [unstakingList, setUnstakingList] = useState([]);
+  const { address } = useTonConnect();
+
+  const getStakedInfo = async () => {
+    if (address) {
+      const response = await getAllStakeInfo(address);
+      setUnstakingList(response.filter((item) => item.status === 1));
+    }
+  };
+
+  useEffect(() => {
+    getStakedInfo();
+  }, [address]);
 
   return (
     <UnstakingDetailWrapper>
       <UnstakingDetailHeader
         handleMoveUnstakingDetail={handleMoveUnstakingDetail}
+        UnstakingListLength={unstakingList?.length}
       />
-      <UnstakingDetailList />
+      <UnstakingDetailList item={unstakingList} />
     </UnstakingDetailWrapper>
   );
 };

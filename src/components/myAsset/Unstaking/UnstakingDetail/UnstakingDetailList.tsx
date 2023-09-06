@@ -1,12 +1,19 @@
 import { styled } from "styled-components";
 import UnstakingDetailItem from "./UnstakingDetailItem";
+import { nftInfo } from "../../../../types/Nft";
 
-const UnstakingDetailList = () => {
+interface UnstakingDetailListProps {
+  item: nftInfo[];
+}
+
+const UnstakingDetailList = (props: UnstakingDetailListProps) => {
+  const { item } = props;
+
   return (
     <UnstkaingDetailListWrapper>
-      <UnstakingDetailItem />
-      <UnstakingDetailItem />
-      <UnstakingDetailItem />
+      {item.map((data) => (
+        <UnstakingDetailItem key={data.nftId} item={data} />
+      ))}
     </UnstkaingDetailListWrapper>
   );
 };

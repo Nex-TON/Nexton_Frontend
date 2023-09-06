@@ -5,11 +5,12 @@ import IcUp from "../../../../assets/icons/MyAsset/ic_arrow_up.svg";
 import { useState } from "react";
 
 interface UnstakingDetailHeaderProps {
+  UnstakingListLength: number;
   handleMoveUnstakingDetail: () => void;
 }
 
 const UnstakingDetailHeader = (props: UnstakingDetailHeaderProps) => {
-  const { handleMoveUnstakingDetail } = props;
+  const { UnstakingListLength, handleMoveUnstakingDetail } = props;
   const [isOpenDesc, setIsOpenDesc] = useState(false);
   return (
     <>
@@ -28,7 +29,7 @@ const UnstakingDetailHeader = (props: UnstakingDetailHeaderProps) => {
           )}
         </UnstakingDetailHeaderLeft>
         <UnstakingDetailRightText>
-          Total unstaking NFT 4
+          Total unstaking NFT {UnstakingListLength}
         </UnstakingDetailRightText>
       </UnstakingDetailHeaderWrapper>
       {isOpenDesc && (

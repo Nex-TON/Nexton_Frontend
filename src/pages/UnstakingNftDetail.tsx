@@ -7,12 +7,19 @@ import UnstakingInfo from "../components/myAsset/NFT/Unstaking/UnstakingInfo";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { getNFTDetail } from "../api/getNFTDetail";
+import { useRecoilValue } from "recoil";
+import { telegramAtom } from "../lib/atom/telegram";
+import { UnstakingProps } from "../types/staking";
+import useTonConnect from "../hooks/useTonConnect";
+import { postUnstake } from "../api/postUnstake";
 
 const tele = (window as any).Telegram.WebApp;
 
 const UnstakingNftDetail = () => {
   const [stakedNftDetail, setStakedNftDetail] = useState([]);
+  const telegramId = useRecoilValue(telegramAtom);
   const [toggleModal, setToggleModal] = useState(false);
+  const { address } = useTonConnect();
 
   const { id } = useParams();
   const location = useLocation();
@@ -26,6 +33,21 @@ const UnstakingNftDetail = () => {
   const getStakedNftDetail = async () => {
     const response = await getNFTDetail(Number(id));
     setStakedNftDetail(response);
+  };
+
+  const postUnstaking = async () => {
+    if (address) {
+      const newUnstaking: UnstakingProps = {
+        telegramId: Number(telegramId),
+        nftId: Number(id),
+        address,
+      };
+
+      const response = await postUnstake(newUnstaking);
+      if (response === 200) {
+        handleToggleModal();
+      }
+    }
   };
 
   useEffect(() => {
@@ -61,12 +83,10 @@ const UnstakingNftDetail = () => {
             During this period you may not cancel the transaction.
           </UnstakingMessageBox>
           {!pathname.includes("view") && (
-            // <UnstakingButtonWrapper>
-            //   <UnstakingButton onClick={handleToggleModal}>
-            //     Confirm
-            //   </UnstakingButton>
-            // </UnstakingButtonWrapper>
-            <MainButton text="Confirm" onClick={handleToggleModal} />
+            <UnstakingButtonWrapper>
+              <UnstakingButton onClick={postUnstaking}>Confirm</UnstakingButton>
+            </UnstakingButtonWrapper>
+            // <MainButton text="Confirm" onClick={handleToggleModal} />
           )}
         </UnstakingWrapper>
       )}

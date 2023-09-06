@@ -1,15 +1,23 @@
 import { css, styled } from "styled-components";
 import IcTon from "../../../../assets/icons/MyAsset/ic_tonSymbol.svg";
 import { useNavigate } from "react-router-dom";
+import { nftInfo } from "../../../../types/Nft";
+import { numberCutter } from "../../../../utils/numberCutter";
+import { UnstakingDateChanger } from "../../../../utils/dateChanger";
 
-const UnstakingDetailItem = () => {
+interface UnstakingDetailItemProps {
+  item: nftInfo;
+}
+
+const UnstakingDetailItem = (props: UnstakingDetailItemProps) => {
+  const { nftId, amount } = props.item;
   const navigate = useNavigate();
 
   return (
     <UnstakingDetailItemWrapper onClick={() => navigate("/unstaking/view/1")}>
       <UnstakingDetailTopBox>
         <UnstakingDetailId>
-          09987 <img src={IcTon} alt="tonSymbol" />
+          {String(nftId).padStart(5, "0")} <img src={IcTon} alt="tonSymbol" />
         </UnstakingDetailId>
         <UnstakingDetailRightTopBox>
           <CaptionText>Available in</CaptionText>
@@ -20,13 +28,14 @@ const UnstakingDetailItem = () => {
         <UnstakingDetailRightTopBox>
           <CaptionText>Value</CaptionText>
           <BoldText>
-            0000 <BoldText style={{ marginLeft: "0.4rem" }}>TON</BoldText>
+            {numberCutter(amount)}
+            <BoldText style={{ marginLeft: "0.4rem" }}>TON</BoldText>
           </BoldText>
         </UnstakingDetailRightTopBox>
       </UnstakingDetailMiddel>
       <UnstakingDetailBottomBox>
         <CaptionText>Date of unstaking</CaptionText>
-        <CaptionText>01/06/2023</CaptionText>
+        <CaptionText>{UnstakingDateChanger()}</CaptionText>
       </UnstakingDetailBottomBox>
     </UnstakingDetailItemWrapper>
   );

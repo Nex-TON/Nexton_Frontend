@@ -2,7 +2,10 @@ import { styled } from "styled-components";
 import IcTonSymbol from "../../../../assets/icons/MyAsset/ic_tonSymbol.svg";
 import { nftInfo } from "../../../../types/Nft";
 import { numberCutter } from "../../../../utils/numberCutter";
-import { expiredDateChanger } from "../../../../utils/dateChanger";
+import {
+  UnstakingDateChanger,
+  expiredDateChanger,
+} from "../../../../utils/dateChanger";
 
 interface UnstakingInfoProps {
   item: nftInfo;
@@ -10,13 +13,6 @@ interface UnstakingInfoProps {
 
 const UnstakingInfo = (props: UnstakingInfoProps) => {
   const { amount, leverage, lockPeriod, timeStamp } = props.item;
-
-  const currentDate = new Date();
-  const oneAndHalfDays = 1.5 * 24 * 60 * 60 * 1000;
-  const newDate = new Date(currentDate.getTime() + oneAndHalfDays);
-  const year = String(newDate.getFullYear()).slice(-2);
-  const month = String(newDate.getMonth() + 1).padStart(2, "0");
-  const day = String(newDate.getDate()).padStart(2, "0");
 
   return (
     <UnstakingInfoWrapper>
@@ -65,9 +61,7 @@ const UnstakingInfo = (props: UnstakingInfoProps) => {
         <UnstakingInfoBottomBox>
           <UnstakingInfoBottomBox>
             <UnstakingBottomText>Date of Unstaking</UnstakingBottomText>
-            <UnstakingBottomText>
-              {day}.{month}.{year}
-            </UnstakingBottomText>
+            <UnstakingBottomText>{UnstakingDateChanger()}</UnstakingBottomText>
           </UnstakingInfoBottomBox>
         </UnstakingInfoBottomBox>
       </UnstakingInfoBottomWrapper>
