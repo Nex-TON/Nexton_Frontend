@@ -5,7 +5,7 @@ import IcCardCheckDisable from "../../assets/icons/MyAsset/ic_cardCheck_disable.
 import IcCardCheckActive from "../../assets/icons/MyAsset/ic_cardCheck_active.svg";
 import IcCoinsDisable from "../../assets/icons/MyAsset/ic_coins_disable.svg";
 import IcCoinsActive from "../../assets/icons/MyAsset/ic_coins_active.svg";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface NftHeaderProps {
   myAssetMenu: string;
@@ -13,19 +13,21 @@ interface NftHeaderProps {
 
 const NftHeader = (props: NftHeaderProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { myAssetMenu } = props;
+  const { pathname } = location;
 
   return (
     <NftHeaderWrapper>
       <NFTHeadingItem onClick={() => navigate("/myasset/nftlist")}>
         <NFTHeadingImageBox>
-          {myAssetMenu === "NFT" ? (
+          {pathname.includes("nftlist") ? (
             <img src={IcCardActive} alt="card" />
           ) : (
             <img src={IcCardDisable} alt="card" />
           )}
         </NFTHeadingImageBox>
-        {myAssetMenu === "NFT" ? (
+        {pathname.includes("nftlist") ? (
           <NFTHeadingItemText>NFT</NFTHeadingItemText>
         ) : (
           <NFTHeadingItemText style={{ color: "#90909A" }}>
@@ -35,13 +37,13 @@ const NftHeader = (props: NftHeaderProps) => {
       </NFTHeadingItem>
       <NFTHeadingItem onClick={() => navigate("/myasset/unstaking")}>
         <NFTHeadingImageBox>
-          {myAssetMenu === "Unstaking" ? (
+          {pathname.includes("unstaking") ? (
             <img src={IcCardCheckActive} alt="cardCheck" />
           ) : (
             <img src={IcCardCheckDisable} alt="cardCheck" />
           )}
         </NFTHeadingImageBox>
-        {myAssetMenu === "Unstaking" ? (
+        {pathname.includes("unstaking") ? (
           <NFTHeadingItemText>Unstaking</NFTHeadingItemText>
         ) : (
           <NFTHeadingItemText style={{ color: "#90909A" }}>
