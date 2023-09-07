@@ -36,7 +36,6 @@ const NFTPreview = () => {
         leverage: 0n,
       };
     };
-    await sendMessage(data(), stakingInfo.principal);
     await postStakingInfo({
       id: stakingInfo.id,
       leverage: stakingInfo.leverage,
@@ -45,6 +44,8 @@ const NFTPreview = () => {
       lockPeriod: stakingInfo.lockup.toString(),
       nominator: stakingInfo.nominator,
     });
+    await sendMessage(data(), stakingInfo.principal);
+
     toggleModal();
   };
 
