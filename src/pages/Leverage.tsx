@@ -57,10 +57,10 @@ const Leverage = () => {
     } else if (Number(input) < 0.5) {
       setAmoutError(true);
       step1Ref.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (Number(input) > 0.5 && nominatorName === "") {
+    } else if (Number(input) >= 0.5 && nominatorName === "") {
       setNominatorError(true);
       step2Ref.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (Number(input) >= 0.5 && telegramId) {
+    } else if (Number(input) >= 0.5 && nominatorName !== "" && telegramId) {
       setError(false);
       const newDepoist: StakingProps = {
         id: Number(telegramId),
@@ -137,14 +137,14 @@ const Leverage = () => {
       <LeverageBottomTextBox>
         The NFT will contain the information
       </LeverageBottomTextBox>
-      {/* <FooterWrapper>
+      <FooterWrapper>
         <FooterButton
           title="Confirm"
           ratio={ratio}
           onClick={handleMovePreview}
         />
-      </FooterWrapper> */}
-      <MainButton text="Confirm" onClick={handleMovePreview} />
+      </FooterWrapper>
+      {/* <MainButton text="Confirm" onClick={handleMovePreview} /> */}
     </LeverageWrapper>
   );
 };
