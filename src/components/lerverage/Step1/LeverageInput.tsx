@@ -4,14 +4,15 @@ import Max from "../../common/Max";
 
 interface LeverageInputProps {
   input: string;
+  error: boolean;
   setInput: (input: string) => void;
 }
 
 const LeverageInput = (props: LeverageInputProps) => {
-  const { input, setInput } = props;
+  const { input, error, setInput } = props;
 
   return (
-    <LeverageInputWrapper>
+    <LeverageInputWrapper error={error}>
       <Input input={input} setInput={setInput} />
       <RightSection>
         <Max setInput={setInput} />
@@ -23,15 +24,16 @@ const LeverageInput = (props: LeverageInputProps) => {
 
 export default LeverageInput;
 
-const LeverageInputWrapper = styled.div`
+const LeverageInputWrapper = styled.div<{ error: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   width: 90%;
-  margin-top: 3rem;
+  margin-top: 1.4rem;
   padding: 1.7rem 2.05rem 1.8rem 2rem;
 
+  border: ${({ error }) => error && `0.1rem solid #FF7979`};
   border-radius: 4rem;
   background-color: #fff;
 `;

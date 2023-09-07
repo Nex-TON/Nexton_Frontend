@@ -4,7 +4,7 @@ import Step2 from "../components/lerverage/Step2";
 import Step3 from "../components/lerverage/Step3";
 import FooterButton from "../components/common/FooterButton";
 import * as Contract from "./../hooks/useNextonContract";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { stakingAtom } from "../lib/atom/staking";
 import { StakingProps } from "../types/staking";
@@ -24,8 +24,13 @@ const tele = (window as any).Telegram.WebApp;
 const Leverage = () => {
   const { sendMessage } = Contract.useNextonContract();
   const { address } = useTonConnect();
+  const step1Ref = useRef<HTMLDivElement>(null);
+  const step2Ref = useRef<HTMLDivElement>(null);
 
   const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
+  const [error, setError] = useState(false);
+  const [amountError, setAmoutError] = useState(false);
+  const [nominatorError, setNominatorError] = useState(false);
   const [, setStakingInfo] = useRecoilState(stakingAtom);
   const [input, setInput] = useState("");
   const [maxLeverage, setMaxLeverage] = useState(0);
@@ -46,8 +51,17 @@ const Leverage = () => {
   });
 
   const handleMovePreview = () => {
-    if (Number(input) < 0.2) return;
-    if (telegramId) {
+    if (input === "") {
+      setError(true);
+      step1Ref.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (Number(input) < 0.5) {
+      setAmoutError(true);
+      step1Ref.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (Number(input) > 0.5 && nominatorName === "") {
+      setNominatorError(true);
+      step2Ref.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (Number(input) >= 0.5 && telegramId) {
+      setError(false);
       const newDepoist: StakingProps = {
         id: Number(telegramId),
         address,
@@ -76,11 +90,40 @@ const Leverage = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (input !== "") {
+      setError(false);
+      return;
+    }
+  }, [input]);
+
+  useEffect(() => {
+    if (input !== "" && Number(input) < 0.5) {
+      setAmoutError(true);
+      return;
+    } else {
+      setAmoutError(false);
+    }
+  }, [input]);
+
+  useEffect(() => {
+    if (nominatorName !== "") {
+      setNominatorError(false);
+      return;
+    }
+  }, [nominatorName]);
+
   return (
     <LeverageWrapper>
-      <Step1 input={input} setInput={setInput} />
+      <Step1
+        input={input}
+        setInput={setInput}
+        error={error}
+        amountError={amountError}
+        step1Ref={step1Ref}
+      />
       <BorderLine />
-      <Nominator />
+      <Nominator step2Ref={step2Ref} nominatorError={nominatorError} />
       <BorderLine />
       <Step2
         input={input}
@@ -94,15 +137,14 @@ const Leverage = () => {
       <LeverageBottomTextBox>
         The NFT will contain the information
       </LeverageBottomTextBox>
-      {/* <FooterWrapper>
+      <FooterWrapper>
         <FooterButton
           title="Confirm"
-          input={input}
           ratio={ratio}
           onClick={handleMovePreview}
         />
-      </FooterWrapper> */}
-      <MainButton text="Confirm" onClick={handleMovePreview} />
+      </FooterWrapper>
+      {/* <MainButton text="Confirm" onClick={handleMovePreview} /> */}
     </LeverageWrapper>
   );
 };

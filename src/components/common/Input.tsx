@@ -11,7 +11,7 @@ const Input = (props: InputProps) => {
   return (
     <InputStyle
       type="number"
-      placeholder="00.00"
+      placeholder="min 0.5"
       value={input}
       onChange={(e) => setInput(e.target.value)}
     />
@@ -30,7 +30,7 @@ const InputStyle = styled.input`
   color: #45464f;
 
   &::placeholder {
-    color: #45464f;
+    color: #e5e5ea;
   }
 
   outline: none;

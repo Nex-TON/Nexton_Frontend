@@ -4,26 +4,46 @@ import Title from "../common/Title";
 import LeverageInput from "./LeverageInput";
 import useTonConnect from "../../../hooks/useTonConnect";
 import { numberCutter } from "../../../utils/numberCutter";
+import IcError from "../../../assets/icons/ic_error.svg";
 
 interface Step1Props {
   input: string;
+  error: boolean;
+  amountError: boolean;
+  step1Ref: any;
   setInput: (input: string) => void;
 }
 
 const Step1 = (props: Step1Props) => {
-  const { input, setInput } = props;
+  const { input, error, amountError, step1Ref, setInput } = props;
   const { balance } = useTonConnect();
 
   return (
-    <Step1Wrapper>
+    <Step1Wrapper ref={step1Ref}>
       <Step title="Step 1" />
       <Title title="Put stake amount" />
-      <LeverageInput input={input} setInput={setInput} />
       <BalanceWrapper>
         <BalanceText>
           Balance : {balance > 0 ? numberCutter(balance) : `-.---`}
         </BalanceText>
       </BalanceWrapper>
+      <LeverageInput
+        input={input}
+        setInput={setInput}
+        error={error || amountError}
+      />
+      {error && (
+        <ErrorBlock>
+          <img src={IcError} alt="error" />
+          <span>Please enter amount</span>
+        </ErrorBlock>
+      )}
+      {amountError && (
+        <ErrorBlock>
+          <img src={IcError} alt="error" />
+          <span>Please stake more than 0.5 TON</span>
+        </ErrorBlock>
+      )}
     </Step1Wrapper>
   );
 };
@@ -45,10 +65,25 @@ const BalanceWrapper = styled.div`
   align-items: center;
 
   width: 85%;
-  margin-top: 1.6rem;
+  margin-top: 2.6rem;
 `;
 
 const BalanceText = styled.span`
   color: #3e4064;
   ${({ theme }) => theme.fonts.Telegram_Medium_2};
+`;
+
+const ErrorBlock = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  width: 85%;
+  padding-left: 2.3rem;
+  margin-top: 1rem;
+
+  span {
+    color: #ff7979;
+    ${({ theme }) => theme.fonts.Telegram_Caption_3};
+  }
 `;

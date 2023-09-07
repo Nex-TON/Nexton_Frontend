@@ -5,13 +5,20 @@ import IcSelectArrow from "../../../assets/icons/Nominator/ic_select_arrow.svg";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { nominatorAtom } from "../../../lib/atom/nominator";
+import IcError from "../../../assets/icons/ic_error.svg";
+interface NominatorProps {
+  step2Ref: any;
+  nominatorError: boolean;
+}
 
-const Nominator = () => {
+const Nominator = (props: NominatorProps) => {
+  const { step2Ref, nominatorError } = props;
+
   const nominatorName = useRecoilValue(nominatorAtom);
   const navigate = useNavigate();
 
   return (
-    <NominatorWrapper>
+    <NominatorWrapper ref={step2Ref}>
       <Step title="Step 2" />
       <Title title="Select Nominator Pool" />
       <NominatorDesc>Which pool would you stake?</NominatorDesc>
@@ -27,6 +34,12 @@ const Nominator = () => {
           <img src={IcSelectArrow} alt="arrow" />
         </NominatorInputButton>
       </NominatorInputBox>
+      {nominatorError && (
+        <ErrorBlock>
+          <img src={IcError} alt="error" />
+          Please select a pool
+        </ErrorBlock>
+      )}
     </NominatorWrapper>
   );
 };
@@ -89,4 +102,17 @@ const NominatorInputButton = styled.button<{ type: boolean }>`
     color: #e8e8ee;
     ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
   }
+`;
+
+const ErrorBlock = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  width: 85%;
+  padding-left: 2.3rem;
+  margin-top: 1rem;
+
+  color: #ff7979;
+  ${({ theme }) => theme.fonts.Telegram_Caption_3};
 `;

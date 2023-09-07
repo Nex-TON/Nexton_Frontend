@@ -1,19 +1,14 @@
 import styled from "styled-components";
 interface FooterButtonProps {
   title?: string;
-  input?: string;
   ratio?: number;
   onClick?: () => void;
 }
 
 const FooterButton = (props: FooterButtonProps) => {
-  const { input, title, onClick } = props;
+  const { title, onClick } = props;
 
-  return Number(input) < 0.2 ? (
-    <FooterButtonWrapper disabled={true}>{title}</FooterButtonWrapper>
-  ) : (
-    <FooterButtonWrapper onClick={onClick}>{title}</FooterButtonWrapper>
-  );
+  return <FooterButtonWrapper onClick={onClick}>{title}</FooterButtonWrapper>;
 };
 
 export default FooterButton;
