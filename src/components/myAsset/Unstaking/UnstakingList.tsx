@@ -2,26 +2,20 @@ import { styled } from "styled-components";
 import IcClaim from "../../../assets/icons/MyAsset/ic_claim.svg";
 import IcClaimDisable from "../../../assets/icons/MyAsset/ic_claim_disable.svg";
 import IcArrow from "../../../assets/icons/MyAsset/ic_arrow.svg";
-import { useEffect, useState } from "react";
-import UnstakingDetail from "./UnstakingDetail/UnstakingDetail";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const tele = (window as any).Telegram.WebApp;
 
 const UnstakingList = () => {
-  const [moveUnstakingDetail, setMoveUnstakingDetail] = useState(false);
   const navigate = useNavigate();
-
-  const handleMoveUnstakingDetail = () => {
-    setMoveUnstakingDetail((prev) => !prev);
-  };
 
   useEffect(() => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/myasset");
+        navigate("/myasset/nftlist");
       });
     }
 
@@ -32,34 +26,24 @@ const UnstakingList = () => {
 
   return (
     <>
-      {moveUnstakingDetail ? (
-        <UnstakingDetail
-          handleMoveUnstakingDetail={handleMoveUnstakingDetail}
-        />
-      ) : (
-        <>
-          <UnstakingListWrapper>
-            <UnstakingListTop>
-              <UnstakingMainText>Settled amount</UnstakingMainText>
-              <UnstakingTopDesc>
-                This reward is from unstaked NFT.
-              </UnstakingTopDesc>
-            </UnstakingListTop>
-            <UnstakingListBottom>
-              <UnstakingMainText>0 TON</UnstakingMainText>
-              <ClaimButton>
-                Claim <img src={IcClaimDisable} alt="claim" />
-              </ClaimButton>
-            </UnstakingListBottom>
-          </UnstakingListWrapper>
-          <UnstakingDetailBox onClick={handleMoveUnstakingDetail}>
-            <UnstakingDetailRightBox>Details</UnstakingDetailRightBox>
-            <UnstakingArrowBox>
-              <img src={IcArrow} alt="arrow" width={18} />
-            </UnstakingArrowBox>
-          </UnstakingDetailBox>
-        </>
-      )}
+      <UnstakingListWrapper>
+        <UnstakingListTop>
+          <UnstakingMainText>Settled amount</UnstakingMainText>
+          <UnstakingTopDesc>This reward is from unstaked NFT.</UnstakingTopDesc>
+        </UnstakingListTop>
+        <UnstakingListBottom>
+          <UnstakingMainText>0 TON</UnstakingMainText>
+          <ClaimButton>
+            Claim <img src={IcClaimDisable} alt="claim" />
+          </ClaimButton>
+        </UnstakingListBottom>
+      </UnstakingListWrapper>
+      <UnstakingDetailBox onClick={() => navigate("/myasset/unstakingdetail")}>
+        <UnstakingDetailRightBox>Details</UnstakingDetailRightBox>
+        <UnstakingArrowBox>
+          <img src={IcArrow} alt="arrow" width={18} />
+        </UnstakingArrowBox>
+      </UnstakingDetailBox>
     </>
   );
 };

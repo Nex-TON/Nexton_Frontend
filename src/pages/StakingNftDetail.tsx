@@ -26,7 +26,7 @@ const StakingNftDetail = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/myasset");
+        navigate("/myasset/nftlist");
       });
     }
 

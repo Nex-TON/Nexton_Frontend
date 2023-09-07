@@ -31,7 +31,7 @@ const Button = (props: ButtonProps) => {
         navigate("/nlp");
         break;
       case "Myasset":
-        navigate("/myasset");
+        navigate("/myasset/nftlist");
         break;
       case "Loan":
         navigate("/loan");

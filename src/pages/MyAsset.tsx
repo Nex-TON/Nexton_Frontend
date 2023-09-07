@@ -1,13 +1,20 @@
 import styled from "styled-components";
-import MyAssetContent from "../components/myAsset";
+import NftHeader from "../components/myAsset/NftHeader";
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
 const MyAsset = () => {
+  const [myAssetMenu, setMyAssetMenu] = useState("NFT");
+
   return (
     <MyAssetWrapper>
       <MyAssetHeaderBox>
         <MyAssetHeaderTop>MY asset</MyAssetHeaderTop>
       </MyAssetHeaderBox>
-      <MyAssetContent />
+      <MyAssetContentWrapper>
+        <NftHeader myAssetMenu={myAssetMenu} />
+      </MyAssetContentWrapper>
+      <Outlet />
     </MyAssetWrapper>
   );
 };
@@ -40,4 +47,8 @@ const MyAssetHeaderTop = styled.span`
 
   color: #45464f;
   ${({ theme }) => theme.fonts.Telegram_Title_3_1};
+`;
+
+const MyAssetContentWrapper = styled.div`
+  width: 100%;
 `;

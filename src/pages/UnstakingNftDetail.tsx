@@ -54,9 +54,15 @@ const UnstakingNftDetail = () => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        navigate(`/myasset`);
-      });
+      if (pathname.includes("view")) {
+        tele.onEvent("backButtonClicked", () => {
+          navigate(`/myasset/unstakingdetail`);
+        });
+      } else {
+        tele.onEvent("backButtonClicked", () => {
+          navigate(`/myasset`);
+        });
+      }
     }
 
     return () => {
@@ -83,10 +89,10 @@ const UnstakingNftDetail = () => {
             During this period you may not cancel the transaction.
           </UnstakingMessageBox>
           {!pathname.includes("view") && (
-            <UnstakingButtonWrapper>
-              <UnstakingButton onClick={postUnstaking}>Confirm</UnstakingButton>
-            </UnstakingButtonWrapper>
-            // <MainButton text="Confirm" onClick={handleToggleModal} />
+            // <UnstakingButtonWrapper>
+            //   <UnstakingButton onClick={postUnstaking}>Confirm</UnstakingButton>
+            // </UnstakingButtonWrapper>
+            <MainButton text="Confirm" onClick={postUnstaking} />
           )}
         </UnstakingWrapper>
       )}
@@ -118,7 +124,8 @@ const UnstakingHeader = styled.div`
 
 const UnstakingMessageBox = styled.div`
   width: 100%;
-  margin-bottom: 2.3rem;
+  margin-top: 12.3rem;
+  margin-bottom: 2.4rem;
 
   color: #5e6162;
   ${({ theme }) => theme.fonts.Telegram_Caption_1};

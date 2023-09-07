@@ -10,6 +10,9 @@ import StakingNftDetail from "../../pages/StakingNftDetail";
 import UnstakingNftDetail from "../../pages/UnstakingNftDetail";
 import NFTPreview from "../../pages/NFTPreview";
 import NominatorList from "../../pages/NominatorList";
+import NftList from "../myAsset/NFT/NftList";
+import UnstakingList from "../myAsset/Unstaking/UnstakingList";
+import UnstakingDetail from "../myAsset/Unstaking/UnstakingDetail/UnstakingDetail";
 
 const Router = () => {
   return (
@@ -23,7 +26,11 @@ const Router = () => {
         <Route path="/loan/:id" element={<BorrowDetail />} />
         <Route path="/swap" element={<Swap />} />
         <Route path="/nlp" element={<Nlp />} />
-        <Route path="/myasset" element={<MyAsset />} />
+        <Route path="/myasset" element={<MyAsset />}>
+          <Route path="nftlist" element={<NftList />} />
+          <Route path="unstaking" element={<UnstakingList />} />
+          <Route path="unstakingdetail" element={<UnstakingDetail />} />
+        </Route>
         <Route path="/myasset/:id" element={<StakingNftDetail />} />
         <Route path="/unstaking/:id" element={<UnstakingNftDetail />} />
         <Route path="/unstaking/view/:id" element={<UnstakingNftDetail />} />

@@ -2,23 +2,38 @@ import { styled } from "styled-components";
 import IcBack from "../../../../assets/icons/ic_back.svg";
 import IcDown from "../../../../assets/icons/MyAsset/ic_arrow_down.svg";
 import IcUp from "../../../../assets/icons/MyAsset/ic_arrow_up.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const tele = (window as any).Telegram.WebApp;
 
 interface UnstakingDetailHeaderProps {
   UnstakingListLength: number;
-  handleMoveUnstakingDetail: () => void;
 }
 
 const UnstakingDetailHeader = (props: UnstakingDetailHeaderProps) => {
-  const { UnstakingListLength, handleMoveUnstakingDetail } = props;
+  const { UnstakingListLength } = props;
+  const navigate = useNavigate();
   const [isOpenDesc, setIsOpenDesc] = useState(false);
+
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        navigate("/myasset/unstaking");
+      });
+    }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
+  }, []);
+
   return (
     <>
       <UnstakingDetailHeaderWrapper>
         <UnstakingDetailHeaderLeft>
-          <BackWrapper onClick={handleMoveUnstakingDetail}>
-            <img src={IcBack} alt="back" />
-          </BackWrapper>
           <UnstakingDetailTitle onClick={() => setIsOpenDesc((prev) => !prev)}>
             Unstaking NFT
           </UnstakingDetailTitle>

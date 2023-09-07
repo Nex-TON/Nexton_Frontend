@@ -5,12 +5,7 @@ import { useEffect, useState } from "react";
 import useTonConnect from "../../../../hooks/useTonConnect";
 import { getAllStakeInfo } from "../../../../api/getAllStakeInfo";
 
-interface UnstakingDetailProps {
-  handleMoveUnstakingDetail: () => void;
-}
-
-const UnstakingDetail = (props: UnstakingDetailProps) => {
-  const { handleMoveUnstakingDetail } = props;
+const UnstakingDetail = () => {
   const [unstakingList, setUnstakingList] = useState([]);
   const { address } = useTonConnect();
 
@@ -27,10 +22,7 @@ const UnstakingDetail = (props: UnstakingDetailProps) => {
 
   return (
     <UnstakingDetailWrapper>
-      <UnstakingDetailHeader
-        handleMoveUnstakingDetail={handleMoveUnstakingDetail}
-        UnstakingListLength={unstakingList?.length}
-      />
+      <UnstakingDetailHeader UnstakingListLength={unstakingList?.length} />
       <UnstakingDetailList item={unstakingList} />
     </UnstakingDetailWrapper>
   );
