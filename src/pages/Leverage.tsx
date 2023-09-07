@@ -137,14 +137,14 @@ const Leverage = () => {
       <LeverageBottomTextBox>
         The NFT will contain the information
       </LeverageBottomTextBox>
-      <FooterWrapper>
+      {/* <FooterWrapper>
         <FooterButton
           title="Confirm"
           ratio={ratio}
           onClick={handleMovePreview}
         />
-      </FooterWrapper>
-      {/* <MainButton text="Confirm" onClick={handleMovePreview} /> */}
+      </FooterWrapper> */}
+      <MainButton text="Confirm" onClick={handleMovePreview} />
     </LeverageWrapper>
   );
 };
