@@ -5,4 +5,5 @@ export interface nftInfo {
   lockPeriod: number;
   timeStamp: string;
   nominator: string;
+  status: number;
 }
