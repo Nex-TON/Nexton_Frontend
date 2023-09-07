@@ -2,13 +2,30 @@ import { styled } from "styled-components";
 import IcClaim from "../../../assets/icons/MyAsset/ic_claim.svg";
 import IcClaimDisable from "../../../assets/icons/MyAsset/ic_claim_disable.svg";
 import IcArrow from "../../../assets/icons/MyAsset/ic_arrow.svg";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAllStakeInfo } from "../../../api/getAllStakeInfo";
+import useTonConnect from "../../../hooks/useTonConnect";
+import UnstakingDetailHeader from "./UnstakingDetail/UnstakingDetailHeader";
+import UnstakingDetailList from "./UnstakingDetail/UnstakingDetailList";
 
 const tele = (window as any).Telegram.WebApp;
 
 const UnstakingList = () => {
   const navigate = useNavigate();
+  const [unstakingList, setUnstakingList] = useState([]);
+  const { address } = useTonConnect();
+
+  const getStakedInfo = async () => {
+    if (address) {
+      const response = await getAllStakeInfo(address);
+      setUnstakingList(response.filter((item) => item.status === 1));
+    }
+  };
+
+  useEffect(() => {
+    getStakedInfo();
+  }, [address]);
 
   useEffect(() => {
     if (tele) {
@@ -38,12 +55,16 @@ const UnstakingList = () => {
           </ClaimButton>
         </UnstakingListBottom>
       </UnstakingListWrapper>
-      <UnstakingDetailBox onClick={() => navigate("/myasset/unstakingdetail")}>
+      <UnstakingDetailWrapper>
+        {/* <UnstakingDetailHeader UnstakingListLength={unstakingList?.length} /> */}
+        <UnstakingDetailList item={unstakingList} />
+      </UnstakingDetailWrapper>
+      {/* <UnstakingDetailBox onClick={() => navigate("/myasset/unstakingdetail")}>
         <UnstakingDetailRightBox>Details</UnstakingDetailRightBox>
         <UnstakingArrowBox>
           <img src={IcArrow} alt="arrow" width={18} />
         </UnstakingArrowBox>
-      </UnstakingDetailBox>
+      </UnstakingDetailBox> */}
     </>
   );
 };
@@ -129,4 +150,8 @@ const UnstakingArrowBox = styled.div`
 
   border-radius: 50%;
   background-color: #e1e1e6;
+`;
+
+const UnstakingDetailWrapper = styled.div`
+  width: 100%;
 `;

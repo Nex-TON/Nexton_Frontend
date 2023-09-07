@@ -55,7 +55,6 @@ const NftList = () => {
     };
   }, []);
 
-  console.log(stakedInfo);
   return (
     <NFtListWrapper>
       <NftListHeader>
@@ -76,7 +75,6 @@ const NftList = () => {
         <NFTItemWrapper>
           {stakedInfo
             .sort((a, b) => b.timeStamp - a.timeStamp)
-            .filter((item) => item.status === 0)
             .map((item) => (
               <NftItem key={item.nftId} item={item} />
             ))}

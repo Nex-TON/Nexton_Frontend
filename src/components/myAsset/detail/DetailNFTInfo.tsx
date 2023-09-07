@@ -83,7 +83,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
       <ButtonWrapper>
         {DDayChange(timeStamp, lockPeriod) > 0 ? (
           <MainButton
-            text="Collateralizing"
+            text="Use as collateral"
             onClick={() => navigate(`/loan/${nftId}`)}
           />
         ) : (

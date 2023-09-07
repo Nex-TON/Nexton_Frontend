@@ -17,11 +17,11 @@ const UnstakingDetailItem = (props: UnstakingDetailItemProps) => {
     <UnstakingDetailItemWrapper onClick={() => navigate("/unstaking/view/1")}>
       <UnstakingDetailTopBox>
         <UnstakingDetailId>
-          {String(nftId).padStart(5, "0")} <img src={IcTon} alt="tonSymbol" />
+          ID {String(nftId).padStart(5, "0")}
         </UnstakingDetailId>
         <UnstakingDetailRightTopBox>
           <CaptionText>Available in</CaptionText>
-          <BoldText>0000 Days</BoldText>
+          <BoldText>0000 Hours</BoldText>
         </UnstakingDetailRightTopBox>
       </UnstakingDetailTopBox>
       <UnstakingDetailMiddel>
@@ -35,7 +35,7 @@ const UnstakingDetailItem = (props: UnstakingDetailItemProps) => {
       </UnstakingDetailMiddel>
       <UnstakingDetailBottomBox>
         <CaptionText>Date of unstaking</CaptionText>
-        <CaptionText>{UnstakingDateChanger()}</CaptionText>
+        <CaptionText>{UnstakingDateChanger("detail")}</CaptionText>
       </UnstakingDetailBottomBox>
     </UnstakingDetailItemWrapper>
   );
@@ -62,9 +62,9 @@ const UnstakingDetailId = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.4rem;
+  gap: 1rem;
 
-  padding: 0.4rem 0.8rem;
+  padding: 0.4rem 1.2rem;
 
   border-radius: 2rem;
   background-color: #141420;
