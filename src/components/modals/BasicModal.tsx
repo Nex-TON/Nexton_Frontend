@@ -2,8 +2,11 @@ import { styled } from "styled-components";
 import { useRef, useEffect } from "react";
 import ModalWrapper from "./ModalWrapper";
 import IcClose from "../../assets/icons/ic_close.svg";
+import { useNavigate } from "react-router-dom";
+import IcModalArrow from "../../assets/icons/Modal/ic_modal_arrow.svg";
 
 function BasicModal({ toggleModal }) {
+  const navigate = useNavigate();
   const innerRef = useRef(null);
 
   useEffect(() => {
@@ -31,15 +34,18 @@ function BasicModal({ toggleModal }) {
           <br />
           on My asset, and transaction data
         </SubTitle>
-
-        <Button
-          onClick={() => {
-            window.location.href =
-              "https://testnet.tonscan.org/address/EQCQih3SDKBwHVdCs5gCXJBIxD42agoC0gOJU1SBhqI8ThIc";
-          }}
-        >
-          Open TON Viewer
-        </Button>
+        <OpenTonViewerBox>
+          <OpenTonViewer
+            onClick={() => {
+              window.location.href =
+                "https://testnet.tonscan.org/address/EQCQih3SDKBwHVdCs5gCXJBIxD42agoC0gOJU1SBhqI8ThIc";
+            }}
+          >
+            Open ton viewer
+            <img src={IcModalArrow} alt="modalArrow" />
+          </OpenTonViewer>
+        </OpenTonViewerBox>
+        <Button onClick={() => navigate("/")}>Okay</Button>
       </Container>
     </ModalWrapper>
   );
@@ -53,7 +59,7 @@ export const ModalHeader = styled.div`
   align-items: center;
 
   width: 100%;
-  margin-bottom: 6rem;
+  margin-bottom: 4.7rem;
 `;
 
 export const Container = styled.div`
@@ -77,6 +83,31 @@ export const Container = styled.div`
   overflow: hidden;
 `;
 
+export const OpenTonViewerBox = styled.div`
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  margin-top: 1.7rem;
+  margin-bottom: 4.9rem;
+`;
+
+export const OpenTonViewer = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+
+  padding: 0;
+  padding-bottom: 0.4rem;
+
+  border: none;
+  border-bottom: 0.1rem solid #007aff;
+  background: transparent;
+  color: #008aff;
+  ${({ theme }) => theme.fonts.Telegram_Caption_1_1};
+`;
+
 export const Title = styled.p`
   color: #007aff;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2}
@@ -90,8 +121,6 @@ export const SubTitle = styled.p`
   font-style: normal;
   font-weight: 400;
   line-height: 2rem; /* 138.462% */
-
-  margin-bottom: 7rem;
 `;
 
 export const Button = styled.button`

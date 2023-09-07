@@ -1,13 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { styled } from "styled-components";
 import ModalWrapper from "./ModalWrapper";
 import IcClose from "../../../assets/icons/ic_close.svg";
-
+import { useNavigate } from "react-router-dom";
+import IcModalArrow from "../../../assets/icons/Modal/ic_modal_arrow.svg";
 interface BasicModalProps {
   toggleModal: () => void;
 }
 
 const BasicModal = (props: BasicModalProps) => {
+  const navigate = useNavigate();
   const { toggleModal } = props;
 
   const innerRef = useRef(null);
@@ -39,15 +41,18 @@ const BasicModal = (props: BasicModalProps) => {
           <br />
           history by tapping below button
         </SubTitle>
-
-        <Button
-          onClick={() => {
-            window.location.href =
-              "https://testnet.tonscan.org/address/EQCQih3SDKBwHVdCs5gCXJBIxD42agoC0gOJU1SBhqI8ThIc";
-          }}
-        >
-          Open TON Viewer
-        </Button>
+        <OpenTonViewerBox>
+          <OpenTonViewer
+            onClick={() => {
+              window.location.href =
+                "https://testnet.tonscan.org/address/EQCQih3SDKBwHVdCs5gCXJBIxD42agoC0gOJU1SBhqI8ThIc";
+            }}
+          >
+            Open ton viewer
+            <img src={IcModalArrow} alt="modalArrow" />
+          </OpenTonViewer>
+        </OpenTonViewerBox>
+        <Button onClick={() => navigate("/")}>Okay</Button>
       </Container>
     </ModalWrapper>
   );
@@ -61,7 +66,7 @@ export const ModalHeader = styled.div`
   align-items: center;
 
   width: 100%;
-  margin-bottom: 4.1rem;
+  margin-bottom: 3.7rem;
 `;
 
 export const Container = styled.div`
@@ -93,8 +98,6 @@ export const Title = styled.p`
 `;
 
 export const SubTitle = styled.p`
-  margin-bottom: 6.1rem;
-
   font-family: "pretendard";
   font-size: 1.4rem;
   font-style: normal;
@@ -124,4 +127,29 @@ export const Button = styled.button`
   box-shadow: 0 0 2rem 0 rgba(198, 197, 208, 0.3);
 
   cursor: pointer;
+`;
+
+const OpenTonViewerBox = styled.div`
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  margin-top: 1.7rem;
+  margin-bottom: 4.9rem;
+`;
+
+const OpenTonViewer = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+
+  padding: 0;
+  padding-bottom: 0.4rem;
+
+  border: none;
+  border-bottom: 0.1rem solid #007aff;
+  background: transparent;
+  color: #008aff;
+  ${({ theme }) => theme.fonts.Telegram_Caption_1_1};
 `;
