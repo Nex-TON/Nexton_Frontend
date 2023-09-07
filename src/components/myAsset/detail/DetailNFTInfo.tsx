@@ -13,7 +13,8 @@ interface DetailNftInfoProps {
 }
 const DetailNftInfo = (props: DetailNftInfoProps) => {
   const { item } = props;
-  const { nftId, amount, leverage, timeStamp, lockPeriod, nominator } = item;
+  const { nftId, amount, leverage, timeStamp, lockPeriod, nominator, status } =
+    item;
 
   const navigate = useNavigate();
 
@@ -87,12 +88,14 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
             onClick={() => navigate(`/loan/${nftId}`)}
           />
         ) : (
-          <MainButton
-            text="Unstaking"
-            color="#31333e"
-            textColor="#fff"
-            onClick={() => navigate(`/unstaking/${nftId}`)}
-          />
+          status === 0 && (
+            <MainButton
+              text="Unstaking"
+              color="#31333e"
+              textColor="#fff"
+              onClick={() => navigate(`/unstaking/${nftId}`)}
+            />
+          )
         )}
       </ButtonWrapper>
     </DetailNftInfoWrapper>

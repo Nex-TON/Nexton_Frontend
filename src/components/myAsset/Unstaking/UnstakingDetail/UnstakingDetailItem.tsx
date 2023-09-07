@@ -14,7 +14,9 @@ const UnstakingDetailItem = (props: UnstakingDetailItemProps) => {
   const navigate = useNavigate();
 
   return (
-    <UnstakingDetailItemWrapper onClick={() => navigate("/unstaking/view/1")}>
+    <UnstakingDetailItemWrapper
+      onClick={() => navigate(`/unstaking/view/${nftId}`)}
+    >
       <UnstakingDetailTopBox>
         <UnstakingDetailId>
           ID {String(nftId).padStart(5, "0")}
