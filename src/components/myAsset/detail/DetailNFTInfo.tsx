@@ -108,8 +108,12 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
             onClick={() => navigate(`/unstaking/${nftId}`)}
           />
         ) : (
-          // <button onClick={handleWithDraw}>withDrawal</button>
-          <MainButton text="Withdraw" color="#31333e" textColor="#fff" />
+          <MainButton
+            text="Withdraw"
+            onClick={handleWithDraw}
+            color="#31333e"
+            textColor="#fff"
+          />
         )}
       </ButtonWrapper>
     </DetailNftInfoWrapper>
