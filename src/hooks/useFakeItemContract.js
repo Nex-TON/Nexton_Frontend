@@ -5,7 +5,7 @@ import useTonConnect from "./useTonConnect";
 import { FakeItem } from "./tact_FakeItem";
 
 function useFakeItemContract() {
-  const contractAddress = `${import.meta.env.VITE_CONTRACT_ADDRESS}`;
+  const contractAddress = `${import.meta.env.VITE_FAKEITEM_CONTRACT_ADDRESS}`;
   const client = useTonClient();
   const { sender, address } = useTonConnect();
 
@@ -20,7 +20,7 @@ function useFakeItemContract() {
     address: fakeContract?.address.toString(),
     sendMessage: async (data, value) => {
       if (fakeContract) {
-        return await fakeContract.send(sender, { value: toNano("0.08") }, data);
+        return await fakeContract.send(sender, { value: toNano(value) }, data);
       } else {
         return () => {};
       }

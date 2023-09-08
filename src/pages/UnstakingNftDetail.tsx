@@ -39,7 +39,7 @@ const UnstakingNftDetail = () => {
   };
 
   const postUnstaking = async () => {
-    if (address) {
+    if (address && stakedNftDetail) {
       const newUnstaking: UnstakingProps = {
         telegramId: Number(telegramId),
         nftId: Number(id),
@@ -53,7 +53,7 @@ const UnstakingNftDetail = () => {
         };
       };
 
-      await sendMessage(data());
+      await sendMessage(data(), `${stakedNftDetail[0].amount}`);
       const response = await postUnstake(newUnstaking);
       if (response === 200) {
         handleToggleModal();
