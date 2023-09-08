@@ -11,9 +11,11 @@ const UnstakingDetailList = (props: UnstakingDetailListProps) => {
 
   return (
     <UnstkaingDetailListWrapper>
-      {item.map((data) => (
-        <UnstakingDetailItem key={data.nftId} item={data} />
-      ))}
+      {item
+        .sort((a: any, b: any) => b.timeStamp - a.timeStamp)
+        .map((data) => (
+          <UnstakingDetailItem key={data.nftId} item={data} />
+        ))}
     </UnstkaingDetailListWrapper>
   );
 };
