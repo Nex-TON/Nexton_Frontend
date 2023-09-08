@@ -32,8 +32,8 @@ const NFTPreview = () => {
       return {
         $$type: "UserDeposit",
         queryId: BigInt(Date.now()),
-        lockPeriod: 0n,
-        leverage: 0n,
+        lockPeriod: BigInt(stakingInfo.lockup),
+        leverage: BigInt(stakingInfo.leverage),
       };
     };
     await postStakingInfo({
@@ -74,8 +74,8 @@ const NFTPreview = () => {
         <NFTPreviewConfirmText>
           Please check your NFT details periodically
         </NFTPreviewConfirmText>
-        <MainButton text="Confirm" onClick={handleMinting} />
-        {/* <FooterButton title="Confirm" onClick={handleMinting} /> */}
+        {/* <MainButton text="Confirm" onClick={handleMinting} /> */}
+        <FooterButton title="Confirm" onClick={handleMinting} />
       </NFTPreviewConfirmBox>
     </NFTPreviewWrapper>
   );

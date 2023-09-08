@@ -4,10 +4,12 @@ import ModalWrapper from "./ModalWrapper";
 import IcClose from "../../assets/icons/ic_close.svg";
 import { useNavigate } from "react-router-dom";
 import IcModalArrow from "../../assets/icons/Modal/ic_modal_arrow.svg";
+import useTonConnect from "../../hooks/useTonConnect";
 
 function BasicModal({ toggleModal }) {
   const navigate = useNavigate();
   const innerRef = useRef(null);
+  const { address } = useTonConnect();
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -37,8 +39,7 @@ function BasicModal({ toggleModal }) {
         <OpenTonViewerBox>
           <OpenTonViewer
             onClick={() => {
-              window.location.href =
-                "https://testnet.tonscan.org/address/EQCQih3SDKBwHVdCs5gCXJBIxD42agoC0gOJU1SBhqI8ThIc";
+              window.location.href = `https://testnet.tonviewer.com/${address}`;
             }}
           >
             Open ton viewer

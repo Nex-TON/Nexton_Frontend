@@ -65,10 +65,10 @@ export const lockUpDateChanger = (date: number, type?: string) => {
   return formattedFutureDate;
 };
 
-export const UnstakingDateChanger = (type?: string) => {
-  const currentDate = new Date();
-  const oneAndHalfDays = 1.5 * 24 * 60 * 60 * 1000;
-  const newDate = new Date(currentDate.getTime() + oneAndHalfDays);
+export const UnstakingDateChanger = (dateString: string, type?: string) => {
+  const currentDate = new Date(dateString);
+  const thirtySixHours = 36 * 60 * 60 * 1000;
+  const newDate = new Date(currentDate.getTime() + thirtySixHours);
   const year = String(newDate.getFullYear()).slice(-2);
   const month = String(newDate.getMonth() + 1).padStart(2, "0");
   const day = String(newDate.getDate()).padStart(2, "0");
@@ -76,4 +76,18 @@ export const UnstakingDateChanger = (type?: string) => {
   return type === "detail"
     ? `${day}/${month}/${year}`
     : `${day}.${month}.${year}`;
+};
+
+export const AvailableDate = (dateString: string, type?: string) => {
+  const now = new Date();
+  const currentDate = new Date(dateString);
+  const thirtySixHours = 36 * 60 * 60 * 1000;
+  const newDate = new Date(currentDate.getTime() + thirtySixHours);
+
+  const diff = newDate.getTime() - now.getTime();
+  const seconds = Math.floor(diff / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60) % 24;
+
+  return hours;
 };

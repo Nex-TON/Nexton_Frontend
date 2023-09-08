@@ -61,7 +61,9 @@ const UnstakingInfo = (props: UnstakingInfoProps) => {
         <UnstakingInfoBottomBox>
           <UnstakingInfoBottomBox>
             <UnstakingBottomText>Date of Unstaking</UnstakingBottomText>
-            <UnstakingBottomText>{UnstakingDateChanger()}</UnstakingBottomText>
+            <UnstakingBottomText>
+              {UnstakingDateChanger(timeStamp)}
+            </UnstakingBottomText>
           </UnstakingInfoBottomBox>
         </UnstakingInfoBottomBox>
       </UnstakingInfoBottomWrapper>

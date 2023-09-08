@@ -12,12 +12,14 @@ import {
 import ModalWrapper from "../../modals/ModalWrapper";
 import IcModalArrow from "../../../assets/icons/Modal/ic_modal_arrow.svg";
 import { useNavigate } from "react-router-dom";
+import useTonConnect from "../../../hooks/useTonConnect";
 
 const UnstakingModal = ({
   handleToggleModal,
 }: {
   handleToggleModal: () => void;
 }) => {
+  const { address } = useTonConnect();
   const navigate = useNavigate();
   const innerRef = useRef(null);
 
@@ -50,8 +52,7 @@ const UnstakingModal = ({
         <OpenTonViewerBox>
           <OpenTonViewer
             onClick={() => {
-              window.location.href =
-                "https://testnet.tonscan.org/address/EQCQih3SDKBwHVdCs5gCXJBIxD42agoC0gOJU1SBhqI8ThIc";
+              window.location.href = `https://testnet.tonviewer.com/${address}`;
             }}
           >
             Open ton viewer

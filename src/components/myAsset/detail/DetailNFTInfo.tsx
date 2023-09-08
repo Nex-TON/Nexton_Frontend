@@ -18,6 +18,8 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
 
   const navigate = useNavigate();
 
+  console.log(new Date(timeStamp));
+
   return (
     <DetailNftInfoWrapper>
       <DetailNFTInfoHeader title="NFT info" />

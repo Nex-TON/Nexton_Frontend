@@ -3,14 +3,17 @@ import IcTon from "../../../../assets/icons/MyAsset/ic_tonSymbol.svg";
 import { useNavigate } from "react-router-dom";
 import { nftInfo } from "../../../../types/Nft";
 import { numberCutter } from "../../../../utils/numberCutter";
-import { UnstakingDateChanger } from "../../../../utils/dateChanger";
+import {
+  AvailableDate,
+  UnstakingDateChanger,
+} from "../../../../utils/dateChanger";
 
 interface UnstakingDetailItemProps {
   item: nftInfo;
 }
 
 const UnstakingDetailItem = (props: UnstakingDetailItemProps) => {
-  const { nftId, amount } = props.item;
+  const { nftId, amount, timeStamp } = props.item;
   const navigate = useNavigate();
 
   return (
@@ -23,7 +26,11 @@ const UnstakingDetailItem = (props: UnstakingDetailItemProps) => {
         </UnstakingDetailId>
         <UnstakingDetailRightTopBox>
           <CaptionText>Available in</CaptionText>
-          <BoldText>0000 Hours</BoldText>
+          <BoldText>
+            {AvailableDate(timeStamp) < 0
+              ? `0000 Hours`
+              : `${AvailableDate(timeStamp)} Hours`}
+          </BoldText>
         </UnstakingDetailRightTopBox>
       </UnstakingDetailTopBox>
       <UnstakingDetailMiddel>
@@ -37,7 +44,7 @@ const UnstakingDetailItem = (props: UnstakingDetailItemProps) => {
       </UnstakingDetailMiddel>
       <UnstakingDetailBottomBox>
         <CaptionText>Date of unstaking</CaptionText>
-        <CaptionText>{UnstakingDateChanger("detail")}</CaptionText>
+        <CaptionText>{UnstakingDateChanger(timeStamp, "detail")}</CaptionText>
       </UnstakingDetailBottomBox>
     </UnstakingDetailItemWrapper>
   );
