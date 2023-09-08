@@ -6,7 +6,7 @@ import FooterButton from "../components/common/FooterButton";
 import * as Contract from "./../hooks/useNextonContract";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { stakingAtom } from "../lib/atom/staking";
+import { stakingAtom, stakingInputAtom } from "../lib/atom/staking";
 import { StakingProps } from "../types/staking";
 import { getLockUpDate } from "../utils/getLockupDate";
 
@@ -32,7 +32,7 @@ const Leverage = () => {
   const [amountError, setAmoutError] = useState(false);
   const [nominatorError, setNominatorError] = useState(false);
   const [, setStakingInfo] = useRecoilState(stakingAtom);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useRecoilState(stakingInputAtom);
   const [maxLeverage, setMaxLeverage] = useState(0);
   const [ratio, setRatio] = useState(1.0);
   const nominatorName = useRecoilValue(nominatorAtom);
@@ -135,16 +135,16 @@ const Leverage = () => {
       <BorderLine />
       <Step3 input={input} ratio={ratio} />
       <LeverageBottomTextBox>
-        The NFT will contain the information
+        The NFT will contain this information
       </LeverageBottomTextBox>
-      {/* <FooterWrapper>
+      <FooterWrapper>
         <FooterButton
           title="Confirm"
           ratio={ratio}
           onClick={handleMovePreview}
         />
-      </FooterWrapper> */}
-      <MainButton text="Confirm" onClick={handleMovePreview} />
+      </FooterWrapper>
+      {/* <MainButton text="Confirm" onClick={handleMovePreview} /> */}
     </LeverageWrapper>
   );
 };

@@ -46,7 +46,7 @@ const UnstakingModal = ({
         </Title>
         <SubTitle>
           Unstaking process would take about
-          <br /> 36 hours. Check left time on My asset, <br />
+          <br /> 9 hours. Check left time on My asset, <br />
           and transaction data on TON viewer
         </SubTitle>
         <OpenTonViewerBox>

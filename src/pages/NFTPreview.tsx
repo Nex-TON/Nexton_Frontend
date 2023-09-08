@@ -6,17 +6,20 @@ import { UserDeposit } from "../hooks/tact_NexTon";
 import * as Contract from "../hooks/useNextonContract";
 import BasicModal from "../components/modals/BasicModal";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { stakingAtom } from "../lib/atom/staking";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { stakingAtom, stakingInputAtom } from "../lib/atom/staking";
 import { postStakingInfo } from "../api/postStakingInfo";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import { nominatorAtom } from "../lib/atom/nominator";
 
 const tele = (window as any).Telegram.WebApp;
 
 const NFTPreview = () => {
   const stakingInfo = useRecoilValue(stakingAtom);
 
+  const [, setInput] = useRecoilState(stakingInputAtom);
+  const [, setNominatorName] = useRecoilState(nominatorAtom);
   const { sendMessage } = Contract.useNextonContract();
   const [modal, setModal] = useState(false);
 
@@ -47,6 +50,8 @@ const NFTPreview = () => {
     await sendMessage(data(), stakingInfo.principal);
 
     toggleModal();
+    setInput("");
+    setNominatorName("");
   };
 
   useEffect(() => {
@@ -74,8 +79,8 @@ const NFTPreview = () => {
         <NFTPreviewConfirmText>
           Please check your NFT details periodically
         </NFTPreviewConfirmText>
-        <MainButton text="Confirm" onClick={handleMinting} />
-        {/* <FooterButton title="Confirm" onClick={handleMinting} /> */}
+        {/* <MainButton text="Confirm" onClick={handleMinting} /> */}
+        <FooterButton title="Confirm" onClick={handleMinting} />
       </NFTPreviewConfirmBox>
     </NFTPreviewWrapper>
   );

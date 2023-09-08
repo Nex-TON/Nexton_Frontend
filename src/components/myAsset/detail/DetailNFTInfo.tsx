@@ -18,8 +18,6 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
 
   const navigate = useNavigate();
 
-  console.log(new Date(timeStamp));
-
   return (
     <DetailNftInfoWrapper>
       <DetailNFTInfoHeader title="NFT info" />
@@ -89,15 +87,15 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
             text="Use as collateral"
             onClick={() => navigate(`/loan/${nftId}`)}
           />
+        ) : status === 0 ? (
+          <MainButton
+            text="Unstaking"
+            color="#31333e"
+            textColor="#fff"
+            onClick={() => navigate(`/unstaking/${nftId}`)}
+          />
         ) : (
-          status === 0 && (
-            <MainButton
-              text="Unstaking"
-              color="#31333e"
-              textColor="#fff"
-              onClick={() => navigate(`/unstaking/${nftId}`)}
-            />
-          )
+          <MainButton text="Withdraw" color="#31333e" textColor="#fff" />
         )}
       </ButtonWrapper>
     </DetailNftInfoWrapper>

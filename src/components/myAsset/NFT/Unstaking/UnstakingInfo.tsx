@@ -22,7 +22,7 @@ const UnstakingInfo = (props: UnstakingInfoProps) => {
       </UnstakingBoldWrapper>
       <UnstakingBoldWrapper>
         <UnstakingBoldText>Rewards</UnstakingBoldText>
-        <UnstakingBoldText>0.000 TON</UnstakingBoldText>
+        <UnstakingBoldText>0.5 TON</UnstakingBoldText>
       </UnstakingBoldWrapper>
       <UnstakingInfoBottomWrapper>
         {/* <UnstakingBottomText style={{ marginBottom: "1.4rem" }}>
@@ -52,11 +52,11 @@ const UnstakingInfo = (props: UnstakingInfoProps) => {
           style={{ marginTop: "3rem", marginBottom: "1.4rem" }}
         >
           <UnstakingBoldText>Available in</UnstakingBoldText>
-          <UnstakingBoldText> ＜ 36H </UnstakingBoldText>
+          <UnstakingBoldText> ＜ 9H </UnstakingBoldText>
         </UnstakingBoldWrapper>
         <UnstakingInfoBottomBox>
           <UnstakingBottomText>Unstaking period</UnstakingBottomText>
-          <UnstakingBottomText>1.5 Day</UnstakingBottomText>
+          <UnstakingBottomText>9H</UnstakingBottomText>
         </UnstakingInfoBottomBox>
         <UnstakingInfoBottomBox>
           <UnstakingInfoBottomBox>

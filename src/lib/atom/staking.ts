@@ -16,3 +16,8 @@ export const stakingAtom = atom<StakingProps>({
   },
   effects_UNSTABLE: [persistAtom],
 });
+
+export const stakingInputAtom = atom({
+  key: "stakingInputAtom",
+  default: "",
+});

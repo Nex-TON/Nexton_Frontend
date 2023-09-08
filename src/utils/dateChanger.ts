@@ -67,7 +67,7 @@ export const lockUpDateChanger = (date: number, type?: string) => {
 
 export const UnstakingDateChanger = (dateString: string, type?: string) => {
   const currentDate = new Date(dateString);
-  const thirtySixHours = 36 * 60 * 60 * 1000;
+  const thirtySixHours = 9 * 60 * 60 * 1000;
   const newDate = new Date(currentDate.getTime() + thirtySixHours);
   const year = String(newDate.getFullYear()).slice(-2);
   const month = String(newDate.getMonth() + 1).padStart(2, "0");
@@ -81,7 +81,7 @@ export const UnstakingDateChanger = (dateString: string, type?: string) => {
 export const AvailableDate = (dateString: string, type?: string) => {
   const now = new Date();
   const currentDate = new Date(dateString);
-  const thirtySixHours = 36 * 60 * 60 * 1000;
+  const thirtySixHours = 9 * 60 * 60 * 1000;
   const newDate = new Date(currentDate.getTime() + thirtySixHours);
 
   const diff = newDate.getTime() - now.getTime();
