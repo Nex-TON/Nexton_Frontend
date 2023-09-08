@@ -7,6 +7,10 @@ import IcTonKeeper from "../../assets/icons/Landing/ic_tonKeeper.svg";
 const TonWallet = () => {
   const { address, connected, tonConnectUI } = useTonConnect();
 
+  const clearStorage = () => {
+    window.localStorage.clear();
+    window.location.reload();
+  };
   return (
     <TonWalletWrapper>
       {connected ? (
@@ -15,7 +19,7 @@ const TonWallet = () => {
             <img src={IcWallet} alt="wallet" width={24} height={24} />
             {address.slice(0, 20)}
           </TonWalletLeftBox>
-          <TonKeeperBox>
+          <TonKeeperBox onClick={clearStorage}>
             <img src={IcTonKeeper} alt="tonKeeper" />
           </TonKeeperBox>
         </TonWalletBox>
