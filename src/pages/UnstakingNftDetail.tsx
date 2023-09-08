@@ -12,6 +12,9 @@ import { telegramAtom } from "../lib/atom/telegram";
 import { UnstakingProps } from "../types/staking";
 import useTonConnect from "../hooks/useTonConnect";
 import { postUnstake } from "../api/postUnstake";
+import { Transfer } from "../hooks/tact_FakeItem";
+import { randomAddress } from "@ton-community/test-utils";
+import * as Contract from "../hooks/useFakeItemContract";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -20,7 +23,7 @@ const UnstakingNftDetail = () => {
   const telegramId = useRecoilValue(telegramAtom);
   const [toggleModal, setToggleModal] = useState(false);
   const { address } = useTonConnect();
-
+  const { sendMessage } = Contract.useFakeItemContract();
   const { id } = useParams();
   const location = useLocation();
   const { pathname } = location;
@@ -43,6 +46,14 @@ const UnstakingNftDetail = () => {
         address,
       };
 
+      const data = (): Transfer => {
+        return {
+          $$type: "Transfer",
+          newOwner: randomAddress(),
+        };
+      };
+
+      await sendMessage(data());
       const response = await postUnstake(newUnstaking);
       if (response === 200) {
         handleToggleModal();

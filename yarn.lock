@@ -1563,6 +1563,13 @@
   dependencies:
     tslib "^2.5.0"
 
+"@ton-community/test-utils@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@ton-community/test-utils/-/test-utils-0.3.0.tgz#44e854cd023123d3cb57df3839730b0bc6dac609"
+  integrity sha512-eCw1c6a0TcKwiYEA4fmzPq+7dJtUx0UFYu+UEoRznIxEOcpEb8Ssjb9yMeiJEzbtUVMCkhEtpztdKt75ngDRWg==
+  dependencies:
+    node-inspect-extracted "^2.0.0"
+
 "@tonconnect/isomorphic-eventsource@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@tonconnect/isomorphic-eventsource/-/isomorphic-eventsource-0.0.1.tgz#199e5a86c31dad706b79826f65879e0d77d3dd51"
@@ -2790,6 +2797,11 @@ node-fetch@^2.6.8:
   integrity sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==
   dependencies:
     whatwg-url "^5.0.0"
+
+node-inspect-extracted@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/node-inspect-extracted/-/node-inspect-extracted-2.0.2.tgz#e5500e79f6bc03517175881c991f3bfaea67115a"
+  integrity sha512-8qm9+tu/GmbA/uWQRs6ad8KstyhH94a0pXpRVGHaJ9wHlJbetCYoCwXbKILaaMcE+wgbgpOpzcCnipkL8vTqxA==
 
 node-releases@^2.0.12:
   version "2.0.13"

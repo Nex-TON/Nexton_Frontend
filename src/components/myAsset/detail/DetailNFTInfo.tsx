@@ -7,6 +7,8 @@ import { numberCutter } from "../../../utils/numberCutter";
 import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
 import { getProtocolFee } from "../../../utils/getProtocolFee";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import * as Contract from "../../../hooks/useNextonContract";
+import { UserClaimWithdraw } from "../../../hooks/tact_NexTon";
 
 interface DetailNftInfoProps {
   item: nftInfo;
@@ -16,6 +18,17 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
   const { nftId, amount, leverage, timeStamp, lockPeriod, nominator, status } =
     item;
 
+  const { sendMessage } = Contract.useNextonContract();
+
+  const handleWithDraw = async () => {
+    const data = (): UserClaimWithdraw => {
+      return {
+        $$type: "UserClaimWithdraw",
+        itemIndex: 0n,
+      };
+    };
+    await sendMessage(data(), "0.05");
+  };
   const navigate = useNavigate();
 
   return (
@@ -95,6 +108,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
             onClick={() => navigate(`/unstaking/${nftId}`)}
           />
         ) : (
+          // <button onClick={handleWithDraw}>withDrawal</button>
           <MainButton text="Withdraw" color="#31333e" textColor="#fff" />
         )}
       </ButtonWrapper>

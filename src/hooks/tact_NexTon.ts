@@ -555,70 +555,6 @@ function dictValueParserUserDeposit(): DictionaryValue<UserDeposit> {
   };
 }
 
-export type ChangeAddr = {
-  $$type: "ChangeAddr";
-  queryId: bigint;
-  address: Address;
-  entity: string;
-};
-
-export function storeChangeAddr(src: ChangeAddr) {
-  return (builder: Builder) => {
-    let b_0 = builder;
-    b_0.storeUint(406989457, 32);
-    b_0.storeUint(src.queryId, 64);
-    b_0.storeAddress(src.address);
-    b_0.storeStringRefTail(src.entity);
-  };
-}
-
-export function loadChangeAddr(slice: Slice) {
-  let sc_0 = slice;
-  if (sc_0.loadUint(32) !== 406989457) {
-    throw Error("Invalid prefix");
-  }
-  let _queryId = sc_0.loadUintBig(64);
-  let _address = sc_0.loadAddress();
-  let _entity = sc_0.loadStringRefTail();
-  return {
-    $$type: "ChangeAddr" as const,
-    queryId: _queryId,
-    address: _address,
-    entity: _entity,
-  };
-}
-
-function loadTupleChangeAddr(source: TupleReader) {
-  let _queryId = source.readBigNumber();
-  let _address = source.readAddress();
-  let _entity = source.readString();
-  return {
-    $$type: "ChangeAddr" as const,
-    queryId: _queryId,
-    address: _address,
-    entity: _entity,
-  };
-}
-
-function storeTupleChangeAddr(source: ChangeAddr) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.queryId);
-  builder.writeAddress(source.address);
-  builder.writeString(source.entity);
-  return builder.build();
-}
-
-function dictValueParserChangeAddr(): DictionaryValue<ChangeAddr> {
-  return {
-    serialize: (src, buidler) => {
-      buidler.storeRef(beginCell().store(storeChangeAddr(src)).endCell());
-    },
-    parse: (src) => {
-      return loadChangeAddr(src.loadRef().beginParse());
-    },
-  };
-}
-
 export type MintNFT = {
   $$type: "MintNFT";
   queryId: bigint;
@@ -690,197 +626,6 @@ function dictValueParserMintNFT(): DictionaryValue<MintNFT> {
   };
 }
 
-export type NFTContent = {
-  $$type: "NFTContent";
-  principal: bigint;
-  leverageRatio: bigint;
-  lockPeriod: bigint;
-  lockEnd: bigint;
-};
-
-export function storeNFTContent(src: NFTContent) {
-  return (builder: Builder) => {
-    let b_0 = builder;
-    b_0.storeCoins(src.principal);
-    b_0.storeUint(src.leverageRatio, 32);
-    b_0.storeUint(src.lockPeriod, 256);
-    b_0.storeUint(src.lockEnd, 256);
-  };
-}
-
-export function loadNFTContent(slice: Slice) {
-  let sc_0 = slice;
-  let _principal = sc_0.loadCoins();
-  let _leverageRatio = sc_0.loadUintBig(32);
-  let _lockPeriod = sc_0.loadUintBig(256);
-  let _lockEnd = sc_0.loadUintBig(256);
-  return {
-    $$type: "NFTContent" as const,
-    principal: _principal,
-    leverageRatio: _leverageRatio,
-    lockPeriod: _lockPeriod,
-    lockEnd: _lockEnd,
-  };
-}
-
-function loadTupleNFTContent(source: TupleReader) {
-  let _principal = source.readBigNumber();
-  let _leverageRatio = source.readBigNumber();
-  let _lockPeriod = source.readBigNumber();
-  let _lockEnd = source.readBigNumber();
-  return {
-    $$type: "NFTContent" as const,
-    principal: _principal,
-    leverageRatio: _leverageRatio,
-    lockPeriod: _lockPeriod,
-    lockEnd: _lockEnd,
-  };
-}
-
-function storeTupleNFTContent(source: NFTContent) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.principal);
-  builder.writeNumber(source.leverageRatio);
-  builder.writeNumber(source.lockPeriod);
-  builder.writeNumber(source.lockEnd);
-  return builder.build();
-}
-
-function dictValueParserNFTContent(): DictionaryValue<NFTContent> {
-  return {
-    serialize: (src, buidler) => {
-      buidler.storeRef(beginCell().store(storeNFTContent(src)).endCell());
-    },
-    parse: (src) => {
-      return loadNFTContent(src.loadRef().beginParse());
-    },
-  };
-}
-
-export type mintJettons = {
-  $$type: "mintJettons";
-  queryId: bigint;
-  amount: bigint;
-  receiverAddress: Address;
-};
-
-export function storemintJettons(src: mintJettons) {
-  return (builder: Builder) => {
-    let b_0 = builder;
-    b_0.storeUint(1, 32);
-    b_0.storeUint(src.queryId, 64);
-    b_0.storeCoins(src.amount);
-    b_0.storeAddress(src.receiverAddress);
-  };
-}
-
-export function loadmintJettons(slice: Slice) {
-  let sc_0 = slice;
-  if (sc_0.loadUint(32) !== 1) {
-    throw Error("Invalid prefix");
-  }
-  let _queryId = sc_0.loadUintBig(64);
-  let _amount = sc_0.loadCoins();
-  let _receiverAddress = sc_0.loadAddress();
-  return {
-    $$type: "mintJettons" as const,
-    queryId: _queryId,
-    amount: _amount,
-    receiverAddress: _receiverAddress,
-  };
-}
-
-function loadTuplemintJettons(source: TupleReader) {
-  let _queryId = source.readBigNumber();
-  let _amount = source.readBigNumber();
-  let _receiverAddress = source.readAddress();
-  return {
-    $$type: "mintJettons" as const,
-    queryId: _queryId,
-    amount: _amount,
-    receiverAddress: _receiverAddress,
-  };
-}
-
-function storeTuplemintJettons(source: mintJettons) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.queryId);
-  builder.writeNumber(source.amount);
-  builder.writeAddress(source.receiverAddress);
-  return builder.build();
-}
-
-function dictValueParsermintJettons(): DictionaryValue<mintJettons> {
-  return {
-    serialize: (src, buidler) => {
-      buidler.storeRef(beginCell().store(storemintJettons(src)).endCell());
-    },
-    parse: (src) => {
-      return loadmintJettons(src.loadRef().beginParse());
-    },
-  };
-}
-
-export type LPProvider = {
-  $$type: "LPProvider";
-  principal: bigint;
-  rewards: bigint;
-  lastStakePrincipal: bigint;
-};
-
-export function storeLPProvider(src: LPProvider) {
-  return (builder: Builder) => {
-    let b_0 = builder;
-    b_0.storeCoins(src.principal);
-    b_0.storeCoins(src.rewards);
-    b_0.storeCoins(src.lastStakePrincipal);
-  };
-}
-
-export function loadLPProvider(slice: Slice) {
-  let sc_0 = slice;
-  let _principal = sc_0.loadCoins();
-  let _rewards = sc_0.loadCoins();
-  let _lastStakePrincipal = sc_0.loadCoins();
-  return {
-    $$type: "LPProvider" as const,
-    principal: _principal,
-    rewards: _rewards,
-    lastStakePrincipal: _lastStakePrincipal,
-  };
-}
-
-function loadTupleLPProvider(source: TupleReader) {
-  let _principal = source.readBigNumber();
-  let _rewards = source.readBigNumber();
-  let _lastStakePrincipal = source.readBigNumber();
-  return {
-    $$type: "LPProvider" as const,
-    principal: _principal,
-    rewards: _rewards,
-    lastStakePrincipal: _lastStakePrincipal,
-  };
-}
-
-function storeTupleLPProvider(source: LPProvider) {
-  let builder = new TupleBuilder();
-  builder.writeNumber(source.principal);
-  builder.writeNumber(source.rewards);
-  builder.writeNumber(source.lastStakePrincipal);
-  return builder.build();
-}
-
-function dictValueParserLPProvider(): DictionaryValue<LPProvider> {
-  return {
-    serialize: (src, buidler) => {
-      buidler.storeRef(beginCell().store(storeLPProvider(src)).endCell());
-    },
-    parse: (src) => {
-      return loadLPProvider(src.loadRef().beginParse());
-    },
-  };
-}
-
 export type StakingReward = {
   $$type: "StakingReward";
   principal: bigint;
@@ -938,93 +683,108 @@ function dictValueParserStakingReward(): DictionaryValue<StakingReward> {
   };
 }
 
-export type UserStakeInfo = {
-  $$type: "UserStakeInfo";
-  staker: Address;
-  leverageRatio: bigint;
-  protocolFee: bigint;
-  principal: bigint;
-  lockPeriod: bigint;
-  lockEnd: bigint;
-  isLent: boolean;
+export type UserClaimWithdraw = {
+  $$type: "UserClaimWithdraw";
+  itemIndex: bigint;
 };
 
-export function storeUserStakeInfo(src: UserStakeInfo) {
+export function storeUserClaimWithdraw(src: UserClaimWithdraw) {
   return (builder: Builder) => {
     let b_0 = builder;
-    b_0.storeAddress(src.staker);
-    b_0.storeUint(src.leverageRatio, 32);
-    b_0.storeCoins(src.protocolFee);
-    b_0.storeCoins(src.principal);
-    b_0.storeUint(src.lockPeriod, 256);
-    let b_1 = new Builder();
-    b_1.storeUint(src.lockEnd, 256);
-    b_1.storeBit(src.isLent);
-    b_0.storeRef(b_1.endCell());
+    b_0.storeUint(85167505, 32);
+    b_0.storeUint(src.itemIndex, 32);
   };
 }
 
-export function loadUserStakeInfo(slice: Slice) {
+export function loadUserClaimWithdraw(slice: Slice) {
   let sc_0 = slice;
-  let _staker = sc_0.loadAddress();
-  let _leverageRatio = sc_0.loadUintBig(32);
-  let _protocolFee = sc_0.loadCoins();
-  let _principal = sc_0.loadCoins();
-  let _lockPeriod = sc_0.loadUintBig(256);
-  let sc_1 = sc_0.loadRef().beginParse();
-  let _lockEnd = sc_1.loadUintBig(256);
-  let _isLent = sc_1.loadBit();
-  return {
-    $$type: "UserStakeInfo" as const,
-    staker: _staker,
-    leverageRatio: _leverageRatio,
-    protocolFee: _protocolFee,
-    principal: _principal,
-    lockPeriod: _lockPeriod,
-    lockEnd: _lockEnd,
-    isLent: _isLent,
-  };
+  if (sc_0.loadUint(32) !== 85167505) {
+    throw Error("Invalid prefix");
+  }
+  let _itemIndex = sc_0.loadUintBig(32);
+  return { $$type: "UserClaimWithdraw" as const, itemIndex: _itemIndex };
 }
 
-function loadTupleUserStakeInfo(source: TupleReader) {
-  let _staker = source.readAddress();
-  let _leverageRatio = source.readBigNumber();
-  let _protocolFee = source.readBigNumber();
-  let _principal = source.readBigNumber();
-  let _lockPeriod = source.readBigNumber();
-  let _lockEnd = source.readBigNumber();
-  let _isLent = source.readBoolean();
-  return {
-    $$type: "UserStakeInfo" as const,
-    staker: _staker,
-    leverageRatio: _leverageRatio,
-    protocolFee: _protocolFee,
-    principal: _principal,
-    lockPeriod: _lockPeriod,
-    lockEnd: _lockEnd,
-    isLent: _isLent,
-  };
+function loadTupleUserClaimWithdraw(source: TupleReader) {
+  let _itemIndex = source.readBigNumber();
+  return { $$type: "UserClaimWithdraw" as const, itemIndex: _itemIndex };
 }
 
-function storeTupleUserStakeInfo(source: UserStakeInfo) {
+function storeTupleUserClaimWithdraw(source: UserClaimWithdraw) {
   let builder = new TupleBuilder();
-  builder.writeAddress(source.staker);
-  builder.writeNumber(source.leverageRatio);
-  builder.writeNumber(source.protocolFee);
-  builder.writeNumber(source.principal);
-  builder.writeNumber(source.lockPeriod);
-  builder.writeNumber(source.lockEnd);
-  builder.writeBoolean(source.isLent);
+  builder.writeNumber(source.itemIndex);
   return builder.build();
 }
 
-function dictValueParserUserStakeInfo(): DictionaryValue<UserStakeInfo> {
+function dictValueParserUserClaimWithdraw(): DictionaryValue<UserClaimWithdraw> {
   return {
     serialize: (src, buidler) => {
-      buidler.storeRef(beginCell().store(storeUserStakeInfo(src)).endCell());
+      buidler.storeRef(
+        beginCell().store(storeUserClaimWithdraw(src)).endCell()
+      );
     },
     parse: (src) => {
-      return loadUserStakeInfo(src.loadRef().beginParse());
+      return loadUserClaimWithdraw(src.loadRef().beginParse());
+    },
+  };
+}
+
+export type BasicMetadata = {
+  $$type: "BasicMetadata";
+  name: string;
+  description: string;
+  image: string;
+};
+
+export function storeBasicMetadata(src: BasicMetadata) {
+  return (builder: Builder) => {
+    let b_0 = builder;
+    b_0.storeStringRefTail(src.name);
+    b_0.storeStringRefTail(src.description);
+    b_0.storeStringRefTail(src.image);
+  };
+}
+
+export function loadBasicMetadata(slice: Slice) {
+  let sc_0 = slice;
+  let _name = sc_0.loadStringRefTail();
+  let _description = sc_0.loadStringRefTail();
+  let _image = sc_0.loadStringRefTail();
+  return {
+    $$type: "BasicMetadata" as const,
+    name: _name,
+    description: _description,
+    image: _image,
+  };
+}
+
+function loadTupleBasicMetadata(source: TupleReader) {
+  let _name = source.readString();
+  let _description = source.readString();
+  let _image = source.readString();
+  return {
+    $$type: "BasicMetadata" as const,
+    name: _name,
+    description: _description,
+    image: _image,
+  };
+}
+
+function storeTupleBasicMetadata(source: BasicMetadata) {
+  let builder = new TupleBuilder();
+  builder.writeString(source.name);
+  builder.writeString(source.description);
+  builder.writeString(source.image);
+  return builder.build();
+}
+
+function dictValueParserBasicMetadata(): DictionaryValue<BasicMetadata> {
+  return {
+    serialize: (src, buidler) => {
+      buidler.storeRef(beginCell().store(storeBasicMetadata(src)).endCell());
+    },
+    parse: (src) => {
+      return loadBasicMetadata(src.loadRef().beginParse());
     },
   };
 }
@@ -1045,10 +805,10 @@ function initNexTon_init_args(src: NexTon_init_args) {
 
 async function NexTon_init(_liquidStaking: Address, _nft: Address) {
   const __code = Cell.fromBase64(
-    "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"
+    "te6ccgECIgEABmEAART/APSkE/S88sgLAQIBYgIDA37QAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxVGds88uCC2zwbBAUCASAREgP2AY4sgCDXIXAh10nCH5UwINcLH97AAY4U0x8BwAHy4IHTP9M/WWwSWwKlAn/gMH/gcCHXScIflTAg1wsf3iDAACLXScEhsJJbf+AgghDT5AuXuo6bMNMfAYIQ0+QLl7ry4IHTP9P/0x9VIGwT2zx/4CCCEAUTjZG64wIgBgcIARbI+EMBzH8BygBVkBAB7oEpoDLBBvL0+EFvJDAygU2VIoIQHc1lAL7y9IuUl0ZW0gbmFtZYjQQSXRlbSBkZXNjcmlwdGlvboI0HWh0dHBzOi8vaGlwby5maW5hbmNlL2h0b24ucG5ngyFUgyFADzxbJUAPMyFADzxbJWMzIWM8WyQHMychYCQGIMNMfAYIQBRONkbry4IHTHwExMPhCgQEL+EIjWYEBAUEz9ApvoZQB1wAwkltt4iBu8tCAghAdzWUAoHN/VSBtbW3bPH8OAnqCEJRqmLa6jqgw0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yfhCAXBt2zx/4IIQgZ2+mbrjAjBwDQsB2iDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IjPFvgoINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WzMkSggoWDsAmAoEBC/hCJhA4gQEBIW6VW1n0WTCYyAHPAEEz9EHiUKSgVQMZ2zwKAVITggpiWgBQNHMEyFUwcVAFyx8Tyz/LPwH6AszJKVUgf1UwbW3bPAKkAg4C+tMfAYIQgZ2+mbry4IHTP/pAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgSbBJVkds8OVGpyFmCEDJ7K0pQA8sfyz8BINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WyRCaEHkQaBBXEEYQNUQwEvhCAX9t2zx/DA0AEvhCUqDHBfLghAE6bW0ibrOZWyBu8tCAbyIBkTLiECRwAwSAQlAj2zwOAcrIcQHKAVAHAcoAcAHKAlAFINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WUAP6AnABymgjbrORf5MkbrPilzMzAXABygDjDSFus5x/AcoAASBu8tCAAcyVMXABygDiyQH7AA8AmH8BygDIcAHKAHABygAkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDiJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4nABygACfwHKAALJWMwA9FCpINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WF8oAUAUg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIzxZQAyDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IjPFgH6AssfAcjL/xLLHxP0APQAyQHMye1UAhG+KO7Z5tnjZQwbEwIBIBQVAAIpAgEgFhcCAUggIQIBWBgZAN23ejBOC52Hq6WVz2PQnYc6yVCjbNBOE7rGpaVsj5ZkWnXlv74sRzBOBAq4A3AM7HKZywdVyOS2WHBOE7Lpy1Zp2W5nQdLNsozdFJBOHlzv9XzQvQWci1WhV2C2KVBOCBnOrTzivzpKFgOsLcTI9lACEa9gbZ5tnjZQwBsaAhGt4O2ebZ42UMAbHAAI+CdvEALC7UTQ1AH4Y9IAAY6E2zxsGuD4KNcLCoMJuvLgifpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiBIC0QHbPB0eAAIiAfT6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAdIA+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiAH6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAfoA0x/UAdDT/9Mf9AT0BDAQShBJEEgQRx8AJHBwUwBtbfhCCAYHBQQD+CNBMwAIEEYQRQARsK+7UTQ0gABgAHWybuNDVpcGZzOi8vUW1XV2p6U3lvSG9KY1hEb05NS1hKc2hDS2tIWHdETGRDVHVHTmhjaHpMZG5rNIIA=="
   );
   const __system = Cell.fromBase64(
-    "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"
+    "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"
   );
   let builder = beginCell();
   builder.storeRef(__system);
@@ -1085,10 +845,8 @@ const NexTon_errors: { [key: number]: { message: string } } = {
   135: { message: `Code of a contract was not found` },
   136: { message: `Invalid address` },
   137: { message: `Masterchain support is not enabled for this contract` },
-  5990: { message: `Too small deposit amount` },
   10656: { message: `Too big leverage, should be less than 5` },
-  40368: { message: `Contract stopped` },
-  53296: { message: `Contract not stopped` },
+  19861: { message: `Too small deposit amount, min deposit is 0.5 Ton` },
 };
 
 const NexTon_types: ABIType[] = [
@@ -1225,24 +983,6 @@ const NexTon_types: ABIType[] = [
     ],
   },
   {
-    name: "ChangeAddr",
-    header: 406989457,
-    fields: [
-      {
-        name: "queryId",
-        type: { kind: "simple", type: "uint", optional: false, format: 64 },
-      },
-      {
-        name: "address",
-        type: { kind: "simple", type: "address", optional: false },
-      },
-      {
-        name: "entity",
-        type: { kind: "simple", type: "string", optional: false },
-      },
-    ],
-  },
-  {
     name: "MintNFT",
     header: 1,
     fields: [
@@ -1266,89 +1006,6 @@ const NexTon_types: ABIType[] = [
       {
         name: "NFTMessage",
         type: { kind: "simple", type: "cell", optional: false },
-      },
-    ],
-  },
-  {
-    name: "NFTContent",
-    header: null,
-    fields: [
-      {
-        name: "principal",
-        type: {
-          kind: "simple",
-          type: "uint",
-          optional: false,
-          format: "coins",
-        },
-      },
-      {
-        name: "leverageRatio",
-        type: { kind: "simple", type: "uint", optional: false, format: 32 },
-      },
-      {
-        name: "lockPeriod",
-        type: { kind: "simple", type: "uint", optional: false, format: 256 },
-      },
-      {
-        name: "lockEnd",
-        type: { kind: "simple", type: "uint", optional: false, format: 256 },
-      },
-    ],
-  },
-  {
-    name: "mintJettons",
-    header: 1,
-    fields: [
-      {
-        name: "queryId",
-        type: { kind: "simple", type: "uint", optional: false, format: 64 },
-      },
-      {
-        name: "amount",
-        type: {
-          kind: "simple",
-          type: "uint",
-          optional: false,
-          format: "coins",
-        },
-      },
-      {
-        name: "receiverAddress",
-        type: { kind: "simple", type: "address", optional: false },
-      },
-    ],
-  },
-  {
-    name: "LPProvider",
-    header: null,
-    fields: [
-      {
-        name: "principal",
-        type: {
-          kind: "simple",
-          type: "uint",
-          optional: false,
-          format: "coins",
-        },
-      },
-      {
-        name: "rewards",
-        type: {
-          kind: "simple",
-          type: "uint",
-          optional: false,
-          format: "coins",
-        },
-      },
-      {
-        name: "lastStakePrincipal",
-        type: {
-          kind: "simple",
-          type: "uint",
-          optional: false,
-          format: "coins",
-        },
       },
     ],
   },
@@ -1377,62 +1034,36 @@ const NexTon_types: ABIType[] = [
     ],
   },
   {
-    name: "UserStakeInfo",
+    name: "UserClaimWithdraw",
+    header: 85167505,
+    fields: [
+      {
+        name: "itemIndex",
+        type: { kind: "simple", type: "uint", optional: false, format: 32 },
+      },
+    ],
+  },
+  {
+    name: "BasicMetadata",
     header: null,
     fields: [
       {
-        name: "staker",
-        type: { kind: "simple", type: "address", optional: false },
+        name: "name",
+        type: { kind: "simple", type: "string", optional: false },
       },
       {
-        name: "leverageRatio",
-        type: { kind: "simple", type: "uint", optional: false, format: 32 },
+        name: "description",
+        type: { kind: "simple", type: "string", optional: false },
       },
       {
-        name: "protocolFee",
-        type: {
-          kind: "simple",
-          type: "uint",
-          optional: false,
-          format: "coins",
-        },
-      },
-      {
-        name: "principal",
-        type: {
-          kind: "simple",
-          type: "uint",
-          optional: false,
-          format: "coins",
-        },
-      },
-      {
-        name: "lockPeriod",
-        type: { kind: "simple", type: "uint", optional: false, format: 256 },
-      },
-      {
-        name: "lockEnd",
-        type: { kind: "simple", type: "uint", optional: false, format: 256 },
-      },
-      {
-        name: "isLent",
-        type: { kind: "simple", type: "bool", optional: false },
+        name: "image",
+        type: { kind: "simple", type: "string", optional: false },
       },
     ],
   },
 ];
 
 const NexTon_getters: ABIGetter[] = [
-  {
-    name: "nftContract",
-    arguments: [],
-    returnType: { kind: "simple", type: "address", optional: false },
-  },
-  {
-    name: "stakingPool",
-    arguments: [],
-    returnType: { kind: "simple", type: "address", optional: false },
-  },
   {
     name: "balance",
     arguments: [],
@@ -1448,11 +1079,6 @@ const NexTon_getters: ABIGetter[] = [
     arguments: [],
     returnType: { kind: "simple", type: "address", optional: false },
   },
-  {
-    name: "stopped",
-    arguments: [],
-    returnType: { kind: "simple", type: "bool", optional: false },
-  },
 ];
 
 const NexTon_receivers: ABIReceiver[] = [
@@ -1460,13 +1086,10 @@ const NexTon_receivers: ABIReceiver[] = [
   { receiver: "internal", message: { kind: "typed", type: "UserDeposit" } },
   {
     receiver: "internal",
-    message: { kind: "text", text: "Liquidity Provider Deposit" },
+    message: { kind: "typed", type: "UserClaimWithdraw" },
   },
-  { receiver: "internal", message: { kind: "typed", type: "ChangeAddr" } },
   { receiver: "internal", message: { kind: "typed", type: "Deploy" } },
   { receiver: "internal", message: { kind: "typed", type: "ChangeOwner" } },
-  { receiver: "internal", message: { kind: "text", text: "Resume" } },
-  { receiver: "internal", message: { kind: "text", text: "Stop" } },
 ];
 
 export class NexTon implements Contract {
@@ -1502,15 +1125,7 @@ export class NexTon implements Contract {
     provider: ContractProvider,
     via: Sender,
     args: { value: bigint; bounce?: boolean | null | undefined },
-    message:
-      | null
-      | UserDeposit
-      | "Liquidity Provider Deposit"
-      | ChangeAddr
-      | Deploy
-      | ChangeOwner
-      | "Resume"
-      | "Stop"
+    message: null | UserDeposit | UserClaimWithdraw | Deploy | ChangeOwner
   ) {
     let body: Cell | null = null;
     if (message === null) {
@@ -1524,16 +1139,13 @@ export class NexTon implements Contract {
     ) {
       body = beginCell().store(storeUserDeposit(message)).endCell();
     }
-    if (message === "Liquidity Provider Deposit") {
-      body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
-    }
     if (
       message &&
       typeof message === "object" &&
       !(message instanceof Slice) &&
-      message.$$type === "ChangeAddr"
+      message.$$type === "UserClaimWithdraw"
     ) {
-      body = beginCell().store(storeChangeAddr(message)).endCell();
+      body = beginCell().store(storeUserClaimWithdraw(message)).endCell();
     }
     if (
       message &&
@@ -1551,31 +1163,11 @@ export class NexTon implements Contract {
     ) {
       body = beginCell().store(storeChangeOwner(message)).endCell();
     }
-    if (message === "Resume") {
-      body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
-    }
-    if (message === "Stop") {
-      body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
-    }
     if (body === null) {
       throw new Error("Invalid message type");
     }
 
     await provider.internal(via, { ...args, body: body });
-  }
-
-  async getNftContract(provider: ContractProvider) {
-    let builder = new TupleBuilder();
-    let source = (await provider.get("nftContract", builder.build())).stack;
-    let result = source.readAddress();
-    return result;
-  }
-
-  async getStakingPool(provider: ContractProvider) {
-    let builder = new TupleBuilder();
-    let source = (await provider.get("stakingPool", builder.build())).stack;
-    let result = source.readAddress();
-    return result;
   }
 
   async getBalance(provider: ContractProvider) {
@@ -1596,13 +1188,6 @@ export class NexTon implements Contract {
     let builder = new TupleBuilder();
     let source = (await provider.get("owner", builder.build())).stack;
     let result = source.readAddress();
-    return result;
-  }
-
-  async getStopped(provider: ContractProvider) {
-    let builder = new TupleBuilder();
-    let source = (await provider.get("stopped", builder.build())).stack;
-    let result = source.readBoolean();
     return result;
   }
 }
