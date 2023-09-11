@@ -100,10 +100,10 @@ const UnstakingNftDetail = () => {
             During this period you may not cancel the transaction.
           </UnstakingMessageBox>
           {!pathname.includes("view") && (
-            <UnstakingButtonWrapper>
-              <UnstakingButton onClick={postUnstaking}>Confirm</UnstakingButton>
-            </UnstakingButtonWrapper>
-            // <MainButton text="Confirm" onClick={postUnstaking} />
+            // <UnstakingButtonWrapper>
+            //   <UnstakingButton onClick={postUnstaking}>Confirm</UnstakingButton>
+            // </UnstakingButtonWrapper>
+            <MainButton text="Confirm" onClick={postUnstaking} />
           )}
         </UnstakingWrapper>
       )}
