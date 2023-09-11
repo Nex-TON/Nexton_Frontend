@@ -41,7 +41,7 @@ const Leverage = () => {
 
   const handleGetTelegramId = async (address: string) => {
     if (!address) return;
-    const response = await getTelegramId("1");
+    const response = await getTelegramId(address);
 
     if (response?.length === 0) {
       setTelegramId(0);
