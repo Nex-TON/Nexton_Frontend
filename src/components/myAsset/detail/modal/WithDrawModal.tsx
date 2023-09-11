@@ -63,7 +63,7 @@ const WithDrawModal = (props: WithDrawModalProps) => {
             <img src={IcModalArrow} alt="modalArrow" />
           </OpenTonViewer>
         </OpenTonViewerBox>
-        <Button onClick={() => navigate("/myasset/nftlist")}>Okay</Button>
+        <Button onClick={() => navigate("/")}>Okay</Button>
       </Container>
     </ModalWrapper>
   );
