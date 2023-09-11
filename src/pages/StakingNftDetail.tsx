@@ -4,6 +4,7 @@ import DetailNftInfo from "../components/myAsset/detail/DetailNFTInfo";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getNFTDetail } from "../api/getNFTDetail";
+import WithDrawModal from "../components/myAsset/detail/modal/WithDrawModal";
 
 const tele = (window as any).Telegram.WebApp;
 

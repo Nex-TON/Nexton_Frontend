@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
-import IcClose from "../../../assets/icons/ic_close.svg";
+import ModalWrapper from "../../../modals/ModalWrapper";
+import useTonConnect from "../../../../hooks/useTonConnect";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Container,
@@ -8,17 +10,17 @@ import {
   OpenTonViewerBox,
   SubTitle,
   Title,
-} from "../../modals/BasicModal";
-import ModalWrapper from "../../modals/ModalWrapper";
-import IcModalArrow from "../../../assets/icons/Modal/ic_modal_arrow.svg";
-import { useNavigate } from "react-router-dom";
-import useTonConnect from "../../../hooks/useTonConnect";
+} from "../../../modals/BasicModal";
+import IcClose from "../../../../assets/icons/ic_close.svg";
+import IcModalArrow from "../../../../assets/icons/Modal/ic_modal_arrow.svg";
 
-const UnstakingModal = ({
-  handleToggleModal,
-}: {
+interface WithDrawModalProps {
   handleToggleModal: () => void;
-}) => {
+}
+
+const WithDrawModal = (props: WithDrawModalProps) => {
+  const { handleToggleModal } = props;
+
   const { address } = useTonConnect();
   const navigate = useNavigate();
   const innerRef = useRef(null);
@@ -34,20 +36,22 @@ const UnstakingModal = ({
       document.removeEventListener("mousedown", handler);
     };
   });
+
   return (
     <ModalWrapper>
       <Container ref={innerRef}>
-        <ModalHeader style={{ marginBottom: "2.4rem" }}>
-          <img src={IcClose} alt="close" onClick={handleToggleModal} />
+        <ModalHeader
+          style={{ marginBottom: "2.4rem" }}
+          onClick={handleToggleModal}
+        >
+          <img src={IcClose} alt="close" />
         </ModalHeader>
-        <Title style={{ textAlign: "center" }}>
-          Successfully <br />
-          Unstaking Requested
-        </Title>
+        <Title style={{ textAlign: "center" }}>Succeed!</Title>
         <SubTitle>
-          Unstaking process would take about
-          <br /> 9 hours. Check left time on My asset, <br />
-          and transaction data on TON viewer
+          Unstaked amount is claimed,
+          <br /> and will be deposited into your wallet.
+          <br />
+          It could take a few minutes. Check it.
         </SubTitle>
         <OpenTonViewerBox>
           <OpenTonViewer
@@ -65,4 +69,4 @@ const UnstakingModal = ({
   );
 };
 
-export default UnstakingModal;
+export default WithDrawModal;

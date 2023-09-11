@@ -9,18 +9,33 @@ import { getProtocolFee } from "../../../utils/getProtocolFee";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import * as Contract from "../../../hooks/useNextonContract";
 import { UserClaimWithdraw } from "../../../hooks/tact_NexTon";
+import { UnstakingProps } from "../../../types/staking";
+import { useRecoilValue } from "recoil";
+import { telegramAtom } from "../../../lib/atom/telegram";
+import { useTonAddress } from "@tonconnect/ui-react";
+import { postClaim } from "../../../api/postClaim";
+import WithDrawModal from "./modal/WithDrawModal";
+import { useState } from "react";
 
 interface DetailNftInfoProps {
   item: nftInfo;
 }
 const DetailNftInfo = (props: DetailNftInfoProps) => {
   const { item } = props;
+  const address = useTonAddress();
+  const telegramId = useRecoilValue(telegramAtom);
   const { nftId, amount, leverage, timeStamp, lockPeriod, nominator, status } =
     item;
-
   const { sendMessage } = Contract.useNextonContract();
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleWithDraw = async () => {
+    const response = await postClaim({
+      telegramId,
+      nftId,
+      address,
+    });
+
     const data = (): UserClaimWithdraw => {
       return {
         $$type: "UserClaimWithdraw",
@@ -28,95 +43,105 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
       };
     };
     await sendMessage(data(), "0.05");
+
+    if (response === 200) {
+      setIsOpenModal(true);
+    }
   };
   const navigate = useNavigate();
 
+  const handleToggleModal = () => {
+    setIsOpenModal((prev) => !prev);
+  };
   return (
-    <DetailNftInfoWrapper>
-      <DetailNFTInfoHeader title="NFT info" />
-      <DetailInfoItemWrapper>
-        <DetailInfoItem>
-          <DetailInfoItemText>Token ID</DetailInfoItemText>
-          <DetailInfoItemText>
-            {String(nftId).padStart(5, "0")}
-          </DetailInfoItemText>
-        </DetailInfoItem>
-        <DetailInfoItem>
-          <DetailInfoItemText>Token Standard</DetailInfoItemText>
-          <DetailInfoItemText>TEP 62</DetailInfoItemText>
-        </DetailInfoItem>
-        <DetailInfoItem>
-          <DetailInfoItemText>Network</DetailInfoItemText>
-          <DetailInfoItemText>
-            <DetailTonSymbol>
-              <img src={IcTonSymbol} alt="tonSymbol" />
-              TON
-            </DetailTonSymbol>
-          </DetailInfoItemText>
-        </DetailInfoItem>
-      </DetailInfoItemWrapper>
-      <DetailNFTInfoHeader title="Staking info" />
-      <DetailInfoItemWrapper>
-        <DetailInfoItem>
-          <DetailInfoItemText>Principal</DetailInfoItemText>
-          <DetailInfoItemText>{numberCutter(amount)} TON</DetailInfoItemText>
-        </DetailInfoItem>
-        <DetailInfoItem>
-          <DetailInfoItemText>Nominator Pool</DetailInfoItemText>
-          <DetailInfoItemText>{nominator}</DetailInfoItemText>
-        </DetailInfoItem>
-        <DetailInfoItem>
-          <DetailInfoItemText>Leveraged</DetailInfoItemText>
-          <DetailInfoItemText>x {leverage.toFixed(1)}</DetailInfoItemText>
-        </DetailInfoItem>
-        <DetailInfoItem>
-          <DetailInfoItemText>Lockup period</DetailInfoItemText>
-          <DetailInfoItemText>{lockPeriod} days</DetailInfoItemText>
-        </DetailInfoItem>
-        <DetailInfoItem>
-          <DetailInfoItemText>Unstakable date</DetailInfoItemText>
-          <DetailInfoItemText>
-            {expiredDateChanger(timeStamp, lockPeriod, "detail")}
-          </DetailInfoItemText>
-        </DetailInfoItem>
-        <DetailInfoItem>
-          <DetailInfoItemText>Protocol Fees</DetailInfoItemText>
-          <DetailInfoItemText>
-            {numberCutter(getProtocolFee(String(amount), leverage))}%
-          </DetailInfoItemText>
-        </DetailInfoItem>
-        <DetailInfoItem>
-          <DetailInfoItemText>Staking APR</DetailInfoItemText>
-          <DetailInfoItemText>5%</DetailInfoItemText>
-        </DetailInfoItem>
-        <DetailInfoItem>
-          <DetailInfoItemText>Total Amount</DetailInfoItemText>
-          <DetailInfoItemText>{numberCutter(amount)} TON</DetailInfoItemText>
-        </DetailInfoItem>
-      </DetailInfoItemWrapper>
-      <ButtonWrapper>
-        {DDayChange(timeStamp, lockPeriod) > 0 ? (
-          <MainButton
-            text="Use as collateral"
-            onClick={() => navigate(`/loan/${nftId}`)}
-          />
-        ) : status === 0 ? (
-          <MainButton
-            text="Unstaking"
-            color="#31333e"
-            textColor="#fff"
-            onClick={() => navigate(`/unstaking/${nftId}`)}
-          />
-        ) : (
-          <MainButton
-            text="Withdraw"
-            onClick={handleWithDraw}
-            color="#31333e"
-            textColor="#fff"
-          />
-        )}
-      </ButtonWrapper>
-    </DetailNftInfoWrapper>
+    <>
+      {isOpenModal && <WithDrawModal handleToggleModal={handleToggleModal} />}
+      <DetailNftInfoWrapper>
+        <DetailNFTInfoHeader title="NFT info" />
+        <DetailInfoItemWrapper>
+          <DetailInfoItem>
+            <DetailInfoItemText>Token ID</DetailInfoItemText>
+            <DetailInfoItemText>
+              {String(nftId).padStart(5, "0")}
+            </DetailInfoItemText>
+          </DetailInfoItem>
+          <DetailInfoItem>
+            <DetailInfoItemText>Token Standard</DetailInfoItemText>
+            <DetailInfoItemText>TEP 62</DetailInfoItemText>
+          </DetailInfoItem>
+          <DetailInfoItem>
+            <DetailInfoItemText>Network</DetailInfoItemText>
+            <DetailInfoItemText>
+              <DetailTonSymbol>
+                <img src={IcTonSymbol} alt="tonSymbol" />
+                TON
+              </DetailTonSymbol>
+            </DetailInfoItemText>
+          </DetailInfoItem>
+        </DetailInfoItemWrapper>
+        <DetailNFTInfoHeader title="Staking info" />
+        <DetailInfoItemWrapper>
+          <DetailInfoItem>
+            <DetailInfoItemText>Principal</DetailInfoItemText>
+            <DetailInfoItemText>{numberCutter(amount)} TON</DetailInfoItemText>
+          </DetailInfoItem>
+          <DetailInfoItem>
+            <DetailInfoItemText>Nominator Pool</DetailInfoItemText>
+            <DetailInfoItemText>{nominator}</DetailInfoItemText>
+          </DetailInfoItem>
+          <DetailInfoItem>
+            <DetailInfoItemText>Leveraged</DetailInfoItemText>
+            <DetailInfoItemText>x {leverage.toFixed(1)}</DetailInfoItemText>
+          </DetailInfoItem>
+          <DetailInfoItem>
+            <DetailInfoItemText>Lockup period</DetailInfoItemText>
+            <DetailInfoItemText>{lockPeriod} days</DetailInfoItemText>
+          </DetailInfoItem>
+          <DetailInfoItem>
+            <DetailInfoItemText>Unstakable date</DetailInfoItemText>
+            <DetailInfoItemText>
+              {expiredDateChanger(timeStamp, lockPeriod, "detail")}
+            </DetailInfoItemText>
+          </DetailInfoItem>
+          <DetailInfoItem>
+            <DetailInfoItemText>Protocol Fees</DetailInfoItemText>
+            <DetailInfoItemText>
+              {numberCutter(getProtocolFee(String(amount), leverage))}%
+            </DetailInfoItemText>
+          </DetailInfoItem>
+          <DetailInfoItem>
+            <DetailInfoItemText>Staking APR</DetailInfoItemText>
+            <DetailInfoItemText>5%</DetailInfoItemText>
+          </DetailInfoItem>
+          <DetailInfoItem>
+            <DetailInfoItemText>Total Amount</DetailInfoItemText>
+            <DetailInfoItemText>{numberCutter(amount)} TON</DetailInfoItemText>
+          </DetailInfoItem>
+        </DetailInfoItemWrapper>
+        <ButtonWrapper>
+          {DDayChange(timeStamp, lockPeriod) > 0 ? (
+            <MainButton
+              text="Use as collateral"
+              onClick={() => navigate(`/loan/${nftId}`)}
+            />
+          ) : status === 0 ? (
+            <MainButton
+              text="Unstaking"
+              color="#31333e"
+              textColor="#fff"
+              onClick={() => navigate(`/unstaking/${nftId}`)}
+            />
+          ) : (
+            <MainButton
+              text="Withdraw"
+              onClick={handleWithDraw}
+              color="#31333e"
+              textColor="#fff"
+            />
+          )}
+        </ButtonWrapper>
+      </DetailNftInfoWrapper>
+    </>
   );
 };
 

@@ -41,9 +41,13 @@ const Leverage = () => {
 
   const handleGetTelegramId = async (address: string) => {
     if (!address) return;
-    const response = await getTelegramId(address);
+    const response = await getTelegramId("1");
 
-    setTelegramId(response[0]?._id);
+    if (response?.length === 0) {
+      setTelegramId(0);
+    } else {
+      setTelegramId(response[0]?._id);
+    }
   };
 
   useEffect(() => {
@@ -60,7 +64,7 @@ const Leverage = () => {
     } else if (Number(input) >= 0.5 && nominatorName === "") {
       setNominatorError(true);
       step2Ref.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (Number(input) >= 0.5 && nominatorName !== "" && telegramId) {
+    } else if (Number(input) >= 0.5 && nominatorName !== "") {
       setError(false);
       const newDepoist: StakingProps = {
         id: Number(telegramId),
