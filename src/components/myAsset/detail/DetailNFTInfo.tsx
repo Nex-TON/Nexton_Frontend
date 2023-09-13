@@ -14,8 +14,8 @@ import { useRecoilValue } from "recoil";
 import { telegramAtom } from "../../../lib/atom/telegram";
 import { useTonAddress } from "@tonconnect/ui-react";
 import { postClaim } from "../../../api/postClaim";
-import WithDrawModal from "./modal/WithDrawModal";
 import { useState } from "react";
+import BasicModal from "../../common/modals/BasicModal";
 
 interface DetailNftInfoProps {
   item: nftInfo;
@@ -55,8 +55,10 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
   };
   return (
     <>
-      {isOpenModal && <WithDrawModal handleToggleModal={handleToggleModal} />}
       <DetailNftInfoWrapper>
+        {isOpenModal && (
+          <BasicModal type="claim" toggleModal={handleToggleModal} />
+        )}
         <DetailNFTInfoHeader title="NFT info" />
         <DetailInfoItemWrapper>
           <DetailInfoItem>

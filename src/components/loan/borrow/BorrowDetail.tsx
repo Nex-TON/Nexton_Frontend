@@ -3,8 +3,8 @@ import LoanHeader from "../common/LoanHeader";
 import BorrowDetailInfo from "./BorrowDetailInfo";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import BasicModal from "../modal/BasicModal";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import BasicModal from "../../common/modals/BasicModal";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -32,16 +32,18 @@ const BorrowDetail = () => {
 
   return (
     <>
-      {isOpenModal && <BasicModal toggleModal={handleToggleModal} />}
       <BorrowDetailWrapper>
+        {isOpenModal && (
+          <BasicModal type="loan" toggleModal={handleToggleModal} />
+        )}
         <LoanHeader type="detail" />
         {/* <BorrowDetailHeader>
           <BackButton type="detail" handleMoveLoan={handleMoveLoan} loan />
           Borrow NXT
         </BorrowDetailHeader> */}
         <BorrowDetailInfo />
-        <MainButton text="Confirm" onClick={handleToggleModal} />
-        {/* <ConfirmButton onClick={handleToggleModal}>Confirm</ConfirmButton> */}
+        {/* <MainButton text="Confirm" onClick={handleToggleModal} /> */}
+        <ConfirmButton onClick={handleToggleModal}>Confirm</ConfirmButton>
       </BorrowDetailWrapper>
     </>
   );

@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import UnstakingModal from "../components/myAsset/modal/UnstakingModal";
-import BackButton from "../components/common/BackButton";
 import UnstakingPreview from "../components/myAsset/NFT/Unstaking/UnstakingPreview";
 import UnstakingInfo from "../components/myAsset/NFT/Unstaking/UnstakingInfo";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -15,6 +13,7 @@ import { postUnstake } from "../api/postUnstake";
 import { Transfer } from "../hooks/tact_FakeItem";
 import { randomAddress } from "@ton-community/test-utils";
 import * as Contract from "../hooks/useFakeItemContract";
+import BasicModal from "../components/common/modals/BasicModal";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -87,13 +86,12 @@ const UnstakingNftDetail = () => {
 
   return (
     <>
-      {toggleModal && <UnstakingModal handleToggleModal={handleToggleModal} />}
       {stakedNftDetail && stakedNftDetail.length > 0 && (
         <UnstakingWrapper>
-          <UnstakingHeader>
-            {/* <BackButton /> */}
-            Unstaking NFT
-          </UnstakingHeader>
+          {toggleModal && (
+            <BasicModal type="unstaking" toggleModal={handleToggleModal} />
+          )}
+          <UnstakingHeader>Unstaking NFT</UnstakingHeader>
           <UnstakingPreview item={stakedNftDetail[0]} />
           <UnstakingInfo item={stakedNftDetail[0]} />
           <UnstakingMessageBox>

@@ -4,7 +4,7 @@ import NFTPreviewInfo from "../components/lerverage/NFTPreview/NFTPreviewInfo";
 import FooterButton from "../components/common/FooterButton";
 import { UserDeposit } from "../hooks/tact_NexTon";
 import * as Contract from "../hooks/useNextonContract";
-import BasicModal from "../components/modals/BasicModal";
+import BasicModal from "../components/common/modals/BasicModal";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { stakingAtom, stakingInputAtom } from "../lib/atom/staking";
@@ -12,6 +12,7 @@ import { postStakingInfo } from "../api/postStakingInfo";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { nominatorAtom } from "../lib/atom/nominator";
+import { createPortal } from "react-dom";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -71,7 +72,7 @@ const NFTPreview = () => {
 
   return (
     <NFTPreviewWrapper>
-      {modal && <BasicModal toggleModal={toggleModal} />}
+      {modal && <BasicModal type="stake" toggleModal={toggleModal} />}
       <NFTPreviewHeader>Staking NFT Preview</NFTPreviewHeader>
       <NftPreviewImage lockup={stakingInfo.lockup} />
       <NFTPreviewInfo stakingInfo={stakingInfo} />
@@ -79,8 +80,8 @@ const NFTPreview = () => {
         <NFTPreviewConfirmText>
           Please check your NFT details periodically
         </NFTPreviewConfirmText>
-        <MainButton text="Confirm" onClick={handleMinting} />
-        {/* <FooterButton title="Confirm" onClick={handleMinting} /> */}
+        {/* <MainButton text="Confirm" onClick={handleMinting} /> */}
+        <FooterButton title="Confirm" onClick={handleMinting} />
       </NFTPreviewConfirmBox>
     </NFTPreviewWrapper>
   );
