@@ -4,9 +4,9 @@ import Icfilter from "../../../assets/icons/MyAsset/ic_filter.svg";
 import { useEffect, useState } from "react";
 import NftItem from "./NftItem";
 import NFTFilter from "../modal/NFTFilter";
-import { getAllStakeInfo } from "../../../api/getAllStakeInfo";
 import useTonConnect from "../../../hooks/useTonConnect";
 import { useNavigate } from "react-router-dom";
+import { useStakeInfo } from "../../../api/hooks/useStakeInfo";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -14,9 +14,9 @@ const NftList = () => {
   const { address } = useTonConnect();
   const navigate = useNavigate();
 
-  const [stakedInfo, setStakedInfo] = useState([]);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [isSelect, setIsSelect] = useState([true, false]);
+  const { nftList } = useStakeInfo(address);
 
   const handleSelect = (index: number) => {
     if (index === 1) {
@@ -26,20 +26,9 @@ const NftList = () => {
     }
   };
 
-  const handleGetStakedInfo = async (address: string) => {
-    const response = await getAllStakeInfo(address);
-    setStakedInfo(response);
-  };
-
   const handleReload = () => {
     setIsSelect([true, false]);
   };
-
-  useEffect(() => {
-    if (address) {
-      handleGetStakedInfo(address);
-    }
-  }, [address]);
 
   useEffect(() => {
     if (tele) {
@@ -71,10 +60,10 @@ const NftList = () => {
           <img src={Icfilter} alt="filter" />
         </NFTSelectBox>
       </NftListHeader>
-      {stakedInfo && stakedInfo.length > 0 ? (
+      {nftList && nftList.length > 0 ? (
         <NFTItemWrapper>
-          {stakedInfo
-            .sort((a, b) => b.timeStamp - a.timeStamp)
+          {nftList
+            .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
             .filter((item) => item.status !== 2)
             .map((item) => (
               <NftItem key={item.nftId} item={item} />

@@ -1,31 +1,13 @@
 import { styled } from "styled-components";
-import IcClaim from "../../../assets/icons/MyAsset/ic_claim.svg";
 import IcClaimDisable from "../../../assets/icons/MyAsset/ic_claim_disable.svg";
-import IcArrow from "../../../assets/icons/MyAsset/ic_arrow.svg";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllStakeInfo } from "../../../api/getAllStakeInfo";
-import useTonConnect from "../../../hooks/useTonConnect";
-import UnstakingDetailHeader from "./UnstakingDetail/UnstakingDetailHeader";
 import UnstakingDetailList from "./UnstakingDetail/UnstakingDetailList";
 
 const tele = (window as any).Telegram.WebApp;
 
 const UnstakingList = () => {
   const navigate = useNavigate();
-  const [unstakingList, setUnstakingList] = useState([]);
-  const { address } = useTonConnect();
-
-  const getStakedInfo = async () => {
-    if (address) {
-      const response = await getAllStakeInfo(address);
-      setUnstakingList(response.filter((item) => item.status === 1));
-    }
-  };
-
-  useEffect(() => {
-    getStakedInfo();
-  }, [address]);
 
   useEffect(() => {
     if (tele) {
@@ -57,7 +39,7 @@ const UnstakingList = () => {
       </UnstakingListWrapper>
       <UnstakingDetailWrapper>
         {/* <UnstakingDetailHeader UnstakingListLength={unstakingList?.length} /> */}
-        <UnstakingDetailList item={unstakingList} />
+        <UnstakingDetailList />
       </UnstakingDetailWrapper>
       {/* <UnstakingDetailBox onClick={() => navigate("/myasset/unstakingdetail")}>
         <UnstakingDetailRightBox>Details</UnstakingDetailRightBox>

@@ -1,19 +1,16 @@
 import { styled } from "styled-components";
 import UnstakingDetailItem from "./UnstakingDetailItem";
 import { nftInfo } from "../../../../types/Nft";
+import { useUnstakingList } from "../../../../api/hooks/useUnstakingList";
 
-interface UnstakingDetailListProps {
-  item: nftInfo[];
-}
-
-const UnstakingDetailList = (props: UnstakingDetailListProps) => {
-  const { item } = props;
+const UnstakingDetailList = () => {
+  const { unstakingList } = useUnstakingList();
 
   return (
     <UnstkaingDetailListWrapper>
-      {item
-        .sort((a: any, b: any) => b.timeStamp - a.timeStamp)
-        .map((data) => (
+      {unstakingList
+        ?.sort((a: any, b: any) => b.timeStamp - a.timeStamp)
+        ?.map((data) => (
           <UnstakingDetailItem key={data.nftId} item={data} />
         ))}
     </UnstkaingDetailListWrapper>

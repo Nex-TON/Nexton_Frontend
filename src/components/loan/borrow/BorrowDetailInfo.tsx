@@ -2,43 +2,31 @@ import { styled } from "styled-components";
 import { NftStatus } from "../common/Nftstatus";
 import IcLoanEqual from "../../../assets/icons/Loan/ic_loan_equal.svg";
 import { useParams } from "react-router-dom";
-import { getNFTDetail } from "../../../api/getNFTDetail";
-import { useEffect, useState } from "react";
 import { numberCutter } from "../../../utils/numberCutter";
 import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
+import { useNFTDetail } from "../../../api/hooks/useNFTDetail";
 
 const BorrowDetailInfo = () => {
   const { id } = useParams();
-  const [stakedNftDetail, setStakedNftDetail] = useState([]);
-
-  const getStakedNftDetail = async () => {
-    const response = await getNFTDetail(Number(id));
-    setStakedNftDetail(response);
-  };
-
-  useEffect(() => {
-    getStakedNftDetail();
-  }, [id]);
+  const { nftDetail } = useNFTDetail(Number(id));
 
   return (
-    stakedNftDetail &&
-    stakedNftDetail.length > 0 && (
+    nftDetail &&
+    nftDetail.length > 0 && (
       <>
         <BorrowDetailInfoWrapper>
           <BorrowDetailInfoTop>
             <BodyTextMedium2>Collateralizing NFT info</BodyTextMedium2>
             <BorrowDetailInfoTopNftBox>
-              {DDayChange(
-                stakedNftDetail[0].timeStamp,
-                stakedNftDetail[0].lockPeriod
-              ) > 55 ? (
+              {DDayChange(nftDetail[0].timeStamp, nftDetail[0].lockPeriod) >
+              55 ? (
                 <NftStatus
                   type="ongoing"
                   style={{ width: "1.6rem", height: "1.6rem" }}
                 />
               ) : DDayChange(
-                  stakedNftDetail[0].timeStamp,
-                  stakedNftDetail[0].lockPeriod
+                  nftDetail[0].timeStamp,
+                  nftDetail[0].lockPeriod
                 ) === 0 ? (
                 <NftStatus
                   type="expired"
@@ -50,28 +38,24 @@ const BorrowDetailInfo = () => {
                   style={{ width: "1.6rem", height: "1.6rem" }}
                 />
               )}
-              NFT {String(stakedNftDetail[0].nftId).padStart(5, "0")}
+              NFT {String(nftDetail[0].nftId).padStart(5, "0")}
             </BorrowDetailInfoTopNftBox>
           </BorrowDetailInfoTop>
           <BorrowListBottom>
             <BorrowListBottomTextBottom>
               <Caption3>Principal</Caption3>
-              <LabelMedium>
-                {numberCutter(stakedNftDetail[0].amount)} TON
-              </LabelMedium>
+              <LabelMedium>{numberCutter(nftDetail[0].amount)} TON</LabelMedium>
             </BorrowListBottomTextBottom>
             <BorrowListBottomTextBottom>
               <Caption3>Evaluation</Caption3>
-              <LabelMedium>
-                {numberCutter(stakedNftDetail[0].amount)} TON
-              </LabelMedium>
+              <LabelMedium>{numberCutter(nftDetail[0].amount)} TON</LabelMedium>
             </BorrowListBottomTextBottom>
             <BorrowListBottomTextBottom>
               <Caption3>Expired date</Caption3>
               <LabelMedium>
                 {expiredDateChanger(
-                  stakedNftDetail[0].timeStamp,
-                  stakedNftDetail[0].lockPeriod,
+                  nftDetail[0].timeStamp,
+                  nftDetail[0].lockPeriod,
                   "detail"
                 )}
               </LabelMedium>
@@ -95,7 +79,7 @@ const BorrowDetailInfo = () => {
             </BorrowShadowInnerBox>
             <BorrowShadowInnerBox>
               <BodyTextMedium2>
-                {numberCutter(stakedNftDetail[0].amount * 0.8)}
+                {numberCutter(nftDetail[0].amount * 0.8)}
               </BodyTextMedium2>
               <BodyTextMedium2>NXT</BodyTextMedium2>
             </BorrowShadowInnerBox>

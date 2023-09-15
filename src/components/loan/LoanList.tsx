@@ -1,23 +1,11 @@
 import { css, styled } from "styled-components";
 import BorrowList from "./borrow/BorrowList";
 import useTonConnect from "../../hooks/useTonConnect";
-import { useEffect, useState } from "react";
-import { getAllStakeInfo } from "../../api/getAllStakeInfo";
+import { useStakeInfo } from "../../api/hooks/useStakeInfo";
 
 const LoanList = () => {
   const { address } = useTonConnect();
-  const [stakedInfo, setStakedInfo] = useState([]);
-
-  const handleGetStakedInfo = async (address: string) => {
-    const response = await getAllStakeInfo(address);
-    setStakedInfo(response);
-  };
-
-  useEffect(() => {
-    if (address) {
-      handleGetStakedInfo(address);
-    }
-  }, [address]);
+  const { nftList } = useStakeInfo(address);
 
   return (
     <LoanListWrapper>
@@ -27,9 +15,9 @@ const LoanList = () => {
           NFTs to repay
         </LoanNavButton>
       </LoanNav>
-      {stakedInfo && stakedInfo.length > 0 ? (
-        stakedInfo
-          .sort((a, b) => b.timeStamp - a.timeStamp)
+      {nftList && nftList.length > 0 ? (
+        nftList
+          .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
           .map((item) => <BorrowList key={item.nftId} item={item} />)
       ) : (
         <EmptyText>You need a staked NFT to borrow NXT</EmptyText>

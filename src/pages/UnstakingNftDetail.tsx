@@ -4,7 +4,6 @@ import UnstakingPreview from "../components/myAsset/NFT/Unstaking/UnstakingPrevi
 import UnstakingInfo from "../components/myAsset/NFT/Unstaking/UnstakingInfo";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
-import { getNFTDetail } from "../api/getNFTDetail";
 import { useRecoilValue } from "recoil";
 import { telegramAtom } from "../lib/atom/telegram";
 import { UnstakingProps } from "../types/staking";
@@ -14,16 +13,17 @@ import { Transfer } from "../hooks/tact_FakeItem";
 import { randomAddress } from "@ton-community/test-utils";
 import * as Contract from "../hooks/useFakeItemContract";
 import BasicModal from "../components/common/modals/BasicModal";
+import { useNFTDetail } from "../api/hooks/useNFTDetail";
 
 const tele = (window as any).Telegram.WebApp;
 
 const UnstakingNftDetail = () => {
-  const [stakedNftDetail, setStakedNftDetail] = useState([]);
   const telegramId = useRecoilValue(telegramAtom);
   const [toggleModal, setToggleModal] = useState(false);
   const { address } = useTonConnect();
   const { sendMessage } = Contract.useFakeItemContract();
   const { id } = useParams();
+  const { nftDetail } = useNFTDetail(Number(id));
   const location = useLocation();
   const { pathname } = location;
   const navigate = useNavigate();
@@ -32,13 +32,8 @@ const UnstakingNftDetail = () => {
     setToggleModal((prev) => !prev);
   };
 
-  const getStakedNftDetail = async () => {
-    const response = await getNFTDetail(Number(id));
-    setStakedNftDetail(response);
-  };
-
   const postUnstaking = async () => {
-    if (address && stakedNftDetail) {
+    if (address && nftDetail) {
       const newUnstaking: UnstakingProps = {
         telegramId: Number(telegramId),
         nftId: Number(id),
@@ -52,7 +47,7 @@ const UnstakingNftDetail = () => {
         };
       };
 
-      await sendMessage(data(), `${stakedNftDetail[0].amount}`);
+      await sendMessage(data(), `${nftDetail[0].amount}`);
       const response = await postUnstake(newUnstaking);
       if (response === 200) {
         handleToggleModal();
@@ -80,20 +75,16 @@ const UnstakingNftDetail = () => {
     };
   }, []);
 
-  useEffect(() => {
-    getStakedNftDetail();
-  }, [id]);
-
   return (
     <>
-      {stakedNftDetail && stakedNftDetail.length > 0 && (
+      {nftDetail && nftDetail.length > 0 && (
         <UnstakingWrapper>
           {toggleModal && (
             <BasicModal type="unstaking" toggleModal={handleToggleModal} />
           )}
           <UnstakingHeader>Unstaking NFT</UnstakingHeader>
-          <UnstakingPreview item={stakedNftDetail[0]} />
-          <UnstakingInfo item={stakedNftDetail[0]} />
+          <UnstakingPreview item={nftDetail[0]} />
+          <UnstakingInfo item={nftDetail[0]} />
           <UnstakingMessageBox>
             During this period you may not cancel the transaction.
           </UnstakingMessageBox>
