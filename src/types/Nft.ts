@@ -1,3 +1,6 @@
+export interface stakeInfo {
+  stakeInfos: nftInfo[];
+}
 export interface nftInfo {
   nftId: number;
   amount: number;
