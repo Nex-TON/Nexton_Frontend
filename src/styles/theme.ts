@@ -249,6 +249,14 @@ const fonts = {
     font-weight: 600;
     line-height: normal;
   `,
+  Nexton_Label_Small_2: css`
+    font-family: Montserrat;
+    font-size: 1.1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    line-height: 1.6rem; /* 145.455% */
+  `,
   Nexton_Comming_Soon: css`
     font-family: "Montserrat";
     font-size: 1.2rem;

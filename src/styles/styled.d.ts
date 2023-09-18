@@ -36,6 +36,7 @@ declare module "styled-components" {
       Nexton_Label_Large: SerializedStyles;
       Nexton_Label_Medium: SerializedStyles;
       Nexton_Label_Small: SerializedStyles;
+      Nexton_Label_Small_2: SerializedStyles;
       Nexton_Comming_Soon: SerializedStyles;
     };
   }
