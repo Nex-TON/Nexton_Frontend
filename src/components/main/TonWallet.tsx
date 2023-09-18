@@ -3,14 +3,26 @@ import useTonConnect from "./../../hooks/useTonConnect";
 import IcWallet from "../../assets/icons/Landing/ic_wallet.svg";
 import IcWalletDoubleArrow from "../../assets/icons/Landing/ic_walletDoubleArrow.svg";
 import IcTonKeeper from "../../assets/icons/Landing/ic_tonKeeper.svg";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const TonWallet = () => {
   const { address, connected, tonConnectUI } = useTonConnect();
+  const navigate = useNavigate();
 
   const clearStorage = () => {
     window.localStorage.clear();
     window.location.reload();
   };
+
+  useEffect(() => {
+    if (connected) {
+      navigate("/main");
+    } else {
+      navigate("/");
+    }
+  }, [connected]);
+
   return (
     <TonWalletWrapper>
       {connected ? (
@@ -56,7 +68,7 @@ const ConnectBtn = styled.button`
   padding: 1.8rem;
 
   border-radius: 1.4rem;
-  background: linear-gradient(94deg, #6bd3ff 0%, #3461ff 100%);
+  background-color: #333;
   border: none;
 
   box-shadow: 0 0 2rem 0 rgba(198, 197, 208, 0.3);
@@ -75,7 +87,6 @@ const ConnectBtnLeft = styled.div`
 
 const TonWalletWrapper = styled.div`
   width: 100%;
-  margin: 1.4rem 0 4.4rem 0;
 `;
 
 const TonWalletBox = styled.div`
@@ -87,7 +98,8 @@ const TonWalletBox = styled.div`
   padding: 1.3rem 1.3rem 1.3rem 1.9rem;
 
   border-radius: 1.4rem;
-  background: #007aff;
+  background-color: #333;
+  border: none;
 
   box-shadow: 0 0 2rem 0 rgba(198, 197, 208, 0.3);
 `;

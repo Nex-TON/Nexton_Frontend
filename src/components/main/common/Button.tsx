@@ -47,13 +47,13 @@ const Button = (props: ButtonProps) => {
   const SelectImage = (type: string) => {
     switch (type) {
       case "leverage":
-        return <StyledImage src={IcMenuLeverage} alt="Leverage" $margintop />;
+        return <StyledImage src={IcMenuLeverage} alt="Leverage" />;
       case "NXT":
-        return <StyledImage src={IcMenuNxtDisable} alt="NXT" />;
+        return <StyledImage src={IcMenuNxt} alt="NXT" />;
       case "Loan":
         return <StyledImage src={IcMenuLoan} alt="Loan" />;
       case "NLP":
-        return <StyledImage src={IcMenuCoinDisable} alt="Coin" />;
+        return <StyledImage src={IcMenuCoin} alt="Coin" />;
       case "Swap":
         return <StyledImage src={IcMenuSwap} alt="Swap" />;
       case "Asset":
@@ -65,16 +65,7 @@ const Button = (props: ButtonProps) => {
     <StyledButton onClick={moveToPage}>
       {SelectImage(type)}
       {unused && <GradientBox />}
-      <StyleTextBox>
-        {type === "leverage" || type === "NXT" ? (
-          <>
-            <StyleText $unused={unused}>{top}</StyleText>
-            <StyleText $unused={unused}>{bottom}</StyleText>
-          </>
-        ) : (
-          <StyleText $unused={unused}>{title}</StyleText>
-        )}
-      </StyleTextBox>
+      <StyleText $unused={unused}>{title}</StyleText>
     </StyledButton>
   );
 };
@@ -86,24 +77,20 @@ const StyledButton = styled.button`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 0.6rem;
   position: relative;
 
   width: 100%;
 
   border: none;
-  border-radius: 1rem;
-  background-color: #f2f2f7;
-  ${({ theme }) => theme.fonts.Telegram_Medium_1};
-  color: #ffffff;
-
-  box-shadow: 0 0 2rem 0 rgba(198, 197, 208, 0.3);
+  background-color: transparent;
 
   aspect-ratio: 1 / 1;
   cursor: pointer;
 `;
 
 const StyledImage = styled.img<{ $margintop?: boolean }>`
-  position: absolute;
+  /* position: absolute;
   top: 1.1rem;
   right: 1.1rem;
 
@@ -112,22 +99,12 @@ const StyledImage = styled.img<{ $margintop?: boolean }>`
     css`
       top: 0;
       right: 0;
-    `}
+    `} */
 `;
 
-const StyleTextBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-
-  position: absolute;
-  bottom: 1.1rem;
-  left: 1.1rem;
-`;
 const StyleText = styled.span<{ $unused: boolean }>`
-  color: ${({ $unused }) => ($unused ? "#abaab4" : "#23232A")};
-  ${({ theme }) => theme.fonts.Nexton_Label_Medium};
+  color: #333;
+  ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
 `;
 
 const CommingSoonText = styled.div`

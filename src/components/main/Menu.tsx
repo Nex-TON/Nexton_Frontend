@@ -5,13 +5,12 @@ import Button from "./common/Button";
 const Menu = () => {
   return (
     <MenuWrapper>
-      <MenuTitle>Menu</MenuTitle>
       <MenuList>
-        <Button top="Leverage" bottom="stake" page="Stake" type="leverage" />
+        <Button title="Stake" page="Stake" type="leverage" />
         <Button title="Loan" page="Loan" type="Loan" />
         <Button title="Swap" type="Swap" page="Swap" />
-        <Button title="NLP" type="NLP" unused />
-        <Button top="NXT" bottom="stake" page="NXT" type="NXT" unused />
+        <Button title="NXT" page="NXT" type="NXT" />
+        <Button title="NLP" type="NLP" />
         <Button title="My asset" page="Myasset" type="Asset" />
       </MenuList>
     </MenuWrapper>
@@ -21,24 +20,19 @@ const Menu = () => {
 export default Menu;
 
 const MenuWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 3rem;
-
   width: 100%;
-`;
+  padding: 3rem 4.8rem;
 
-const MenuTitle = styled.span`
-  color: #767680;
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+  background-color: #fff;
+
+  z-index: 1;
 `;
 
 const MenuList = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, minmax(10.8rem, 1fr));
-  gap: 1.2rem;
+  grid-template-columns: repeat(3, minmax(5rem, 1fr));
+  row-gap: 2rem;
+  column-gap: 4rem;
 
   width: 100%;
 `;
