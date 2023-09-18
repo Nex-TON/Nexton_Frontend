@@ -146,12 +146,13 @@ ${reset}
 
 #root, body, html {
     max-width: 76.8rem;
+    height: 100%; 
 
     margin: 0 auto;
     overflow-y: auto;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
-    background-color: #f2f2f7;
+    background-color: #fff;
 
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 
