@@ -3,6 +3,8 @@ import MainImage from "../assets/image/MainImage.png";
 import TonWallet from "../components/main/TonWallet";
 import Menu from "../components/main/Menu";
 import { useEffect } from "react";
+import HowTo from "../components/main/HowTo";
+import SubCube from "../assets/image/SubCube.png";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -21,11 +23,16 @@ const Main = () => {
   return (
     <MainWrapper>
       <MainImageBox>
-        <MainIcon src={MainImage} alt="MainImage" />
         <MainImageTitle>NEXTON</MainImageTitle>
+        <MainIconBox>
+          <MainIcon src={SubCube} alt="subcube" />
+        </MainIconBox>
       </MainImageBox>
-      <TonWallet />
       <Menu />
+      <HowTo />
+      <Footer>
+        <TonWallet />
+      </Footer>
     </MainWrapper>
   );
 };
@@ -39,25 +46,48 @@ const MainWrapper = styled.div`
   align-items: center;
 
   width: 100%;
-  padding: 4.6rem 1.5rem;
+  height: 100%;
+  background-color: #f1f4f4;
 `;
 
 const MainImageBox = styled.div`
   position: relative;
+
+  width: 100%;
+  height: 22.3rem;
+
+  background-color: #007aff;
 `;
 
-const MainIcon = styled.img`
+const MainIconBox = styled.div`
   width: 100%;
 
-  border-radius: 1rem;
+  text-align: center;
+`;
+const MainIcon = styled.img`
+  width: 400px;
 `;
 
-const MainImageTitle = styled.span`
-  position: absolute;
-  top: 50%;
-  left: 10%;
-  transform: translateY(-50%);
+const MainImageTitle = styled.div`
+  width: 100%;
+  margin-top: 3.564rem;
+  margin-bottom: 0.5rem;
 
   color: #fff;
-  ${({ theme }) => theme.fonts.Nexton_Image_Title};
+  font-family: Montserrat;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 3rem; /* 100% */
+
+  text-align: center;
+`;
+
+const Footer = styled.div`
+  position: fixed;
+  bottom: 0;
+
+  width: 100%;
+  max-width: 76.8rem;
+  padding: 0 1.6rem 1.4rem 1.6rem;
 `;
