@@ -13,12 +13,14 @@ import NominatorList from "../../pages/NominatorList";
 import NftList from "../myAsset/NFT/NftList";
 import UnstakingList from "../myAsset/Unstaking/UnstakingList";
 import UnstakingDetail from "../myAsset/Unstaking/UnstakingDetail/UnstakingDetail";
+import Onboarding from "../../pages/Onboarding";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Onboarding />} />
+        <Route path="/main" element={<Main />} />
         <Route path="/leverage" element={<Leverage />} />
         <Route path="/leverage/nominator" element={<NominatorList />} />
         <Route path="/leverage/preview" element={<NFTPreview />} />
