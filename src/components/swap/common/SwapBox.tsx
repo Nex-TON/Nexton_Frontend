@@ -22,7 +22,7 @@ const SwapBox = (props: SwapBoxProps) => {
         </SwapBoxTop>
       )}
       <SwapMiddleBox>
-        <SwapInput placeholder="0.00" />
+        <SwapInput placeholder="0.00" type="number" />
         {type === "top" ? (
           <SwapTokenBox>
             <img src={IcNxt} alt="nxt" />

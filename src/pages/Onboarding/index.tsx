@@ -13,9 +13,9 @@ const Onboarding = () => {
         <OnboardingMainTitleBox>NEXTON</OnboardingMainTitleBox>
         <CubeImage src={MainCube} alt="MainCube" />
         <Footer>
-          <SkipTextBox>
+          <SkipTextBox onClick={() => navigate("/main")}>
             Skip
-            <img src={IcSkip} alt="skip" onClick={() => navigate("/main")} />
+            <img src={IcSkip} alt="skip" />
           </SkipTextBox>
           <TonWallet />
         </Footer>

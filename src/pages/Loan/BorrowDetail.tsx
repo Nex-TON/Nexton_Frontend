@@ -42,8 +42,8 @@ const BorrowDetail = () => {
           Borrow NXT
         </BorrowDetailHeader> */}
         <BorrowDetailInfo />
-        {/* <MainButton text="Confirm" onClick={handleToggleModal} /> */}
-        <ConfirmButton onClick={handleToggleModal}>Confirm</ConfirmButton>
+        <MainButton text="Confirm" onClick={handleToggleModal} />
+        {/* <ConfirmButton onClick={handleToggleModal}>Confirm</ConfirmButton> */}
       </BorrowDetailWrapper>
     </>
   );
