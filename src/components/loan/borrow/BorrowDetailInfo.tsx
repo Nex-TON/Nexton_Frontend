@@ -100,8 +100,8 @@ const BorrowDetailInfoWrapper = styled.div`
 
   width: 100%;
 
+  border: 0.1rem solid #f1f4f4;
   border-radius: 2rem;
-  box-shadow: 0px 4px 6px 0px rgba(225, 228, 230, 0.5);
 `;
 
 const BorrowDetailInfoTop = styled.div`
@@ -115,7 +115,7 @@ const BorrowDetailInfoTop = styled.div`
   padding: 1.6rem 0 1.25rem 0;
 
   border-radius: 2rem 2rem 0 0;
-  background-color: #f9f9ff;
+  background-color: #fff;
 `;
 
 const BorrowDetailInfoTopNftBox = styled.div`
@@ -140,7 +140,7 @@ const BorrowListBottom = styled.div`
   padding: 2rem 3.5rem;
 
   border-radius: 0 0 2rem 2rem;
-  background-color: #f2f2f7;
+  background-color: #f9f9ff;
 `;
 
 const BorrowListBottomTextBottom = styled.div`
@@ -176,9 +176,9 @@ const BorrowShadowBox = styled.div<{ type?: string }>`
   width: ${({ type }) => (type === "right" ? `55%` : `38%`)};
   padding: 1.6rem;
 
+  border: 0.1rem solid #f1f4f4;
   border-radius: 2rem;
-  background-color: #f9f9ff;
-  box-shadow: 0px 4px 6px 0px rgba(225, 228, 230, 0.5);
+  background-color: #fff;
 `;
 
 const BorrowShadowInnerBox = styled.div`

@@ -57,16 +57,10 @@ const LoanNavButton = styled.button<{ type?: string }>`
 
   border: none;
   border-radius: 3rem;
-  background-color: #f9f9ff;
-  color: #007aff;
+  background-color: ${({ type }) => (type === "repay" ? "#F9F9FF" : "#fff")};
+  color: ${({ type }) => (type === "repay" ? "#76797a" : "#007aff")};
   ${({ theme }) => theme.fonts.Telegram_Caption_1_1};
   box-shadow: 0px 4px 4px 0px rgba(225, 228, 230, 0.5);
-
-  ${({ type }) =>
-    type === "repay" &&
-    css`
-      color: #76797a;
-    `}
 
   cursor: pointer;
   outline: none;

@@ -72,9 +72,11 @@ const BorrowLlistWrapper = styled.div`
   align-items: center;
 
   width: 100%;
+  padding: 2.2rem;
 
+  border: 0.1rem solid #e1e4e6;
   border-radius: 2rem;
-  box-shadow: 0px 4px 6px 0px rgba(225, 228, 230, 0.5);
+  background-color: #fff;
 
   & + & {
     margin-top: 1rem;
@@ -88,10 +90,9 @@ const BorrowListTop = styled.div`
   gap: 2.6rem;
 
   width: 100%;
-  padding: 1.8rem 2.4rem;
+  margin-bottom: 1.6rem;
 
   border-radius: 2rem 2rem 0 0;
-  background-color: #f9f9ff;
 `;
 
 const BorrowListBottom = styled.div`
@@ -100,10 +101,8 @@ const BorrowListBottom = styled.div`
   align-items: center;
 
   width: 100%;
-  padding: 2rem 2.4rem;
 
   border-radius: 0 0 2rem 2rem;
-  background-color: #f2f2f7;
 `;
 
 const BorrowListBottomTextBottom = styled.div`
@@ -121,6 +120,7 @@ const BorrowListTopLeft = styled.div`
   gap: 0.6rem;
 `;
 const Caption3 = styled.span`
+  color: #303234;
   ${({ theme }) => theme.fonts.Telegram_Caption_3};
 `;
 

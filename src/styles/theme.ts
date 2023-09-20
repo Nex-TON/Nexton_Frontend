@@ -159,10 +159,11 @@ const fonts = {
   `,
   Nexton_Title_Large: css`
     font-family: "Montserrat";
-    font-size: 2rem;
+    font-size: 2.4rem;
     font-style: normal;
     font-weight: 700;
-    line-height: 3rem;
+    line-height: 3rem; /* 125% */
+    letter-spacing: -0.012rem;
   `,
   Nexton_Image_Title: css`
     font-family: "Montserrat";

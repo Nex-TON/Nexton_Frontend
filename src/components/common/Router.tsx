@@ -3,8 +3,6 @@ import Main from "../../pages/Main";
 import Leverage from "../../pages/Stake/Leverage";
 import Nlp from "../../pages/Nlp";
 import MyAsset from "../../pages/MyAsset";
-import Loan from "../../pages/Loan";
-import BorrowDetail from "../loan/borrow/BorrowDetail";
 import Swap from "../../pages/Swap";
 import StakingNftDetail from "../../pages/StakingNftDetail";
 import UnstakingNftDetail from "../../pages/UnstakingNftDetail";
@@ -15,6 +13,8 @@ import UnstakingList from "../myAsset/Unstaking/UnstakingList";
 import UnstakingDetail from "../myAsset/Unstaking/UnstakingDetail/UnstakingDetail";
 import Amount from "../../pages/Stake/Amount";
 import Onboarding from "../../pages/Onboarding";
+import Loan from "../../pages/Loan";
+import BorrowDetail from "../../pages/Loan/BorrowDetail";
 
 const Router = () => {
   return (

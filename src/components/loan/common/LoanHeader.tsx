@@ -1,20 +1,15 @@
 import { styled } from "styled-components";
-import BackButton from "../../common/BackButton";
 import { useNavigate } from "react-router-dom";
 
 const LoanHeader = ({ type }: { type?: string }) => {
   const navigate = useNavigate();
 
-  const handleMoveMain = () => {
-    navigate("/");
-  };
   return (
     <>
       {type === "detail" ? (
         <LoanHeaderTop>Deposit NFT, Borrow $NXT</LoanHeaderTop>
       ) : (
         <LoanHeaderBox>
-          {/* <BackButton loanMain handleMoveMain={handleMoveMain} /> */}
           <LoanHeaderTop>Deposit NFT, Borrow $NXT</LoanHeaderTop>
         </LoanHeaderBox>
       )}

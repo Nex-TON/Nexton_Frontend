@@ -1,8 +1,9 @@
 import { styled } from "styled-components";
-import LoanList from "../components/loan/LoanList";
-import LoanHeader from "../components/loan/common/LoanHeader";
+
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import LoanList from "../../components/loan/LoanList";
+import LoanHeader from "../../components/loan/common/LoanHeader";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -42,7 +43,7 @@ const LoanWrapper = styled.div`
 
   width: 100%;
 
-  padding: 2.9rem 1.3rem 2.9rem 1.3rem;
+  padding: 2.9rem 2rem 2.9rem 2rem;
 `;
 
 const LoanHeaderBox = styled.div`
