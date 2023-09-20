@@ -20,8 +20,12 @@ const Menu = () => {
 export default Menu;
 
 const MenuWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 100%;
-  padding: 3rem 4.8rem;
+  padding: 3rem 4rem;
 
   background-color: #fff;
 
@@ -32,7 +36,7 @@ const MenuList = styled.div`
   display: grid;
   grid-template-columns: repeat(3, minmax(5rem, 1fr));
   row-gap: 2rem;
-  column-gap: 4rem;
+  column-gap: 2rem;
 
-  width: 100%;
+  width: 85%;
 `;

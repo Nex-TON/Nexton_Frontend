@@ -5,10 +5,23 @@ import Menu from "../components/main/Menu";
 import { useEffect } from "react";
 import HowTo from "../components/main/HowTo";
 import SubCube from "../assets/image/SubCube.png";
+import useTonConnect from "../hooks/useTonConnect";
+import { useRecoilState } from "recoil";
+import { addressState } from "../lib/atom/address";
+import { useNavigate } from "react-router-dom";
 
 const tele = (window as any).Telegram.WebApp;
 
 const Main = () => {
+  const { address } = useTonConnect();
+  const [, setTonAddress] = useRecoilState(addressState);
+
+  useEffect(() => {
+    if (address) {
+      setTonAddress(address);
+    }
+  }, [address]);
+
   useEffect(() => {
     if (tele) {
       tele.ready();
@@ -43,10 +56,11 @@ const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: space-between;
+  position: relative;
 
   width: 100%;
-  height: 100%;
+
   background-color: #f1f4f4;
 `;
 
@@ -65,7 +79,7 @@ const MainIconBox = styled.div`
   text-align: center;
 `;
 const MainIcon = styled.img`
-  width: 400px;
+  width: 100%;
 `;
 
 const MainImageTitle = styled.div`
@@ -84,10 +98,8 @@ const MainImageTitle = styled.div`
 `;
 
 const Footer = styled.div`
-  position: fixed;
-  bottom: 0;
-
   width: 100%;
   max-width: 76.8rem;
-  padding: 0 1.6rem 1.4rem 1.6rem;
+  margin-top: 4.8rem;
+  padding: 0 1.6rem 3rem 1.6rem;
 `;

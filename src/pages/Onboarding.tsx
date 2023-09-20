@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 import IcSkip from "../assets/icons/Landing/ic_skip.svg";
 import TonWallet from "../components/main/TonWallet";
 import MainCube from "../assets/image/MainCube.png";
-import useTonConnect from "../hooks/useTonConnect";
 
 const Onboarding = () => {
   return (
@@ -28,7 +27,7 @@ const OnboardingWrapper = styled.div`
   position: relative;
 
   width: 100%;
-  height: auto;
+  height: 100%;
   min-height: 100%;
 
   background-color: #008aff;

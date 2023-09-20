@@ -5,21 +5,25 @@ import IcWalletDoubleArrow from "../../assets/icons/Landing/ic_walletDoubleArrow
 import IcTonKeeper from "../../assets/icons/Landing/ic_tonKeeper.svg";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { addressState } from "../../lib/atom/address";
 
 const TonWallet = () => {
   const { address, connected, tonConnectUI } = useTonConnect();
+  const [, setTonAddrsss] = useRecoilState(addressState);
   const navigate = useNavigate();
 
   const clearStorage = () => {
+    navigate("/");
     window.localStorage.clear();
     window.location.reload();
+    setTonAddrsss("");
   };
 
   useEffect(() => {
     if (connected) {
+      setTonAddrsss(address);
       navigate("/main");
-    } else {
-      navigate("/");
     }
   }, [connected]);
 

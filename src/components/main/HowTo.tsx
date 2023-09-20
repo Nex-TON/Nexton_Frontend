@@ -45,7 +45,7 @@ export default HowTo;
 
 const HowToWrapper = styled.div`
   width: 100%;
-  height: 100%;
+
   padding-top: 0.6rem;
 
   background-color: #f1f4f4;
