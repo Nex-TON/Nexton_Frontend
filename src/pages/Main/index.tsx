@@ -1,14 +1,12 @@
 import styled from "styled-components";
-import MainImage from "../assets/image/MainImage.png";
-import TonWallet from "../components/main/TonWallet";
-import Menu from "../components/main/Menu";
 import { useEffect } from "react";
-import HowTo from "../components/main/HowTo";
-import SubCube from "../assets/image/SubCube.png";
-import useTonConnect from "../hooks/useTonConnect";
 import { useRecoilState } from "recoil";
-import { addressState } from "../lib/atom/address";
-import { useNavigate } from "react-router-dom";
+import useTonConnect from "../../hooks/useTonConnect";
+import { addressState } from "../../lib/atom/address";
+import Menu from "../../components/main/Menu";
+import HowTo from "../../components/main/HowTo";
+import TonWallet from "../../components/main/TonWallet";
+import SubCube from "../../assets/image/SubCube.png";
 
 const tele = (window as any).Telegram.WebApp;
 

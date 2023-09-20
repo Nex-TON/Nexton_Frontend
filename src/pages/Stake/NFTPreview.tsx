@@ -1,14 +1,14 @@
 import { styled } from "styled-components";
-import NftPreviewImage from "../components/lerverage/NFTPreview/NftPreviewImage";
-import NFTPreviewInfo from "../components/lerverage/NFTPreview/NFTPreviewInfo";
-import FooterButton from "../components/common/FooterButton";
-import { UserDeposit } from "../hooks/tact_NexTon";
-import * as Contract from "../hooks/useNextonContract";
-import BasicModal from "../components/common/modals/BasicModal";
+import NftPreviewImage from "../../components/lerverage/NFTPreview/NftPreviewImage";
+import NFTPreviewInfo from "../../components/lerverage/NFTPreview/NFTPreviewInfo";
+import FooterButton from "../../components/common/FooterButton";
+import { UserDeposit } from "../../hooks/tact_NexTon";
+import * as Contract from "../../hooks/useNextonContract";
+import BasicModal from "../../components/common/modals/BasicModal";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
-import { stakingAtom, stakingInputAtom } from "../lib/atom/staking";
-import { postStakingInfo } from "../api/postStakingInfo";
+import { stakingAtom, stakingInputAtom } from "../../lib/atom/staking";
+import { postStakingInfo } from "../../api/postStakingInfo";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { createPortal } from "react-dom";
@@ -59,7 +59,7 @@ const NFTPreview = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/leverage");
+        navigate("/stake/leverage");
       });
     }
     window.scrollTo(0, 0);

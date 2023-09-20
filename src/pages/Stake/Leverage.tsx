@@ -56,7 +56,7 @@ const Leverage = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/");
+        navigate("/stake/nominator");
       });
     }
 

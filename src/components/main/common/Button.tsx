@@ -9,6 +9,7 @@ import IcMenuAsset from "../../../assets/icons/Landing/ic_menuMyAsset.svg";
 import IcMenuCoinDisable from "../../../assets/icons/Landing/ic_menuCoin_Disable.svg";
 import IcMenuNxtDisable from "../../../assets/icons/Landing/ic_menuNxt_Disable.svg";
 import GradientBox from "../../common/GradientBox";
+import useTonConnect from "../../../hooks/useTonConnect";
 
 interface ButtonProps {
   top?: string;
@@ -19,6 +20,7 @@ interface ButtonProps {
   unused?: boolean;
 }
 const Button = (props: ButtonProps) => {
+  const { connected } = useTonConnect();
   const navigate = useNavigate();
   const { top, bottom, title, page, type, unused } = props;
 
@@ -62,7 +64,7 @@ const Button = (props: ButtonProps) => {
   };
 
   return (
-    <StyledButton onClick={moveToPage}>
+    <StyledButton onClick={moveToPage} disabled={!connected}>
       {SelectImage(type)}
       {unused && <GradientBox />}
       <StyleText $unused={unused}>{title}</StyleText>

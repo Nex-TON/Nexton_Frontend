@@ -1,9 +1,12 @@
 import { styled } from "styled-components";
-import IcSkip from "../assets/icons/Landing/ic_skip.svg";
-import TonWallet from "../components/main/TonWallet";
-import MainCube from "../assets/image/MainCube.png";
+import IcSkip from "../../assets/icons/Landing/ic_skip.svg";
+import MainCube from "../../assets/image/MainCube.png";
+import TonWallet from "../../components/main/TonWallet";
+import { useNavigate } from "react-router-dom";
 
 const Onboarding = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <OnboardingWrapper>
@@ -12,7 +15,7 @@ const Onboarding = () => {
         <Footer>
           <SkipTextBox>
             Skip
-            <img src={IcSkip} alt="skip" />
+            <img src={IcSkip} alt="skip" onClick={() => navigate("/main")} />
           </SkipTextBox>
           <TonWallet />
         </Footer>

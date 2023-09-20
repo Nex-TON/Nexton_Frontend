@@ -50,7 +50,7 @@ const Amount = () => {
           <span>Please stake more than 0.5 TON</span>
         </ErrorBlock>
       )}
-      <MainButton text="next" onClick={handleMoveNominator} />
+      <MainButton text="NEXT" onClick={handleMoveNominator} />
       {/* <button onClick={handleMoveNominator}>next</button> */}
     </AmontWrapper>
   );

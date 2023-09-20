@@ -8,13 +8,13 @@ import BorrowDetail from "../loan/borrow/BorrowDetail";
 import Swap from "../../pages/Swap";
 import StakingNftDetail from "../../pages/StakingNftDetail";
 import UnstakingNftDetail from "../../pages/UnstakingNftDetail";
-import NFTPreview from "../../pages/NFTPreview";
+import NFTPreview from "../../pages/Stake/NFTPreview";
 import NominatorList from "../../pages/Stake/NominatorList";
 import NftList from "../myAsset/NFT/NftList";
 import UnstakingList from "../myAsset/Unstaking/UnstakingList";
 import UnstakingDetail from "../myAsset/Unstaking/UnstakingDetail/UnstakingDetail";
-import Onboarding from "../../pages/Onboarding";
 import Amount from "../../pages/Stake/Amount";
+import Onboarding from "../../pages/Onboarding";
 
 const Router = () => {
   return (
@@ -25,7 +25,7 @@ const Router = () => {
         <Route path="/stake/amount" element={<Amount />} />
         <Route path="/stake/leverage" element={<Leverage />} />
         <Route path="/stake/nominator" element={<NominatorList />} />
-        <Route path="/leverage/preview" element={<NFTPreview />} />
+        <Route path="/stake/preview" element={<NFTPreview />} />
         <Route path="/loan" element={<Loan />} />
         <Route path="/loan/:id" element={<BorrowDetail />} />
         <Route path="/swap" element={<Swap />} />
