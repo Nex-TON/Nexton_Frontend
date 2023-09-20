@@ -8,6 +8,14 @@ export const NOMINATOR_LIST = [
     check: false,
   },
   {
+    title: "HB Pool #1",
+    totalStake: 754.197,
+    ValidatorStake: 18.304,
+    NominatorStake: 735893,
+    type: "prfit",
+    check: false,
+  },
+  {
     title: "DG Pool #1",
     totalStake: 937.263,
     ValidatorStake: 36.115,

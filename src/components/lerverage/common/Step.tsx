@@ -1,27 +1,60 @@
 import styled, { css } from "styled-components";
+import useTonConnect from "../../../hooks/useTonConnect";
+import { numberCutter } from "../../../utils/numberCutter";
+import { useRecoilValue } from "recoil";
+import { stakingAtom } from "../../../lib/atom/staking";
 
 interface StepProps {
   title: string;
   step?: string;
+  type?: string;
 }
 
 const Step = (props: StepProps) => {
-  const { title, step } = props;
-  return <StepWrapper step={step}>{title}</StepWrapper>;
+  const { title, step, type } = props;
+  const { principal, nominator } = useRecoilValue(stakingAtom);
+
+  return (
+    <StepWrapper step={step}>
+      <StepNumber>{title}</StepNumber>
+      {type === "nominator" ? (
+        <StepNumber>
+          Stake amount {numberCutter(Number(principal))} TON
+        </StepNumber>
+      ) : (
+        type === "leverage" && (
+          <StepNumber>
+            {numberCutter(Number(principal))} TON / {nominator}
+          </StepNumber>
+        )
+      )}
+    </StepWrapper>
+  );
 };
 
 export default Step;
 
 const StepWrapper = styled.div<{ step?: string }>`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
-  margin-bottom: 1.2rem;
+  width: 100%;
+  margin-bottom: 2rem;
+`;
+
+const StepNumber = styled.div`
   padding: 0.7rem 1.2rem;
 
-  border: 0.1rem solid #0088cc;
+  border: 0.1rem solid #d0d0e2;
   border-radius: 2rem;
-  color: #0088cc;
-  ${({ theme }) => theme.fonts.Telegram_Caption_2};
+  color: #333;
+  font-family: Montserrat;
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.4rem; /* 127.273% */
+  letter-spacing: 0.0066rem;
 `;
+
+const StepAmount = styled.div``;

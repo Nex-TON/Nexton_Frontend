@@ -20,27 +20,27 @@ const Step2 = (props: Step2Props) => {
 
   return (
     <Step2Wrapper>
-      <Step title="Step 3" />
+      <Step title="Step 3" type="leverage" />
       <TitleBox>
-        <Title title="Set Leverage  Multiplier" />
-        {isOpenSlider ? (
-          <img
-            src={IcBlackArrowUp}
-            alt="arrow"
-            onClick={() => setIsOpenSlider((prev) => !prev)}
-          />
-        ) : (
-          <img
-            src={IcBlackArrowDown}
-            alt="arrow"
-            onClick={() => setIsOpenSlider((prev) => !prev)}
-          />
-        )}
+        <Title title="Set Leverage  Multiplier" type="step3" />
       </TitleBox>
       <LeverageBox>
         Leverage
         <LeverageRightBox>
           x<span>{ratio}</span>
+          {isOpenSlider ? (
+            <img
+              src={IcBlackArrowUp}
+              alt="arrow"
+              onClick={() => setIsOpenSlider((prev) => !prev)}
+            />
+          ) : (
+            <img
+              src={IcBlackArrowDown}
+              alt="arrow"
+              onClick={() => setIsOpenSlider((prev) => !prev)}
+            />
+          )}
         </LeverageRightBox>
       </LeverageBox>
       {isOpenSlider && (
@@ -64,9 +64,10 @@ const Step2Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
-  width: 85%;
+  width: 100%;
+  padding: 0 2rem;
 `;
 
 const TitleBox = styled.div`
@@ -82,7 +83,7 @@ const LeverageBox = styled.div`
   align-items: center;
 
   width: 100%;
-  margin-top: 2.6rem;
+  margin-top: 1.4rem;
 
   color: #45464f;
   ${({ theme }) => theme.fonts.Telegram_Title_3_1};
@@ -93,7 +94,7 @@ const LeverageRightBox = styled.div`
   ${({ theme }) => theme.fonts.Telegram_Title_3_1};
 
   span {
-    margin-left: 1rem;
+    margin-right: 1rem;
     ${({ theme }) => theme.fonts.Telegram_Title_1};
   }
 `;

@@ -29,13 +29,13 @@ const LeverageInputWrapper = styled.div<{ error: boolean }>`
   justify-content: space-between;
   align-items: center;
 
-  width: 90%;
+  width: 100%;
   margin-top: 1.4rem;
   padding: 1.7rem 2.05rem 1.8rem 2rem;
 
   border: ${({ error }) => error && `0.1rem solid #FF7979`};
-  border-radius: 4rem;
-  background-color: #fff;
+  border-radius: 2rem;
+  background-color: #f9f9ff;
 `;
 
 const RightSection = styled.div``;

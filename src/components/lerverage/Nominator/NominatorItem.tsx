@@ -84,8 +84,7 @@ const NominatorItemWrapper = styled.div`
   width: 100%;
 
   border-radius: 2rem;
-  box-shadow: 0px 4px 6px 0px rgba(225, 228, 230, 0.5);
-
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.14);
   & + & {
     margin-top: 1rem;
   }
@@ -101,7 +100,7 @@ const NominatorItemTop = styled.div`
   padding: 1.8rem 2.4rem;
 
   border-radius: 2rem 2rem 0 0;
-  background-color: #f9f9ff;
+  background-color: #fff;
 `;
 
 const NominatorItemTopLeft = styled.div`
@@ -156,7 +155,7 @@ const NominatorItemBottom = styled.div`
   padding: 2rem 2.4rem;
 
   border-radius: 0 0 2rem 2rem;
-  background-color: #f2f2f7;
+  background-color: #fff;
 `;
 
 const NominatorItemBottomTextBottom = styled.div`

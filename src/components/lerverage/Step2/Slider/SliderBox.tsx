@@ -37,7 +37,7 @@ export default SliderBox;
 
 const SliderWrapper = styled.div`
   width: 100%;
-  margin-bottom: 2.6rem;
+  margin-bottom: 1.076rem;
 `;
 
 const SliderTextBox = styled.div`

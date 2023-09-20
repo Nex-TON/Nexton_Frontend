@@ -25,7 +25,7 @@ const Button = (props: ButtonProps) => {
   const moveToPage = () => {
     switch (page) {
       case "Stake":
-        navigate("/leverage");
+        navigate("/stake/amount");
         break;
       case "Nlp":
         navigate("/nlp");

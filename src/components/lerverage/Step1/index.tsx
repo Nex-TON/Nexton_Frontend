@@ -5,6 +5,7 @@ import LeverageInput from "./LeverageInput";
 import useTonConnect from "../../../hooks/useTonConnect";
 import { numberCutter } from "../../../utils/numberCutter";
 import IcError from "../../../assets/icons/ic_error.svg";
+import ProgressBar from "../../common/ProgressBar";
 
 interface Step1Props {
   input: string;
@@ -20,6 +21,7 @@ const Step1 = (props: Step1Props) => {
 
   return (
     <Step1Wrapper ref={step1Ref}>
+      <ProgressBar />
       <Step title="Step 1" />
       <Title title="Put stake amount" />
       <BalanceWrapper>
@@ -54,9 +56,10 @@ const Step1Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
   width: 100%;
+  padding: 0 2rem;
 `;
 
 const BalanceWrapper = styled.div`
@@ -69,8 +72,13 @@ const BalanceWrapper = styled.div`
 `;
 
 const BalanceText = styled.span`
-  color: #3e4064;
-  ${({ theme }) => theme.fonts.Telegram_Medium_2};
+  color: #333;
+  font-family: Montserrat;
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.8rem; /* 138.462% */
+  letter-spacing: -0.024rem;
 `;
 
 const ErrorBlock = styled.div`

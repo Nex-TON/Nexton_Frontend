@@ -96,12 +96,17 @@ const LerverageDetailWrapper = styled.div`
   padding: 1.4rem 2rem;
 
   border-radius: 1rem;
-  background-color: #f9f9ff;
+  background-color: #fbfeff;
 `;
 
 const LeverageDetailText = styled.span`
   color: #8e8e93;
-  ${({ theme }) => theme.fonts.Telegram_Footnote_1};
+  font-family: Montserrat;
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.8rem; /* 138.462% */
+  letter-spacing: -0.0078rem;
 `;
 
 const AvailableBox = styled.div`

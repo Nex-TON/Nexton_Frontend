@@ -6,21 +6,20 @@ import { UserDeposit } from "../hooks/tact_NexTon";
 import * as Contract from "../hooks/useNextonContract";
 import BasicModal from "../components/common/modals/BasicModal";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { stakingAtom, stakingInputAtom } from "../lib/atom/staking";
 import { postStakingInfo } from "../api/postStakingInfo";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
-import { nominatorAtom } from "../lib/atom/nominator";
 import { createPortal } from "react-dom";
 
 const tele = (window as any).Telegram.WebApp;
 
 const NFTPreview = () => {
   const stakingInfo = useRecoilValue(stakingAtom);
+  const stakeInfoReset = useResetRecoilState(stakingAtom);
 
   const [, setInput] = useRecoilState(stakingInputAtom);
-  const [, setNominatorName] = useRecoilState(nominatorAtom);
   const { sendMessage } = Contract.useNextonContract();
   const [modal, setModal] = useState(false);
 
@@ -52,7 +51,7 @@ const NFTPreview = () => {
 
     toggleModal();
     setInput("");
-    setNominatorName("");
+    stakeInfoReset();
   };
 
   useEffect(() => {

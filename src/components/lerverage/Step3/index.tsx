@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Step from "../common/Step";
+
 import { getLockUpDate } from "../../../utils/getLockupDate";
 
 interface Step3Props {
@@ -12,7 +12,6 @@ const Step3 = (props: Step3Props) => {
 
   return (
     <Step3Wrapper>
-      <Step title="Step 4" step="Step3" />
       <Step3DescWrapper>
         <Step3Desc>Check your lock-up period</Step3Desc>
       </Step3DescWrapper>
@@ -35,25 +34,26 @@ const Step3Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
-  width: 90%;
-
+  width: 100%;
+  padding: 0 2rem;
   margin-bottom: 4.6rem;
 `;
 
 const Step3DescWrapper = styled.div`
   width: 100%;
-  margin-bottom: 2.6rem;
-
-  text-align: center;
+  margin-bottom: 1.9rem;
 `;
 
 const Step3Desc = styled.div`
-  margin-bottom: 1rem;
-
-  color: #45464f;
-  ${({ theme }) => theme.fonts.Telegram_Title_3_1};
+  color: #333;
+  font-family: Montserrat;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.4rem; /* 120% */
+  letter-spacing: -0.046rem;
 `;
 
 const Step3LockUpWrapper = styled.div`
@@ -62,7 +62,6 @@ const Step3LockUpWrapper = styled.div`
   align-items: center;
 
   width: 100%;
-  padding: 0 1rem;
 
   color: #45464f;
 `;
