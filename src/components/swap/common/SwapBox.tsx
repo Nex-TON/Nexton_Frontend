@@ -54,10 +54,10 @@ const SwapBoxWrapper = styled.div`
   width: 100%;
   padding: 2.2rem 2.5rem;
 
-  border: 0.1rem solid #fbfeff;
+  border: 0.1rem solid #e1e4e6;
   border-radius: 2rem;
-  background-color: #f9f9ff;
-  box-shadow: 0px 4px 20px 0px #e1e4e6;
+  background-color: #fff;
+  box-shadow: 0px 4px 6px 0px rgba(225, 228, 230, 0.5);
 
   & + & {
     margin-top: 1rem;
@@ -97,14 +97,14 @@ const SwapInput = styled.input`
 
   border: none;
   border-radius: 4rem;
-  background-color: #fff;
+  background-color: #f9f9ff;
   color: #46494a;
   ${({ theme }) => theme.fonts.Nexton_Title_Large};
 
   outline: none;
 
   &::placeholder {
-    color: #46494a;
+    color: #e5e5ea;
   }
 `;
 
@@ -117,9 +117,9 @@ const SwapTokenBox = styled.div`
   height: 3.2rem;
   padding: 0.5rem 1rem;
 
+  border: 0.1rem solid #f2f2f7;
   border-radius: 2rem;
-  background-color: #f9f9ff;
-  box-shadow: 0px 4px 20px 0px #e1e4e6;
+  background-color: #fff;
   color: #09090a;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
 `;

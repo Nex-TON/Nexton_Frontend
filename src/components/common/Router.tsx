@@ -3,7 +3,7 @@ import Main from "../../pages/Main";
 import Leverage from "../../pages/Stake/Leverage";
 import Nlp from "../../pages/Nlp";
 import MyAsset from "../../pages/MyAsset";
-import Swap from "../../pages/Swap";
+
 import StakingNftDetail from "../../pages/StakingNftDetail";
 import UnstakingNftDetail from "../../pages/UnstakingNftDetail";
 import NFTPreview from "../../pages/Stake/NFTPreview";
@@ -15,6 +15,7 @@ import Amount from "../../pages/Stake/Amount";
 import Onboarding from "../../pages/Onboarding";
 import Loan from "../../pages/Loan";
 import BorrowDetail from "../../pages/Loan/BorrowDetail";
+import Swap from "../../pages/Swap";
 
 const Router = () => {
   return (

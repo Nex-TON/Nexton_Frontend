@@ -76,8 +76,9 @@ const LiquidityBoxWrapper = styled.div`
   margin: 1rem 0;
   padding: 2.4rem 2.6rem;
 
+  border: 0.1rem solid #e1e4e6;
   border-radius: 2rem;
-  background-color: #f9f9ff;
+  background-color: #fff;
 `;
 
 const LiquidityBoxTop = styled.div`

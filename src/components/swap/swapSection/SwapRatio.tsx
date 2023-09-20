@@ -15,7 +15,7 @@ const SwapRatioWrapper = styled.div`
 
   border: 0.1rem solid #e5e5ea;
   border-radius: 2rem;
-  background-color: #f2f2f7;
+  background-color: #fff;
 
   color: #46494a;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};

@@ -1,7 +1,4 @@
 import { styled } from "styled-components";
-import BackButton from "../../common/BackButton";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 interface SwapHeaderProps {
   isClick: boolean[];
@@ -11,16 +8,9 @@ interface SwapHeaderProps {
 const SwapHeader = (props: SwapHeaderProps) => {
   const { isClick, handleSwitchNav } = props;
 
-  const navigate = useNavigate();
-
-  const handleMoveMain = () => {
-    navigate("/");
-  };
-
   return (
     <>
       <SwapHeaderBox>
-        {/* <BackButton loanMain handleMoveMain={handleMoveMain} /> */}
         <SwapHeaderTop>Swap</SwapHeaderTop>
       </SwapHeaderBox>
       <SwapNavBox>
@@ -68,7 +58,7 @@ const SwapButtton = styled.button<{ click: boolean }>`
 
   border: none;
   border-radius: 3rem;
-  background-color: #f9f9ff;
+  background-color: ${({ click }) => (click ? "#FFF" : "#f9f9f9")};
   box-shadow: 0px 4px 4px 0px rgba(225, 228, 230, 0.5);
   color: ${({ click }) => (click ? "#007AFF" : "#76797A")};
   ${({ theme }) => theme.fonts.Telegram_Caption_1_1};

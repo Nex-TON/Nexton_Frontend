@@ -30,8 +30,9 @@ const LiquidityPairWrapper = styled.div`
   margin-bottom: 1.4rem;
   padding: 0.8rem 0;
 
+  border: 0.1rem solid #e1e4e6;
   border-radius: 2rem;
-  background-color: #f9f9ff;
+  background-color: #fff;
 `;
 
 const LiquidityPairTokenBox = styled.div`

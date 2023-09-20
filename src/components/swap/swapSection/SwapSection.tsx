@@ -78,6 +78,6 @@ const SwapArrowBox = styled.div`
   height: 3.7rem;
 
   border-radius: 50%;
-  background-color: #f9f9ff;
+  background-color: #fff;
   box-shadow: 0px 0px 20px rgba(9, 9, 10, 0.1);
 `;
