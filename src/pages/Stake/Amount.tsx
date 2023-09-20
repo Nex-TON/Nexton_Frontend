@@ -5,12 +5,14 @@ import Title from "../../components/lerverage/common/Title";
 import useTonConnect from "../../hooks/useTonConnect";
 import { numberCutter } from "../../utils/numberCutter";
 import LeverageInput from "../../components/lerverage/Step1/LeverageInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import IcError from "../../assets/icons/ic_error.svg";
 import { useRecoilState } from "recoil";
 import { stakingAtom } from "../../lib/atom/staking";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+
+const tele = (window as any).Telegram.WebApp;
 
 const Amount = () => {
   const [input, setInput] = useState("");
@@ -32,6 +34,20 @@ const Amount = () => {
     }));
     navigate("/stake/nominator");
   };
+
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        navigate("/main");
+      });
+    }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
+  }, []);
 
   return (
     <AmontWrapper>

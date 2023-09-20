@@ -7,12 +7,14 @@ import Menu from "../../components/main/Menu";
 import HowTo from "../../components/main/HowTo";
 import TonWallet from "../../components/main/TonWallet";
 import SubCube from "../../assets/image/SubCube.png";
+import { useNavigate } from "react-router-dom";
 
 const tele = (window as any).Telegram.WebApp;
 
 const Main = () => {
   const { address } = useTonConnect();
   const [, setTonAddress] = useRecoilState(addressState);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (address) {
@@ -27,8 +29,15 @@ const Main = () => {
       tele.themeParams.secondary_bg_color = "#f2f2f7";
       tele.setHeaderColor("secondary_bg_color");
       tele.MainButton.hide();
-      tele.BackButton.hide();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        navigate("/");
+      });
     }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
   });
 
   return (
