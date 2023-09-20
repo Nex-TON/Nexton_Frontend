@@ -115,7 +115,7 @@ const NominatorList = () => {
           />
         ))}
       </NominatorItemList>
-      <button onClick={handleConfirmNominator}>Confirm</button>
+      {/* <button onClick={handleConfirmNominator}>Confirm</button> */}
       <MainButton text="NEXT" onClick={handleConfirmNominator} />
     </>
   );

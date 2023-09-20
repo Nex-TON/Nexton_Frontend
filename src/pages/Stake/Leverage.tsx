@@ -48,7 +48,7 @@ const Leverage = () => {
       leverage: ratio,
       lockup: getLockUpDate(stakingInfo.principal, ratio),
     }));
-    navigate("/leverage/preview");
+    navigate("/stake/preview");
   };
 
   useEffect(() => {
