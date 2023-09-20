@@ -15,16 +15,22 @@ const tele = (window as any).Telegram.WebApp;
 
 const NominatorList = () => {
   const [searchInput, setSearchInput] = useState("");
-  const [isSelectNominator, setIsSelectNominator] = useState([false, false]);
+  const [isSelectNominator, setIsSelectNominator] = useState([
+    false,
+    false,
+    false,
+  ]);
   const [searchNominator, setSearchNominator] = useState(NOMINATOR_LIST);
   const [, setStakingInfo] = useRecoilState(stakingAtom);
   const navigate = useNavigate();
 
   const handleSelectNominator = (index: number) => {
     if (index === 0) {
-      setIsSelectNominator([!isSelectNominator[0], false]);
+      setIsSelectNominator([!isSelectNominator[0], false, false]);
+    } else if (index === 1) {
+      setIsSelectNominator([false, !isSelectNominator[1], false]);
     } else {
-      setIsSelectNominator([false, !isSelectNominator[1]]);
+      setIsSelectNominator([false, false, !isSelectNominator[2]]);
     }
   };
 
@@ -39,6 +45,12 @@ const NominatorList = () => {
       setStakingInfo((prev) => ({
         ...prev,
         nominator: NOMINATOR_LIST[1].title,
+      }));
+      navigate("/stake/leverage");
+    } else if (isSelectNominator[2]) {
+      setStakingInfo((prev) => ({
+        ...prev,
+        nominator: NOMINATOR_LIST[2].title,
       }));
       navigate("/stake/leverage");
     } else {
@@ -103,7 +115,7 @@ const NominatorList = () => {
           />
         ))}
       </NominatorItemList>
-      {/* <button onClick={handleConfirmNominator}>Confirm</button> */}
+      <button onClick={handleConfirmNominator}>Confirm</button>
       <MainButton text="NEXT" onClick={handleConfirmNominator} />
     </>
   );
