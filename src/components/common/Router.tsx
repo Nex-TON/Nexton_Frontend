@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "../../pages/Main";
-import Leverage from "../../pages/Leverage";
+import Leverage from "../../pages/Stake/Leverage";
 import Nlp from "../../pages/Nlp";
 import MyAsset from "../../pages/MyAsset";
 import Loan from "../../pages/Loan";
@@ -9,11 +9,12 @@ import Swap from "../../pages/Swap";
 import StakingNftDetail from "../../pages/StakingNftDetail";
 import UnstakingNftDetail from "../../pages/UnstakingNftDetail";
 import NFTPreview from "../../pages/NFTPreview";
-import NominatorList from "../../pages/NominatorList";
+import NominatorList from "../../pages/Stake/NominatorList";
 import NftList from "../myAsset/NFT/NftList";
 import UnstakingList from "../myAsset/Unstaking/UnstakingList";
 import UnstakingDetail from "../myAsset/Unstaking/UnstakingDetail/UnstakingDetail";
 import Onboarding from "../../pages/Onboarding";
+import Amount from "../../pages/Stake/Amount";
 
 const Router = () => {
   return (
@@ -21,8 +22,9 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Onboarding />} />
         <Route path="/main" element={<Main />} />
-        <Route path="/leverage" element={<Leverage />} />
-        <Route path="/leverage/nominator" element={<NominatorList />} />
+        <Route path="/stake/amount" element={<Amount />} />
+        <Route path="/stake/leverage" element={<Leverage />} />
+        <Route path="/stake/nominator" element={<NominatorList />} />
         <Route path="/leverage/preview" element={<NFTPreview />} />
         <Route path="/loan" element={<Loan />} />
         <Route path="/loan/:id" element={<BorrowDetail />} />
