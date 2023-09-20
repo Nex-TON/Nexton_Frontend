@@ -79,8 +79,8 @@ const NFTPreview = () => {
         <NFTPreviewConfirmText>
           Please check your NFT details periodically
         </NFTPreviewConfirmText>
-        {/* <MainButton text="Confirm" onClick={handleMinting} /> */}
-        <FooterButton title="Confirm" onClick={handleMinting} />
+        <MainButton text="Confirm" onClick={handleMinting} />
+        {/* <FooterButton title="Confirm" onClick={handleMinting} /> */}
       </NFTPreviewConfirmBox>
     </NFTPreviewWrapper>
   );
