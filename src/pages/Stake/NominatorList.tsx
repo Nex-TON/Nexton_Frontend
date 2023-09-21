@@ -11,51 +11,28 @@ import ProgressBar from "../../components/common/ProgressBar";
 import { stakingAtom } from "../../lib/atom/staking";
 import IcSearch from "../../assets/icons/Nominator/ic_search.svg";
 import { useSearchNominatorPool } from "./hooks/useSearchNominatorPoo";
+import { useSelectNominator } from "./hooks/useSelectNominator";
 
 const tele = (window as any).Telegram.WebApp;
 
 const NominatorList = () => {
   const [searchInput, setSearchInput] = useState("");
-  const [isSelectNominator, setIsSelectNominator] = useState([
-    false,
-    false,
-    false,
-  ]);
+  const { isSelectedNominator, handleSelectNominator } = useSelectNominator();
   const { searchNominator, handleSearchNominatorPool } =
     useSearchNominatorPool(searchInput);
   const [, setStakingInfo] = useRecoilState(stakingAtom);
   const navigate = useNavigate();
 
-  const handleSelectNominator = (index: number) => {
-    if (index === 0) {
-      setIsSelectNominator([!isSelectNominator[0], false, false]);
-    } else if (index === 1) {
-      setIsSelectNominator([false, !isSelectNominator[1], false]);
-    } else {
-      setIsSelectNominator([false, false, !isSelectNominator[2]]);
-    }
-  };
-
   const handleConfirmNominator = () => {
-    if (isSelectNominator[0]) {
+    const selectedNominator = isSelectedNominator.findIndex(
+      (isSelected) => isSelected
+    );
+
+    if (selectedNominator !== -1) {
       setStakingInfo((prev) => ({
         ...prev,
-        nominator: NOMINATOR_LIST[0].title,
+        nominator: NOMINATOR_LIST[selectedNominator].title,
       }));
-      navigate("/stake/leverage");
-    } else if (isSelectNominator[1]) {
-      setStakingInfo((prev) => ({
-        ...prev,
-        nominator: NOMINATOR_LIST[1].title,
-      }));
-      navigate("/stake/leverage");
-    } else if (isSelectNominator[2]) {
-      setStakingInfo((prev) => ({
-        ...prev,
-        nominator: NOMINATOR_LIST[2].title,
-      }));
-      navigate("/stake/leverage");
-    } else {
       navigate("/stake/leverage");
     }
   };
@@ -101,13 +78,13 @@ const NominatorList = () => {
             NominatorStake={item.NominatorStake}
             type={item.type}
             check={item.check}
-            isSelectNominator={isSelectNominator}
+            isSelectNominator={isSelectedNominator}
             handleSelectNominator={handleSelectNominator}
           />
         ))}
       </NominatorItemList>
-      {/* <button onClick={handleConfirmNominator}>Confirm</button> */}
-      <MainButton text="NEXT" onClick={handleConfirmNominator} />
+      <button onClick={handleConfirmNominator}>Confirm</button>
+      {/* <MainButton text="NEXT" onClick={handleSelectNominator} /> */}
     </>
   );
 };
