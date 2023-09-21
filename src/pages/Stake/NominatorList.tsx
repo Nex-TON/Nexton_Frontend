@@ -10,6 +10,7 @@ import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import ProgressBar from "../../components/common/ProgressBar";
 import { stakingAtom } from "../../lib/atom/staking";
 import IcSearch from "../../assets/icons/Nominator/ic_search.svg";
+import { useSearchNominatorPool } from "./hooks/useSearchNominatorPoo";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -20,7 +21,8 @@ const NominatorList = () => {
     false,
     false,
   ]);
-  const [searchNominator, setSearchNominator] = useState(NOMINATOR_LIST);
+  const { searchNominator, handleSearchNominatorPool } =
+    useSearchNominatorPool(searchInput);
   const [, setStakingInfo] = useRecoilState(stakingAtom);
   const navigate = useNavigate();
 
@@ -55,17 +57,6 @@ const NominatorList = () => {
       navigate("/stake/leverage");
     } else {
       navigate("/stake/leverage");
-    }
-  };
-
-  const handleSearchNominatorPool = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (searchInput === "") {
-      setSearchNominator(NOMINATOR_LIST);
-    } else {
-      setSearchNominator(
-        NOMINATOR_LIST.filter((item) => item.title.includes(searchInput))
-      );
     }
   };
 
@@ -161,6 +152,12 @@ const NominatorInput = styled.input`
 
   &::placeholder {
     color: #333;
+  }
+
+  &:focus {
+    &::placeholder {
+      color: transparent;
+    }
   }
 `;
 
