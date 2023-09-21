@@ -90,8 +90,9 @@ const StyledReactSlider = styled(Slider)(() => ({
     },
   },
   "& .MuiSlider-markLabel": {
+    marginTop: "0.4rem",
     color: "#C7C7CC",
-    fontFamily: "SF Pro",
+    fontFamily: "Montserrat",
     fontSize: "1.1rem",
     fontStyle: "normal",
     fontWeight: "510",

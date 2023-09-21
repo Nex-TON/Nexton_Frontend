@@ -109,7 +109,7 @@ const NFTPreviewHeader = styled.div`
   margin-bottom: 2rem;
 
   color: #45464f;
-  ${({ theme }) => theme.fonts.Telegram_Title_3_1};
+  ${({ theme }) => theme.fonts.Nexton_Title_Medium};
 `;
 
 const NFTPreviewConfirmBox = styled.div`
