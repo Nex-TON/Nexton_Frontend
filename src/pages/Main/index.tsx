@@ -5,9 +5,9 @@ import useTonConnect from "../../hooks/useTonConnect";
 import { addressState } from "../../lib/atom/address";
 import Menu from "../../components/main/Menu";
 import HowTo from "../../components/main/HowTo";
-import TonWallet from "../../components/main/TonWallet";
 import SubCube from "../../assets/image/SubCube.png";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -38,18 +38,29 @@ const Main = () => {
   });
 
   return (
-    <>
-      <MainWrapper>
-        <MainImageBox>
-          <MainImageTitle>NEXTON</MainImageTitle>
-          <MainIconBox>
-            <MainIcon src={SubCube} alt="subcube" />
-          </MainIconBox>
-        </MainImageBox>
-        <Menu />
-        <HowTo />
-      </MainWrapper>
-    </>
+    <AnimatePresence>
+      <motion.div
+        style={{ width: "100%", height: "100%" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1.5 }}
+        exit={{ opacity: 0 }}
+        transition={{
+          ease: "easeIn",
+          duration: 0.5,
+        }}
+      >
+        <MainWrapper>
+          <MainImageBox>
+            <MainImageTitle>NEXTON</MainImageTitle>
+            <MainIconBox>
+              <MainIcon src={SubCube} alt="subcube" />
+            </MainIconBox>
+          </MainImageBox>
+          <Menu />
+          <HowTo />
+        </MainWrapper>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
