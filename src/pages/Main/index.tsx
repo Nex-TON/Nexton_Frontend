@@ -25,9 +25,6 @@ const Main = () => {
   useEffect(() => {
     if (tele) {
       tele.ready();
-      tele.onEvent("themeChanged");
-      tele.themeParams.secondary_bg_color = "#f2f2f7";
-      tele.setHeaderColor("secondary_bg_color");
       tele.MainButton.hide();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
