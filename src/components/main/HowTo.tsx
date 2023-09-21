@@ -57,6 +57,7 @@ export default HowTo;
 
 const HowToWrapper = styled.div`
   width: 100%;
+  height: 100%;
 
   padding-top: 0.6rem;
 
@@ -64,8 +65,6 @@ const HowToWrapper = styled.div`
 `;
 
 const HowToBox = styled.div`
-  position: relative;
-
   width: 100%;
   padding: 2.4rem;
   margin-bottom: 4rem;
