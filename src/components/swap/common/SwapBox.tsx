@@ -98,7 +98,7 @@ const SwapInput = styled.input`
   border: none;
   border-radius: 4rem;
   background-color: #f9f9ff;
-  color: #46494a;
+  color: #1a1b23;
   ${({ theme }) => theme.fonts.Nexton_Title_Large};
 
   outline: none;
