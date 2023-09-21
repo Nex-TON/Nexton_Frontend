@@ -51,11 +51,11 @@ const Button = (props: ButtonProps) => {
       case "leverage":
         return <StyledImage src={IcMenuLeverage} alt="Leverage" />;
       case "NXT":
-        return <StyledImage src={IcMenuNxt} alt="NXT" />;
+        return <StyledImage src={IcMenuNxtDisable} alt="NXT" />;
       case "Loan":
         return <StyledImage src={IcMenuLoan} alt="Loan" />;
       case "NLP":
-        return <StyledImage src={IcMenuCoin} alt="Coin" />;
+        return <StyledImage src={IcMenuCoinDisable} alt="Coin" />;
       case "Swap":
         return <StyledImage src={IcMenuSwap} alt="Swap" />;
       case "Asset":
