@@ -26,12 +26,13 @@ const MyAssetWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-
-  width: 100%;
-
   position: relative;
 
+  width: 100%;
+  height: 100%;
   padding: 2.9rem 1.6rem 0rem 1.6rem;
+
+  background-color: #f2f2f7;
 `;
 
 const MyAssetHeaderBox = styled.div`

@@ -46,6 +46,7 @@ const DetailWrapper = styled.div`
   position: relative;
 
   width: 100%;
+  background-color: #f2f2f7;
 `;
 
 const DetailHeader = styled.div`

@@ -108,6 +108,7 @@ const UnstakingWrapper = styled.div`
   position: relative;
 
   width: 100%;
+  background-color: #f2f2f7;
 `;
 const UnstakingHeader = styled.div`
   display: flex;
