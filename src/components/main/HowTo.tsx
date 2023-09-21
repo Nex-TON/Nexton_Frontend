@@ -2,15 +2,24 @@ import { styled } from "styled-components";
 import IcDownArrow from "../../assets/icons/ic_grayArrow_down.svg";
 import IcUpArrow from "../../assets/icons/ic_grayArrow_up.svg";
 import IcDropdownList from "../../assets/icons/ic_dropdown_list.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import TonWallet from "./TonWallet";
 
 const HowTo = () => {
+  const [checkViewHeight, setCheckViewHeight] = useState(false);
   const [isDropdown, setIsDropdown] = useState(false);
 
   const handleDropDown = () => {
     setIsDropdown((prev) => !prev);
   };
 
+  useEffect(() => {
+    if (window.innerHeight > 750) {
+      setCheckViewHeight(true);
+    }
+  }, [window.innerHeight]);
+
+  console.log(checkViewHeight);
   return (
     <HowToWrapper>
       <HowToBox>
@@ -37,6 +46,9 @@ const HowTo = () => {
           </HowToDropdownBox>
         )}
       </HowToBox>
+      <Footer $position={checkViewHeight} dropdown={isDropdown}>
+        <TonWallet />
+      </Footer>
     </HowToWrapper>
   );
 };
@@ -52,8 +64,11 @@ const HowToWrapper = styled.div`
 `;
 
 const HowToBox = styled.div`
+  position: relative;
+
   width: 100%;
   padding: 2.4rem;
+  margin-bottom: 4rem;
 
   background-color: #fff;
 `;
@@ -89,4 +104,16 @@ const HowToDropdownTextBox = styled.div`
     color: #5d5e67;
     ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
   }
+`;
+
+const Footer = styled.div<{ $position: boolean; dropdown: boolean }>`
+  position: ${({ $position, dropdown }) =>
+    !dropdown ? "fixed" : $position ? "fixed" : "sticky"};
+  bottom: ${({ dropdown, $position }) => (!dropdown ? "0" : $position && "0")};
+  width: 100%;
+  max-width: 76.8rem;
+  padding: 0 1.6rem 3rem 1.6rem;
+
+  /* transform: translateY(-100%); */
+  /* margin-bottom: 4.8rem; */
 `;

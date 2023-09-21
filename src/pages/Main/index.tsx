@@ -38,19 +38,18 @@ const Main = () => {
   });
 
   return (
-    <MainWrapper>
-      <MainImageBox>
-        <MainImageTitle>NEXTON</MainImageTitle>
-        <MainIconBox>
-          <MainIcon src={SubCube} alt="subcube" />
-        </MainIconBox>
-      </MainImageBox>
-      <Menu />
-      <HowTo />
-      <Footer>
-        <TonWallet />
-      </Footer>
-    </MainWrapper>
+    <>
+      <MainWrapper>
+        <MainImageBox>
+          <MainImageTitle>NEXTON</MainImageTitle>
+          <MainIconBox>
+            <MainIcon src={SubCube} alt="subcube" />
+          </MainIconBox>
+        </MainImageBox>
+        <Menu />
+        <HowTo />
+      </MainWrapper>
+    </>
   );
 };
 
@@ -59,11 +58,10 @@ export default Main;
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: space-between;
-  position: relative;
 
   width: 100%;
+  height: auto;
+  min-height: 100%;
 
   background-color: #f1f4f4;
 `;
@@ -99,11 +97,4 @@ const MainImageTitle = styled.div`
   line-height: 3rem; /* 100% */
 
   text-align: center;
-`;
-
-const Footer = styled.div`
-  width: 100%;
-  max-width: 76.8rem;
-  margin-top: 4.8rem;
-  padding: 0 1.6rem 3rem 1.6rem;
 `;
