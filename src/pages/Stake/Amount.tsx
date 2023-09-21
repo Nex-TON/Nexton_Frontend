@@ -11,28 +11,32 @@ import IcError from "../../assets/icons/ic_error.svg";
 import { useRecoilState } from "recoil";
 import { stakingAtom } from "../../lib/atom/staking";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import { useCheckInputRules } from "./hooks/useCheckInputRules";
 
 const tele = (window as any).Telegram.WebApp;
 
 const Amount = () => {
   const [input, setInput] = useState("");
   const [error, setError] = useState(false);
-  const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
+  const [, setStakingInfo] = useRecoilState(stakingAtom);
 
+  const { isUnderLimitAmount } = useCheckInputRules(input);
   const { address, balance } = useTonConnect();
   const navigate = useNavigate();
 
   const handleMoveNominator = () => {
-    if (Number(input) < 0.5) {
+    if (input === "") {
       setError(true);
-      return;
     }
-    setStakingInfo((prev) => ({
-      ...prev,
-      address: address,
-      principal: input,
-    }));
-    navigate("/stake/nominator");
+    if (input !== "" && Number(input) >= 0.5) {
+      setError(false);
+      setStakingInfo((prev) => ({
+        ...prev,
+        address: address,
+        principal: input,
+      }));
+      navigate("/stake/nominator");
+    }
   };
 
   useEffect(() => {
@@ -49,6 +53,12 @@ const Amount = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (input !== "") {
+      setError(false);
+    }
+  }, [input]);
+
   return (
     <AmontWrapper>
       <ProgressBar />
@@ -63,11 +73,17 @@ const Amount = () => {
       {error && (
         <ErrorBlock>
           <img src={IcError} alt="error" />
+          <span>Please enter amount</span>
+        </ErrorBlock>
+      )}
+      {isUnderLimitAmount && (
+        <ErrorBlock>
+          <img src={IcError} alt="error" />
           <span>Please stake more than 0.5 TON</span>
         </ErrorBlock>
       )}
-      <MainButton text="NEXT" onClick={handleMoveNominator} />
-      {/* <button onClick={handleMoveNominator}>next</button> */}
+      {/* <MainButton text="NEXT" onClick={handleMoveNominator} /> */}
+      <button onClick={handleMoveNominator}>next</button>
     </AmontWrapper>
   );
 };
@@ -114,6 +130,6 @@ const ErrorBlock = styled.div`
 
   span {
     color: #ff7979;
-    ${({ theme }) => theme.fonts.Telegram_Caption_3};
+    ${({ theme }) => theme.fonts.Telegram_Caption_1};
   }
 `;
