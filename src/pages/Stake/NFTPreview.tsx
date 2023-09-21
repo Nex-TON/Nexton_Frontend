@@ -123,5 +123,5 @@ const NFTPreviewConfirmText = styled.span`
   margin-bottom: 1.4rem;
 
   color: #007aff;
-  ${({ theme }) => theme.fonts.Telegram_Caption_1_1};
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
 `;

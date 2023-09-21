@@ -120,7 +120,7 @@ const LeverageBottomTextBox = styled.div`
   margin-bottom: 0.9rem;
 
   color: #007aff;
-  ${({ theme }) => theme.fonts.Telegram_Footnote_1};
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
 
   text-align: center;
 `;
