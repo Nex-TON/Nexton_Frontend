@@ -82,6 +82,7 @@ export default NftList;
 
 const NFtListWrapper = styled.div`
   width: 100%;
+  height: 100%;
 
   &::-webkit-scrollbar {
     width: 4px;
