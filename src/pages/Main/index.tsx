@@ -8,6 +8,8 @@ import HowTo from "../../components/main/HowTo";
 import SubCube from "../../assets/image/SubCube.png";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import IcTopLine from "../../assets/icons/Landing/ic_top_line.svg";
+import IcBottomLine from "../../assets/icons/Landing/ic_bottom_line.svg";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -51,12 +53,12 @@ const Main = () => {
       >
         <MainWrapper>
           <MainImageBox>
+            <LineImage src={IcTopLine} alt="topLine" $position="top" />
+            <LineImage src={IcBottomLine} alt="bottomLine" $position="bottom" />
             <MainImageTitle>NEXTON</MainImageTitle>
             <MainIconBox>
               <MainIcon src={SubCube} alt="subcube" />
             </MainIconBox>
-            <MainImageBoxTopCircle />
-            <MainImageBoxBottomCircle />
           </MainImageBox>
           <Menu />
           <HowTo />
@@ -88,28 +90,11 @@ const MainImageBox = styled.div`
   background-color: #007aff;
 `;
 
-const MainImageBoxTopCircle = styled.div`
+const LineImage = styled.img<{ $position: string }>`
   position: absolute;
-  top: 8rem;
-  left: -1rem;
+  top: ${({ $position }) => ($position === "top" ? "8rem" : "15rem")};
 
-  width: 110%;
-  height: 25.9rem;
-
-  border-radius: 60%;
-  border: 0.1rem solid rgba(255, 255, 255, 0.2);
-`;
-
-const MainImageBoxBottomCircle = styled.div`
-  position: absolute;
-  top: 15.5rem;
-  left: -1rem;
-
-  width: 110%;
-  height: 25.9rem;
-
-  border-radius: 60%;
-  border: 0.1rem solid rgba(255, 255, 255, 0.2);
+  width: 100%;
 `;
 
 const MainIconBox = styled.div`

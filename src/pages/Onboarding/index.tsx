@@ -3,6 +3,8 @@ import IcSkip from "../../assets/icons/Landing/ic_skip.svg";
 import MainCube from "../../assets/image/MainCube.png";
 import TonWallet from "../../components/main/TonWallet";
 import { useNavigate } from "react-router-dom";
+import IcSplashTop from "../../assets/icons/Landing/ic_splash_top.svg";
+import IcSplashBottom from "../../assets/icons/Landing/ic_splash_bottom.svg";
 
 const Onboarding = () => {
   const navigate = useNavigate();
@@ -10,8 +12,8 @@ const Onboarding = () => {
   return (
     <>
       <OnboardingWrapper>
-        <MainImageBoxTopCircle />
-        <MainImageBoxBottomCircle />
+        <LineImage src={IcSplashTop} alt="topLine" $position="top" />
+        <LineImage src={IcSplashBottom} alt="bottomLine" $position="bottom" />
         <OnboardingMainTitleBox>NEXTON</OnboardingMainTitleBox>
         <CubeImage src={MainCube} alt="MainCube" />
         <Footer>
@@ -60,6 +62,8 @@ const Footer = styled.div`
   width: 100%;
   max-width: 76.8rem;
   padding: 0 2.3rem 3.7rem 2.3rem;
+
+  z-index: 1;
 `;
 
 const SkipTextBox = styled.div`
@@ -84,28 +88,11 @@ const CubeImage = styled.img`
   width: 100%;
 `;
 
-const MainImageBoxTopCircle = styled.div`
+const LineImage = styled.img<{ $position: string }>`
   position: absolute;
-  bottom: -8rem;
-  left: -3rem;
+  bottom: ${({ $position }) => ($position === "top" ? "15rem" : "0rem")};
 
-  width: 135%;
-  height: 28rem;
+  z-index: ${({ $position }) => $position === "top" && "1"};
 
-  border-radius: 80%;
-  border: 0.1rem solid rgba(255, 255, 255, 0.2);
-
-  z-index: 1;
-`;
-
-const MainImageBoxBottomCircle = styled.div`
-  position: absolute;
-  bottom: -20rem;
-  left: -5rem;
-
-  width: 150%;
-  height: 25.9rem;
-
-  border-radius: 60%;
-  border: 0.1rem solid rgba(255, 255, 255, 0.2);
+  width: 100%;
 `;

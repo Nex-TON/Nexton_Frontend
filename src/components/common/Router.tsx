@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "../../pages/Main";
 import Leverage from "../../pages/Stake/Leverage";
 import Nlp from "../../pages/Nlp";
-import MyAsset from "../../pages/MyAsset";
 
 import StakingNftDetail from "../../pages/StakingNftDetail";
 import UnstakingNftDetail from "../../pages/UnstakingNftDetail";
@@ -16,6 +15,7 @@ import Onboarding from "../../pages/Onboarding";
 import Loan from "../../pages/Loan";
 import BorrowDetail from "../../pages/Loan/BorrowDetail";
 import Swap from "../../pages/Swap";
+import MyAsset from "../../pages/MyAsset";
 
 const Router = () => {
   return (
