@@ -19,7 +19,6 @@ const HowTo = () => {
     }
   }, [window.innerHeight]);
 
-  console.log(checkViewHeight);
   return (
     <HowToWrapper>
       <HowToBox>
@@ -112,7 +111,4 @@ const Footer = styled.div<{ $position: boolean; dropdown: boolean }>`
   width: 100%;
   max-width: 76.8rem;
   padding: 0 1.6rem 3rem 1.6rem;
-
-  /* transform: translateY(-100%); */
-  /* margin-bottom: 4.8rem; */
 `;

@@ -10,6 +10,8 @@ const Onboarding = () => {
   return (
     <>
       <OnboardingWrapper>
+        <MainImageBoxTopCircle />
+        <MainImageBoxBottomCircle />
         <OnboardingMainTitleBox>NEXTON</OnboardingMainTitleBox>
         <CubeImage src={MainCube} alt="MainCube" />
         <Footer>
@@ -78,4 +80,32 @@ const SkipTextBox = styled.div`
 const CubeImage = styled.img`
   position: absolute;
   right: 0;
+
+  width: 100%;
+`;
+
+const MainImageBoxTopCircle = styled.div`
+  position: absolute;
+  bottom: -8rem;
+  left: -3rem;
+
+  width: 135%;
+  height: 28rem;
+
+  border-radius: 80%;
+  border: 0.1rem solid rgba(255, 255, 255, 0.2);
+
+  z-index: 1;
+`;
+
+const MainImageBoxBottomCircle = styled.div`
+  position: absolute;
+  bottom: -20rem;
+  left: -5rem;
+
+  width: 150%;
+  height: 25.9rem;
+
+  border-radius: 60%;
+  border: 0.1rem solid rgba(255, 255, 255, 0.2);
 `;

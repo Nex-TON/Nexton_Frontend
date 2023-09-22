@@ -55,6 +55,8 @@ const Main = () => {
             <MainIconBox>
               <MainIcon src={SubCube} alt="subcube" />
             </MainIconBox>
+            <MainImageBoxTopCircle />
+            <MainImageBoxBottomCircle />
           </MainImageBox>
           <Menu />
           <HowTo />
@@ -86,13 +88,41 @@ const MainImageBox = styled.div`
   background-color: #007aff;
 `;
 
-const MainIconBox = styled.div`
-  width: 100%;
+const MainImageBoxTopCircle = styled.div`
+  position: absolute;
+  top: 8rem;
+  left: -1rem;
 
-  text-align: center;
+  width: 110%;
+  height: 25.9rem;
+
+  border-radius: 60%;
+  border: 0.1rem solid rgba(255, 255, 255, 0.2);
+`;
+
+const MainImageBoxBottomCircle = styled.div`
+  position: absolute;
+  top: 15.5rem;
+  left: -1rem;
+
+  width: 110%;
+  height: 25.9rem;
+
+  border-radius: 60%;
+  border: 0.1rem solid rgba(255, 255, 255, 0.2);
+`;
+
+const MainIconBox = styled.div`
+  position: relative;
+
+  width: 100%;
 `;
 const MainIcon = styled.img`
+  position: absolute;
+  top: 1rem;
+
   width: 100%;
+  z-index: 1;
 `;
 
 const MainImageTitle = styled.div`
