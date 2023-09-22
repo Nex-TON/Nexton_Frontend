@@ -5,9 +5,20 @@ import TonWallet from "../../components/main/TonWallet";
 import { useNavigate } from "react-router-dom";
 import IcSplashTop from "../../assets/icons/Landing/ic_splash_top.svg";
 import IcSplashBottom from "../../assets/icons/Landing/ic_splash_bottom.svg";
+import { useEffect } from "react";
+
+const tele = (window as any).Telegram.WebApp;
 
 const Onboarding = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.MainButton.hide();
+      tele.BackButton.hide();
+    }
+  });
 
   return (
     <>
