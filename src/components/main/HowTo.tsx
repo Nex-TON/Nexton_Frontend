@@ -14,7 +14,7 @@ const HowTo = () => {
   };
 
   useEffect(() => {
-    if (window.innerHeight > 750) {
+    if (window.innerHeight > 820) {
       setCheckViewHeight(true);
     }
   }, [window.innerHeight]);
