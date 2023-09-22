@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import NftHeader from "../components/myAsset/NftHeader";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import NftHeader from "../../components/myAsset/NftHeader";
 
 const MyAsset = () => {
   const [myAssetMenu, setMyAssetMenu] = useState("NFT");
