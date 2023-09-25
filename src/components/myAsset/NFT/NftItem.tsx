@@ -31,7 +31,7 @@ const NftItem = (props: NftItemProps) => {
   };
 
   const SwitchDDayNftImage = () => {
-    if (DDayChange(timeStamp, lockPeriod) > 55) {
+    if (DDayChange(timeStamp, lockPeriod) > 15) {
       return (
         <NFTImage
           src={NFTOngoing}
