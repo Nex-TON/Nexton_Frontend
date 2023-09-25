@@ -151,7 +151,7 @@ export default DetailNftInfo;
 
 const DetailNftInfoWrapper = styled.div`
   width: 100%;
-  padding: 1.8rem 1.4rem 3rem 1.4rem;
+  padding: 1.8rem 1.4rem 10rem 1.4rem;
 `;
 
 const DetailInfoItemWrapper = styled.div`
