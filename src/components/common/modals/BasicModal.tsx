@@ -119,7 +119,7 @@ const ModalHeader = styled.div`
   align-items: center;
 
   width: 100%;
-  margin-bottom: 4.7rem;
+  margin-bottom: 3.7rem;
 `;
 
 const OpenTonViewerBox = styled.div`
@@ -128,7 +128,7 @@ const OpenTonViewerBox = styled.div`
 
   width: 100%;
   margin-top: 1.7rem;
-  margin-bottom: 4.9rem;
+  margin-bottom: 3.7rem;
 `;
 
 const OpenTonViewer = styled.button`
