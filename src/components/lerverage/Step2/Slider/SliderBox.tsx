@@ -11,19 +11,22 @@ const SliderBox = (props: SliderBoxProps) => {
   const { ratio, setRatio } = props;
   const [isDisabled, setIsDisabled] = useState(false);
 
-  useEffect(() => {
-    if (ratio > 1) {
+  const getValues = (event: Event, value: number | number[]) => {
+    event.preventDefault();
+    if (Number(value) > 1) {
       setIsDisabled(true);
       setRatio(1.0);
       setTimeout(() => {
         setIsDisabled(false);
       }, 1500);
+      return;
     }
-  }, [ratio]);
+    setRatio(value as number);
+  };
 
   return (
     <SliderWrapper>
-      <LeverageSlider ratio={ratio} setRatio={setRatio} />
+      <LeverageSlider ratio={ratio} getValues={getValues} />
       {isDisabled && (
         <LeverageErrorBox>
           Please adjust leverage times with the max leverage multiplier.

@@ -4,16 +4,11 @@ import { MARK } from "../../../../constants/LerverageMark";
 
 interface LeverageSliderProps {
   ratio: number;
-  setRatio: (ratio: number) => void;
+  getValues: (event: Event, value: number | number[]) => void;
 }
 
 const LeverageSlider = (props: LeverageSliderProps) => {
-  const { ratio, setRatio } = props;
-
-  const getValues = (event: Event, value: number | number[]) => {
-    event.preventDefault();
-    setRatio(value as number);
-  };
+  const { ratio, getValues } = props;
 
   return (
     <StyledReactSlider
