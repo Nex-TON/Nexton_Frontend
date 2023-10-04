@@ -60,7 +60,7 @@ const NftList = () => {
           <img src={Icfilter} alt="filter" />
         </NFTSelectBox>
       </NftListHeader>
-      {nftList && nftList.length > 0 ? (
+      {nftList && nftList.filter((item) => item.status === 0).length > 0 ? (
         <NFTItemWrapper>
           {nftList
             .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
@@ -82,7 +82,8 @@ export default NftList;
 
 const NFtListWrapper = styled.div`
   width: 100%;
-  height: 100%;
+
+  padding: 0 1.6rem;
 
   &::-webkit-scrollbar {
     width: 4px;
@@ -167,15 +168,21 @@ const NFTSelectBox = styled.button<{ $active?: boolean }>`
 const NFTItemWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(14.2rem, 1fr));
-  grid-template-rows: repeat(auto-fill, minmax(16rem, auto));
-
   gap: 1.6rem;
 
   width: 100%;
-  height: 100%;
-  padding: 3rem;
+  padding: 2.5rem;
 
   background-color: #fff;
+
+  overflow-y: scroll;
+
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+
+  &::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
 `;
 
 const ExtraBox = styled.div`
@@ -184,7 +191,6 @@ const ExtraBox = styled.div`
   align-items: center;
 
   width: 100%;
-  height: 60vh;
 
   border-radius: 0 0 1rem 1rem;
   background-color: #fff;

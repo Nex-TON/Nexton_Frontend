@@ -58,6 +58,10 @@ const UnstakingDetailItemWrapper = styled.div`
 
   border-radius: 2rem;
   background-color: #fff;
+
+  & + & {
+    margin-top: 0.8rem;
+  }
 `;
 
 const UnstakingDetailTopBox = styled.div`

@@ -25,7 +25,7 @@ const UnstakingList = () => {
 
   return (
     <>
-      <UnstakingListWrapper>
+      {/* <UnstakingListWrapper>
         <UnstakingListTop>
           <UnstakingMainText>Settled amount</UnstakingMainText>
           <UnstakingTopDesc>This reward is from unstaked NFT.</UnstakingTopDesc>
@@ -36,17 +36,35 @@ const UnstakingList = () => {
             Claim <img src={IcClaimDisable} alt="claim" />
           </ClaimButton>
         </UnstakingListBottom>
-      </UnstakingListWrapper>
-      <UnstakingDetailWrapper>
-        {/* <UnstakingDetailHeader UnstakingListLength={unstakingList?.length} /> */}
+      </UnstakingListWrapper> */}
+      {/* <UnstakingDetailWrapper>
+        <UnstakingDetailHeader UnstakingListLength={unstakingList?.length} />
         <UnstakingDetailList />
-      </UnstakingDetailWrapper>
+      </UnstakingDetailWrapper> */}
       {/* <UnstakingDetailBox onClick={() => navigate("/myasset/unstakingdetail")}>
         <UnstakingDetailRightBox>Details</UnstakingDetailRightBox>
         <UnstakingArrowBox>
           <img src={IcArrow} alt="arrow" width={18} />
         </UnstakingArrowBox>
       </UnstakingDetailBox> */}
+      <UnstakingDetailWrapper>
+        <UnstakingListWrapper>
+          <UnstakingListTop>
+            <UnstakingMainText>Settled amount</UnstakingMainText>
+            <UnstakingTopDesc>
+              This reward is from unstaked NFT.
+            </UnstakingTopDesc>
+          </UnstakingListTop>
+          <UnstakingListBottom>
+            <UnstakingMainText>0 TON</UnstakingMainText>
+            <ClaimButton>
+              Claim <img src={IcClaimDisable} alt="claim" />
+            </ClaimButton>
+          </UnstakingListBottom>
+        </UnstakingListWrapper>
+        {/* <UnstakingDetailHeader UnstakingListLength={unstakingList?.length} /> */}
+        <UnstakingDetailList />
+      </UnstakingDetailWrapper>
     </>
   );
 };
@@ -55,7 +73,7 @@ export default UnstakingList;
 
 const UnstakingListWrapper = styled.div`
   width: 100%;
-  padding: 1.8rem 1.5rem;
+  padding: 1.8rem 1.6rem;
 
   border-radius: 2rem;
   background-color: #fff;
@@ -136,4 +154,5 @@ const UnstakingArrowBox = styled.div`
 
 const UnstakingDetailWrapper = styled.div`
   width: 100%;
+  padding: 0 1rem 1.6rem;
 `;
