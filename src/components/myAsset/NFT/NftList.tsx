@@ -4,9 +4,7 @@ import Icfilter from "../../../assets/icons/MyAsset/ic_filter.svg";
 import { useEffect, useState } from "react";
 import NftItem from "./NftItem";
 import NFTFilter from "../modal/NFTFilter";
-import useTonConnect from "../../../hooks/useTonConnect";
 import { useNavigate } from "react-router-dom";
-import { useStakeInfo } from "../../../api/hooks/useStakeInfo";
 import useMyAssetFilter from "../../../pages/MyAsset/hooks/useMyAssetFilter";
 import IcCheck from "../../../assets/icons/MyAsset/ic_check.svg";
 
@@ -38,6 +36,7 @@ const NftList = () => {
   const handleReload = () => {
     setIsSelect([true, false]);
     setPeriod("Period");
+    handleToggleFilter();
   };
 
   useEffect(() => {
