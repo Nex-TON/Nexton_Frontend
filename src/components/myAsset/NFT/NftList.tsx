@@ -13,7 +13,6 @@ import IcCheck from "../../../assets/icons/MyAsset/ic_check.svg";
 const tele = (window as any).Telegram.WebApp;
 
 const NftList = () => {
-  const { address } = useTonConnect();
   const navigate = useNavigate();
 
   const [isSelect, setIsSelect] = useState([true, false]);
