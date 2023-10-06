@@ -2,7 +2,6 @@ import { css, styled } from "styled-components";
 import NFTOngoing from "../../../assets/image/NftOngoing.png";
 import NFTForthComing from "../../../assets/image/NftForthComing.png";
 import NFTExpired from "../../../assets/image/NftExpired.png";
-import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { imageSizeAtom } from "../../../lib/atom/imageSize";
 import { useNavigate } from "react-router-dom";
@@ -24,9 +23,6 @@ const NftItem = (props: NftItemProps) => {
   const handleMouseMove = (event: React.MouseEvent<HTMLImageElement>) => {
     const rect = (event.target as HTMLImageElement).getBoundingClientRect();
     setImageSize({ width: rect?.width, height: rect?.height });
-  };
-
-  const handleMoveDetail = () => {
     navigate(`/myasset/${nftId}`);
   };
 
@@ -71,7 +67,7 @@ const NftItem = (props: NftItemProps) => {
   };
 
   return (
-    <NFTItemWrapper onClick={handleMoveDetail}>
+    <NFTItemWrapper>
       {SwitchDDayNftImage()}
       <NFTDDayText>
         {DDayChange(timeStamp, lockPeriod) > 0
