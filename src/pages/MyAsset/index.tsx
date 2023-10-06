@@ -29,6 +29,7 @@ const MyAssetWrapper = styled.div`
   position: relative; */
 
   width: 100%;
+  height: 100%;
   /* padding: 2.9rem 1.6rem 0 1.6rem; */
 
   background-color: #f2f2f7;

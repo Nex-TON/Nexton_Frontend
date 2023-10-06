@@ -7,6 +7,8 @@ import NFTFilter from "../modal/NFTFilter";
 import useTonConnect from "../../../hooks/useTonConnect";
 import { useNavigate } from "react-router-dom";
 import { useStakeInfo } from "../../../api/hooks/useStakeInfo";
+import useMyAssetFilter from "../../../hooks/Filter/useMyAssetFilter";
+import IcCheck from "../../../assets/icons/MyAsset/ic_check.svg";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -14,9 +16,17 @@ const NftList = () => {
   const { address } = useTonConnect();
   const navigate = useNavigate();
 
-  const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [isSelect, setIsSelect] = useState([true, false]);
-  const { nftList } = useStakeInfo(address);
+  const {
+    isOpenFilter,
+    activeOpacity,
+    checkPeriod,
+    period,
+    setPeriod,
+    handleCheckPeriod,
+    handlePrintMyAssetFilter,
+    handleToggleFilter,
+  } = useMyAssetFilter();
 
   const handleSelect = (index: number) => {
     if (index === 1) {
@@ -28,6 +38,7 @@ const NftList = () => {
 
   const handleReload = () => {
     setIsSelect([true, false]);
+    setPeriod("Period");
   };
 
   useEffect(() => {
@@ -47,7 +58,14 @@ const NftList = () => {
   return (
     <NFtListWrapper>
       <NftListHeader>
-        {/* {isOpenFilter && <NFTFilter />} */}
+        {isOpenFilter && (
+          <NFTFilter
+            activeOpacity={activeOpacity}
+            checkPeriod={checkPeriod}
+            period={period}
+            handleCheckPeriod={handleCheckPeriod}
+          />
+        )}
         <NFTListHeaderLeft>
           <NFTReloadBox onClick={handleReload}>
             <img src={IcReload} alt="reload" />
@@ -55,14 +73,21 @@ const NftList = () => {
           <NFTSelectBox $active={isSelect[0]}>Stake</NFTSelectBox>
           <NFTSelectBox $active={isSelect[1]}>Collateralized</NFTSelectBox>
         </NFTListHeaderLeft>
-        <NFTSelectBox $active onClick={() => setIsOpenFilter((prev) => !prev)}>
-          Period
-          <img src={Icfilter} alt="filter" />
+        <NFTSelectBox $active onClick={handleToggleFilter}>
+          {period}
+          {period === "Period" ? (
+            <img src={Icfilter} alt="filter" />
+          ) : period === "All" ? (
+            <img src={IcCheck} alt="check" />
+          ) : (
+            <NFTStatus type={period} />
+          )}
         </NFTSelectBox>
       </NftListHeader>
-      {nftList && nftList.filter((item) => item.status === 0).length > 0 ? (
+      {handlePrintMyAssetFilter()?.filter((item) => item.status !== 2).length >
+      0 ? (
         <NFTItemWrapper>
-          {nftList
+          {handlePrintMyAssetFilter()
             .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
             .filter((item) => item.status !== 2)
             .map((item) => (
@@ -153,7 +178,7 @@ const NFTSelectBox = styled.button<{ $active?: boolean }>`
       ? css`
           border: none;
           background-color: #f9f9ff;
-          box-shadow: 0px 0px 20px 0px rgba(198, 197, 208, 0.3);
+          box-shadow: 0px 0px 14px 0px rgba(206, 216, 225, 0.8);
           color: #5e6162;
         `
       : css`
@@ -196,4 +221,26 @@ const ExtraBox = styled.div`
   background-color: #fff;
   color: #45464f;
   ${({ theme }) => theme.fonts.Telegram_Title_3_1};
+`;
+
+const NFTStatus = styled.div<{ type?: string }>`
+  width: 1.4rem;
+  height: 1.4rem;
+
+  border-radius: 50%;
+  ${({ type }) =>
+    type === "Ongoing" &&
+    css`
+      background: linear-gradient(90deg, #61b5f2 0%, #98a1fe 100%);
+    `}
+  ${({ type }) =>
+    type === "Forthcoming" &&
+    css`
+      background: linear-gradient(140deg, #ff8c73 0%, #ffe0b0 100%);
+    `}
+      ${({ type }) =>
+    type === "Expired" &&
+    css`
+      background: linear-gradient(127deg, #a2a9bc 0%, #e5edff 100%);
+    `}
 `;

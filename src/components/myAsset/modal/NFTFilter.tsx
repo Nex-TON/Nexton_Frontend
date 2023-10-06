@@ -1,43 +1,47 @@
 import { css, styled } from "styled-components";
 import IcCheck from "../../../assets/icons/MyAsset/ic_check.svg";
-import useMyAssetFilter from "../../../hooks/Filter/useMyAssetFilter";
+interface NFTFilterProps {
+  activeOpacity: boolean;
+  checkPeriod: boolean[];
+  period: string;
+  handleCheckPeriod: (type: string) => void;
+}
 
-const NFTFilter = () => {
-  const { activeOpacity, checkPeriod, period, handleCheckPeriod } =
-    useMyAssetFilter();
+const NFTFilter = (props: NFTFilterProps) => {
+  const { activeOpacity, checkPeriod, period, handleCheckPeriod } = props;
 
   return (
     <NFTFilterWrapper>
       <NFTFilterUl>
         <NFTFilterLi
           onClick={() => handleCheckPeriod("Ongoing")}
-          check={checkPeriod[0]}
-          period={period}
-          activeOpacity={activeOpacity}
+          $check={checkPeriod[0]}
+          $period={period}
+          $activeOpacity={activeOpacity}
         >
           Ongoing
           <NFTStatus type="Ongoing" />
         </NFTFilterLi>
         <NFTFilterLi
           onClick={() => handleCheckPeriod("Forthcoming")}
-          check={checkPeriod[1]}
-          activeOpacity={activeOpacity}
+          $check={checkPeriod[1]}
+          $activeOpacity={activeOpacity}
         >
           Forthcoming
           <NFTStatus type="Forthcoming" />
         </NFTFilterLi>
         <NFTFilterLi
           onClick={() => handleCheckPeriod("Expired")}
-          check={checkPeriod[2]}
-          activeOpacity={activeOpacity}
+          $check={checkPeriod[2]}
+          $activeOpacity={activeOpacity}
         >
           Expired
           <NFTStatus type="Expired" />
         </NFTFilterLi>
         <NFTFilterLi
           onClick={() => handleCheckPeriod("All")}
-          check={checkPeriod[3]}
-          period={period}
+          $check={checkPeriod[3]}
+          $period={period}
         >
           All
           <img src={IcCheck} alt="check" width={16} height={16} />
@@ -65,9 +69,9 @@ const NFTFilterUl = styled.ul`
   padding: 0;
 `;
 const NFTFilterLi = styled.li<{
-  check: boolean;
-  period?: string;
-  activeOpacity?: boolean;
+  $check: boolean;
+  $period?: string;
+  $activeOpacity?: boolean;
 }>`
   display: flex;
   justify-content: space-between;
@@ -80,31 +84,31 @@ const NFTFilterLi = styled.li<{
 
   ${({ theme }) => theme.fonts.Telegram_Footnote};
 
-  ${({ activeOpacity }) =>
-    activeOpacity &&
+  ${({ $activeOpacity }) =>
+    $activeOpacity &&
     css`
       opacity: 0.3;
     `}
 
-  ${({ check, period }) =>
-    check &&
-    period === "Ongoing" &&
+  ${({ $check, $period }) =>
+    $check &&
+    $period === "Ongoing" &&
     css`
       border-radius: 1rem 1rem 0 0;
       background-color: #e5e5ea;
     `}
 
-    ${({ check, period }) =>
-    check &&
-    period === "All" &&
+    ${({ $check, $period }) =>
+    $check &&
+    $period === "All" &&
     css`
       border-radius: 0 0 1rem 1rem;
       background-color: #e5e5ea;
     `}
       
 
-  ${({ check }) =>
-    check &&
+  ${({ $check }) =>
+    $check &&
     css`
       background-color: #e5e5ea;
     `}
