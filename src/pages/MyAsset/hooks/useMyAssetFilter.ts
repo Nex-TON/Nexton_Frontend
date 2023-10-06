@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useStakeInfo } from "../../api/hooks/useStakeInfo";
-import useTonConnect from "../useTonConnect";
-import { DDayChange } from "../../utils/dateChanger";
+import { useStakeInfo } from "../../../api/hooks/useStakeInfo";
+import useTonConnect from "../../../hooks/useTonConnect";
+import { DDayChange } from "../../../utils/dateChanger";
 
 const useMyAssetFilter = () => {
   const { address } = useTonConnect();

@@ -7,7 +7,7 @@ import NFTFilter from "../modal/NFTFilter";
 import useTonConnect from "../../../hooks/useTonConnect";
 import { useNavigate } from "react-router-dom";
 import { useStakeInfo } from "../../../api/hooks/useStakeInfo";
-import useMyAssetFilter from "../../../hooks/Filter/useMyAssetFilter";
+import useMyAssetFilter from "../../../pages/MyAsset/hooks/useMyAssetFilter";
 import IcCheck from "../../../assets/icons/MyAsset/ic_check.svg";
 
 const tele = (window as any).Telegram.WebApp;
