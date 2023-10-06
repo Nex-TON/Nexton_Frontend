@@ -58,8 +58,9 @@ const SwapButtton = styled.button<{ click: boolean }>`
 
   border: none;
   border-radius: 3rem;
-  background-color: ${({ click }) => (click ? "#FFF" : "#f9f9f9")};
-  box-shadow: 0px 4px 4px 0px rgba(225, 228, 230, 0.5);
+  background-color: ${({ click }) => (click ? "#FFF" : "#f9f9ff")};
+  box-shadow: ${({ click }) =>
+    click && `0px 4px 4px 0px rgba(225, 228, 230, 0.5)`};
   color: ${({ click }) => (click ? "#007AFF" : "#76797A")};
   ${({ theme }) => theme.fonts.Telegram_Caption_1_1};
 
