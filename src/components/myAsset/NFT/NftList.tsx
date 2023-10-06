@@ -20,6 +20,7 @@ const NftList = () => {
     checkPeriod,
     period,
     setPeriod,
+    setIsOpenFilter,
     handleCheckPeriod,
     handlePrintMyAssetFilter,
     handleToggleFilter,
@@ -36,7 +37,7 @@ const NftList = () => {
   const handleReload = () => {
     setIsSelect([true, false]);
     setPeriod("Period");
-    handleToggleFilter();
+    setIsOpenFilter(false);
   };
 
   useEffect(() => {
