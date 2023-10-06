@@ -19,28 +19,23 @@ const useMyAssetFilter = () => {
   };
 
   const handleCheckPeriod = (type: string) => {
+    const defaultCheck = [false, false, false, false];
+
+    const periodMapping = {
+      Ongoing: [true, false, false, false],
+      Forthcoming: [false, true, false, false],
+      Expired: [false, false, true, false],
+      All: [false, false, false, true],
+    };
+
     handleToggleFilter();
-    switch (type) {
-      case "Ongoing":
-        setCheckPeriod([true, false, false, false]);
-        setActiveOpacity(false);
-        setPeriod(type);
-        break;
-      case "Forthcoming":
-        setCheckPeriod([false, true, false, false]);
-        setActiveOpacity(false);
-        setPeriod(type);
-        break;
-      case "Expired":
-        setCheckPeriod([false, false, true, false]);
-        setActiveOpacity(false);
-        setPeriod(type);
-        break;
-      case "All":
-        setCheckPeriod([false, false, false, true]);
-        setActiveOpacity(true);
-        setPeriod(type);
-        break;
+
+    if (periodMapping[type]) {
+      setCheckPeriod(periodMapping[type]);
+      setActiveOpacity(type === "All");
+      setPeriod(type);
+    } else {
+      setCheckPeriod(defaultCheck);
     }
   };
 
@@ -71,6 +66,7 @@ const useMyAssetFilter = () => {
     checkPeriod,
     period,
     setPeriod,
+    setIsOpenFilter,
     handleCheckPeriod,
     handlePrintMyAssetFilter,
     handleToggleFilter,
