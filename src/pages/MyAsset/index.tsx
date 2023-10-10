@@ -22,17 +22,9 @@ const MyAsset = () => {
 export default MyAsset;
 
 const MyAssetWrapper = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  position: relative; */
-
   width: 100%;
   min-height: 100%;
   height: auto;
-  /* height: 100%; */
-  /* padding: 2.9rem 1.6rem 0 1.6rem; */
 
   background-color: #f2f2f7;
 `;
