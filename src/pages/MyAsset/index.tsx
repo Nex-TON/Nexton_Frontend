@@ -1,7 +1,9 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import NftHeader from "../../components/myAsset/NftHeader";
+import NftList from "../../components/myAsset/NFT/NftList";
+import useMyAssetFilter from "./hooks/useMyAssetFilter";
 
 const MyAsset = () => {
   const [myAssetMenu, setMyAssetMenu] = useState("NFT");
@@ -14,7 +16,8 @@ const MyAsset = () => {
       <MyAssetContentWrapper>
         <NftHeader myAssetMenu={myAssetMenu} />
       </MyAssetContentWrapper>
-      <Outlet />
+      {/* <Outlet /> */}
+      <NftList />
     </MyAssetWrapper>
   );
 };
@@ -30,6 +33,7 @@ const MyAssetWrapper = styled.div`
 
   width: 100%;
   height: 100%;
+  /* height: 100%; */
   /* padding: 2.9rem 1.6rem 0 1.6rem; */
 
   background-color: #f2f2f7;
