@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import useTonConnect from "../../../hooks/useTonConnect";
+import useTonConnect from "../../../hooks/contract/useTonConnect";
 import { numberCutter } from "../../../utils/numberCutter";
 import { useRecoilValue } from "recoil";
 import { stakingAtom } from "../../../lib/atom/staking";

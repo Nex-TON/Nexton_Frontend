@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import useTonConnect from "../../hooks/useTonConnect";
+import useTonConnect from "../../hooks/contract/useTonConnect";
 import { addressState } from "../../lib/atom/address";
 import Menu from "../../components/main/Menu";
 import HowTo from "../../components/main/HowTo";

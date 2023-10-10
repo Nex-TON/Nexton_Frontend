@@ -1,7 +1,7 @@
 import { css, styled } from "styled-components";
 import BorrowList from "./borrow/BorrowList";
-import useTonConnect from "../../hooks/useTonConnect";
-import { useStakeInfo } from "../../api/hooks/useStakeInfo";
+import useTonConnect from "../../hooks/contract/useTonConnect";
+import { useStakeInfo } from "../../hooks/api/useStakeInfo";
 
 const LoanList = () => {
   const { address } = useTonConnect();

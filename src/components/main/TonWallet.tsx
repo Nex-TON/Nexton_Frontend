@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import useTonConnect from "./../../hooks/useTonConnect";
+import useTonConnect from "./../../hooks/contract/useTonConnect";
 import IcWallet from "../../assets/icons/Landing/ic_wallet.svg";
 import IcWalletDoubleArrow from "../../assets/icons/Landing/ic_walletDoubleArrow.svg";
 import IcTonKeeper from "../../assets/icons/Landing/ic_tonKeeper.svg";

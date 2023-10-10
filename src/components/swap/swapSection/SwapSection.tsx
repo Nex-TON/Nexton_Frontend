@@ -5,7 +5,7 @@ import LiquidityBox from "../common/LiquidityBox";
 import SwapRatio from "./SwapRatio";
 import Button from "../common/Button";
 import { useState } from "react";
-import useTonConnect from "../../../hooks/useTonConnect";
+import useTonConnect from "../../../hooks/contract/useTonConnect";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 const SwapSection = () => {

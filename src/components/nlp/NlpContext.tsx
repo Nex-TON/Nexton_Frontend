@@ -4,7 +4,7 @@ import StatusDetail from "../common/StatusDetail";
 import Input from "../common/Input";
 import Max from "../common/Max";
 import IcTon from "../../assets/icons/ic_ton.svg";
-import useTonConnect from "../../hooks/useTonConnect";
+import useTonConnect from "../../hooks/contract/useTonConnect";
 
 interface NlpContextProps {
   input: string;

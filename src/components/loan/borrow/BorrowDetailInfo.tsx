@@ -4,7 +4,7 @@ import IcLoanEqual from "../../../assets/icons/Loan/ic_loan_equal.svg";
 import { useParams } from "react-router-dom";
 import { numberCutter } from "../../../utils/numberCutter";
 import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
-import { useNFTDetail } from "../../../api/hooks/useNFTDetail";
+import { useNFTDetail } from "../../../hooks/api/useNFTDetail";
 
 const BorrowDetailInfo = () => {
   const { id } = useParams();

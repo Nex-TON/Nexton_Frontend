@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import UnstakingDetailHeader from "./UnstakingDetailHeader";
 import UnstakingDetailList from "./UnstakingDetailList";
-import { useUnstakingList } from "../../../../api/hooks/useUnstakingList";
+import { useUnstakingList } from "../../../../hooks/api/useUnstakingList";
 
 const UnstakingDetail = () => {
   const { unstakingList } = useUnstakingList();

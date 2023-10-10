@@ -7,13 +7,13 @@ import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilValue } from "recoil";
 import { telegramAtom } from "../lib/atom/telegram";
 import { UnstakingProps } from "../types/staking";
-import useTonConnect from "../hooks/useTonConnect";
+import useTonConnect from "../hooks/contract/useTonConnect";
 import { postUnstake } from "../api/postUnstake";
-import { Transfer } from "../hooks/tact_FakeItem";
+import { Transfer } from "../hooks/contract/tact_FakeItem";
 import { randomAddress } from "@ton-community/test-utils";
-import * as Contract from "../hooks/useFakeItemContract";
+import * as Contract from "../hooks/contract/useFakeItemContract";
 import BasicModal from "../components/common/modals/BasicModal";
-import { useNFTDetail } from "../api/hooks/useNFTDetail";
+import { useNFTDetail } from "../hooks/api/useNFTDetail";
 
 const tele = (window as any).Telegram.WebApp;
 

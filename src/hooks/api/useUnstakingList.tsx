@@ -1,4 +1,4 @@
-import useTonConnect from "../../hooks/useTonConnect";
+import useTonConnect from "../../hooks/contract/useTonConnect";
 import { useStakeInfo } from "./useStakeInfo";
 
 export const useUnstakingList = () => {

@@ -9,7 +9,7 @@ import IcMenuAsset from "../../../assets/icons/Landing/ic_menuMyAsset.svg";
 import IcMenuCoinDisable from "../../../assets/icons/Landing/ic_menuCoin_Disable.svg";
 import IcMenuNxtDisable from "../../../assets/icons/Landing/ic_menuNxt_Disable.svg";
 import GradientBox from "../../common/GradientBox";
-import useTonConnect from "../../../hooks/useTonConnect";
+import useTonConnect from "../../../hooks/contract/useTonConnect";
 
 interface ButtonProps {
   top?: string;

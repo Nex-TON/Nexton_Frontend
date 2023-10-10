@@ -3,7 +3,7 @@ import SwapBox from "../common/SwapBox";
 import LiquidityPair from "./LiquidityPair";
 import LiquidityBox from "../common/LiquidityBox";
 import Button from "../common/Button";
-import useTonConnect from "../../../hooks/useTonConnect";
+import useTonConnect from "../../../hooks/contract/useTonConnect";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 const LiquiditySection = () => {

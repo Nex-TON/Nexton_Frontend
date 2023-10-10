@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import { stakingAtom } from "../../lib/atom/staking";
 import { getLockUpDate } from "../../utils/getLockupDate";
 import { getTelegramId } from "../../api/getTelegramId";
-import useTonConnect from "../../hooks/useTonConnect";
+import useTonConnect from "../../hooks/contract/useTonConnect";
 import { telegramAtom } from "../../lib/atom/telegram";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";

@@ -1,6 +1,6 @@
 import useSWR from "swr";
-import { nextonFetcher } from "../axios";
 import { stakeInfo } from "../../types/Nft";
+import { nextonFetcher } from "../../api/axios";
 
 export const useStakeInfo = (address: string) => {
   const { data } = useSWR<stakeInfo>(
