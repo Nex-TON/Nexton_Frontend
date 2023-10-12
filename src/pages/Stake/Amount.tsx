@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import ProgressBar from "../../components/common/ProgressBar";
+import ProgressBar from "../../components/lerverage/common/ProgressBar";
 import Step from "../../components/lerverage/common/Step";
 import Title from "../../components/lerverage/common/Title";
 import useTonConnect from "../../hooks/contract/useTonConnect";

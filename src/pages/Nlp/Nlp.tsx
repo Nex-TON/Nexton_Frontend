@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import NlpContext from "../components/nlp/NlpContext";
-import FooterButton from "../components/common/FooterButton";
-import * as Contract from "./../hooks/contract/useNextonContract";
+import NlpContext from "../../components/nlp/NlpContext";
+import FooterButton from "../../components/common/FooterButton";
+import * as Contract from "../../hooks/contract/useNextonContract";
 import { useState } from "react";
-import { UserDeposit } from "../hooks/contract/tact_NexTon";
-import IcBack from "../assets/icons/ic_back.svg";
+import { UserDeposit } from "../../hooks/contract/tact_NexTon";
+import IcBack from "../../assets/icons/ic_back.svg";
 
 const Nlp = () => {
   const { sendMessage } = Contract.useNextonContract();

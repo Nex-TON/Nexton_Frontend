@@ -8,7 +8,6 @@ import IcMenuSwap from "../../../assets/icons/Landing/ic_menuSwap.svg";
 import IcMenuAsset from "../../../assets/icons/Landing/ic_menuMyAsset.svg";
 import IcMenuCoinDisable from "../../../assets/icons/Landing/ic_menuCoin_Disable.svg";
 import IcMenuNxtDisable from "../../../assets/icons/Landing/ic_menuNxt_Disable.svg";
-import GradientBox from "../../common/GradientBox";
 import useTonConnect from "../../../hooks/contract/useTonConnect";
 
 interface ButtonProps {
@@ -17,12 +16,11 @@ interface ButtonProps {
   title?: string;
   page?: string;
   type: string;
-  unused?: boolean;
 }
 const Button = (props: ButtonProps) => {
   const { connected } = useTonConnect();
   const navigate = useNavigate();
-  const { top, bottom, title, page, type, unused } = props;
+  const { title, page, type } = props;
 
   const moveToPage = () => {
     switch (page) {
@@ -66,8 +64,7 @@ const Button = (props: ButtonProps) => {
   return (
     <StyledButton onClick={moveToPage} disabled={!connected}>
       {SelectImage(type)}
-      {unused && <GradientBox />}
-      <StyleText $unused={unused}>{title}</StyleText>
+      <StyleText>{title}</StyleText>
     </StyledButton>
   );
 };
@@ -104,7 +101,7 @@ const StyledImage = styled.img<{ $margintop?: boolean }>`
     `} */
 `;
 
-const StyleText = styled.span<{ $unused: boolean }>`
+const StyleText = styled.span`
   color: #333;
   ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
 `;

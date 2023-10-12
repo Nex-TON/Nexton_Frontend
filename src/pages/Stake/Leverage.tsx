@@ -12,7 +12,7 @@ import { telegramAtom } from "../../lib/atom/telegram";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
-import ProgressBar from "../../components/common/ProgressBar";
+import ProgressBar from "../../components/lerverage/common/ProgressBar";
 
 const tele = (window as any).Telegram.WebApp;
 

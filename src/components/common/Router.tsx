@@ -1,21 +1,20 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Main from "../../pages/Main";
+import Main from "../../pages/Main/Main";
 import Leverage from "../../pages/Stake/Leverage";
-import Nlp from "../../pages/Nlp";
-
-import StakingNftDetail from "../../pages/StakingNftDetail";
-import UnstakingNftDetail from "../../pages/UnstakingNftDetail";
+import Nlp from "../../pages/Nlp/Nlp";
+import StakingNftDetail from "../../pages/MyAsset/StakingNftDetail";
+import UnstakingNftDetail from "../../pages/Unstaking/UnstakingNftDetail";
 import NFTPreview from "../../pages/Stake/NFTPreview";
 import NominatorList from "../../pages/Stake/NominatorList";
-import NftList from "../myAsset/NFT/NftList";
-import UnstakingList from "../myAsset/Unstaking/UnstakingList";
-import UnstakingDetail from "../myAsset/Unstaking/UnstakingDetail/UnstakingDetail";
+import NftList from "../../pages/MyAsset/NftList";
+import UnstakingList from "../../pages/MyAsset/UnstakingList";
+import UnstakingDetail from "../../pages/MyAsset/UnstakingDetail";
 import Amount from "../../pages/Stake/Amount";
-import Onboarding from "../../pages/Onboarding";
-import Loan from "../../pages/Loan";
+import Onboarding from "../../pages/Onboarding/Onboarding";
+import Loan from "../../pages/Loan/Loan";
 import BorrowDetail from "../../pages/Loan/BorrowDetail";
-import Swap from "../../pages/Swap";
-import MyAsset from "../../pages/MyAsset";
+import Swap from "../../pages/Swap/Swap";
+import MyAsset from "../../pages/MyAsset/MyAsset";
 
 const Router = () => {
   return (
@@ -35,8 +34,8 @@ const Router = () => {
           <Route path="nftlist" element={<NftList />} />
           <Route path="unstaking" element={<UnstakingList />} />
           <Route path="unstakingdetail" element={<UnstakingDetail />} />
+          <Route path=":id" element={<StakingNftDetail />} />
         </Route>
-        <Route path="/myasset/:id" element={<StakingNftDetail />} />
         <Route path="/unstaking/:id" element={<UnstakingNftDetail />} />
         <Route path="/unstaking/view/:id" element={<UnstakingNftDetail />} />
       </Routes>

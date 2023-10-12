@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
-import IcClaimDisable from "../../../assets/icons/MyAsset/ic_claim_disable.svg";
+import IcClaimDisable from "../../assets/icons/MyAsset/ic_claim_disable.svg";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import UnstakingDetailList from "./UnstakingDetail/UnstakingDetailList";
+import UnstakingDetailList from "../../components/myAsset/Unstaking/UnstakingDetail/UnstakingDetailList";
 
 const tele = (window as any).Telegram.WebApp;
 

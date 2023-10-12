@@ -1,5 +1,5 @@
-import useTonConnect from "../../hooks/contract/useTonConnect";
-import { useStakeInfo } from "./useStakeInfo";
+import useTonConnect from "../../../hooks/contract/useTonConnect";
+import { useStakeInfo } from "../../../hooks/api/useStakeInfo";
 
 export const useUnstakingList = () => {
   const { address } = useTonConnect();

@@ -1,13 +1,12 @@
 import styled, { css } from "styled-components";
-import IcReload from "../../../assets/icons/MyAsset/ic_reload.svg";
-import Icfilter from "../../../assets/icons/MyAsset/ic_filter.svg";
+import IcReload from "../../assets/icons/MyAsset/ic_reload.svg";
+import Icfilter from "../../assets/icons/MyAsset/ic_filter.svg";
 import { useEffect, useState } from "react";
-import NftItem from "./NftItem";
-import NFTFilter from "../modal/NFTFilter";
+import NftItem from "../../components/myAsset/NFT/NftItem";
+import NFTFilter from "../../components/myAsset/modal/NFTFilter";
 import { useNavigate } from "react-router-dom";
-import useMyAssetFilter from "../../../pages/MyAsset/hooks/useMyAssetFilter";
-import IcCheck from "../../../assets/icons/MyAsset/ic_check.svg";
-
+import useMyAssetFilter from "./hooks/useMyAssetFilter";
+import IcCheck from "../../assets/icons/MyAsset/ic_check.svg";
 const tele = (window as any).Telegram.WebApp;
 
 const NftList = () => {

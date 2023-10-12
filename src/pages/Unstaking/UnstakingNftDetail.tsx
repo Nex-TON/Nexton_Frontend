@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import UnstakingPreview from "../components/myAsset/NFT/Unstaking/UnstakingPreview";
-import UnstakingInfo from "../components/myAsset/NFT/Unstaking/UnstakingInfo";
+import UnstakingPreview from "../../components/myAsset/NFT/Unstaking/UnstakingPreview";
+import UnstakingInfo from "../../components/myAsset/NFT/Unstaking/UnstakingInfo";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilValue } from "recoil";
-import { telegramAtom } from "../lib/atom/telegram";
-import { UnstakingProps } from "../types/staking";
-import useTonConnect from "../hooks/contract/useTonConnect";
-import { postUnstake } from "../api/postUnstake";
-import { Transfer } from "../hooks/contract/tact_FakeItem";
+import { telegramAtom } from "../../lib/atom/telegram";
+import { UnstakingProps } from "../../types/staking";
+import useTonConnect from "../../hooks/contract/useTonConnect";
+import { postUnstake } from "../../api/postUnstake";
+import { Transfer } from "../../hooks/contract/tact_FakeItem";
 import { randomAddress } from "@ton-community/test-utils";
-import * as Contract from "../hooks/contract/useFakeItemContract";
-import BasicModal from "../components/common/modals/BasicModal";
-import { useNFTDetail } from "../hooks/api/useNFTDetail";
+import * as Contract from "../../hooks/contract/useFakeItemContract";
+import BasicModal from "../../components/common/modals/BasicModal";
+import { useNFTDetail } from "../../hooks/api/useNFTDetail";
 
 const tele = (window as any).Telegram.WebApp;
 
