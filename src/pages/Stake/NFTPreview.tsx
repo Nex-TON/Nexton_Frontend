@@ -4,7 +4,7 @@ import NFTPreviewInfo from "../../components/lerverage/NFTPreview/NFTPreviewInfo
 import FooterButton from "../../components/common/FooterButton";
 import { UserDeposit } from "../../hooks/contract/tact_NexTon";
 import * as Contract from "../../hooks/contract/useNextonContract";
-import BasicModal from "../../components/common/modals/BasicModal";
+import BasicModal from "../../components/common/Modal/BasicModal";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { stakingAtom, stakingInputAtom } from "../../lib/atom/staking";

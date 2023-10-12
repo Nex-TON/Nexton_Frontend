@@ -34,8 +34,8 @@ const Router = () => {
           <Route path="nftlist" element={<NftList />} />
           <Route path="unstaking" element={<UnstakingList />} />
           <Route path="unstakingdetail" element={<UnstakingDetail />} />
-          <Route path=":id" element={<StakingNftDetail />} />
         </Route>
+        <Route path="/myasset/:id" element={<StakingNftDetail />} />
         <Route path="/unstaking/:id" element={<UnstakingNftDetail />} />
         <Route path="/unstaking/view/:id" element={<UnstakingNftDetail />} />
       </Routes>

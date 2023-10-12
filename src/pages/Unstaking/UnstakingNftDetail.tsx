@@ -12,7 +12,7 @@ import { postUnstake } from "../../api/postUnstake";
 import { Transfer } from "../../hooks/contract/tact_FakeItem";
 import { randomAddress } from "@ton-community/test-utils";
 import * as Contract from "../../hooks/contract/useFakeItemContract";
-import BasicModal from "../../components/common/modals/BasicModal";
+import BasicModal from "../../components/common/Modal/BasicModal";
 import { useNFTDetail } from "../../hooks/api/useNFTDetail";
 
 const tele = (window as any).Telegram.WebApp;
