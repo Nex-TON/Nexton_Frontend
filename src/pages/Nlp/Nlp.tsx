@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import NlpContext from "../../components/Nlp/NlpContext";
+import NlpContext from "../../components/nlp/NlpContext";
 import FooterButton from "../../components/common/FooterButton";
 import * as Contract from "../../hooks/contract/useNextonContract";
 import { useState } from "react";
