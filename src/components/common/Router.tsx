@@ -10,7 +10,6 @@ import NftList from "../../pages/MyAsset/NftList";
 import UnstakingList from "../../pages/MyAsset/UnstakingList";
 import UnstakingDetail from "../../pages/MyAsset/UnstakingDetail";
 import Amount from "../../pages/Stake/Amount";
-import Onboarding from "../../pages/Onboarding/Onboarding";
 import Loan from "../../pages/Loan/Loan";
 import BorrowDetail from "../../pages/Loan/BorrowDetail";
 import Swap from "../../pages/Swap/Swap";
@@ -20,8 +19,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Onboarding />} />
-        <Route path="/main" element={<Main />} />
+        <Route path="/" element={<Main />} />
         <Route path="/stake/amount" element={<Amount />} />
         <Route path="/stake/leverage" element={<Leverage />} />
         <Route path="/stake/nominator" element={<NominatorList />} />

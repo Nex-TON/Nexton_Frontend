@@ -9,7 +9,6 @@ import { getProtocolFee } from "../../../utils/getProtocolFee";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import * as Contract from "../../../hooks/contract/useNextonContract";
 import { UserClaimWithdraw } from "../../../hooks/contract/tact_NexTon";
-import { UnstakingProps } from "../../../types/staking";
 import { useRecoilValue } from "recoil";
 import { telegramAtom } from "../../../lib/atom/telegram";
 import { useTonAddress } from "@tonconnect/ui-react";

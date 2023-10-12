@@ -4,7 +4,6 @@ import IcWallet from "../../assets/icons/Landing/ic_wallet.svg";
 import IcWalletDoubleArrow from "../../assets/icons/Landing/ic_walletDoubleArrow.svg";
 import IcTonKeeper from "../../assets/icons/Landing/ic_tonKeeper.svg";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { addressState } from "../../lib/atom/address";
 
@@ -19,13 +18,6 @@ const TonWallet = () => {
     window.location.reload();
     setTonAddrsss("");
   };
-
-  useEffect(() => {
-    if (connected) {
-      setTonAddrsss(address);
-      navigate("/main");
-    }
-  }, [connected]);
 
   return (
     <TonWalletWrapper>
