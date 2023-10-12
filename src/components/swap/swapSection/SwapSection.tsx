@@ -3,9 +3,9 @@ import IcSwapArrow from "../../../assets/icons/Swap/ic_swap_arrow.svg";
 import { useState } from "react";
 import useTonConnect from "../../../hooks/contract/useTonConnect";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
-import SwapRatio from "./SwapRatio";
-import LiquidityBox from "../common/LiquidityBox";
 import SwapBox from "../common/SwapBox";
+import LiquidityBox from "../common/LiquidityBox";
+import SwapRatio from "./SwapRatio";
 
 const SwapSection = () => {
   const [switchToken, setSwitchToken] = useState(false);

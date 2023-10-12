@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import useTonConnect from "../../../hooks/contract/useTonConnect";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+
 import LiquidityPair from "./LiquidityPair";
 import SwapBox from "../common/SwapBox";
 import LiquidityBox from "../common/LiquidityBox";
