@@ -268,7 +268,7 @@ const fonts = {
     line-height: 1.6rem;
   `,
   Nexton_Label_Small: css`
-    font-family: Pretendard;
+    font-family: "Montserrat";
     font-size: 1.2rem;
     font-style: normal;
     font-weight: 500;
