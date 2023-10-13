@@ -20,7 +20,7 @@ const MainMyAssetInfo = () => {
       <MainMyAssetInfoWraper>
         <MainMyAssetInfoInnerBox>
           <MainMyAssetInfoInnerTopBox>
-            My Asset.
+            My Asset
             <MainMyAssetInfoInnerTopWalletBox
               disabled={!connected}
               connected={connected}
