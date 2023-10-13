@@ -161,7 +161,7 @@ const fonts = {
     font-family: "Montserrat";
     font-size: 2.4rem;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 3rem; /* 125% */
     letter-spacing: -0.012rem;
   `,
@@ -190,7 +190,7 @@ const fonts = {
   `,
   Nexton_Title_Medium: css`
     font-family: "Montserrat";
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-style: normal;
     font-weight: 600;
     line-height: 3rem;
