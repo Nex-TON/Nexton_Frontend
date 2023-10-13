@@ -35,7 +35,7 @@ const MainNftViewItem = (props: MainNftViewItemProps) => {
         }}
       />
       <MainNftViewItemDDayText>
-        D-${DDayChange(timeStamp, lockPeriod)}
+        D-{DDayChange(timeStamp, lockPeriod)}
       </MainNftViewItemDDayText>
     </MainNftViewItemWrapper>
   ) : DDayChange(timeStamp, lockPeriod) > 0 ? (
@@ -49,7 +49,7 @@ const MainNftViewItem = (props: MainNftViewItemProps) => {
         }}
       />
       <MainNftViewItemDDayText>
-        D-${DDayChange(timeStamp, lockPeriod)}
+        D-{DDayChange(timeStamp, lockPeriod)}
       </MainNftViewItemDDayText>
     </MainNftViewItemWrapper>
   ) : (
