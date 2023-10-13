@@ -14,36 +14,38 @@ const NFTPreviewInfo = (props: NFTPreviewInfoProps) => {
     <NFTPreviewInfoWrapper>
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Principal</NFTPreviewInfoItemText>
-        <NFTPreviewInfoItemText>
-          {Number(stakingInfo.principal).toLocaleString()} TON
-        </NFTPreviewInfoItemText>
+        <NFTPreviewInfoItemValue>
+          <span>{Number(stakingInfo.principal).toLocaleString()}</span> TON
+        </NFTPreviewInfoItemValue>
+      </NFTPreviewInfoItem>
+      <NFTPreviewInfoItem>
+        <NFTPreviewInfoItemText>Transaction Fee</NFTPreviewInfoItemText>
+        <NFTPreviewInfoItemValue>
+          <span>0.1123</span> TON
+        </NFTPreviewInfoItemValue>
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Leveraged</NFTPreviewInfoItemText>
-        <NFTPreviewInfoItemText>
-          x {stakingInfo.leverage.toFixed(1)}
-        </NFTPreviewInfoItemText>
+        <NFTPreviewInfoItemValue>
+          x <span>{stakingInfo.leverage.toFixed(1)}</span>
+        </NFTPreviewInfoItemValue>
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Lock-up period</NFTPreviewInfoItemText>
-        <NFTPreviewInfoItemText>
-          {stakingInfo.lockup} Days
-        </NFTPreviewInfoItemText>
+        <NFTPreviewInfoItemValue>
+          <span>{stakingInfo.lockup}</span> Days
+        </NFTPreviewInfoItemValue>
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Protocol Fees</NFTPreviewInfoItemText>
-        <NFTPreviewInfoItemText>
-          {numberCutter(
-            getProtocolFee(stakingInfo.principal, stakingInfo.leverage)
-          )}
+        <NFTPreviewInfoItemValue>
+          <span>
+            {numberCutter(
+              getProtocolFee(stakingInfo.principal, stakingInfo.leverage)
+            )}
+          </span>{" "}
           %
-        </NFTPreviewInfoItemText>
-      </NFTPreviewInfoItem>
-      <NFTPreviewInfoItem>
-        <NFTPreviewInfoItemText type="bold">Total</NFTPreviewInfoItemText>
-        <NFTPreviewInfoItemText type="bold">
-          {stakingInfo.principal} TON
-        </NFTPreviewInfoItemText>
+        </NFTPreviewInfoItemValue>
       </NFTPreviewInfoItem>
     </NFTPreviewInfoWrapper>
   );
@@ -59,8 +61,8 @@ const NFTPreviewInfoWrapper = styled.div`
   gap: 2rem;
 
   width: 100%;
-  margin: 4rem 0 5.5rem 0;
-  padding: 0 2rem;
+  margin: 1.8rem 0 5.5rem 0;
+  padding: 0 0.8rem;
 `;
 
 const NFTPreviewInfoItem = styled.div`
@@ -69,10 +71,13 @@ const NFTPreviewInfoItem = styled.div`
   align-items: center;
 
   width: 100%;
+  padding-bottom: 0.6rem;
+
+  border-bottom: 0.1rem solid #e5e5ea;
 `;
 
 const NFTPreviewInfoItemText = styled.span<{ type?: string }>`
-  color: #000;
+  color: #76797a;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
 
   ${({ type }) =>
@@ -80,4 +85,13 @@ const NFTPreviewInfoItemText = styled.span<{ type?: string }>`
     css`
       ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
     `}
+`;
+
+const NFTPreviewInfoItemValue = styled.div`
+  color: #303234;
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+
+  span {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Large}
+  }
 `;

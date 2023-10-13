@@ -12,6 +12,7 @@ const NftPreviewImage = (props: NftPreviewImageProps) => {
   return (
     <NftPreviewImageWrapper>
       <NFTPreviewImageBox src={NFTPreview} alt="NFTPreview" />
+      <NFTPreviewImageText type="top">D-{lockup}</NFTPreviewImageText>
       <NFTPreviewImageText type="bottom">
         Expired Date {lockUpDateChanger(lockup, "expired")}
       </NFTPreviewImageText>
@@ -29,14 +30,30 @@ const NftPreviewImageWrapper = styled.div`
 
 const NFTPreviewImageBox = styled.img`
   width: 100%;
-  height: 100%;
+  height: 22rem;
+
+  border-radius: 1rem;
 `;
 
 const NFTPreviewImageText = styled.span<{ type: string }>`
   position: absolute;
-  top: 2.5rem;
+  ${({ type }) =>
+    type === "top"
+      ? css`
+          top: 2.5rem;
+        `
+      : css`
+          bottom: 2.5rem;
+        `}
   left: 2.8rem;
 
   color: #fff;
-  ${({ theme }) => theme.fonts.Telegram_Medium_1};
+  ${({ type }) =>
+    type === "top"
+      ? css`
+          ${({ theme }) => theme.fonts.Nexton_Title_Medium};
+        `
+      : css`
+          ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+        `}
 `;

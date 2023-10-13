@@ -11,7 +11,8 @@ import { stakingAtom, stakingInputAtom } from "../../lib/atom/staking";
 import { postStakingInfo } from "../../api/postStakingInfo";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
-import { createPortal } from "react-dom";
+import ProgressBar from "../../components/lerverage/common/ProgressBar";
+import IcAlertBlue from "../../assets/icons/ic_alert_blue.svg";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -72,13 +73,21 @@ const NFTPreview = () => {
   return (
     <NFTPreviewWrapper>
       {modal && <BasicModal type="stake" toggleModal={toggleModal} />}
+      <ProgressBar />
+      <StepBox>Final</StepBox>
       <NFTPreviewHeader>Staking NFT Preview</NFTPreviewHeader>
       <NftPreviewImage lockup={stakingInfo.lockup} />
       <NFTPreviewInfo stakingInfo={stakingInfo} />
       <NFTPreviewConfirmBox>
-        <NFTPreviewConfirmText>
-          Please check your NFT details periodically
-        </NFTPreviewConfirmText>
+        <img src={IcAlertBlue} alt="alertBlue" />
+        <div>
+          <NFTPreviewConfirmText>
+            You cannot cancel the transaction after pressing
+          </NFTPreviewConfirmText>
+          <NFTPreviewConfirmText>
+            Confirm. Please check the NFT information.
+          </NFTPreviewConfirmText>
+        </div>
         <MainButton text="Confirm" onClick={handleMinting} />
         {/* <FooterButton title="Confirm" onClick={handleMinting} /> */}
       </NFTPreviewConfirmBox>
@@ -92,36 +101,48 @@ const NFTPreviewWrapper = styled.div`
   position: relative;
 
   width: 100%;
-
-  padding: 3.5rem 2.3rem 0 2.3rem;
-
-  @media (max-width: 500px) {
-    padding: 3.5rem 1.7rem 0 1.7rem;
-  }
+  padding: 0 2rem;
 `;
 
 const NFTPreviewHeader = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   width: 100%;
+  margin-top: 2rem;
   margin-bottom: 2rem;
 
   color: #45464f;
-  ${({ theme }) => theme.fonts.Nexton_Title_Medium};
+  ${({ theme }) => theme.fonts.Nexton_Title_Large};
 `;
 
 const NFTPreviewConfirmBox = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   gap: 1.4rem;
 
-  text-align: center;
+  width: 100%;
+  margin-bottom: 1.6rem;
 `;
-const NFTPreviewConfirmText = styled.span`
-  margin-bottom: 1.4rem;
-
+const NFTPreviewConfirmText = styled.p`
   color: #007aff;
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
+  ${({ theme }) => theme.fonts.Nexton_Label_Small};
+`;
+
+const StepBox = styled.div`
+  width: fit-content;
+  padding: 0.7rem 1.2rem;
+
+  border: 0.1rem solid #d0d0e2;
+  border-radius: 2rem;
+
+  color: #333;
+  font-family: Montserrat;
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.4rem; /* 127.273% */
+  letter-spacing: 0.0066rem;
 `;

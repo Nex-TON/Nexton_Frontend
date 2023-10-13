@@ -15,6 +15,7 @@ const ProgressBar = () => {
       <ProgressFirstItem progressStatus={progressStatus} />
       <ProgressSecondItem progressStatus={progressStatus} />
       <ProgressThirdItem progressStatus={progressStatus} />
+      <ProgressFinalItem progressStatus={progressStatus} />
     </ProgressBarWrapper>
   );
 };
@@ -27,11 +28,11 @@ const ProgressBarWrapper = styled.div`
   width: 100%;
   height: 0.4rem;
   margin-top: 1rem;
-  margin-bottom: 2.9rem;
+  margin-bottom: 2.4rem;
 `;
 
 const ProgressFirstItem = styled.div<{ progressStatus: string }>`
-  width: 33.3%;
+  width: 25%;
   height: 100%;
 
   background-color: ${({ progressStatus }) =>
@@ -42,7 +43,7 @@ const ProgressFirstItem = styled.div<{ progressStatus: string }>`
 const ProgressSecondItem = styled.div<{
   progressStatus: string;
 }>`
-  width: 33.3%;
+  width: 25%;
   height: 100%;
 
   background-color: ${({ progressStatus }) =>
@@ -53,11 +54,23 @@ const ProgressSecondItem = styled.div<{
       : "#7FBCFF"};
 `;
 const ProgressThirdItem = styled.div<{ progressStatus: string }>`
-  width: 33.3%;
+  width: 25%;
   height: 100%;
 
   background-color: ${({ progressStatus }) =>
-    progressStatus === "leverage" ? "#2C80FF" : "#C6CACA"};
+    progressStatus === "leverage"
+      ? "#2C80FF"
+      : progressStatus === "preview"
+      ? "#7FBCFF"
+      : "#C6CACA"};
+`;
+
+const ProgressFinalItem = styled.div<{ progressStatus: string }>`
+  width: 25%;
+  height: 100%;
+
+  background-color: ${({ progressStatus }) =>
+    progressStatus === "preview" ? "#2C80FF" : "#C6CACA"};
 
   border-radius: 0 1rem 1rem 0;
 `;
