@@ -11,6 +11,8 @@ import NowUsingMenu from "../../components/main/Menu/NowUsingMenu";
 import UpcomingMenu from "../../components/main/Menu/UpcomingMenu";
 import JoinCommunity from "../../components/main/Menu/JoinCommunity";
 
+const tele = (window as any).Telegram.WebApp;
+
 const Main = () => {
   const { address } = useTonConnect();
   const [, setTonAddress] = useRecoilState(addressState);
@@ -26,6 +28,13 @@ const Main = () => {
       setTonAddress(address);
     }
   }, [address]);
+
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.hide();
+    }
+  }, []);
 
   return (
     <MainWrapper isOpen={isOpen}>
