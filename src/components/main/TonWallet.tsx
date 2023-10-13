@@ -1,122 +1,88 @@
 import styled from "styled-components";
 import useTonConnect from "./../../hooks/contract/useTonConnect";
-import IcWallet from "../../assets/icons/Landing/ic_wallet.svg";
-import IcWalletDoubleArrow from "../../assets/icons/Landing/ic_walletDoubleArrow.svg";
-import IcTonKeeper from "../../assets/icons/Landing/ic_tonKeeper.svg";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { addressState } from "../../lib/atom/address";
+import IcDoubleArrow from "../../assets/icons/Landing/ic_walletDoubleArrow.svg";
+import IcWalletConnect from "../../assets/icons/Landing/ic_wallet_connect.svg";
+import IcWalletDisconnect from "../../assets/icons/Landing/ic_wallet_disconnect.svg";
 
 const TonWallet = () => {
-  const { address, connected, tonConnectUI } = useTonConnect();
-  const [, setTonAddrsss] = useRecoilState(addressState);
+  const { connected, tonConnectUI } = useTonConnect();
   const navigate = useNavigate();
 
-  const clearStorage = () => {
-    navigate("/");
-    window.localStorage.clear();
-    window.location.reload();
-    setTonAddrsss("");
+  const handleSwitchWalletFunction = () => {
+    if (connected) {
+      navigate("/stake/amount");
+    } else {
+      tonConnectUI.connectWallet();
+    }
   };
 
   return (
-    <TonWalletWrapper>
+    <TonWalletWrapper onClick={handleSwitchWalletFunction}>
+      <TonConnectStatusBox>
+        {connected ? (
+          <img src={IcWalletConnect} alt="connect" />
+        ) : (
+          <img src={IcWalletDisconnect} alt="disconnect" />
+        )}
+      </TonConnectStatusBox>
       {connected ? (
-        <TonWalletBox>
-          <TonWalletLeftBox>
-            <img src={IcWallet} alt="wallet" width={24} height={24} />
-            {address.slice(0, 20)}
-          </TonWalletLeftBox>
-          <TonKeeperBox onClick={clearStorage}>
-            <img src={IcTonKeeper} alt="tonKeeper" />
-          </TonKeeperBox>
-        </TonWalletBox>
+        `Let's stake TON`
       ) : (
-        <ConnectBtn
-          onClick={() => {
-            tonConnectUI.connectWallet();
-          }}
-        >
-          <ConnectBtnLeft>
-            <img src={IcWallet} alt="wallet" width={24} height={24} />
-            Connect Wallet
-          </ConnectBtnLeft>
-          <img
-            src={IcWalletDoubleArrow}
-            alt="walletDoubleArrow"
-            width={22}
-            height={22}
-          />
-        </ConnectBtn>
+        <TonConnectCenterBox>
+          <span>Connect wallet</span>
+          <span>To simply stake</span>
+        </TonConnectCenterBox>
       )}
+      <img src={IcDoubleArrow} alt="doubleArrow" width={24} height={24} />
     </TonWalletWrapper>
   );
 };
 
 export default TonWallet;
 
-const ConnectBtn = styled.button`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-
-  width: 100%;
-  padding: 1.8rem;
-
-  border-radius: 1.4rem;
-  background-color: #333;
-  border: none;
-
-  box-shadow: 0 0 2rem 0 rgba(198, 197, 208, 0.3);
-
-  cursor: pointer;
-`;
-
-const ConnectBtnLeft = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
-  color: #fff;
-`;
-
 const TonWalletWrapper = styled.div`
-  width: 100%;
-`;
-
-const TonWalletBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   width: 100%;
-  padding: 1.3rem 1.3rem 1.3rem 1.9rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1.8rem 0.5rem 0.5rem;
 
-  border-radius: 1.4rem;
-  background-color: #333;
-  border: none;
-
-  box-shadow: 0 0 2rem 0 rgba(198, 197, 208, 0.3);
+  border-radius: 4rem;
+  background-color: #007aff;
+  color: #f2f2f7;
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium}
 `;
 
-const TonWalletLeftBox = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  ${({ theme }) => theme.fonts.Telegram_Medium_1};
-  color: #fff;
-`;
-
-const TonKeeperBox = styled.div`
+const TonConnectStatusBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  width: 3.4rem;
-  height: 3.4rem;
+  width: 5rem;
+  height: 5rem;
 
   border-radius: 50%;
-  background-color: #46494a;
+  background-color: #fff;
+`;
+
+const TonConnectCenterBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 74%;
+
+  span {
+    color: #f2f2f7;
+    &:first-child {
+      ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
+    }
+
+    &:last-child {
+      ${({ theme }) => theme.fonts.Nexton_Label_Small};
+    }
+  }
 `;

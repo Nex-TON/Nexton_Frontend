@@ -3,7 +3,7 @@ import { stakeInfo } from "../../types/Nft";
 import { nextonFetcher } from "../../api/axios";
 
 export const useStakeInfo = (address: string) => {
-  const { data } = useSWR<stakeInfo>(
+  const { data, isLoading } = useSWR<stakeInfo>(
     `/data/getAllStakeInfoByAddress?address=${address}`,
     nextonFetcher,
     {
@@ -13,5 +13,6 @@ export const useStakeInfo = (address: string) => {
 
   return {
     nftList: data?.stakeInfos,
+    isLoading,
   };
 };

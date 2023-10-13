@@ -165,6 +165,22 @@ const fonts = {
     line-height: 3rem; /* 125% */
     letter-spacing: -0.012rem;
   `,
+  Nexton_Title_Large_2: css`
+    font-family: "Montserrat";
+    font-size: 2.4rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 2.4rem; /* 125% */
+    letter-spacing: -0.046rem;
+  `,
+  Nexton_Title_Large_Small: css`
+    font-family: "Montserrat";
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 2.4rem; /* 133.333% */
+    letter-spacing: -0.046px;
+  `,
   Nexton_Image_Title: css`
     font-family: "Montserrat";
     font-size: 3rem;
@@ -247,7 +263,7 @@ const fonts = {
     font-family: Pretendard;
     font-size: 1.2rem;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     line-height: normal;
   `,
   Nexton_Label_Small_2: css`

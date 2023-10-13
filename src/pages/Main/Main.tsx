@@ -1,22 +1,25 @@
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import useTonConnect from "../../hooks/contract/useTonConnect";
 import { addressState } from "../../lib/atom/address";
-import Menu from "../../components/main/Menu";
-import HowTo from "../../components/main/HowTo";
-import SubCube from "../../assets/image/SubCube.png";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import IcTopLine from "../../assets/icons/Landing/ic_top_line.svg";
-import IcBottomLine from "../../assets/icons/Landing/ic_bottom_line.svg";
-
-const tele = (window as any).Telegram.WebApp;
+import Header from "../../components/common/Header";
+import MainMyAssetInfo from "../../components/main/MainMyAssetInfo";
+import MainNftView from "../../components/main/NFTView/MainNftView";
+import NowUsingMenu from "../../components/main/Menu/NowUsingMenu";
+import UpcomingMenu from "../../components/main/Menu/UpcomingMenu";
+import JoinCommunity from "../../components/main/Menu/JoinCommunity";
 
 const Main = () => {
   const { address } = useTonConnect();
   const [, setTonAddress] = useRecoilState(addressState);
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+
+  const handleSwitchHamburger = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     if (address) {
@@ -24,103 +27,31 @@ const Main = () => {
     }
   }, [address]);
 
-  useEffect(() => {
-    if (tele) {
-      tele.ready();
-      tele.MainButton.hide();
-      tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/");
-      });
-    }
-
-    return () => {
-      tele.offEvent("backButtonClicked");
-    };
-  });
-
   return (
-    <AnimatePresence>
-      <motion.div
-        style={{ width: "100%", height: "100%" }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1.5 }}
-        exit={{ opacity: 0 }}
-        transition={{
-          ease: "easeIn",
-          duration: 0.5,
-        }}
-      >
-        <MainWrapper>
-          <MainImageBox>
-            <LineImage src={IcTopLine} alt="topLine" $position="top" />
-            <LineImage src={IcBottomLine} alt="bottomLine" $position="bottom" />
-            <MainImageTitle>NEXTON</MainImageTitle>
-            <MainIconBox>
-              <MainIcon src={SubCube} alt="subcube" />
-            </MainIconBox>
-          </MainImageBox>
-          <Menu />
-          <HowTo />
-        </MainWrapper>
-      </motion.div>
-    </AnimatePresence>
+    <MainWrapper isOpen={isOpen}>
+      <Header isOpen={isOpen} handleSwitchHamburger={handleSwitchHamburger} />
+      {isOpen ? (
+        <>
+          <NowUsingMenu />
+          <UpcomingMenu />
+          <JoinCommunity />
+        </>
+      ) : (
+        <>
+          <MainMyAssetInfo />
+          <MainNftView />
+        </>
+      )}
+    </MainWrapper>
   );
 };
 
 export default Main;
 
-const MainWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-
+const MainWrapper = styled.div<{ isOpen: boolean }>`
   width: 100%;
   height: auto;
   min-height: 100%;
 
-  background-color: #f1f4f4;
-`;
-
-const MainImageBox = styled.div`
-  position: relative;
-
-  width: 100%;
-  height: 22.3rem;
-
-  background-color: #007aff;
-`;
-
-const LineImage = styled.img<{ $position: string }>`
-  position: absolute;
-  top: ${({ $position }) => ($position === "top" ? "8rem" : "15rem")};
-
-  width: 100%;
-`;
-
-const MainIconBox = styled.div`
-  position: relative;
-
-  width: 100%;
-`;
-const MainIcon = styled.img`
-  position: absolute;
-  top: 1rem;
-
-  width: 100%;
-  z-index: 1;
-`;
-
-const MainImageTitle = styled.div`
-  width: 100%;
-  margin-top: 3.564rem;
-  margin-bottom: 0.5rem;
-
-  color: #fff;
-  font-family: Montserrat;
-  font-size: 3rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 3rem; /* 100% */
-
-  text-align: center;
+  background-color: ${({ isOpen }) => (isOpen ? `#f2f2f7` : `#f1f1f4`)};
 `;
