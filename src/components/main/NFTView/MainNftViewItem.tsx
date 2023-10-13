@@ -20,7 +20,7 @@ const MainNftViewItem = (props: MainNftViewItemProps) => {
 
   const handleMoveNftDetail = (event: React.MouseEvent<HTMLDivElement>) => {
     const rect = (event.target as HTMLImageElement).getBoundingClientRect();
-    setImageSize({ width: rect?.width, height: rect?.height });
+    setImageSize({ width: rect?.width * 1.2, height: rect?.height * 1.3 });
     navigate(`/myasset/${nftId}`);
   };
 
