@@ -33,7 +33,7 @@ const NowUsingMenuWrapper = styled.div`
   gap: 0.8rem;
 
   width: 100%;
-  padding: 0 3rem;
+  padding: 0 1.5rem;
 `;
 
 const NowUsingMenuButton = styled.button`

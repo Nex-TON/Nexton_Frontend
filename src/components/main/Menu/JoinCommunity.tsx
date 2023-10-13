@@ -13,9 +13,7 @@ const JoinCommunity = () => {
     <JoinCommunityWrapper>
       <JoinCommunityTitle>Join in our community</JoinCommunityTitle>
       <JoinCommunityButtonList>
-        <JoinCommunityButton
-          onClick={() => handleNewTap("https://twitter.com/NextonNode")}
-        >
+        <JoinCommunityButton>
           <JoinCommunityButtonRightBox>
             <img src={IcMenuTwitter} alt="twitter" />
             Twitter
@@ -47,11 +45,12 @@ export default JoinCommunity;
 
 const JoinCommunityWrapper = styled.div`
   width: 100%;
-  padding: 0 3rem;
+  padding: 0 1.5rem;
 `;
 
 const JoinCommunityTitle = styled.div`
   width: 100%;
+  padding-left: 1rem;
 
   color: #2c3542;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};

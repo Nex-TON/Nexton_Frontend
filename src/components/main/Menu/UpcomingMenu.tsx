@@ -35,14 +35,15 @@ export default UpcomingMenu;
 const UpcomingMenuWrapper = styled.div`
   width: 100%;
   margin: 3rem 0 4.4rem 0;
-  padding: 0 3rem;
+  padding: 0 1.5rem;
 `;
 
 const UpcomingMenuTitle = styled.div`
   width: 100%;
+  padding-left: 1rem;
 
   color: #2c3542;
-  ${({ theme }) => theme.fonts.Nexton_Title_Large_Small};
+  ${({ theme }) => theme.fonts.Nexton_Title_Small};
   text-align: left;
 `;
 
@@ -51,6 +52,7 @@ const UpcomingMenuButtonWrapper = styled.div`
   justify-content: space-between;
 
   width: 100%;
+  padding: 0 0.7rem;
   margin-top: 1.6rem;
 `;
 

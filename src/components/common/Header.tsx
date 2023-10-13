@@ -34,7 +34,7 @@ const HeaderWrapper = styled.header<{ isOpen: boolean }>`
   align-items: center;
 
   width: 100%;
-  padding: 1rem 3rem;
+  padding: 2rem 1.5rem;
 
   background-color: ${({ isOpen }) => (isOpen ? "#f1f1f4" : "#fff")};
 `;

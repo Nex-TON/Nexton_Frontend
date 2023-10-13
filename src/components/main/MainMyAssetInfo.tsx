@@ -1,5 +1,6 @@
 import { css, styled } from "styled-components";
-import IcWallet from "../../assets/icons/Landing/ic_wallet.svg";
+import IcLadingWallet from "../../assets/icons/Landing/ic_landing_wallet.svg";
+import IcLandingWalletDisable from "../../assets/icons/Landing/ic_landing_wallet_disconnect.svg";
 import TonWallet from "./TonWallet";
 import useTonConnect from "../../hooks/contract/useTonConnect";
 import Modal from "./Modal/Modal";
@@ -25,7 +26,16 @@ const MainMyAssetInfo = () => {
               connected={connected}
               onClick={handleModalState}
             >
-              <img src={IcWallet} alt="wallet" width={16} height={16} />
+              {connected ? (
+                <img src={IcLadingWallet} alt="wallet" width={16} height={16} />
+              ) : (
+                <img
+                  src={IcLandingWalletDisable}
+                  alt="walletDisable"
+                  width={16}
+                  height={16}
+                />
+              )}
             </MainMyAssetInfoInnerTopWalletBox>
           </MainMyAssetInfoInnerTopBox>
           <MainMyAssetInfoInnerBottomBox>
@@ -62,7 +72,7 @@ const MainMyAssetInfoWraper = styled.div`
 
 const MainMyAssetInfoInnerBox = styled.div`
   width: 100%;
-  padding: 3.3rem 2.5rem;
+  padding: 2.1rem 2.1rem 3.5rem 2.3rem;
 
   border-radius: 3.2rem;
   background: linear-gradient(66deg, #2f3038 6.49%, #253a4e 91.79%);
@@ -85,8 +95,8 @@ const MainMyAssetInfoInnerTopWalletBox = styled.button<{ connected: boolean }>`
   justify-content: center;
   align-items: center;
 
-  width: 4.2rem;
-  height: 4.2rem;
+  width: 4.4rem;
+  height: 4.4rem;
 
   border: none;
   border-radius: 50%;
