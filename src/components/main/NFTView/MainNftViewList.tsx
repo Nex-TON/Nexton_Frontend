@@ -13,7 +13,7 @@ const MainNftViewList = () => {
       <EmptyNftItem isLoading={isLoading} />
       <EmptyNftItem isLoading={isLoading} />
     </MainNftViewListWrapper>
-  ) : nftList.length < 0 || !connected ? (
+  ) : nftList.length === 0 || !connected ? (
     <MainNftViewListWrapper>
       <EmptyNftItem />
       <EmptyNftItem />
