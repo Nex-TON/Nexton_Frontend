@@ -18,7 +18,7 @@ const SliderBox = (props: SliderBoxProps) => {
       setRatio(1.0);
       setTimeout(() => {
         setIsDisabled(false);
-      }, 1500);
+      }, 2500);
       return;
     }
     setRatio(value as number);
