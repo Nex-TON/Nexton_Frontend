@@ -67,7 +67,9 @@ const Leverage = () => {
 
   return (
     <LeverageWrapper>
-      <ProgressBar />
+      <div style={{ width: "100%", padding: "0 2rem" }}>
+        <ProgressBar />
+      </div>
       <Step2
         input={stakingInfo.principal}
         maxLeverage={maxLeverage}
@@ -103,8 +105,6 @@ const LeverageWrapper = styled.div`
 
   width: 100%;
   height: 100%;
-
-  padding: 0 2rem;
 `;
 
 const FooterWrapper = styled.div`
