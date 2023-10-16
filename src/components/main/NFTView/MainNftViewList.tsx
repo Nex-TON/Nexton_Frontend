@@ -9,11 +9,11 @@ const MainNftViewList = () => {
 
   return isLoading ? (
     <MainNftViewListWrapper>
-      <EmptyNftItem isLoading={isLoading} />
-      <EmptyNftItem isLoading={isLoading} />
-      <EmptyNftItem isLoading={isLoading} />
+      <EmptyNftItem isloading={isLoading} />
+      <EmptyNftItem isloading={isLoading} />
+      <EmptyNftItem isloading={isLoading} />
     </MainNftViewListWrapper>
-  ) : nftList.length === 0 || !connected ? (
+  ) : nftList.filter((nft) => nft.status !== 2).length === 0 || !connected ? (
     <MainNftViewListWrapper>
       <EmptyNftItem />
       <EmptyNftItem />
@@ -52,15 +52,15 @@ const MainNftViewListWrapper = styled.div`
   margin: 2.1rem 0;
 `;
 
-const EmptyNftItem = styled.div<{ isLoading?: boolean }>`
+const EmptyNftItem = styled.div<{ isloading?: boolean }>`
   width: 100%;
   aspect-ratio: 1/1;
   border-radius: 2rem;
 
   background-color: #f1f4f4;
 
-  ${({ isLoading }) =>
-    isLoading &&
+  ${({ isloading }) =>
+    isloading &&
     css`
       background: linear-gradient(90deg, #f1f4f4 25%, #f3f6f6 50%, #f1f4f4 75%);
       animation: ${shimmerAnimation} 1.5s infinite;
