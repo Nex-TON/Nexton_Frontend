@@ -26,7 +26,11 @@ const SliderBox = (props: SliderBoxProps) => {
 
   return (
     <SliderWrapper>
-      <LeverageSlider ratio={ratio} getValues={getValues} />
+      <LeverageSlider
+        ratio={ratio}
+        getValues={getValues}
+        isDisabled={isDisabled}
+      />
       {isDisabled && (
         <LeverageErrorBox>
           Please adjust leverage times with the max leverage multiplier.
@@ -43,27 +47,9 @@ const SliderWrapper = styled.div`
   margin-bottom: 1.076rem;
 `;
 
-const SliderTextBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin-top: 2rem;
-
-  ${({ theme }) => theme.fonts.Telegram_Medium_2};
-  color: #000000;
-`;
-
-const SliderTextRightBox = styled.div`
-  span {
-    ${({ theme }) => theme.fonts.Telegram_Medium_2};
-    color: #000000;
-  }
-`;
-
 const LeverageErrorBox = styled.div`
   width: 100%;
-  margin: 1rem 0 0.6rem 0;
+  margin: 0 0 0.6rem 0;
 
   color: #0088cc;
   ${({ theme }) => theme.fonts.Telegram_Caption_1};

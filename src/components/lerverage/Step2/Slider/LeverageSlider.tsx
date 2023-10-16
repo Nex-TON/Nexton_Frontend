@@ -4,11 +4,12 @@ import { MARK } from "../../../../constants/LerverageMark";
 
 interface LeverageSliderProps {
   ratio: number;
+  isDisabled: boolean;
   getValues: (event: Event, value: number | number[]) => void;
 }
 
 const LeverageSlider = (props: LeverageSliderProps) => {
-  const { ratio, getValues } = props;
+  const { ratio, isDisabled, getValues } = props;
 
   return (
     <StyledReactSlider
@@ -18,6 +19,7 @@ const LeverageSlider = (props: LeverageSliderProps) => {
       min={1}
       defaultValue={1}
       value={ratio}
+      disabled={isDisabled}
       onChange={getValues}
     />
   );
