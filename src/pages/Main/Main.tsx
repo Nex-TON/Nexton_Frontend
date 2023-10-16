@@ -10,6 +10,7 @@ import MainNftView from "../../components/main/NFTView/MainNftView";
 import NowUsingMenu from "../../components/main/Menu/NowUsingMenu";
 import UpcomingMenu from "../../components/main/Menu/UpcomingMenu";
 import JoinCommunity from "../../components/main/Menu/JoinCommunity";
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -51,6 +52,7 @@ const Main = () => {
           <MainNftView />
         </>
       )}
+      <MainButton text="Stake" />
     </MainWrapper>
   );
 };
