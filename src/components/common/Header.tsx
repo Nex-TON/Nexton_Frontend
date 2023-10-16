@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import { useNavigate } from "react-router-dom";
 import IcNextonLogo from "../../assets/icons/Landing/ic_nexton_logo.svg";
 
 interface HeaderProps {
@@ -9,7 +8,6 @@ interface HeaderProps {
 
 const Header = (props: HeaderProps) => {
   const { isOpen, handleSwitchHamburger } = props;
-  const navigate = useNavigate();
 
   return (
     <HeaderWrapper isOpen={isOpen}>
