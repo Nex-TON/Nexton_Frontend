@@ -1,35 +1,43 @@
 import { styled } from "styled-components";
-import IcNextonLogo from "../../assets/icons/Landing/ic_nexton_logo.svg";
 import IcWalletConnect from "../../assets/icons/Landing/ic_landing_wallet.svg";
 import IcWalletDisconnect from "../../assets/icons/Landing/ic_landing_wallet_disconnect.svg";
 import useTonConnect from "../../hooks/contract/useTonConnect";
 import Modal from "../main/Modal/Modal";
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   isOpen: boolean;
-  handleSwitchHamburger: () => void;
+  text: string;
+  backgroundType: boolean;
 }
 
 const Header = (props: HeaderProps) => {
   const { connected, tonConnectUI } = useTonConnect();
-  const { isOpen, handleSwitchHamburger } = props;
+  const { isOpen, text, backgroundType } = props;
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleModalState = () => {
     setIsOpenModal(!isOpenModal);
   };
 
+  const handleRouter = () => {
+    if (isOpen) {
+      navigate(-1);
+    } else {
+      navigate("/menu");
+    }
+  };
+
   return (
     <>
       {isOpenModal && <Modal handleModalState={handleModalState} />}
-      <HeaderWrapper isOpen={isOpen}>
-        <HeaderTitle onClick={handleSwitchHamburger}>
-          <img src={IcNextonLogo} alt="nextonLogo" />
-          NEXTON
-        </HeaderTitle>
+      <HeaderWrapper isOpen={isOpen} backgroundType={backgroundType}>
+        <HeaderTitle onClick={() => navigate("/")}>{text}</HeaderTitle>
         <HeaderRightBox>
-          {!isOpen && (
+          {pathname === "/" && (
             <DisconnectButton connect={connected}>
               {connected ? (
                 <img
@@ -46,7 +54,7 @@ const Header = (props: HeaderProps) => {
               )}
             </DisconnectButton>
           )}
-          <MenuButton onClick={handleSwitchHamburger} isOpen={isOpen}>
+          <MenuButton onClick={handleRouter} isOpen={isOpen}>
             <span></span>
             <span></span>
             <span></span>
@@ -59,7 +67,10 @@ const Header = (props: HeaderProps) => {
 
 export default Header;
 
-const HeaderWrapper = styled.header<{ isOpen: boolean }>`
+const HeaderWrapper = styled.header<{
+  isOpen: boolean;
+  backgroundType: boolean;
+}>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,7 +78,8 @@ const HeaderWrapper = styled.header<{ isOpen: boolean }>`
   width: 100%;
   padding: 2rem 1.5rem;
 
-  background-color: ${({ isOpen }) => (isOpen ? "#f1f1f4" : "#fff")};
+  background-color: ${({ backgroundType }) =>
+    backgroundType ? "#f2f2f7" : "#fff"};
 `;
 
 const HeaderRightBox = styled.div`
