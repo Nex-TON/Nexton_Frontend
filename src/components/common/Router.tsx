@@ -14,12 +14,14 @@ import Loan from "../../pages/Loan/Loan";
 import BorrowDetail from "../../pages/Loan/BorrowDetail";
 import Swap from "../../pages/Swap/Swap";
 import MyAsset from "../../pages/MyAsset/MyAsset";
+import Menu from "../../pages/Menu/Menu";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/menu" element={<Menu />} />
         <Route path="/stake/amount" element={<Amount />} />
         <Route path="/stake/leverage" element={<Leverage />} />
         <Route path="/stake/nominator" element={<NominatorList />} />
