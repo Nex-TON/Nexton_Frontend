@@ -74,17 +74,13 @@ const MainMyAssetInfoInnerBottomTitleBox = styled.div`
   display: flex;
   align-items: center;
 
-  padding: 0.6rem 1.8rem;
+  padding: 0.8rem 1.6rem;
 
   border-radius: 4rem;
   border: 0.1rem solid #5d5e67;
 
   color: #c6c5d0;
-
-  font-size: 1.1rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 2.2rem;
+  ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
 `;
 
 const MainMyAssetInfoInnerBottomValue = styled.span`

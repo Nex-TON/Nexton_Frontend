@@ -63,7 +63,7 @@ const NftHeaderWrapper = styled.div`
   gap: 5.4rem;
 
   width: 100%;
-  margin-bottom: 2rem;
+  margin-bottom: 2.4rem;
 `;
 
 const NFTHeadingItem = styled.div`

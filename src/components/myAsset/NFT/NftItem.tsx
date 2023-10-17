@@ -102,7 +102,7 @@ const NFTImage = styled.img`
 const NFTDDayText = styled.span`
   position: absolute;
   top: 1.5rem;
-  left: 1.5rem;
+  left: 1.7rem;
 
   color: #fff;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
@@ -110,8 +110,8 @@ const NFTDDayText = styled.span`
 
 const NFTExpiredDateText = styled.span<{ $date?: boolean }>`
   position: absolute;
-  bottom: 2.5rem;
-  left: 1.5rem;
+  bottom: 2.7rem;
+  left: 1.7rem;
 
   color: #fff;
   ${({ theme }) => theme.fonts.Telegram_Caption_2};
@@ -119,6 +119,6 @@ const NFTExpiredDateText = styled.span<{ $date?: boolean }>`
   ${({ $date }) =>
     $date &&
     css`
-      bottom: 1rem;
+      bottom: 1.3rem;
     `}
 `;

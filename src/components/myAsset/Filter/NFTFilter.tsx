@@ -38,14 +38,6 @@ const NFTFilter = (props: NFTFilterProps) => {
           Expired
           <NFTStatus type="Expired" />
         </NFTFilterLi>
-        <NFTFilterLi
-          onClick={() => handleCheckPeriod("All")}
-          $check={checkPeriod[3]}
-          $period={period}
-        >
-          All
-          <img src={IcCheck} alt="check" width={16} height={16} />
-        </NFTFilterLi>
       </NFTFilterUl>
     </NFTFilterWrapper>
   );
@@ -55,7 +47,7 @@ export default NFTFilter;
 
 const NFTFilterWrapper = styled.div`
   position: absolute;
-  top: 5rem;
+  top: 4.5rem;
   right: 1.2rem;
 
   border-radius: 1rem;
@@ -78,11 +70,11 @@ const NFTFilterLi = styled.li<{
   align-items: center;
   gap: 1.5rem;
 
-  padding: 1.3rem 1.8rem;
+  padding: 1rem 1.2rem;
 
   color: #5e6162;
 
-  ${({ theme }) => theme.fonts.Telegram_Footnote};
+  ${({ theme }) => theme.fonts.Nexton_Label_Small};
 
   ${({ $activeOpacity }) =>
     $activeOpacity &&
@@ -94,7 +86,7 @@ const NFTFilterLi = styled.li<{
     $check &&
     $period === "Ongoing" &&
     css`
-      border-radius: 1rem 1rem 0 0;
+      border-radius: 1.4rem 1.4rem 0 0;
       background-color: #e5e5ea;
     `}
 
@@ -102,7 +94,7 @@ const NFTFilterLi = styled.li<{
     $check &&
     $period === "All" &&
     css`
-      border-radius: 0 0 1rem 1rem;
+      border-radius: 0 0 1.4rem 1.4rem;
       background-color: #e5e5ea;
     `}
       
