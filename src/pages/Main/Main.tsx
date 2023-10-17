@@ -47,6 +47,7 @@ const Main = () => {
       ) : (
         <>
           <MainMyAssetInfo />
+          <MainBorder />
           <MainNftView />
         </>
       )}
@@ -61,5 +62,12 @@ const MainWrapper = styled.div<{ isOpen: boolean }>`
   height: auto;
   min-height: 100%;
 
-  background-color: ${({ isOpen }) => (isOpen ? `#f2f2f7` : `#f1f1f4`)};
+  background-color: ${({ isOpen }) => (isOpen ? `#f2f2f7` : `#fff`)};
+`;
+
+const MainBorder = styled.div`
+  width: 100%;
+  height: 1rem;
+
+  background-color: #f1f4f4;
 `;
