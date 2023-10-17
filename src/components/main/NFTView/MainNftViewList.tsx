@@ -3,14 +3,16 @@ import { useStakeInfo } from "../../../hooks/api/useStakeInfo";
 import useTonConnect from "../../../hooks/contract/useTonConnect";
 import MainNftViewItem from "./MainNftViewItem";
 import LandingNftStake from "../../../assets/image/LandingNFTStake.png";
+import { useNavigate } from "react-router-dom";
 
 const MainNftViewList = () => {
   const { address, connected } = useTonConnect();
   const { nftList, isLoading } = useStakeInfo(address);
+  const navigate = useNavigate();
 
   return isLoading ? (
     <MainNftViewListWrapper>
-      <MainNftFirstInfoBox>
+      <MainNftFirstInfoBox onClick={() => navigate("/stake/amount")}>
         <MainNftFirstInfoTitleBox>
           <p>Get NFTs</p>
           <p>with STAKE</p>
@@ -22,7 +24,7 @@ const MainNftViewList = () => {
     </MainNftViewListWrapper>
   ) : nftList.filter((nft) => nft.status !== 2).length === 0 || !connected ? (
     <MainNftViewListWrapper>
-      <MainNftFirstInfoBox>
+      <MainNftFirstInfoBox onClick={() => navigate("/stake/amount")}>
         <MainNftFirstInfoTitleBox>
           <p>Get NFTs</p>
           <p>with STAKE</p>
@@ -34,7 +36,7 @@ const MainNftViewList = () => {
     </MainNftViewListWrapper>
   ) : (
     <MainNftViewListWrapper>
-      <MainNftFirstInfoBox>
+      <MainNftFirstInfoBox onClick={() => navigate("/stake/amount")}>
         <MainNftFirstInfoTitleBox>
           <p>Get NFTs</p>
           <p>with STAKE</p>
