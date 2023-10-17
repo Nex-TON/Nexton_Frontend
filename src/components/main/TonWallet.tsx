@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import useTonConnect from "./../../hooks/contract/useTonConnect";
 import { useNavigate } from "react-router-dom";
-import IcDoubleArrow from "../../assets/icons/Landing/ic_walletDoubleArrow.svg";
 import IcWalletConnect from "../../assets/icons/Landing/ic_wallet_connect.svg";
 import IcWalletDisconnect from "../../assets/icons/Landing/ic_wallet_disconnect.svg";
 
@@ -27,14 +26,10 @@ const TonWallet = () => {
         )}
       </TonConnectStatusBox>
       {connected ? (
-        `Let's stake TON`
+        <TonConnectCenterBox>Let's stake TON</TonConnectCenterBox>
       ) : (
-        <TonConnectCenterBox>
-          <span>Connect wallet</span>
-          <span>To simply stake</span>
-        </TonConnectCenterBox>
+        <TonConnectCenterBox>Connect wallet</TonConnectCenterBox>
       )}
-      <img src={IcDoubleArrow} alt="doubleArrow" width={24} height={24} />
     </TonWalletWrapper>
   );
 };
@@ -43,46 +38,45 @@ export default TonWallet;
 
 const TonWalletWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  position: relative;
 
   width: 100%;
+  height: 6rem;
   margin-top: 0.5rem;
-  padding: 0.5rem 1.8rem 0.5rem 0.5rem;
+  padding: 0.5rem 0;
 
-  border-radius: 4rem;
-  background-color: #007aff;
+  border-radius: 2.4rem;
+  background-color: #1f53ff;
   color: #f2f2f7;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium}
+
+  filter: drop-shadow(0px 6px 10px rgba(94, 97, 98, 0.30));
 `;
 
 const TonConnectStatusBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
 
   width: 5rem;
   height: 5rem;
 
-  border-radius: 50%;
+  border-radius: 2rem;
   background-color: #fff;
 `;
 
 const TonConnectCenterBox = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
-  width: 74%;
+  width: 100%;
 
-  span {
-    color: #f2f2f7;
-    &:first-child {
-      ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
-    }
-
-    &:last-child {
-      ${({ theme }) => theme.fonts.Nexton_Label_Small};
-    }
-  }
+  color: #f2f2f7;
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
 `;

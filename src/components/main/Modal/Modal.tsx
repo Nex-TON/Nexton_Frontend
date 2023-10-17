@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import ModalWrapper from "../../common/Modal/ModalWrapper";
 import { useRecoilState } from "recoil";
 import { addressState } from "../../../lib/atom/address";
+import IcWalletDisconnect from "../../../assets/icons/Landing/ic_landing_wallet_disconnect.svg";
 
 interface ModalProps {
   handleModalState: () => void;
@@ -20,6 +21,9 @@ const Modal = (props: ModalProps) => {
   return (
     <ModalWrapper>
       <ModalWhiteBox>
+        <DisconnectBox>
+          <img src={IcWalletDisconnect} alt="disconnect" />
+        </DisconnectBox>
         <ModalTitle>Connection off</ModalTitle>
         <ModalDesc>
           <p>Your wallet will be detached</p>
@@ -52,16 +56,16 @@ const ModalWhiteBox = styled.div`
   transform: translate(-50%, -50%);
 
   width: 32rem;
-  padding: 4.2rem 1rem 1rem 1rem;
+  padding: 3.4rem 1rem 1rem 1rem;
 
   border-radius: 2rem;
-  background-color: #f9f9ff;
+  background-color: #1a1b23;
 `;
 
 const ModalTitle = styled.div`
   margin-bottom: 1.2rem;
 
-  color: #007aff;
+  color: #fff;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2};
 `;
 
@@ -74,8 +78,8 @@ const ModalDesc = styled.div`
   width: 100%;
 
   p {
-    color: #303234;
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+    color: #c6c5d0;
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
   }
 `;
 
@@ -106,4 +110,21 @@ const ModalButton = styled.button<{ type: string }>`
   ${({ theme }) => theme.fonts.Telegram_Medium_2};
 
   cursor: pointer;
+`;
+
+const DisconnectBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 4.4rem;
+  height: 4.4rem;
+  padding: 1.2rem;
+  margin-bottom: 2.4rem;
+
+  border: none;
+  border-radius: 1.8rem;
+  background-color: #2f3038;
+
+  filter: drop-shadow(0px 0px 14px rgba(0, 0, 0, 0.4));
 `;

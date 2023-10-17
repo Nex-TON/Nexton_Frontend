@@ -1,63 +1,33 @@
 import { css, styled } from "styled-components";
-import IcLadingWallet from "../../assets/icons/Landing/ic_landing_wallet.svg";
-import IcLandingWalletDisable from "../../assets/icons/Landing/ic_landing_wallet_disconnect.svg";
 import TonWallet from "./TonWallet";
 import useTonConnect from "../../hooks/contract/useTonConnect";
-import Modal from "./Modal/Modal";
-import { useState } from "react";
 
 const MainMyAssetInfo = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const { connected, balance } = useTonConnect();
-
-  const handleModalState = () => {
-    setIsOpenModal(!isOpenModal);
-  };
+  const { balance } = useTonConnect();
 
   return (
-    <>
-      {isOpenModal && <Modal handleModalState={handleModalState} />}
-      <MainMyAssetInfoWraper>
-        <MainMyAssetInfoInnerBox>
-          <MainMyAssetInfoInnerTopBox>
-            My Asset
-            <MainMyAssetInfoInnerTopWalletBox
-              disabled={!connected}
-              connected={connected}
-              onClick={handleModalState}
-            >
-              {connected ? (
-                <img src={IcLadingWallet} alt="wallet" width={16} height={16} />
-              ) : (
-                <img
-                  src={IcLandingWalletDisable}
-                  alt="walletDisable"
-                  width={16}
-                  height={16}
-                />
-              )}
-            </MainMyAssetInfoInnerTopWalletBox>
-          </MainMyAssetInfoInnerTopBox>
-          <MainMyAssetInfoInnerBottomBox>
-            <MainMyAssetInfoInnerBottomTitleBox>
-              Balance
-            </MainMyAssetInfoInnerBottomTitleBox>
-            <MainMyAssetInfoInnerBottomValue>
-              {balance.toFixed(2)} TON
-            </MainMyAssetInfoInnerBottomValue>
-          </MainMyAssetInfoInnerBottomBox>
-          <MainMyAssetInfoInnerBottomBox>
-            <MainMyAssetInfoInnerBottomTitleBox>
-              Staked
-            </MainMyAssetInfoInnerBottomTitleBox>
-            <MainMyAssetInfoInnerBottomValue>
-              0.00 TON
-            </MainMyAssetInfoInnerBottomValue>
-          </MainMyAssetInfoInnerBottomBox>
-        </MainMyAssetInfoInnerBox>
-        <TonWallet />
-      </MainMyAssetInfoWraper>
-    </>
+    <MainMyAssetInfoWraper>
+      <MainMyAssetInfoInnerBox>
+        <MainMyAssetInfoInnerTopBox>My Asset</MainMyAssetInfoInnerTopBox>
+        <MainMyAssetInfoInnerBottomBox>
+          <MainMyAssetInfoInnerBottomTitleBox>
+            Balance
+          </MainMyAssetInfoInnerBottomTitleBox>
+          <MainMyAssetInfoInnerBottomValue>
+            {balance.toFixed(2)} TON
+          </MainMyAssetInfoInnerBottomValue>
+        </MainMyAssetInfoInnerBottomBox>
+        <MainMyAssetInfoInnerBottomBox>
+          <MainMyAssetInfoInnerBottomTitleBox>
+            Staked
+          </MainMyAssetInfoInnerBottomTitleBox>
+          <MainMyAssetInfoInnerBottomValue>
+            0.00 TON
+          </MainMyAssetInfoInnerBottomValue>
+        </MainMyAssetInfoInnerBottomBox>
+      </MainMyAssetInfoInnerBox>
+      <TonWallet />
+    </MainMyAssetInfoWraper>
   );
 };
 
@@ -72,7 +42,7 @@ const MainMyAssetInfoWraper = styled.div`
 
 const MainMyAssetInfoInnerBox = styled.div`
   width: 100%;
-  padding: 2.1rem 2.1rem 3.5rem 2.3rem;
+  padding: 2.3rem 2.1rem 2.7rem 2.3rem;
 
   border-radius: 3.2rem;
   background: linear-gradient(66deg, #2f3038 6.49%, #253a4e 91.79%);
@@ -80,43 +50,14 @@ const MainMyAssetInfoInnerBox = styled.div`
 
 const MainMyAssetInfoInnerTopBox = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 100%;
-  margin-bottom: 4.6rem;
-
-  color: #fff;
-  ${({ theme }) => theme.fonts.Nexton_Title_Medium};
-`;
-
-const MainMyAssetInfoInnerTopWalletBox = styled.button<{ connected: boolean }>`
-  display: flex;
   justify-content: center;
   align-items: center;
 
-  width: 4.4rem;
-  height: 4.4rem;
+  width: 100%;
+  margin-bottom: 2.4rem;
 
-  border: none;
-  border-radius: 50%;
-
-  ${({ connected }) =>
-    connected
-      ? css`
-          background: linear-gradient(134deg, #6bd3ff 7.39%, #3461ff 97.6%);
-        `
-      : css`
-          background: linear-gradient(
-            270deg,
-            #002639 0%,
-            #001b29 28.13%,
-            #000 100%
-          );
-        `}
-  box-shadow: 0px 0px 24px 0px rgba(198, 202, 202, 0.08);
-
-  cursor: pointer;
+  color: #c6c5d0;
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
 `;
 
 const MainMyAssetInfoInnerBottomBox = styled.div`
@@ -133,13 +74,17 @@ const MainMyAssetInfoInnerBottomTitleBox = styled.div`
   display: flex;
   align-items: center;
 
-  padding: 0.8rem 1.6rem;
+  padding: 0.6rem 1.8rem;
 
   border-radius: 4rem;
   border: 0.1rem solid #5d5e67;
 
-  color: #f2f2f7;
-  ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
+  color: #c6c5d0;
+
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2.2rem;
 `;
 
 const MainMyAssetInfoInnerBottomValue = styled.span`

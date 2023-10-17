@@ -43,7 +43,7 @@ const UpcomingMenuTitle = styled.div`
   padding-left: 1rem;
 
   color: #2c3542;
-  ${({ theme }) => theme.fonts.Nexton_Title_Small};
+  ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
   text-align: left;
 `;
 

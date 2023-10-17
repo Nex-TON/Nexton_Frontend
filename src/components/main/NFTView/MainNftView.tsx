@@ -1,8 +1,7 @@
 import { styled } from "styled-components";
-import IcNftMoreArrow from "../../../assets/icons/Landing/ic_nftMore_arrow.svg";
+import IcNftMoreArrow from "../../../assets/icons/Landing/ic_more_arrow.svg";
 import { useNavigate } from "react-router-dom";
 import MainNftViewList from "./MainNftViewList";
-import Marketplace from "./Marketplace";
 
 const MainNftView = () => {
   const navigate = useNavigate();
@@ -11,7 +10,7 @@ const MainNftView = () => {
     <MainNftViewWrapper>
       <MainNFtViewInnerBox>
         <MainNftViewInnerTitleBox>
-          <MainNFtViewInnerTitle>NFT</MainNFtViewInnerTitle>
+          <MainNFtViewInnerTitle>NFTs</MainNFtViewInnerTitle>
           <MainNftViewInnerTitleMore
             onClick={() => navigate("/myasset/nftlist")}
           >
@@ -20,7 +19,6 @@ const MainNftView = () => {
           </MainNftViewInnerTitleMore>
         </MainNftViewInnerTitleBox>
         <MainNftViewList />
-        <Marketplace />
       </MainNFtViewInnerBox>
     </MainNftViewWrapper>
   );
@@ -32,16 +30,12 @@ const MainNftViewWrapper = styled.div`
   width: 100%;
   height: auto;
   min-height: 100%;
-
-  background-color: #f1f1f4;
 `;
 
 const MainNFtViewInnerBox = styled.div`
   width: 100%;
   margin-top: 0.6rem;
   padding: 1.5rem;
-
-  background-color: #fff;
 `;
 
 const MainNftViewInnerTitleBox = styled.div`
@@ -54,14 +48,17 @@ const MainNftViewInnerTitleBox = styled.div`
 
 const MainNFtViewInnerTitle = styled.span`
   color: #2f3038;
-  ${({ theme }) => theme.fonts.Nexton_Title_Medium};
+  font-family: Montserrat;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 3.4rem;
 `;
 
 const MainNftViewInnerTitleMore = styled.div`
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  gap: 0.4rem;
 
-  color: #43535b;
-  ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
+  color: #09090a;
+  ${({ theme }) => theme.fonts.Nexton_Label_Small};
 `;

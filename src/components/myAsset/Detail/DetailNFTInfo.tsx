@@ -121,11 +121,11 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
         </DetailInfoItemWrapper>
         <ButtonWrapper>
           {DDayChange(timeStamp, lockPeriod) > 0 ? (
-            <MainButton text="Use as collateral" color="#31333e" />
+            <MainButton text="Use as collateral" color="#aaaeaf" />
           ) : status === 0 ? (
             <MainButton
               text="Unstaking"
-              color="#31333e"
+              color="#aaaeaf"
               textColor="#fff"
               onClick={() => navigate(`/unstaking/${nftId}`)}
             />
@@ -133,7 +133,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
             <MainButton
               text="Withdraw"
               onClick={handleWithDraw}
-              color="#31333e"
+              color="#aaaeaf"
               textColor="#fff"
             />
           )}
