@@ -1,13 +1,13 @@
 import { styled } from "styled-components";
-import Step from "../../components/lerverage/common/Step";
-import Title from "../../components/lerverage/common/Title";
+import Step from "../../components/stake/common/Step";
+import Title from "../../components/stake/common/Title";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NominatorItem from "../../components/lerverage/Nominator/NominatorItem";
+import NominatorItem from "../../components/stake/Nominator/NominatorItem";
 import { NOMINATOR_LIST } from "../../constants/Nominator";
 import { useRecoilState } from "recoil";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
-import ProgressBar from "../../components/lerverage/common/ProgressBar";
+import ProgressBar from "../../components/stake/common/ProgressBar";
 import { stakingAtom } from "../../lib/atom/staking";
 import IcSearch from "../../assets/icons/Stake/ic_search.svg";
 import { useSearchNominatorPool } from "./hooks/useSearchNominatorPoo";

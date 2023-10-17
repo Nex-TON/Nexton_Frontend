@@ -1,10 +1,10 @@
 import { styled } from "styled-components";
-import ProgressBar from "../../components/lerverage/common/ProgressBar";
-import Step from "../../components/lerverage/common/Step";
-import Title from "../../components/lerverage/common/Title";
+import ProgressBar from "../../components/stake/common/ProgressBar";
+import Step from "../../components/stake/common/Step";
+import Title from "../../components/stake/common/Title";
 import useTonConnect from "../../hooks/contract/useTonConnect";
 import { numberCutter } from "../../utils/numberCutter";
-import LeverageInput from "../../components/lerverage/Step1/LeverageInput";
+import LeverageInput from "../../components/stake/Amount/LeverageInput";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import IcError from "../../assets/icons/Stake/ic_error.svg";

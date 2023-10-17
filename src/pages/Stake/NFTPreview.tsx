@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
-import NftPreviewImage from "../../components/lerverage/NFTPreview/NftPreviewImage";
-import NFTPreviewInfo from "../../components/lerverage/NFTPreview/NFTPreviewInfo";
+import NftPreviewImage from "../../components/stake/NFTPreview/NftPreviewImage";
+import NFTPreviewInfo from "../../components/stake/NFTPreview/NFTPreviewInfo";
 import FooterButton from "../../components/common/FooterButton";
 import { UserDeposit } from "../../hooks/contract/tact_NexTon";
 import * as Contract from "../../hooks/contract/useNextonContract";
@@ -11,7 +11,7 @@ import { stakingAtom, stakingInputAtom } from "../../lib/atom/staking";
 import { postStakingInfo } from "../../api/postStakingInfo";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
-import ProgressBar from "../../components/lerverage/common/ProgressBar";
+import ProgressBar from "../../components/stake/common/ProgressBar";
 import IcAlertBlue from "../../assets/icons/Stake/ic_alert_blue.svg";
 
 const tele = (window as any).Telegram.WebApp;

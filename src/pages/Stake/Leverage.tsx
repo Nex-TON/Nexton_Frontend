@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
-import Step2 from "../../components/lerverage/Step2";
-import Step3 from "../../components/lerverage/Step3";
+import Step2 from "../../components/stake/LeverageLockUp/Leverage";
+import Step3 from "../../components/stake/LeverageLockUp/Lockup";
 import FooterButton from "../../components/common/FooterButton";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -12,7 +12,7 @@ import { telegramAtom } from "../../lib/atom/telegram";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
-import ProgressBar from "../../components/lerverage/common/ProgressBar";
+import ProgressBar from "../../components/stake/common/ProgressBar";
 
 const tele = (window as any).Telegram.WebApp;
 
