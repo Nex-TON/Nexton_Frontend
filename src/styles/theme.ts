@@ -278,7 +278,7 @@ const fonts = {
     font-family: Montserrat;
     font-size: 1.1rem;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     line-height: normal;
     line-height: 1.6rem; /* 145.455% */
   `,
