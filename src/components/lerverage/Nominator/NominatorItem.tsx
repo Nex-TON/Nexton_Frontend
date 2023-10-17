@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
-import IcCheckGray from "../../../assets/icons/Nominator/ic_check_gray.svg";
-import IcCheckWhite from "../../../assets/icons/Nominator/ic_check_white.svg";
+import IcCheckGray from "../../../assets/icons/Stake/ic_check_gray.svg";
+import IcCheckWhite from "../../../assets/icons/Stake/ic_check_white.svg";
 import { useState } from "react";
 import { useSelectNominator } from "../../../pages/Stake/hooks/useSelectNominator";
 

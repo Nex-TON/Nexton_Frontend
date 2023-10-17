@@ -3,8 +3,8 @@ import Step from "../common/Step";
 import Title from "../common/Title";
 import SliderBox from "./Slider/SliderBox";
 import StatusDetail from "../../common/StatusDetail";
-import IcBlackArrowDown from "../../../assets/icons/ic_black_arrow_down.svg";
-import IcBlackArrowUp from "../../../assets/icons/ic_black_arrow_up.svg";
+import IcBlackArrowDown from "../../../assets/icons/Stake/ic_black_arrow_down.svg";
+import IcBlackArrowUp from "../../../assets/icons/Stake/ic_black_arrow_up.svg";
 import { useState } from "react";
 
 interface Step2Props {

@@ -9,7 +9,7 @@ import { useRecoilState } from "recoil";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import ProgressBar from "../../components/lerverage/common/ProgressBar";
 import { stakingAtom } from "../../lib/atom/staking";
-import IcSearch from "../../assets/icons/Nominator/ic_search.svg";
+import IcSearch from "../../assets/icons/Stake/ic_search.svg";
 import { useSearchNominatorPool } from "./hooks/useSearchNominatorPoo";
 import { useSelectNominator } from "./hooks/useSelectNominator";
 

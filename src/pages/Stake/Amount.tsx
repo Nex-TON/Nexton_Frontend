@@ -7,7 +7,7 @@ import { numberCutter } from "../../utils/numberCutter";
 import LeverageInput from "../../components/lerverage/Step1/LeverageInput";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import IcError from "../../assets/icons/ic_error.svg";
+import IcError from "../../assets/icons/Stake/ic_error.svg";
 import { useRecoilState } from "recoil";
 import { stakingAtom } from "../../lib/atom/staking";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";

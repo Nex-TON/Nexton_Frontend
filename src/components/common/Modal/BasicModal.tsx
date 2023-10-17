@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import ModalWrapper from "./ModalWrapper";
-import IcClose from "../../../assets/icons/ic_close.svg";
+import IcClose from "../../../assets/icons/Modal/ic_close.svg";
 import { useNavigate } from "react-router-dom";
 import IcModalArrow from "../../../assets/icons/Modal/ic_modal_arrow.svg";
 import useTonConnect from "../../../hooks/contract/useTonConnect";

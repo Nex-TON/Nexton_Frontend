@@ -4,7 +4,7 @@ import Title from "../common/Title";
 import LeverageInput from "./LeverageInput";
 import useTonConnect from "../../../hooks/contract/useTonConnect";
 import { numberCutter } from "../../../utils/numberCutter";
-import IcError from "../../../assets/icons/ic_error.svg";
+import IcError from "../../../assets/icons/Stake/ic_error.svg";
 import ProgressBar from "../common/ProgressBar";
 
 interface Step1Props {

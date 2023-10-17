@@ -12,7 +12,7 @@ import { postStakingInfo } from "../../api/postStakingInfo";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import ProgressBar from "../../components/lerverage/common/ProgressBar";
-import IcAlertBlue from "../../assets/icons/ic_alert_blue.svg";
+import IcAlertBlue from "../../assets/icons/Stake/ic_alert_blue.svg";
 
 const tele = (window as any).Telegram.WebApp;
 
