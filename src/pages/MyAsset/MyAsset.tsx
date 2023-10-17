@@ -1,16 +1,20 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import NftHeader from "../../components/myAsset/NftHeader";
+import Header from "../../components/common/Header";
 
 const MyAsset = () => {
+  const { pathname } = useLocation();
   const [myAssetMenu, setMyAssetMenu] = useState("NFT");
 
   return (
-    <MyAssetWrapper>
-      <MyAssetHeaderBox>
-        <MyAssetHeaderTop>MY asset</MyAssetHeaderTop>
-      </MyAssetHeaderBox>
+    <MyAssetWrapper $type={pathname.includes("nftlist") ? true : false}>
+      <Header
+        isOpen={false}
+        backgroundType={pathname.includes("nftlist") ? false : true}
+        text="My Asset"
+      />
       <MyAssetContentWrapper>
         <NftHeader myAssetMenu={myAssetMenu} />
       </MyAssetContentWrapper>
@@ -21,27 +25,12 @@ const MyAsset = () => {
 
 export default MyAsset;
 
-const MyAssetWrapper = styled.div`
+const MyAssetWrapper = styled.div<{ $type: boolean }>`
   width: 100%;
   min-height: 100%;
   height: auto;
 
-  background-color: #f2f2f7;
-`;
-
-const MyAssetHeaderBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-`;
-
-const MyAssetHeaderTop = styled.span`
-  padding-top: 1rem;
-
-  color: #45464f;
-  ${({ theme }) => theme.fonts.Telegram_Title_3_1};
+  background-color: ${({ $type }) => ($type ? `#FFF` : ` #f2f2f7`)};
 `;
 
 const MyAssetContentWrapper = styled.div`

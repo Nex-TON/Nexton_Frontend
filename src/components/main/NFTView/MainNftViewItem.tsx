@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { nftInfo } from "../../../types/Nft";
 import { DDayChange } from "../../../utils/dateChanger";
-import MainNFTOngoing from "../../../assets/image/MainNftOngping.png";
+import MainNFTOngoing from "../../../assets/image/MainNftOngoing.png";
 import MainNFTForthComing from "../../../assets/image/MainNftForthComing.png";
 import MainNftExpired from "../../../assets/image/MainNftExpired.png";
 import { useNavigate } from "react-router-dom";
@@ -78,7 +78,7 @@ const MainNftViewItemWrapper = styled.div`
 
   width: 100%;
   border-radius: 2rem;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1/1.05;
 `;
 
 const MainNftViewItemImg = styled.img`

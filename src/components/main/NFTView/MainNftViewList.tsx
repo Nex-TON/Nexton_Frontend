@@ -106,7 +106,7 @@ const MainNftFirstInfoTitleBox = styled.div`
 
 const EmptyNftItem = styled.div<{ isloading?: boolean }>`
   width: 100%;
-  aspect-ratio: 1/1.1;
+  aspect-ratio: 1/1.05;
   border-radius: 2rem;
 
   background-color: #f1f4f4;

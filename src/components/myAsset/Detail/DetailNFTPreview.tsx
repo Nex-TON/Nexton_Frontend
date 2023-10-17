@@ -1,7 +1,7 @@
 import { css, styled } from "styled-components";
-import NFTOngoing from "../../../assets/image/NftOngoing.png";
-import NFTForthComing from "../../../assets/image/NftForthComing.png";
-import NFTExpired from "../../../assets/image/NftExpired.png";
+import NFTOngoing from "../../../assets/image/MainNftOngoing.png";
+import NFTForthComing from "../../../assets/image/MainNftForthComing.png";
+import NFTExpired from "../../../assets/image/MainNftExpired.png";
 import { useRecoilValue } from "recoil";
 import { imageSizeAtom } from "../../../lib/atom/imageSize";
 import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
@@ -97,26 +97,26 @@ const DetailNFTPreviewWrapper = styled.div`
 const NFTImageWrapper = styled.div`
   position: relative;
 
-  border-radius: 1rem;
+  border-radius: 2rem;
 `;
 
 const NFTImage = styled.img`
-  border-radius: 1rem;
+  border-radius: 2rem;
 `;
 
 const NFTDDayText = styled.span`
   position: absolute;
-  top: 1.3rem;
-  left: 1.3rem;
+  top: 1.5rem;
+  left: 1.5rem;
 
   color: #fff;
-  ${({ theme }) => theme.fonts.Telegram_SemiBold};
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
 `;
 
 const NFTExpiredDateText = styled.span<{ $date?: boolean }>`
   position: absolute;
   bottom: 2.5rem;
-  left: 1.3rem;
+  left: 1.5rem;
 
   color: #fff;
   ${({ theme }) => theme.fonts.Telegram_Caption_2};

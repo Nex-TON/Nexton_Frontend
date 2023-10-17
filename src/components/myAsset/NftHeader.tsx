@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import IcCardDisable from "../../assets/icons/MyAsset/ic_card_disable.svg";
 import IcCardActive from "../../assets/icons/MyAsset/ic_card_active.svg";
 import IcCardCheckDisable from "../../assets/icons/MyAsset/ic_cardCheck_disable.svg";
@@ -20,36 +20,24 @@ const NftHeader = (props: NftHeaderProps) => {
   return (
     <NftHeaderWrapper>
       <NFTHeadingItem onClick={() => navigate("/myasset/nftlist")}>
-        <NFTHeadingImageBox>
+        <NftBox $active={pathname.includes("nftlist") ? true : false}>
           {pathname.includes("nftlist") ? (
             <img src={IcCardActive} alt="card" />
           ) : (
             <img src={IcCardDisable} alt="card" />
           )}
-        </NFTHeadingImageBox>
-        {pathname.includes("nftlist") ? (
-          <NFTHeadingItemText>NFT</NFTHeadingItemText>
-        ) : (
-          <NFTHeadingItemText style={{ color: "#90909A" }}>
-            NFT
-          </NFTHeadingItemText>
-        )}
+        </NftBox>
+        <NFTHeadingItemText>NFT</NFTHeadingItemText>
       </NFTHeadingItem>
       <NFTHeadingItem onClick={() => navigate("/myasset/unstaking")}>
-        <NFTHeadingImageBox>
+        <UnstakingBox $active={pathname.includes("unstaking") ? true : false}>
           {pathname.includes("unstaking") ? (
             <img src={IcCardCheckActive} alt="cardCheck" />
           ) : (
             <img src={IcCardCheckDisable} alt="cardCheck" />
           )}
-        </NFTHeadingImageBox>
-        {pathname.includes("unstaking") ? (
-          <NFTHeadingItemText>Unstaking</NFTHeadingItemText>
-        ) : (
-          <NFTHeadingItemText style={{ color: "#90909A" }}>
-            Unstaking
-          </NFTHeadingItemText>
-        )}
+        </UnstakingBox>
+        <NFTHeadingItemText>Unstaking</NFTHeadingItemText>
       </NFTHeadingItem>
       <NFTHeadingItem>
         <NFTHeadingImageBox>
@@ -72,10 +60,10 @@ export default NftHeader;
 const NftHeaderWrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: 3rem;
+  gap: 5.4rem;
 
   width: 100%;
-  margin: 2.4rem 0;
+  margin-bottom: 2rem;
 `;
 
 const NFTHeadingItem = styled.div`
@@ -83,7 +71,7 @@ const NFTHeadingItem = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.8rem;
+  gap: 1rem;
 
   cursor: pointer;
 `;
@@ -96,13 +84,37 @@ const NFTHeadingImageBox = styled.div`
   width: 5rem;
   height: 5rem;
 
-  border: 0.1rem solid #fff;
+  border: 0.1rem solid #f9f9ff;
   border-radius: 50%;
   background-color: #f2f2f7;
-  box-shadow: 0px 0px 2rem rgba(198, 197, 208, 0.3);
 `;
 
+const NftBox = styled(NFTHeadingImageBox)<{ $active: boolean }>`
+  border: none;
+  background-color: ${({ $active }) => ($active ? `#333` : `#fff`)};
+  ${({ $active }) =>
+    $active
+      ? css`
+          filter: drop-shadow(0px 0px 20px rgba(198, 197, 208, 0.3));
+        `
+      : css`
+          box-shadow: 0px 0px 14px 0px rgba(206, 216, 225, 0.8);
+        `}
+`;
+
+const UnstakingBox = styled(NFTHeadingImageBox)<{ $active: boolean }>`
+  border: none;
+  background-color: ${({ $active }) => ($active ? `#333` : `#fff`)};
+  ${({ $active }) =>
+    $active
+      ? css`
+          filter: drop-shadow(0px 0px 20px rgba(198, 197, 208, 0.3));
+        `
+      : css`
+          box-shadow: 0px 0px 14px 0px rgba(206, 216, 225, 0.8);
+        `}
+`;
 const NFTHeadingItemText = styled.span`
-  color: #5e6162;
+  color: #333;
   ${({ theme }) => theme.fonts.Nexton_Label_Medium};
 `;

@@ -58,10 +58,9 @@ const NFTPreviewInfoWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
 
   width: 100%;
-  margin: 1.8rem 0 5.5rem 0;
+  margin: 1rem 0 5.5rem 0;
   padding: 0 0.8rem;
 `;
 
@@ -71,7 +70,7 @@ const NFTPreviewInfoItem = styled.div`
   align-items: center;
 
   width: 100%;
-  padding-bottom: 0.6rem;
+  padding: 0.6rem;
 
   border-bottom: 0.1rem solid #e5e5ea;
 `;

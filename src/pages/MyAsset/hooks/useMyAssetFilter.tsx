@@ -10,7 +10,7 @@ const useMyAssetFilter = () => {
   //클릭한 리스트 관리 하는 state
   const [checkPeriod, setCheckPeriod] = useState([false, false, false, false]);
   //ongoing,all 클릭 했을 떄 border 관리 하기 위한 state
-  const [period, setPeriod] = useState("Period");
+  const [period, setPeriod] = useState("Filter");
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const { nftList } = useStakeInfo(address);
 
