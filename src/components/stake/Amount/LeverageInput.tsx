@@ -5,15 +5,16 @@ import Max from "../../common/Max";
 interface LeverageInputProps {
   input: string;
   error: boolean;
+  disableInput: boolean;
   setInput: (input: string) => void;
 }
 
 const LeverageInput = (props: LeverageInputProps) => {
-  const { input, error, setInput } = props;
+  const { input, error, disableInput, setInput } = props;
 
   return (
     <LeverageInputWrapper error={error}>
-      <Input input={input} setInput={setInput} />
+      <Input input={input} setInput={setInput} disableInput={disableInput} />
       <RightSection>
         <Max setInput={setInput} />
         <TokenText>TON</TokenText>

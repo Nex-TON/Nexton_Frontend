@@ -2,17 +2,19 @@ import styled from "styled-components";
 
 interface InputProps {
   input: string;
+  disableInput: boolean;
   setInput: (input: string) => void;
 }
 
 const Input = (props: InputProps) => {
-  const { input, setInput } = props;
+  const { input, disableInput, setInput } = props;
 
   return (
     <InputStyle
-      type="number"
+      inputMode="decimal"
       placeholder="min 0.5"
       value={input}
+      disabled={disableInput}
       onChange={(e) => setInput(e.target.value)}
     />
   );

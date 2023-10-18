@@ -11,25 +11,25 @@ import IcError from "../../assets/icons/Stake/ic_error.svg";
 import { useRecoilState } from "recoil";
 import { stakingAtom } from "../../lib/atom/staking";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
-import { useCheckInputRules } from "./hooks/useCheckInputRules";
+import { ERROR } from "../../constants/error";
 
 const tele = (window as any).Telegram.WebApp;
 
 const Amount = () => {
   const [input, setInput] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState([false, false, false]);
   const [, setStakingInfo] = useRecoilState(stakingAtom);
+  const { connected } = useTonConnect();
 
-  const { isUnderLimitAmount } = useCheckInputRules(input);
   const { address, balance } = useTonConnect();
   const navigate = useNavigate();
 
   const handleMoveNominator = () => {
     if (input === "") {
-      setError(true);
+      setError([true, false, false]);
     }
     if (input !== "" && Number(input) >= 0.5) {
-      setError(false);
+      setError([false, false, false]);
       setStakingInfo((prev) => ({
         ...prev,
         address: address,
@@ -54,10 +54,16 @@ const Amount = () => {
   }, []);
 
   useEffect(() => {
-    if (input !== "") {
-      setError(false);
+    if (!connected) {
+      setError([false, false, true]);
+    } else {
+      if (input !== "" && Number(input) < 0.5) {
+        setError([false, true, false]);
+      } else {
+        setError([false, false, false]);
+      }
     }
-  }, [input]);
+  }, [input, connected]);
 
   return (
     <AmontWrapper>
@@ -69,17 +75,16 @@ const Amount = () => {
           Balance : {balance > 0 ? numberCutter(balance) : `-.---`}
         </BalanceText>
       </BalanceWrapper>
-      <LeverageInput input={input} setInput={setInput} error={error} />
-      {error && (
+      <LeverageInput
+        input={input}
+        setInput={setInput}
+        error={error.includes(true)}
+        disableInput={error[2]}
+      />
+      {error.includes(true) && (
         <ErrorBlock>
           <img src={IcError} alt="error" />
-          <span>Please enter amount</span>
-        </ErrorBlock>
-      )}
-      {isUnderLimitAmount && (
-        <ErrorBlock>
-          <img src={IcError} alt="error" />
-          <span>Please stake more than 0.5 TON</span>
+          <span>{ERROR[error.indexOf(true)]}</span>
         </ErrorBlock>
       )}
       <MainButton text="NEXT" onClick={handleMoveNominator} />
