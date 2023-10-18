@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 interface InputProps {
   input: string;
-  disableInput: boolean;
+  disableInput?: boolean;
   setInput: (input: string) => void;
 }
 

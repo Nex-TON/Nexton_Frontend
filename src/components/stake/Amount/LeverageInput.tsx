@@ -5,7 +5,7 @@ import Max from "../../common/Max";
 interface LeverageInputProps {
   input: string;
   error: boolean;
-  disableInput: boolean;
+  disableInput?: boolean;
   setInput: (input: string) => void;
 }
 
