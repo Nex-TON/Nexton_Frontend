@@ -1,5 +1,5 @@
 import { css, styled } from "styled-components";
-import NFTPreview from "../../../assets/image/NftPreview.png";
+import NFTPreview from "../../../assets/image/MainNftOngoing.png";
 import { lockUpDateChanger } from "../../../utils/dateChanger";
 
 interface NftPreviewImageProps {
@@ -11,11 +11,14 @@ const NftPreviewImage = (props: NftPreviewImageProps) => {
 
   return (
     <NftPreviewImageWrapper>
-      <NFTPreviewImageBox src={NFTPreview} alt="NFTPreview" />
-      <NFTPreviewImageText type="top">D-{lockup}</NFTPreviewImageText>
-      <NFTPreviewImageText type="bottom">
-        Expired Date {lockUpDateChanger(lockup, "expired")}
-      </NFTPreviewImageText>
+      <NFTPreviewImageBoxWrapper>
+        <NFTPreviewImageBox src={NFTPreview} alt="NFTPreview" />
+        <NFTPreviewImageText>D-{lockup}</NFTPreviewImageText>
+        <NFTPreviewTextBottomBox>
+          <p>Expired Date</p>
+          <p>{lockUpDateChanger(lockup, "expired")}</p>
+        </NFTPreviewTextBottomBox>
+      </NFTPreviewImageBoxWrapper>
     </NftPreviewImageWrapper>
   );
 };
@@ -23,37 +26,47 @@ const NftPreviewImage = (props: NftPreviewImageProps) => {
 export default NftPreviewImage;
 
 const NftPreviewImageWrapper = styled.div`
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   width: 100%;
+  padding: 2rem 0;
+
+  background-color: #1a1b23;
+`;
+
+const NFTPreviewImageBoxWrapper = styled.div`
+  position: relative;
 `;
 
 const NFTPreviewImageBox = styled.img`
-  width: 100%;
-  height: 22rem;
+  width: 15rem;
+  height: 16rem;
 
-  border-radius: 1rem;
+  border-radius: 2rem;
 `;
 
-const NFTPreviewImageText = styled.span<{ type: string }>`
+const NFTPreviewImageText = styled.span`
   position: absolute;
-  ${({ type }) =>
-    type === "top"
-      ? css`
-          top: 2.5rem;
-        `
-      : css`
-          bottom: 2.5rem;
-        `}
-  left: 2.8rem;
+  top: 1.5rem;
+  left: 1.7rem;
 
   color: #fff;
-  ${({ type }) =>
-    type === "top"
-      ? css`
-          ${({ theme }) => theme.fonts.Nexton_Title_Medium};
-        `
-      : css`
-          ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
-        `}
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
+`;
+
+const NFTPreviewTextBottomBox = styled.div`
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  p {
+    color: #fff;
+    ${({ theme }) => theme.fonts.Telegram_Caption_2};
+  }
 `;

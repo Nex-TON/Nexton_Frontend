@@ -61,7 +61,7 @@ const NFTPreviewInfoWrapper = styled.div`
 
   width: 100%;
   margin: 1rem 0 5.5rem 0;
-  padding: 0 0.8rem;
+  padding: 0 2.8rem;
 `;
 
 const NFTPreviewInfoItem = styled.div`

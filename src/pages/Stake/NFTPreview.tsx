@@ -74,8 +74,19 @@ const NFTPreview = () => {
     <NFTPreviewWrapper>
       {modal && <BasicModal type="stake" toggleModal={toggleModal} />}
       <ProgressBar />
-      <StepBox>Final</StepBox>
-      <NFTPreviewHeader>Staking NFT Preview</NFTPreviewHeader>
+      <NFTPreviewHeaderWrapper>
+        <StepBox>Fin.</StepBox>
+        <NFTPreviewHeader>
+          <NFTPreviewHeaderTop>
+            <p>Check info that will</p>
+            <p>be noted on your NFT</p>
+          </NFTPreviewHeaderTop>
+          <NFTPreviewHeaderBottom>
+            <p>After this process, transaction cancel should be</p>
+            <p>turned down.</p>
+          </NFTPreviewHeaderBottom>
+        </NFTPreviewHeader>
+      </NFTPreviewHeaderWrapper>
       <NftPreviewImage lockup={stakingInfo.lockup} />
       <NFTPreviewInfo stakingInfo={stakingInfo} />
       <NFTPreviewConfirmBox>
@@ -101,20 +112,32 @@ const NFTPreviewWrapper = styled.div`
   position: relative;
 
   width: 100%;
-  padding: 0 2rem;
 `;
 
+const NFTPreviewHeaderWrapper = styled.div`
+  width: 100%;
+  padding: 0 2rem;
+`;
 const NFTPreviewHeader = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-
   width: 100%;
   margin-top: 2rem;
   margin-bottom: 2rem;
+`;
 
-  color: #45464f;
-  ${({ theme }) => theme.fonts.Nexton_Title_Large};
+const NFTPreviewHeaderTop = styled.div`
+  p {
+    color: #333;
+    ${({ theme }) => theme.fonts.Nexton_Title_Large};
+  }
+`;
+
+const NFTPreviewHeaderBottom = styled.div`
+  margin-top: 1rem;
+
+  p {
+    color: #1b1e1f;
+    ${({ theme }) => theme.fonts.Nexton_Label_Small};
+  }
 `;
 
 const NFTPreviewConfirmBox = styled.div`
