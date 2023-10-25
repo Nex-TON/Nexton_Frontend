@@ -43,7 +43,6 @@ const NFTPreviewImageBoxWrapper = styled.div`
 const NFTPreviewImageBox = styled.img`
   width: 15rem;
   height: 16rem;
-
   border-radius: 2rem;
 `;
 
