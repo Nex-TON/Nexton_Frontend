@@ -121,7 +121,15 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
         </DetailInfoItemWrapper>
         <ButtonWrapper>
           {DDayChange(timeStamp, lockPeriod) > 0 ? (
-            <MainButton text="Use as collateral" color="#aaaeaf" />
+            <>
+              <MainButton
+                text="List For Sale"
+                onClick={() => navigate(`/listing/${nftId}`)}
+              />
+              <button onClick={() => navigate(`/listing/${nftId}`)}>
+                List For Sale
+              </button>
+            </>
           ) : status === 0 ? (
             <MainButton
               text="Unstaking"

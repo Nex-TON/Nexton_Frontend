@@ -16,6 +16,7 @@ import Swap from "../../pages/Swap/Swap";
 import MyAsset from "../../pages/MyAsset/MyAsset";
 import Menu from "../../pages/Menu/Menu";
 import Marketplace from "../../pages/Marketplace/Marketplace";
+import ListForSale from "../../pages/MyAsset/ListForSale";
 
 const Router = () => {
   return (
@@ -37,6 +38,7 @@ const Router = () => {
           <Route path="unstaking" element={<UnstakingList />} />
           <Route path="unstakingdetail" element={<UnstakingDetail />} />
         </Route>
+        <Route path="/listing/:id" element={<ListForSale />} />
         <Route path="/myasset/:id" element={<StakingNftDetail />} />
         <Route path="/unstaking/:id" element={<UnstakingNftDetail />} />
         <Route path="/unstaking/view/:id" element={<UnstakingNftDetail />} />
