@@ -13,7 +13,7 @@ const NowUsingMenu = () => {
         <img src={IcMenuStake} alt="stake" />
         Stake
       </NowUsingMenuButton>
-      <NowUsingMenuButton>
+      <NowUsingMenuButton onClick={() => navigate("/marketplace")}>
         <img src={IcMenuMarket} alt="market" />
         Marketplace
       </NowUsingMenuButton>

@@ -1,8 +1,12 @@
+import styled from "styled-components";
+import { useState } from "react";
+import Header from "../../components/common/Header";
 
 const Marketplace = () => {
 
   return (
     <MarketplaceWrapper>
+      <Header isOpen={false} backgroundType={false} text="Marketplace" />
     </MarketplaceWrapper>
   );
 };
