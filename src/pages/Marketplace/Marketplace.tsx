@@ -1,12 +1,17 @@
 import styled from "styled-components";
 import { useState } from "react";
 import Header from "../../components/common/Header";
+import IcCart from "../../assets/icons/Marketplace/ic_header_cart.svg";
 
 const Marketplace = () => {
-
   return (
     <MarketplaceWrapper>
-      <Header isOpen={false} backgroundType={false} text="Marketplace" />
+      <Header
+        isOpen={false}
+        backgroundType={false}
+        text="Marketplace"
+        icon={IcCart}
+      />
     </MarketplaceWrapper>
   );
 };

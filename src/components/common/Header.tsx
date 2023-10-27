@@ -10,11 +10,12 @@ interface HeaderProps {
   isOpen: boolean;
   text: string;
   backgroundType: boolean;
+  icon?: string;
 }
 
 const Header = (props: HeaderProps) => {
   const { connected, tonConnectUI } = useTonConnect();
-  const { isOpen, text, backgroundType } = props;
+  const { isOpen, text, backgroundType, icon } = props;
   const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -35,7 +36,10 @@ const Header = (props: HeaderProps) => {
     <>
       {isOpenModal && <Modal handleModalState={handleModalState} />}
       <HeaderWrapper isOpen={isOpen} backgroundType={backgroundType}>
-        <HeaderTitle onClick={() => navigate("/")}>{text}</HeaderTitle>
+        <HeaderTitleWrapper>
+          {icon ? <img src={icon} alt={icon} /> : null}
+          <HeaderTitle onClick={() => navigate("/")}>{text}</HeaderTitle>
+        </HeaderTitleWrapper>
         <HeaderRightBox>
           {pathname === "/" && (
             <DisconnectButton connect={connected}>
@@ -80,6 +84,12 @@ const HeaderWrapper = styled.header<{
 
   background-color: ${({ backgroundType }) =>
     backgroundType ? "#f2f2f7" : "#fff"};
+`;
+
+const HeaderTitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 `;
 
 const HeaderRightBox = styled.div`
