@@ -15,6 +15,7 @@ import BorrowDetail from "../../pages/Loan/BorrowDetail";
 import Swap from "../../pages/Swap/Swap";
 import MyAsset from "../../pages/MyAsset/MyAsset";
 import Menu from "../../pages/Menu/Menu";
+import Marketplace from "../../pages/Marketplace/Marketplace";
 
 const Router = () => {
   return (
@@ -30,6 +31,7 @@ const Router = () => {
         <Route path="/loan/:id" element={<BorrowDetail />} />
         <Route path="/swap" element={<Swap />} />
         <Route path="/nlp" element={<Nlp />} />
+        <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/myasset" element={<MyAsset />}>
           <Route path="nftlist" element={<NftList />} />
           <Route path="unstaking" element={<UnstakingList />} />
