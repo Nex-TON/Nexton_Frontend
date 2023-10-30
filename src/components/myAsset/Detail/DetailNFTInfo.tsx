@@ -9,12 +9,13 @@ import { getProtocolFee } from "../../../utils/getProtocolFee";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import * as Contract from "../../../hooks/contract/useNextonContract";
 import { UserClaimWithdraw } from "../../../hooks/contract/tact_NexTon";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { telegramAtom } from "../../../lib/atom/telegram";
 import { useTonAddress } from "@tonconnect/ui-react";
 import { postClaim } from "../../../api/postClaim";
 import { useState } from "react";
 import BasicModal from "../../common/Modal/BasicModal";
+import { nftInfoAtom } from "../../../lib/atom/nftInfo";
 
 interface DetailNftInfoProps {
   item: nftInfo;
@@ -23,6 +24,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
   const { item } = props;
   const address = useTonAddress();
   const telegramId = useRecoilValue(telegramAtom);
+  const setNftInfo = useSetRecoilState(nftInfoAtom);
   const { nftId, amount, leverage, timeStamp, lockPeriod, nominator, status } =
     item;
   const { sendMessage } = Contract.useNextonContract();
@@ -52,6 +54,11 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
   const handleToggleModal = () => {
     setIsOpenModal((prev) => !prev);
   };
+  const handleListForSale = () => {
+    navigate(`/listing/${nftId}`);
+    setNftInfo(item);
+  };
+
   return (
     <>
       <DetailNftInfoWrapper>
@@ -122,13 +129,8 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
         <ButtonWrapper>
           {DDayChange(timeStamp, lockPeriod) > 0 ? (
             <>
-              <MainButton
-                text="List For Sale"
-                onClick={() => navigate(`/listing/${nftId}`)}
-              />
-              <button onClick={() => navigate(`/listing/${nftId}`)}>
-                List For Sale
-              </button>
+              <MainButton text="List For Sale" onClick={handleListForSale} />
+              <button onClick={handleListForSale}>List For Sale</button>
             </>
           ) : status === 0 ? (
             <MainButton
