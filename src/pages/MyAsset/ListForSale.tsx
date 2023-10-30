@@ -1,13 +1,16 @@
 import { styled } from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
-import { useNFTDetail } from "../../hooks/api/useNFTDetail";
+import SaleCardWithTitle from "../../components/myAsset/Sale/SaleCardWithTitle";
 
 const ListForSale = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { nftDetail } = useNFTDetail(Number(id));
 
-  return <DetailWrapper></DetailWrapper>;
+  return (
+    <DetailWrapper>
+      <SaleCardWithTitle titleText={"List For Sale"} />
+    </DetailWrapper>
+  );
 };
 
 export default ListForSale;
