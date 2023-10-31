@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-const RecommendPriceInfo = () => {
+interface RecommendPriceInfoProps {
+  principal: number;
+}
+
+const RecommendPriceInfo = (props: RecommendPriceInfoProps) => {
+  const { principal } = props;
+
   return (
     <ContentWrapper>
       <TitleLabelText>Recommend Price Range</TitleLabelText>
@@ -8,7 +14,7 @@ const RecommendPriceInfo = () => {
         <PriceItem>
           <PriceLabel>Min. (90% Principal)</PriceLabel>
           <PriceValue>
-            <span>0.000</span>
+            <span>{principal * 0.9}</span>
             <span>TON</span>
           </PriceValue>
         </PriceItem>

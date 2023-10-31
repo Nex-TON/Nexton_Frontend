@@ -33,7 +33,7 @@ const ListForSale = () => {
       <SaleNftWithTitle {...saleNftProps} />
       <ContentWrapper>
         <ListingPriceInput input={listingPrice} setInput={setInput} />
-        <RecommendPriceInfo />
+        <RecommendPriceInfo principal={amount} />
         <FeeInfo />
       </ContentWrapper>
     </DetailWrapper>
