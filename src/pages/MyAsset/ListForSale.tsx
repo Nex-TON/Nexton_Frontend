@@ -45,14 +45,16 @@ export default ListForSale;
 const DetailWrapper = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
   background-color: #1a1b23;
 `;
 
 const ContentWrapper = styled.div`
+  flex: 1;
   width: 100%;
-  height: 100%;
   display: inline-flex;
-  padding: 2rem 1.5rem 5rem 1.5rem;
+  padding: 2rem 1.5rem 2rem 1.5rem;
   flex-direction: column;
   align-items: flex-start;
   gap: 2rem;
