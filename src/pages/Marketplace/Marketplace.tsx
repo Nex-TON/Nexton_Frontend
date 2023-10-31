@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import Header from "../../components/common/Header";
 import IcCart from "../../assets/icons/Marketplace/ic_header_cart.svg";
+import BalanceInfo from "../../components/marketplace/BalanceInfo";
 
 const Marketplace = () => {
   return (
@@ -12,6 +13,7 @@ const Marketplace = () => {
         text="Marketplace"
         icon={IcCart}
       />
+      <BalanceInfo />
     </MarketplaceWrapper>
   );
 };
@@ -23,5 +25,5 @@ const MarketplaceWrapper = styled.div`
   min-height: 100%;
   height: auto;
 
-  background-color: #f2f2f7;
+  background-color: #fff;
 `;
