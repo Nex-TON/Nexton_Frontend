@@ -29,20 +29,23 @@ const ListForSale = () => {
   };
 
   return (
-    <DetailWrapper>
+    <RootWrapper>
       <SaleNftWithTitle {...saleNftProps} />
       <ContentWrapper>
         <ListingPriceInput input={listingPrice} setInput={setInput} />
         <RecommendPriceInfo principal={amount} />
         <FeeInfo />
+        <button onClick={() => navigate(`/listing/success/${nftId}`)}>
+          Complete Listing
+        </button>
       </ContentWrapper>
-    </DetailWrapper>
+    </RootWrapper>
   );
 };
 
 export default ListForSale;
 
-const DetailWrapper = styled.div`
+const RootWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;

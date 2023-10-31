@@ -61,5 +61,5 @@ const DetailHeader = styled.div`
   padding-bottom: 1.8rem;
 
   color: #46494a;
-  ${({ theme }) => theme.fonts.Telegram_Title_3_1};
+  ${({ theme }) => theme.fonts.Nexton_Title_Medium};
 `;

@@ -7,10 +7,11 @@ interface SaleNftProps {
   timeStamp: string;
   lockPeriod: number;
   amount: number;
+  icon?: string;
 }
 
 const SaleNft = (props: SaleNftProps) => {
-  const { timeStamp, lockPeriod, amount } = props;
+  const { timeStamp, lockPeriod, amount, icon } = props;
 
   const SwitchSaleNftImage = () => {
     if (DDayChange(timeStamp, lockPeriod) > 15) {
@@ -26,6 +27,7 @@ const SaleNft = (props: SaleNftProps) => {
       <ExpiryDateText>
         Expiry {expiredDateChanger(timeStamp, lockPeriod, "detail")}
       </ExpiryDateText>
+      {icon && <StateIcon src={icon} alt="StateIcon" />}
       <ContentWrapper>
         <TotalValueLabel>Total Value</TotalValueLabel>
         <TotalValueText>{amount}</TotalValueText>
@@ -84,6 +86,13 @@ const ExpiryDateText = styled.div`
   position: absolute;
   top: 1.8rem;
   left: 1.8rem;
+`;
+
+const StateIcon = styled.img`
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  filter: drop-shadow(2px 2px 14px rgba(19, 35, 36, 0.36));
 `;
 
 const TotalValueLabel = styled.div`
