@@ -1,12 +1,15 @@
 import { styled } from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import SaleNftWithTitle from "../../components/myAsset/Sale/SaleNftWithTitle";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ListingPriceInput from "../../components/myAsset/Sale/ListingPriceInput";
 import RecommendPriceInfo from "../../components/myAsset/Sale/RecommendPriceInfo";
 import FeeInfo from "../../components/myAsset/Sale/FeeInfo";
 import { useRecoilValue } from "recoil";
 import { nftInfoAtom } from "../../lib/atom/nftInfo";
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
+
+const tele = (window as any).Telegram.WebApp;
 
 const ListForSale = () => {
   const navigate = useNavigate();
@@ -16,6 +19,20 @@ const ListForSale = () => {
     nftInfo;
 
   const [listingPrice, setListingPrice] = useState("");
+
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        navigate(`/myasset/${nftId}`);
+      });
+    }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
+  }, []);
 
   const saleNftProps = {
     titleText: "List For Sale",
@@ -38,6 +55,10 @@ const ListForSale = () => {
         <button onClick={() => navigate(`/listing/success/${nftId}`)}>
           Complete Listing
         </button>
+        <MainButton
+          text="Complete Listing"
+          onClick={() => navigate(`/listing/success/${nftId}`)}
+        />
       </ContentWrapper>
     </RootWrapper>
   );

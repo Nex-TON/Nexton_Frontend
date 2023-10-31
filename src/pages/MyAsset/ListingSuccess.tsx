@@ -4,7 +4,11 @@ import { useRecoilValue } from "recoil";
 import { nftInfoAtom } from "../../lib/atom/nftInfo";
 import IcSuccess from "../../assets/icons/MyAsset/ic_success.svg";
 import IcArrowRight from "../../assets/icons/MyAsset/ic_arrow_right.svg";
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
+const tele = (window as any).Telegram.WebApp;
 
 const ListingSuccess = () => {
   const navigate = useNavigate();
@@ -20,6 +24,19 @@ const ListingSuccess = () => {
     icon: IcSuccess,
   };
 
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        navigate(`/listing/${nftId}`);
+      });
+    }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
+  }, []);
 
   return (
     <RootWrapper>
@@ -46,6 +63,10 @@ const ListingSuccess = () => {
           <img src={IcArrowRight} alt="ArrowIcon" />
         </MarketplaceBtn>
         <button onClick={() => navigate(`/myasset/nftlist`)}>Confirm</button>
+        <MainButton
+          text="Confirm"
+          onClick={() => navigate(`/myasset/nftlist`)}
+        />
       </ContentWrapper>
     </RootWrapper>
   );
