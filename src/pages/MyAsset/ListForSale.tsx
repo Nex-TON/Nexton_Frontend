@@ -1,16 +1,28 @@
 import { styled } from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
-import SaleCardWithTitle from "../../components/myAsset/Sale/SaleCardWithTitle";
+import SaleNftWithTitle from "../../components/myAsset/Sale/SaleNftWithTitle";
 import { useState } from "react";
 import ListingPriceInput from "../../components/myAsset/Sale/ListingPriceInput";
 import RecommendPriceInfo from "../../components/myAsset/Sale/RecommendPriceInfo";
 import FeeInfo from "../../components/myAsset/Sale/FeeInfo";
+import { useRecoilValue } from "recoil";
+import { nftInfoAtom } from "../../lib/atom/nftInfo";
 
 const ListForSale = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const nftInfo = useRecoilValue(nftInfoAtom);
+  const { nftId, amount, leverage, timeStamp, lockPeriod, nominator, status } =
+    nftInfo;
 
   const [listingPrice, setListingPrice] = useState("");
+
+  const saleNftProps = {
+    titleText: "List For Sale",
+    amount: amount,
+    timeStamp: timeStamp,
+    lockPeriod: lockPeriod,
+  };
 
   const setInput = (input: string) => {
     setListingPrice(input);
@@ -18,7 +30,7 @@ const ListForSale = () => {
 
   return (
     <DetailWrapper>
-      <SaleCardWithTitle titleText={"List For Sale"} />
+      <SaleNftWithTitle {...saleNftProps} />
       <ContentWrapper>
         <ListingPriceInput input={listingPrice} setInput={setInput} />
         <RecommendPriceInfo />
