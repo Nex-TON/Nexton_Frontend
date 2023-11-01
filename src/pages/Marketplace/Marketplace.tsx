@@ -4,6 +4,41 @@ import Header from "../../components/common/Header";
 import IcCart from "../../assets/icons/Marketplace/ic_headerCart.svg";
 import BalanceInfo from "../../components/marketplace/BalanceInfo";
 import SearchBar from "../../components/marketplace/SearchBar";
+import ListedPosition from "../../components/marketplace/ListedPosition";
+import { position } from "../../types/Nft";
+
+const POSITION_DUMMY: position[] = [
+  {
+    nftId: 1,
+    price: 2546356.05,
+    maxValue: 3030000,
+    expiryDate: "1698390252479",
+  },
+  {
+    nftId: 2,
+    price: 78,
+    maxValue: 100,
+    expiryDate: "1698390252479",
+  },
+  {
+    nftId: 3,
+    price: 918312388123.3,
+    maxValue: 920000000000,
+    expiryDate: "1698390252479",
+  },
+  {
+    nftId: 4,
+    price: 30,
+    maxValue: 31.5609,
+    expiryDate: "1698390252479",
+  },
+  {
+    nftId: 5,
+    price: 1235123,
+    maxValue: 3030000,
+    expiryDate: "1698390252479",
+  },
+];
 
 const Marketplace = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -26,6 +61,7 @@ const Marketplace = () => {
           onClick={searchBtnOnClick}
         />
       </InfoWrapper>
+      <ListedPosition positions={POSITION_DUMMY} />
     </MarketplaceWrapper>
   );
 };

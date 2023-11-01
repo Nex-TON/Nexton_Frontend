@@ -10,3 +10,10 @@ export interface nftInfo {
   nominator: string;
   status: number;
 }
+
+export interface position {
+  nftId: number;
+  price: number;
+  maxValue: number;
+  expiryDate: string;
+}

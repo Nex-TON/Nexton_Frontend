@@ -197,7 +197,7 @@ const fonts = {
   `,
   Nexton_Title_Medium_2: css`
     font-family: "Montserrat";
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-style: normal;
     font-weight: 600;
     line-height: 3.4rem; /* 154.545% */
