@@ -1,10 +1,15 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../components/common/Header";
 import IcCart from "../../assets/icons/Marketplace/ic_headerCart.svg";
 import BalanceInfo from "../../components/marketplace/BalanceInfo";
+import SearchBar from "../../components/marketplace/SearchBar";
 
 const Marketplace = () => {
+  const [searchValue, setSearchValue] = useState("");
+
+  function searchBtnOnClick() {}
+
   return (
     <MarketplaceWrapper>
       <Header
@@ -13,7 +18,14 @@ const Marketplace = () => {
         text="Marketplace"
         icon={IcCart}
       />
-      <BalanceInfo />
+      <InfoWrapper>
+        <BalanceInfo />
+        <SearchBar
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          onClick={searchBtnOnClick}
+        />
+      </InfoWrapper>
     </MarketplaceWrapper>
   );
 };
@@ -26,4 +38,11 @@ const MarketplaceWrapper = styled.div`
   height: auto;
 
   background-color: #fff;
+`;
+
+const InfoWrapper = styled.div`
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;

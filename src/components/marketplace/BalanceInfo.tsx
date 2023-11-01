@@ -31,7 +31,6 @@ const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 2.1rem;
-  margin: 1rem;
   border-radius: 3rem;
   background: #f2f2f7;
   box-shadow: 0 0.6rem 1rem 0px rgba(94, 97, 98, 0.3);
