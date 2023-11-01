@@ -45,7 +45,7 @@ const SearchBar = (props: SearchBarProps) => {
         }}
       />
       <TonSymbol src={IcTonSymbol} alt="TON" />
-      <SearchBtn>
+      <SearchBtn isExist={!(searchValue === "")}>
         <img src={IcSearch} alt="Search Icon" />
       </SearchBtn>
     </ContentWrapper>
@@ -113,16 +113,15 @@ const TonSymbol = styled.img`
   height: 2rem;
 `;
 
-const SearchBtn = styled.div`
+const SearchBtn = styled.div<{ isExist: boolean }>`
   padding: 1rem;
   border-radius: 3rem;
   width: 4.2rem;
   height: 4.2rem;
-  background: linear-gradient(
-    160deg,
-    rgba(243, 246, 252, 0.2) 11.73%,
-    rgba(230, 231, 247, 0.2) 98.61%
-  );
+  background: ${({ isExist }) =>
+    isExist
+      ? "rgba(225, 228, 230, 0.10)"
+      : "linear-gradient(160deg,rgba(243, 246, 252, 0.2) 11.73%,rgba(230, 231, 247, 0.2) 98.61%)"};
   img {
     width: 2.2rem;
     height: 2.2rem;
