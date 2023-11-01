@@ -76,8 +76,8 @@ const PriceValue = styled.div`
   span {
     color: #5d5e67;
     ${({ theme }) => theme.fonts.Nexton_Body_Text_Large};
-    :last-child {
-      ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
-    }
+  }
+  :last-child {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
   }
 `;
