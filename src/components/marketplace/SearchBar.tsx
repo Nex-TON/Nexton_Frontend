@@ -12,6 +12,24 @@ interface SearchBarProps {
 const SearchBar = (props: SearchBarProps) => {
   const { searchValue, setSearchValue, onClick } = props;
 
+  function onChange(value: string) {
+    let inputValue = value;
+    // Remove all commas for processing
+    inputValue = inputValue.replace(/,/g, "");
+
+    // 숫자와 소수점만 입력 가능한 정규식 검사
+    if (!/^[\d.]*$/.test(inputValue)) return;
+
+    // 소수점은 하나만 허용
+    if ((inputValue.match(/\./g) || []).length > 1) return;
+
+    // 숫자는 1,000 단위마다 콤마로 구분
+    const parts = inputValue.split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    setSearchValue(parts.join("."));
+  }
+
   return (
     <ContentWrapper>
       <UnderLabel>
@@ -22,6 +40,9 @@ const SearchBar = (props: SearchBarProps) => {
         placeholder="Your budget"
         inputMode="decimal"
         value={searchValue}
+        onChange={(e) => {
+          onChange(e.target.value);
+        }}
       />
       <TonSymbol src={IcTonSymbol} alt="TON" />
       <SearchBtn>
