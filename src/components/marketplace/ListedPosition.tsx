@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { position } from "../../types/Nft";
+import IcDown from "../../assets/icons/Marketplace/ic_polygonDown.svg";
+import { useState, useEffect } from "react";
 
 interface ListedPositionProps {
   positions: position[];
@@ -7,6 +9,14 @@ interface ListedPositionProps {
 
 const ListedPosition = (props: ListedPositionProps) => {
   const { positions } = props;
+  const [displayWidth, setDisplayWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    console.log(displayWidth);
+    setDisplayWidth(window.innerWidth);
+  }, [window]);
+
+  console.log(displayWidth);
 
   return (
     <RootWrapper>
@@ -18,6 +28,19 @@ const ListedPosition = (props: ListedPositionProps) => {
             <span>{positions.length}</span>
           </div>
         </SectionHeader>
+        <TableLabelWrapper>
+          <IdPriceWrapper>
+            <TableLabelText>#</TableLabelText>
+            <TableLabelText>Price</TableLabelText>
+          </IdPriceWrapper>
+          <DiscountedExpiryWrapper displayWidth={displayWidth}>
+            <LabelWithIconWrapper>
+              <TableLabelText>Discounted</TableLabelText>
+              <img src={IcDown} alt="Down" />
+            </LabelWithIconWrapper>
+            <TableLabelText>Expiry</TableLabelText>
+          </DiscountedExpiryWrapper>
+        </TableLabelWrapper>
       </ContentWrapper>
     </RootWrapper>
   );
@@ -45,17 +68,51 @@ const SectionHeader = styled.div`
   align-items: center;
 
   span {
+    margin-left: 0.2rem;
     color: #2f3038;
     ${({ theme }) => theme.fonts.Nexton_Title_Medium_2};
   }
   div {
     display: flex;
-    gap: 0.4rem;
+    gap: 0.2rem;
     span {
       color: #333;
       ${({ theme }) => theme.fonts.Nexton_Label_Small};
+      margin-right: 0.2rem;
     }
   }
 `;
 
-const TableLabel = styled.div``;
+const TableLabelWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 1rem 2rem 1rem 1.7rem;
+  justify-content: space-between;
+
+  border-radius: 2rem;
+  border: 1px solid #f2f2f7;
+
+  div {
+    display: flex;
+  }
+`;
+
+const IdPriceWrapper = styled.div`
+  gap: 2.1rem;
+`;
+
+const DiscountedExpiryWrapper = styled.div<{ displayWidth: number }>`
+  gap: ${({ displayWidth }) => `${displayWidth * 0.07}px`};
+  justify-content: flex-end;
+`;
+
+const LabelWithIconWrapper = styled.span`
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+`;
+
+const TableLabelText = styled.span`
+  color: #767680;
+  ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
+`;
