@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import Header from "../../components/common/Header";
-import IcCart from "../../assets/icons/Marketplace/ic_header_cart.svg";
+import IcCart from "../../assets/icons/Marketplace/ic_headerCart.svg";
 import BalanceInfo from "../../components/marketplace/BalanceInfo";
 
 const Marketplace = () => {
