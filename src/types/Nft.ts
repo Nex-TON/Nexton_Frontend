@@ -15,5 +15,6 @@ export interface position {
   nftId: number;
   price: number;
   maxValue: number;
-  expiryDate: string;
+  lockPeriod: number;
+  timeStamp: string;
 }

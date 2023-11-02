@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { position } from "../../types/Nft";
 import IcDown from "../../assets/icons/Marketplace/ic_polygonDown.svg";
 import { useState, useEffect } from "react";
+import PositionItem from "./PositionItem";
 
 interface ListedPositionProps {
   positions: position[];
@@ -9,14 +10,6 @@ interface ListedPositionProps {
 
 const ListedPosition = (props: ListedPositionProps) => {
   const { positions } = props;
-  const [displayWidth, setDisplayWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    console.log(displayWidth);
-    setDisplayWidth(window.innerWidth);
-  }, [window]);
-
-  console.log(displayWidth);
 
   return (
     <RootWrapper>
@@ -28,12 +21,13 @@ const ListedPosition = (props: ListedPositionProps) => {
             <span>{positions.length}</span>
           </div>
         </SectionHeader>
+
         <TableLabelWrapper>
           <IdPriceWrapper>
             <TableLabelText>#</TableLabelText>
             <TableLabelText>Price</TableLabelText>
           </IdPriceWrapper>
-          <DiscountedExpiryWrapper displayWidth={displayWidth}>
+          <DiscountedExpiryWrapper displayWidth={window.innerWidth}>
             <LabelWithIconWrapper>
               <TableLabelText>Discounted</TableLabelText>
               <img src={IcDown} alt="Down" />
@@ -41,6 +35,12 @@ const ListedPosition = (props: ListedPositionProps) => {
             <TableLabelText>Expiry</TableLabelText>
           </DiscountedExpiryWrapper>
         </TableLabelWrapper>
+
+        <ListWrapper>
+          {positions.map((item) => (
+            <PositionItem key={item.nftId} item={item} />
+          ))}
+        </ListWrapper>
       </ContentWrapper>
     </RootWrapper>
   );
@@ -115,4 +115,9 @@ const LabelWithIconWrapper = styled.span`
 const TableLabelText = styled.span`
   color: #767680;
   ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
+`;
+
+const ListWrapper = styled.div`
+  width: 100%;
+  padding: 0 0.55rem 1rem 0.55rem;
 `;
