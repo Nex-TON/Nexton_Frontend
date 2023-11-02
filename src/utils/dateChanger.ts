@@ -16,7 +16,7 @@ export const expiredDateChanger = (
   lockPeriod: number,
   type?: string
 ) => {
-  const dateObj = new Date(dateString);
+  const dateObj = new Date(Number(dateString));
   dateObj.setDate(dateObj.getDate() + lockPeriod);
   const year = String(dateObj.getFullYear()).slice(-2);
   const month = String(dateObj.getMonth() + 1).padStart(2, "0");
@@ -31,7 +31,7 @@ export const DDayChange = (dateString: string, lockPeriod: number) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const dateObj = new Date(dateString);
+  const dateObj = new Date(Number(dateString));
   dateObj.setDate(dateObj.getDate() + lockPeriod);
   dateObj.setHours(0, 0, 0, 0);
 
