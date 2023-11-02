@@ -4,6 +4,7 @@ import IdBgForthComing from "../../assets/image/IdBgForthComing.png";
 import { position } from "../../types/Nft";
 import { DDayChange, expiredDateChanger } from "../../utils/dateChanger";
 import { numberCutter } from "../../utils/numberCutter";
+import { useNavigate } from "react-router-dom";
 
 interface PositionItemProps {
   item: position;
@@ -12,6 +13,8 @@ interface PositionItemProps {
 const PositionItem = (props: PositionItemProps) => {
   const { item } = props;
   const { nftId, price, maxValue, lockPeriod, timeStamp } = item;
+
+  const navigate = useNavigate();
 
   const SwitchNftIdImage = () => {
     console.log(`${nftId} : time : ${DDayChange(timeStamp, lockPeriod)}`);
@@ -27,30 +30,39 @@ const PositionItem = (props: PositionItemProps) => {
   }
 
   return (
-    <ContentWrapper>
-      <IdPriceWrapper>
-        <IdWrapper>
-          {SwitchNftIdImage()}
-          <IdText>{nftId}.</IdText>
-        </IdWrapper>
-        <PriceTickerWrapper>
-          <StyledText>{numberCutter(price)}</StyledText>
-          <StyledText isSmall>TON</StyledText>
-        </PriceTickerWrapper>
-      </IdPriceWrapper>
-      <DiscountedExpiryWrapper displayWidth={window.innerWidth}>
-        <StyledText width={3}>
-          {calculateDiscountRate(maxValue, price)}%
-        </StyledText>
-        <StyledText isSmall width={6}>
-          {expiredDateChanger(timeStamp, lockPeriod, "detail")}
-        </StyledText>
-      </DiscountedExpiryWrapper>
-    </ContentWrapper>
+    <RootWrapper onClick={() => navigate(`/buy/${nftId}`)}>
+      <ContentWrapper>
+        <IdPriceWrapper>
+          <IdWrapper>
+            {SwitchNftIdImage()}
+            <IdText>{nftId}.</IdText>
+          </IdWrapper>
+          <PriceTickerWrapper>
+            <StyledText>{numberCutter(price)}</StyledText>
+            <StyledText isSmall>TON</StyledText>
+          </PriceTickerWrapper>
+        </IdPriceWrapper>
+        <DiscountedExpiryWrapper displayWidth={window.innerWidth}>
+          <StyledText width={3}>
+            {calculateDiscountRate(maxValue, price)}%
+          </StyledText>
+          <StyledText isSmall width={6}>
+            {expiredDateChanger(timeStamp, lockPeriod, "detail")}
+          </StyledText>
+        </DiscountedExpiryWrapper>
+      </ContentWrapper>
+    </RootWrapper>
   );
 };
 
 export default PositionItem;
+
+const RootWrapper = styled.div`
+  width: 100%;
+  :active {
+    background-color: #f2f2f7;
+  }
+`;
 
 const ContentWrapper = styled.div`
   display: flex;
