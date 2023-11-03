@@ -46,6 +46,7 @@ const Router = () => {
         <Route path="/listing/:id" element={<ListForSale />} />
         <Route path="/listing/success/:id" element={<ListingSuccess />} />
         <Route path="/myasset/:id" element={<StakingNftDetail />} />
+        <Route path="/using/:id" element={<StakingNftDetail />} />
         <Route path="/unstaking/:id" element={<UnstakingNftDetail />} />
         <Route path="/unstaking/view/:id" element={<UnstakingNftDetail />} />
       </Routes>

@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import DetailNFTPreview from "../../components/myAsset/Detail/DetailNFTPreview";
 import DetailNftInfo from "../../components/myAsset/Detail/DetailNFTInfo";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useNFTDetail } from "../../hooks/api/useNFTDetail";
 
@@ -9,6 +9,7 @@ const tele = (window as any).Telegram.WebApp;
 
 const StakingNftDetail = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { id } = useParams();
   const { nftDetail } = useNFTDetail(Number(id));
 
@@ -30,7 +31,9 @@ const StakingNftDetail = () => {
     nftDetail &&
     nftDetail.length > 0 && (
       <DetailWrapper>
-        <DetailHeader>Staking NFT</DetailHeader>
+        <DetailHeader>
+          {pathname.includes("using") ? "Listed NFT" : "Staking NFT"}
+        </DetailHeader>
         <DetailNFTPreview item={nftDetail[0]} />
         <DetailNftInfo item={nftDetail[0]} />
       </DetailWrapper>

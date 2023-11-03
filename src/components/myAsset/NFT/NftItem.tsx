@@ -24,7 +24,7 @@ const NftItem = (props: NftItemProps) => {
   const handleMouseMove = (event: React.MouseEvent<HTMLImageElement>) => {
     const rect = (event.target as HTMLImageElement).getBoundingClientRect();
     setImageSize({ width: rect?.width, height: rect?.height });
-    navigate(`/myasset/${nftId}`);
+    navigate(icon ? `/using/${nftId}` : `/myasset/${nftId}`);
   };
 
   const SwitchDDayNftImage = () => {

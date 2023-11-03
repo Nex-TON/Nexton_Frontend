@@ -1,7 +1,7 @@
 import { css, styled } from "styled-components";
 import DetailNFTInfoHeader from "./DetailNFTInfoHeader";
 import IcTonSymbol from "../../../assets/icons/MyAsset/ic_tonSymbol.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { nftInfo } from "../../../types/Nft";
 import { numberCutter } from "../../../utils/numberCutter";
 import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
@@ -22,6 +22,7 @@ interface DetailNftInfoProps {
 }
 const DetailNftInfo = (props: DetailNftInfoProps) => {
   const { item } = props;
+  const { pathname } = useLocation();
   const address = useTonAddress();
   const telegramId = useRecoilValue(telegramAtom);
   const setNftInfo = useSetRecoilState(nftInfoAtom);
@@ -64,6 +65,27 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
       <DetailNftInfoWrapper>
         {isOpenModal && (
           <BasicModal type="claim" toggleModal={handleToggleModal} />
+        )}
+        {pathname.includes("using") && (
+          <>
+            <DetailNFTInfoHeader title="Listing Info" />
+            <DetailInfoItemWrapper>
+              <DetailInfoItem>
+                <DetailInfoItemText>Listed</DetailInfoItemText>
+                <DetailInfoItemText>dd/mm/yy</DetailInfoItemText>
+              </DetailInfoItem>
+              <DetailInfoItem>
+                <DetailInfoItemText>Price</DetailInfoItemText>
+                <DetailInfoItemText>0.000 TON</DetailInfoItemText>
+              </DetailInfoItem>
+              <DetailInfoItem>
+                <DetailInfoItemText>Total Value</DetailInfoItemText>
+                <DetailInfoItemText>
+                  <DetailTonSymbol>0.000 TON</DetailTonSymbol>
+                </DetailInfoItemText>
+              </DetailInfoItem>
+            </DetailInfoItemWrapper>
+          </>
         )}
         <DetailNFTInfoHeader title="NFT info" />
         <DetailInfoItemWrapper>
@@ -127,7 +149,12 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
           </DetailInfoItem>
         </DetailInfoItemWrapper>
         <ButtonWrapper>
-          {DDayChange(timeStamp, lockPeriod) > 0 ? (
+          {pathname.includes("using") ? (
+            <MainButton
+              text="Cancel Listing"
+              // onClick={}
+            />
+          ) : DDayChange(timeStamp, lockPeriod) > 0 ? (
             <>
               <MainButton text="List For Sale" onClick={handleListForSale} />
               <button onClick={handleListForSale}>List For Sale</button>
