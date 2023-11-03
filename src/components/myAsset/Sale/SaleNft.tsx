@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
 import SaleNftOngoing from "../../../assets/image/SaleNftOngoing.png";
 import SaleNftForthComing from "../../../assets/image/SaleNftForthComing.png";
+import { numberCutter } from "../../../utils/numberCutter";
 
 interface SaleNftProps {
   timeStamp: string;
@@ -30,13 +31,13 @@ const SaleNft = (props: SaleNftProps) => {
       {icon && <StateIcon src={icon} alt="StateIcon" />}
       <ContentWrapper>
         <TotalValueLabel>Total Value</TotalValueLabel>
-        <TotalValueText>{amount}</TotalValueText>
+        <TotalValueText>{numberCutter(amount)}</TotalValueText>
         <TotalValueText>TON</TotalValueText>
         <ValueInfoWrapper>
           <div>
             <span>Principal</span>
             <ValueWrapper>
-              <span>{amount}</span>
+              <span>{numberCutter(amount)}</span>
               <span>TON</span>
             </ValueWrapper>
           </div>
