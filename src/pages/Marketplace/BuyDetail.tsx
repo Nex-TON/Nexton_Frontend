@@ -212,7 +212,6 @@ const InfoHeaderIcon = styled.img<{ isOpen: boolean }>`
 const InfoItemList = styled.div<{ isOpen: boolean }>`
   width: 100%;
   padding-top: 1.4rem;
-  animation: ${({ isOpen }) => (isOpen ? fadeOut : fadeIn)} 0.5s forwards;
   display: ${({ isOpen }) => (isOpen ? "none" : "block")};
 `;
 
@@ -257,21 +256,4 @@ const rotateChevronUp = keyframes`
     100% {
         transform: rotate(0deg);
     }
-`;
-
-const fadeIn = keyframes`
-    0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-const fadeOut = keyframes`
-    0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
 `;
