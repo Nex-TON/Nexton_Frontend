@@ -11,7 +11,7 @@ const DetailNFTInfoHeaderWrapper = styled.div`
   padding: 0.9rem 0 0.9rem 1.3rem;
 
   border-radius: 2rem;
-  background-color: #f9f9ff;
+  background-color: #fff;
   box-shadow: 0 0.4rem 2rem 0 #e1e4e6;
 
   color: #46494a;

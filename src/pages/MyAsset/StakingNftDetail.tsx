@@ -48,7 +48,7 @@ const DetailWrapper = styled.div`
   width: 100%;
   height: auto;
   min-height: 100%;
-  background-color: #f2f2f7;
+  background-color: #fff;
 `;
 
 const DetailHeader = styled.div`
