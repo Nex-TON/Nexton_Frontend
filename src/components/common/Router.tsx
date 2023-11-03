@@ -19,6 +19,7 @@ import Marketplace from "../../pages/Marketplace/Marketplace";
 import ListForSale from "../../pages/MyAsset/ListForSale";
 import ListingSuccess from "../../pages/MyAsset/ListingSuccess";
 import BuyDetail from "../../pages/Marketplace/BuyDetail";
+import UsingList from "../../pages/MyAsset/UsingList";
 
 const Router = () => {
   return (
@@ -38,6 +39,7 @@ const Router = () => {
         <Route path="/buy/:id" element={<BuyDetail />} />
         <Route path="/myasset" element={<MyAsset />}>
           <Route path="nftlist" element={<NftList />} />
+          <Route path="using" element={<UsingList />} />
           <Route path="unstaking" element={<UnstakingList />} />
           <Route path="unstakingdetail" element={<UnstakingDetail />} />
         </Route>

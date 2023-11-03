@@ -9,10 +9,10 @@ const MyAsset = () => {
   const [myAssetMenu, setMyAssetMenu] = useState("NFT");
 
   return (
-    <MyAssetWrapper $type={pathname.includes("nftlist") ? true : false}>
+    <MyAssetWrapper $type={pathname.includes("unstaking") ? false : true}>
       <Header
         isOpen={false}
-        backgroundType={pathname.includes("nftlist") ? false : true}
+        backgroundType={pathname.includes("unstaking") ? true : false}
         text="My Asset"
       />
       <MyAssetContentWrapper>

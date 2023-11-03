@@ -5,6 +5,8 @@ import IcCardCheckDisable from "../../assets/icons/MyAsset/ic_cardCheck_disable.
 import IcCardCheckActive from "../../assets/icons/MyAsset/ic_cardCheck_active.svg";
 import IcCoinsDisable from "../../assets/icons/MyAsset/ic_coins_disable.svg";
 import IcCoinsActive from "../../assets/icons/MyAsset/ic_coins_active.svg";
+import IcCardUpDisable from "../../assets/icons/MyAsset/ic_cardUp_disable.svg";
+import IcCardUpActive from "../../assets/icons/MyAsset/ic_cardUp_active.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 
 interface NftHeaderProps {
@@ -28,6 +30,16 @@ const NftHeader = (props: NftHeaderProps) => {
           )}
         </NftBox>
         <NFTHeadingItemText>NFT</NFTHeadingItemText>
+      </NFTHeadingItem>
+      <NFTHeadingItem onClick={() => navigate("/myasset/using")}>
+        <NftBox $active={pathname.includes("using") ? true : false}>
+          {pathname.includes("using") ? (
+            <img src={IcCardUpActive} alt="card" />
+          ) : (
+            <img src={IcCardUpDisable} alt="card" />
+          )}
+        </NftBox>
+        <NFTHeadingItemText>Using</NFTHeadingItemText>
       </NFTHeadingItem>
       <NFTHeadingItem onClick={() => navigate("/myasset/unstaking")}>
         <UnstakingBox $active={pathname.includes("unstaking") ? true : false}>
@@ -60,7 +72,7 @@ export default NftHeader;
 const NftHeaderWrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: 5.4rem;
+  gap: 3rem;
 
   width: 100%;
   margin-bottom: 2.4rem;
