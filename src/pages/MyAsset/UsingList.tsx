@@ -1,5 +1,46 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
+import NftItem from "../../components/myAsset/NFT/NftItem";
+import IcCart from "../../assets/icons/Marketplace/ic_nftCart.svg";
+
+const NFT_DUMMY = [
+  {
+    nftId: 1,
+    amount: 1.05,
+    leverage: 1,
+    lockPeriod: 60,
+    timeStamp: "1698914417641",
+    nominator: "string",
+    status: 0,
+  },
+  {
+    nftId: 2,
+    amount: 1.05,
+    leverage: 1,
+    lockPeriod: 60,
+    timeStamp: "1698914417641",
+    nominator: "string",
+    status: 0,
+  },
+  {
+    nftId: 3,
+    amount: 1.05,
+    leverage: 1,
+    lockPeriod: 1,
+    timeStamp: "1698914417641",
+    nominator: "string",
+    status: 0,
+  },
+  {
+    nftId: 4,
+    amount: 1.05,
+    leverage: 1,
+    lockPeriod: 10,
+    timeStamp: "1698914417641",
+    nominator: "string",
+    status: 0,
+  },
+];
 
 const UsingList = () => {
   const [isSelect, setIsSelect] = useState([true, false, false]);
@@ -21,6 +62,11 @@ const UsingList = () => {
           Collateralized
         </NFTSelectBox>
       </NftListHeader>
+      <NFTItemWrapper>
+        {NFT_DUMMY.map((item) => (
+          <NftItem key={item.nftId} item={item} icon={IcCart} />
+        ))}
+      </NFTItemWrapper>
     </NFtListWrapper>
   );
 };
@@ -88,4 +134,24 @@ const NFTSelectBox = styled.button<{ $active?: boolean }>`
 
   outline: none;
   cursor: pointer;
+`;
+
+const NFTItemWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(14.2rem, 1fr));
+  gap: 1.6rem;
+
+  width: 100%;
+  padding: 2.5rem;
+
+  background-color: #fff;
+
+  overflow-y: scroll;
+
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+
+  &::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
 `;

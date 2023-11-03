@@ -10,10 +10,11 @@ import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
 
 interface NftItemProps {
   item: nftInfo;
+  icon?: string;
 }
 
 const NftItem = (props: NftItemProps) => {
-  const { item } = props;
+  const { item, icon } = props;
   const { nftId, timeStamp, lockPeriod } = item;
 
   const [, setImageSize] = useRecoilState(imageSizeAtom);
@@ -76,6 +77,7 @@ const NftItem = (props: NftItemProps) => {
           ? `D-Day`
           : `D+${DDayChange(timeStamp, lockPeriod) * -1}`}
       </NFTDDayText>
+      {icon && <Icon src={icon} />}
       <NFTExpiredDateText>Expired Date</NFTExpiredDateText>
       <NFTExpiredDateText $date>
         {expiredDateChanger(timeStamp, lockPeriod)}
@@ -106,6 +108,18 @@ const NFTDDayText = styled.span`
 
   color: #fff;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
+`;
+
+const Icon = styled.img`
+  width: 2.8rem;
+  height: 2.8rem;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  filter: drop-shadow(
+    2.2467761039733887px 2.9815726280212402px 7.4666666984558105px
+      rgba(18, 33, 34, 0.31)
+  );
 `;
 
 const NFTExpiredDateText = styled.span<{ $date?: boolean }>`
