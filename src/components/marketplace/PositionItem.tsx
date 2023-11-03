@@ -17,7 +17,6 @@ const PositionItem = (props: PositionItemProps) => {
   const navigate = useNavigate();
 
   const SwitchNftIdImage = () => {
-    console.log(`${nftId} : time : ${DDayChange(timeStamp, lockPeriod)}`);
     if (DDayChange(timeStamp, lockPeriod) > 15) {
       return <IdBgImage src={IdBgOngoing} alt="NFTOngoing" />;
     } else {

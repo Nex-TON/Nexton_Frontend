@@ -3,6 +3,7 @@ import { position } from "../../types/Nft";
 import IcDown from "../../assets/icons/Marketplace/ic_polygonDown.svg";
 import { useState, useEffect } from "react";
 import PositionItem from "./PositionItem";
+import EmptyList from "./EmptyList";
 
 interface ListedPositionProps {
   positions: position[];
@@ -35,12 +36,15 @@ const ListedPosition = (props: ListedPositionProps) => {
             <TableLabelText>Expiry</TableLabelText>
           </DiscountedExpiryWrapper>
         </TableLabelWrapper>
-
-        <ListWrapper>
-          {positions.map((item) => (
-            <PositionItem key={item.nftId} item={item} />
-          ))}
-        </ListWrapper>
+        {positions.length > 0 ? (
+          <ListWrapper>
+            {positions.map((item) => (
+              <PositionItem key={item.nftId} item={item} />
+            ))}
+          </ListWrapper>
+        ) : (
+          <EmptyList />
+        )}
       </ContentWrapper>
     </RootWrapper>
   );

@@ -66,7 +66,7 @@ const Marketplace = () => {
           onClick={searchBtnOnClick}
         />
       </InfoWrapper>
-      <ListedPosition positions={POSITION_DUMMY} />
+      <ListedPosition positions={[]} />
     </MarketplaceWrapper>
   );
 };
