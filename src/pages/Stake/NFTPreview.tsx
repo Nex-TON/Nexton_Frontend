@@ -88,6 +88,7 @@ const NFTPreview = () => {
           </NFTPreviewHeaderBottom>
         </NFTPreviewHeader>
       </NFTPreviewHeaderWrapper>
+      <NftPreviewGraph stakingInfo={stakingInfo} />
       <NFTPreviewInfo stakingInfo={stakingInfo} />
 
       <NFTPreviewConfirmBox>
