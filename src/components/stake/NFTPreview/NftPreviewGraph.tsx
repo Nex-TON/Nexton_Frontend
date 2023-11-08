@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { StakingProps } from "../../../types/staking";
-import GraphImg from "../../../assets/image/StakePreviewGraph.svg";
+import DefaultGraph from "../../../assets/icons/Stake/StakePreviewGraphDefault.svg";
+import LeveragedGraph from "../../../assets/icons/Stake/StakePreviewGraphLeveraged.svg";
 import TonSymbol from "../../../assets/icons/ic_ton.svg";
 
 interface NftPreviewGraphProps {
@@ -9,10 +10,13 @@ interface NftPreviewGraphProps {
 
 const NftPreviewGraph = (props: NftPreviewGraphProps) => {
   const { stakingInfo } = props;
+  console.log(`leverage: ${stakingInfo.leverage}`);
 
   return (
     <ContentWrapper>
-      <GraphWrapper image={GraphImg}>
+      <GraphWrapper
+        image={stakingInfo.leverage > 1 ? LeveragedGraph : DefaultGraph}
+      >
         <Column style={{ flex: 238 }}>
           <Column style={{ flex: 4 }}>
             <RewardWrapper>
@@ -25,15 +29,19 @@ const NftPreviewGraph = (props: NftPreviewGraphProps) => {
             </FinalLabel>
           </Column>
           <Column style={{ flex: 3 }}>
-            <span />
-            <OriginalLabel>
-              <span>Original</span>
-              <span>1,220</span>
-              <img
-                src={TonSymbol}
-                style={{ width: "1.2rem", height: "1.2rem" }}
-              />
-            </OriginalLabel>
+            {stakingInfo.leverage > 1 && (
+              <>
+                <span />
+                <OriginalLabel>
+                  <span>Original</span>
+                  <span>1,220</span>
+                  <img
+                    src={TonSymbol}
+                    style={{ width: "1.2rem", height: "1.2rem" }}
+                  />
+                </OriginalLabel>
+              </>
+            )}
           </Column>
           <Column style={{ flex: 3 }}></Column>
         </Column>
