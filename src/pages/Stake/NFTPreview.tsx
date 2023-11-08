@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import ProgressBar from "../../components/stake/common/ProgressBar";
 import IcAlertBlue from "../../assets/icons/Stake/ic_alert_blue.svg";
+import NftPreviewGraph from "../../components/stake/NFTPreview/NftPreviewGraph";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -75,30 +76,21 @@ const NFTPreview = () => {
       {modal && <BasicModal type="stake" toggleModal={toggleModal} />}
       <ProgressBar />
       <NFTPreviewHeaderWrapper>
-        <StepBox>Fin.</StepBox>
         <NFTPreviewHeader>
           <NFTPreviewHeaderTop>
-            <p>Check info that will</p>
-            <p>be noted on your NFT</p>
+            <p>Estimated total profit for you</p>
           </NFTPreviewHeaderTop>
           <NFTPreviewHeaderBottom>
-            <p>After this process, transaction cancel should be</p>
-            <p>turned down.</p>
+            <p>
+              The reward you will receive at the end of the NFT lockup period
+              based on current APR.
+            </p>
           </NFTPreviewHeaderBottom>
         </NFTPreviewHeader>
       </NFTPreviewHeaderWrapper>
-      <NftPreviewImage lockup={stakingInfo.lockup} />
       <NFTPreviewInfo stakingInfo={stakingInfo} />
+
       <NFTPreviewConfirmBox>
-        <img src={IcAlertBlue} alt="alertBlue" />
-        <div>
-          <NFTPreviewConfirmText>
-            You cannot cancel the transaction after pressing
-          </NFTPreviewConfirmText>
-          <NFTPreviewConfirmText>
-            Confirm. Please check the NFT information.
-          </NFTPreviewConfirmText>
-        </div>
         <MainButton text="Confirm" onClick={handleMinting} />
         {/* <FooterButton title="Confirm" onClick={handleMinting} /> */}
       </NFTPreviewConfirmBox>
@@ -147,7 +139,8 @@ const NFTPreviewConfirmBox = styled.div`
   gap: 1.4rem;
 
   width: 100%;
-  margin-bottom: 1.6rem;
+  padding: 1rem 1.2rem;
+  background-color: #e1e4e6;
 `;
 const NFTPreviewConfirmText = styled.p`
   color: #007aff;
