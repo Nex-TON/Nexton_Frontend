@@ -28,7 +28,7 @@ const ListedPosition = (props: ListedPositionProps) => {
             <TableLabelText>#</TableLabelText>
             <TableLabelText>Price</TableLabelText>
           </IdPriceWrapper>
-          <DiscountedExpiryWrapper displayWidth={window.innerWidth}>
+          <DiscountedExpiryWrapper $displayWidth={window.innerWidth}>
             <LabelWithIconWrapper>
               <TableLabelText>Discounted</TableLabelText>
               <img src={IcDown} alt="Down" />
@@ -105,8 +105,8 @@ const IdPriceWrapper = styled.div`
   gap: 2.1rem;
 `;
 
-const DiscountedExpiryWrapper = styled.div<{ displayWidth: number }>`
-  gap: ${({ displayWidth }) => `${displayWidth * 0.07}px`};
+const DiscountedExpiryWrapper = styled.div<{ $displayWidth: number }>`
+  gap: ${({ $displayWidth }) => `${$displayWidth * 0.07}px`};
   justify-content: flex-end;
 `;
 

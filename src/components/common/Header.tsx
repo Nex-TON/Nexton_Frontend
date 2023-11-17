@@ -58,7 +58,7 @@ const Header = (props: HeaderProps) => {
               )}
             </DisconnectButton>
           )}
-          <MenuButton onClick={handleRouter} isOpen={isOpen}>
+          <MenuButton onClick={handleRouter} $isOpen={isOpen}>
             <span></span>
             <span></span>
             <span></span>
@@ -115,7 +115,7 @@ const DisconnectButton = styled.button<{ connect: boolean }>`
       : `linear-gradient(160deg, #f3f6fc 11.73%, #e6e7f7 98.61%)`};
 `;
 
-const MenuButton = styled.button<{ isOpen: boolean }>`
+const MenuButton = styled.button<{ $isOpen: boolean }>`
   position: relative;
 
   width: 4.4rem;
@@ -136,24 +136,24 @@ const MenuButton = styled.button<{ isOpen: boolean }>`
     transition: all 0.3s ease;
 
     &:nth-child(1) {
-      top: ${({ isOpen }) => (isOpen ? "50%" : "35%")};
+      top: ${({ $isOpen }) => ($isOpen ? "50%" : "35%")};
       left: 25%;
-      transform: ${({ isOpen }) =>
-        isOpen ? "translateY(-50%) rotate(45deg)" : "none"};
+      transform: ${({ $isOpen }) =>
+        $isOpen ? "translateY(-50%) rotate(45deg)" : "none"};
     }
 
     &:nth-child(2) {
       top: 50%;
       left: 25%;
       transform: translateY(-50%);
-      opacity: ${({ isOpen }) => (isOpen ? 0 : 1)};
+      opacity: ${({ $isOpen }) => ($isOpen ? 0 : 1)};
     }
 
     &:nth-child(3) {
-      bottom: ${({ isOpen }) => (isOpen ? "50%" : "35%")};
+      bottom: ${({ $isOpen }) => ($isOpen ? "50%" : "35%")};
       left: 25%;
-      transform: ${({ isOpen }) =>
-        isOpen ? "translateY(50%) rotate(-45deg)" : "none"};
+      transform: ${({ $isOpen }) =>
+        $isOpen ? "translateY(50%) rotate(-45deg)" : "none"};
     }
   }
 

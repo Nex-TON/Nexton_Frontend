@@ -38,14 +38,14 @@ const PositionItem = (props: PositionItemProps) => {
           </IdWrapper>
           <PriceTickerWrapper>
             <StyledText>{numberCutter(price)}</StyledText>
-            <StyledText isSmall>TON</StyledText>
+            <StyledText $isSmall>TON</StyledText>
           </PriceTickerWrapper>
         </IdPriceWrapper>
-        <DiscountedExpiryWrapper displayWidth={window.innerWidth}>
+        <DiscountedExpiryWrapper $displayWidth={window.innerWidth}>
           <StyledText width={3}>
             {calculateDiscountRate(maxValue, price)}%
           </StyledText>
-          <StyledText isSmall width={6}>
+          <StyledText $isSmall width={6}>
             {expiredDateChanger(timeStamp, lockPeriod, "detail")}
           </StyledText>
         </DiscountedExpiryWrapper>
@@ -97,10 +97,10 @@ const IdText = styled.span`
   margin: auto;
 `;
 
-const StyledText = styled.span<{ isSmall?: boolean; width?: number }>`
+const StyledText = styled.span<{ $isSmall?: boolean; width?: number }>`
   color: #46494a;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
-  ${({ isSmall }) => isSmall && "font-size: 1.1rem;"}
+  ${({ $isSmall }) => $isSmall && "font-size: 1.1rem;"}
   ${({ width }) => width && `width: ${width}rem; text-align: center;`}
 `;
 
@@ -116,8 +116,8 @@ const IdPriceWrapper = styled.div`
   gap: 1rem;
 `;
 
-const DiscountedExpiryWrapper = styled.div<{ displayWidth: number }>`
+const DiscountedExpiryWrapper = styled.div<{ $displayWidth: number }>`
   display: flex;
   align-items: center;
-  gap: ${({ displayWidth }) => `${displayWidth * 0.1173}px`};
+  gap: ${({ $displayWidth }) => `${$displayWidth * 0.1173}px`};
 `;

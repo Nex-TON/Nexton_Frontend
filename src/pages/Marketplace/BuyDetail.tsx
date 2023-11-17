@@ -54,12 +54,12 @@ const BuyDetail = () => {
           >
             <InfoHeaderText>NFT info</InfoHeaderText>
             <InfoHeaderIcon
-              isOpen={isInfoOpen[0]}
+              $isOpen={isInfoOpen[0]}
               src={IcChevron}
               alt="Chevron"
             />
           </InfoHeaderWrapper>
-          <InfoItemList isOpen={isInfoOpen[0]}>
+          <InfoItemList $isOpen={isInfoOpen[0]}>
             <InfoItem>
               <InfoText>Token ID</InfoText>
               <InfoText align="right">542394...817863</InfoText>
@@ -86,12 +86,12 @@ const BuyDetail = () => {
           >
             <InfoHeaderText>Staking info</InfoHeaderText>
             <InfoHeaderIcon
-              isOpen={isInfoOpen[1]}
+              $isOpen={isInfoOpen[1]}
               src={IcChevron}
               alt="Chevron"
             />
           </InfoHeaderWrapper>
-          <InfoItemList isOpen={isInfoOpen[1]}>
+          <InfoItemList $isOpen={isInfoOpen[1]}>
             <InfoItem>
               <InfoText>Principal</InfoText>
               <InfoText align="right">{numberCutter(10000)} TON</InfoText>
@@ -202,17 +202,17 @@ const InfoHeaderText = styled.div`
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
 `;
 
-const InfoHeaderIcon = styled.img<{ isOpen: boolean }>`
+const InfoHeaderIcon = styled.img<{ $isOpen: boolean }>`
   width: 2rem;
   height: 2rem;
-  animation: ${({ isOpen }) => (isOpen ? rotateChevronDown : rotateChevronUp)}
+  animation: ${({ $isOpen }) => ($isOpen ? rotateChevronDown : rotateChevronUp)}
     0.5s forwards;
 `;
 
-const InfoItemList = styled.div<{ isOpen: boolean }>`
+const InfoItemList = styled.div<{ $isOpen: boolean }>`
   width: 100%;
   padding-top: 1.4rem;
-  display: ${({ isOpen }) => (isOpen ? "none" : "block")};
+  display: ${({ $isOpen }) => ($isOpen ? "none" : "block")};
 `;
 
 const InfoItem = styled.div`

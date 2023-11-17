@@ -12,10 +12,10 @@ const ProgressBar = () => {
 
   return (
     <ProgressBarWrapper>
-      <ProgressFirstItem progressStatus={progressStatus} />
-      <ProgressSecondItem progressStatus={progressStatus} />
-      <ProgressThirdItem progressStatus={progressStatus} />
-      <ProgressFinalItem progressStatus={progressStatus} />
+      <ProgressFirstItem $progressStatus={progressStatus} />
+      <ProgressSecondItem $progressStatus={progressStatus} />
+      <ProgressThirdItem $progressStatus={progressStatus} />
+      <ProgressFinalItem $progressStatus={progressStatus} />
     </ProgressBarWrapper>
   );
 };
@@ -31,46 +31,46 @@ const ProgressBarWrapper = styled.div`
   margin-bottom: 2.4rem;
 `;
 
-const ProgressFirstItem = styled.div<{ progressStatus: string }>`
+const ProgressFirstItem = styled.div<{ $progressStatus: string }>`
   width: 25%;
   height: 100%;
 
-  background-color: ${({ progressStatus }) =>
-    progressStatus === "amount" ? "#2C80FF" : "#7FBCFF"};
+  background-color: ${({ $progressStatus }) =>
+    $progressStatus === "amount" ? "#2C80FF" : "#7FBCFF"};
 
   border-radius: 1rem 0 0 1rem;
 `;
 const ProgressSecondItem = styled.div<{
-  progressStatus: string;
+  $progressStatus: string;
 }>`
   width: 25%;
   height: 100%;
 
-  background-color: ${({ progressStatus }) =>
-    progressStatus === "amount"
+  background-color: ${({ $progressStatus }) =>
+    $progressStatus === "amount"
       ? "#C6CACA"
-      : progressStatus === "nominator"
+      : $progressStatus === "nominator"
       ? "#2C80FF"
       : "#7FBCFF"};
 `;
-const ProgressThirdItem = styled.div<{ progressStatus: string }>`
+const ProgressThirdItem = styled.div<{ $progressStatus: string }>`
   width: 25%;
   height: 100%;
 
-  background-color: ${({ progressStatus }) =>
-    progressStatus === "leverage"
+  background-color: ${({ $progressStatus }) =>
+    $progressStatus === "leverage"
       ? "#2C80FF"
-      : progressStatus === "preview"
+      : $progressStatus === "preview"
       ? "#7FBCFF"
       : "#C6CACA"};
 `;
 
-const ProgressFinalItem = styled.div<{ progressStatus: string }>`
+const ProgressFinalItem = styled.div<{ $progressStatus: string }>`
   width: 25%;
   height: 100%;
 
-  background-color: ${({ progressStatus }) =>
-    progressStatus === "preview" ? "#2C80FF" : "#C6CACA"};
+  background-color: ${({ $progressStatus }) =>
+    $progressStatus === "preview" ? "#2C80FF" : "#C6CACA"};
 
   border-radius: 0 1rem 1rem 0;
 `;

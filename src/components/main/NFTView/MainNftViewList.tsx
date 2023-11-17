@@ -19,8 +19,8 @@ const MainNftViewList = () => {
         </MainNftFirstInfoTitleBox>
         <img src={LandingNftStake} alt="nftStake" />
       </MainNftFirstInfoBox>
-      <EmptyNftItem isloading={isLoading} />
-      <EmptyNftItem isloading={isLoading} />
+      <EmptyNftItem $isloading={isLoading} />
+      <EmptyNftItem $isloading={isLoading} />
     </MainNftViewListWrapper>
   ) : nftList.filter((nft) => nft.status !== 2).length === 0 || !connected ? (
     <MainNftViewListWrapper>
@@ -104,15 +104,15 @@ const MainNftFirstInfoTitleBox = styled.div`
   }
 `;
 
-const EmptyNftItem = styled.div<{ isloading?: boolean }>`
+const EmptyNftItem = styled.div<{ $isloading?: boolean }>`
   width: 100%;
   aspect-ratio: 1/1.05;
   border-radius: 2rem;
 
   background-color: #f1f4f4;
 
-  ${({ isloading }) =>
-    isloading &&
+  ${({ $isloading }) =>
+    $isloading &&
     css`
       background: linear-gradient(90deg, #f1f4f4 25%, #f3f6f6 50%, #f1f4f4 75%);
       animation: ${shimmerAnimation} 1.5s infinite;
