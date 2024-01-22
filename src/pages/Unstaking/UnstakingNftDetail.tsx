@@ -9,7 +9,7 @@ import { telegramAtom } from "../../lib/atom/telegram";
 import { UnstakingProps } from "../../types/staking";
 import useTonConnect from "../../hooks/contract/useTonConnect";
 import { postUnstake } from "../../api/postUnstake";
-import { Transfer } from "../../hooks/contract/tact_FakeItem";
+import { Transfer } from "../../hooks/contract/wrappers/tact_FakeItem";
 import { randomAddress } from "@ton-community/test-utils";
 import * as Contract from "../../hooks/contract/useFakeItemContract";
 import BasicModal from "../../components/common/Modal/BasicModal";

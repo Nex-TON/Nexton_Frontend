@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import NftPreviewImage from "../../components/stake/NFTPreview/NftPreviewImage";
 import NFTPreviewInfo from "../../components/stake/NFTPreview/NFTPreviewInfo";
 import FooterButton from "../../components/common/FooterButton";
-import { UserDeposit } from "../../hooks/contract/tact_NexTon";
+import { UserDeposit } from "../../hooks/contract/wrappers/tact_NexTon";
 import * as Contract from "../../hooks/contract/depositTon";
 import BasicModal from "../../components/common/Modal/BasicModal";
 import { useEffect, useState } from "react";

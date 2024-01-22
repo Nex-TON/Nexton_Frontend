@@ -8,7 +8,7 @@ import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
 import { getProtocolFee } from "../../../utils/getProtocolFee";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import * as Contract from "../../../hooks/contract/depositTon";
-import { UserClaimWithdraw } from "../../../hooks/contract/tact_NexTon";
+import { UserClaimWithdraw } from "../../../hooks/contract/wrappers/tact_NexTon";
 import { useRecoilValue } from "recoil";
 import { telegramAtom } from "../../../lib/atom/telegram";
 import { useTonAddress } from "@tonconnect/ui-react";
