@@ -4,7 +4,7 @@ import { Address, toNano } from "ton-core";
 import { NexTon } from "./tact_NexTon";
 import useTonConnect from "./useTonConnect";
 
-function useNextonContract() {
+function depositTon() {
   const contractAddress = `${import.meta.env.VITE_CONTRACT_ADDRESS}`;
   const client = useTonClient();
   const { sender, address } = useTonConnect();
@@ -42,4 +42,4 @@ function useNextonContract() {
   };
 }
 
-export { useNextonContract };
+export { depositTon };

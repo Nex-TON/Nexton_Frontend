@@ -7,7 +7,7 @@ import { numberCutter } from "../../../utils/numberCutter";
 import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
 import { getProtocolFee } from "../../../utils/getProtocolFee";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
-import * as Contract from "../../../hooks/contract/useNextonContract";
+import * as Contract from "../../../hooks/contract/depositTon";
 import { UserClaimWithdraw } from "../../../hooks/contract/tact_NexTon";
 import { useRecoilValue } from "recoil";
 import { telegramAtom } from "../../../lib/atom/telegram";
@@ -25,7 +25,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
   const telegramId = useRecoilValue(telegramAtom);
   const { nftId, amount, leverage, timeStamp, lockPeriod, nominator, status } =
     item;
-  const { sendMessage } = Contract.useNextonContract();
+  const { sendMessage } = Contract.depositTon();
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleWithDraw = async () => {

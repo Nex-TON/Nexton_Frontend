@@ -1,3 +1,3 @@
-import './useNextonContract';
+import "./depositTon";
 
-declare function useNextonContract(): any;
+declare function depositTon(): any;
