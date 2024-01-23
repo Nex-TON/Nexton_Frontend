@@ -2,7 +2,7 @@ import { useTonClient } from "./useTonClient";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { Address, toNano } from "ton-core";
 import useTonConnect from "./useTonConnect";
-import { FakeItem } from "./tact_FakeItem";
+import { FakeItem } from "./wrappers/tact_FakeItem";
 
 function useFakeItemContract() {
   const contractAddress = `${import.meta.env.VITE_FAKEITEM_CONTRACT_ADDRESS}`;
