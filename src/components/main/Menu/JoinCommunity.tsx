@@ -13,7 +13,9 @@ const JoinCommunity = () => {
     <JoinCommunityWrapper>
       <JoinCommunityTitle>Join in our community</JoinCommunityTitle>
       <JoinCommunityButtonList>
-        <JoinCommunityButton>
+        <JoinCommunityButton
+          onClick={() => handleNewTap("https://twitter.com/NextonNode")}
+        >
           <JoinCommunityButtonRightBox>
             <img src={IcMenuTwitter} alt="twitter" />
             Twitter
