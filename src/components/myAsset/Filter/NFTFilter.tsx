@@ -73,6 +73,7 @@ const NFTFilterLi = styled.li<{
   padding: 1rem 1.2rem;
 
   color: #5e6162;
+  cursor: pointer;
 
   ${({ theme }) => theme.fonts.Nexton_Label_Small};
 

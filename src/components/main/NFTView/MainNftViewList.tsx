@@ -88,6 +88,7 @@ const MainNftFirstInfoBox = styled.div`
 
   border-radius: 2rem;
   background-color: #2f3038;
+  cursor: pointer;
 `;
 
 const MainNftFirstInfoTitleBox = styled.div`

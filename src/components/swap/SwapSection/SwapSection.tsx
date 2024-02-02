@@ -79,4 +79,5 @@ const SwapArrowBox = styled.div`
   border-radius: 50%;
   background-color: #fff;
   box-shadow: 0px 0px 20px rgba(9, 9, 10, 0.1);
+  cursor: pointer;
 `;

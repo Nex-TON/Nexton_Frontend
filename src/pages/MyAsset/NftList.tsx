@@ -154,6 +154,7 @@ const NFTReloadBox = styled.div`
 
   border-radius: 50%;
   background-color: #fff;
+  cursor: pointer;
 `;
 
 const NFTSelectBox = styled.button<{ $active?: boolean }>`

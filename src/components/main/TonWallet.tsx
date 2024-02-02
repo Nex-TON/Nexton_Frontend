@@ -53,6 +53,7 @@ const TonWalletWrapper = styled.div`
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium}
 
   filter: drop-shadow(0px 6px 10px rgba(94, 97, 98, 0.30));
+  cursor: pointer;
 `;
 
 const TonConnectStatusBox = styled.div`

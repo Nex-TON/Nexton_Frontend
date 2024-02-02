@@ -30,6 +30,10 @@ const UnstakingDetailHeader = (props: UnstakingDetailHeaderProps) => {
     };
   }, []);
 
+  const pointerStyle = {
+    cursor: "pointer",
+  };
+
   return (
     <>
       <UnstakingDetailHeaderWrapper>
@@ -38,9 +42,19 @@ const UnstakingDetailHeader = (props: UnstakingDetailHeaderProps) => {
             Unstaking NFT
           </UnstakingDetailTitle>
           {isOpenDesc ? (
-            <img src={IcUp} alt="up" onClick={() => setIsOpenDesc(false)} />
+            <img
+              src={IcUp}
+              alt="up"
+              onClick={() => setIsOpenDesc(false)}
+              style={pointerStyle}
+            />
           ) : (
-            <img src={IcDown} alt="down" onClick={() => setIsOpenDesc(true)} />
+            <img
+              src={IcDown}
+              alt="down"
+              onClick={() => setIsOpenDesc(true)}
+              style={pointerStyle}
+            />
           )}
         </UnstakingDetailHeaderLeft>
         <UnstakingDetailRightText>
@@ -102,6 +116,7 @@ const BackWrapper = styled.div`
 const UnstakingDetailTitle = styled.span`
   color: #27293e;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+  cursor: pointer;
 `;
 
 const UnstakingDetailRightText = styled.span`

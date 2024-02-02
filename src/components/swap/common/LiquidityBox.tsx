@@ -90,6 +90,7 @@ const LiquidityBoxTop = styled.div`
 
   color: #303234;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+  cursor: pointer;
 `;
 
 const LiquidityDescBox = styled.div`

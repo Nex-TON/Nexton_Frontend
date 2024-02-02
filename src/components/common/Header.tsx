@@ -103,6 +103,8 @@ const DisconnectButton = styled.button<{ connect: boolean }>`
     connect
       ? `#2F3038`
       : `linear-gradient(160deg, #f3f6fc 11.73%, #e6e7f7 98.61%)`};
+
+  cursor: pointer;
 `;
 
 const MenuButton = styled.button<{ isOpen: boolean }>`
@@ -155,4 +157,6 @@ const HeaderTitle = styled.div`
   gap: 0.6rem;
   color: #2c3542;
   ${({ theme }) => theme.fonts.Nexton_Title_Medium};
+
+  cursor: pointer;
 `;

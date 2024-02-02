@@ -61,4 +61,5 @@ const MainNftViewInnerTitleMore = styled.div`
 
   color: #09090a;
   ${({ theme }) => theme.fonts.Nexton_Label_Small};
+  cursor: pointer;
 `;

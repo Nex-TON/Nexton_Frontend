@@ -68,6 +68,7 @@ const SwapRatioTop = styled.div`
 
   color: #46494a;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+  cursor: pointer;
 `;
 
 const SwapRatioDescWrapper = styled.div`

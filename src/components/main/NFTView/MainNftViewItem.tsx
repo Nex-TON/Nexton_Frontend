@@ -79,6 +79,8 @@ const MainNftViewItemWrapper = styled.div`
   width: 100%;
   border-radius: 2rem;
   aspect-ratio: 1/1.05;
+
+  cursor: pointer;
 `;
 
 const MainNftViewItemImg = styled.img`

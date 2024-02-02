@@ -18,6 +18,10 @@ const Leverage = (props: Step2Props) => {
   const { input, maxLeverage, setMaxLeverage, ratio, setRatio } = props;
   const [isOpenSlider, setIsOpenSlider] = useState(false);
 
+  const pointerStyle = {
+    cursor: "pointer",
+  };
+
   return (
     <LeverageWrapper>
       <Step title="Step 3" type="leverage" />
@@ -33,12 +37,14 @@ const Leverage = (props: Step2Props) => {
               src={IcBlackArrowUp}
               alt="arrow"
               onClick={() => setIsOpenSlider((prev) => !prev)}
+              style={pointerStyle}
             />
           ) : (
             <img
               src={IcBlackArrowDown}
               alt="arrow"
               onClick={() => setIsOpenSlider((prev) => !prev)}
+              style={pointerStyle}
             />
           )}
         </LeverageRightBox>

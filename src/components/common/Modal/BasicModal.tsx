@@ -145,6 +145,8 @@ const OpenTonViewer = styled.button`
   background: transparent;
   color: #008aff;
   ${({ theme }) => theme.fonts.Telegram_Caption_1_1};
+
+  cursor: pointer;
 `;
 
 const Title = styled.p`

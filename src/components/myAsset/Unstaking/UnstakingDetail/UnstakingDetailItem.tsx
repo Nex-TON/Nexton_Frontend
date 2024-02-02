@@ -62,6 +62,8 @@ const UnstakingDetailItemWrapper = styled.div`
   & + & {
     margin-top: 0.8rem;
   }
+
+  cursor: pointer;
 `;
 
 const UnstakingDetailTopBox = styled.div`
