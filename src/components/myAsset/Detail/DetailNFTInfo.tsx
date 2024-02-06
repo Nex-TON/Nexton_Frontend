@@ -72,9 +72,9 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
         )}
         <DetailNFTInfoHeader title="NFT info" />
         <DetailInfoItemWrapper>
-          <DetailInfoItem>
-            <DetailInfoItemText>Token ID</DetailInfoItemText>
-            <DetailInfoItemText style={pointerStyle} onClick={copyId}>
+          <DetailInfoItem style={pointerStyle} onClick={copyId}>
+            <DetailInfoItemText>Token ID (Click to copy)</DetailInfoItemText>
+            <DetailInfoItemText>
               {String(nftId).padStart(5, "0")}
             </DetailInfoItemText>
           </DetailInfoItem>
