@@ -22,10 +22,10 @@ const DetailNFTPreview = (props: DetailNFTPreviewProps) => {
         <NFTImage
           src={NFTOngoing}
           alt="NFTOngoing"
-          style={{
-            width: `${imageSize.width}px`,
-            height: `${imageSize.height}px`,
-          }}
+          // style={{
+          //   width: `${imageSize.width}px`,
+          //   height: `${imageSize.height}px`,
+          // }}
         />
       );
     } else if (DDayChange(timeStamp, lockPeriod) > 0) {
@@ -33,10 +33,10 @@ const DetailNFTPreview = (props: DetailNFTPreviewProps) => {
         <NFTImage
           src={NFTForthComing}
           alt="NFTForthComing"
-          style={{
-            width: `${imageSize.width}px`,
-            height: `${imageSize.height}px`,
-          }}
+          // style={{
+          //   width: `${imageSize.width}px`,
+          //   height: `${imageSize.height}px`,
+          // }}
         />
       );
     } else {
@@ -44,10 +44,10 @@ const DetailNFTPreview = (props: DetailNFTPreviewProps) => {
         <NFTImage
           src={NFTExpired}
           alt="NFTExpired"
-          style={{
-            width: `${imageSize.width}px`,
-            height: `${imageSize.height}px`,
-          }}
+          // style={{
+          //   width: `${imageSize.width}px`,
+          //   height: `${imageSize.height}px`,
+          // }}
         />
       );
     }
@@ -102,6 +102,8 @@ const NFTImageWrapper = styled.div`
 
 const NFTImage = styled.img`
   border-radius: 2rem;
+  width: 15rem;
+  height: 16rem;
 `;
 
 const NFTDDayText = styled.span`
