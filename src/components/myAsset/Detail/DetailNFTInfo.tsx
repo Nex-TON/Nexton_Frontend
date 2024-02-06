@@ -15,6 +15,7 @@ import { useTonAddress } from "@tonconnect/ui-react";
 import { postClaim } from "../../../api/postClaim";
 import { useState } from "react";
 import BasicModal from "../../common/Modal/BasicModal";
+import toast, { Toaster } from "react-hot-toast";
 
 interface DetailNftInfoProps {
   item: nftInfo;
@@ -52,8 +53,19 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
   const handleToggleModal = () => {
     setIsOpenModal((prev) => !prev);
   };
+
+  function copyId() {
+    window.navigator.clipboard.writeText(String(nftId).padStart(5, "0"));
+    toast.success("Copied!");
+  }
+
+  const pointerStyle = {
+    cursor: "pointer",
+  };
+
   return (
     <>
+      <Toaster />
       <DetailNftInfoWrapper>
         {isOpenModal && (
           <BasicModal type="claim" toggleModal={handleToggleModal} />
@@ -62,7 +74,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
         <DetailInfoItemWrapper>
           <DetailInfoItem>
             <DetailInfoItemText>Token ID</DetailInfoItemText>
-            <DetailInfoItemText>
+            <DetailInfoItemText style={pointerStyle} onClick={copyId}>
               {String(nftId).padStart(5, "0")}
             </DetailInfoItemText>
           </DetailInfoItem>
