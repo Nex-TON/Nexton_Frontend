@@ -16,7 +16,9 @@
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@mui/material": "^5.14.1",
     "@orbs-network/ton-access": "^2.3.3",
-    "@ton-community/test-utils": "^0.3.0",
+    "@ton/core": "^0.56.1",
+    "@ton/crypto": "^3.2.0",
+    "@ton/ton": "^13.11.1",
     "@tonconnect/ui-react": "^2.0.0-beta.2",
     "@vkruglikov/react-telegram-web-app": "^2.1.1",
     "axios": "^1.5.0",
@@ -30,12 +32,10 @@
     "rollup-plugin-node-polyfills": "^0.2.1",
     "styled-components": "^6.0.5",
     "swr": "^2.2.2",
-    "telegraf": "^4.12.2",
-    "ton": "^13.5.0",
-    "ton-core": "^0.52.0",
-    "ton-crypto": "^3.2.0"
+    "telegraf": "^4.12.2"
   },
   "devDependencies": {
+    "@ton/test-utils": "^0.4.2",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@types/styled-components": "^5.1.26",

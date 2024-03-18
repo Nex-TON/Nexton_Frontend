@@ -22,7 +22,7 @@ const MainNftViewList = () => {
       <EmptyNftItem isloading={isLoading} />
       <EmptyNftItem isloading={isLoading} />
     </MainNftViewListWrapper>
-  ) : nftList.filter((nft) => nft.status !== 2).length === 0 || !connected ? (
+  ) : nftList?.filter((nft) => nft.status !== 2).length === 0 || !connected ? (
     <MainNftViewListWrapper>
       <MainNftFirstInfoBox onClick={() => navigate("/stake/amount")}>
         <MainNftFirstInfoTitleBox>

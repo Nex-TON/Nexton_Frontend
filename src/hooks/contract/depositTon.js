@@ -1,6 +1,6 @@
 import { useTonClient } from "./useTonClient";
 import { useAsyncInitialize } from "./useAsyncInitialize";
-import { Address, toNano } from "ton-core";
+import { Address, toNano } from "@ton/core";
 import { NexTon } from "./wrappers/tact_NexTon";
 import useTonConnect from "./useTonConnect";
 
