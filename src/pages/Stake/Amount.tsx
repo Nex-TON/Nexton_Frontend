@@ -12,6 +12,7 @@ import { useRecoilState } from "recoil";
 import { stakingAtom } from "../../lib/atom/staking";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { ERROR } from "../../constants/error";
+import { isDevMode } from "../../utils/isDevMode";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -66,7 +67,7 @@ const Amount = () => {
   }, [input, connected]);
 
   return (
-    <AmontWrapper>
+    <AmountWrapper>
       <ProgressBar />
       <Step title="Step 1" />
       <Title title="Put stake amount" />
@@ -87,15 +88,20 @@ const Amount = () => {
           <span>{ERROR[error.indexOf(true)]}</span>
         </ErrorBlock>
       )}
-      <MainButton text="NEXT" onClick={handleMoveNominator} />
-      {/* <button onClick={handleMoveNominator}>next</button> */}
-    </AmontWrapper>
+
+      {!isDevMode ? (
+        <MainButton text="NEXT" onClick={handleMoveNominator} />
+      ) : (
+        /* Used for testing */
+        <button onClick={handleMoveNominator}>next</button>
+      )}
+    </AmountWrapper>
   );
 };
 
 export default Amount;
 
-const AmontWrapper = styled.div`
+const AmountWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

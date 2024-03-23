@@ -44,12 +44,10 @@ const MainNftViewList = () => {
         <img src={LandingNftStake} alt="nftStake" />
       </MainNftFirstInfoBox>
       {nftList
-        .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
+        ?.sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
         .filter((nft) => nft.status !== 2)
         .slice(0, 2)
-        .map((nft, index) => (
-          <MainNftViewItem key={index} nftItem={nft} />
-        ))}
+        .map((nft, index) => <MainNftViewItem key={index} nftItem={nft} />)}
     </MainNftViewListWrapper>
   );
 };

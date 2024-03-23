@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import ProgressBar from "../../components/stake/common/ProgressBar";
 import IcAlertBlue from "../../assets/icons/Stake/ic_alert_blue.svg";
+import { isDevMode } from "../../utils/isDevMode";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -31,7 +32,8 @@ const NFTPreview = () => {
   };
 
   //minting 된 nft 서버 호출
-  const handleMinting = async () => {
+  //❗NOTE❗: handleMinting is disabled in a demo version
+  /* const handleMinting = async () => {
     const data = (): UserDeposit => {
       return {
         $$type: "UserDeposit",
@@ -49,6 +51,32 @@ const NFTPreview = () => {
       nominator: stakingInfo.nominator,
     });
     await sendMessage(data(), stakingInfo.principal);
+
+    toggleModal();
+    setInput("");
+    stakeInfoReset();
+  }; */
+
+  const handleMintingDemo = () => {
+    const data = (): UserDeposit => {
+      return {
+        $$type: "UserDeposit",
+        queryId: BigInt(Date.now()),
+        lockPeriod: BigInt(stakingInfo.lockup),
+        leverage: BigInt(stakingInfo.leverage),
+      };
+    };
+
+    console.log("StakingInfo: ", {
+      id: stakingInfo.id,
+      leverage: stakingInfo.leverage,
+      address: stakingInfo.address,
+      amount: stakingInfo.principal,
+      lockPeriod: stakingInfo.lockup.toString(),
+      nominator: stakingInfo.nominator,
+    });
+
+    console.log("Data: ", data());
 
     toggleModal();
     setInput("");
@@ -99,8 +127,13 @@ const NFTPreview = () => {
             Confirm. Please check the NFT information.
           </NFTPreviewConfirmText>
         </div>
-        <MainButton text="Confirm" onClick={handleMinting} />
-        {/* <FooterButton title="Confirm" onClick={handleMinting} /> */}
+
+        {!isDevMode ? (
+          <MainButton text="Confirm" onClick={handleMintingDemo} />
+        ) : (
+          /* Used for testing */
+          <FooterButton title="Confirm" onClick={handleMintingDemo} />
+        )}
       </NFTPreviewConfirmBox>
     </NFTPreviewWrapper>
   );

@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 import ProgressBar from "../../components/stake/common/ProgressBar";
+import { isDevMode } from "../../utils/isDevMode";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -77,19 +78,24 @@ const Leverage = () => {
         ratio={ratio}
         setRatio={setRatio}
       />
-      <BoderLine />
+      <BorderLine />
       <Step3 input={stakingInfo.principal} ratio={ratio} />
       <LeverageBottomTextBox>
         The NFT will contain this information
       </LeverageBottomTextBox>
-      {/* <FooterWrapper>
-        <FooterButton
-          title="Confirm"
-          ratio={ratio}
-          onClick={handleMovePreview}
-        />
-      </FooterWrapper> */}
-      <MainButton text="Confirm" onClick={handleMovePreview} />
+
+      {!isDevMode ? (
+        <MainButton text="Confirm" onClick={handleMovePreview} />
+      ) : (
+        /* Used for testing */
+        <FooterWrapper>
+          <FooterButton
+            title="Confirm"
+            ratio={ratio}
+            onClick={handleMovePreview}
+          />
+        </FooterWrapper>
+      )}
     </LeverageWrapper>
   );
 };
@@ -125,7 +131,7 @@ const LeverageBottomTextBox = styled.div`
   text-align: center;
 `;
 
-const BoderLine = styled.div`
+const BorderLine = styled.div`
   width: 100%;
   height: 0.6rem;
   margin: 2.6rem 0;
