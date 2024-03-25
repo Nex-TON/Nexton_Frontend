@@ -4,7 +4,9 @@ import NFTPreviewInfo from "../../components/stake/NFTPreview/NFTPreviewInfo";
 import FooterButton from "../../components/common/FooterButton";
 import { UserDeposit } from "../../hooks/contract/wrappers/tact_NexTon";
 import * as Contract from "../../hooks/contract/depositTon";
-import BasicModal from "../../components/common/Modal/BasicModal";
+import BasicModal, {
+  LoaderModal,
+} from "../../components/common/Modal/BasicModal";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { stakingAtom, stakingInputAtom } from "../../lib/atom/staking";
@@ -14,6 +16,13 @@ import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import ProgressBar from "../../components/stake/common/ProgressBar";
 import IcAlertBlue from "../../assets/icons/Stake/ic_alert_blue.svg";
 import { isDevMode } from "../../utils/isDevMode";
+import { createClient } from "@supabase/supabase-js";
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_PUBLIC_KEY = import.meta.env.VITE_SUPABASE_PUBLIC_KEY;
+
+// Supabase client - IMPORTANT: RLS policy is disabled for the "Users" table
+const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY);
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -23,6 +32,7 @@ const NFTPreview = () => {
 
   const [, setInput] = useRecoilState(stakingInputAtom);
   const { sendMessage } = Contract.depositTon();
+  const [isLoading, setIsLoading] = useState(false);
   const [modal, setModal] = useState(false);
 
   const navigate = useNavigate();
@@ -57,26 +67,40 @@ const NFTPreview = () => {
     stakeInfoReset();
   }; */
 
-  const handleMintingDemo = () => {
-    const data = (): UserDeposit => {
-      return {
-        $$type: "UserDeposit",
-        queryId: BigInt(Date.now()),
-        lockPeriod: BigInt(stakingInfo.lockup),
-        leverage: BigInt(stakingInfo.leverage),
-      };
-    };
+  const handleMintingDemo = async () => {
+    setIsLoading(true);
 
-    console.log("StakingInfo: ", {
-      id: stakingInfo.id,
-      leverage: stakingInfo.leverage,
-      address: stakingInfo.address,
-      amount: stakingInfo.principal,
-      lockPeriod: stakingInfo.lockup.toString(),
-      nominator: stakingInfo.nominator,
-    });
+    // Send the staking info to the Supabase database
+    let { data: Users, error: readError } = await supabase
+      .from("Users")
+      .select("wallet_address");
 
-    console.log("Data: ", data());
+    const isWalletExist = Users?.find(
+      (el) => el.wallet_address === stakingInfo.address
+    );
+
+    if (!isWalletExist && stakingInfo.address) {
+      const { data, error: insertError } = await supabase
+        .from("Users")
+        .insert([{ wallet_address: stakingInfo.address, assets_staked: true }])
+        .select();
+    }
+
+    // Updated the total staked amount in the local storage
+    const stakedLocally = localStorage.getItem("staked");
+    const principalAsNumber = Number(stakingInfo.principal);
+
+    if (!isNaN(principalAsNumber)) {
+      const totalStaked = stakedLocally
+        ? Number(stakedLocally) + principalAsNumber
+        : principalAsNumber;
+
+      localStorage.setItem("staked", totalStaked.toFixed(2).toString());
+    } else {
+      console.error("Invalid principal amount provided.");
+    }
+
+    setIsLoading(false);
 
     toggleModal();
     setInput("");
@@ -101,6 +125,7 @@ const NFTPreview = () => {
   return (
     <NFTPreviewWrapper>
       {modal && <BasicModal type="stake" toggleModal={toggleModal} />}
+      {isLoading && <LoaderModal />}
       <ProgressBar />
       <NFTPreviewHeaderWrapper>
         <StepBox>Fin.</StepBox>

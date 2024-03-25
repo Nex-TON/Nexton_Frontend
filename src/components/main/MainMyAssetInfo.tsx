@@ -5,6 +5,8 @@ import useTonConnect from "../../hooks/contract/useTonConnect";
 const MainMyAssetInfo = () => {
   const { balance } = useTonConnect();
 
+  const stakedLocally = localStorage.getItem("staked");
+
   return (
     <MainMyAssetInfoWraper>
       <MainMyAssetInfoInnerBox>
@@ -22,7 +24,7 @@ const MainMyAssetInfo = () => {
             Staked
           </MainMyAssetInfoInnerBottomTitleBox>
           <MainMyAssetInfoInnerBottomValue>
-            0.00 TON
+            {stakedLocally || "0.00"} TON
           </MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
       </MainMyAssetInfoInnerBox>

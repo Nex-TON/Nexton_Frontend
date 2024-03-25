@@ -5,11 +5,34 @@ import { useNavigate } from "react-router-dom";
 import IcModalArrow from "../../../assets/icons/Modal/ic_modal_arrow.svg";
 import useTonConnect from "../../../hooks/contract/useTonConnect";
 import { MODAL_TEXT } from "../../../constants/ModalText";
+import { ThreeCircles } from "react-loader-spinner";
 
 interface BasicModalProps {
   type: string;
   toggleModal: () => void;
 }
+
+export const LoaderModal = () => {
+  return (
+    <ModalWrapper>
+      <Container>
+        <ModalHeader>
+          <img src={IcClose} alt="close" />
+        </ModalHeader>
+
+        <ThreeCircles
+          visible={true}
+          height="100"
+          width="100"
+          color="#007aff"
+          ariaLabel="three-circles-loading"
+          wrapperStyle={{ marginBottom: "3.7rem" }}
+          wrapperClass=""
+        />
+      </Container>
+    </ModalWrapper>
+  );
+};
 
 function BasicModal(props: BasicModalProps) {
   const { type, toggleModal } = props;

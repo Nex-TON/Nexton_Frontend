@@ -1,7 +1,7 @@
 export const MODAL_TEXT = {
   stake: {
     title: "Successfully Staked",
-    desc: "For now you can check minted NFT",
+    desc: "Thanks for trying out our demo!", // prev.: For now you can check minted NFT
     descBr: "on My asset, and transaction data",
   },
   loan: {
