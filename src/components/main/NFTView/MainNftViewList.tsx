@@ -3,12 +3,15 @@ import { useStakeInfo } from "../../../hooks/api/useStakeInfo";
 import useTonConnect from "../../../hooks/contract/useTonConnect";
 import MainNftViewItem from "./MainNftViewItem";
 import LandingNftStake from "../../../assets/image/LandingNFTStake.png";
+import NftOngoing from "../../../assets/image/NftOngoing.png?url";
 import { useNavigate } from "react-router-dom";
 
 const MainNftViewList = () => {
   const { address, connected } = useTonConnect();
   const { nftList, isLoading } = useStakeInfo(address);
   const navigate = useNavigate();
+
+  const stakedLocally = localStorage.getItem("staked");
 
   return isLoading ? (
     <MainNftViewListWrapper>
@@ -43,6 +46,25 @@ const MainNftViewList = () => {
         </MainNftFirstInfoTitleBox>
         <img src={LandingNftStake} alt="nftStake" />
       </MainNftFirstInfoBox>
+
+      {/* ❗NOTE❗: NFT for participating in demo version. To be removed! */}
+      {stakedLocally && (
+        <MainNftFirstInfoBox
+          onClick={() => alert("Thanks for participating in Nexton demo!")}
+          style={{
+            background: `url(${NftOngoing})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          <MainNftFirstInfoTitleBox>
+            <p>Your assets</p>
+            <p>STAKED using Nexton</p>
+          </MainNftFirstInfoTitleBox>
+        </MainNftFirstInfoBox>
+      )}
+
       {nftList
         ?.sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
         .filter((nft) => nft.status !== 2)
@@ -71,6 +93,7 @@ const MainNftViewListWrapper = styled.div`
 
   width: 100%;
   margin: 2.1rem 0;
+  max-height: 200px;
 `;
 
 const MainNftFirstInfoBox = styled.div`
@@ -81,6 +104,7 @@ const MainNftFirstInfoBox = styled.div`
   gap: 1.7rem;
 
   width: 100%;
+  height: 100%;
   aspect-ratio: 1/1.05;
   padding: 1.5rem 1.5rem 1.6rem 1.5rem;
 

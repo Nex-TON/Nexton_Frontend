@@ -103,8 +103,6 @@ const NFTPreview = () => {
     setIsLoading(false);
 
     toggleModal();
-    setInput("");
-    stakeInfoReset();
   };
 
   useEffect(() => {
@@ -124,7 +122,16 @@ const NFTPreview = () => {
 
   return (
     <NFTPreviewWrapper>
-      {modal && <BasicModal type="stake" toggleModal={toggleModal} />}
+      {modal && (
+        <BasicModal
+          type="stake"
+          toggleModal={toggleModal}
+          onClose={() => {
+            setInput("");
+            stakeInfoReset();
+          }}
+        />
+      )}
       {isLoading && <LoaderModal />}
       <ProgressBar />
       <NFTPreviewHeaderWrapper>
