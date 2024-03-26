@@ -93,7 +93,6 @@ const MainNftViewListWrapper = styled.div`
 
   width: 100%;
   margin: 2.1rem 0;
-  max-height: 200px;
 `;
 
 const MainNftFirstInfoBox = styled.div`
@@ -104,7 +103,6 @@ const MainNftFirstInfoBox = styled.div`
   gap: 1.7rem;
 
   width: 100%;
-  height: 100%;
   aspect-ratio: 1/1.05;
   padding: 1.5rem 1.5rem 1.6rem 1.5rem;
 
