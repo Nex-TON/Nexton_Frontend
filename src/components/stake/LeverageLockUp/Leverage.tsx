@@ -32,7 +32,8 @@ const Leverage = (props: Step2Props) => {
         Leverage
         <LeverageRightBox>
           x<span>{ratio}</span>
-          {isOpenSlider ? (
+          {/* ❗NOTE❗: Leverage is disabled in a demo version */}
+          {/* {isOpenSlider ? (
             <img
               src={IcBlackArrowUp}
               alt="arrow"
@@ -46,7 +47,7 @@ const Leverage = (props: Step2Props) => {
               onClick={() => setIsOpenSlider((prev) => !prev)}
               style={pointerStyle}
             />
-          )}
+          )} */}
         </LeverageRightBox>
       </LeverageBox>
       {isOpenSlider && (

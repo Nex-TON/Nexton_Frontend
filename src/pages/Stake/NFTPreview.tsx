@@ -4,7 +4,9 @@ import NFTPreviewInfo from "../../components/stake/NFTPreview/NFTPreviewInfo";
 import FooterButton from "../../components/common/FooterButton";
 import { UserDeposit } from "../../hooks/contract/wrappers/tact_NexTon";
 import * as Contract from "../../hooks/contract/depositTon";
-import BasicModal from "../../components/common/Modal/BasicModal";
+import BasicModal, {
+  LoaderModal,
+} from "../../components/common/Modal/BasicModal";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { stakingAtom, stakingInputAtom } from "../../lib/atom/staking";
@@ -13,6 +15,14 @@ import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import ProgressBar from "../../components/stake/common/ProgressBar";
 import IcAlertBlue from "../../assets/icons/Stake/ic_alert_blue.svg";
+import { isDevMode } from "../../utils/isDevMode";
+import { createClient } from "@supabase/supabase-js";
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_PUBLIC_KEY = import.meta.env.VITE_SUPABASE_PUBLIC_KEY;
+
+// Supabase client - IMPORTANT: RLS policy is disabled for the "Users" table
+const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY);
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -22,6 +32,7 @@ const NFTPreview = () => {
 
   const [, setInput] = useRecoilState(stakingInputAtom);
   const { sendMessage } = Contract.depositTon();
+  const [isLoading, setIsLoading] = useState(false);
   const [modal, setModal] = useState(false);
 
   const navigate = useNavigate();
@@ -31,7 +42,8 @@ const NFTPreview = () => {
   };
 
   //minting 된 nft 서버 호출
-  const handleMinting = async () => {
+  //❗NOTE❗: handleMinting is disabled in a demo version
+  /* const handleMinting = async () => {
     const data = (): UserDeposit => {
       return {
         $$type: "UserDeposit",
@@ -53,6 +65,44 @@ const NFTPreview = () => {
     toggleModal();
     setInput("");
     stakeInfoReset();
+  }; */
+
+  const handleMintingDemo = async () => {
+    setIsLoading(true);
+
+    // Send the staking info to the Supabase database
+    let { data: Users, error: readError } = await supabase
+      .from("Users")
+      .select("wallet_address");
+
+    const isWalletExist = Users?.find(
+      (el) => el.wallet_address === stakingInfo.address
+    );
+
+    if (!isWalletExist && stakingInfo.address) {
+      const { data, error: insertError } = await supabase
+        .from("Users")
+        .insert([{ wallet_address: stakingInfo.address, assets_staked: true }])
+        .select();
+    }
+
+    // Updated the total staked amount in the local storage
+    const stakedLocally = localStorage.getItem("staked");
+    const principalAsNumber = Number(stakingInfo.principal);
+
+    if (!isNaN(principalAsNumber)) {
+      const totalStaked = stakedLocally
+        ? Number(stakedLocally) + principalAsNumber
+        : principalAsNumber;
+
+      localStorage.setItem("staked", totalStaked.toFixed(2).toString());
+    } else {
+      console.error("Invalid principal amount provided.");
+    }
+
+    setIsLoading(false);
+
+    toggleModal();
   };
 
   useEffect(() => {
@@ -72,7 +122,17 @@ const NFTPreview = () => {
 
   return (
     <NFTPreviewWrapper>
-      {modal && <BasicModal type="stake" toggleModal={toggleModal} />}
+      {modal && (
+        <BasicModal
+          type="stake"
+          toggleModal={toggleModal}
+          onClose={() => {
+            setInput("");
+            stakeInfoReset();
+          }}
+        />
+      )}
+      {isLoading && <LoaderModal />}
       <ProgressBar />
       <NFTPreviewHeaderWrapper>
         <StepBox>Fin.</StepBox>
@@ -99,8 +159,13 @@ const NFTPreview = () => {
             Confirm. Please check the NFT information.
           </NFTPreviewConfirmText>
         </div>
-        <MainButton text="Confirm" onClick={handleMinting} />
-        {/* <FooterButton title="Confirm" onClick={handleMinting} /> */}
+
+        {!isDevMode ? (
+          <MainButton text="Confirm" onClick={handleMintingDemo} />
+        ) : (
+          /* Used for testing */
+          <FooterButton title="Confirm" onClick={handleMintingDemo} />
+        )}
       </NFTPreviewConfirmBox>
     </NFTPreviewWrapper>
   );

@@ -12,6 +12,7 @@ import { stakingAtom } from "../../lib/atom/staking";
 import IcSearch from "../../assets/icons/Stake/ic_search.svg";
 import { useSearchNominatorPool } from "./hooks/useSearchNominatorPoo";
 import { useSelectNominator } from "./hooks/useSelectNominator";
+import { isDevMode } from "../../utils/isDevMode";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -83,8 +84,13 @@ const NominatorList = () => {
           />
         ))}
       </NominatorItemList>
-      {/* <button onClick={handleConfirmNominator}>Confirm</button> */}
-      <MainButton text="NEXT" onClick={handleConfirmNominator} />
+
+      {!isDevMode ? (
+        <MainButton text="NEXT" onClick={handleConfirmNominator} />
+      ) : (
+        /* Used for testing */
+        <button onClick={handleConfirmNominator}>Confirm</button>
+      )}
     </>
   );
 };
