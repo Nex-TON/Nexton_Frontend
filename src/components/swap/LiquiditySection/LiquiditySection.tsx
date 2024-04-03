@@ -1,10 +1,11 @@
-import { styled } from "styled-components";
-import useTonConnect from "../../../hooks/contract/useTonConnect";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import { styled } from "styled-components";
+
+import useTonConnect from "../../../hooks/contract/useTonConnect";
+import LiquidityBox from "../common/LiquidityBox";
+import SwapBox from "../common/SwapBox";
 
 import LiquidityPair from "./LiquidityPair";
-import SwapBox from "../common/SwapBox";
-import LiquidityBox from "../common/LiquidityBox";
 
 const LiquiditySection = () => {
   const { balance } = useTonConnect();

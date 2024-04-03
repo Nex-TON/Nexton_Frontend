@@ -1,10 +1,11 @@
-import { css, styled } from "styled-components";
-import NFTOngoing from "../../../assets/image/MainNftOngoing.png";
-import NFTForthComing from "../../../assets/image/MainNftForthComing.png";
-import NFTExpired from "../../../assets/image/MainNftExpired.png";
-import { useRecoilState } from "recoil";
-import { imageSizeAtom } from "../../../lib/atom/imageSize";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { css, styled } from "styled-components";
+
+import NFTExpired from "../../../assets/image/MainNftExpired.png";
+import NFTForthComing from "../../../assets/image/MainNftForthComing.png";
+import NFTOngoing from "../../../assets/image/MainNftOngoing.png";
+import { imageSizeAtom } from "../../../lib/atom/imageSize";
 import { nftInfo } from "../../../types/Nft";
 import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
 

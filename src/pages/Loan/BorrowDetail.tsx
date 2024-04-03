@@ -1,10 +1,11 @@
-import { styled } from "styled-components";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import { styled } from "styled-components";
+
 import BasicModal from "../../components/common/Modal/BasicModal";
-import LoanHeader from "../../components/loan/common/LoanHeader";
 import BorrowDetailInfo from "../../components/loan/Borrow/BorrowDetailInfo";
+import LoanHeader from "../../components/loan/common/LoanHeader";
 
 const tele = (window as any).Telegram.WebApp;
 

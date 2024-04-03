@@ -1,8 +1,10 @@
-import styled from "styled-components";
-import useTonConnect from "./../../hooks/contract/useTonConnect";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
 import IcWalletConnect from "../../assets/icons/Landing/ic_wallet_connect.svg";
 import IcWalletDisconnect from "../../assets/icons/Landing/ic_wallet_disconnect.svg";
+
+import useTonConnect from "./../../hooks/contract/useTonConnect";
 
 const TonWallet = () => {
   const { connected, tonConnectUI } = useTonConnect();

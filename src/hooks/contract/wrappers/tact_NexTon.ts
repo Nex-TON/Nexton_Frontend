@@ -1,23 +1,23 @@
 import {
-  Cell,
-  Slice,
-  Address,
-  Builder,
-  beginCell,
-  ComputeError,
-  TupleItem,
-  TupleReader,
-  Dictionary,
-  contractAddress,
-  ContractProvider,
-  Sender,
-  Contract,
-  ContractABI,
-  ABIType,
   ABIGetter,
   ABIReceiver,
-  TupleBuilder,
+  ABIType,
+  Address,
+  beginCell,
+  Builder,
+  Cell,
+  ComputeError,
+  Contract,
+  ContractABI,
+  contractAddress,
+  ContractProvider,
+  Dictionary,
   DictionaryValue,
+  Sender,
+  Slice,
+  TupleBuilder,
+  TupleItem,
+  TupleReader,
 } from "@ton/core";
 
 export type StateInit = {
@@ -28,27 +28,27 @@ export type StateInit = {
 
 export function storeStateInit(src: StateInit) {
   return (builder: Builder) => {
-    let b_0 = builder;
+    const b_0 = builder;
     b_0.storeRef(src.code);
     b_0.storeRef(src.data);
   };
 }
 
 export function loadStateInit(slice: Slice) {
-  let sc_0 = slice;
-  let _code = sc_0.loadRef();
-  let _data = sc_0.loadRef();
+  const sc_0 = slice;
+  const _code = sc_0.loadRef();
+  const _data = sc_0.loadRef();
   return { $$type: "StateInit" as const, code: _code, data: _data };
 }
 
 function loadTupleStateInit(source: TupleReader) {
-  let _code = source.readCell();
-  let _data = source.readCell();
+  const _code = source.readCell();
+  const _data = source.readCell();
   return { $$type: "StateInit" as const, code: _code, data: _data };
 }
 
 function storeTupleStateInit(source: StateInit) {
-  let builder = new TupleBuilder();
+  const builder = new TupleBuilder();
   builder.writeCell(source.code);
   builder.writeCell(source.data);
   return builder.build();
@@ -75,7 +75,7 @@ export type Context = {
 
 export function storeContext(src: Context) {
   return (builder: Builder) => {
-    let b_0 = builder;
+    const b_0 = builder;
     b_0.storeBit(src.bounced);
     b_0.storeAddress(src.sender);
     b_0.storeInt(src.value, 257);
@@ -84,11 +84,11 @@ export function storeContext(src: Context) {
 }
 
 export function loadContext(slice: Slice) {
-  let sc_0 = slice;
-  let _bounced = sc_0.loadBit();
-  let _sender = sc_0.loadAddress();
-  let _value = sc_0.loadIntBig(257);
-  let _raw = sc_0.loadRef();
+  const sc_0 = slice;
+  const _bounced = sc_0.loadBit();
+  const _sender = sc_0.loadAddress();
+  const _value = sc_0.loadIntBig(257);
+  const _raw = sc_0.loadRef();
   return {
     $$type: "Context" as const,
     bounced: _bounced,
@@ -99,10 +99,10 @@ export function loadContext(slice: Slice) {
 }
 
 function loadTupleContext(source: TupleReader) {
-  let _bounced = source.readBoolean();
-  let _sender = source.readAddress();
-  let _value = source.readBigNumber();
-  let _raw = source.readCell();
+  const _bounced = source.readBoolean();
+  const _sender = source.readAddress();
+  const _value = source.readBigNumber();
+  const _raw = source.readCell();
   return {
     $$type: "Context" as const,
     bounced: _bounced,
@@ -113,7 +113,7 @@ function loadTupleContext(source: TupleReader) {
 }
 
 function storeTupleContext(source: Context) {
-  let builder = new TupleBuilder();
+  const builder = new TupleBuilder();
   builder.writeBoolean(source.bounced);
   builder.writeAddress(source.sender);
   builder.writeNumber(source.value);
@@ -145,7 +145,7 @@ export type SendParameters = {
 
 export function storeSendParameters(src: SendParameters) {
   return (builder: Builder) => {
-    let b_0 = builder;
+    const b_0 = builder;
     b_0.storeBit(src.bounce);
     b_0.storeAddress(src.to);
     b_0.storeInt(src.value, 257);
@@ -169,14 +169,14 @@ export function storeSendParameters(src: SendParameters) {
 }
 
 export function loadSendParameters(slice: Slice) {
-  let sc_0 = slice;
-  let _bounce = sc_0.loadBit();
-  let _to = sc_0.loadAddress();
-  let _value = sc_0.loadIntBig(257);
-  let _mode = sc_0.loadIntBig(257);
-  let _body = sc_0.loadBit() ? sc_0.loadRef() : null;
-  let _code = sc_0.loadBit() ? sc_0.loadRef() : null;
-  let _data = sc_0.loadBit() ? sc_0.loadRef() : null;
+  const sc_0 = slice;
+  const _bounce = sc_0.loadBit();
+  const _to = sc_0.loadAddress();
+  const _value = sc_0.loadIntBig(257);
+  const _mode = sc_0.loadIntBig(257);
+  const _body = sc_0.loadBit() ? sc_0.loadRef() : null;
+  const _code = sc_0.loadBit() ? sc_0.loadRef() : null;
+  const _data = sc_0.loadBit() ? sc_0.loadRef() : null;
   return {
     $$type: "SendParameters" as const,
     bounce: _bounce,
@@ -190,13 +190,13 @@ export function loadSendParameters(slice: Slice) {
 }
 
 function loadTupleSendParameters(source: TupleReader) {
-  let _bounce = source.readBoolean();
-  let _to = source.readAddress();
-  let _value = source.readBigNumber();
-  let _mode = source.readBigNumber();
-  let _body = source.readCellOpt();
-  let _code = source.readCellOpt();
-  let _data = source.readCellOpt();
+  const _bounce = source.readBoolean();
+  const _to = source.readAddress();
+  const _value = source.readBigNumber();
+  const _mode = source.readBigNumber();
+  const _body = source.readCellOpt();
+  const _code = source.readCellOpt();
+  const _data = source.readCellOpt();
   return {
     $$type: "SendParameters" as const,
     bounce: _bounce,
@@ -210,7 +210,7 @@ function loadTupleSendParameters(source: TupleReader) {
 }
 
 function storeTupleSendParameters(source: SendParameters) {
-  let builder = new TupleBuilder();
+  const builder = new TupleBuilder();
   builder.writeBoolean(source.bounce);
   builder.writeAddress(source.to);
   builder.writeNumber(source.value);
@@ -239,28 +239,28 @@ export type Deploy = {
 
 export function storeDeploy(src: Deploy) {
   return (builder: Builder) => {
-    let b_0 = builder;
+    const b_0 = builder;
     b_0.storeUint(2490013878, 32);
     b_0.storeUint(src.queryId, 64);
   };
 }
 
 export function loadDeploy(slice: Slice) {
-  let sc_0 = slice;
+  const sc_0 = slice;
   if (sc_0.loadUint(32) !== 2490013878) {
     throw Error("Invalid prefix");
   }
-  let _queryId = sc_0.loadUintBig(64);
+  const _queryId = sc_0.loadUintBig(64);
   return { $$type: "Deploy" as const, queryId: _queryId };
 }
 
 function loadTupleDeploy(source: TupleReader) {
-  let _queryId = source.readBigNumber();
+  const _queryId = source.readBigNumber();
   return { $$type: "Deploy" as const, queryId: _queryId };
 }
 
 function storeTupleDeploy(source: Deploy) {
-  let builder = new TupleBuilder();
+  const builder = new TupleBuilder();
   builder.writeNumber(source.queryId);
   return builder.build();
 }
@@ -283,28 +283,28 @@ export type DeployOk = {
 
 export function storeDeployOk(src: DeployOk) {
   return (builder: Builder) => {
-    let b_0 = builder;
+    const b_0 = builder;
     b_0.storeUint(2952335191, 32);
     b_0.storeUint(src.queryId, 64);
   };
 }
 
 export function loadDeployOk(slice: Slice) {
-  let sc_0 = slice;
+  const sc_0 = slice;
   if (sc_0.loadUint(32) !== 2952335191) {
     throw Error("Invalid prefix");
   }
-  let _queryId = sc_0.loadUintBig(64);
+  const _queryId = sc_0.loadUintBig(64);
   return { $$type: "DeployOk" as const, queryId: _queryId };
 }
 
 function loadTupleDeployOk(source: TupleReader) {
-  let _queryId = source.readBigNumber();
+  const _queryId = source.readBigNumber();
   return { $$type: "DeployOk" as const, queryId: _queryId };
 }
 
 function storeTupleDeployOk(source: DeployOk) {
-  let builder = new TupleBuilder();
+  const builder = new TupleBuilder();
   builder.writeNumber(source.queryId);
   return builder.build();
 }
@@ -328,7 +328,7 @@ export type FactoryDeploy = {
 
 export function storeFactoryDeploy(src: FactoryDeploy) {
   return (builder: Builder) => {
-    let b_0 = builder;
+    const b_0 = builder;
     b_0.storeUint(1829761339, 32);
     b_0.storeUint(src.queryId, 64);
     b_0.storeAddress(src.cashback);
@@ -336,12 +336,12 @@ export function storeFactoryDeploy(src: FactoryDeploy) {
 }
 
 export function loadFactoryDeploy(slice: Slice) {
-  let sc_0 = slice;
+  const sc_0 = slice;
   if (sc_0.loadUint(32) !== 1829761339) {
     throw Error("Invalid prefix");
   }
-  let _queryId = sc_0.loadUintBig(64);
-  let _cashback = sc_0.loadAddress();
+  const _queryId = sc_0.loadUintBig(64);
+  const _cashback = sc_0.loadAddress();
   return {
     $$type: "FactoryDeploy" as const,
     queryId: _queryId,
@@ -350,8 +350,8 @@ export function loadFactoryDeploy(slice: Slice) {
 }
 
 function loadTupleFactoryDeploy(source: TupleReader) {
-  let _queryId = source.readBigNumber();
-  let _cashback = source.readAddress();
+  const _queryId = source.readBigNumber();
+  const _cashback = source.readAddress();
   return {
     $$type: "FactoryDeploy" as const,
     queryId: _queryId,
@@ -360,7 +360,7 @@ function loadTupleFactoryDeploy(source: TupleReader) {
 }
 
 function storeTupleFactoryDeploy(source: FactoryDeploy) {
-  let builder = new TupleBuilder();
+  const builder = new TupleBuilder();
   builder.writeNumber(source.queryId);
   builder.writeAddress(source.cashback);
   return builder.build();
@@ -385,7 +385,7 @@ export type ChangeOwner = {
 
 export function storeChangeOwner(src: ChangeOwner) {
   return (builder: Builder) => {
-    let b_0 = builder;
+    const b_0 = builder;
     b_0.storeUint(2174598809, 32);
     b_0.storeUint(src.queryId, 64);
     b_0.storeAddress(src.newOwner);
@@ -393,12 +393,12 @@ export function storeChangeOwner(src: ChangeOwner) {
 }
 
 export function loadChangeOwner(slice: Slice) {
-  let sc_0 = slice;
+  const sc_0 = slice;
   if (sc_0.loadUint(32) !== 2174598809) {
     throw Error("Invalid prefix");
   }
-  let _queryId = sc_0.loadUintBig(64);
-  let _newOwner = sc_0.loadAddress();
+  const _queryId = sc_0.loadUintBig(64);
+  const _newOwner = sc_0.loadAddress();
   return {
     $$type: "ChangeOwner" as const,
     queryId: _queryId,
@@ -407,8 +407,8 @@ export function loadChangeOwner(slice: Slice) {
 }
 
 function loadTupleChangeOwner(source: TupleReader) {
-  let _queryId = source.readBigNumber();
-  let _newOwner = source.readAddress();
+  const _queryId = source.readBigNumber();
+  const _newOwner = source.readAddress();
   return {
     $$type: "ChangeOwner" as const,
     queryId: _queryId,
@@ -417,7 +417,7 @@ function loadTupleChangeOwner(source: TupleReader) {
 }
 
 function storeTupleChangeOwner(source: ChangeOwner) {
-  let builder = new TupleBuilder();
+  const builder = new TupleBuilder();
   builder.writeNumber(source.queryId);
   builder.writeAddress(source.newOwner);
   return builder.build();
@@ -442,7 +442,7 @@ export type ChangeOwnerOk = {
 
 export function storeChangeOwnerOk(src: ChangeOwnerOk) {
   return (builder: Builder) => {
-    let b_0 = builder;
+    const b_0 = builder;
     b_0.storeUint(846932810, 32);
     b_0.storeUint(src.queryId, 64);
     b_0.storeAddress(src.newOwner);
@@ -450,12 +450,12 @@ export function storeChangeOwnerOk(src: ChangeOwnerOk) {
 }
 
 export function loadChangeOwnerOk(slice: Slice) {
-  let sc_0 = slice;
+  const sc_0 = slice;
   if (sc_0.loadUint(32) !== 846932810) {
     throw Error("Invalid prefix");
   }
-  let _queryId = sc_0.loadUintBig(64);
-  let _newOwner = sc_0.loadAddress();
+  const _queryId = sc_0.loadUintBig(64);
+  const _newOwner = sc_0.loadAddress();
   return {
     $$type: "ChangeOwnerOk" as const,
     queryId: _queryId,
@@ -464,8 +464,8 @@ export function loadChangeOwnerOk(slice: Slice) {
 }
 
 function loadTupleChangeOwnerOk(source: TupleReader) {
-  let _queryId = source.readBigNumber();
-  let _newOwner = source.readAddress();
+  const _queryId = source.readBigNumber();
+  const _newOwner = source.readAddress();
   return {
     $$type: "ChangeOwnerOk" as const,
     queryId: _queryId,
@@ -474,7 +474,7 @@ function loadTupleChangeOwnerOk(source: TupleReader) {
 }
 
 function storeTupleChangeOwnerOk(source: ChangeOwnerOk) {
-  let builder = new TupleBuilder();
+  const builder = new TupleBuilder();
   builder.writeNumber(source.queryId);
   builder.writeAddress(source.newOwner);
   return builder.build();
@@ -500,7 +500,7 @@ export type UserDeposit = {
 
 export function storeUserDeposit(src: UserDeposit) {
   return (builder: Builder) => {
-    let b_0 = builder;
+    const b_0 = builder;
     b_0.storeUint(3554937751, 32);
     b_0.storeUint(src.queryId, 64);
     b_0.storeUint(src.lockPeriod, 256);
@@ -509,13 +509,13 @@ export function storeUserDeposit(src: UserDeposit) {
 }
 
 export function loadUserDeposit(slice: Slice) {
-  let sc_0 = slice;
+  const sc_0 = slice;
   if (sc_0.loadUint(32) !== 3554937751) {
     throw Error("Invalid prefix");
   }
-  let _queryId = sc_0.loadUintBig(64);
-  let _lockPeriod = sc_0.loadUintBig(256);
-  let _leverage = sc_0.loadUintBig(32);
+  const _queryId = sc_0.loadUintBig(64);
+  const _lockPeriod = sc_0.loadUintBig(256);
+  const _leverage = sc_0.loadUintBig(32);
   return {
     $$type: "UserDeposit" as const,
     queryId: _queryId,
@@ -525,9 +525,9 @@ export function loadUserDeposit(slice: Slice) {
 }
 
 function loadTupleUserDeposit(source: TupleReader) {
-  let _queryId = source.readBigNumber();
-  let _lockPeriod = source.readBigNumber();
-  let _leverage = source.readBigNumber();
+  const _queryId = source.readBigNumber();
+  const _lockPeriod = source.readBigNumber();
+  const _leverage = source.readBigNumber();
   return {
     $$type: "UserDeposit" as const,
     queryId: _queryId,
@@ -537,7 +537,7 @@ function loadTupleUserDeposit(source: TupleReader) {
 }
 
 function storeTupleUserDeposit(source: UserDeposit) {
-  let builder = new TupleBuilder();
+  const builder = new TupleBuilder();
   builder.writeNumber(source.queryId);
   builder.writeNumber(source.lockPeriod);
   builder.writeNumber(source.leverage);
@@ -565,7 +565,7 @@ export type MintNFT = {
 
 export function storeMintNFT(src: MintNFT) {
   return (builder: Builder) => {
-    let b_0 = builder;
+    const b_0 = builder;
     b_0.storeUint(1, 32);
     b_0.storeUint(src.queryId, 64);
     b_0.storeUint(src.itemIndex, 64);
@@ -575,14 +575,14 @@ export function storeMintNFT(src: MintNFT) {
 }
 
 export function loadMintNFT(slice: Slice) {
-  let sc_0 = slice;
+  const sc_0 = slice;
   if (sc_0.loadUint(32) !== 1) {
     throw Error("Invalid prefix");
   }
-  let _queryId = sc_0.loadUintBig(64);
-  let _itemIndex = sc_0.loadUintBig(64);
-  let _amount = sc_0.loadCoins();
-  let _NFTMessage = sc_0.loadRef();
+  const _queryId = sc_0.loadUintBig(64);
+  const _itemIndex = sc_0.loadUintBig(64);
+  const _amount = sc_0.loadCoins();
+  const _NFTMessage = sc_0.loadRef();
   return {
     $$type: "MintNFT" as const,
     queryId: _queryId,
@@ -593,10 +593,10 @@ export function loadMintNFT(slice: Slice) {
 }
 
 function loadTupleMintNFT(source: TupleReader) {
-  let _queryId = source.readBigNumber();
-  let _itemIndex = source.readBigNumber();
-  let _amount = source.readBigNumber();
-  let _NFTMessage = source.readCell();
+  const _queryId = source.readBigNumber();
+  const _itemIndex = source.readBigNumber();
+  const _amount = source.readBigNumber();
+  const _NFTMessage = source.readCell();
   return {
     $$type: "MintNFT" as const,
     queryId: _queryId,
@@ -607,7 +607,7 @@ function loadTupleMintNFT(source: TupleReader) {
 }
 
 function storeTupleMintNFT(source: MintNFT) {
-  let builder = new TupleBuilder();
+  const builder = new TupleBuilder();
   builder.writeNumber(source.queryId);
   builder.writeNumber(source.itemIndex);
   builder.writeNumber(source.amount);
@@ -634,7 +634,7 @@ export type StakingReward = {
 
 export function storeStakingReward(src: StakingReward) {
   return (builder: Builder) => {
-    let b_0 = builder;
+    const b_0 = builder;
     b_0.storeUint(910020686, 32);
     b_0.storeCoins(src.principal);
     b_0.storeCoins(src.rewards);
@@ -642,12 +642,12 @@ export function storeStakingReward(src: StakingReward) {
 }
 
 export function loadStakingReward(slice: Slice) {
-  let sc_0 = slice;
+  const sc_0 = slice;
   if (sc_0.loadUint(32) !== 910020686) {
     throw Error("Invalid prefix");
   }
-  let _principal = sc_0.loadCoins();
-  let _rewards = sc_0.loadCoins();
+  const _principal = sc_0.loadCoins();
+  const _rewards = sc_0.loadCoins();
   return {
     $$type: "StakingReward" as const,
     principal: _principal,
@@ -656,8 +656,8 @@ export function loadStakingReward(slice: Slice) {
 }
 
 function loadTupleStakingReward(source: TupleReader) {
-  let _principal = source.readBigNumber();
-  let _rewards = source.readBigNumber();
+  const _principal = source.readBigNumber();
+  const _rewards = source.readBigNumber();
   return {
     $$type: "StakingReward" as const,
     principal: _principal,
@@ -666,7 +666,7 @@ function loadTupleStakingReward(source: TupleReader) {
 }
 
 function storeTupleStakingReward(source: StakingReward) {
-  let builder = new TupleBuilder();
+  const builder = new TupleBuilder();
   builder.writeNumber(source.principal);
   builder.writeNumber(source.rewards);
   return builder.build();
@@ -690,28 +690,28 @@ export type UserClaimWithdraw = {
 
 export function storeUserClaimWithdraw(src: UserClaimWithdraw) {
   return (builder: Builder) => {
-    let b_0 = builder;
+    const b_0 = builder;
     b_0.storeUint(85167505, 32);
     b_0.storeUint(src.itemIndex, 32);
   };
 }
 
 export function loadUserClaimWithdraw(slice: Slice) {
-  let sc_0 = slice;
+  const sc_0 = slice;
   if (sc_0.loadUint(32) !== 85167505) {
     throw Error("Invalid prefix");
   }
-  let _itemIndex = sc_0.loadUintBig(32);
+  const _itemIndex = sc_0.loadUintBig(32);
   return { $$type: "UserClaimWithdraw" as const, itemIndex: _itemIndex };
 }
 
 function loadTupleUserClaimWithdraw(source: TupleReader) {
-  let _itemIndex = source.readBigNumber();
+  const _itemIndex = source.readBigNumber();
   return { $$type: "UserClaimWithdraw" as const, itemIndex: _itemIndex };
 }
 
 function storeTupleUserClaimWithdraw(source: UserClaimWithdraw) {
-  let builder = new TupleBuilder();
+  const builder = new TupleBuilder();
   builder.writeNumber(source.itemIndex);
   return builder.build();
 }
@@ -738,7 +738,7 @@ export type BasicMetadata = {
 
 export function storeBasicMetadata(src: BasicMetadata) {
   return (builder: Builder) => {
-    let b_0 = builder;
+    const b_0 = builder;
     b_0.storeStringRefTail(src.name);
     b_0.storeStringRefTail(src.description);
     b_0.storeStringRefTail(src.image);
@@ -746,10 +746,10 @@ export function storeBasicMetadata(src: BasicMetadata) {
 }
 
 export function loadBasicMetadata(slice: Slice) {
-  let sc_0 = slice;
-  let _name = sc_0.loadStringRefTail();
-  let _description = sc_0.loadStringRefTail();
-  let _image = sc_0.loadStringRefTail();
+  const sc_0 = slice;
+  const _name = sc_0.loadStringRefTail();
+  const _description = sc_0.loadStringRefTail();
+  const _image = sc_0.loadStringRefTail();
   return {
     $$type: "BasicMetadata" as const,
     name: _name,
@@ -759,9 +759,9 @@ export function loadBasicMetadata(slice: Slice) {
 }
 
 function loadTupleBasicMetadata(source: TupleReader) {
-  let _name = source.readString();
-  let _description = source.readString();
-  let _image = source.readString();
+  const _name = source.readString();
+  const _description = source.readString();
+  const _image = source.readString();
   return {
     $$type: "BasicMetadata" as const,
     name: _name,
@@ -771,7 +771,7 @@ function loadTupleBasicMetadata(source: TupleReader) {
 }
 
 function storeTupleBasicMetadata(source: BasicMetadata) {
-  let builder = new TupleBuilder();
+  const builder = new TupleBuilder();
   builder.writeString(source.name);
   builder.writeString(source.description);
   builder.writeString(source.image);
@@ -797,7 +797,7 @@ type NexTon_init_args = {
 
 function initNexTon_init_args(src: NexTon_init_args) {
   return (builder: Builder) => {
-    let b_0 = builder;
+    const b_0 = builder;
     b_0.storeAddress(src._liquidStaking);
     b_0.storeAddress(src._nft);
   };
@@ -810,7 +810,7 @@ async function NexTon_init(_liquidStaking: Address, _nft: Address) {
   const __system = Cell.fromBase64(
     "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"
   );
-  let builder = beginCell();
+  const builder = beginCell();
   builder.storeRef(__system);
   builder.storeUint(0, 1);
   initNexTon_init_args({ $$type: "NexTon_init_args", _liquidStaking, _nft })(
@@ -1171,23 +1171,23 @@ export class NexTon implements Contract {
   }
 
   async getBalance(provider: ContractProvider) {
-    let builder = new TupleBuilder();
-    let source = (await provider.get("balance", builder.build())).stack;
-    let result = source.readBigNumber();
+    const builder = new TupleBuilder();
+    const source = (await provider.get("balance", builder.build())).stack;
+    const result = source.readBigNumber();
     return result;
   }
 
   async getNftCounter(provider: ContractProvider) {
-    let builder = new TupleBuilder();
-    let source = (await provider.get("nftCounter", builder.build())).stack;
-    let result = source.readBigNumber();
+    const builder = new TupleBuilder();
+    const source = (await provider.get("nftCounter", builder.build())).stack;
+    const result = source.readBigNumber();
     return result;
   }
 
   async getOwner(provider: ContractProvider) {
-    let builder = new TupleBuilder();
-    let source = (await provider.get("owner", builder.build())).stack;
-    let result = source.readAddress();
+    const builder = new TupleBuilder();
+    const source = (await provider.get("owner", builder.build())).stack;
+    const result = source.readAddress();
     return result;
   }
 }

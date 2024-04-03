@@ -1,10 +1,11 @@
+import { useEffect,useState } from "react";
+import { Address } from "@ton/core";
 import {
   toUserFriendlyAddress,
   useTonConnectUI,
   useTonWallet,
 } from "@tonconnect/ui-react";
-import { Address } from "@ton/core";
-import { useState, useEffect } from "react";
+
 import { useTonClient } from "./useTonClient";
 
 export default function useTonConnect() {

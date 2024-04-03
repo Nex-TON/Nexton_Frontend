@@ -1,10 +1,11 @@
-import { styled } from "styled-components";
-import IcLoanArrow from "../../../assets/icons/Loan/ic_loan_arrow.svg";
 import { useNavigate } from "react-router-dom";
-import { NftStatus } from "../common/Nftstatus";
+import { styled } from "styled-components";
+
+import IcLoanArrow from "../../../assets/icons/Loan/ic_loan_arrow.svg";
 import { nftInfo } from "../../../types/Nft";
-import { numberCutter } from "../../../utils/numberCutter";
 import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
+import { numberCutter } from "../../../utils/numberCutter";
+import { NftStatus } from "../common/Nftstatus";
 
 interface BorrowListProps {
   item: nftInfo;

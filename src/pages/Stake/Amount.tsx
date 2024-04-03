@@ -1,18 +1,19 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
+
+import IcError from "../../assets/icons/Stake/ic_error.svg";
+import LeverageInput from "../../components/stake/Amount/LeverageInput";
 import ProgressBar from "../../components/stake/common/ProgressBar";
 import Step from "../../components/stake/common/Step";
 import Title from "../../components/stake/common/Title";
-import useTonConnect from "../../hooks/contract/useTonConnect";
-import { numberCutter } from "../../utils/numberCutter";
-import LeverageInput from "../../components/stake/Amount/LeverageInput";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import IcError from "../../assets/icons/Stake/ic_error.svg";
-import { useRecoilState } from "recoil";
-import { stakingAtom } from "../../lib/atom/staking";
-import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { ERROR } from "../../constants/error";
+import useTonConnect from "../../hooks/contract/useTonConnect";
+import { stakingAtom } from "../../lib/atom/staking";
 import { isDevMode } from "../../utils/isDevMode";
+import { numberCutter } from "../../utils/numberCutter";
 
 const tele = (window as any).Telegram.WebApp;
 

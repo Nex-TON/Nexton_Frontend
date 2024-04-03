@@ -1,9 +1,10 @@
-import { styled } from "styled-components";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { styled } from "styled-components";
+
 import SwapHeader from "../../components/swap/common/SwapHeader";
-import SwapSection from "../../components/swap/SwapSection/SwapSection";
 import LiquiditySection from "../../components/swap/LiquiditySection/LiquiditySection";
+import SwapSection from "../../components/swap/SwapSection/SwapSection";
 
 const tele = (window as any).Telegram.WebApp;
 

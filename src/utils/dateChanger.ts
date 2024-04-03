@@ -35,10 +35,10 @@ export const DDayChange = (dateString: string, lockPeriod: number) => {
   dateObj.setDate(dateObj.getDate() + lockPeriod);
   dateObj.setHours(0, 0, 0, 0);
 
-  let differenceInMs = dateObj.getTime() - today.getTime();
+  const differenceInMs = dateObj.getTime() - today.getTime();
 
   // Convert the difference to days
-  let days = differenceInMs / (1000 * 60 * 60 * 24);
+  const days = differenceInMs / (1000 * 60 * 60 * 24);
 
   return days;
 };

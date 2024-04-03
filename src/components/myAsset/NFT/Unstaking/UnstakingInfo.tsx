@@ -1,11 +1,12 @@
 import { styled } from "styled-components";
+
 import IcTonSymbol from "../../../../assets/icons/MyAsset/ic_tonSymbol.svg";
 import { nftInfo } from "../../../../types/Nft";
-import { numberCutter } from "../../../../utils/numberCutter";
 import {
-  UnstakingDateChanger,
   expiredDateChanger,
+  UnstakingDateChanger,
 } from "../../../../utils/dateChanger";
+import { numberCutter } from "../../../../utils/numberCutter";
 
 interface UnstakingInfoProps {
   item: nftInfo;

@@ -1,10 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import { css, keyframes, styled } from "styled-components";
-import { useStakeInfo } from "../../../hooks/api/useStakeInfo";
-import useTonConnect from "../../../hooks/contract/useTonConnect";
-import MainNftViewItem from "./MainNftViewItem";
+
 import LandingNftStake from "../../../assets/image/LandingNFTStake.png";
 import NftOngoing from "../../../assets/image/NftOngoing.png?url";
-import { useNavigate } from "react-router-dom";
+import { useStakeInfo } from "../../../hooks/api/useStakeInfo";
+import useTonConnect from "../../../hooks/contract/useTonConnect";
+
+import MainNftViewItem from "./MainNftViewItem";
 
 const MainNftViewList = () => {
   const { address, connected } = useTonConnect();

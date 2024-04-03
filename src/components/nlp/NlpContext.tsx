@@ -1,10 +1,11 @@
 import styled from "styled-components";
+
 import IcNlp from "../../assets/icons/ic_nlp.svg";
-import StatusDetail from "../common/StatusDetail";
-import Input from "../common/Input";
-import Max from "../common/Max";
 import IcTon from "../../assets/icons/ic_ton.svg";
 import useTonConnect from "../../hooks/contract/useTonConnect";
+import Input from "../common/Input";
+import Max from "../common/Max";
+import StatusDetail from "../common/StatusDetail";
 
 interface NlpContextProps {
   input: string;

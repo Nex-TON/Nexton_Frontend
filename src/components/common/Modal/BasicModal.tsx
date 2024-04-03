@@ -1,11 +1,13 @@
-import { styled } from "styled-components";
-import ModalWrapper from "./ModalWrapper";
-import IcClose from "../../../assets/icons/Modal/ic_close.svg";
-import { useNavigate } from "react-router-dom";
-import IcModalArrow from "../../../assets/icons/Modal/ic_modal_arrow.svg";
-import useTonConnect from "../../../hooks/contract/useTonConnect";
-import { MODAL_TEXT } from "../../../constants/ModalText";
 import { ThreeCircles } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
+import { styled } from "styled-components";
+
+import IcClose from "../../../assets/icons/Modal/ic_close.svg";
+import IcModalArrow from "../../../assets/icons/Modal/ic_modal_arrow.svg";
+import { MODAL_TEXT } from "../../../constants/ModalText";
+import useTonConnect from "../../../hooks/contract/useTonConnect";
+
+import ModalWrapper from "./ModalWrapper";
 
 interface BasicModalProps {
   type: string;

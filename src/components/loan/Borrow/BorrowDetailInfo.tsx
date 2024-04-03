@@ -1,10 +1,11 @@
-import { styled } from "styled-components";
-import { NftStatus } from "../common/Nftstatus";
-import IcLoanEqual from "../../../assets/icons/Loan/ic_loan_equal.svg";
 import { useParams } from "react-router-dom";
-import { numberCutter } from "../../../utils/numberCutter";
-import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
+import { styled } from "styled-components";
+
+import IcLoanEqual from "../../../assets/icons/Loan/ic_loan_equal.svg";
 import { useNFTDetail } from "../../../hooks/api/useNFTDetail";
+import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
+import { numberCutter } from "../../../utils/numberCutter";
+import { NftStatus } from "../common/Nftstatus";
 
 const BorrowDetailInfo = () => {
   const { id } = useParams();

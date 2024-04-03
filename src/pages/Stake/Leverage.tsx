@@ -1,18 +1,18 @@
-import { styled } from "styled-components";
-import Step2 from "../../components/stake/LeverageLockUp/Leverage";
-import Step3 from "../../components/stake/LeverageLockUp/Lockup";
-import FooterButton from "../../components/common/FooterButton";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { stakingAtom } from "../../lib/atom/staking";
-import { getLockUpDate } from "../../utils/getLockupDate";
-import { getTelegramId } from "../../api/getTelegramId";
-import useTonConnect from "../../hooks/contract/useTonConnect";
-import { telegramAtom } from "../../lib/atom/telegram";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import { useRecoilState } from "recoil";
+import { styled } from "styled-components";
 
+import { getTelegramId } from "../../api/getTelegramId";
+import FooterButton from "../../components/common/FooterButton";
 import ProgressBar from "../../components/stake/common/ProgressBar";
+import Step2 from "../../components/stake/LeverageLockUp/Leverage";
+import Step3 from "../../components/stake/LeverageLockUp/Lockup";
+import useTonConnect from "../../hooks/contract/useTonConnect";
+import { stakingAtom } from "../../lib/atom/staking";
+import { telegramAtom } from "../../lib/atom/telegram";
+import { getLockUpDate } from "../../utils/getLockupDate";
 import { isDevMode } from "../../utils/isDevMode";
 
 const tele = (window as any).Telegram.WebApp;

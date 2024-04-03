@@ -1,11 +1,12 @@
-import styled from "styled-components";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import useTonConnect from "../../hooks/contract/useTonConnect";
-import { addressState } from "../../lib/atom/address";
+import styled from "styled-components";
+
 import Header from "../../components/common/Header";
 import MainMyAssetInfo from "../../components/main/MainMyAssetInfo";
 import MainNftView from "../../components/main/NFTView/MainNftView";
+import useTonConnect from "../../hooks/contract/useTonConnect";
+import { addressState } from "../../lib/atom/address";
 
 const tele = (window as any).Telegram.WebApp;
 

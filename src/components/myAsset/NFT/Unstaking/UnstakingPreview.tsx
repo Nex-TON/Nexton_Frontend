@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+
 import NftPreviewExpired from "../../../../assets/image/NftPreviewExpired.png";
 import { nftInfo } from "../../../../types/Nft";
 import { expiredDateChanger } from "../../../../utils/dateChanger";

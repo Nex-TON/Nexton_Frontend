@@ -1,4 +1,5 @@
 import { css, styled } from "styled-components";
+
 import NFTPreview from "../../../assets/image/MainNftOngoing.png";
 import { lockUpDateChanger } from "../../../utils/dateChanger";
 

@@ -1,6 +1,8 @@
 import { css, styled } from "styled-components";
-import TonWallet from "./TonWallet";
+
 import useTonConnect from "../../hooks/contract/useTonConnect";
+
+import TonWallet from "./TonWallet";
 
 const MainMyAssetInfo = () => {
   const { balance } = useTonConnect();

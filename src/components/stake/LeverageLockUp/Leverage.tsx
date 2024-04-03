@@ -1,11 +1,13 @@
+import { useState } from "react";
 import styled from "styled-components";
-import Step from "../common/Step";
-import Title from "../common/Title";
-import SliderBox from "./Slider/SliderBox";
-import StatusDetail from "../../common/StatusDetail";
+
 import IcBlackArrowDown from "../../../assets/icons/Stake/ic_black_arrow_down.svg";
 import IcBlackArrowUp from "../../../assets/icons/Stake/ic_black_arrow_up.svg";
-import { useState } from "react";
+import StatusDetail from "../../common/StatusDetail";
+import Step from "../common/Step";
+import Title from "../common/Title";
+
+import SliderBox from "./Slider/SliderBox";
 
 interface Step2Props {
   input: string;

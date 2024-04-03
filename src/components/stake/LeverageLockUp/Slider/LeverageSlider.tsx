@@ -1,5 +1,6 @@
-import { styled } from "@mui/material/styles";
 import Slider from "@mui/material/Slider";
+import { styled } from "@mui/material/styles";
+
 import { MARK } from "../../../../constants/LerverageMark";
 
 interface LeverageSliderProps {
