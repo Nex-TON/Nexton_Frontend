@@ -1,11 +1,12 @@
-import { css, styled } from "styled-components";
-import NFTOngoing from "../../../assets/image/MainNftOngoing.png";
-import NFTForthComing from "../../../assets/image/MainNftForthComing.png";
-import NFTExpired from "../../../assets/image/MainNftExpired.png";
 import { useRecoilValue } from "recoil";
+import { css, styled } from "styled-components";
+
+import NFTExpired from "../../../assets/image/MainNftExpired.png";
+import NFTForthComing from "../../../assets/image/MainNftForthComing.png";
+import NFTOngoing from "../../../assets/image/MainNftOngoing.png";
 import { imageSizeAtom } from "../../../lib/atom/imageSize";
-import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
 import { nftInfo } from "../../../types/Nft";
+import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
 
 interface DetailNFTPreviewProps {
   item: nftInfo;

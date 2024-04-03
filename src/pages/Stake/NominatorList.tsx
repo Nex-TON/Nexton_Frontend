@@ -1,18 +1,20 @@
-import { styled } from "styled-components";
-import Step from "../../components/stake/common/Step";
-import Title from "../../components/stake/common/Title";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import { useRecoilState } from "recoil";
+import { styled } from "styled-components";
+
+import IcSearch from "../../assets/icons/Stake/ic_search.svg";
+import ProgressBar from "../../components/stake/common/ProgressBar";
+import Step from "../../components/stake/common/Step";
+import Title from "../../components/stake/common/Title";
 import NominatorItem from "../../components/stake/Nominator/NominatorItem";
 import { NOMINATOR_LIST } from "../../constants/Nominator";
-import { useRecoilState } from "recoil";
-import { MainButton } from "@vkruglikov/react-telegram-web-app";
-import ProgressBar from "../../components/stake/common/ProgressBar";
 import { stakingAtom } from "../../lib/atom/staking";
-import IcSearch from "../../assets/icons/Stake/ic_search.svg";
+import { isDevMode } from "../../utils/isDevMode";
+
 import { useSearchNominatorPool } from "./hooks/useSearchNominatorPoo";
 import { useSelectNominator } from "./hooks/useSelectNominator";
-import { isDevMode } from "../../utils/isDevMode";
 
 const tele = (window as any).Telegram.WebApp;
 

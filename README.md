@@ -1,6 +1,6 @@
-# Hack_a_TON_Frontend
+# Nexton TWA Frontend
 
-This frontend code is for setting up a Nexton Web App using React.js.
+This frontend code is for setting up a Nexton Telegram Web App using React.js.
 It acts as client Part of the project
 
 ## Dependencies
@@ -33,8 +33,8 @@ To start the react, you can use the following command:
 **Step1**
 
 ```
-git clone https://github.com/Nex-TON/Hack-a-TON_Frontend.git
-cd Hack-a-TON_Frontend
+git clone https://github.com/Nex-TON/Nexton_Frontend.git
+cd Nexton_Frontend
 ```
 
 **Step2**
@@ -52,4 +52,6 @@ yarn vite --host // for mobile
 
 ## Page UI
 
-![image](https://github.com/Nex-TON/Hack-a-TON_Frontend/assets/64398993/7eed6ce2-a343-48f0-a79c-da72de6c7e56)
+![image](https://res.cloudinary.com/do6yo1hx8/image/upload/v1712126408/Onboarding_02_srkcmo.png)
+![image](https://res.cloudinary.com/do6yo1hx8/image/upload/v1712126407/Onboarding_01_ctdj0u.png)
+![image](https://res.cloudinary.com/do6yo1hx8/image/upload/v1712126407/Landing_page_-_Not_connect_-_stake_cppung.png)

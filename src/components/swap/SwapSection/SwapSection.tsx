@@ -1,10 +1,12 @@
-import { styled } from "styled-components";
-import IcSwapArrow from "../../../assets/icons/Swap/ic_swap_arrow.svg";
 import { useState } from "react";
-import useTonConnect from "../../../hooks/contract/useTonConnect";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
-import SwapBox from "../common/SwapBox";
+import { styled } from "styled-components";
+
+import IcSwapArrow from "../../../assets/icons/Swap/ic_swap_arrow.svg";
+import useTonConnect from "../../../hooks/contract/useTonConnect";
 import LiquidityBox from "../common/LiquidityBox";
+import SwapBox from "../common/SwapBox";
+
 import SwapRatio from "./SwapRatio";
 
 const SwapSection = () => {

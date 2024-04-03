@@ -1,6 +1,8 @@
-import { styled } from "styled-components";
-import IcNftMoreArrow from "../../../assets/icons/Landing/ic_more_arrow.svg";
 import { useNavigate } from "react-router-dom";
+import { styled } from "styled-components";
+
+import IcNftMoreArrow from "../../../assets/icons/Landing/ic_more_arrow.svg";
+
 import MainNftViewList from "./MainNftViewList";
 
 const MainNftView = () => {

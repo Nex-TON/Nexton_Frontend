@@ -1,12 +1,13 @@
-import { css, styled } from "styled-components";
-import IcTon from "../../../../assets/icons/MyAsset/ic_tonSymbol.svg";
 import { useNavigate } from "react-router-dom";
+import { css, styled } from "styled-components";
+
+import IcTon from "../../../../assets/icons/MyAsset/ic_tonSymbol.svg";
 import { nftInfo } from "../../../../types/Nft";
-import { numberCutter } from "../../../../utils/numberCutter";
 import {
   AvailableDate,
   UnstakingDateChanger,
 } from "../../../../utils/dateChanger";
+import { numberCutter } from "../../../../utils/numberCutter";
 
 interface UnstakingDetailItemProps {
   item: nftInfo;

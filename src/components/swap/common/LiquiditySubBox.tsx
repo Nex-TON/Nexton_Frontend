@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
-import IcTon from "../../../assets/icons/Swap/ic_ton.svg";
+
 import IcNxt from "../../../assets/icons/Swap/ic_nxt.svg";
+import IcTon from "../../../assets/icons/Swap/ic_ton.svg";
 
 interface LiquiditySubBoxProps {
   title: string;

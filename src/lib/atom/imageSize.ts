@@ -1,6 +1,7 @@
 import { atom } from "recoil";
-import { ImageSizeProps } from "../../types/imageSize";
 import { recoilPersist } from "recoil-persist";
+
+import { ImageSizeProps } from "../../types/imageSize";
 
 const { persistAtom } = recoilPersist();
 

@@ -1,8 +1,9 @@
-import { styled } from "styled-components";
-import IcMenuStake from "../../../assets/icons/Menu/ic_menu_stake.svg";
-import IcMenuMarket from "../../../assets/icons/Menu/ic_menu_market.svg";
-import IcMenuMyAsset from "../../../assets/icons/Menu/ic_menu_asset.svg";
 import { useNavigate } from "react-router-dom";
+import { styled } from "styled-components";
+
+import IcMenuMyAsset from "../../../assets/icons/Menu/ic_menu_asset.svg";
+import IcMenuMarket from "../../../assets/icons/Menu/ic_menu_market.svg";
+import IcMenuStake from "../../../assets/icons/Menu/ic_menu_stake.svg";
 
 const NowUsingMenu = () => {
   const navigate = useNavigate();

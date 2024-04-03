@@ -1,11 +1,13 @@
 import styled from "styled-components";
-import Step from "../common/Step";
-import Title from "../common/Title";
-import LeverageInput from "./LeverageInput";
+
+import IcError from "../../../assets/icons/Stake/ic_error.svg";
 import useTonConnect from "../../../hooks/contract/useTonConnect";
 import { numberCutter } from "../../../utils/numberCutter";
-import IcError from "../../../assets/icons/Stake/ic_error.svg";
 import ProgressBar from "../common/ProgressBar";
+import Step from "../common/Step";
+import Title from "../common/Title";
+
+import LeverageInput from "./LeverageInput";
 
 interface Step1Props {
   input: string;

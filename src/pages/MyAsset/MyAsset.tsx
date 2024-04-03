@@ -1,8 +1,9 @@
-import styled from "styled-components";
 import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import NftHeader from "../../components/myAsset/NftHeader";
+import styled from "styled-components";
+
 import Header from "../../components/common/Header";
+import NftHeader from "../../components/myAsset/NftHeader";
 
 const MyAsset = () => {
   const { pathname } = useLocation();

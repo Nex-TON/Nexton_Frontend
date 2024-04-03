@@ -1,6 +1,7 @@
-import styled from "styled-components";
-import LeverageSlider from "./LeverageSlider";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
+
+import LeverageSlider from "./LeverageSlider";
 
 interface SliderBoxProps {
   ratio: number;

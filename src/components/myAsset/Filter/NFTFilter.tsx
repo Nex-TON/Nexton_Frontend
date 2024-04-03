@@ -1,4 +1,5 @@
 import { css, styled } from "styled-components";
+
 import IcCheck from "../../../assets/icons/MyAsset/ic_check.svg";
 interface NFTFilterProps {
   activeOpacity: boolean;

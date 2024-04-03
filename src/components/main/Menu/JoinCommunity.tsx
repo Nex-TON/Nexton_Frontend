@@ -1,8 +1,9 @@
 import { styled } from "styled-components";
-import IcMenuTwitter from "../../../assets/icons/Menu/ic_menu_twitter.svg";
-import IcMenuGithub from "../../../assets/icons/Menu/ic_menu_github.svg";
-import IcMenuDiscord from "../../../assets/icons/Menu/ic_menu_discord.svg";
+
 import IcNftMoreArrow from "../../../assets/icons/Landing/ic_nftMore_arrow.svg";
+import IcMenuDiscord from "../../../assets/icons/Menu/ic_menu_discord.svg";
+import IcMenuGithub from "../../../assets/icons/Menu/ic_menu_github.svg";
+import IcMenuTwitter from "../../../assets/icons/Menu/ic_menu_twitter.svg";
 
 const JoinCommunity = () => {
   const handleNewTap = (url: string) => {

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
+
 import { LP_POOL } from "../../constants/Lp Pool";
 
 interface StatusDetailProps {

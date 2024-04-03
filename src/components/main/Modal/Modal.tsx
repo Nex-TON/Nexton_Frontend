@@ -1,8 +1,9 @@
-import { styled } from "styled-components";
-import ModalWrapper from "../../common/Modal/ModalWrapper";
 import { useRecoilState } from "recoil";
-import { addressState } from "../../../lib/atom/address";
+import { styled } from "styled-components";
+
 import IcWalletDisconnect from "../../../assets/icons/Landing/ic_landing_wallet_disconnect.svg";
+import { addressState } from "../../../lib/atom/address";
+import ModalWrapper from "../../common/Modal/ModalWrapper";
 
 interface ModalProps {
   handleModalState: () => void;

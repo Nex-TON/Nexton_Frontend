@@ -1,9 +1,10 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
+
 import IcBack from "../../../../assets/icons/ic_back.svg";
 import IcDown from "../../../../assets/icons/MyAsset/ic_arrow_down.svg";
 import IcUp from "../../../../assets/icons/MyAsset/ic_arrow_up.svg";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const tele = (window as any).Telegram.WebApp;
 

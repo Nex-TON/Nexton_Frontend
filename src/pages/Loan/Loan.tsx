@@ -1,9 +1,9 @@
-import { styled } from "styled-components";
-
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import LoanList from "../../components/loan/LoanList";
+import { styled } from "styled-components";
+
 import LoanHeader from "../../components/loan/common/LoanHeader";
+import LoanList from "../../components/loan/LoanList";
 
 const tele = (window as any).Telegram.WebApp;
 

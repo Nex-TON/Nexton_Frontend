@@ -1,12 +1,13 @@
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
+
+import MainNftExpired from "../../../assets/image/MainNftExpired.png";
+import MainNFTForthComing from "../../../assets/image/MainNftForthComing.png";
+import MainNFTOngoing from "../../../assets/image/MainNftOngoing.png";
+import { imageSizeAtom } from "../../../lib/atom/imageSize";
 import { nftInfo } from "../../../types/Nft";
 import { DDayChange } from "../../../utils/dateChanger";
-import MainNFTOngoing from "../../../assets/image/MainNftOngoing.png";
-import MainNFTForthComing from "../../../assets/image/MainNftForthComing.png";
-import MainNftExpired from "../../../assets/image/MainNftExpired.png";
-import { useNavigate } from "react-router-dom";
-import { imageSizeAtom } from "../../../lib/atom/imageSize";
-import { useRecoilState } from "recoil";
 
 interface MainNftViewItemProps {
   nftItem: nftInfo;

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { NOMINATOR_LIST } from "../../../constants/Nominator";
 
 export const useSearchNominatorPool = (searchInput: string) => {

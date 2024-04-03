@@ -1,7 +1,8 @@
-import styled from "styled-components";
-import IcNft from "../../assets/icons/ic_nft.svg";
 import { useNavigate } from "react-router";
+import styled from "styled-components";
+
 import { lockUpDateChanger } from "../../../utils/dateChanger";
+import IcNft from "../../assets/icons/ic_nft.svg";
 
 interface NftItemProps {
   idx?: number;

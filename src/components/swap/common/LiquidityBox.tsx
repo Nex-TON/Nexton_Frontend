@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { styled } from "styled-components";
-import IcArrowUp from "../../../assets/icons/MyAsset/ic_arrow_up.svg";
+
 import IcArrowDown from "../../../assets/icons/MyAsset/ic_arrow_down.svg";
+import IcArrowUp from "../../../assets/icons/MyAsset/ic_arrow_up.svg";
 import IcNxt from "../../../assets/icons/Swap/ic_nxt.svg";
 import IcTon from "../../../assets/icons/Swap/ic_ton.svg";
 
-import { useState } from "react";
 import LiquiditySubBox from "./LiquiditySubBox";
 
 interface LiquidityBoxProps {

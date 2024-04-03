@@ -1,8 +1,9 @@
-import { ThemeProvider } from "styled-components";
-import theme from "./styles/theme";
-import GlobalStyle from "./styles/globalStyles";
-import Router from "./components/common/Router";
 import { RecoilRoot } from "recoil";
+import { ThemeProvider } from "styled-components";
+
+import Router from "./components/common/Router";
+import GlobalStyle from "./styles/globalStyles";
+import theme from "./styles/theme";
 
 const App = () => {
   return (

@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+
 import IcNxt from "../../../assets/icons/Swap/ic_nxt.svg";
 import IcTon from "../../../assets/icons/Swap/ic_ton.svg";
 import { numberCutter } from "../../../utils/numberCutter";

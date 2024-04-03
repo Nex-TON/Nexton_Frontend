@@ -1,21 +1,23 @@
-import { css, styled } from "styled-components";
-import DetailNFTInfoHeader from "./DetailNFTInfoHeader";
-import IcTonSymbol from "../../../assets/icons/MyAsset/ic_tonSymbol.svg";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { nftInfo } from "../../../types/Nft";
-import { numberCutter } from "../../../utils/numberCutter";
-import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
-import { getProtocolFee } from "../../../utils/getProtocolFee";
+import { useTonAddress } from "@tonconnect/ui-react";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import { useRecoilValue } from "recoil";
+import { css, styled } from "styled-components";
+
+import { postClaim } from "../../../api/postClaim";
+import IcTonSymbol from "../../../assets/icons/MyAsset/ic_tonSymbol.svg";
 import * as Contract from "../../../hooks/contract/depositTon";
 import { UserClaimWithdraw } from "../../../hooks/contract/wrappers/tact_NexTon";
-import { useRecoilValue } from "recoil";
 import { telegramAtom } from "../../../lib/atom/telegram";
-import { useTonAddress } from "@tonconnect/ui-react";
-import { postClaim } from "../../../api/postClaim";
-import { useState } from "react";
+import { nftInfo } from "../../../types/Nft";
+import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
+import { getProtocolFee } from "../../../utils/getProtocolFee";
+import { numberCutter } from "../../../utils/numberCutter";
 import BasicModal from "../../common/Modal/BasicModal";
-import toast, { Toaster } from "react-hot-toast";
+
+import DetailNFTInfoHeader from "./DetailNFTInfoHeader";
 
 interface DetailNftInfoProps {
   item: nftInfo;

@@ -1,7 +1,8 @@
 import { styled } from "styled-components";
+
 import IcMenuLoan from "../../../assets/icons/Menu/ic_menu_loan.svg";
-import IcMenuNXT from "../../../assets/icons/Menu/ic_menu_nxt.svg";
 import IcMenuNLP from "../../../assets/icons/Menu/ic_menu_nlp.svg";
+import IcMenuNXT from "../../../assets/icons/Menu/ic_menu_nxt.svg";
 import IcMenuSwap from "../../../assets/icons/Menu/ic_menu_swap.svg";
 
 const UpcomingMenu = () => {

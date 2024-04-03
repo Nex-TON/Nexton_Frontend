@@ -1,4 +1,5 @@
 import { css, styled } from "styled-components";
+
 import { StakingProps } from "../../../types/staking";
 import { getProtocolFee } from "../../../utils/getProtocolFee";
 import { numberCutter } from "../../../utils/numberCutter";

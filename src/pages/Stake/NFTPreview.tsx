@@ -1,22 +1,23 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createClient } from "@supabase/supabase-js";
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { styled } from "styled-components";
-import NftPreviewImage from "../../components/stake/NFTPreview/NftPreviewImage";
-import NFTPreviewInfo from "../../components/stake/NFTPreview/NFTPreviewInfo";
+
+import { postStakingInfo } from "../../api/postStakingInfo";
+import IcAlertBlue from "../../assets/icons/Stake/ic_alert_blue.svg";
 import FooterButton from "../../components/common/FooterButton";
-import { UserDeposit } from "../../hooks/contract/wrappers/tact_NexTon";
-import * as Contract from "../../hooks/contract/depositTon";
 import BasicModal, {
   LoaderModal,
 } from "../../components/common/Modal/BasicModal";
-import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
-import { stakingAtom, stakingInputAtom } from "../../lib/atom/staking";
-import { postStakingInfo } from "../../api/postStakingInfo";
-import { useNavigate } from "react-router-dom";
-import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import ProgressBar from "../../components/stake/common/ProgressBar";
-import IcAlertBlue from "../../assets/icons/Stake/ic_alert_blue.svg";
+import NftPreviewImage from "../../components/stake/NFTPreview/NftPreviewImage";
+import NFTPreviewInfo from "../../components/stake/NFTPreview/NFTPreviewInfo";
+import * as Contract from "../../hooks/contract/depositTon";
+import { UserDeposit } from "../../hooks/contract/wrappers/tact_NexTon";
+import { stakingAtom, stakingInputAtom } from "../../lib/atom/staking";
 import { isDevMode } from "../../utils/isDevMode";
-import { createClient } from "@supabase/supabase-js";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_PUBLIC_KEY = import.meta.env.VITE_SUPABASE_PUBLIC_KEY;
@@ -71,7 +72,7 @@ const NFTPreview = () => {
     setIsLoading(true);
 
     // Send the staking info to the Supabase database
-    let { data: Users, error: readError } = await supabase
+    const { data: Users, error: readError } = await supabase
       .from("Users")
       .select("wallet_address");
 

@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { styled } from "styled-components";
+
 import IcArrowDown from "../../../assets/icons/MyAsset/ic_arrow_down.svg";
 import IcArrowUp from "../../../assets/icons/MyAsset/ic_arrow_up.svg";
-import { useState } from "react";
 
 const SLIPPAGE = `Minimum received after 
 slippage (5.00%)`;

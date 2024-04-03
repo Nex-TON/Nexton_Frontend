@@ -1,13 +1,14 @@
-import styled, { css } from "styled-components";
 import { useNavigate } from "react-router";
-import IcMenuLeverage from "../../../assets/icons/Landing/ic_menuLeverage.svg";
-import IcMenuNxt from "../../../assets/icons/Landing/ic_menuNxt.svg";
-import IcMenuLoan from "../../../assets/icons/Landing/ic_menuLoan.svg";
+import styled, { css } from "styled-components";
+
 import IcMenuCoin from "../../../assets/icons/Landing/ic_menuCoin.svg";
-import IcMenuSwap from "../../../assets/icons/Landing/ic_menuSwap.svg";
-import IcMenuAsset from "../../../assets/icons/Landing/ic_menuMyAsset.svg";
 import IcMenuCoinDisable from "../../../assets/icons/Landing/ic_menuCoin_Disable.svg";
+import IcMenuLeverage from "../../../assets/icons/Landing/ic_menuLeverage.svg";
+import IcMenuLoan from "../../../assets/icons/Landing/ic_menuLoan.svg";
+import IcMenuAsset from "../../../assets/icons/Landing/ic_menuMyAsset.svg";
+import IcMenuNxt from "../../../assets/icons/Landing/ic_menuNxt.svg";
 import IcMenuNxtDisable from "../../../assets/icons/Landing/ic_menuNxt_Disable.svg";
+import IcMenuSwap from "../../../assets/icons/Landing/ic_menuSwap.svg";
 import useTonConnect from "../../../hooks/contract/useTonConnect";
 
 interface ButtonProps {
