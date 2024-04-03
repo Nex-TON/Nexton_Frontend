@@ -34,7 +34,7 @@ To start the react, you can use the following command:
 
 ```
 git clone https://github.com/Nex-TON/Nexton_Frontend.git
-cd Hack-a-TON_Frontend
+cd Nexton_Frontend
 ```
 
 **Step2**
