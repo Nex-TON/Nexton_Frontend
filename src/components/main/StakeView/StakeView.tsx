@@ -1,32 +1,47 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import ToggleGroup from "@components/common/ToggleGroup";
 import { styled } from "styled-components";
-
-import IcNftMoreArrow from "../../../assets/icons/Landing/ic_more_arrow.svg";
 
 import MainNftViewList from "./MainNftViewList";
 
-const MainNftView = () => {
-  const navigate = useNavigate();
+const toggleOptions = [
+  { label: "Stake", value: "stake" },
+  { label: "NFTs", value: "nfts" },
+  { label: "Point", value: "point" },
+];
+
+export type MainNftViewListType = "stake" | "nfts" | "point";
+
+const StakeView = () => {
+  const [toggleSelected, setToggleSelected] = useState<MainNftViewListType>("stake");
 
   return (
     <MainNftViewWrapper>
       <MainNFtViewInnerBox>
         <MainNftViewInnerTitleBox>
-          <MainNFtViewInnerTitle>NFTs</MainNFtViewInnerTitle>
-          <MainNftViewInnerTitleMore
+          <MainNFtViewInnerTitle>Let’s Stake!</MainNFtViewInnerTitle>
+
+          {/* <MainNftViewInnerTitleMore
             onClick={() => navigate("/myasset/nftlist")}
           >
             View more
             <img src={IcNftMoreArrow} alt="nftMore" />
-          </MainNftViewInnerTitleMore>
+          </MainNftViewInnerTitleMore> */}
         </MainNftViewInnerTitleBox>
-        <MainNftViewList />
+
+        <ToggleGroup
+          options={toggleOptions}
+          value={toggleSelected}
+          onChange={value => setToggleSelected(value as MainNftViewListType)}
+        />
+
+        <MainNftViewList state={toggleSelected} />
       </MainNFtViewInnerBox>
     </MainNftViewWrapper>
   );
 };
 
-export default MainNftView;
+export default StakeView;
 
 const MainNftViewWrapper = styled.div`
   width: 100%;
@@ -46,6 +61,8 @@ const MainNftViewInnerTitleBox = styled.div`
   align-items: center;
 
   width: 100%;
+
+  margin-bottom: 10px;
 `;
 
 const MainNFtViewInnerTitle = styled.span`
@@ -57,11 +74,11 @@ const MainNFtViewInnerTitle = styled.span`
   line-height: 3.4rem;
 `;
 
-const MainNftViewInnerTitleMore = styled.div`
+/* const MainNftViewInnerTitleMore = styled.div`
   display: flex;
   gap: 0.4rem;
 
   color: #09090a;
   ${({ theme }) => theme.fonts.Nexton_Label_Small};
   cursor: pointer;
-`;
+`; */
