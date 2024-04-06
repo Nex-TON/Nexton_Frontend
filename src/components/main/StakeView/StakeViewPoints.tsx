@@ -8,8 +8,8 @@ import MainRanking from "@/assets/image/MainRanking.png";
 
 import { MainStakeViewBox, MainStakeViewWrapper } from "./common/StakeView.styled";
 
-const StakeViewPoints = ({ connected }: { connected: boolean }) => {
-  return connected ? (
+const StakeViewPoints = ({ isConnected }: { isConnected: boolean }) => {
+  return isConnected ? (
     <MainStakeViewWrapper>
       <PointBoxSquad>
         <PointBoxTitle>Squad</PointBoxTitle>

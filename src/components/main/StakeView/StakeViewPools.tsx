@@ -1,26 +1,38 @@
 import { useNavigate } from "react-router-dom";
-import { css, keyframes, styled } from "styled-components";
+import { styled } from "styled-components";
 
 import LandingNftStake from "@/assets/image/LandingNFTStake.png";
 
 import { MainStakeViewBox, MainStakeViewWrapper } from "./common/StakeView.styled";
 
-const StakeViewPools = () => {
+// TBD: API connection is needed
+const StakeViewPools = ({ isConnected }: { isConnected: boolean }) => {
   const navigate = useNavigate();
 
   return (
     <MainStakeViewWrapper>
       <MainNftInfoBox onClick={() => navigate("/stake/amount")}>
         <MainNftInfoTitleBox>
-          <p>Get NFTs</p>
-          <p>with STAKE</p>
+          <p>{isConnected ? "My $TON" : "$TON TVL"}</p>
+          <p>{isConnected ? "50,000$" : "100,000,000$"}</p>
         </MainNftInfoTitleBox>
 
-        <img src={LandingNftStake} alt="nftStake" />
+        <MainNftStakeImg src={LandingNftStake} alt="nftStake" />
       </MainNftInfoBox>
 
-      <EmptyNftItem />
-      <EmptyNftItem />
+      <CyanNftInfoBox onClick={() => navigate("/stake/amount")}>
+        <MainNftInfoTitleBox>
+          <p>{isConnected ? "My LST" : "LST TVL"}</p>
+          <p>{isConnected ? "50,000$" : "100,000,000$"}</p>
+        </MainNftInfoTitleBox>
+      </CyanNftInfoBox>
+
+      <BlueNftInfoBox onClick={() => navigate("/stake/amount")}>
+        <MainNftInfoTitleBox>
+          <p>{isConnected ? "My Jetton" : "Jetton TVL"}</p>
+          <p>{isConnected ? "50,000$" : "100,000,000$"}</p>
+        </MainNftInfoTitleBox>
+      </BlueNftInfoBox>
     </MainStakeViewWrapper>
   );
 };
@@ -29,6 +41,23 @@ export default StakeViewPools;
 
 const MainNftInfoBox = styled(MainStakeViewBox)`
   background: #2f3038;
+`;
+
+const CyanNftInfoBox = styled(MainStakeViewBox)`
+  background: linear-gradient(154deg, #93e6ee 0%, #278a93 74.79%);
+`;
+
+const BlueNftInfoBox = styled(MainStakeViewBox)`
+  background: linear-gradient(90.11deg, #6bd3ff -19.89%, #3461ff 108.4%);
+`;
+
+const MainNftStakeImg = styled.img`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 30%;
+  bottom: 0;
+  margin: auto;
 `;
 
 const MainNftInfoTitleBox = styled.div`
@@ -43,25 +72,4 @@ const MainNftInfoTitleBox = styled.div`
     color: #f2f2f7;
     ${({ theme }) => theme.fonts.Nexton_Label_Medium};
   }
-`;
-
-const shimmerAnimation = keyframes`
-0% {
-  background-position: -200% 0;
-}
-100% {
-  background-position: 200% 0;
-}
-`;
-
-const EmptyNftItem = styled(MainStakeViewBox)<{ isloading?: boolean }>`
-  background-color: #f1f4f4;
-
-  ${({ isloading }) =>
-    isloading &&
-    css`
-      background: linear-gradient(90deg, #f1f4f4 25%, #f3f6f6 50%, #f1f4f4 75%);
-      animation: ${shimmerAnimation} 1.5s infinite;
-      background-size: 200% 100%;
-    `}
 `;

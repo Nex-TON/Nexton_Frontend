@@ -9,12 +9,12 @@ import { MainStakeViewBox, MainStakeViewWrapper } from "./common/StakeView.style
 import StakeViewNFTsItem from "./StakeViewNFTsItem";
 
 const StakeViewNFTs = ({
-  connected,
+  isConnected,
   isLoading,
   nftList,
   stakedLocally,
 }: {
-  connected: boolean;
+  isConnected: boolean;
   isLoading: boolean;
   nftList?: nftInfo[];
   stakedLocally: string | null;
@@ -29,13 +29,13 @@ const StakeViewNFTs = ({
           <p>with STAKE</p>
         </MainNftInfoTitleBox>
 
-        <img src={LandingNftStake} alt="nftStake" />
+        <MainNftStakeImg src={LandingNftStake} alt="nftStake" />
       </MainNftInfoBox>
 
       <EmptyNftItem isloading={isLoading} />
       <EmptyNftItem isloading={isLoading} />
     </MainStakeViewWrapper>
-  ) : nftList?.filter(nft => nft.status !== 2).length === 0 || !connected ? (
+  ) : nftList?.filter(nft => nft.status !== 2).length === 0 || !isConnected ? (
     <MainStakeViewWrapper>
       <MainNftInfoBox onClick={() => navigate("/stake/amount")}>
         <MainNftInfoTitleBox>
@@ -43,7 +43,7 @@ const StakeViewNFTs = ({
           <p>with STAKE</p>
         </MainNftInfoTitleBox>
 
-        <img src={LandingNftStake} alt="nftStake" />
+        <MainNftStakeImg src={LandingNftStake} alt="nftStake" />
       </MainNftInfoBox>
 
       <EmptyNftItem />
@@ -56,7 +56,7 @@ const StakeViewNFTs = ({
           <p>Get NFTs</p>
           <p>with STAKE</p>
         </MainNftInfoTitleBox>
-        <img src={LandingNftStake} alt="nftStake" />
+        <MainNftStakeImg src={LandingNftStake} alt="nftStake" />
       </MainNftInfoBox>
 
       {stakedLocally && (
@@ -89,6 +89,15 @@ export default StakeViewNFTs;
 
 const MainNftInfoBox = styled(MainStakeViewBox)`
   background: #2f3038;
+`;
+
+const MainNftStakeImg = styled.img`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 30%;
+  bottom: 0;
+  margin: auto;
 `;
 
 const MainNftInfoTitleBox = styled.div`
