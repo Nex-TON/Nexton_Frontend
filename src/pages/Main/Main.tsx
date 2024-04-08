@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import Header from "../../components/common/Header";
 import MainMyAssetInfo from "../../components/main/MainMyAssetInfo";
-import MainNftView from "../../components/main/NFTView/MainNftView";
+import StakeView from "../../components/main/StakeView/StakeView";
 import useTonConnect from "../../hooks/contract/useTonConnect";
 import { addressState } from "../../lib/atom/address";
 
@@ -32,7 +32,7 @@ const Main = () => {
       <Header isOpen={false} text="NEXTON" backgroundType={false} />
       <MainMyAssetInfo />
       <MainBorder />
-      <MainNftView />
+      <StakeView />
     </MainWrapper>
   );
 };

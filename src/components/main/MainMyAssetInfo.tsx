@@ -1,4 +1,4 @@
-import { css, styled } from "styled-components";
+import { styled } from "styled-components";
 
 import useTonConnect from "../../hooks/contract/useTonConnect";
 
@@ -14,20 +14,12 @@ const MainMyAssetInfo = () => {
       <MainMyAssetInfoInnerBox>
         <MainMyAssetInfoInnerTopBox>My Asset</MainMyAssetInfoInnerTopBox>
         <MainMyAssetInfoInnerBottomBox>
-          <MainMyAssetInfoInnerBottomTitleBox>
-            Balance
-          </MainMyAssetInfoInnerBottomTitleBox>
-          <MainMyAssetInfoInnerBottomValue>
-            {balance.toFixed(2)} TON
-          </MainMyAssetInfoInnerBottomValue>
+          <MainMyAssetInfoInnerBottomTitleBox>Balance</MainMyAssetInfoInnerBottomTitleBox>
+          <MainMyAssetInfoInnerBottomValue>{balance.toFixed(2)} TON</MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
         <MainMyAssetInfoInnerBottomBox>
-          <MainMyAssetInfoInnerBottomTitleBox>
-            Staked
-          </MainMyAssetInfoInnerBottomTitleBox>
-          <MainMyAssetInfoInnerBottomValue>
-            {stakedLocally || "0.00"} TON
-          </MainMyAssetInfoInnerBottomValue>
+          <MainMyAssetInfoInnerBottomTitleBox>Staked</MainMyAssetInfoInnerBottomTitleBox>
+          <MainMyAssetInfoInnerBottomValue>{stakedLocally || "0.00"} TON</MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
       </MainMyAssetInfoInnerBox>
       <TonWallet />

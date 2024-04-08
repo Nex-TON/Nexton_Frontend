@@ -2,18 +2,20 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
 
-import MainNftExpired from "../../../assets/image/MainNftExpired.png";
-import MainNFTForthComing from "../../../assets/image/MainNftForthComing.png";
-import MainNFTOngoing from "../../../assets/image/MainNftOngoing.png";
-import { imageSizeAtom } from "../../../lib/atom/imageSize";
-import { nftInfo } from "../../../types/Nft";
-import { DDayChange } from "../../../utils/dateChanger";
+import MainNftExpired from "@/assets/image/MainNftExpired.png";
+import MainNFTForthComing from "@/assets/image/MainNftForthComing.png";
+import MainNFTOngoing from "@/assets/image/MainNftOngoing.png";
+import { imageSizeAtom } from "@/lib/atom/imageSize";
+import { nftInfo } from "@/types/Nft";
+import { DDayChange } from "@/utils/dateChanger";
+
+import { MainStakeViewBox } from "./common/StakeView.styled";
 
 interface MainNftViewItemProps {
   nftItem: nftInfo;
 }
 
-const MainNftViewItem = (props: MainNftViewItemProps) => {
+const StakeViewNFTsItem = (props: MainNftViewItemProps) => {
   const { nftItem } = props;
   const { timeStamp, lockPeriod, nftId } = nftItem;
   const navigate = useNavigate();
@@ -26,7 +28,7 @@ const MainNftViewItem = (props: MainNftViewItemProps) => {
   };
 
   return DDayChange(timeStamp, lockPeriod) > 15 ? (
-    <MainNftViewItemWrapper onClick={handleMoveNftDetail}>
+    <MainStakeViewBox onClick={handleMoveNftDetail}>
       <MainNftViewItemImg
         src={MainNFTOngoing}
         alt="MainNFTOngoing"
@@ -35,12 +37,10 @@ const MainNftViewItem = (props: MainNftViewItemProps) => {
           height: "100%",
         }}
       />
-      <MainNftViewItemDDayText>
-        D-{DDayChange(timeStamp, lockPeriod)}
-      </MainNftViewItemDDayText>
-    </MainNftViewItemWrapper>
+      <MainNftViewItemDDayText>D-{DDayChange(timeStamp, lockPeriod)}</MainNftViewItemDDayText>
+    </MainStakeViewBox>
   ) : DDayChange(timeStamp, lockPeriod) > 0 ? (
-    <MainNftViewItemWrapper onClick={handleMoveNftDetail}>
+    <MainStakeViewBox onClick={handleMoveNftDetail}>
       <MainNftViewItemImg
         src={MainNFTForthComing}
         alt="NFTForthComing"
@@ -49,12 +49,10 @@ const MainNftViewItem = (props: MainNftViewItemProps) => {
           height: "100%",
         }}
       />
-      <MainNftViewItemDDayText>
-        D-{DDayChange(timeStamp, lockPeriod)}
-      </MainNftViewItemDDayText>
-    </MainNftViewItemWrapper>
+      <MainNftViewItemDDayText>D-{DDayChange(timeStamp, lockPeriod)}</MainNftViewItemDDayText>
+    </MainStakeViewBox>
   ) : (
-    <MainNftViewItemWrapper onClick={handleMoveNftDetail}>
+    <MainStakeViewBox onClick={handleMoveNftDetail}>
       <MainNftViewItemImg
         src={MainNftExpired}
         alt="NFTExpired"
@@ -64,25 +62,13 @@ const MainNftViewItem = (props: MainNftViewItemProps) => {
         }}
       />
       <MainNftViewItemDDayText>
-        {DDayChange(timeStamp, lockPeriod) === 0
-          ? `D-Day`
-          : `D+${DDayChange(timeStamp, lockPeriod) * -1}`}
+        {DDayChange(timeStamp, lockPeriod) === 0 ? `D-Day` : `D+${DDayChange(timeStamp, lockPeriod) * -1}`}
       </MainNftViewItemDDayText>
-    </MainNftViewItemWrapper>
+    </MainStakeViewBox>
   );
 };
 
-export default MainNftViewItem;
-
-const MainNftViewItemWrapper = styled.div`
-  position: relative;
-
-  width: 100%;
-  border-radius: 2rem;
-  aspect-ratio: 1/1.05;
-
-  cursor: pointer;
-`;
+export default StakeViewNFTsItem;
 
 const MainNftViewItemImg = styled.img`
   width: 100%;
