@@ -28,53 +28,29 @@ const StakeViewNFTsItem = (props: MainNftViewItemProps) => {
   };
 
   return DDayChange(timeStamp, lockPeriod) > 15 ? (
-    <MainStakeViewBox onClick={handleMoveNftDetail}>
-      <MainNftViewItemImg
-        src={MainNFTOngoing}
-        alt="MainNFTOngoing"
-        style={{
-          width: "100%",
-          height: "100%",
-        }}
-      />
+    <MainNftViewItemImg src={MainNFTOngoing} onClick={handleMoveNftDetail}>
       <MainNftViewItemDDayText>D-{DDayChange(timeStamp, lockPeriod)}</MainNftViewItemDDayText>
-    </MainStakeViewBox>
+    </MainNftViewItemImg>
   ) : DDayChange(timeStamp, lockPeriod) > 0 ? (
-    <MainStakeViewBox onClick={handleMoveNftDetail}>
-      <MainNftViewItemImg
-        src={MainNFTForthComing}
-        alt="NFTForthComing"
-        style={{
-          width: "100%",
-          height: "100%",
-        }}
-      />
+    <MainNftViewItemImg src={MainNFTForthComing} onClick={handleMoveNftDetail}>
       <MainNftViewItemDDayText>D-{DDayChange(timeStamp, lockPeriod)}</MainNftViewItemDDayText>
-    </MainStakeViewBox>
+    </MainNftViewItemImg>
   ) : (
-    <MainStakeViewBox onClick={handleMoveNftDetail}>
-      <MainNftViewItemImg
-        src={MainNftExpired}
-        alt="NFTExpired"
-        style={{
-          width: "100%",
-          height: "100%",
-        }}
-      />
+    <MainNftViewItemImg src={MainNftExpired} onClick={handleMoveNftDetail}>
       <MainNftViewItemDDayText>
         {DDayChange(timeStamp, lockPeriod) === 0 ? `D-Day` : `D+${DDayChange(timeStamp, lockPeriod) * -1}`}
       </MainNftViewItemDDayText>
-    </MainStakeViewBox>
+    </MainNftViewItemImg>
   );
 };
 
 export default StakeViewNFTsItem;
 
-const MainNftViewItemImg = styled.img`
-  width: 100%;
-  height: 100%;
-
-  border-radius: 2rem;
+const MainNftViewItemImg = styled(MainStakeViewBox)<{ src: string }>`
+  background: url(${props => props.src});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 
 const MainNftViewItemDDayText = styled.span`
