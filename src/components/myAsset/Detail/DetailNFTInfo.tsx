@@ -9,7 +9,6 @@ import { css, styled } from "styled-components";
 import { postClaim } from "../../../api/postClaim";
 import IcTonSymbol from "../../../assets/icons/MyAsset/ic_tonSymbol.svg";
 import * as Contract from "../../../hooks/contract/depositTon";
-import { UserClaimWithdraw } from "../../../hooks/contract/wrappers/tact_NexTon";
 import { telegramAtom } from "../../../lib/atom/telegram";
 import { nftInfo } from "../../../types/Nft";
 import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
@@ -31,7 +30,8 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
   const { sendMessage } = Contract.depositTon();
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const handleWithDraw = async () => {
+  // To be implemented:
+  /* const handleWithDraw = async () => {
     const response = await postClaim({
       telegramId,
       nftId,
@@ -49,7 +49,8 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
     if (response === 200) {
       setIsOpenModal(true);
     }
-  };
+  }; */
+
   const navigate = useNavigate();
 
   const handleToggleModal = () => {
