@@ -9,14 +9,12 @@ import { MainStakeViewBox, MainStakeViewWrapper } from "./common/StakeView.style
 const StakeViewPools = ({ isConnected }: { isConnected: boolean }) => {
   const navigate = useNavigate();
 
-  const stakedLocally = localStorage.getItem("staked");
-
   return (
     <MainStakeViewWrapper>
       <MainNftInfoBox onClick={() => navigate("/stake/amount")}>
         <MainNftInfoTitleBox>
           <p>{isConnected ? "Staked $TON" : "$TON TVL"}</p>
-          <p>{isConnected ? stakedLocally || "0.00" : "100,000,000$"}</p>
+          <p>{isConnected ? "N/A" : "100,000,000$"}</p>
         </MainNftInfoTitleBox>
 
         <MainNftStakeImg src={LandingNftStake} alt="nftStake" />
