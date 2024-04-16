@@ -2,15 +2,21 @@ import { ThreeCircles } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
-import IcClose from "../../../assets/icons/Modal/ic_close.svg";
-import IcModalArrow from "../../../assets/icons/Modal/ic_modal_arrow.svg";
-import { MODAL_TEXT } from "../../../constants/ModalText";
-import useTonConnect from "../../../hooks/contract/useTonConnect";
+import IcClose from "@/assets/icons/Modal/ic_close.svg";
+import IcModalArrow from "@/assets/icons/Modal/ic_modal_arrow.svg";
+import IcNotification from "@/assets/icons/Modal/ic_notification.svg";
+import { MODAL_TEXT } from "@/constants/ModalText";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 import ModalWrapper from "./ModalWrapper";
 
 interface BasicModalProps {
   type: string;
+  toggleModal: () => void;
+  onClose?: () => void;
+}
+
+interface WelcomeModalProps {
   toggleModal: () => void;
   onClose?: () => void;
 }
@@ -28,6 +34,37 @@ export const LoaderModal = () => {
           wrapperStyle={{}}
           wrapperClass=""
         />
+      </Container>
+    </ModalWrapper>
+  );
+};
+
+export const WelcomeModal = (props: WelcomeModalProps) => {
+  const { onClose, toggleModal } = props;
+
+  return (
+    <ModalWrapper>
+      <Container style={{ backgroundColor: "#1A1B23" }}>
+        <WelcomeModalContent>
+          <img style={{ marginBottom: "1.2rem" }} src={IcNotification} alt="notification" />
+          <Title style={{ color: "#FFFFFF" }}>This service is in alpha version.</Title>
+          <SubTitleBox>
+            <SubTitle style={{ color: "#C6C5D0" }}>
+              The functionality of this service may be updated in the future.
+            </SubTitle>
+          </SubTitleBox>
+        </WelcomeModalContent>
+
+        <Button
+          onClick={() => {
+            if (onClose) {
+              onClose();
+            }
+            toggleModal();
+          }}
+        >
+          Start!
+        </Button>
       </Container>
     </ModalWrapper>
   );
@@ -231,4 +268,16 @@ const Button = styled.button`
   box-shadow: 0 0 2rem 0 rgba(198, 197, 208, 0.3);
 
   cursor: pointer;
+`;
+
+const WelcomeModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  margin: 1.8rem 0;
+  padding: 0 1.2rem;
+  text-align: center;
 `;

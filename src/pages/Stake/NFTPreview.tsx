@@ -8,9 +8,7 @@ import { styled } from "styled-components";
 import { postStakingInfo } from "../../api/postStakingInfo";
 import IcAlertBlue from "../../assets/icons/Stake/ic_alert_blue.svg";
 import FooterButton from "../../components/common/FooterButton";
-import BasicModal, {
-  LoaderModal,
-} from "../../components/common/Modal/BasicModal";
+import BasicModal, { LoaderModal } from "../../components/common/Modal/BasicModal";
 import ProgressBar from "../../components/stake/common/ProgressBar";
 import NftPreviewImage from "../../components/stake/NFTPreview/NftPreviewImage";
 import NFTPreviewInfo from "../../components/stake/NFTPreview/NFTPreviewInfo";
@@ -19,11 +17,12 @@ import { UserDeposit } from "../../hooks/contract/wrappers/tact_NexTon";
 import { stakingAtom, stakingInputAtom } from "../../lib/atom/staking";
 import { isDevMode } from "../../utils/isDevMode";
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_PUBLIC_KEY = import.meta.env.VITE_SUPABASE_PUBLIC_KEY;
+//❗NOTE❗: Supabase is disabled in a mainnet version - Will be removed after the launch
+// const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+// const SUPABASE_PUBLIC_KEY = import.meta.env.VITE_SUPABASE_PUBLIC_KEY;
 
 // Supabase client - IMPORTANT: RLS policy is disabled for the "Users" table
-const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY);
+// const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY);
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -39,20 +38,23 @@ const NFTPreview = () => {
   const navigate = useNavigate();
 
   const toggleModal = () => {
-    setModal((prev) => !prev);
+    setModal(prev => !prev);
   };
 
   //minting 된 nft 서버 호출
-  //❗NOTE❗: handleMinting is disabled in a demo version
-  /* const handleMinting = async () => {
+  const handleMinting = async () => {
+    setIsLoading(true);
+
     const data = (): UserDeposit => {
       return {
         $$type: "UserDeposit",
         queryId: BigInt(Date.now()),
-        lockPeriod: BigInt(stakingInfo.lockup),
-        leverage: BigInt(stakingInfo.leverage),
+        // ❗NOTE❗: Not used in the current contract version
+        // lockPeriod: BigInt(stakingInfo.lockup),
+        // leverage: BigInt(stakingInfo.leverage),
       };
     };
+
     await postStakingInfo({
       id: stakingInfo.id,
       leverage: stakingInfo.leverage,
@@ -61,24 +63,22 @@ const NFTPreview = () => {
       lockPeriod: stakingInfo.lockup.toString(),
       nominator: stakingInfo.nominator,
     });
+
     await sendMessage(data(), stakingInfo.principal);
 
-    toggleModal();
-    setInput("");
-    stakeInfoReset();
-  }; */
+    setIsLoading(false);
 
-  const handleMintingDemo = async () => {
+    toggleModal();
+  };
+
+  //❗NOTE❗: handleMintingDemo is disabled in a mainnet version - Will be removed after the launch
+  /* const handleMintingDemo = async () => {
     setIsLoading(true);
 
     // Send the staking info to the Supabase database
-    const { data: Users, error: readError } = await supabase
-      .from("Users")
-      .select("wallet_address");
+    const { data: Users, error: readError } = await supabase.from("Users").select("wallet_address");
 
-    const isWalletExist = Users?.find(
-      (el) => el.wallet_address === stakingInfo.address
-    );
+    const isWalletExist = Users?.find(el => el.wallet_address === stakingInfo.address);
 
     if (!isWalletExist && stakingInfo.address) {
       const { data, error: insertError } = await supabase
@@ -92,9 +92,7 @@ const NFTPreview = () => {
     const principalAsNumber = Number(stakingInfo.principal);
 
     if (!isNaN(principalAsNumber)) {
-      const totalStaked = stakedLocally
-        ? Number(stakedLocally) + principalAsNumber
-        : principalAsNumber;
+      const totalStaked = stakedLocally ? Number(stakedLocally) + principalAsNumber : principalAsNumber;
 
       localStorage.setItem("staked", totalStaked.toFixed(2).toString());
     } else {
@@ -104,7 +102,7 @@ const NFTPreview = () => {
     setIsLoading(false);
 
     toggleModal();
-  };
+  }; */
 
   useEffect(() => {
     if (tele) {
@@ -153,19 +151,15 @@ const NFTPreview = () => {
       <NFTPreviewConfirmBox>
         <img src={IcAlertBlue} alt="alertBlue" />
         <div>
-          <NFTPreviewConfirmText>
-            You cannot cancel the transaction after pressing
-          </NFTPreviewConfirmText>
-          <NFTPreviewConfirmText>
-            Confirm. Please check the NFT information.
-          </NFTPreviewConfirmText>
+          <NFTPreviewConfirmText>You cannot cancel the transaction after pressing</NFTPreviewConfirmText>
+          <NFTPreviewConfirmText>Confirm. Please check the NFT information.</NFTPreviewConfirmText>
         </div>
 
         {!isDevMode ? (
-          <MainButton text="Confirm" onClick={handleMintingDemo} />
+          <MainButton text="Confirm" onClick={handleMinting} />
         ) : (
           /* Used for testing */
-          <FooterButton title="Confirm" onClick={handleMintingDemo} />
+          <FooterButton title="Confirm" onClick={handleMinting} />
         )}
       </NFTPreviewConfirmBox>
     </NFTPreviewWrapper>

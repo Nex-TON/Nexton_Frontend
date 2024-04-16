@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
+
+import { WelcomeModal } from "@/components/common/Modal/BasicModal";
 
 import Header from "../../components/common/Header";
 import MainMyAssetInfo from "../../components/main/MainMyAssetInfo";
@@ -13,6 +15,12 @@ const tele = (window as any).Telegram.WebApp;
 const Main = () => {
   const { address } = useTonConnect();
   const [, setTonAddress] = useRecoilState(addressState);
+  const [modal, setModal] = useState(false);
+
+  const toggleModal = () => {
+    setModal(prev => !prev);
+    localStorage.setItem("hasVisited", "true");
+  };
 
   useEffect(() => {
     if (address) {
@@ -21,6 +29,11 @@ const Main = () => {
   }, [address]);
 
   useEffect(() => {
+    const hasVisited = localStorage.getItem("hasVisited");
+    if (!hasVisited) {
+      setModal(true); // Only show modal if user hasn't visited before
+    }
+
     if (tele) {
       tele.ready();
       tele.BackButton.hide();
@@ -28,12 +41,16 @@ const Main = () => {
   }, []);
 
   return (
-    <MainWrapper>
-      <Header isOpen={false} text="NEXTON" backgroundType={false} />
-      <MainMyAssetInfo />
-      <MainBorder />
-      <StakeView />
-    </MainWrapper>
+    <>
+      {modal && <WelcomeModal toggleModal={toggleModal} />}
+
+      <MainWrapper>
+        <Header isOpen={false} text="NEXTON" backgroundType={false} />
+        <MainMyAssetInfo />
+        <MainBorder />
+        <StakeView />
+      </MainWrapper>
+    </>
   );
 };
 
