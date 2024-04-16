@@ -25,8 +25,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
   const { item } = props;
   const address = useTonAddress();
   const telegramId = useRecoilValue(telegramAtom);
-  const { nftId, amount, leverage, timeStamp, lockPeriod, nominator, status } =
-    item;
+  const { nftId, amount, leverage, timeStamp, lockPeriod, nominator, status } = item;
   const { sendMessage } = Contract.depositTon();
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -54,7 +53,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
   const navigate = useNavigate();
 
   const handleToggleModal = () => {
-    setIsOpenModal((prev) => !prev);
+    setIsOpenModal(prev => !prev);
   };
 
   function copyId() {
@@ -70,16 +69,12 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
     <>
       <Toaster />
       <DetailNftInfoWrapper>
-        {isOpenModal && (
-          <BasicModal type="claim" toggleModal={handleToggleModal} />
-        )}
+        {isOpenModal && <BasicModal type="claim" toggleModal={handleToggleModal} />}
         <DetailNFTInfoHeader title="NFT info" />
         <DetailInfoItemWrapper>
           <DetailInfoItem style={pointerStyle} onClick={copyId}>
             <DetailInfoItemText>Token ID (Click to copy)</DetailInfoItemText>
-            <DetailInfoItemText>
-              {String(nftId).padStart(5, "0")}
-            </DetailInfoItemText>
+            <DetailInfoItemText>{String(nftId).padStart(5, "0")}</DetailInfoItemText>
           </DetailInfoItem>
           <DetailInfoItem>
             <DetailInfoItemText>Token Standard</DetailInfoItemText>
@@ -115,15 +110,11 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
           </DetailInfoItem>
           <DetailInfoItem>
             <DetailInfoItemText>Unstakable date</DetailInfoItemText>
-            <DetailInfoItemText>
-              {expiredDateChanger(timeStamp, lockPeriod, "detail")}
-            </DetailInfoItemText>
+            <DetailInfoItemText>{expiredDateChanger(timeStamp, lockPeriod, "detail")}</DetailInfoItemText>
           </DetailInfoItem>
           <DetailInfoItem>
             <DetailInfoItemText>Protocol Fees</DetailInfoItemText>
-            <DetailInfoItemText>
-              {numberCutter(getProtocolFee(String(amount), leverage))}%
-            </DetailInfoItemText>
+            <DetailInfoItemText>{numberCutter(getProtocolFee(String(amount), leverage))}%</DetailInfoItemText>
           </DetailInfoItem>
           <DetailInfoItem>
             <DetailInfoItemText>Staking APR</DetailInfoItemText>
@@ -145,12 +136,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
               onClick={() => navigate(`/unstaking/${nftId}`)}
             />
           ) : (
-            <MainButton
-              text="Withdraw"
-              onClick={handleWithDraw}
-              color="#aaaeaf"
-              textColor="#fff"
-            />
+            <MainButton text="Withdraw" onClick={() => console.log("withdraw")} color="#aaaeaf" textColor="#fff" />
           )}
         </ButtonWrapper>
       </DetailNftInfoWrapper>
@@ -226,14 +212,14 @@ const StyledButton = styled.button<{ type?: string }>`
           color: #fff;
         `
       : type === "unstaking"
-      ? css`
-          background-color: #33343e;
-          color: #fff;
-        `
-      : css`
-          background-color: #f9f9ff;
-          color: #09090a;
-        `}
+        ? css`
+            background-color: #33343e;
+            color: #fff;
+          `
+        : css`
+            background-color: #f9f9ff;
+            color: #09090a;
+          `}
   ${({ theme }) => theme.fonts.Telegram_SemiBold};
   box-shadow: 0px 0px 20px 0px rgba(198, 197, 208, 0.3);
 
