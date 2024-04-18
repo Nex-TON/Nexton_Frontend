@@ -14,9 +14,7 @@ const MainNftViewList = ({ state }: { state: MainNftViewListType }) => {
     case "point":
       return <StakeViewPoints isConnected={connected} />;
     case "nfts":
-      return (
-        <StakeViewNFTs isConnected={connected} isLoading={isLoading} nftList={nftList} stakedLocally={stakedLocally} />
-      );
+      return <StakeViewNFTs isConnected={connected} isLoading={isLoading} nftList={nftList} />;
     case "stake":
       return <StakeViewPools isConnected={connected} />;
   }
