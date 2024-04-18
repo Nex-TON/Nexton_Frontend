@@ -2,6 +2,8 @@ import { useState } from "react";
 import ToggleGroup from "@components/common/ToggleGroup";
 import { styled } from "styled-components";
 
+import IcWarning from "@/assets/icons/Landing/ic_warning.svg";
+
 import MainNftViewList from "./MainNftViewList";
 
 const toggleOptions = [
@@ -20,13 +22,6 @@ const StakeView = () => {
       <MainNFtViewInnerBox>
         <MainNftViewInnerTitleBox>
           <MainNFtViewInnerTitle>Let’s Stake!</MainNFtViewInnerTitle>
-
-          {/* <MainNftViewInnerTitleMore
-            onClick={() => navigate("/myasset/nftlist")}
-          >
-            View more
-            <img src={IcNftMoreArrow} alt="nftMore" />
-          </MainNftViewInnerTitleMore> */}
         </MainNftViewInnerTitleBox>
 
         <ToggleGroup
@@ -36,6 +31,15 @@ const StakeView = () => {
         />
 
         <MainNftViewList state={toggleSelected} />
+
+        <MainNFtViewDisclaimer>
+          <img src={IcWarning} alt="warning" />
+          <p>
+            This service is in alpha version.
+            <br />
+            The functionality of the service may be updated in the future.
+          </p>
+        </MainNFtViewDisclaimer>
       </MainNFtViewInnerBox>
     </MainNftViewWrapper>
   );
@@ -74,11 +78,18 @@ const MainNFtViewInnerTitle = styled.span`
   line-height: 3.4rem;
 `;
 
-/* const MainNftViewInnerTitleMore = styled.div`
+const MainNFtViewDisclaimer = styled.div`
+  margin-top: 1.6rem;
   display: flex;
-  gap: 0.4rem;
+  align-items: start;
 
-  color: #09090a;
-  ${({ theme }) => theme.fonts.Nexton_Label_Small};
-  cursor: pointer;
-`; */
+  img {
+    margin-right: 0.6rem;
+    padding-top: 0.2rem;
+  }
+
+  p {
+    color: #909394;
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
+  }
+`;

@@ -5,9 +5,7 @@ import useTonConnect from "../../hooks/contract/useTonConnect";
 import TonWallet from "./TonWallet";
 
 const MainMyAssetInfo = () => {
-  const { balance } = useTonConnect();
-
-  const stakedLocally = localStorage.getItem("staked");
+  const { balance, address } = useTonConnect();
 
   return (
     <MainMyAssetInfoWraper>
@@ -19,7 +17,7 @@ const MainMyAssetInfo = () => {
         </MainMyAssetInfoInnerBottomBox>
         <MainMyAssetInfoInnerBottomBox>
           <MainMyAssetInfoInnerBottomTitleBox>Staked</MainMyAssetInfoInnerBottomTitleBox>
-          <MainMyAssetInfoInnerBottomValue>{stakedLocally || "0.00"} TON</MainMyAssetInfoInnerBottomValue>
+          <MainMyAssetInfoInnerBottomValue>N/A</MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
       </MainMyAssetInfoInnerBox>
       <TonWallet />

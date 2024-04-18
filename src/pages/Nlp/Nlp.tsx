@@ -24,8 +24,9 @@ const Nlp = () => {
               return {
                 $$type: "UserDeposit",
                 queryId: BigInt(Date.now()),
-                lockPeriod: 0n,
-                leverage: 0n,
+                // ❗NOTE❗: Not used in the current contract version
+                // lockPeriod: 0n,
+                // leverage: 0n,
               };
             };
             console.log(data());

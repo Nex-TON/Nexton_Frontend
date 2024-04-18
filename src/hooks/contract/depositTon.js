@@ -1,7 +1,8 @@
-import { useTonClient } from "./useTonClient";
-import { useAsyncInitialize } from "./useAsyncInitialize";
 import { Address, toNano } from "@ton/core";
+
 import { NexTon } from "./wrappers/tact_NexTon";
+import { useAsyncInitialize } from "./useAsyncInitialize";
+import { useTonClient } from "./useTonClient";
 import useTonConnect from "./useTonConnect";
 
 function depositTon() {
@@ -20,16 +21,12 @@ function depositTon() {
     address: nextonContract?.address.toString(),
     sendMessage: async (data, value) => {
       if (nextonContract) {
-        return await nextonContract.send(
-          sender,
-          { value: toNano(value) },
-          data
-        );
+        return await nextonContract.send(sender, { value: toNano(value) }, data);
       } else {
         return () => {};
       }
     },
-    sendValue: async (value) => {
+    sendValue: async value => {
       if (nextonContract) {
         return await sender.send({
           to: contractAddress,
