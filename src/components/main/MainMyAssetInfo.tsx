@@ -7,9 +7,6 @@ import TonWallet from "./TonWallet";
 const MainMyAssetInfo = () => {
   const { balance, address } = useTonConnect();
 
-  //❗NOTE❗: localStorage staked count is disabled in a mainnet version - Will be removed after the launch
-  // const stakedLocally = localStorage.getItem("staked");
-
   return (
     <MainMyAssetInfoWraper>
       <MainMyAssetInfoInnerBox>

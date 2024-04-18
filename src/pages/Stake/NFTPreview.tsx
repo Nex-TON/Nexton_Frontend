@@ -17,13 +17,6 @@ import { UserDeposit } from "../../hooks/contract/wrappers/tact_NexTon";
 import { stakingAtom, stakingInputAtom } from "../../lib/atom/staking";
 import { isDevMode } from "../../utils/isDevMode";
 
-//❗NOTE❗: Supabase is disabled in a mainnet version - Will be removed after the launch
-// const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-// const SUPABASE_PUBLIC_KEY = import.meta.env.VITE_SUPABASE_PUBLIC_KEY;
-
-// Supabase client - IMPORTANT: RLS policy is disabled for the "Users" table
-// const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY);
-
 const tele = (window as any).Telegram.WebApp;
 
 const NFTPreview = () => {
@@ -70,39 +63,6 @@ const NFTPreview = () => {
 
     toggleModal();
   };
-
-  //❗NOTE❗: handleMintingDemo is disabled in a mainnet version - Will be removed after the launch
-  /* const handleMintingDemo = async () => {
-    setIsLoading(true);
-
-    // Send the staking info to the Supabase database
-    const { data: Users, error: readError } = await supabase.from("Users").select("wallet_address");
-
-    const isWalletExist = Users?.find(el => el.wallet_address === stakingInfo.address);
-
-    if (!isWalletExist && stakingInfo.address) {
-      const { data, error: insertError } = await supabase
-        .from("Users")
-        .insert([{ wallet_address: stakingInfo.address, assets_staked: true }])
-        .select();
-    }
-
-    // Updated the total staked amount in the local storage
-    const stakedLocally = localStorage.getItem("staked");
-    const principalAsNumber = Number(stakingInfo.principal);
-
-    if (!isNaN(principalAsNumber)) {
-      const totalStaked = stakedLocally ? Number(stakedLocally) + principalAsNumber : principalAsNumber;
-
-      localStorage.setItem("staked", totalStaked.toFixed(2).toString());
-    } else {
-      console.error("Invalid principal amount provided.");
-    }
-
-    setIsLoading(false);
-
-    toggleModal();
-  }; */
 
   useEffect(() => {
     if (tele) {

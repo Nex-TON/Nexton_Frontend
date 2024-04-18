@@ -21,16 +21,12 @@ function depositTon() {
     address: nextonContract?.address.toString(),
     sendMessage: async (data, value) => {
       if (nextonContract) {
-        return await nextonContract.send(
-          sender,
-          { value: toNano(value) },
-          data
-        );
+        return await nextonContract.send(sender, { value: toNano(value) }, data);
       } else {
         return () => {};
       }
     },
-    sendValue: async (value) => {
+    sendValue: async value => {
       if (nextonContract) {
         return await sender.send({
           to: contractAddress,

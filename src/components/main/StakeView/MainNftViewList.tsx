@@ -10,8 +10,6 @@ const MainNftViewList = ({ state }: { state: MainNftViewListType }) => {
   const { address, connected } = useTonConnect();
   const { nftList, isLoading } = useStakeInfo(address);
 
-  const stakedLocally = localStorage.getItem("staked");
-
   switch (state) {
     case "point":
       return <StakeViewPoints isConnected={connected} />;
