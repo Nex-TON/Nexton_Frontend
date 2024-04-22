@@ -7,6 +7,8 @@ import TonWallet from "./TonWallet";
 const MainMyAssetInfo = () => {
   const { balance, address } = useTonConnect();
 
+  /* const { data, isLoading } = useStakeInfo(address); */
+
   return (
     <MainMyAssetInfoWraper>
       <MainMyAssetInfoInnerBox>

@@ -22,7 +22,7 @@ const NFTPreviewInfo = (props: NFTPreviewInfoProps) => {
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Transaction Fee</NFTPreviewInfoItemText>
         <NFTPreviewInfoItemValue>
-          <span>0.1123</span> TON
+          <span>~0.1123</span> TON
         </NFTPreviewInfoItemValue>
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>
@@ -40,12 +40,7 @@ const NFTPreviewInfo = (props: NFTPreviewInfoProps) => {
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Protocol Fees</NFTPreviewInfoItemText>
         <NFTPreviewInfoItemValue>
-          <span>
-            {numberCutter(
-              getProtocolFee(stakingInfo.principal, stakingInfo.leverage)
-            )}
-          </span>{" "}
-          %
+          <span>~{numberCutter(getProtocolFee(stakingInfo.principal, stakingInfo.leverage))}</span>%
         </NFTPreviewInfoItemValue>
       </NFTPreviewInfoItem>
     </NFTPreviewInfoWrapper>
