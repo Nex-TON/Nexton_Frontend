@@ -170,7 +170,7 @@ function BasicModal(props: BasicModalProps) {
 
 export default BasicModal;
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -190,7 +190,7 @@ const Container = styled.div`
   padding: 1.6rem 1.6rem 1rem 1rem;
 `;
 
-const ModalHeader = styled.div`
+export const ModalHeader = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -199,7 +199,7 @@ const ModalHeader = styled.div`
   margin-bottom: 3.7rem;
 `;
 
-const OpenTonViewerBox = styled.div`
+export const OpenTonViewerBox = styled.div`
   display: flex;
   justify-content: center;
 
@@ -208,7 +208,7 @@ const OpenTonViewerBox = styled.div`
   margin-bottom: 3.7rem;
 `;
 
-const OpenTonViewer = styled.button`
+export const OpenTonViewer = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -226,12 +226,12 @@ const OpenTonViewer = styled.button`
   cursor: pointer;
 `;
 
-const Title = styled.p`
+export const Title = styled.p`
   color: #007aff;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2}
 `;
 
-const SubTitleBox = styled.div`
+export const SubTitleBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -240,7 +240,7 @@ const SubTitleBox = styled.div`
   margin-top: 1.2rem;
 `;
 
-const SubTitle = styled.p`
+export const SubTitle = styled.p`
   font-family: "pretendard";
   font-size: 1.4rem;
   font-style: normal;
@@ -248,7 +248,7 @@ const SubTitle = styled.p`
   line-height: 2rem; /* 138.462% */
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;

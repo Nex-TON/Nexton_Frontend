@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { styled } from "styled-components";
 
-import IcCheckGray from "../../../assets/icons/Stake/ic_check_gray.svg";
-import IcCheckWhite from "../../../assets/icons/Stake/ic_check_white.svg";
-import { useSelectNominator } from "../../../pages/Stake/hooks/useSelectNominator";
+import IcCheckGray from "@/assets/icons/Stake/ic_check_gray.svg";
+import IcCheckWhite from "@/assets/icons/Stake/ic_check_white.svg";
+import { useSelectNominator } from "@/pages/Stake/hooks/useSelectNominator";
 
 interface NominatorItemProps {
   title: string;
+  icon: string;
   totalStake: number;
   ValidatorStake: number;
   NominatorStake: number;
@@ -18,19 +19,13 @@ interface NominatorItemProps {
 }
 
 const NominatorItem = (props: NominatorItemProps) => {
-  const {
-    title,
-    totalStake,
-    ValidatorStake,
-    NominatorStake,
-    index,
-    isSelectNominator,
-    handleSelectNominator,
-  } = props;
+  const { title, icon, totalStake, ValidatorStake, NominatorStake, index, isSelectNominator, handleSelectNominator } =
+    props;
   return (
     <NominatorItemWrapper>
       <NominatorItemTop>
         <NominatorItemTopLeft>
+          <img src={icon} alt="icon" />
           <LabelMedium>{title}</LabelMedium>
           <Caption3>
             Profit Share <LabelMedium>60%</LabelMedium>
@@ -38,21 +33,10 @@ const NominatorItem = (props: NominatorItemProps) => {
         </NominatorItemTopLeft>
         <NominatorItemTopRight>
           <NominatorProfitButton profit={totalStake > 900.0 ? true : false}>
-            {totalStake > 900.0 ? (
-              <LabelMedium>Non-Profitable</LabelMedium>
-            ) : (
-              <LabelMedium>Profitable</LabelMedium>
-            )}
+            {totalStake > 900.0 ? <LabelMedium>Non-Profitable</LabelMedium> : <LabelMedium>Profitable</LabelMedium>}
           </NominatorProfitButton>
-          <NominatorCheckButton
-            onClick={() => handleSelectNominator(index)}
-            check={isSelectNominator[index]}
-          >
-            {isSelectNominator[index] ? (
-              <img src={IcCheckWhite} alt="check" />
-            ) : (
-              <img src={IcCheckGray} alt="check" />
-            )}
+          <NominatorCheckButton onClick={() => handleSelectNominator(index)} check={isSelectNominator[index]}>
+            {isSelectNominator[index] ? <img src={IcCheckWhite} alt="check" /> : <img src={IcCheckGray} alt="check" />}
           </NominatorCheckButton>
         </NominatorItemTopRight>
       </NominatorItemTop>

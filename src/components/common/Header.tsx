@@ -35,11 +35,11 @@ const Header = (props: HeaderProps) => {
   return (
     <>
       {isOpenModal && <Modal handleModalState={handleModalState} />}
-      <HeaderWrapper isOpen={isOpen} backgroundType={backgroundType}>
+      <HeaderWrapper $isOpen={isOpen} $backgroundType={backgroundType}>
         <HeaderTitle onClick={() => navigate("/")}>{text}</HeaderTitle>
         <HeaderRightBox>
           {pathname === "/" && (
-            <DisconnectButton connect={connected}>
+            <DisconnectButton $connect={connected}>
               {connected ? (
                 <img src={IcWalletDisconnect} alt="walletConnectDisconnect" onClick={handleModalState} />
               ) : (
@@ -47,7 +47,7 @@ const Header = (props: HeaderProps) => {
               )}
             </DisconnectButton>
           )}
-          <MenuButton onClick={handleRouter} isOpen={isOpen}>
+          <MenuButton onClick={handleRouter} $isOpen={isOpen}>
             <span></span>
             <span></span>
             <span></span>
@@ -61,8 +61,8 @@ const Header = (props: HeaderProps) => {
 export default Header;
 
 const HeaderWrapper = styled.header<{
-  isOpen: boolean;
-  backgroundType: boolean;
+  $isOpen: boolean;
+  $backgroundType: boolean;
 }>`
   display: flex;
   justify-content: space-between;
@@ -71,7 +71,7 @@ const HeaderWrapper = styled.header<{
   width: 100%;
   padding: 2rem 1.5rem;
 
-  background-color: ${({ backgroundType }) => (backgroundType ? "#f2f2f7" : "#fff")};
+  background-color: ${({ $backgroundType }) => ($backgroundType ? "#f2f2f7" : "#fff")};
 `;
 
 const HeaderRightBox = styled.div`
@@ -80,7 +80,7 @@ const HeaderRightBox = styled.div`
   gap: 1rem;
 `;
 
-const DisconnectButton = styled.button<{ connect: boolean }>`
+const DisconnectButton = styled.button<{ $connect: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,12 +91,12 @@ const DisconnectButton = styled.button<{ connect: boolean }>`
 
   border: none;
   border-radius: 1.8rem;
-  background: ${({ connect }) => (connect ? `#2F3038` : `linear-gradient(160deg, #f3f6fc 11.73%, #e6e7f7 98.61%)`)};
+  background: ${({ $connect }) => ($connect ? `#2F3038` : `linear-gradient(160deg, #f3f6fc 11.73%, #e6e7f7 98.61%)`)};
 
   cursor: pointer;
 `;
 
-const MenuButton = styled.button<{ isOpen: boolean }>`
+const MenuButton = styled.button<{ $isOpen: boolean }>`
   position: relative;
 
   width: 4.4rem;
@@ -117,22 +117,22 @@ const MenuButton = styled.button<{ isOpen: boolean }>`
     transition: all 0.3s ease;
 
     &:nth-child(1) {
-      top: ${({ isOpen }) => (isOpen ? "50%" : "35%")};
+      top: ${({ $isOpen }) => ($isOpen ? "50%" : "35%")};
       left: 25%;
-      transform: ${({ isOpen }) => (isOpen ? "translateY(-50%) rotate(45deg)" : "none")};
+      transform: ${({ $isOpen }) => ($isOpen ? "translateY(-50%) rotate(45deg)" : "none")};
     }
 
     &:nth-child(2) {
       top: 50%;
       left: 25%;
       transform: translateY(-50%);
-      opacity: ${({ isOpen }) => (isOpen ? 0 : 1)};
+      opacity: ${({ $isOpen }) => ($isOpen ? 0 : 1)};
     }
 
     &:nth-child(3) {
-      bottom: ${({ isOpen }) => (isOpen ? "50%" : "35%")};
+      bottom: ${({ $isOpen }) => ($isOpen ? "50%" : "35%")};
       left: 25%;
-      transform: ${({ isOpen }) => (isOpen ? "translateY(50%) rotate(-45deg)" : "none")};
+      transform: ${({ $isOpen }) => ($isOpen ? "translateY(50%) rotate(-45deg)" : "none")};
     }
   }
 

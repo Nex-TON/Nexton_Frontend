@@ -2,75 +2,58 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { styled } from "styled-components";
 
+const stageColors = {
+  default: "#C6CACA", // Default or incomplete stage color
+  current: "#2C80FF", // Color for the current stage
+  completed: "#7FBCFF", // Color for completed stages
+};
+
+const stages = {
+  "/stake/amount": ["current", "default", "default", "default"],
+  "/stake/nominator": ["completed", "current", "default", "default"],
+  "/stake/leverage": ["completed", "completed", "current", "default"],
+  "/stake/preview": ["completed", "completed", "completed", "completed"],
+  default: ["default", "default", "default", "default"],
+};
+
 const ProgressBar = () => {
-  const [progressStatus, setProgressStatus] = useState("");
   const { pathname } = useLocation();
+  const [stageSetup, setStageSetup] = useState(["default", "default", "default", "default"]);
 
   useEffect(() => {
-    setProgressStatus(pathname.slice(7));
-  });
+    const currentStages = stages[pathname] || stages.default;
+    setStageSetup(currentStages.map(stage => stageColors[stage]));
+  }, [pathname]);
 
   return (
     <ProgressBarWrapper>
-      <ProgressFirstItem progressStatus={progressStatus} />
-      <ProgressSecondItem progressStatus={progressStatus} />
-      <ProgressThirdItem progressStatus={progressStatus} />
-      <ProgressFinalItem progressStatus={progressStatus} />
+      {stageSetup.map((color, index) => (
+        <ProgressItem key={index} $stageColor={color} />
+      ))}
     </ProgressBarWrapper>
   );
 };
 
 export default ProgressBar;
 
+const ProgressItem = styled.div<{ $stageColor: string }>`
+  flex: 1;
+  height: 100%;
+  background-color: ${({ $stageColor }) => $stageColor};
+
+  &:first-child {
+    border-radius: 1rem 0 0 1rem;
+  }
+
+  &:last-child {
+    border-radius: 0 1rem 1rem 0;
+  }
+`;
+
 const ProgressBarWrapper = styled.div`
   display: flex;
-
   width: 100%;
   height: 0.4rem;
   margin-top: 1rem;
   margin-bottom: 2.4rem;
-`;
-
-const ProgressFirstItem = styled.div<{ progressStatus: string }>`
-  width: 25%;
-  height: 100%;
-
-  background-color: ${({ progressStatus }) =>
-    progressStatus === "amount" ? "#2C80FF" : "#7FBCFF"};
-
-  border-radius: 1rem 0 0 1rem;
-`;
-const ProgressSecondItem = styled.div<{
-  progressStatus: string;
-}>`
-  width: 25%;
-  height: 100%;
-
-  background-color: ${({ progressStatus }) =>
-    progressStatus === "amount"
-      ? "#C6CACA"
-      : progressStatus === "nominator"
-      ? "#2C80FF"
-      : "#7FBCFF"};
-`;
-const ProgressThirdItem = styled.div<{ progressStatus: string }>`
-  width: 25%;
-  height: 100%;
-
-  background-color: ${({ progressStatus }) =>
-    progressStatus === "leverage"
-      ? "#2C80FF"
-      : progressStatus === "preview"
-      ? "#7FBCFF"
-      : "#C6CACA"};
-`;
-
-const ProgressFinalItem = styled.div<{ progressStatus: string }>`
-  width: 25%;
-  height: 100%;
-
-  background-color: ${({ progressStatus }) =>
-    progressStatus === "preview" ? "#2C80FF" : "#C6CACA"};
-
-  border-radius: 0 1rem 1rem 0;
 `;

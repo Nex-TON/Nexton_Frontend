@@ -14,7 +14,7 @@ const LeverageInput = (props: LeverageInputProps) => {
   const { input, error, disableInput, setInput } = props;
 
   return (
-    <LeverageInputWrapper error={error}>
+    <LeverageInputWrapper $error={error}>
       <Input input={input} setInput={setInput} disableInput={disableInput} />
       <RightSection>
         <Max setInput={setInput} />
@@ -26,7 +26,7 @@ const LeverageInput = (props: LeverageInputProps) => {
 
 export default LeverageInput;
 
-const LeverageInputWrapper = styled.div<{ error: boolean }>`
+const LeverageInputWrapper = styled.div<{ $error: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -35,7 +35,7 @@ const LeverageInputWrapper = styled.div<{ error: boolean }>`
   margin-top: 1.4rem;
   padding: 1.7rem 2.05rem 1.8rem 2rem;
 
-  border: ${({ error }) => error && `0.1rem solid #FF7979`};
+  border: ${({ $error }) => $error && `0.1rem solid #FF7979`};
   border-radius: 2rem;
   background-color: #f9f9ff;
 `;

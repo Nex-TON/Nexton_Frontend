@@ -1,67 +1,87 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createClient } from "@supabase/supabase-js";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 
-import { postStakingInfo } from "../../api/postStakingInfo";
-import IcAlertBlue from "../../assets/icons/Stake/ic_alert_blue.svg";
-import FooterButton from "../../components/common/FooterButton";
-import BasicModal, { LoaderModal } from "../../components/common/Modal/BasicModal";
-import ProgressBar from "../../components/stake/common/ProgressBar";
-import NftPreviewImage from "../../components/stake/NFTPreview/NftPreviewImage";
-import NFTPreviewInfo from "../../components/stake/NFTPreview/NFTPreviewInfo";
-import * as Contract from "../../hooks/contract/depositTon";
-import { UserDeposit } from "../../hooks/contract/wrappers/tact_NexTon";
-import { stakingAtom, stakingInputAtom } from "../../lib/atom/staking";
-import { isDevMode } from "../../utils/isDevMode";
+import { postStakingInfo } from "@/api/postStakingInfo";
+import IcAlertBlue from "@/assets/icons/Stake/ic_alert_blue.svg";
+import FooterButton from "@/components/common/FooterButton";
+import BasicModal, { LoaderModal } from "@/components/common/Modal/BasicModal";
+import ProgressBar from "@/components/stake/common/ProgressBar";
+import { ConfirmStakeModal } from "@/components/stake/NFTPreview/ConfirmStakeModal";
+import NftPreviewImage from "@/components/stake/NFTPreview/NftPreviewImage";
+import NFTPreviewInfo from "@/components/stake/NFTPreview/NFTPreviewInfo";
+import * as Contract from "@/hooks/contract/depositTon";
+import { UserDeposit } from "@/hooks/contract/wrappers/tact_NexTon";
+import { globalError } from "@/lib/atom/globalError";
+import { stakingAtom, stakingInputAtom } from "@/lib/atom/staking";
+import { isDevMode } from "@/utils/isDevMode";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const tele = (window as any).Telegram.WebApp;
 
 const NFTPreview = () => {
   const stakingInfo = useRecoilValue(stakingAtom);
   const stakeInfoReset = useResetRecoilState(stakingAtom);
+  const setError = useSetRecoilState(globalError);
 
   const [, setInput] = useRecoilState(stakingInputAtom);
   const { sendMessage } = Contract.depositTon();
   const [isLoading, setIsLoading] = useState(false);
-  const [modal, setModal] = useState(false);
+
+  const [modal, setModal] = useState<{ type: "stake" | "confirmStake"; toggled: boolean }>({
+    type: "confirmStake",
+    toggled: false,
+  });
 
   const navigate = useNavigate();
 
   const toggleModal = () => {
-    setModal(prev => !prev);
+    setModal(prev => ({
+      type: prev.type,
+      toggled: !prev.toggled,
+    }));
   };
 
   //minting 된 nft 서버 호출
-  const handleMinting = async () => {
+  const handleMinting = useCallback(async () => {
     setIsLoading(true);
 
-    const data = (): UserDeposit => {
-      return {
-        $$type: "UserDeposit",
-        queryId: BigInt(Date.now()),
-        // ❗NOTE❗: Not used in the current contract version
-        // lockPeriod: BigInt(stakingInfo.lockup),
-        // leverage: BigInt(stakingInfo.leverage),
+    try {
+      const data = (): UserDeposit => {
+        return {
+          $$type: "UserDeposit",
+          queryId: BigInt(Date.now()),
+          // ❗NOTE❗: Not used in the current contract version
+          // lockPeriod: BigInt(stakingInfo.lockup),
+          // leverage: BigInt(stakingInfo.leverage),
+        };
       };
-    };
 
-    await postStakingInfo({
-      id: stakingInfo.id,
-      leverage: stakingInfo.leverage,
-      address: stakingInfo.address,
-      amount: stakingInfo.principal,
-      lockPeriod: stakingInfo.lockup.toString(),
-      nominator: stakingInfo.nominator,
-    });
+      await postStakingInfo({
+        id: stakingInfo.id,
+        leverage: stakingInfo.leverage,
+        address: stakingInfo.address,
+        amount: stakingInfo.principal,
+        lockPeriod: stakingInfo.lockup.toString(),
+        nominator: stakingInfo.nominator,
+      });
 
-    await sendMessage(data(), stakingInfo.principal);
+      await sendMessage(data(), stakingInfo.principal);
 
-    setIsLoading(false);
+      setModal({ type: "stake", toggled: true });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [stakingInfo, sendMessage, setError]);
 
+  const handleStakeConfirm = () => {
     toggleModal();
+
+    handleMinting();
   };
 
   useEffect(() => {
@@ -77,11 +97,14 @@ const NFTPreview = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, []);
+  }, [navigate]);
 
   return (
     <NFTPreviewWrapper>
-      {modal && (
+      {modal.type === "confirmStake" && modal.toggled && (
+        <ConfirmStakeModal toggleModal={toggleModal} onConfirm={handleStakeConfirm} />
+      )}
+      {modal.type === "stake" && modal.toggled && (
         <BasicModal
           type="stake"
           toggleModal={toggleModal}
@@ -91,6 +114,7 @@ const NFTPreview = () => {
           }}
         />
       )}
+
       {isLoading && <LoaderModal />}
       <ProgressBar />
       <NFTPreviewHeaderWrapper>
@@ -116,10 +140,10 @@ const NFTPreview = () => {
         </div>
 
         {!isDevMode ? (
-          <MainButton text="Confirm" onClick={handleMinting} />
+          <MainButton text="Confirm" onClick={() => setModal({ type: "confirmStake", toggled: true })} />
         ) : (
           /* Used for testing */
-          <FooterButton title="Confirm" onClick={handleMinting} />
+          <FooterButton title="Confirm" onClick={() => setModal({ type: "confirmStake", toggled: true })} />
         )}
       </NFTPreviewConfirmBox>
     </NFTPreviewWrapper>
