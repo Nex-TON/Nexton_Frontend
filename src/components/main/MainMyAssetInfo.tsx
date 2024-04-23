@@ -1,16 +1,21 @@
+import { TailSpin } from "react-loader-spinner";
 import { styled } from "styled-components";
-
-import useTonConnect from "../../hooks/contract/useTonConnect";
 
 import TonWallet from "./TonWallet";
 
-const MainMyAssetInfo = () => {
-  const { balance, address } = useTonConnect();
-
-  /* const { data, isLoading } = useStakeInfo(address); */
-
+const MainMyAssetInfo = ({
+  balance,
+  totalStaked,
+  isLoading,
+  isError,
+}: {
+  balance: number;
+  totalStaked: number;
+  isLoading: boolean;
+  isError: boolean;
+}) => {
   return (
-    <MainMyAssetInfoWraper>
+    <MainMyAssetInfoWrapper>
       <MainMyAssetInfoInnerBox>
         <MainMyAssetInfoInnerTopBox>My Asset</MainMyAssetInfoInnerTopBox>
         <MainMyAssetInfoInnerBottomBox>
@@ -19,17 +24,34 @@ const MainMyAssetInfo = () => {
         </MainMyAssetInfoInnerBottomBox>
         <MainMyAssetInfoInnerBottomBox>
           <MainMyAssetInfoInnerBottomTitleBox>Staked</MainMyAssetInfoInnerBottomTitleBox>
-          <MainMyAssetInfoInnerBottomValue>N/A</MainMyAssetInfoInnerBottomValue>
+          <MainMyAssetInfoInnerBottomValue>
+            {isError ? (
+              "N/A"
+            ) : isLoading ? (
+              <TailSpin
+                visible={true}
+                height="30"
+                width="30"
+                color="#007aff"
+                ariaLabel="tail-spin-loading"
+                radius="4"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            ) : (
+              `${totalStaked.toFixed(2)} TON`
+            )}
+          </MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
       </MainMyAssetInfoInnerBox>
       <TonWallet />
-    </MainMyAssetInfoWraper>
+    </MainMyAssetInfoWrapper>
   );
 };
 
 export default MainMyAssetInfo;
 
-const MainMyAssetInfoWraper = styled.div`
+const MainMyAssetInfoWrapper = styled.div`
   width: 100%;
   padding: 0 0.6rem 1rem 0.6rem;
 

@@ -1,4 +1,4 @@
-import { ThreeCircles } from "react-loader-spinner";
+import { TailSpin } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
@@ -25,12 +25,13 @@ export const LoaderModal = () => {
   return (
     <ModalWrapper>
       <Container style={{ minHeight: "256px" }}>
-        <ThreeCircles
+        <TailSpin
           visible={true}
-          height="100"
-          width="100"
+          height="80"
+          width="80"
           color="#007aff"
-          ariaLabel="three-circles-loading"
+          ariaLabel="tail-spin-loading"
+          radius="4"
           wrapperStyle={{}}
           wrapperClass=""
         />

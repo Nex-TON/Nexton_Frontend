@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
+import { mutate } from "swr";
 
 import { postStakingInfo } from "@/api/postStakingInfo";
 import IcAlertBlue from "@/assets/icons/Stake/ic_alert_blue.svg";
@@ -13,6 +14,7 @@ import { ConfirmStakeModal } from "@/components/stake/NFTPreview/ConfirmStakeMod
 import NftPreviewImage from "@/components/stake/NFTPreview/NftPreviewImage";
 import NFTPreviewInfo from "@/components/stake/NFTPreview/NFTPreviewInfo";
 import * as Contract from "@/hooks/contract/depositTon";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 import { UserDeposit } from "@/hooks/contract/wrappers/tact_NexTon";
 import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom, stakingInputAtom } from "@/lib/atom/staking";
@@ -22,6 +24,8 @@ import { isDevMode } from "@/utils/isDevMode";
 const tele = (window as any).Telegram.WebApp;
 
 const NFTPreview = () => {
+  const { getBalance } = useTonConnect();
+
   const stakingInfo = useRecoilValue(stakingAtom);
   const stakeInfoReset = useResetRecoilState(stakingAtom);
   const setError = useSetRecoilState(globalError);
@@ -59,6 +63,10 @@ const NFTPreview = () => {
         };
       };
 
+      // First, attempt to send the message
+      await sendMessage(data(), stakingInfo.principal);
+
+      // If sendMessage is successful, then call postStakingInfo
       await postStakingInfo({
         id: stakingInfo.id,
         leverage: stakingInfo.leverage,
@@ -67,8 +75,6 @@ const NFTPreview = () => {
         lockPeriod: stakingInfo.lockup.toString(),
         nominator: stakingInfo.nominator,
       });
-
-      await sendMessage(data(), stakingInfo.principal);
 
       setModal({ type: "stake", toggled: true });
     } catch (error) {
@@ -111,6 +117,10 @@ const NFTPreview = () => {
           onClose={() => {
             setInput("");
             stakeInfoReset();
+
+            // Refresh the MyAssets data
+            mutate(`/data/getAllStakeInfoByAddress?address=${stakingInfo.address}`);
+            getBalance();
           }}
         />
       )}

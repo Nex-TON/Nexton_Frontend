@@ -13,8 +13,8 @@ const StakeViewPools = ({ isConnected }: { isConnected: boolean }) => {
     <MainStakeViewWrapper>
       <MainNftInfoBox onClick={() => navigate("/stake/amount")}>
         <MainNftInfoTitleBox>
-          <p>{isConnected ? "Staked $TON" : "$TON TVL"}</p>
-          <p>{isConnected ? "N/A" : "100,000,000$"}</p>
+          <p>{isConnected ? "Stake $TON" : "$TON TVL"}</p>
+          <p>{isConnected ? "" : "100,000,000$"}</p>
         </MainNftInfoTitleBox>
 
         <MainNftStakeImg src={LandingNftStake} alt="nftStake" />

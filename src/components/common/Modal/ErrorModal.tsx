@@ -6,7 +6,12 @@ import ModalWrapper from "@/components/common/Modal/ModalWrapper";
 import { globalError } from "@/lib/atom/globalError";
 
 export const ErrorModal = () => {
-  const [error, setError] = useRecoilState(globalError);
+  const [error, setError] = useRecoilState<Error>(globalError);
+  let defaultError = "Something went wrong...";
+
+  if (error?.message.includes("UserRejectsError")) {
+    defaultError = "User rejected the transaction.";
+  }
 
   const handleClose = () => setError(null);
 
@@ -19,7 +24,7 @@ export const ErrorModal = () => {
               <img src={IcClose} alt="close" onClick={handleClose} />
             </ModalHeader>
 
-            <Title>Something went wrong...</Title>
+            <Title>{defaultError}</Title>
             <SubTitleBox style={{ marginBottom: "3.7rem" }}>
               <SubTitle>Please, try again later.</SubTitle>
             </SubTitleBox>
