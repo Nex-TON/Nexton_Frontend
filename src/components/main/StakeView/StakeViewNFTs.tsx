@@ -48,10 +48,9 @@ const StakeViewNFTs = ({
     </MainStakeViewWrapper>
   ) : (
     <MainStakeViewWrapper>
-      <MainNftInfoBox onClick={() => navigate("/stake/amount")}>
+      <MainNftInfoBox onClick={() => navigate("/myasset/nftlist")}>
         <MainNftInfoTitleBox>
-          <p>Get NFTs</p>
-          <p>with STAKE</p>
+          <p>My NFTs</p>
         </MainNftInfoTitleBox>
         <MainNftStakeImg src={LandingNftStake} alt="nftStake" />
       </MainNftInfoBox>
