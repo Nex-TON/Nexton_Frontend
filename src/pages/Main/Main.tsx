@@ -13,7 +13,7 @@ import { addressState } from "@/lib/atom/address";
 const tele = (window as any).Telegram.WebApp;
 
 const Main = () => {
-  const { address, balance } = useTonConnect();
+  const { address, balance, getBalance } = useTonConnect();
   const { nftList, isLoading, isError } = useStakeInfo(address);
 
   const [, setTonAddress] = useRecoilState(addressState);
@@ -51,7 +51,14 @@ const Main = () => {
 
       <MainWrapper>
         <Header isOpen={false} text="NEXTON" backgroundType={false} />
-        <MainMyAssetInfo balance={balance} totalStaked={totalStaked} isLoading={isLoading} isError={isError} />
+        <MainMyAssetInfo
+          address={address}
+          balance={balance}
+          getBalance={getBalance}
+          totalStaked={totalStaked}
+          isLoading={isLoading}
+          isError={isError}
+        />
         <MainBorder />
         <StakeView />
       </MainWrapper>
