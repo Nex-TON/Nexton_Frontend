@@ -76,6 +76,7 @@ const NominatorList = () => {
             key={index}
             index={index}
             title={item.title}
+            icon={item.icon}
             totalStake={item.totalStake}
             ValidatorStake={item.ValidatorStake}
             NominatorStake={item.NominatorStake}

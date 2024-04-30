@@ -1,35 +1,86 @@
+import { useState } from "react";
+import { TailSpin } from "react-loader-spinner";
 import { styled } from "styled-components";
+import { mutate } from "swr";
 
-import useTonConnect from "../../hooks/contract/useTonConnect";
+import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
 
 import TonWallet from "./TonWallet";
 
-const MainMyAssetInfo = () => {
-  const { balance } = useTonConnect();
+const Loader = () => {
+  return (
+    <TailSpin
+      visible={true}
+      height="30"
+      width="30"
+      color="#007aff"
+      ariaLabel="tail-spin-loading"
+      radius="4"
+      wrapperStyle={{}}
+      wrapperClass=""
+    />
+  );
+};
 
-  const stakedLocally = localStorage.getItem("staked");
+const MainMyAssetInfo = ({
+  address,
+  balance,
+  getBalance,
+  totalStaked,
+  isLoading,
+  isError,
+}: {
+  address: string;
+  balance: number;
+  getBalance: () => Promise<void>;
+  totalStaked: number;
+  isLoading: boolean;
+  isError: boolean;
+}) => {
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+
+    try {
+      await Promise.all([getBalance(), mutate(`/data/getAllStakeInfoByAddress?address=${address}`)]);
+    } catch (error) {
+      console.error("An error occurred during the refresh operation:", error);
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
 
   return (
-    <MainMyAssetInfoWraper>
+    <MainMyAssetInfoWrapper>
       <MainMyAssetInfoInnerBox>
-        <MainMyAssetInfoInnerTopBox>My Asset</MainMyAssetInfoInnerTopBox>
+        <MainMyAssetInfoInnerTopBox>
+          My Asset
+          <MainMyAssetInfoInnerTopBoxIcon>
+            {address && <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} />}
+          </MainMyAssetInfoInnerTopBoxIcon>
+        </MainMyAssetInfoInnerTopBox>
         <MainMyAssetInfoInnerBottomBox>
           <MainMyAssetInfoInnerBottomTitleBox>Balance</MainMyAssetInfoInnerBottomTitleBox>
-          <MainMyAssetInfoInnerBottomValue>{balance.toFixed(2)} TON</MainMyAssetInfoInnerBottomValue>
+          <MainMyAssetInfoInnerBottomValue>
+            {isRefreshing ? <Loader /> : `${balance.toFixed(2)} TON`}
+          </MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
         <MainMyAssetInfoInnerBottomBox>
           <MainMyAssetInfoInnerBottomTitleBox>Staked</MainMyAssetInfoInnerBottomTitleBox>
-          <MainMyAssetInfoInnerBottomValue>{stakedLocally || "0.00"} TON</MainMyAssetInfoInnerBottomValue>
+          <MainMyAssetInfoInnerBottomValue>
+            {isError ? "N/A" : isLoading || isRefreshing ? <Loader /> : `${totalStaked.toFixed(2)} TON`}
+          </MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
       </MainMyAssetInfoInnerBox>
       <TonWallet />
-    </MainMyAssetInfoWraper>
+    </MainMyAssetInfoWrapper>
   );
 };
 
 export default MainMyAssetInfo;
 
-const MainMyAssetInfoWraper = styled.div`
+const MainMyAssetInfoWrapper = styled.div`
   width: 100%;
   padding: 0 0.6rem 1rem 0.6rem;
 
@@ -45,6 +96,7 @@ const MainMyAssetInfoInnerBox = styled.div`
 `;
 
 const MainMyAssetInfoInnerTopBox = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,6 +106,13 @@ const MainMyAssetInfoInnerTopBox = styled.div`
 
   color: #c6c5d0;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+`;
+
+const MainMyAssetInfoInnerTopBoxIcon = styled.div<{ $isRefreshing?: boolean }>`
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 `;
 
 const MainMyAssetInfoInnerBottomBox = styled.div`

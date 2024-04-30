@@ -1,10 +1,6 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { Address } from "@ton/core";
-import {
-  toUserFriendlyAddress,
-  useTonConnectUI,
-  useTonWallet,
-} from "@tonconnect/ui-react";
+import { toUserFriendlyAddress, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 
 import { useTonClient } from "./useTonClient";
 
@@ -25,13 +21,8 @@ export default function useTonConnect() {
 
   const getBalance = async () => {
     if (client && wallet?.account.address) {
-      const newBalance = await client.getBalance(
-        Address.parse(wallet.account.address)
-      );
-      const calcBalance = (
-        (parseInt(newBalance.toString()) / 10 ** 9) *
-        1.0
-      ).toString();
+      const newBalance = await client.getBalance(Address.parse(wallet.account.address));
+      const calcBalance = ((parseInt(newBalance.toString()) / 10 ** 9) * 1.0).toString();
       setBalance(parseFloat(calcBalance));
     }
   };
@@ -62,6 +53,7 @@ export default function useTonConnect() {
     address: address,
     pureAddress: wallet?.account.address,
     network: wallet?.account.chain,
+    getBalance,
     balance,
   };
 }

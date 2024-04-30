@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
-import IcError from "../../../assets/icons/Stake/ic_error.svg";
-import useTonConnect from "../../../hooks/contract/useTonConnect";
-import { numberCutter } from "../../../utils/numberCutter";
+import IcError from "@/assets/icons/Stake/ic_error.svg";
+import useTonConnect from "@/hooks/contract/useTonConnect";
+import { numberCutter } from "@/utils/numberCutter";
+
 import ProgressBar from "../common/ProgressBar";
 import Step from "../common/Step";
 import Title from "../common/Title";
@@ -27,15 +28,9 @@ const Step1 = (props: Step1Props) => {
       <Step title="Step 1" />
       <Title title="Put stake amount" />
       <BalanceWrapper>
-        <BalanceText>
-          Balance : {balance > 0 ? numberCutter(balance) : `-.---`}
-        </BalanceText>
+        <BalanceText>Balance : {balance > 0 ? numberCutter(balance) : `-.---`}</BalanceText>
       </BalanceWrapper>
-      <LeverageInput
-        input={input}
-        setInput={setInput}
-        error={error || amountError}
-      />
+      <LeverageInput input={input} setInput={setInput} error={error || amountError} />
       {error && (
         <ErrorBlock>
           <img src={IcError} alt="error" />

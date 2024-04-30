@@ -44,7 +44,7 @@ const Leverage = () => {
   });
 
   const handleMovePreview = () => {
-    setStakingInfo((prev) => ({
+    setStakingInfo(prev => ({
       ...prev,
       leverage: ratio,
       lockup: getLockUpDate(stakingInfo.principal, ratio),
@@ -80,20 +80,14 @@ const Leverage = () => {
       />
       <BorderLine />
       <Step3 input={stakingInfo.principal} ratio={ratio} />
-      <LeverageBottomTextBox>
-        The NFT will contain this information
-      </LeverageBottomTextBox>
+      <LeverageBottomTextBox>The NFT will contain this information</LeverageBottomTextBox>
 
       {!isDevMode ? (
         <MainButton text="Confirm" onClick={handleMovePreview} />
       ) : (
         /* Used for testing */
         <FooterWrapper>
-          <FooterButton
-            title="Confirm"
-            ratio={ratio}
-            onClick={handleMovePreview}
-          />
+          <FooterButton title="Confirm" ratio={ratio} onClick={handleMovePreview} />
         </FooterWrapper>
       )}
     </LeverageWrapper>

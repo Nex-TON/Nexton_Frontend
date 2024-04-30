@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { css, keyframes, styled } from "styled-components";
 
 import LandingNftStake from "@/assets/image/LandingNFTStake.png";
-import NftOngoing from "@/assets/image/NftOngoing.png?url";
 import { nftInfo } from "@/types/Nft";
 
 import { MainStakeViewBox, MainStakeViewWrapper } from "./common/StakeView.styled";
@@ -12,12 +11,10 @@ const StakeViewNFTs = ({
   isConnected,
   isLoading,
   nftList,
-  stakedLocally,
 }: {
   isConnected: boolean;
   isLoading: boolean;
   nftList?: nftInfo[];
-  stakedLocally: string | null;
 }) => {
   const navigate = useNavigate();
 
@@ -51,30 +48,12 @@ const StakeViewNFTs = ({
     </MainStakeViewWrapper>
   ) : (
     <MainStakeViewWrapper>
-      <MainNftInfoBox onClick={() => navigate("/stake/amount")}>
+      <MainNftInfoBox onClick={() => navigate("/myasset/nftlist")}>
         <MainNftInfoTitleBox>
-          <p>Get NFTs</p>
-          <p>with STAKE</p>
+          <p>My NFTs</p>
         </MainNftInfoTitleBox>
         <MainNftStakeImg src={LandingNftStake} alt="nftStake" />
       </MainNftInfoBox>
-
-      {stakedLocally && (
-        <MainNftInfoBox
-          onClick={() => alert("Thanks for participating in Nexton demo!")}
-          style={{
-            background: `url(${NftOngoing})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        >
-          <MainNftInfoTitleBox>
-            <p>Your assets</p>
-            <p>STAKED using Nexton</p>
-          </MainNftInfoTitleBox>
-        </MainNftInfoBox>
-      )}
 
       {nftList
         ?.sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))

@@ -12,7 +12,7 @@ const Input = (props: InputProps) => {
   return (
     <InputStyle
       inputMode="decimal"
-      placeholder="min 0.5"
+      placeholder="min 1"
       value={input}
       disabled={disableInput}
       onChange={(e) => setInput(e.target.value)}

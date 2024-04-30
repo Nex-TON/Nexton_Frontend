@@ -1,15 +1,21 @@
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 
-import Router from "./components/common/Router";
-import GlobalStyle from "./styles/globalStyles";
-import theme from "./styles/theme";
+import { ErrorModal } from "@/components/common/Modal/ErrorModal";
+import Router from "@/components/common/Router";
+import { network } from "@/hooks/contract/useTonClient";
+import GlobalStyle from "@/styles/globalStyles";
+import theme from "@/styles/theme";
+
+console.log(`You're connected to the ${network} network!`);
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <RecoilRoot>
         <GlobalStyle />
+        <ErrorModal />
+
         <Router />
       </RecoilRoot>
     </ThemeProvider>

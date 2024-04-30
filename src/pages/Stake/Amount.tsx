@@ -30,7 +30,7 @@ const Amount = () => {
     if (input === "") {
       setError([true, false, false]);
     }
-    if (input !== "" && Number(input) >= 0.5) {
+    if (input !== "" && Number(input) >= 1) {
       setError([false, false, false]);
       setStakingInfo((prev) => ({
         ...prev,
@@ -59,7 +59,7 @@ const Amount = () => {
     if (!connected) {
       setError([false, false, true]);
     } else {
-      if (input !== "" && Number(input) < 0.5) {
+      if (input !== "" && Number(input) < 1) {
         setError([false, true, false]);
       } else {
         setError([false, false, false]);
