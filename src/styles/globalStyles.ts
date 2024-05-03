@@ -146,7 +146,7 @@ ${reset}
 
 #root, body, html {
     max-width: 76.8rem;
-    height: 100%; 
+    height: 100%;
 
     margin: 0 auto;
     overflow-y: auto;
@@ -167,11 +167,11 @@ ${reset}
 #root::-webkit-scrollbar {
     display: none; /* 크롬, 사파리, 오페라, 엣지 */
 }
-  
+
 * {
     box-sizing: border-box;
 }
-    
+
 `;
 
 export default GlobalStyle;
