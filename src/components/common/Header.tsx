@@ -100,7 +100,7 @@ const ReferralButton = styled.button`
   cursor: pointer;
 `;
 
-const DisconnectButton = styled.button<{ connect: boolean }>`
+const DisconnectButton = styled.button<{ $connect: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
