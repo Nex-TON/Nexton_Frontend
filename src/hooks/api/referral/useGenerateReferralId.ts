@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import useSWRMutation from "swr/mutation";
 
-import { client } from "../axios";
+import { client } from "../../../api/axios";
 
 export function useGenerateReferralId() {
   type GenerateReferralIdArgs = { arg: { userId: string } };

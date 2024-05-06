@@ -5,10 +5,10 @@ import { ToastContainer } from "react-toastify";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
-import { useGenerateReferralId } from "@/api/referral/postClaim";
 import IcCopy from "@/assets/icons/ic_copy.svg";
 import ReferralGroup from "@/assets/image/ReferralGroup.png";
 import Loader from "@/components/common/Loader";
+import { useGenerateReferralId } from "@/hooks/api/referral/useGenerateReferralId";
 import { useReferralStatus } from "@/hooks/api/referral/useReferralStatus";
 import { globalError } from "@/lib/atom/globalError";
 import { copyText } from "@/utils/copyText";
