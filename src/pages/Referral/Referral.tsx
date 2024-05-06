@@ -93,7 +93,7 @@ const Referral = () => {
           <ReferralBoxWrapper>
             <ReferralBox>
               <h3>Your Reward</h3>
-              {isLoading ? <Loader /> : <span>{data?.totalRewards}</span>}
+              {isLoading ? <Loader /> : <span>{/* {data?.totalRewards} */} Soon...</span>}
             </ReferralBox>
             <ReferralBox>
               <h3>Your Friends</h3>
