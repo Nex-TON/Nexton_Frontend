@@ -75,6 +75,7 @@ const Main = () => {
 
     if (tele) {
       tele.ready();
+      tele.expand(); // Expand the app to full screen
       tele.BackButton.hide();
     }
   }, []);
