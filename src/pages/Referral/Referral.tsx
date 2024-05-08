@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Slide, toast } from "react-toastify";
-import { ToastContainer } from "react-toastify";
+import { Slide, toast, ToastContainer } from "react-toastify";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
@@ -19,16 +18,21 @@ const tele = (window as any).Telegram.WebApp;
 
 const TMA_URL = "https://t.me/Nexton_tele_bot/nexton";
 
+export interface IUserInfo {
+  userId: number;
+  username: string;
+}
+
 const Referral = () => {
   const navigate = useNavigate();
   const setError = useSetRecoilState(globalError);
   const { trigger, isMutating } = useGenerateReferralId();
 
   const [referralLink, setReferralLink] = useState<string>("");
-  const [userId, setUserId] = useState<number>();
+  const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
-  const { data, isLoading, error } = useReferralStatus(userId);
+  const { data, isLoading, error } = useReferralStatus(userInfo.userId);
 
   useEffect(() => {
     if (tele) {
@@ -40,7 +44,7 @@ const Referral = () => {
 
       const tgUser = tele.initDataUnsafe.user;
       if (tgUser) {
-        setUserId(tgUser.id);
+        setUserInfo({ userId: tgUser.id, username: tgUser.username });
       } else {
         console.warn("You should launch the app inside the Telegram Mini App.");
       }
@@ -53,8 +57,8 @@ const Referral = () => {
 
   useEffect(() => {
     function generateReferralLink() {
-      if (userId) {
-        trigger({ userId: String(userId) })
+      if (userInfo) {
+        trigger(userInfo)
           .then(res => {
             setReferralLink(`${TMA_URL}?startapp=${res.data.code}`);
           })
@@ -64,7 +68,7 @@ const Referral = () => {
       }
     }
     generateReferralLink();
-  }, [userId, trigger, setError]);
+  }, [userInfo, trigger, setError]);
 
   const handleCopyClick = async () => {
     copyText(referralLink);

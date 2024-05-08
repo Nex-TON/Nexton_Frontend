@@ -12,6 +12,7 @@ interface ITrackReferralResponse {
   message: string;
   success: boolean;
   referrerId: string;
+  username: string;
 }
 
 export function useTrackReferral() {

@@ -37,7 +37,7 @@ const Main = () => {
           const { data } = res;
 
           if (data.success) {
-            toast(`🎊 You were successfully referred by User ${data.referrerId}!`, {
+            toast(`🎊 You were successfully referred by User @${data.username}!`, {
               position: "top-center",
               autoClose: 3000,
               hideProgressBar: false,
