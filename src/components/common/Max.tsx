@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import useTonConnect from "../../hooks/contract/useTonConnect";
-import { numberCutter } from "../../utils/numberCutter";
+import useTonConnect from "@/hooks/contract/useTonConnect";
+import { numberCutter } from "@/utils/numberCutter";
 
 interface MaxProps {
   setInput: (input: string) => void;

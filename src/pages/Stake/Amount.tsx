@@ -1,71 +1,82 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
+import { z } from "zod";
 
-import IcError from "../../assets/icons/Stake/ic_error.svg";
-import LeverageInput from "../../components/stake/Amount/LeverageInput";
-import ProgressBar from "../../components/stake/common/ProgressBar";
-import Step from "../../components/stake/common/Step";
-import Title from "../../components/stake/common/Title";
-import { ERROR } from "../../constants/error";
-import useTonConnect from "../../hooks/contract/useTonConnect";
-import { stakingAtom } from "../../lib/atom/staking";
-import { isDevMode } from "../../utils/isDevMode";
-import { numberCutter } from "../../utils/numberCutter";
+import ProgressBar from "@/components/stake/common/ProgressBar";
+import Step from "@/components/stake/common/Step";
+import Title from "@/components/stake/common/Title";
+import TokenInput from "@/components/stake/common/TokensInput";
+import useTonConnect from "@/hooks/contract/useTonConnect";
+import { stakingAtom } from "@/lib/atom/staking";
+import { isDevMode } from "@/utils/isDevMode";
+import { numberCutter } from "@/utils/numberCutter";
 
 const tele = (window as any).Telegram.WebApp;
 
 const Amount = () => {
-  const [input, setInput] = useState("");
-  const [error, setError] = useState([false, false, false]);
-  const [, setStakingInfo] = useRecoilState(stakingAtom);
-  const { connected } = useTonConnect();
-
-  const { address, balance } = useTonConnect();
+  const { address, balance, connected } = useTonConnect();
   const navigate = useNavigate();
+  const [, setStakingInfo] = useRecoilState(stakingAtom);
 
-  const handleMoveNominator = () => {
-    if (input === "") {
-      setError([true, false, false]);
-    }
-    if (input !== "" && Number(input) >= 1) {
-      setError([false, false, false]);
-      setStakingInfo((prev) => ({
-        ...prev,
-        address: address,
-        principal: input,
-      }));
-      navigate("/stake/nominator");
-    }
-  };
+  const schema = z.object({
+    amount: z
+      .string()
+      .min(1, "Please enter amount")
+      .transform(Number)
+      .refine(val => !isNaN(val), "Please enter a valid number")
+      .refine(val => val >= 1, "Please stake more than 1 TON")
+      .refine(val => val <= balance, "The amount exceeds the balance")
+      .refine(val => Number(val.toFixed(2)) === val, "Maximum two decimals allowed"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    setError,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+    mode: "onChange",
+    shouldFocusError: true,
+    defaultValues: {
+      amount: "",
+    },
+  });
 
   useEffect(() => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/");
-      });
+      tele.onEvent("backButtonClicked", () => navigate("/"));
+      return () => {
+        tele.offEvent("backButtonClicked");
+      };
     }
-
-    return () => {
-      tele.offEvent("backButtonClicked");
-    };
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     if (!connected) {
-      setError([false, false, true]);
-    } else {
-      if (input !== "" && Number(input) < 1) {
-        setError([false, true, false]);
-      } else {
-        setError([false, false, false]);
-      }
+      setError("amount", {
+        type: "walletConnect",
+        message: "Please connect your wallet first",
+      });
     }
-  }, [input, connected]);
+  }, [connected, setError]);
+
+  const onSubmit = data => {
+    setStakingInfo(prev => ({
+      ...prev,
+      address: address,
+      principal: data.amount,
+    }));
+    navigate("/stake/nominator");
+  };
 
   return (
     <AmountWrapper>
@@ -73,29 +84,27 @@ const Amount = () => {
       <Step title="Step 1" />
       <Title title="Put stake amount" />
       <BalanceWrapper>
-        <BalanceText>
-          Balance : {balance > 0 ? numberCutter(balance) : `-.---`}
-        </BalanceText>
+        <BalanceText>Balance : {balance > 0 ? numberCutter(balance) : `-.---`}</BalanceText>
       </BalanceWrapper>
-      <LeverageInput
-        input={input}
-        setInput={setInput}
-        error={error.includes(true)}
-        disableInput={error[2]}
-      />
-      {error.includes(true) && (
-        <ErrorBlock>
-          <img src={IcError} alt="error" />
-          <span>{ERROR[error.indexOf(true)]}</span>
-        </ErrorBlock>
-      )}
 
-      {!isDevMode ? (
-        <MainButton text="NEXT" onClick={handleMoveNominator} />
-      ) : (
-        /* Used for testing */
-        <button onClick={handleMoveNominator}>next</button>
-      )}
+      <form style={{ width: "100%" }}>
+        <TokenInput
+          register={register("amount")}
+          setValue={setValue}
+          error={errors.amount?.message as string}
+          disabled={!connected}
+          tokenLabel="TON"
+          placeholder="Enter the amount (min. 1)"
+          inputMode="decimal"
+          step="0.01"
+        />
+
+        {!isDevMode ? (
+          <MainButton text="NEXT" onClick={handleSubmit(onSubmit)} />
+        ) : (
+          <button onClick={handleSubmit(onSubmit)}>next</button>
+        )}
+      </form>
     </AmountWrapper>
   );
 };
@@ -129,19 +138,4 @@ const BalanceText = styled.span`
   font-weight: 500;
   line-height: 1.8rem; /* 138.462% */
   letter-spacing: -0.024rem;
-`;
-
-const ErrorBlock = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-
-  width: 85%;
-  padding-left: 2.3rem;
-  margin-top: 1rem;
-
-  span {
-    color: #ff7979;
-    ${({ theme }) => theme.fonts.Telegram_Caption_1};
-  }
 `;
