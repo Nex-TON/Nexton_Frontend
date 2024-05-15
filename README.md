@@ -23,7 +23,9 @@ It acts as client Part of the project
 "telegraf": "^4.12.2",
 "@ton/ton": "^13.11.1",
 "@ton/core": "^0.56.1",
-"@ton/crypto": "^3.2.0"
+"@ton/crypto": "^3.2.0",
+"react-hook-form": "^7.51.4","
+"zod": "^3.23.8"
 ```
 
 ## Getting Started
