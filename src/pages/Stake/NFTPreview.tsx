@@ -24,7 +24,7 @@ import { isDevMode } from "@/utils/isDevMode";
 const tele = (window as any).Telegram.WebApp;
 
 const NFTPreview = () => {
-  const { getBalance } = useTonConnect();
+  const { refreshTonData } = useTonConnect();
 
   const stakingInfo = useRecoilValue(stakingAtom);
   const stakeInfoReset = useResetRecoilState(stakingAtom);
@@ -114,13 +114,13 @@ const NFTPreview = () => {
         <BasicModal
           type="stake"
           toggleModal={toggleModal}
-          onClose={() => {
+          onClose={async () => {
             setInput("");
             stakeInfoReset();
 
             // Refresh the MyAssets data
             mutate(`/data/getAllStakeInfoByAddress?address=${stakingInfo.address}`);
-            getBalance();
+            await refreshTonData();
           }}
         />
       )}
