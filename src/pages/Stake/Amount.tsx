@@ -19,7 +19,7 @@ import { numberCutter } from "@/utils/numberCutter";
 const tele = (window as any).Telegram.WebApp;
 
 const Amount = () => {
-  const { address, balance, connected } = useTonConnect();
+  const { address, balance, connected, refreshTonData } = useTonConnect();
   const navigate = useNavigate();
   const [, setStakingInfo] = useRecoilState(stakingAtom);
 
@@ -48,6 +48,14 @@ const Amount = () => {
       amount: "",
     },
   });
+
+  useEffect(() => {
+    async function handleRefreshTonData() {
+      await refreshTonData();
+    }
+
+    handleRefreshTonData();
+  }, [refreshTonData]);
 
   useEffect(() => {
     if (tele) {
@@ -84,7 +92,7 @@ const Amount = () => {
       <Step title="Step 1" />
       <Title title="Put stake amount" />
       <BalanceWrapper>
-        <BalanceText>Balance : {balance > 0 ? numberCutter(balance) : `-.---`}</BalanceText>
+        <BalanceText>Balance : {balance ? numberCutter(balance) : `-.---`}</BalanceText>
       </BalanceWrapper>
 
       <form style={{ width: "100%" }}>

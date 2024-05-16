@@ -25,14 +25,14 @@ const Loader = () => {
 const MainMyAssetInfo = ({
   address,
   balance,
-  getBalance,
+  refreshTonData,
   totalStaked,
   isLoading,
   isError,
 }: {
   address: string;
   balance: number;
-  getBalance: () => Promise<void>;
+  refreshTonData: () => Promise<void>;
   totalStaked: number;
   isLoading: boolean;
   isError: boolean;
@@ -43,7 +43,7 @@ const MainMyAssetInfo = ({
     setIsRefreshing(true);
 
     try {
-      await Promise.all([getBalance(), mutate(`/data/getAllStakeInfoByAddress?address=${address}`)]);
+      await Promise.all([refreshTonData(), mutate(`/data/getAllStakeInfoByAddress?address=${address}`)]);
     } catch (error) {
       console.error("An error occurred during the refresh operation:", error);
     } finally {
@@ -63,13 +63,13 @@ const MainMyAssetInfo = ({
         <MainMyAssetInfoInnerBottomBox>
           <MainMyAssetInfoInnerBottomTitleBox>Balance</MainMyAssetInfoInnerBottomTitleBox>
           <MainMyAssetInfoInnerBottomValue>
-            {isRefreshing ? <Loader /> : `${balance.toFixed(2)} TON`}
+            {isRefreshing ? <Loader /> : `${balance ? balance.toFixed(2) : "-.---"} TON`}
           </MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
         <MainMyAssetInfoInnerBottomBox>
           <MainMyAssetInfoInnerBottomTitleBox>Staked</MainMyAssetInfoInnerBottomTitleBox>
           <MainMyAssetInfoInnerBottomValue>
-            {isError ? "N/A" : isLoading || isRefreshing ? <Loader /> : `${totalStaked.toFixed(2)} TON`}
+            {isError ? "-.---" : isLoading || isRefreshing ? <Loader /> : `${totalStaked.toFixed(2)} TON`}
           </MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
       </MainMyAssetInfoInnerBox>
