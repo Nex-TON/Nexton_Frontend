@@ -2,13 +2,13 @@ import { UseFormRegisterReturn } from "react-hook-form";
 import styled from "styled-components";
 
 import IcError from "@/assets/icons/Stake/ic_error.svg";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 import { numberCutter } from "@/utils/numberCutter";
 
 interface TokenInputProps {
   register: UseFormRegisterReturn<string>;
   setValue: (name: string, value: string) => void;
   tokenLabel: string;
+  balance: number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
   disabled?: boolean;
@@ -17,8 +17,7 @@ interface TokenInputProps {
 }
 
 const TokenInput = (props: TokenInputProps) => {
-  const { balance } = useTonConnect();
-  const { error, disabled, placeholder, register, setValue, tokenLabel, onChange, ...rest } = props;
+  const { error, disabled, placeholder, register, setValue, tokenLabel, onChange, balance, ...rest } = props;
 
   return (
     <>
@@ -29,6 +28,7 @@ const TokenInput = (props: TokenInputProps) => {
           placeholder={placeholder}
           disabled={disabled}
           onChange={onChange}
+          autoComplete="off"
         />
 
         <RightSection>

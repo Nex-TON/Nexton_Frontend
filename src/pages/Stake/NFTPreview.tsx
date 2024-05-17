@@ -106,7 +106,41 @@ const NFTPreview = () => {
   }, [navigate]);
 
   return (
-    <NFTPreviewWrapper>
+    <>
+      <NFTPreviewWrapper>
+        <ProgressBar />
+        <NFTPreviewHeaderWrapper>
+          <StepBox>Fin.</StepBox>
+          <NFTPreviewHeader>
+            <NFTPreviewHeaderTop>
+              <p>Check info that will</p>
+              <p>be noted on your NFT</p>
+            </NFTPreviewHeaderTop>
+            <NFTPreviewHeaderBottom>
+              <p>After this process, transaction cancel should be</p>
+              <p>turned down.</p>
+            </NFTPreviewHeaderBottom>
+          </NFTPreviewHeader>
+        </NFTPreviewHeaderWrapper>
+        <NftPreviewImage lockup={stakingInfo.lockup} />
+        <NFTPreviewInfo stakingInfo={stakingInfo} />
+        <NFTPreviewConfirmBox>
+          <img src={IcAlertBlue} alt="alertBlue" />
+          <div>
+            <NFTPreviewConfirmText>You cannot cancel the transaction after pressing</NFTPreviewConfirmText>
+            <NFTPreviewConfirmText>Confirm. Please check the NFT information.</NFTPreviewConfirmText>
+          </div>
+
+          {!isDevMode ? (
+            <MainButton text="Confirm" onClick={() => setModal({ type: "confirmStake", toggled: true })} />
+          ) : (
+            /* Used for testing */
+            <FooterButton title="Confirm" onClick={() => setModal({ type: "confirmStake", toggled: true })} />
+          )}
+        </NFTPreviewConfirmBox>
+      </NFTPreviewWrapper>
+
+      {isLoading && <LoaderModal />}
       {modal.type === "confirmStake" && modal.toggled && (
         <ConfirmStakeModal toggleModal={toggleModal} onConfirm={handleStakeConfirm} />
       )}
@@ -124,39 +158,7 @@ const NFTPreview = () => {
           }}
         />
       )}
-
-      {isLoading && <LoaderModal />}
-      <ProgressBar />
-      <NFTPreviewHeaderWrapper>
-        <StepBox>Fin.</StepBox>
-        <NFTPreviewHeader>
-          <NFTPreviewHeaderTop>
-            <p>Check info that will</p>
-            <p>be noted on your NFT</p>
-          </NFTPreviewHeaderTop>
-          <NFTPreviewHeaderBottom>
-            <p>After this process, transaction cancel should be</p>
-            <p>turned down.</p>
-          </NFTPreviewHeaderBottom>
-        </NFTPreviewHeader>
-      </NFTPreviewHeaderWrapper>
-      <NftPreviewImage lockup={stakingInfo.lockup} />
-      <NFTPreviewInfo stakingInfo={stakingInfo} />
-      <NFTPreviewConfirmBox>
-        <img src={IcAlertBlue} alt="alertBlue" />
-        <div>
-          <NFTPreviewConfirmText>You cannot cancel the transaction after pressing</NFTPreviewConfirmText>
-          <NFTPreviewConfirmText>Confirm. Please check the NFT information.</NFTPreviewConfirmText>
-        </div>
-
-        {!isDevMode ? (
-          <MainButton text="Confirm" onClick={() => setModal({ type: "confirmStake", toggled: true })} />
-        ) : (
-          /* Used for testing */
-          <FooterButton title="Confirm" onClick={() => setModal({ type: "confirmStake", toggled: true })} />
-        )}
-      </NFTPreviewConfirmBox>
-    </NFTPreviewWrapper>
+    </>
   );
 };
 

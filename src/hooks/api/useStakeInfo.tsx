@@ -9,7 +9,7 @@ export const useStakeInfo = (address: string) => {
     nextonFetcher,
     {
       errorRetryCount: 3,
-    }
+    },
   );
 
   return {

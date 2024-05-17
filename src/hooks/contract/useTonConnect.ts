@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Address } from "@ton/core";
 import { toUserFriendlyAddress, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 
@@ -40,6 +40,10 @@ export default function useTonConnect() {
     getAddress();
     await getBalance();
   }, [getAddress, getBalance]);
+
+  useEffect(() => {
+    getAddress();
+  }, [wallet?.account?.address, getAddress]);
 
   return {
     tonConnectUI,

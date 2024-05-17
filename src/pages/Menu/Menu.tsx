@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
-import Header from "../../components/common/Header";
-import JoinCommunity from "../../components/main/Menu/JoinCommunity";
-import NowUsingMenu from "../../components/main/Menu/NowUsingMenu";
-import UpcomingMenu from "../../components/main/Menu/UpcomingMenu";
+import Header from "@/components/common/Header";
+import JoinCommunity from "@/components/main/Menu/JoinCommunity";
+import TopBar from "@/components/main/Menu/TopBar";
+import UpcomingMenu from "@/components/main/Menu/UpcomingMenu";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -28,7 +28,7 @@ const Menu = () => {
   return (
     <MenuWrapper>
       <Header isOpen={true} text="NEXTON" backgroundType={true} />
-      <NowUsingMenu />
+      <TopBar />
       <UpcomingMenu />
       <JoinCommunity />
     </MenuWrapper>

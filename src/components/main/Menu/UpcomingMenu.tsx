@@ -1,14 +1,14 @@
 import { styled } from "styled-components";
 
-import IcMenuLoan from "../../../assets/icons/Menu/ic_menu_loan.svg";
-import IcMenuNLP from "../../../assets/icons/Menu/ic_menu_nlp.svg";
-import IcMenuNXT from "../../../assets/icons/Menu/ic_menu_nxt.svg";
-import IcMenuSwap from "../../../assets/icons/Menu/ic_menu_swap.svg";
+import IcMenuLoan from "@/assets/icons/Menu/ic_menu_loan.svg";
+import IcMenuNLP from "@/assets/icons/Menu/ic_menu_nlp.svg";
+import IcMenuNXT from "@/assets/icons/Menu/ic_menu_nxt.svg";
+import IcMenuSwap from "@/assets/icons/Menu/ic_menu_swap.svg";
 
 const UpcomingMenu = () => {
   return (
     <UpcomingMenuWrapper>
-      <UpcomingMenuTitle>upcoming</UpcomingMenuTitle>
+      <UpcomingMenuTitle>Upcoming</UpcomingMenuTitle>
       <UpcomingMenuButtonWrapper>
         <UpcomingMenuButton>
           <img src={IcMenuLoan} alt="menuLoan" />
@@ -68,8 +68,8 @@ const UpcomingMenuButton = styled.button`
 
   border: none;
   background-color: transparent;
-  color: #333;
+  color: #b9b9ba;
   ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
 
-  cursor: pointer;
+  cursor: default;
 `;

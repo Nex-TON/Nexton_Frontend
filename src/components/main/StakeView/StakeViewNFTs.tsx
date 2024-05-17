@@ -59,7 +59,9 @@ const StakeViewNFTs = ({
         ?.sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
         .filter(nft => nft.status !== 2)
         .slice(0, 2)
-        .map((nft, index) => <StakeViewNFTsItem key={index} nftItem={nft} />)}
+        .map((nft, index) => (
+          <StakeViewNFTsItem key={index} nftItem={nft} />
+        ))}
     </MainStakeViewWrapper>
   );
 };
