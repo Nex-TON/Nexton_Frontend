@@ -85,6 +85,7 @@ const Amount = () => {
     navigate("/stake/nominator");
   };
 
+  // We use declarative approach to handle input change in TMA
   const onChange = e => {
     setValue("amount", e.target.value, { shouldValidate: true, shouldDirty: true, shouldTouch: true });
   };

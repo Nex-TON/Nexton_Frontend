@@ -63,7 +63,7 @@ const MainMyAssetInfo = ({
         <MainMyAssetInfoInnerBottomBox>
           <MainMyAssetInfoInnerBottomTitleBox>Balance</MainMyAssetInfoInnerBottomTitleBox>
           <MainMyAssetInfoInnerBottomValue>
-            {isRefreshing ? <Loader /> : `${balance ? balance.toFixed(2) : "-.--"} TON`}
+            {isRefreshing ? <Loader /> : `${balance === 0 || balance ? balance.toFixed(2) : "-.--"} TON`}
           </MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
         <MainMyAssetInfoInnerBottomBox>
