@@ -91,7 +91,7 @@ const Amount = () => {
       <Step title="Step 1" />
       <Title title="Put stake amount" />
       <BalanceWrapper>
-        <BalanceText>Balance : {balance ? numberCutter(balance) : `-.---`}</BalanceText>
+        <BalanceText>Balance : {balance ? numberCutter(balance) : `-.--`}</BalanceText>
       </BalanceWrapper>
 
       <form style={{ width: "100%" }}>

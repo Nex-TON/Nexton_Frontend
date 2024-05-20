@@ -63,13 +63,13 @@ const MainMyAssetInfo = ({
         <MainMyAssetInfoInnerBottomBox>
           <MainMyAssetInfoInnerBottomTitleBox>Balance</MainMyAssetInfoInnerBottomTitleBox>
           <MainMyAssetInfoInnerBottomValue>
-            {isRefreshing ? <Loader /> : `${balance ? balance.toFixed(2) : "-.---"} TON`}
+            {isRefreshing ? <Loader /> : `${balance ? balance.toFixed(2) : "-.--"} TON`}
           </MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
         <MainMyAssetInfoInnerBottomBox>
           <MainMyAssetInfoInnerBottomTitleBox>Staked</MainMyAssetInfoInnerBottomTitleBox>
           <MainMyAssetInfoInnerBottomValue>
-            {isError ? "-.---" : isLoading || isRefreshing ? <Loader /> : `${totalStaked.toFixed(2)} TON`}
+            {isError ? "-.--" : isLoading || isRefreshing ? <Loader /> : `${totalStaked.toFixed(2)} TON`}
           </MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
       </MainMyAssetInfoInnerBox>
