@@ -94,7 +94,7 @@ const PointBoxRankingImg = styled.img`
 
 const PointBoxTitle = styled.p`
   ${({ theme }) => theme.fonts.Nexton_Label_Medium};
-  color: #2f3038;
+  color: #b9b9ba;
   text-align: center;
 `;
 
