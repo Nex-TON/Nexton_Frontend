@@ -85,6 +85,10 @@ const Amount = () => {
     navigate("/stake/nominator");
   };
 
+  const onChange = e => {
+    setValue("amount", e.target.value, { shouldValidate: true, shouldDirty: true, shouldTouch: true });
+  };
+
   return (
     <AmountWrapper>
       <ProgressBar />
@@ -97,6 +101,7 @@ const Amount = () => {
       <form style={{ width: "100%" }}>
         <TokenInput
           register={register("amount")}
+          name="amount"
           setValue={setValue}
           error={errors.amount?.message as string}
           disabled={!connected}
@@ -104,6 +109,7 @@ const Amount = () => {
           placeholder="Stake (min. 1)"
           inputMode="decimal"
           balance={balance}
+          onChange={onChange}
         />
 
         {!isDevMode ? (
