@@ -3,6 +3,18 @@
 This frontend code is for setting up a Nexton Telegram Web App using React.js.
 It acts as client Part of the project
 
+## Key Features
+- **Telegram Integration**: Fully integrated with Telegram Mini App tools.
+- **Reactive State Management**: Utilizes Recoil for state management across React components.
+- **Modern Routing**: Leveraging `react-router-dom` for SPA routing.
+- **Crypto Functions**: Implements `@ton/crypto` for enhanced security measures.
+
+## Prerequisites
+Before you begin, ensure you have the following installed:
+- Node.js (version 14 or above recommended)
+- Yarn (version 1.22 or above)
+- Git
+
 ## Dependencies
 
 ```
