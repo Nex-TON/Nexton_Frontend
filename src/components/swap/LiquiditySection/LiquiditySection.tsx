@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { styled } from "styled-components";
 
@@ -8,7 +9,15 @@ import SwapBox from "../common/SwapBox";
 import LiquidityPair from "./LiquidityPair";
 
 const LiquiditySection = () => {
-  const { balance } = useTonConnect();
+  const { balance, refreshTonData } = useTonConnect();
+
+  useEffect(() => {
+    async function handleRefreshTonData() {
+      await refreshTonData();
+    }
+
+    handleRefreshTonData();
+  }, [refreshTonData]);
 
   return (
     <LiquiditySectionWrapper>

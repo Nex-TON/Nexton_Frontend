@@ -4,25 +4,25 @@ import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
 
-import { getTelegramId } from "../../api/getTelegramId";
-import FooterButton from "../../components/common/FooterButton";
-import ProgressBar from "../../components/stake/common/ProgressBar";
-import Step2 from "../../components/stake/LeverageLockUp/Leverage";
-import Step3 from "../../components/stake/LeverageLockUp/Lockup";
-import useTonConnect from "../../hooks/contract/useTonConnect";
-import { stakingAtom } from "../../lib/atom/staking";
-import { telegramAtom } from "../../lib/atom/telegram";
-import { getLockUpDate } from "../../utils/getLockupDate";
-import { isDevMode } from "../../utils/isDevMode";
+import { getTelegramId } from "@/api/getTelegramId";
+import IcWarning from "@/assets/icons/Landing/ic_warning.svg";
+import FooterButton from "@/components/common/FooterButton";
+import ProgressBar from "@/components/stake/common/ProgressBar";
+import Step2 from "@/components/stake/LeverageLockUp/Leverage";
+import Step3 from "@/components/stake/LeverageLockUp/Lockup";
+import useTonConnect from "@/hooks/contract/useTonConnect";
+import { stakingAtom } from "@/lib/atom/staking";
+import { telegramAtom } from "@/lib/atom/telegram";
+import { getLockUpDate } from "@/utils/getLockupDate";
+import { isDevMode } from "@/utils/isDevMode";
 
 const tele = (window as any).Telegram.WebApp;
 
 const Leverage = () => {
   const { address } = useTonConnect();
-
   const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
-
   const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
+
   const [maxLeverage, setMaxLeverage] = useState(0);
   const [ratio, setRatio] = useState(1.0);
 
@@ -90,6 +90,11 @@ const Leverage = () => {
           <FooterButton title="Confirm" ratio={ratio} onClick={handleMovePreview} />
         </FooterWrapper>
       )}
+
+      <LeverageAlphaDisclaimer>
+        <img src={IcWarning} alt="warning" />
+        <p>Leverage functionality will be added in the future.</p>
+      </LeverageAlphaDisclaimer>
     </LeverageWrapper>
   );
 };
@@ -131,4 +136,21 @@ const BorderLine = styled.div`
   margin: 2.6rem 0;
 
   background-color: #f1f4f4;
+`;
+
+const LeverageAlphaDisclaimer = styled.div`
+  padding: 0 2rem;
+  margin-top: 1.6rem;
+  display: flex;
+  align-items: start;
+
+  img {
+    margin-right: 0.6rem;
+    padding-top: 0.2rem;
+  }
+
+  p {
+    color: #909394;
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
+  }
 `;

@@ -2,30 +2,33 @@ import { styled } from "styled-components";
 
 import IcSadSmile from "@/assets/icons/Menu/ic_menu_sad_smile.svg";
 import MainButton from "@/assets/image/MainButton.png";
+import MainButtonDisabled from "@/assets/image/MainButtonDisabled.png";
 import MainHand from "@/assets/image/MainHand.png";
 import MainNextonFlag from "@/assets/image/MainNextonFlag.png";
+import MainNextonFlagDisabled from "@/assets/image/MainNextonFlagDisabled.png";
 import MainRanking from "@/assets/image/MainRanking.png";
+import MainRankingDisabled from "@/assets/image/MainRankingDisabled.png";
 
 import { MainStakeViewBox, MainStakeViewWrapper } from "./common/StakeView.styled";
 
 const StakeViewPoints = ({ isConnected }: { isConnected: boolean }) => {
   return isConnected ? (
     <MainStakeViewWrapper>
-      <PointBoxSquad>
+      <PointBoxSquad $inactive>
         <PointBoxTitle>Squad</PointBoxTitle>
-        <PointBoxSquadImg src={MainNextonFlag} alt="MainNextonFlag" />
+        <PointBoxSquadImg src={MainNextonFlagDisabled} alt="MainNextonFlag_Disabled" />
       </PointBoxSquad>
 
-      <PointBoxButton>
+      <PointBoxButton $inactive>
         <PointBoxTitle>Button</PointBoxTitle>
 
-        <PointBoxButtonHandImg src={MainHand} alt="MainHand" />
-        <PointBoxButtonImg src={MainButton} alt="MainButton" />
+        <PointBoxButtonHandImg src={MainHand} alt="MainHand_Disabled" />
+        <PointBoxButtonImg src={MainButtonDisabled} alt="MainButton_Disabled" />
       </PointBoxButton>
 
-      <PointBoxRanking>
+      <PointBoxRanking $inactive>
         <PointBoxTitle>Ranking</PointBoxTitle>
-        <PointBoxRankingImg src={MainRanking} alt="MainRanking" />
+        <PointBoxRankingImg src={MainRankingDisabled} alt="MainRanking_Disabled" />
       </PointBoxRanking>
     </MainStakeViewWrapper>
   ) : (
@@ -38,10 +41,12 @@ const StakeViewPoints = ({ isConnected }: { isConnected: boolean }) => {
 
 export default StakeViewPoints;
 
-const PointBoxSquad = styled(MainStakeViewBox)`
-  background: linear-gradient(149.27deg, #1f53ff 2.01%, #c9d5ff 103.14%);
+const PointBoxSquad = styled(MainStakeViewBox)<{ $inactive?: boolean }>`
+  background: ${({ $inactive }) =>
+    $inactive ? "#E1E4E6" : "linear-gradient(149.27deg, #1f53ff 2.01%, #c9d5ff 103.14%)"};
 
   padding: 1.6rem 0;
+  cursor: ${({ $inactive }) => ($inactive ? "default" : "pointer")};
 `;
 
 const PointBoxSquadImg = styled.img`
@@ -49,10 +54,11 @@ const PointBoxSquadImg = styled.img`
   top: 50px;
 `;
 
-const PointBoxButton = styled(MainStakeViewBox)`
-  background: linear-gradient(180deg, #ffed4d 0%, #4a9300 100%);
+const PointBoxButton = styled(MainStakeViewBox)<{ $inactive?: boolean }>`
+  background: ${({ $inactive }) => ($inactive ? "#E1E4E6" : "linear-gradient(180deg, #ffed4d 0%, #4a9300 100%)")};
 
   padding: 1.6rem 0;
+  cursor: ${({ $inactive }) => ($inactive ? "default" : "pointer")};
 `;
 
 const PointBoxButtonHandImg = styled.img`
@@ -70,10 +76,12 @@ const PointBoxButtonImg = styled.img`
   border-radius: 0 0 2rem 0;
 `;
 
-const PointBoxRanking = styled(MainStakeViewBox)`
-  background: linear-gradient(120.73deg, #ffbf03 -2.98%, #fff7df 99.16%);
+const PointBoxRanking = styled(MainStakeViewBox)<{ $inactive?: boolean }>`
+  background: ${({ $inactive }) =>
+    $inactive ? "#E1E4E6" : "linear-gradient(120.73deg, #ffbf03 -2.98%, #fff7df 99.16%)"};
 
   padding: 1.6rem 0;
+  cursor: ${({ $inactive }) => ($inactive ? "default" : "pointer")};
 `;
 
 const PointBoxRankingImg = styled.img`
@@ -86,7 +94,7 @@ const PointBoxRankingImg = styled.img`
 
 const PointBoxTitle = styled.p`
   ${({ theme }) => theme.fonts.Nexton_Label_Medium};
-  color: #2f3038;
+  color: #b9b9ba;
   text-align: center;
 `;
 

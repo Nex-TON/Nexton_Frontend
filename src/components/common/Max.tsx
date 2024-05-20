@@ -1,14 +1,13 @@
 import styled from "styled-components";
 
-import useTonConnect from "@/hooks/contract/useTonConnect";
 import { numberCutter } from "@/utils/numberCutter";
 
 interface MaxProps {
   setInput: (input: string) => void;
+  balance: number;
 }
 const Max = (props: MaxProps) => {
-  const { balance } = useTonConnect();
-  const { setInput } = props;
+  const { setInput, balance } = props;
 
   const handleMaxInput = () => {
     setInput(String(numberCutter(balance)));

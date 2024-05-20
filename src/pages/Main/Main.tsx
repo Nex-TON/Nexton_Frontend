@@ -16,6 +16,7 @@ const Main = () => {
 
   const [modal, setModal] = useState(false);
 
+  // Refresh TON data
   useEffect(() => {
     async function handleRefreshTonData() {
       await refreshTonData();

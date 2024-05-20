@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { styled } from "styled-components";
 
 import IcCheckGray from "@/assets/icons/Stake/ic_check_gray.svg";
 import IcCheckWhite from "@/assets/icons/Stake/ic_check_white.svg";
-import { useSelectNominator } from "@/pages/Stake/hooks/useSelectNominator";
 
 interface NominatorItemProps {
   title: string;
@@ -28,7 +26,7 @@ const NominatorItem = (props: NominatorItemProps) => {
           <img src={icon} alt="icon" />
           <LabelMedium>{title}</LabelMedium>
           <Caption3>
-            Profit Share <LabelMedium>60%</LabelMedium>
+            Revenue share <LabelMedium>80%</LabelMedium>
           </Caption3>
         </NominatorItemTopLeft>
         <NominatorItemTopRight>
@@ -43,15 +41,15 @@ const NominatorItem = (props: NominatorItemProps) => {
       <NominatorItemBottom>
         <NominatorItemBottomTextBottom>
           <Caption3>Total stake</Caption3>
-          <LabelMedium>{totalStake} TON</LabelMedium>
+          <LabelMedium>{totalStake.toLocaleString()} TON</LabelMedium>
         </NominatorItemBottomTextBottom>
         <NominatorItemBottomTextBottom>
           <Caption3>Validator stake</Caption3>
-          <LabelMedium>{ValidatorStake} TON</LabelMedium>
+          <LabelMedium>{ValidatorStake.toLocaleString()} TON</LabelMedium>
         </NominatorItemBottomTextBottom>
         <NominatorItemBottomTextBottom>
           <Caption3>Nominator</Caption3>
-          <LabelMedium>{NominatorStake} TON</LabelMedium>
+          <LabelMedium>{NominatorStake.toLocaleString()} TON</LabelMedium>
         </NominatorItemBottomTextBottom>
       </NominatorItemBottom>
     </NominatorItemWrapper>

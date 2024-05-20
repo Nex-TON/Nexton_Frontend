@@ -30,8 +30,7 @@ const Amount = () => {
       .transform(Number)
       .refine(val => !isNaN(val), "Please enter a valid number")
       .refine(val => val >= 1, "Please stake more than 1 TON")
-      .refine(val => val <= balance, "The amount exceeds the balance")
-      .refine(val => Number(val.toFixed(2)) === val, "Maximum two decimals allowed"),
+      .refine(val => val <= balance, "The amount exceeds the balance"),
   });
 
   const {
@@ -102,9 +101,9 @@ const Amount = () => {
           error={errors.amount?.message as string}
           disabled={!connected}
           tokenLabel="TON"
-          placeholder="Enter the amount (min. 1)"
+          placeholder="Stake (min. 1)"
           inputMode="decimal"
-          step="0.01"
+          balance={balance}
         />
 
         {!isDevMode ? (

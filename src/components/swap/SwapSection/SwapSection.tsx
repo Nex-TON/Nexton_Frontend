@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { styled } from "styled-components";
 
@@ -11,10 +11,18 @@ import SwapRatio from "./SwapRatio";
 
 const SwapSection = () => {
   const [switchToken, setSwitchToken] = useState(false);
-  const { balance } = useTonConnect();
+  const { balance, refreshTonData } = useTonConnect();
+
+  useEffect(() => {
+    async function handleRefreshTonData() {
+      await refreshTonData();
+    }
+
+    handleRefreshTonData();
+  }, [refreshTonData]);
 
   const handleSwitchToken = () => {
-    setSwitchToken((prev) => !prev);
+    setSwitchToken(prev => !prev);
   };
 
   return (
@@ -25,12 +33,7 @@ const SwapSection = () => {
         </SwapArrowBox>
         {switchToken ? (
           <>
-            <SwapBox
-              type="bottom"
-              select="swap"
-              text="from"
-              balance={balance}
-            />
+            <SwapBox type="bottom" select="swap" text="from" balance={balance} />
             <SwapBox type="top" select="swap" text="to" />
           </>
         ) : (
