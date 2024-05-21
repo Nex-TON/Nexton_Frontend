@@ -28,8 +28,8 @@ export const ConfirmStakeModal = (props: ConfirmStakeModalProps) => {
 
         <Title>Would you like to stake?</Title>
         <SubTitleBox style={{ marginBottom: "3.7rem" }}>
-          <SubTitle>For now you can check minted NFT</SubTitle>
-          <SubTitle>on My asset, and transaction data</SubTitle>
+          <SubTitle>Please ensure you have entered</SubTitle>
+          <SubTitle>the correct values.</SubTitle>
 
           <SubTitleWarning>
             <img src={IcWarningRed} alt="warning_icon" />

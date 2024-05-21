@@ -36,8 +36,9 @@ Before you begin, ensure you have the following installed:
 "@ton/ton": "^13.11.1",
 "@ton/core": "^0.56.1",
 "@ton/crypto": "^3.2.0",
-"react-hook-form": "^7.51.4","
-"zod": "^3.23.8"
+"react-hook-form": "^7.51.4",
+"zod": "^3.23.8",
+"react-number-format": "^5.3.4"
 ```
 
 ## Getting Started
@@ -64,8 +65,9 @@ yarn vite
 yarn vite --host // for mobile
 ```
 
-## Page UI
+## UI Screenshots
 
-![image](https://res.cloudinary.com/do6yo1hx8/image/upload/v1712126408/Onboarding_02_srkcmo.png)
-![image](https://res.cloudinary.com/do6yo1hx8/image/upload/v1712126407/Onboarding_01_ctdj0u.png)
-![image](https://res.cloudinary.com/do6yo1hx8/image/upload/v1712126407/Landing_page_-_Not_connect_-_stake_cppung.png)
+![image](https://nextonserver.s3.eu-north-1.amazonaws.com/CleanShot+2024-05-20+at+14.01.16.png)
+![image](https://nextonserver.s3.eu-north-1.amazonaws.com/CleanShot+2024-05-20+at+13.35.28.png)
+![image](https://nextonserver.s3.eu-north-1.amazonaws.com/CleanShot+2024-05-20+at+13.35.49.png)
+![image](https://nextonserver.s3.eu-north-1.amazonaws.com/CleanShot+2024-05-20+at+13.59.49.png)
