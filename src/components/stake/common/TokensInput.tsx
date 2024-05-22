@@ -1,42 +1,56 @@
-import { UseFormRegisterReturn } from "react-hook-form";
+import { Controller } from "react-hook-form";
+import { NumericFormat, NumericFormatProps } from "react-number-format";
 import styled from "styled-components";
 
 import IcError from "@/assets/icons/Stake/ic_error.svg";
 import { numberCutter } from "@/utils/numberCutter";
 
-interface TokenInputProps {
-  register: UseFormRegisterReturn<string>;
+interface TokenInputProps extends NumericFormatProps {
+  name: string;
   setValue: (name: string, value: string) => void;
   tokenLabel: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  control: any;
   balance: number;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
   disabled?: boolean;
-  placeholder?: string;
-  [key: string]: unknown;
+  saveAs?: "floatValue" | "formattedValue";
 }
 
-const TokenInput = (props: TokenInputProps) => {
-  const { error, disabled, placeholder, register, setValue, tokenLabel, onChange, balance, ...rest } = props;
-
+const TokenInput = ({
+  name,
+  setValue,
+  tokenLabel,
+  control,
+  balance,
+  error,
+  disabled,
+  saveAs = "formattedValue",
+  ...props
+}: TokenInputProps) => {
   return (
     <>
       <LeverageInputWrapper $error={Boolean(error)}>
-        <Input
-          {...rest}
-          {...register}
-          placeholder={placeholder}
-          disabled={disabled}
-          onChange={onChange}
-          autoComplete="off"
+        <Controller
+          name={name}
+          control={control}
+          render={({ field: { onChange, ref, ...rest } }) => (
+            <Input
+              {...rest}
+              {...props}
+              id={name}
+              onValueChange={e => onChange(e[saveAs])}
+              decimalSeparator="."
+              decimalScale={2}
+              getInputRef={ref}
+              disabled={disabled}
+              autoComplete="off"
+            />
+          )}
         />
 
         <RightSection>
-          <MaxWrapper
-            type="button"
-            disabled={!balance}
-            onClick={() => setValue(register.name, String(numberCutter(balance)))}
-          >
+          <MaxWrapper type="button" disabled={!balance} onClick={() => setValue(name, String(numberCutter(balance)))}>
             MAX
           </MaxWrapper>
           <TokenLabel>{tokenLabel}</TokenLabel>
@@ -55,7 +69,7 @@ const TokenInput = (props: TokenInputProps) => {
 
 export default TokenInput;
 
-const Input = styled.input`
+const Input = styled(NumericFormat)`
   width: 50%;
 
   border: none;

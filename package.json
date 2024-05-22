@@ -32,6 +32,7 @@
     "react-hook-form": "^7.51.4",
     "react-hot-toast": "^2.4.1",
     "react-loader-spinner": "^6.1.6",
+    "react-number-format": "^5.3.4",
     "react-router-dom": "^6.14.2",
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
