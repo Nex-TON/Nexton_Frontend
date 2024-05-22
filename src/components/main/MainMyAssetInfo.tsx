@@ -69,7 +69,7 @@ const MainMyAssetInfo = ({
         <MainMyAssetInfoInnerBottomBox>
           <MainMyAssetInfoInnerBottomTitleBox>Staked</MainMyAssetInfoInnerBottomTitleBox>
           <MainMyAssetInfoInnerBottomValue>
-            {isError ? "-.--" : isLoading || isRefreshing ? <Loader /> : `${totalStaked.toFixed(2)} TON`}
+            {isError ? "-.-- TON" : isLoading || isRefreshing ? <Loader /> : `${totalStaked.toFixed(2)} TON`}
           </MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
       </MainMyAssetInfoInnerBox>
