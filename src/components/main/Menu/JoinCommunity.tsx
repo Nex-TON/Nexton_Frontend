@@ -1,9 +1,11 @@
 import { styled } from "styled-components";
 
-import IcNftMoreArrow from "../../../assets/icons/Landing/ic_nftMore_arrow.svg";
-import IcMenuDiscord from "../../../assets/icons/Menu/ic_menu_discord.svg";
-import IcMenuGithub from "../../../assets/icons/Menu/ic_menu_github.svg";
-import IcMenuTwitter from "../../../assets/icons/Menu/ic_menu_twitter.svg";
+import IcNftMoreArrow from "@/assets/icons/Landing/ic_nftMore_arrow.svg";
+import IcNftMoreArrowDisabled from "@/assets/icons/Landing/ic_nftMore_arrow_disabled.svg";
+import IcMenuDiscord from "@/assets/icons/Menu/ic_menu_discord.svg";
+import IcMenuDiscordDisabled from "@/assets/icons/Menu/ic_menu_discord_disabled.svg";
+import IcMenuGithub from "@/assets/icons/Menu/ic_menu_github.svg";
+import IcMenuTwitter from "@/assets/icons/Menu/ic_menu_twitter.svg";
 
 const JoinCommunity = () => {
   const handleNewTap = (url: string) => {
@@ -14,30 +16,26 @@ const JoinCommunity = () => {
     <JoinCommunityWrapper>
       <JoinCommunityTitle>Join in our community</JoinCommunityTitle>
       <JoinCommunityButtonList>
-        <JoinCommunityButton
-          onClick={() => handleNewTap("https://twitter.com/NextonNode")}
-        >
-          <JoinCommunityButtonRightBox>
+        <JoinCommunityButton onClick={() => handleNewTap("https://twitter.com/NextonNode")}>
+          <div>
             <img src={IcMenuTwitter} alt="twitter" />
             Twitter
-          </JoinCommunityButtonRightBox>
+          </div>
           <img src={IcNftMoreArrow} alt="moreArrow" width={10} />
         </JoinCommunityButton>
-        <JoinCommunityButton
-          onClick={() => handleNewTap("https://github.com/Nex-TON")}
-        >
-          <JoinCommunityButtonRightBox>
+        <JoinCommunityButton onClick={() => handleNewTap("https://github.com/Nex-TON")}>
+          <div>
             <img src={IcMenuGithub} alt="github" />
             Github
-          </JoinCommunityButtonRightBox>
+          </div>
           <img src={IcNftMoreArrow} alt="moreArrow" width={10} />
         </JoinCommunityButton>
-        <JoinCommunityButton>
-          <JoinCommunityButtonRightBox>
-            <img src={IcMenuDiscord} alt="discord" />
+        <JoinCommunityButton $inactive>
+          <div>
+            <img src={IcMenuDiscordDisabled} alt="discord_disabled" />
             Discord
-          </JoinCommunityButtonRightBox>
-          <img src={IcNftMoreArrow} alt="moreArrow" width={10} />
+          </div>
+          <img src={IcNftMoreArrowDisabled} alt="moreArrow_disabled" width={10} />
         </JoinCommunityButton>
       </JoinCommunityButtonList>
     </JoinCommunityWrapper>
@@ -71,7 +69,7 @@ const JoinCommunityButtonList = styled.div`
   margin-top: 1rem;
 `;
 
-const JoinCommunityButton = styled.button`
+const JoinCommunityButton = styled.button<{ $inactive?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -79,19 +77,19 @@ const JoinCommunityButton = styled.button`
   width: 100%;
   padding: 1.7rem 2rem;
 
-  border: 0.1rem solid #d1d1d6;
+  border: ${({ $inactive }) => ($inactive ? "0.1rem solid #E1E4E6" : "0.1rem solid #d1d1d6")};
   border-radius: 2rem;
   background-color: #f2f2f7;
 
-  cursor: pointer;
-`;
+  cursor: ${({ $inactive }) => ($inactive ? "default" : "pointer")};
 
-const JoinCommunityButtonRightBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2.2rem;
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2.2rem;
 
-  color: #2f3038;
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
+    color: ${({ $inactive }) => ($inactive ? "#E1E4E6" : "#2f3038")};
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
+  }
 `;
