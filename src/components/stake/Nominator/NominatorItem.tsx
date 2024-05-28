@@ -77,7 +77,7 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
       <NominatorItemBottom>
         <NominatorItemBottomWrapper>
           {triangleIcon}
-          <NominatorItemBottomText style={{ maxWidth: "75%" }}>
+          <NominatorItemBottomText style={{ maxWidth: "65%" }}>
             <Caption3>
               By selecting this card,
               <br />
