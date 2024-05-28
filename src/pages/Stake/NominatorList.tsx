@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
 
-import IcSearch from "../../assets/icons/Stake/ic_search.svg";
-import ProgressBar from "../../components/stake/common/ProgressBar";
-import Step from "../../components/stake/common/Step";
-import Title from "../../components/stake/common/Title";
-import NominatorItem from "../../components/stake/Nominator/NominatorItem";
-import { NOMINATOR_LIST } from "../../constants/Nominator";
-import { stakingAtom } from "../../lib/atom/staking";
-import { isDevMode } from "../../utils/isDevMode";
+import IcSearch from "@/assets/icons/Stake/ic_search.svg";
+import ProgressBar from "@/components/stake/common/ProgressBar";
+import Step from "@/components/stake/common/Step";
+import Title from "@/components/stake/common/Title";
+import { ConfirmNominatorModal } from "@/components/stake/Nominator/ConfirmNominatorModal";
+import NominatorItem from "@/components/stake/Nominator/NominatorItem";
+import { stakingAtom } from "@/lib/atom/staking";
+import { isDevMode } from "@/utils/isDevMode";
 
 import { useSearchNominatorPool } from "./hooks/useSearchNominatorPoo";
 import { useSelectNominator } from "./hooks/useSelectNominator";
@@ -20,21 +20,20 @@ const tele = (window as any).Telegram.WebApp;
 
 const NominatorList = () => {
   const [searchInput, setSearchInput] = useState("");
-  const { isSelectedNominator, handleSelectNominator } = useSelectNominator();
-  const { searchNominator, handleSearchNominatorPool } =
-    useSearchNominatorPool(searchInput);
+  const [modal, setModal] = useState(false);
+
+  const { selectedNominator, handleSelectNominator } = useSelectNominator();
+  const { searchNominator, handleSearchNominatorPool } = useSearchNominatorPool(searchInput);
+
   const [, setStakingInfo] = useRecoilState(stakingAtom);
+
   const navigate = useNavigate();
 
   const handleConfirmNominator = () => {
-    const selectedNominator = isSelectedNominator.findIndex(
-      (isSelected) => isSelected
-    );
-
-    if (selectedNominator !== -1) {
-      setStakingInfo((prev) => ({
+    if (selectedNominator) {
+      setStakingInfo(prev => ({
         ...prev,
-        nominator: NOMINATOR_LIST[selectedNominator].title,
+        nominator: selectedNominator.title,
       }));
       navigate("/stake/leverage");
     }
@@ -54,37 +53,58 @@ const NominatorList = () => {
     };
   }, []);
 
+  const toggleModal = () => {
+    setModal(prev => !prev);
+  };
+
   return (
     <>
+      {modal && (
+        <ConfirmNominatorModal
+          toggleModal={toggleModal}
+          onConfirm={toggleModal}
+          name={selectedNominator.title}
+          description={selectedNominator.description}
+        />
+      )}
+
       <NominatorListWrapper>
         <ProgressBar />
         <Step title="Step 2" type="nominator" />
-        <Title title="Select Nominator Pool" />
-        <NominatorSearch onSubmit={handleSearchNominatorPool}>
+        <Title title="Select Your Pool or Bot" />
+        {/* Search field is disabled for now */}
+        {/* <NominatorSearch onSubmit={handleSearchNominatorPool}>
           <NominatorInput
             type="text"
             placeholder="Which pool would you stake?"
             value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={e => setSearchInput(e.target.value)}
           />
           <img src={IcSearch} alt="search" />
-        </NominatorSearch>
+        </NominatorSearch> */}
       </NominatorListWrapper>
       <NominatorItemList>
         {searchNominator.map((item, index) => (
-          <NominatorItem
-            key={index}
-            index={index}
-            title={item.title}
-            icon={item.icon}
-            totalStake={item.totalStake}
-            ValidatorStake={item.ValidatorStake}
-            NominatorStake={item.NominatorStake}
-            type={item.type}
-            check={item.check}
-            isSelectNominator={isSelectedNominator}
-            handleSelectNominator={handleSelectNominator}
-          />
+          <Fragment key={item.id}>
+            {/* // todo: remove hardcoded labels, once API is ready*/}
+            {item.type === "pool" && index === 0 && <TitleH3>Pool</TitleH3>}
+            {item.type === "bot" && index === 2 && <TitleH3>Bot</TitleH3>}
+
+            <NominatorItem
+              id={item.id}
+              title={item.title}
+              apy={item.apy}
+              totalStake={item.totalStake}
+              pool={item.pool}
+              profit={item.profit}
+              check={item.check}
+              selectedNominator={selectedNominator}
+              handleSelectNominator={handleSelectNominator}
+              tag={item.tag}
+              description={item.description}
+              toggleModal={toggleModal}
+            />
+          </Fragment>
         ))}
       </NominatorItemList>
 
@@ -149,9 +169,14 @@ const NominatorInput = styled.input`
 
 const NominatorItemList = styled.div`
   width: 100%;
-  height: 80%;
   margin-top: 3.3rem;
-  padding: 1.4rem 2rem;
+  padding: 0 2rem 1.4rem 2rem;
 
   background-color: #f2f2f7;
+`;
+
+const TitleH3 = styled.h3`
+  padding: 1.4rem 0;
+
+  ${({ theme }) => theme.fonts.Nexton_Title_Large_Small};
 `;
