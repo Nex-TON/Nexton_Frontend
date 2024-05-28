@@ -1,15 +1,15 @@
 import { useState } from "react";
 
-export const useSelectNominator = () => {
-  const [isSelectedNominator, setIsSelectedNominator] = useState(
-    Array(3).fill(false)
-  );
+import { INominator, NOMINATOR_LIST } from "@/constants/Nominator";
 
-  const handleSelectNominator = (nominatorIdx: number) => {
-    const updatedNomintorList = Array(3).fill(false);
-    updatedNomintorList[nominatorIdx] = !isSelectedNominator[nominatorIdx];
-    setIsSelectedNominator(updatedNomintorList);
+export const useSelectNominator = () => {
+  const [selectedNominator, setSelectedNominator] = useState<INominator>(null);
+
+  const handleSelectNominator = id => {
+    setSelectedNominator(prevSelected =>
+      prevSelected && prevSelected.id === id ? null : NOMINATOR_LIST.find(nominator => nominator.id === id),
+    );
   };
 
-  return { isSelectedNominator, handleSelectNominator };
+  return { selectedNominator, handleSelectNominator };
 };

@@ -45,14 +45,12 @@ export const WelcomeModal = (props: WelcomeModalProps) => {
 
   return (
     <ModalWrapper>
-      <Container style={{ backgroundColor: "#1A1B23" }}>
+      <Container $dark>
         <WelcomeModalContent>
           <img style={{ marginBottom: "1.2rem" }} src={IcNotification} alt="notification" />
-          <Title style={{ color: "#FFFFFF" }}>This service is in alpha version.</Title>
+          <Title $dark>This service is in alpha version.</Title>
           <SubTitleBox>
-            <SubTitle style={{ color: "#C6C5D0" }}>
-              The functionality of this service may be updated in the future.
-            </SubTitle>
+            <SubTitle $dark>The functionality of this service may be updated in the future.</SubTitle>
           </SubTitleBox>
         </WelcomeModalContent>
 
@@ -171,7 +169,7 @@ function BasicModal(props: BasicModalProps) {
 
 export default BasicModal;
 
-export const Container = styled.div`
+export const Container = styled.div<{ $dark?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -185,7 +183,7 @@ export const Container = styled.div`
   width: 32rem;
   height: max-content;
 
-  background-color: #fff;
+  background-color: ${({ $dark }) => ($dark ? "#1A1B23" : "#fff")};
   border-radius: 2rem;
   box-sizing: border-box;
   padding: 1.6rem 1.6rem 1rem 1rem;
@@ -227,8 +225,8 @@ export const OpenTonViewer = styled.button`
   cursor: pointer;
 `;
 
-export const Title = styled.p`
-  color: #007aff;
+export const Title = styled.p<{ $dark?: boolean }>`
+  color: ${({ $dark }) => ($dark ? "#fff" : "#007aff")};
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2}
 `;
 
@@ -241,12 +239,14 @@ export const SubTitleBox = styled.div`
   margin-top: 1.2rem;
 `;
 
-export const SubTitle = styled.p`
+export const SubTitle = styled.p<{ $dark?: boolean }>`
   font-family: "pretendard";
   font-size: 1.4rem;
   font-style: normal;
   font-weight: 400;
   line-height: 2rem; /* 138.462% */
+
+  color: ${({ $dark }) => $dark && "#C6C5D0"};
 `;
 
 export const Button = styled.button`
