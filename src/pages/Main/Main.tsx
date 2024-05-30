@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { mutate } from "swr";
 
 import Header from "@/components/common/Header";
 import { WelcomeModal } from "@/components/common/Modal/BasicModal";
@@ -14,16 +15,26 @@ const Main = () => {
   const { address, balance, refreshTonData } = useTonConnect();
   const { nftList, isLoading, isError } = useStakeInfo(address);
 
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
   const [modal, setModal] = useState(false);
 
   // Refresh TON data
   useEffect(() => {
-    async function handleRefreshTonData() {
-      await refreshTonData();
+    async function handleRefreshData() {
+      setIsRefreshing(true);
+
+      try {
+        await Promise.all([refreshTonData(), mutate(`/data/getAllStakeInfoByAddress?address=${address}`)]);
+      } catch (error) {
+        console.error("An error occurred during the refresh operation:", error);
+      } finally {
+        setIsRefreshing(false);
+      }
     }
 
-    handleRefreshTonData();
-  }, [refreshTonData]);
+    handleRefreshData();
+  }, [refreshTonData, address]);
 
   useEffect(() => {
     if (tele) {
@@ -56,7 +67,7 @@ const Main = () => {
           balance={balance}
           refreshTonData={refreshTonData}
           totalStaked={totalStaked}
-          isLoading={isLoading}
+          isLoading={isLoading || isRefreshing}
           isError={isError}
         />
         <MainBorder />

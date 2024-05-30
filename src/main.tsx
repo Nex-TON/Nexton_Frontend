@@ -7,9 +7,12 @@ import App from "./App.tsx";
 const manifestUrl = "https://nextonserver.s3.eu-north-1.amazonaws.com/config.json";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <TonConnectUIProvider manifestUrl={manifestUrl} actionsConfiguration={{
-    twaReturnUrl: 'https://t.me/Nexton_tele_bot',
-  }}>
+  <TonConnectUIProvider
+    manifestUrl={manifestUrl}
+    actionsConfiguration={{
+      twaReturnUrl: "https://t.me/Nexton_tele_bot",
+    }}
+  >
     <App />
   </TonConnectUIProvider>,
 );
