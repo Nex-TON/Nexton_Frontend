@@ -1,5 +1,5 @@
 import IcClose from "@/assets/icons/Modal/ic_close.svg";
-import { Button, Container, ModalHeader, SubTitle, SubTitleBox, Title } from "@/components/common/Modal/BasicModal";
+import { Button, Container, ModalHeader, SubTitle, SubTitleBox, Title } from "@/components/common/Modal/Modal.styled";
 import ModalWrapper from "@/components/common/Modal/ModalWrapper";
 
 interface ConfirmNominatorModalProps {
@@ -14,7 +14,7 @@ export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
 
   return (
     <ModalWrapper>
-      <Container $dark>
+      <Container $isDark $disablePaddingTop>
         <ModalHeader>
           <img
             src={IcClose}
@@ -25,12 +25,13 @@ export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
           />
         </ModalHeader>
 
-        <Title $dark style={{ width: "75%", textAlign: "center" }}>
+        <Title $isDark style={{ width: "75%", textAlign: "center" }}>
           You have selected the {name}!
         </Title>
-        <SubTitleBox style={{ marginBottom: "3.7rem" }}>
-          <SubTitle $dark>By selecting this card,</SubTitle>
-          <SubTitle $dark style={{ width: "75%", textAlign: "center" }}>
+
+        <SubTitleBox $marginBottom>
+          <SubTitle $isDark>By selecting this card,</SubTitle>
+          <SubTitle $isDark style={{ width: "75%", textAlign: "center" }}>
             {description}
           </SubTitle>
         </SubTitleBox>
