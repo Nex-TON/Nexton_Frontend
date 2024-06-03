@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 import IcClose from "@/assets/icons/Modal/ic_close.svg";
 import IcWarningRed from "@/assets/icons/Stake/ic_warning_red.svg";
-import { Button, Container, ModalHeader, SubTitle, SubTitleBox, Title } from "@/components/common/Modal/BasicModal";
+import { Button, Container, ModalHeader, SubTitle, SubTitleBox, Title } from "@/components/common/Modal/Modal.styled";
 import ModalWrapper from "@/components/common/Modal/ModalWrapper";
 
 interface ConfirmStakeModalProps {
@@ -15,7 +15,7 @@ export const ConfirmStakeModal = (props: ConfirmStakeModalProps) => {
 
   return (
     <ModalWrapper>
-      <Container>
+      <Container $disablePaddingTop>
         <ModalHeader>
           <img
             src={IcClose}
@@ -27,7 +27,7 @@ export const ConfirmStakeModal = (props: ConfirmStakeModalProps) => {
         </ModalHeader>
 
         <Title>Would you like to stake?</Title>
-        <SubTitleBox style={{ marginBottom: "3.7rem" }}>
+        <SubTitleBox $marginBottom>
           <SubTitle>Please ensure you have entered</SubTitle>
           <SubTitle>the correct values.</SubTitle>
 

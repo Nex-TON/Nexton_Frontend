@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { mutate } from "swr";
 
 import Header from "@/components/common/Header";
-import { WelcomeModal } from "@/components/common/Modal/BasicModal";
 import MainMyAssetInfo from "@/components/main/MainMyAssetInfo";
+import { WelcomeModal } from "@/components/main/Modal/WelcomeModal";
 import StakeView from "@/components/main/StakeView/StakeView";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";

@@ -8,7 +8,8 @@ import { mutate } from "swr";
 import { postStakingInfo } from "@/api/postStakingInfo";
 import IcAlertBlue from "@/assets/icons/Stake/ic_alert_blue.svg";
 import FooterButton from "@/components/common/FooterButton";
-import BasicModal, { LoaderModal } from "@/components/common/Modal/BasicModal";
+import BasicModal from "@/components/common/Modal/BasicModal";
+import TransactionConfirmModal from "@/components/common/Modal/TransactionConfirmModal";
 import ProgressBar from "@/components/stake/common/ProgressBar";
 import { ConfirmStakeModal } from "@/components/stake/NFTPreview/ConfirmStakeModal";
 import NftPreviewImage from "@/components/stake/NFTPreview/NftPreviewImage";
@@ -140,7 +141,7 @@ const NFTPreview = () => {
         </NFTPreviewConfirmBox>
       </NFTPreviewWrapper>
 
-      {isLoading && <LoaderModal />}
+      {isLoading && <TransactionConfirmModal />}
       {modal.type === "confirmStake" && modal.toggled && (
         <ConfirmStakeModal toggleModal={toggleModal} onConfirm={handleStakeConfirm} />
       )}
