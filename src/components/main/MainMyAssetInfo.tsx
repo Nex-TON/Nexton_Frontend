@@ -5,7 +5,7 @@ import { mutate } from "swr";
 
 import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
 
-import TonWallet from "./TonWallet";
+import MainButton from "./MainButton";
 
 const Loader = () => {
   return (
@@ -73,7 +73,8 @@ const MainMyAssetInfo = ({
           </MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
       </MainMyAssetInfoInnerBox>
-      <TonWallet />
+
+      <MainButton />
     </MainMyAssetInfoWrapper>
   );
 };
@@ -92,7 +93,7 @@ const MainMyAssetInfoInnerBox = styled.div`
   padding: 2.3rem 2.1rem 2.7rem 2.3rem;
 
   border-radius: 3.2rem;
-  background: linear-gradient(66deg, #2f3038 6.49%, #253a4e 91.79%);
+  background: linear-gradient(270deg, #002639 0%, #001b29 28.13%, #000 100%);
 `;
 
 const MainMyAssetInfoInnerTopBox = styled.div`
