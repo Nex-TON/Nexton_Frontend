@@ -54,7 +54,9 @@ const NominatorList = () => {
   }, []);
 
   const toggleModal = () => {
-    setModal(prev => !prev);
+    if (selectedNominator) {
+      setModal(prev => !prev);
+    }
   };
 
   return (
@@ -62,7 +64,7 @@ const NominatorList = () => {
       {modal && (
         <ConfirmNominatorModal
           toggleModal={toggleModal}
-          onConfirm={toggleModal}
+          onConfirm={handleConfirmNominator}
           name={selectedNominator.title}
           description={selectedNominator.description}
         />
@@ -93,6 +95,7 @@ const NominatorList = () => {
             <NominatorItem
               id={item.id}
               title={item.title}
+              icon={item.icon}
               apy={item.apy}
               totalStake={item.totalStake}
               pool={item.pool}
@@ -102,17 +105,16 @@ const NominatorList = () => {
               handleSelectNominator={handleSelectNominator}
               tag={item.tag}
               description={item.description}
-              toggleModal={toggleModal}
             />
           </Fragment>
         ))}
       </NominatorItemList>
 
       {!isDevMode ? (
-        <MainButton text="NEXT" onClick={handleConfirmNominator} />
+        <MainButton text="NEXT" onClick={toggleModal} />
       ) : (
         /* Used for testing */
-        <button onClick={handleConfirmNominator}>Confirm</button>
+        <button onClick={toggleModal}>Confirm</button>
       )}
     </>
   );

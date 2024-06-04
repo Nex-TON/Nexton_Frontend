@@ -1,17 +1,18 @@
 import { styled } from "styled-components";
 
 import IcChecked from "@/assets/icons/Stake/ic_checked.svg";
-import IcTriangle from "@/assets/icons/Stake/ic_triangle.svg";
+import IcTriangleBlack from "@/assets/icons/Stake/ic_triangle_black.svg";
 import IcTriangleDisabled from "@/assets/icons/Stake/ic_triangle_disabled.svg";
+import IcTriangleWhite from "@/assets/icons/Stake/ic_triangle_white.svg";
 import IcUnchecked from "@/assets/icons/Stake/ic_unchecked.svg";
-import IcUncheckedDisabled from "@/assets/icons/Stake/ic_unchecked_disabled.svg";
 import { INominator } from "@/constants/Nominator";
 
 export type PoolType = "bemo" | "arbitrage" | "nominator";
 
 interface NominatorItemProps {
   title: string;
-  totalStake: number;
+  icon?: string;
+  totalStake?: number;
   profit: boolean;
   pool: PoolType;
   check: boolean;
@@ -19,7 +20,6 @@ interface NominatorItemProps {
   description: string;
   selectedNominator: INominator;
   handleSelectNominator: (index: number) => void;
-  toggleModal: () => void;
   tag?: string;
   apy?: number;
 }
@@ -28,6 +28,7 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
   profit,
   pool,
   title,
+  icon,
   totalStake,
   id,
   selectedNominator,
@@ -35,33 +36,41 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
   tag,
   apy,
   description,
-  toggleModal,
 }) => {
   const isSelected = selectedNominator?.id === id;
-  const iconChecked = <img src={IcChecked} alt="checked" />;
-  const iconUnchecked = <img src={!profit ? IcUncheckedDisabled : IcUnchecked} alt="unchecked" />;
-  const triangleIcon = <img src={!profit ? IcTriangleDisabled : IcTriangle} alt="triangle" />;
+  const iconUnchecked = profit && <img src={IcUnchecked} alt="unchecked" />;
+  const iconChecked = profit && <img src={IcChecked} alt="checked" />;
+  const triangleIcon = profit ? (
+    <img src={isSelected ? IcTriangleWhite : IcTriangleBlack} alt="triangle" />
+  ) : (
+    <img src={IcTriangleDisabled} alt="triangle_disabled" />
+  );
 
   const handleClick = () => {
     handleSelectNominator(id);
-    if (!isSelected) {
-      toggleModal();
-    }
   };
 
   return (
-    <NominatorItemWrapper $pool={pool} $disabled={!profit}>
+    <NominatorItemWrapper $disabled={!profit} $active={isSelected} onClick={() => (profit ? handleClick() : null)}>
       <NominatorItemTop>
         <NominatorItemTopLeft>
-          {tag && <NominatorItemTopTag>{tag}</NominatorItemTopTag>}
-          <TitleMedium>{title}</TitleMedium>
+          {tag && <NominatorItemTopTag $active={isSelected}>{tag}</NominatorItemTopTag>}
+          <TitleMedium style={{ gap: "1.7rem", marginTop: "0.4rem" }}>
+            {icon && <img src={icon} alt="icon" />} {title}
+          </TitleMedium>
           <Caption3>
             Profit share <LabelMedium>80%</LabelMedium>
           </Caption3>
         </NominatorItemTopLeft>
 
         <NominatorItemTopRight>
-          <NominatorCheckButton onClick={handleClick} $disabled={!profit} disabled={!profit}>
+          <NominatorCheckButton
+            onClick={e => {
+              e.stopPropagation();
+              handleClick();
+            }}
+            disabled={!profit}
+          >
             {isSelected ? iconChecked : iconUnchecked}
           </NominatorCheckButton>
           {/* APY is only available for bemo and arbitrage pools */}
@@ -86,10 +95,12 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
           </NominatorItemBottomText>
         </NominatorItemBottomWrapper>
 
-        <NominatorItemBottomText style={{ alignItems: "flex-end" }}>
-          <Caption3>TVL</Caption3>
-          <LabelMedium>{totalStake.toLocaleString()} TON</LabelMedium>
-        </NominatorItemBottomText>
+        {totalStake && (
+          <NominatorItemBottomText style={{ alignItems: "flex-end" }}>
+            <Caption3>TVL</Caption3>
+            <LabelMedium>{totalStake.toLocaleString()} TON</LabelMedium>
+          </NominatorItemBottomText>
+        )}
       </NominatorItemBottom>
     </NominatorItemWrapper>
   );
@@ -97,7 +108,7 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
 
 export default NominatorItem;
 
-const NominatorItemWrapper = styled.div<{ $pool: PoolType; $disabled?: boolean }>`
+const NominatorItemWrapper = styled.div<{ $active: boolean; $disabled?: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -113,12 +124,10 @@ const NominatorItemWrapper = styled.div<{ $pool: PoolType; $disabled?: boolean }
     margin-top: 1rem;
   }
 
-  background: ${({ $pool, $disabled }) => {
+  background: ${({ $active, $disabled }) => {
     let background: string;
-    if ($pool === "bemo") {
-      background = "linear-gradient(151deg, #A334E9 18.68%, #29A9EA 102.27%)";
-    } else if ($pool === "arbitrage") {
-      background = "#1A1B23";
+    if ($active) {
+      background = "#575757";
     } else if ($disabled) {
       background = "#E1E4E6";
     } else {
@@ -127,7 +136,20 @@ const NominatorItemWrapper = styled.div<{ $pool: PoolType; $disabled?: boolean }
 
     return background;
   }};
-  color: ${({ $disabled }) => ($disabled ? "#B9B9BA" : "#fff")};
+  color: ${({ $disabled, $active }) => {
+    let color: string;
+    if ($active) {
+      color = "#fff";
+    } else if ($disabled) {
+      color = "#B9B9BA";
+    } else {
+      color = "#303234";
+    }
+
+    return color;
+  }};
+
+  cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "default")};
 `;
 
 const NominatorItemTop = styled.div`
@@ -141,7 +163,7 @@ const NominatorItemTop = styled.div`
   border-radius: 2rem 2rem 0 0;
 `;
 
-const NominatorItemTopTag = styled.div`
+const NominatorItemTopTag = styled.div<{ $active: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -150,7 +172,7 @@ const NominatorItemTopTag = styled.div`
   gap: 10px;
 
   border-radius: 5px;
-  border: 1px dashed #fff;
+  border: 1px dashed ${({ $active }) => ($active ? "#fff" : "#575757")};
   ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
 `;
 
@@ -170,7 +192,7 @@ const NominatorItemTopRight = styled.div`
   gap: 1rem;
 `;
 
-const NominatorCheckButton = styled.button<{ $disabled?: boolean }>`
+const NominatorCheckButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -183,7 +205,7 @@ const NominatorCheckButton = styled.button<{ $disabled?: boolean }>`
   background-color: transparent;
 
   outline: none;
-  cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
+  cursor: pointer;
 `;
 
 const NominatorAPY = styled.div`
@@ -204,6 +226,7 @@ const NominatorItemBottom = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  flex: 1;
 
   width: 100%;
   margin-top: 2.2rem;

@@ -1,14 +1,15 @@
 export const numberCutter = (num: number) => {
-  // 세 자리 이상 소수점이 들어오는 경우 세 번째 자리에서 반올림 후 버림 처리
+  // Floor the number to the third decimal place
+  // Multiply by 1000, floor it, then divide by 1000 to get the desired precision
   const fixedNum = Math.floor(num * 1000) / 1000;
 
-  // 정수 부분과 소수 부분 분리
+  // Split the number into integer and decimal parts
   const parts = fixedNum.toString().split(".");
 
-  // 정수 부분에 콤마 추가
+  // Add commas to the integer part for better readability
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-  // 소수 부분이 없거나 길이가 부족한 경우 채움
+  // Ensure the decimal part has exactly three digits
   // if (!parts[1]) {
   //   parts[1] = "000";
   // } else if (parts[1].length === 1) {
