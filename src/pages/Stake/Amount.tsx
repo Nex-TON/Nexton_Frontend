@@ -99,7 +99,7 @@ const Amount = () => {
           name="amount"
           control={control}
           decimalSeparator="."
-          decimalScale={2}
+          decimalScale={3}
           setValue={setValue}
           error={errors.amount?.message as string}
           disabled={!connected}

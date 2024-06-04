@@ -40,8 +40,6 @@ const TokenInput = ({
               {...props}
               id={name}
               onValueChange={e => onChange(e[saveAs])}
-              decimalSeparator="."
-              decimalScale={2}
               getInputRef={ref}
               disabled={disabled}
               autoComplete="off"
