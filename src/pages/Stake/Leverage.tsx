@@ -17,6 +17,7 @@ import { isDevMode } from "@/utils/isDevMode";
 const tele = (window as any).Telegram.WebApp;
 
 const Leverage = () => {
+  // test
   const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
   const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
 
