@@ -1,7 +1,7 @@
 import { client } from "./axios";
 
 interface postStakingInfoProps {
-  id: number;
+  telegramId: number;
   leverage: number;
   address: string;
   amount: string;

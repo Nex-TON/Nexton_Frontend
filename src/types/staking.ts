@@ -1,5 +1,5 @@
 export interface StakingProps {
-  id: number;
+  telegramId: number;
   address: string;
   principal: string;
   leverage: number;

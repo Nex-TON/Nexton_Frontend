@@ -64,12 +64,12 @@ const NFTPreview = () => {
         };
       };
 
-      // First, attempt to send the message
+      // First, attempt to send the message to the contract
       await sendMessage(data(), stakingInfo.principal);
 
       // If sendMessage is successful, then call postStakingInfo
       await postStakingInfo({
-        id: stakingInfo.id,
+        telegramId: stakingInfo.telegramId,
         leverage: stakingInfo.leverage,
         address: stakingInfo.address,
         amount: stakingInfo.principal,

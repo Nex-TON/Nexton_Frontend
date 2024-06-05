@@ -4,13 +4,11 @@ import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
 
-import { getTelegramId } from "@/api/getTelegramId";
 import IcWarning from "@/assets/icons/Landing/ic_warning.svg";
 import FooterButton from "@/components/common/FooterButton";
 import ProgressBar from "@/components/stake/common/ProgressBar";
 import Step2 from "@/components/stake/LeverageLockUp/Leverage";
 import Step3 from "@/components/stake/LeverageLockUp/Lockup";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 import { stakingAtom } from "@/lib/atom/staking";
 import { telegramAtom } from "@/lib/atom/telegram";
 import { getLockUpDate } from "@/utils/getLockupDate";
@@ -19,7 +17,6 @@ import { isDevMode } from "@/utils/isDevMode";
 const tele = (window as any).Telegram.WebApp;
 
 const Leverage = () => {
-  const { address } = useTonConnect();
   const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
   const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
 
@@ -28,26 +25,12 @@ const Leverage = () => {
 
   const navigate = useNavigate();
 
-  const handleGetTelegramId = async (address: string) => {
-    if (!address) return;
-    const response = await getTelegramId(address);
-
-    if (response?.length === 0) {
-      setTelegramId(0);
-    } else {
-      setTelegramId(response[0]?._id);
-    }
-  };
-
-  useEffect(() => {
-    handleGetTelegramId(address);
-  });
-
   const handleMovePreview = () => {
     setStakingInfo(prev => ({
       ...prev,
       leverage: ratio,
       lockup: getLockUpDate(stakingInfo.principal, ratio),
+      telegramId,
     }));
     navigate("/stake/preview");
   };
@@ -59,6 +42,14 @@ const Leverage = () => {
       tele.onEvent("backButtonClicked", () => {
         navigate("/stake/nominator");
       });
+
+      const tgId = tele?.initDataUnsafe?.user?.id;
+      if (tgId) {
+        setTelegramId(tgId);
+      } else {
+        // Edge case: when user is using Nexton app outside of Telegram
+        setTelegramId(0);
+      }
     }
 
     return () => {
