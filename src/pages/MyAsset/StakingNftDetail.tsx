@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { styled } from "styled-components";
 
-import DetailNftInfo from "../../components/myAsset/Detail/DetailNFTInfo";
-import DetailNFTPreview from "../../components/myAsset/Detail/DetailNFTPreview";
-import { useNFTDetail } from "../../hooks/api/useNFTDetail";
+import DetailNftInfo from "@/components/myAsset/Detail/DetailNFTInfo";
+import DetailNFTPreview from "@/components/myAsset/Detail/DetailNFTPreview";
+import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 
 const tele = (window as any).Telegram.WebApp;
 

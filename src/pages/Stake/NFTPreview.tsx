@@ -156,6 +156,8 @@ const NFTPreview = () => {
             // Refresh the MyAssets data
             mutate(`/data/getAllStakeInfoByAddress?address=${stakingInfo.address}`);
             await refreshTonData();
+
+            navigate("/", { state: { isStakeSuccess: true } });
           }}
         />
       )}

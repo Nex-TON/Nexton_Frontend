@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
-import IcClaimDisable from "../../assets/icons/MyAsset/ic_claim_disable.svg";
-import UnstakingDetailList from "../../components/myAsset/Unstaking/UnstakingDetail/UnstakingDetailList";
+import IcClaimDisable from "@/assets/icons/MyAsset/ic_claim_disable.svg";
+import UnstakingDetailList from "@/components/myAsset/Unstaking/UnstakingDetail/UnstakingDetailList";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -52,9 +52,7 @@ const UnstakingList = () => {
         <UnstakingListWrapper>
           <UnstakingListTop>
             <UnstakingMainText>Settled amount</UnstakingMainText>
-            <UnstakingTopDesc>
-              This reward is from unstaked NFT.
-            </UnstakingTopDesc>
+            <UnstakingTopDesc>This reward is from unstaked NFT.</UnstakingTopDesc>
           </UnstakingListTop>
           <UnstakingListBottom>
             <UnstakingMainText>0 TON</UnstakingMainText>
@@ -63,7 +61,9 @@ const UnstakingList = () => {
             </ClaimButton>
           </UnstakingListBottom>
         </UnstakingListWrapper>
+
         {/* <UnstakingDetailHeader UnstakingListLength={unstakingList?.length} /> */}
+
         <UnstakingDetailList />
       </UnstakingDetailWrapper>
     </>

@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-import { useUnstakingList } from "../../../../pages/MyAsset/hooks/useUnstakingList";
+import { useUnstakingList } from "@/pages/MyAsset/hooks/useUnstakingList";
 
 import UnstakingDetailItem from "./UnstakingDetailItem";
 
