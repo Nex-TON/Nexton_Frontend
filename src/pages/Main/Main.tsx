@@ -64,6 +64,7 @@ const Main = () => {
   // Show toast message when the user has successfully staked
   useEffect(() => {
     const { state } = location;
+    //test
 
     if (state?.isStakeSuccess) {
       toast(`Transaction approved! Your balance will be updated within the next 30 seconds.`, {
