@@ -1,27 +1,24 @@
-import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
 
-import IcWalletDisconnect from "../../../assets/icons/Landing/ic_landing_wallet_disconnect.svg";
-import { addressState } from "../../../lib/atom/address";
-import ModalWrapper from "../../common/Modal/ModalWrapper";
+import IcWalletDisconnect from "@/assets/icons/Landing/ic_landing_wallet_disconnect.svg";
+import { Container } from "@/components/common/Modal/Modal.styled";
+import ModalWrapper from "@/components/common/Modal/ModalWrapper";
 
-interface ModalProps {
+interface DisconnectModalProps {
   handleModalState: () => void;
 }
 
-const Modal = (props: ModalProps) => {
+const DisconnectModal = (props: DisconnectModalProps) => {
   const { handleModalState } = props;
-  const [, setTonAddrsss] = useRecoilState(addressState);
 
   const clearStorage = () => {
     window.localStorage.clear();
     window.location.reload();
-    setTonAddrsss("");
   };
 
   return (
     <ModalWrapper>
-      <ModalWhiteBox>
+      <Container $isDark>
         <DisconnectBox>
           <img src={IcWalletDisconnect} alt="disconnect" />
         </DisconnectBox>
@@ -30,6 +27,7 @@ const Modal = (props: ModalProps) => {
           <p>Your wallet will be detached</p>
           <p>from NEXTON.</p>
         </ModalDesc>
+
         <ModalButtonWrapper>
           <ModalButton type="yes" onClick={clearStorage}>
             Yes
@@ -38,30 +36,12 @@ const Modal = (props: ModalProps) => {
             Not Now
           </ModalButton>
         </ModalButtonWrapper>
-      </ModalWhiteBox>
+      </Container>
     </ModalWrapper>
   );
 };
 
-export default Modal;
-
-const ModalWhiteBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-
-  width: 32rem;
-  padding: 3.4rem 1rem 1rem 1rem;
-
-  border-radius: 2rem;
-  background-color: #1a1b23;
-`;
+export default DisconnectModal;
 
 const ModalTitle = styled.div`
   margin-bottom: 1.2rem;

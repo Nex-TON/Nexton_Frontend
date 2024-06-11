@@ -6,19 +6,20 @@ import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
 
 import Loader from "../common/Loader";
 
-import TonWallet from "./TonWallet";
+import MainButton from "./MainButton";
+
 
 const MainMyAssetInfo = ({
   address,
   balance,
-  getBalance,
+  refreshTonData,
   totalStaked,
   isLoading,
   isError,
 }: {
   address: string;
   balance: number;
-  getBalance: () => Promise<void>;
+  refreshTonData: () => Promise<void>;
   totalStaked: number;
   isLoading: boolean;
   isError: boolean;
@@ -29,7 +30,7 @@ const MainMyAssetInfo = ({
     setIsRefreshing(true);
 
     try {
-      await Promise.all([getBalance(), mutate(`/data/getAllStakeInfoByAddress?address=${address}`)]);
+      await Promise.all([refreshTonData(), mutate(`/data/getAllStakeInfoByAddress?address=${address}`)]);
     } catch (error) {
       console.error("An error occurred during the refresh operation:", error);
     } finally {
@@ -49,17 +50,18 @@ const MainMyAssetInfo = ({
         <MainMyAssetInfoInnerBottomBox>
           <MainMyAssetInfoInnerBottomTitleBox>Balance</MainMyAssetInfoInnerBottomTitleBox>
           <MainMyAssetInfoInnerBottomValue>
-            {isRefreshing ? <Loader /> : `${balance.toFixed(2)} TON`}
+            {isRefreshing ? <Loader /> : `${balance === 0 || balance ? balance.toFixed(3) : "-.--"} TON`}
           </MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
         <MainMyAssetInfoInnerBottomBox>
           <MainMyAssetInfoInnerBottomTitleBox>Staked</MainMyAssetInfoInnerBottomTitleBox>
           <MainMyAssetInfoInnerBottomValue>
-            {isError ? "N/A" : isLoading || isRefreshing ? <Loader /> : `${totalStaked.toFixed(2)} TON`}
+            {isError ? "-.-- TON" : isLoading || isRefreshing ? <Loader /> : `${totalStaked.toFixed(3)} TON`}
           </MainMyAssetInfoInnerBottomValue>
         </MainMyAssetInfoInnerBottomBox>
       </MainMyAssetInfoInnerBox>
-      <TonWallet />
+
+      <MainButton />
     </MainMyAssetInfoWrapper>
   );
 };
@@ -78,7 +80,7 @@ const MainMyAssetInfoInnerBox = styled.div`
   padding: 2.3rem 2.1rem 2.7rem 2.3rem;
 
   border-radius: 3.2rem;
-  background: linear-gradient(66deg, #2f3038 6.49%, #253a4e 91.79%);
+  background: linear-gradient(270deg, #002639 0%, #001b29 28.13%, #000 100%);
 `;
 
 const MainMyAssetInfoInnerTopBox = styled.div`
@@ -112,8 +114,10 @@ const MainMyAssetInfoInnerBottomBox = styled.div`
 `;
 
 const MainMyAssetInfoInnerBottomTitleBox = styled.div`
+  width: 77px;
   display: flex;
   align-items: center;
+  justify-content: center;
 
   padding: 0.8rem 1.6rem;
 

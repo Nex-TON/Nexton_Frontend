@@ -8,7 +8,7 @@ const { persistAtom } = recoilPersist();
 export const stakingAtom = atom<StakingProps>({
   key: "stakingAtom",
   default: {
-    id: 0,
+    telegramId: 0,
     address: "",
     principal: "",
     leverage: 0,

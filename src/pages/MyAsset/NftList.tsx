@@ -72,7 +72,10 @@ const NftList = () => {
             <img src={IcReload} alt="reload" />
           </NFTReloadBox>
           <NFTSelectBox $active={isSelect[0]}>Staked</NFTSelectBox>
-          <NFTSelectBox $active={isSelect[1]}>Collateralized</NFTSelectBox>
+          {/* Hidden for now */}
+          {/* <NFTSelectBox disabled $active={isSelect[1]}>
+            Collateralized
+          </NFTSelectBox> */}
         </NFTListHeaderLeft>
         <NFTSelectBox onClick={handleToggleFilter}>
           {period}
@@ -85,13 +88,12 @@ const NftList = () => {
           )}
         </NFTSelectBox>
       </NftListHeader>
-      {handlePrintMyAssetFilter()?.filter((item) => item.status !== 2).length >
-      0 ? (
+      {handlePrintMyAssetFilter()?.filter(item => item.status !== 2).length > 0 ? (
         <NFTItemWrapper>
           {handlePrintMyAssetFilter()
             .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
-            .filter((item) => item.status !== 2)
-            .map((item) => (
+            .filter(item => item.status !== 2)
+            .map(item => (
               <NftItem key={item.nftId} item={item} />
             ))}
         </NFTItemWrapper>

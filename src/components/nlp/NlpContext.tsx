@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 
 import IcNlp from "../../assets/icons/ic_nlp.svg";
@@ -14,7 +15,15 @@ interface NlpContextProps {
 
 const NlpContext = (props: NlpContextProps) => {
   const { input, setInput } = props;
-  const { balance } = useTonConnect();
+  const { balance, refreshTonData } = useTonConnect();
+
+  useEffect(() => {
+    async function handleRefreshTonData() {
+      await refreshTonData();
+    }
+
+    handleRefreshTonData();
+  }, [refreshTonData]);
 
   return (
     <NlpContextWrapper>
@@ -29,7 +38,7 @@ const NlpContext = (props: NlpContextProps) => {
       <NlpInputWrapper>
         <Input input={input} setInput={setInput} />
         <RightSection>
-          <Max setInput={setInput} />
+          <Max setInput={setInput} balance={balance} />
           <TonImg src={IcTon} alt="ton" />
           <TokenText>TON</TokenText>
         </RightSection>

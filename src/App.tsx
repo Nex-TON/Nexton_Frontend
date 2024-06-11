@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 
@@ -15,6 +16,7 @@ const App = () => {
       <RecoilRoot>
         <GlobalStyle />
         <ErrorModal />
+        <Analytics />
 
         <Router />
       </RecoilRoot>

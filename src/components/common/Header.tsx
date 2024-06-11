@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
-import IcReferral from "../../assets/icons/Landing/ic_landing_referral.svg";
-import IcWalletConnect from "../../assets/icons/Landing/ic_landing_wallet.svg";
-import IcWalletDisconnect from "../../assets/icons/Landing/ic_landing_wallet_disconnect.svg";
-import useTonConnect from "../../hooks/contract/useTonConnect";
-import Modal from "../main/Modal/Modal";
+import IcReferral from "@/assets/icons/Landing/ic_landing_referral.svg";
+import IcWalletConnect from "@/assets/icons/Landing/ic_landing_wallet.svg";
+import IcWalletDisconnect from "@/assets/icons/Landing/ic_landing_wallet_disconnect.svg";
+import useTonConnect from "@/hooks/contract/useTonConnect";
+
+import DisconnectModal from "../main/Modal/DisconnectModal";
 
 interface HeaderProps {
   isOpen: boolean;
@@ -35,7 +36,7 @@ const Header = (props: HeaderProps) => {
 
   return (
     <>
-      {isOpenModal && <Modal handleModalState={handleModalState} />}
+      {isOpenModal && <DisconnectModal handleModalState={handleModalState} />}
       <HeaderWrapper $isOpen={isOpen} $backgroundType={backgroundType}>
         <HeaderTitle onClick={() => navigate("/")}>{text}</HeaderTitle>
         <HeaderRightBox>

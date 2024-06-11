@@ -1,27 +1,69 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Slide, toast, ToastContainer } from "react-toastify";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { mutate } from "swr";
 
 import Header from "@/components/common/Header";
-import { WelcomeModal } from "@/components/common/Modal/BasicModal";
 import MainMyAssetInfo from "@/components/main/MainMyAssetInfo";
+import { WelcomeModal } from "@/components/main/Modal/WelcomeModal";
 import StakeView from "@/components/main/StakeView/StakeView";
 import { useTrackReferral } from "@/hooks/api/referral/useTrackReferral";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";
-import { addressState } from "@/lib/atom/address";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const tele = (window as any).Telegram.WebApp;
 
 const Main = () => {
-  const { address, balance, getBalance } = useTonConnect();
+  const location = useLocation();
+  const { address, balance, refreshTonData } = useTonConnect();
   const { nftList, isLoading, isError } = useStakeInfo(address);
 
   const { trigger } = useTrackReferral();
 
-  const [, setTonAddress] = useRecoilState(addressState);
   const [modal, setModal] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  // Refresh TON data
+  useEffect(() => {
+    async function handleRefreshData() {
+      setIsRefreshing(true);
+
+      try {
+        await Promise.all([refreshTonData(), mutate(`/data/getAllStakeInfoByAddress?address=${address}`)]);
+      } catch (error) {
+        console.error("An error occurred during the refresh operation:", error);
+      } finally {
+        setIsRefreshing(false);
+      }
+    }
+
+    handleRefreshData();
+
+    const timer = setInterval(() => {
+      handleRefreshData();
+    }, 20000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [refreshTonData, address]);
+
+  // Show welcome modal if user hasn't visited before
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.expand(); // Expand the app to full screen
+      tele.BackButton.hide();
+    }
+
+    const hasVisited = localStorage.getItem("hasVisited");
+    if (!hasVisited) {
+      setModal(true); // Only show modal if user hasn't visited before
+    }
+  }, []);
 
   // Track referral on app launch
   useEffect(() => {
@@ -56,30 +98,31 @@ const Main = () => {
     }
   }, [trigger]);
 
+  // Show toast message when the user has successfully staked
+  useEffect(() => {
+    const { state } = location;
+
+    if (state?.isStakeSuccess) {
+      toast(`Transaction approved! Your balance will be updated within the next 30 seconds.`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
+
+      history.replaceState(null, "");
+    }
+  }, [location]);
+
   // Calculate the total amount staked
   const totalStaked = nftList?.reduce((acc, nft) => acc + nft.amount, 0) || 0;
 
-  // Set the address in the atom
-  useEffect(() => {
-    if (address) {
-      setTonAddress(address);
-    }
-  }, [address]);
-
-  // Show welcome modal if user hasn't visited before
-  useEffect(() => {
-    const hasVisited = localStorage.getItem("hasVisited");
-    if (!hasVisited) {
-      setModal(true); // Only show modal if user hasn't visited before
-    }
-
-    if (tele) {
-      tele.ready();
-      tele.expand(); // Expand the app to full screen
-      tele.BackButton.hide();
-    }
-  }, []);
-
+  // Toggle welcome modal
   const toggleModal = () => {
     setModal(prev => !prev);
     localStorage.setItem("hasVisited", "true");
@@ -94,9 +137,9 @@ const Main = () => {
         <MainMyAssetInfo
           address={address}
           balance={balance}
-          getBalance={getBalance}
+          refreshTonData={refreshTonData}
           totalStaked={totalStaked}
-          isLoading={isLoading}
+          isLoading={isLoading || isRefreshing}
           isError={isError}
         />
         <MainBorder />

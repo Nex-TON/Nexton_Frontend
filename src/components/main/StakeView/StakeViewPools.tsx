@@ -14,7 +14,7 @@ const StakeViewPools = ({ isConnected }: { isConnected: boolean }) => {
       <MainNftInfoBox onClick={() => navigate("/stake/amount")}>
         <MainNftInfoTitleBox>
           <p>{isConnected ? "Stake $TON" : "$TON TVL"}</p>
-          <p>{isConnected ? "" : "100,000,000$"}</p>
+          <p>{isConnected ? "" : "$100M"}</p>
         </MainNftInfoTitleBox>
 
         <MainNftStakeImg src={LandingNftStake} alt="nftStake" />
@@ -23,14 +23,14 @@ const StakeViewPools = ({ isConnected }: { isConnected: boolean }) => {
       <CyanNftInfoBox onClick={() => navigate("/stake/amount")}>
         <MainNftInfoTitleBox>
           <p>{isConnected ? "My LST" : "LST TVL"}</p>
-          <p>{isConnected ? "0.00" : "100,000,000$"}</p>
+          <p>{isConnected ? "0.00" : "$100M"}</p>
         </MainNftInfoTitleBox>
       </CyanNftInfoBox>
 
       <BlueNftInfoBox onClick={() => navigate("/stake/amount")}>
         <MainNftInfoTitleBox>
           <p>{isConnected ? "My Jetton" : "Jetton TVL"}</p>
-          <p>{isConnected ? "0.00" : "100,000,000$"}</p>
+          <p>{isConnected ? "0.00" : "$100M"}</p>
         </MainNftInfoTitleBox>
       </BlueNftInfoBox>
     </MainStakeViewWrapper>

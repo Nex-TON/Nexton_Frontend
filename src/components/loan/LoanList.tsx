@@ -1,7 +1,7 @@
-import { css, styled } from "styled-components";
+import { styled } from "styled-components";
 
-import { useStakeInfo } from "../../hooks/api/useStakeInfo";
-import useTonConnect from "../../hooks/contract/useTonConnect";
+import { useStakeInfo } from "@/hooks/api/useStakeInfo";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 import BorrowList from "./Borrow/BorrowList";
 
@@ -20,7 +20,7 @@ const LoanList = () => {
       {nftList && nftList.length > 0 ? (
         nftList
           .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
-          .map((item) => <BorrowList key={item.nftId} item={item} />)
+          .map(item => <BorrowList key={item.nftId} item={item} />)
       ) : (
         <EmptyText>You need a staked NFT to borrow NXT</EmptyText>
       )}
