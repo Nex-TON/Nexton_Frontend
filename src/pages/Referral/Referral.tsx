@@ -156,7 +156,7 @@ const Referral = () => {
 
           <ReferralBox style={{ height: "100%" }}>
             <h3>Referral History</h3>
-            <TransactionsWrapper $isEmpty={!referralStatus.totalReferrals}>
+            <TransactionsWrapper $isEmpty={!referralStatus?.totalReferrals}>
               {statusLoading ? (
                 <Loader />
               ) : referralStatus?.referralDetails.length > 0 ? (
