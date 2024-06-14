@@ -15,18 +15,13 @@ import { useReferralPoints } from "@/hooks/api/referral/useReferralPoints";
 import { useReferralStatus } from "@/hooks/api/referral/useReferralStatus";
 import { globalError } from "@/lib/atom/globalError";
 import { copyText } from "@/utils/copyText";
-import { isDevMode } from "@/utils/isDevMode";
+import { ReferralDateFormatter } from "@/utils/dateChanger";
 
 import "react-toastify/dist/ReactToastify.css";
 
 const tele = (window as any).Telegram.WebApp;
 
 const TMA_URL = "https://t.me/Nexton_tele_bot/nexton";
-
-const _browserUserMock = { id: 1, username: "testName" };
-
-// todo: replace this mock with real data
-const _referredUsersMocks = [];
 
 export interface IUserInfo {
   userId: number;
@@ -48,16 +43,9 @@ const Referral = () => {
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [modal, setModal] = useState<ModalState>({ type: "nxt", toggled: false });
 
-  const {
-    data: referralStatus,
-    isLoading: statusLoading,
-    error: errorLoading,
-  } = useReferralStatus(isDevMode ? _browserUserMock.id : userInfo.userId);
-  const {
-    data: pointsData,
-    isLoading: pointsLoading,
-    error: pointsError,
-  } = useReferralPoints(isDevMode ? _browserUserMock.id : userInfo.userId);
+  const { data: referralStatus, isLoading: statusLoading, error: errorLoading } = useReferralStatus(userInfo?.userId);
+
+  const { data: pointsData, isLoading: pointsLoading, error: pointsError } = useReferralPoints(userInfo?.userId);
 
   const toggleModal = () => {
     setModal(prev => ({
@@ -67,14 +55,14 @@ const Referral = () => {
   };
 
   useEffect(() => {
-    if (tele || isDevMode) {
+    if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
         navigate("/");
       });
 
-      const tgUser = isDevMode ? _browserUserMock : tele.initDataUnsafe.user;
+      const tgUser = tele.initDataUnsafe.user;
       if (tgUser) {
         setUserInfo({ userId: tgUser.id, username: tgUser.username });
       } else {
@@ -128,6 +116,7 @@ const Referral = () => {
       <ReferralWrapper>
         <h1>Earn your Point</h1>
         <img src={ReferralGroup} alt="ReferralGroup" />
+
         <BottomWrapper>
           <ReferralBoxWrapper>
             <ReferralBox>
@@ -140,7 +129,7 @@ const Referral = () => {
                 />
               </ReferralBoxTop>
 
-              {pointsLoading ? <Loader /> : <span>{pointsData?.loyaltyPoints} Points</span>}
+              {pointsLoading ? <Loader /> : <span>{pointsData?.loyaltyPoints || "-"} Points</span>}
             </ReferralBox>
             <ReferralBox>
               <ReferralBoxTop>
@@ -152,7 +141,7 @@ const Referral = () => {
                 />
               </ReferralBoxTop>
 
-              {pointsLoading ? <Loader /> : <span>{pointsData?.referralPoints} Points</span>}
+              {pointsLoading ? <Loader /> : <span>{pointsData?.referralPoints || "-"} Points</span>}
             </ReferralBox>
           </ReferralBoxWrapper>
 
@@ -167,16 +156,20 @@ const Referral = () => {
 
           <ReferralBox style={{ height: "100%" }}>
             <h3>Referral History</h3>
-            <TransactionsWrapper $isEmpty={!_referredUsersMocks.length}>
+            <TransactionsWrapper $isEmpty={!referralStatus.totalReferrals}>
               {statusLoading ? (
                 <Loader />
-              ) : _referredUsersMocks.length > 0 ? (
+              ) : referralStatus?.referralDetails.length > 0 ? (
                 <>
-                  <DateSpan>June 07, 24</DateSpan>
-                  {_referredUsersMocks.map((item, idx) => (
-                    <TransactionItem key={idx}>
-                      <p>{item.username}</p>
-                    </TransactionItem>
+                  {referralStatus?.referralDetails.map((item, idx) => (
+                    <TransactionsItem key={idx}>
+                      <DateSpan>{ReferralDateFormatter(item.createdAt)}</DateSpan>
+                      {item.users.map(user => (
+                        <NameItem key={user._id}>
+                          <p>{user?.username || user?.userId}</p>
+                        </NameItem>
+                      ))}
+                    </TransactionsItem>
                   ))}
                 </>
               ) : (
@@ -320,7 +313,7 @@ const TransactionsWrapper = styled.div<{ $isEmpty?: boolean }>`
   display: flex;
   flex-direction: column;
 
-  padding: 2.5rem 1.8rem;
+  padding: 1.8rem;
   border-radius: 10px;
 
   justify-content: ${({ $isEmpty }) => ($isEmpty ? "center" : "flex-start")};
@@ -337,6 +330,11 @@ const TransactionsWrapper = styled.div<{ $isEmpty?: boolean }>`
   }
 `;
 
+const TransactionsItem = styled.div`
+  width: 100%;
+  margin-bottom: 1.2rem;
+`;
+
 const DateSpan = styled.p`
   ${({ theme }) => theme.fonts.Nexton_Label_Small};
   color: rgba(255, 255, 255, 0.5);
@@ -344,7 +342,7 @@ const DateSpan = styled.p`
   margin-bottom: 0.6rem;
 `;
 
-const TransactionItem = styled.div`
+const NameItem = styled.div`
   width: 100%;
   display: flex;
 
