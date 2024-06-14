@@ -1,4 +1,4 @@
-import IcQuestion from "@/assets/icons/referral/ic_question.svg";
+import IcQuestion from "@/assets/icons/Referral/ic_question.svg";
 import ReferralPoints from "@/assets/image/ReferralPoints.png";
 import { Button, Container, Title } from "@/components/common/Modal/Modal.styled";
 import ModalWrapper from "@/components/common/Modal/ModalWrapper";
