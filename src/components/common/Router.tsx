@@ -11,13 +11,13 @@ import UnstakingDetail from "@/pages/MyAsset/UnstakingDetail";
 import UnstakingList from "@/pages/MyAsset/UnstakingList";
 import Nlp from "@/pages/Nlp/Nlp";
 import Referral from "@/pages/Referral/Referral";
-import Amount from "../../pages/Stake/Amount";
-import Leverage from "../../pages/Stake/Leverage";
-import NFTPreview from "../../pages/Stake/NFTPreview";
-import NominatorList from "../../pages/Stake/NominatorList";
-import Swap from "../../pages/Swap/Swap";
-import UnstakingBetaInfo from "../../pages/Unstaking/UnstakingBetaInfo";
-import UnstakingNftDetail from "../../pages/Unstaking/UnstakingNftDetail";
+import Amount from "@/pages/Stake/Amount";
+import Leverage from "@/pages/Stake/Leverage";
+import NFTPreview from "@/pages/Stake/NFTPreview";
+import NominatorList from "@/pages/Stake/NominatorList";
+import Swap from "@/pages/Swap/Swap";
+import UnstakingBetaInfo from "@/pages/Unstaking/UnstakingBetaInfo";
+import UnstakingNftDetail from "@/pages/Unstaking/UnstakingNftDetail";
 
 const Router = () => {
   return (
