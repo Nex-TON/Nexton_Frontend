@@ -15,6 +15,7 @@ import Leverage from "../../pages/Stake/Leverage";
 import NFTPreview from "../../pages/Stake/NFTPreview";
 import NominatorList from "../../pages/Stake/NominatorList";
 import Swap from "../../pages/Swap/Swap";
+import UnstakingBetaInfo from "../../pages/Unstaking/UnstakingBetaInfo";
 import UnstakingNftDetail from "../../pages/Unstaking/UnstakingNftDetail";
 
 const Router = () => {
@@ -38,6 +39,7 @@ const Router = () => {
         </Route>
         <Route path="/myasset/:id" element={<StakingNftDetail />} />
         <Route path="/unstaking/:id" element={<UnstakingNftDetail />} />
+        <Route path="/unstaking/beta" element={<UnstakingBetaInfo />} />
         <Route path="/unstaking/view/:id" element={<UnstakingNftDetail />} />
       </Routes>
     </BrowserRouter>
