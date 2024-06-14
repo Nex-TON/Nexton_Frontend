@@ -29,6 +29,7 @@ declare module "styled-components" {
       Nexton_Title_Small: SerializedStyles;
       Nexton_Image_Title: SerializedStyles;
       Nexton_Title_Medium: SerializedStyles;
+      Nexton_Title_Medium_1: SerializedStyles;
       Nexton_Title_Medium_2: SerializedStyles;
       Nexton_Body_Text_Large: SerializedStyles;
       Nexton_Body_Text_Large_2: SerializedStyles;

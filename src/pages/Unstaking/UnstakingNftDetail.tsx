@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import { styled } from "styled-components";
 
 import { postUnstake } from "@/api/postUnstake";
-import BasicModal from "@/components/common/Modal/BasicModal";
+// import BasicModal from "@/components/common/Modal/BasicModal";
 import UnstakingInfo from "@/components/myAsset/NFT/Unstaking/UnstakingInfo";
 import UnstakingPreview from "@/components/myAsset/NFT/Unstaking/UnstakingPreview";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
@@ -20,7 +20,7 @@ const tele = (window as any).Telegram.WebApp;
 
 const UnstakingNftDetail = () => {
   const telegramId = useRecoilValue(telegramAtom);
-  const [toggleModal, setToggleModal] = useState(false);
+  // const [toggleModal, setToggleModal] = useState(false);
   const { address } = useTonConnect();
   const { sendMessage } = Contract.useFakeItemContract();
   const { id } = useParams();
@@ -29,9 +29,9 @@ const UnstakingNftDetail = () => {
   const { pathname } = location;
   const navigate = useNavigate();
 
-  const handleToggleModal = () => {
-    setToggleModal((prev) => !prev);
-  };
+  // const handleToggleModal = () => {
+  //   setToggleModal(prev => !prev);
+  // };
 
   const postUnstaking = async () => {
     if (address && nftDetail) {
@@ -51,7 +51,8 @@ const UnstakingNftDetail = () => {
       await sendMessage(data(), `${nftDetail[0].amount}`);
       const response = await postUnstake(newUnstaking);
       if (response === 200) {
-        handleToggleModal();
+        // handleToggleModal();
+        navigate(`/unstaking/beta`);
       }
     }
   };
@@ -80,15 +81,11 @@ const UnstakingNftDetail = () => {
     <>
       {nftDetail && nftDetail.length > 0 && (
         <UnstakingWrapper>
-          {toggleModal && (
-            <BasicModal type="unstaking" toggleModal={handleToggleModal} />
-          )}
+          {/* {toggleModal && <BasicModal type="unstaking" toggleModal={handleToggleModal} />} */}
           <UnstakingHeader>Unstaking NFT</UnstakingHeader>
           <UnstakingPreview item={nftDetail[0]} />
           <UnstakingInfo item={nftDetail[0]} />
-          <UnstakingMessageBox>
-            During this period you may not cancel the transaction.
-          </UnstakingMessageBox>
+          <UnstakingMessageBox>During this period you may not cancel the transaction.</UnstakingMessageBox>
           {!pathname.includes("view") && (
             // <UnstakingButtonWrapper>
             //   <UnstakingButton onClick={postUnstaking}>Confirm</UnstakingButton>
