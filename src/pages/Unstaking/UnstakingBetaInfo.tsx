@@ -7,8 +7,6 @@ import ImgBeta from "@/assets/image/UnstakingBetaInfo.png";
 const UnstakingBetaInfo = () => {
   const navigate = useNavigate();
 
-  const handleOkay = () => {};
-
   return (
     <>
       <UnstakingHeader>Unstaking NFT</UnstakingHeader>
@@ -19,7 +17,12 @@ const UnstakingBetaInfo = () => {
           Currently, as this is the Beta version, the unstaking process may take some time. We can provide the TON
           within 36 hours.
         </SubText>
-        <MainButton text="Okay" onClick={handleOkay} />
+        <MainButton
+          text="Okay"
+          onClick={() => {
+            navigate(`/`);
+          }}
+        />
       </ContentWrapper>
     </>
   );
