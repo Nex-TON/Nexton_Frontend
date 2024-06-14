@@ -1,3 +1,4 @@
+import IcQuestion from "@/assets/icons/referral/ic_question.svg";
 import ReferralPoints from "@/assets/image/ReferralPoints.png";
 import { Button, Container, Title } from "@/components/common/Modal/Modal.styled";
 import ModalWrapper from "@/components/common/Modal/ModalWrapper";
@@ -13,7 +14,8 @@ export const ReferPointsModal = (props: ReferPointsModalProps) => {
 
   return (
     <ModalWrapper>
-      <Container $isDark>
+      <Container $isDark $disablePaddingTop>
+        <img src={IcQuestion} alt="Question" style={{ alignSelf: "start" }} onClick={toggleModal} />
         <ReferralModalContent>
           <Title style={{ marginBottom: "1.2rem" }} $isDark>
             Refer Points

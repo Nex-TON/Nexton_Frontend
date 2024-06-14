@@ -11,6 +11,7 @@ import Loader from "@/components/common/Loader";
 import { NXTPointsModal } from "@/components/referral/Modals/NXTPoints";
 import { ReferPointsModal } from "@/components/referral/Modals/ReferPointsModal";
 import { useGenerateReferralId } from "@/hooks/api/referral/useGenerateReferralId";
+import { useReferralPoints } from "@/hooks/api/referral/useReferralPoints";
 import { useReferralStatus } from "@/hooks/api/referral/useReferralStatus";
 import { globalError } from "@/lib/atom/globalError";
 import { copyText } from "@/utils/copyText";
@@ -24,15 +25,8 @@ const TMA_URL = "https://t.me/Nexton_tele_bot/nexton";
 
 const _browserUserMock = { id: 1, username: "testName" };
 
-const _referredUsersMocks = [
-  { username: "testName1" },
-  { username: "testName2" },
-  { username: "testName3" },
-  { username: "testName4" },
-  { username: "testName5" },
-  { username: "testName6" },
-  { username: "testName7" },
-];
+// todo: replace this mock with real data
+const _referredUsersMocks = [];
 
 export interface IUserInfo {
   userId: number;
@@ -54,7 +48,16 @@ const Referral = () => {
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [modal, setModal] = useState<ModalState>({ type: "nxt", toggled: false });
 
-  const { data, isLoading, error } = useReferralStatus(isDevMode ? _browserUserMock.id : userInfo.userId);
+  const {
+    data: referralStatus,
+    isLoading: statusLoading,
+    error: errorLoading,
+  } = useReferralStatus(isDevMode ? _browserUserMock.id : userInfo.userId);
+  const {
+    data: pointsData,
+    isLoading: pointsLoading,
+    error: pointsError,
+  } = useReferralPoints(isDevMode ? _browserUserMock.id : userInfo.userId);
 
   const toggleModal = () => {
     setModal(prev => ({
@@ -137,7 +140,7 @@ const Referral = () => {
                 />
               </ReferralBoxTop>
 
-              {isLoading ? <Loader /> : <span>0 Points</span>}
+              {pointsLoading ? <Loader /> : <span>{pointsData?.loyaltyPoints} Points</span>}
             </ReferralBox>
             <ReferralBox>
               <ReferralBoxTop>
@@ -149,7 +152,7 @@ const Referral = () => {
                 />
               </ReferralBoxTop>
 
-              {isLoading ? <Loader /> : <span>0 Points</span>}
+              {pointsLoading ? <Loader /> : <span>{pointsData?.referralPoints} Points</span>}
             </ReferralBox>
           </ReferralBoxWrapper>
 
@@ -165,11 +168,11 @@ const Referral = () => {
           <ReferralBox style={{ height: "100%" }}>
             <h3>Referral History</h3>
             <TransactionsWrapper $isEmpty={!_referredUsersMocks.length}>
-              {isLoading ? (
+              {statusLoading ? (
                 <Loader />
               ) : _referredUsersMocks.length > 0 ? (
                 <>
-                  <DateSpan>02.06.24</DateSpan>
+                  <DateSpan>June 07, 24</DateSpan>
                   {_referredUsersMocks.map((item, idx) => (
                     <TransactionItem key={idx}>
                       <p>{item.username}</p>
@@ -335,7 +338,7 @@ const TransactionsWrapper = styled.div<{ $isEmpty?: boolean }>`
 `;
 
 const DateSpan = styled.p`
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
+  ${({ theme }) => theme.fonts.Nexton_Label_Small};
   color: rgba(255, 255, 255, 0.5);
 
   margin-bottom: 0.6rem;
