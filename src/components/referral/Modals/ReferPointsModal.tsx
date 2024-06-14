@@ -20,7 +20,7 @@ export const ReferPointsModal = (props: ReferPointsModalProps) => {
           <Title style={{ marginBottom: "1.2rem" }} $isDark>
             Refer Points
           </Title>
-          <img src={ReferralPoints} alt="ReferralPoints" />
+          <img width={187} src={ReferralPoints} alt="ReferralPoints" />
           <SubTitleBulletBox>
             <SubBullets>Each staker who stakes at least 1 $TON earns 10 Referral Points for themselves.</SubBullets>
             <SubBullets>The referrer also earns 10 Referral Points.</SubBullets>

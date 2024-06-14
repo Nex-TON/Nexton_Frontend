@@ -115,7 +115,7 @@ const Referral = () => {
 
       <ReferralWrapper>
         <h1>Earn your Point</h1>
-        <img src={ReferralGroup} alt="ReferralGroup" />
+        <img width={234} src={ReferralGroup} alt="ReferralGroup" />
 
         <BottomWrapper>
           <ReferralBoxWrapper>

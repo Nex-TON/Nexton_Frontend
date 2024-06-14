@@ -20,7 +20,7 @@ export const NXTPointsModal = (props: NXTPointsModalProps) => {
           <Title style={{ marginBottom: "1.2rem" }} $isDark>
             NXT Points
           </Title>
-          <img src={ReferralCoins} alt="ReferralCoins" />
+          <img width={110} src={ReferralCoins} alt="ReferralCoins" />
           <SubTitleBulletBox>
             <SubBullets>Each hour, a fixed number of Loyalty Points is given per $TON staked.</SubBullets>
             <SubBullets>The number of points a user receives is directly tied to their staked amount.</SubBullets>
