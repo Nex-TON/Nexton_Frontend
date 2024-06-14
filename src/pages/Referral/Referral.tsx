@@ -129,7 +129,7 @@ const Referral = () => {
                 />
               </ReferralBoxTop>
 
-              {pointsLoading ? <Loader /> : <span>{pointsData?.loyaltyPoints || "-"} Points</span>}
+              {pointsLoading ? <Loader /> : <span>{pointsData.loyaltyPoints} Points</span>}
             </ReferralBox>
             <ReferralBox>
               <ReferralBoxTop>
@@ -141,7 +141,7 @@ const Referral = () => {
                 />
               </ReferralBoxTop>
 
-              {pointsLoading ? <Loader /> : <span>{pointsData?.referralPoints || "-"} Points</span>}
+              {pointsLoading ? <Loader /> : <span>{pointsData.referralPoints} Points</span>}
             </ReferralBox>
           </ReferralBoxWrapper>
 
