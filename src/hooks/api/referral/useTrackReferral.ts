@@ -6,6 +6,7 @@ import { client } from "@/api/axios";
 interface ITrackReferral {
   newUserId: string;
   referralLink: string;
+  username?: string;
 }
 
 interface ITrackReferralResponse {

@@ -71,25 +71,32 @@ const Main = () => {
       tele.ready();
       const isReferred = localStorage.getItem("referrerId");
 
-      const referralId = tele.initDataUnsafe.start_param;
-      const userId = tele.initDataUnsafe.user?.id;
+      const referralId = tele.initDataUnsafe?.start_param;
+      const userId = tele.initDataUnsafe?.user.id;
+      const username = tele.initDataUnsafe?.user?.username;
+
       // If user has not been referred yet, track the referral
       if (referralId && userId && !isReferred) {
-        trigger({ newUserId: userId, referralLink: referralId }).then(res => {
+        trigger({ newUserId: userId, referralLink: referralId, username }).then(res => {
           const { data } = res;
 
           if (data.success) {
-            toast(`🎊 You were successfully referred by User @${data.username}!`, {
-              position: "top-center",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              transition: Slide,
-            });
+            toast(
+              data.username
+                ? `🎊 You were successfully referred by User @${data.username}!`
+                : "🎊 You were successfully referred!",
+              {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Slide,
+              },
+            );
 
             localStorage.setItem("referrerId", res.data.referrerId);
           }

@@ -25,7 +25,7 @@ const TMA_URL = "https://t.me/Nexton_tele_bot/nexton";
 
 export interface IUserInfo {
   userId: number;
-  username: string;
+  username?: string;
 }
 
 interface ModalState {
@@ -62,9 +62,9 @@ const Referral = () => {
         navigate("/");
       });
 
-      const tgUser = tele.initDataUnsafe.user;
+      const tgUser = tele.initDataUnsafe?.user;
       if (tgUser) {
-        setUserInfo({ userId: tgUser.id, username: tgUser.username });
+        setUserInfo({ userId: tgUser.id, username: tgUser?.username });
       } else {
         console.warn("You should launch the app inside the Telegram Mini App.");
       }
