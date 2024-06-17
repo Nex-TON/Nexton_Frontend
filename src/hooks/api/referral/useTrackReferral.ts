@@ -4,7 +4,7 @@ import useSWRMutation from "swr/mutation";
 import { client } from "@/api/axios";
 
 interface ITrackReferral {
-  newUserId: string;
+  newUserId: number;
   referralLink: string;
   username?: string;
 }
