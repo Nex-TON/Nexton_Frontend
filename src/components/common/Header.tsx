@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
+import IcReferral from "@/assets/icons/Landing/ic_landing_referral.svg";
 import IcWalletConnect from "@/assets/icons/Landing/ic_landing_wallet.svg";
 import IcWalletDisconnect from "@/assets/icons/Landing/ic_landing_wallet_disconnect.svg";
 import useTonConnect from "@/hooks/contract/useTonConnect";
@@ -39,6 +40,9 @@ const Header = (props: HeaderProps) => {
       <HeaderWrapper $isOpen={isOpen} $backgroundType={backgroundType}>
         <HeaderTitle onClick={() => navigate("/")}>{text}</HeaderTitle>
         <HeaderRightBox>
+          <ReferralButton onClick={() => navigate("/referral")}>
+            <img src={IcReferral} alt="referral" />
+          </ReferralButton>
           {pathname === "/" && (
             <DisconnectButton $connect={connected}>
               {connected ? (
@@ -79,6 +83,22 @@ const HeaderRightBox = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+`;
+
+const ReferralButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 4.4rem;
+  height: 4.4rem;
+  padding: 1.2rem;
+
+  border: none;
+  border-radius: 1.8rem;
+  background: linear-gradient(96deg, #c078f9 5.73%, #6047f4 100%);
+
+  cursor: pointer;
 `;
 
 const DisconnectButton = styled.button<{ $connect: boolean }>`
@@ -139,6 +159,7 @@ const MenuButton = styled.button<{ $isOpen: boolean }>`
 
   cursor: pointer;
 `;
+
 const HeaderTitle = styled.div`
   display: flex;
   align-items: center;

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "ngrok": "ngrok http --domain=badger-cuddly-personally.ngrok-free.app 5173",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -17,7 +18,6 @@
     "@hookform/resolvers": "^3.3.4",
     "@mui/material": "^5.14.1",
     "@orbs-network/ton-access": "^2.3.3",
-    "@supabase/supabase-js": "^2.39.8",
     "@ton/core": "^0.56.1",
     "@ton/crypto": "^3.2.0",
     "@ton/ton": "^13.11.1",
@@ -27,6 +27,7 @@
     "axios": "^1.5.0",
     "eslint-plugin-simple-import-sort": "^12.0.0",
     "framer-motion": "^10.16.4",
+    "ngrok": "^5.0.0-beta.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.4",

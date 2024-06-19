@@ -24,6 +24,11 @@ import { isDevMode } from "@/utils/isDevMode";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const tele = (window as any).Telegram.WebApp;
 
+interface ModalState {
+  type: "stake" | "confirmStake";
+  toggled: boolean;
+}
+
 const NFTPreview = () => {
   const { refreshTonData } = useTonConnect();
 
@@ -35,7 +40,7 @@ const NFTPreview = () => {
   const { sendMessage } = Contract.depositTon();
   const [isLoading, setIsLoading] = useState(false);
 
-  const [modal, setModal] = useState<{ type: "stake" | "confirmStake"; toggled: boolean }>({
+  const [modal, setModal] = useState<ModalState>({
     type: "confirmStake",
     toggled: false,
   });

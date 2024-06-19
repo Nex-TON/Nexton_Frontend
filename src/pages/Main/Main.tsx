@@ -8,6 +8,7 @@ import Header from "@/components/common/Header";
 import MainMyAssetInfo from "@/components/main/MainMyAssetInfo";
 import { WelcomeModal } from "@/components/main/Modal/WelcomeModal";
 import StakeView from "@/components/main/StakeView/StakeView";
+import { useTrackReferral } from "@/hooks/api/referral/useTrackReferral";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 
@@ -20,9 +21,10 @@ const Main = () => {
   const { address, balance, refreshTonData } = useTonConnect();
   const { nftList, isLoading, isError } = useStakeInfo(address);
 
-  const [isRefreshing, setIsRefreshing] = useState(false);
+  const { trigger } = useTrackReferral();
 
   const [modal, setModal] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   // Refresh TON data
   useEffect(() => {
@@ -49,9 +51,11 @@ const Main = () => {
     };
   }, [refreshTonData, address]);
 
+  // Show welcome modal if user hasn't visited before
   useEffect(() => {
     if (tele) {
       tele.ready();
+      tele.expand(); // Expand the app to full screen
       tele.BackButton.hide();
     }
 
@@ -60,6 +64,46 @@ const Main = () => {
       setModal(true); // Only show modal if user hasn't visited before
     }
   }, []);
+
+  // Track referral on app launch
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      const isReferred = localStorage.getItem("referrerId");
+
+      const referralId = tele.initDataUnsafe?.start_param;
+      const userId = tele.initDataUnsafe?.user.id;
+      const username = tele.initDataUnsafe?.user?.username;
+
+      // If user has not been referred yet, track the referral
+      if (referralId && userId && !isReferred) {
+        trigger({ newUserId: userId, referralLink: referralId, username }).then(res => {
+          const { data } = res;
+
+          if (data.success) {
+            toast(
+              data.username
+                ? `🎊 You were successfully referred by User @${data.username}!`
+                : "🎊 You were successfully referred!",
+              {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Slide,
+              },
+            );
+
+            localStorage.setItem("referrerId", res.data.referrerId);
+          }
+        });
+      }
+    }
+  }, [trigger]);
 
   // Show toast message when the user has successfully staked
   useEffect(() => {
@@ -85,6 +129,7 @@ const Main = () => {
   // Calculate the total amount staked
   const totalStaked = nftList?.reduce((acc, nft) => acc + nft.amount, 0) || 0;
 
+  // Toggle welcome modal
   const toggleModal = () => {
     setModal(prev => !prev);
     localStorage.setItem("hasVisited", "true");

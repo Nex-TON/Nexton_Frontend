@@ -81,3 +81,30 @@ export const AvailableDate = (dateString: string, type?: string) => {
 
   return hours;
 };
+
+export const ReferralDateFormatter = (dateString: string) => {
+  // Create a Date object from the input string
+  const date = new Date(dateString);
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  // Extract the month, day, and year
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear().toString().slice(-2); // Get last two digits of the year
+
+  return `${month} ${day}, ${year}`;
+};
