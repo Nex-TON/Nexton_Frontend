@@ -10,7 +10,7 @@ import ReferralGroup from "@/assets/image/ReferralGroup.png";
 import Loader from "@/components/common/Loader";
 import { NXTPointsModal } from "@/components/referral/Modals/NXTPoints";
 import { ReferPointsModal } from "@/components/referral/Modals/ReferPointsModal";
-import { useGenerateReferralId } from "@/hooks/api/referral/useGenerateReferralId";
+import { useManageReferral } from "@/hooks/api/referral/useManageReferral";
 import { useReferralPoints } from "@/hooks/api/referral/useReferralPoints";
 import { useReferralStatus } from "@/hooks/api/referral/useReferralStatus";
 import { globalError } from "@/lib/atom/globalError";
@@ -36,7 +36,7 @@ interface ModalState {
 const Referral = () => {
   const navigate = useNavigate();
   const setError = useSetRecoilState(globalError);
-  const { trigger, isMutating } = useGenerateReferralId();
+  const { trigger, isMutating } = useManageReferral();
 
   const [referralLink, setReferralLink] = useState<string>("");
   const [userInfo, setUserInfo] = useState<IUserInfo>();
@@ -78,7 +78,7 @@ const Referral = () => {
   useEffect(() => {
     function generateReferralLink() {
       if (userInfo) {
-        trigger(userInfo)
+        trigger({ ...userInfo, returnCode: true })
           .then(res => {
             setReferralLink(`${TMA_URL}?startapp=${res.data.code}`);
           })

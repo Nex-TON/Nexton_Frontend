@@ -8,6 +8,7 @@ import Header from "@/components/common/Header";
 import MainMyAssetInfo from "@/components/main/MainMyAssetInfo";
 import { WelcomeModal } from "@/components/main/Modal/WelcomeModal";
 import StakeView from "@/components/main/StakeView/StakeView";
+import { useManageReferral } from "@/hooks/api/referral/useManageReferral";
 import { useTrackReferral } from "@/hooks/api/referral/useTrackReferral";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";
@@ -21,6 +22,7 @@ const Main = () => {
   const { address, balance, refreshTonData } = useTonConnect();
   const { nftList, isLoading, isError } = useStakeInfo(address);
 
+  const { trigger: triggerManageReferral } = useManageReferral();
   const { trigger } = useTrackReferral();
 
   const [modal, setModal] = useState(false);
@@ -67,43 +69,55 @@ const Main = () => {
 
   // Track referral on app launch
   useEffect(() => {
-    if (tele) {
-      tele.ready();
-      const isReferred = localStorage.getItem("referrerId");
+    const trackReferral = async () => {
+      if (tele) {
+        tele.ready();
+        const isReferred = localStorage.getItem("referrerId");
 
-      const referralId = tele.initDataUnsafe?.start_param;
-      const userId = tele.initDataUnsafe?.user.id;
-      const username = tele.initDataUnsafe?.user?.username;
+        const referralId = tele.initDataUnsafe?.start_param;
+        const userId = tele.initDataUnsafe?.user?.id;
+        const username = tele.initDataUnsafe?.user?.username;
 
-      // If user has not been referred yet, track the referral
-      if (referralId && userId && !isReferred) {
-        trigger({ newUserId: userId, referralLink: referralId, username }).then(res => {
-          const { data } = res;
-
-          if (data.success) {
-            toast(
-              data.username
-                ? `🎊 You were successfully referred by User @${data.username}!`
-                : "🎊 You were successfully referred!",
-              {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Slide,
-              },
-            );
-
-            localStorage.setItem("referrerId", res.data.referrerId);
+        try {
+          // Send referral data to the server if the user hasn't visited Referral page
+          if (userId) {
+            await triggerManageReferral({ userId, username });
           }
-        });
+
+          // If user has not been referred yet, track the referral
+          if (referralId && userId && !isReferred) {
+            const res = await trigger({ newUserId: userId, referralLink: referralId, username });
+            const { data } = res;
+
+            if (data.success) {
+              toast(
+                data.username
+                  ? `🎊 You were successfully referred by User @${data.username}!`
+                  : "🎊 You were successfully referred!",
+                {
+                  position: "top-center",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                  transition: Slide,
+                },
+              );
+
+              localStorage.setItem("referrerId", data.referrerId);
+            }
+          }
+        } catch (error) {
+          console.error("Error tracking referral:", error);
+        }
       }
-    }
-  }, [trigger]);
+    };
+
+    trackReferral();
+  }, [tele, trigger, triggerManageReferral]);
 
   // Show toast message when the user has successfully staked
   useEffect(() => {
