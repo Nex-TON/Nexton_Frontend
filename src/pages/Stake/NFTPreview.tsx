@@ -21,7 +21,7 @@ import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom, stakingInputAtom } from "@/lib/atom/staking";
 import { isDevMode } from "@/utils/isDevMode";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 const tele = (window as any).Telegram.WebApp;
 
 interface ModalState {

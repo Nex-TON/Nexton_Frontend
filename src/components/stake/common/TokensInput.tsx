@@ -9,7 +9,7 @@ interface TokenInputProps extends NumericFormatProps {
   name: string;
   setValue: (name: string, value: string) => void;
   tokenLabel: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   control: any;
   balance: number;
   error?: string;
