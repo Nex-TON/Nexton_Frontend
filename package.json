@@ -9,7 +9,9 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
     "preview": "vite preview",
-    "format": "eslint --fix . --ext ts,tsx && prettier '**/*.{ts,tsx}' --write --ignore-path .gitignore"
+    "format": "eslint --fix . --ext ts,tsx && prettier '**/*.{ts,tsx}' --write --ignore-path .gitignore",
+    "test": "vitest",
+    "test:watch": "vitest watch"
   },
   "dependencies": {
     "@aws-crypto/sha256-js": "^5.0.0",
@@ -45,6 +47,10 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.2.0",
+    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.5.2",
     "@ton/test-utils": "^0.4.2",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
@@ -57,6 +63,7 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "prettier": "^3.3.2",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vitest": "^1.6.0"
   }
 }
