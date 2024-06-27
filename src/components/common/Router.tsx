@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import Dashboard from "@/pages/Dashboard/Dashboard";
 import BorrowDetail from "@/pages/Loan/BorrowDetail";
 import Loan from "@/pages/Loan/Loan";
 import Main from "@/pages/Main/Main";
@@ -26,6 +27,7 @@ const Router = () => {
         <Route path="/" element={<Main />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/referral" element={<Referral />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/stake/amount" element={<Amount />} />
         <Route path="/stake/leverage" element={<Leverage />} />
         <Route path="/stake/nominator" element={<NominatorList />} />
