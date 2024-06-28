@@ -18,8 +18,8 @@ const TopBar = () => {
         <img src={IcMenuMyAsset} alt="asset" />
         My Asset
       </TopBarButton>
-      <TopBarButton>
-        <img src={IcMenuDashboard} alt="dashboard" onClick={() => navigate("/dashboard")} />
+      <TopBarButton onClick={() => navigate("/dashboard")}>
+        <img src={IcMenuDashboard} alt="dashboard" />
         Dashboard
       </TopBarButton>
     </TopBarWrapper>
