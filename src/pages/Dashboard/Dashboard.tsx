@@ -169,7 +169,7 @@ const Dashboard = () => {
           <PerformanceItemBody>
             <PerformanceItemBodyBox>
               <h4>Subscriber win rate</h4>
-              <p>{performanceData?.pnlWinRate.toFixed(2)}%</p>
+              <p>{performanceData?.pnlWinRate?.toFixed(2)}%</p>
             </PerformanceItemBodyBox>
 
             <PerformanceItemBodyBox>
