@@ -77,11 +77,39 @@ export const ChartHeaderSubtitle = styled.div`
   }
 `;
 
+export const ChartTimeFrame = styled.div`
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 1.6rem;
+`;
+
+export const ChartTimeFrameItem = styled.div<{ $active?: boolean }>`
+  width: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+
+  cursor: pointer;
+
+  border-radius: 30px;
+  background: ${({ $active }) => ($active ? "#E1E4E6" : "transparent")};
+
+  color: #000000;
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+  font-weight: ${({ $active }) => ($active ? "bold" : "normal")};
+`;
+
 export const PerformanceWrapper = styled.div`
   width: 100%;
   display: flex;
   gap: 1rem;
   flex-direction: column;
+
+  margin-top: 4.6rem;
 
   h2 {
     color: #2c3542;
