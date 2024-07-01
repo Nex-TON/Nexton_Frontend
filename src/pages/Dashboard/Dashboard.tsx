@@ -124,7 +124,7 @@ const Dashboard = () => {
         </ChartHeader>
 
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart width={500} height={300} data={chartData.data} margin={{ top: 15, bottom: 15 }}>
+          <LineChart width={500} height={300} data={chartData?.data} margin={{ top: 15, bottom: 15 }}>
             <CartesianGrid strokeDasharray="3 0" vertical={false} />
             <XAxis hide />
             <YAxis hide />
@@ -161,7 +161,7 @@ const Dashboard = () => {
               <h4>Arbitrage Bot</h4>
             </PerformanceItemHeaderLeft>
 
-            <PerformanceItemHeaderRight>{limitDecimals(performanceData.pnlRate, 3)}%</PerformanceItemHeaderRight>
+            <PerformanceItemHeaderRight>{limitDecimals(performanceData?.pnlRate, 3)}%</PerformanceItemHeaderRight>
           </PerformanceItemHeader>
 
           <Divider />
@@ -169,12 +169,12 @@ const Dashboard = () => {
           <PerformanceItemBody>
             <PerformanceItemBodyBox>
               <h4>Subscriber win rate</h4>
-              <p>{performanceData.pnlWinRate.toFixed(2)}%</p>
+              <p>{performanceData?.pnlWinRate.toFixed(2)}%</p>
             </PerformanceItemBodyBox>
 
             <PerformanceItemBodyBox>
               <h4>Subscribed</h4>
-              <p>{performanceData.subscribedCount}</p>
+              <p>{performanceData?.subscribedCount}</p>
             </PerformanceItemBodyBox>
           </PerformanceItemBody>
 
