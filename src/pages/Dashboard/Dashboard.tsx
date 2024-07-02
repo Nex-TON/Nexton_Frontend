@@ -62,7 +62,7 @@ const Dashboard = () => {
     data: chartData,
     isLoading: chartLoading,
     error: chartError,
-  } = useBotPerformanceChart(userId, chartTimeFrameOptions[timeFrame]);
+  } = useBotPerformanceChart(chartTimeFrameOptions[timeFrame]);
 
   useEffect(() => {
     if (tele) {
@@ -115,11 +115,10 @@ const Dashboard = () => {
             <h4>Arbitrage Bot</h4>
           </ChartHeaderTitle>
 
-          {/* to-do: get daily pnl from the API */}
-          {/* <ChartHeaderSubtitle>
+          <ChartHeaderSubtitle>
             <h5>Daily PNL</h5>
-            <span>+33%</span>
-          </ChartHeaderSubtitle> */}
+            <span>+{chartData?.dailyPnlRate}%</span>
+          </ChartHeaderSubtitle>
         </ChartHeader>
 
         <ResponsiveContainer width="100%" height="100%">

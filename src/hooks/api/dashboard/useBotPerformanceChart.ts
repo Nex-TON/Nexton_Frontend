@@ -9,13 +9,12 @@ interface IBotPerformanceChartData {
 
 interface IBotPerformanceChart {
   timeframe: number;
+  dailyPnlRate: number;
   data: IBotPerformanceChartData[];
 }
 
-export function useBotPerformanceChart(userId: number, timeframe: number) {
-  const swrKey = userId
-    ? `/data/user/${userId}/botPerformanceChart${timeframe ? `?timeframe=${timeframe}` : ""}`
-    : null;
+export function useBotPerformanceChart(timeframe: number) {
+  const swrKey = `/data/botPerformanceChart${timeframe ? `?timeframe=${timeframe}` : ""}`;
 
   return useSWR<IBotPerformanceChart>(swrKey, nextonFetcher);
 }
