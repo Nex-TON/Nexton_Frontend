@@ -35,13 +35,9 @@ import {
 
 const tele = (window as any).Telegram.WebApp;
 
-export interface IUserInfo {
-  userId: number;
-}
-
 type TimeFrame = "1D" | "1M" | "3M" | "6M" | "All";
 
-const chartTimeFrameOptions: Record<TimeFrame, number | "All"> = {
+const chartTimeFrameOptions: Record<TimeFrame | "All", number> = {
   "1D": 1,
   "1M": 30,
   "3M": 90,
@@ -54,7 +50,7 @@ const Dashboard = () => {
   const setError = useSetRecoilState(globalError);
 
   const [userId, setUserId] = useState<number>();
-  const [timeFrame, setTimeFrame] = useState<string>("1D");
+  const [timeFrame, setTimeFrame] = useState<TimeFrame>("1D");
 
   const {
     data: performanceData,
@@ -89,13 +85,16 @@ const Dashboard = () => {
     };
   }, [navigate]);
 
+  // Set global error state if there is an error
+  useEffect(() => {
+    if (performanceError || chartError) {
+      setError(performanceError || chartError);
+    }
+  }, [performanceError, chartError, setError]);
+
   const handleTimeFrameChange = (timeFrame: TimeFrame) => {
     setTimeFrame(timeFrame);
   };
-
-  if (performanceError || chartError) {
-    setError(performanceError || chartError);
-  }
 
   if (performanceLoading || chartLoading) {
     return (
@@ -133,21 +132,15 @@ const Dashboard = () => {
         </ResponsiveContainer>
 
         <ChartTimeFrame>
-          <ChartTimeFrameItem $active={timeFrame === "1D"} onClick={() => handleTimeFrameChange("1D")}>
-            1D
-          </ChartTimeFrameItem>
-          <ChartTimeFrameItem $active={timeFrame === "1M"} onClick={() => handleTimeFrameChange("1M")}>
-            1M
-          </ChartTimeFrameItem>
-          <ChartTimeFrameItem $active={timeFrame === "3M"} onClick={() => handleTimeFrameChange("3M")}>
-            3M
-          </ChartTimeFrameItem>
-          <ChartTimeFrameItem $active={timeFrame === "6M"} onClick={() => handleTimeFrameChange("6M")}>
-            6M
-          </ChartTimeFrameItem>
-          <ChartTimeFrameItem $active={timeFrame === "All"} onClick={() => handleTimeFrameChange("All")}>
-            All
-          </ChartTimeFrameItem>
+          {Object.keys(chartTimeFrameOptions).map(key => (
+            <ChartTimeFrameItem
+              key={key}
+              $active={timeFrame === key}
+              onClick={() => handleTimeFrameChange(key as TimeFrame)}
+            >
+              {key}
+            </ChartTimeFrameItem>
+          ))}
         </ChartTimeFrame>
       </ChartWrapper>
 

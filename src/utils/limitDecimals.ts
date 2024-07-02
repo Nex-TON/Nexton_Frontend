@@ -14,6 +14,11 @@ export function limitDecimals(value, maxDecimals) {
     return value.toString();
   }
 
+  // If maxDecimals is 0, return only the integer part
+  if (maxDecimals === 0) {
+    return integerPart;
+  }
+
   // Otherwise, limit the decimal part to the specified number of digits
   return `${integerPart}.${decimalPart.slice(0, maxDecimals)}`;
 }

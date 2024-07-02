@@ -12,8 +12,10 @@ interface IBotPerformanceChart {
   data: IBotPerformanceChartData[];
 }
 
-export function useBotPerformanceChart(userId: number, timeframe: number = 1) {
-  const swrKey = userId ? `/data/user/${userId}/botPerformanceChart${timeframe && `?timeframe=${timeframe}`}` : null;
+export function useBotPerformanceChart(userId: number, timeframe: number) {
+  const swrKey = userId
+    ? `/data/user/${userId}/botPerformanceChart${timeframe ? `?timeframe=${timeframe}` : ""}`
+    : null;
 
   return useSWR<IBotPerformanceChart>(swrKey, nextonFetcher);
 }
