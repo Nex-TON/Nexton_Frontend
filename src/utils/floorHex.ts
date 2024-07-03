@@ -9,6 +9,14 @@ interface FloorHexProps {
 export const floorHex = (props: FloorHexProps) => {
   const { number, decimalPlaces } = props;
 
+  // Validate inputs
+  if (isNaN(Number(number))) {
+    throw new Error("Invalid number string");
+  }
+  if (decimalPlaces < 0) {
+    throw new Error("Decimal places cannot be negative");
+  }
+
   const divisor = 10 ** 18;
   const dividedNumber = Number(number) / divisor;
   const multipliedNumber = dividedNumber * 10 ** decimalPlaces;
