@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import styled from "styled-components";
@@ -117,7 +117,7 @@ const Main = () => {
     };
 
     trackReferral();
-  }, [tele, trigger, triggerManageReferral]);
+  }, [trigger, triggerManageReferral]);
 
   // Show toast message when the user has successfully staked
   useEffect(() => {
@@ -141,13 +141,15 @@ const Main = () => {
   }, [location]);
 
   // Calculate the total amount staked
-  const totalStaked = nftList?.reduce((acc, nft) => acc + nft.amount, 0) || 0;
+  const totalStaked = useMemo(() => {
+    return nftList?.reduce((acc, nft) => acc + nft.amount, 0) || 0;
+  }, [nftList]);
 
   // Toggle welcome modal
-  const toggleModal = () => {
+  const toggleModal = useCallback(() => {
     setModal(prev => !prev);
     localStorage.setItem("hasVisited", "true");
-  };
+  }, []);
 
   return (
     <>
