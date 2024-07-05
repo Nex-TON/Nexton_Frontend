@@ -138,7 +138,7 @@ const Dashboard = () => {
             <XAxis hide />
             <YAxis orientation="right" width={50} unit="%" />
             <Tooltip formatter={(value, name, props) => [`${value}%`, "PNL"]} />
-            <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" strokeWidth={2} dot={false} label />
+            <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" strokeWidth={2} dot={false} />
           </LineChart>
         </ResponsiveContainer>
 
