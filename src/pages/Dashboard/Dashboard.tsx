@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useSetRecoilState } from "recoil";
 
 import IcNextonLogo from "@/assets/icons/Dashboard/ic_nexton_logo.svg";
 import IcNextonLogoSm from "@/assets/icons/Dashboard/ic_nexton_logo_sm.svg";
 import IcStakeLinkArrow from "@/assets/icons/Dashboard/ic_stake_link_arrow.svg";
+import IcTonLogo from "@/assets/icons/Dashboard/ic_ton_logo.svg";
 import Loader from "@/components/common/Loader";
 import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceChart";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
+import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { globalError } from "@/lib/atom/globalError";
 import { limitDecimals } from "@/utils/limitDecimals";
 
@@ -31,7 +33,14 @@ import {
   PerformanceItemHeaderRight,
   PerformanceWrapper,
   StakeButton,
+  TonPriceItem,
+  TonPriceItemLeft,
+  TonPriceItemRight,
+  TonPriceItemRightPercentage,
+  TonPriceWrapper,
 } from "./Dashboard.styled";
+
+import "./styles/Dashboard.css";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -63,6 +72,8 @@ const Dashboard = () => {
     isLoading: chartLoading,
     error: chartError,
   } = useBotPerformanceChart(chartTimeFrameOptions[timeFrame]);
+
+  const { data: tonPriceData, isLoading: tonPriceLoading, error: tonPriceError } = useCoinPrice("ton", "usd");
 
   useEffect(() => {
     if (tele) {
@@ -96,7 +107,7 @@ const Dashboard = () => {
     setTimeFrame(timeFrame);
   };
 
-  if (performanceLoading || chartLoading) {
+  if (performanceLoading || chartLoading || tonPriceLoading) {
     return (
       <LoaderWrapper>
         <Loader height={50} width={50} />
@@ -125,8 +136,9 @@ const Dashboard = () => {
           <LineChart width={500} height={300} data={chartData?.data} margin={{ top: 15, bottom: 15 }}>
             <CartesianGrid strokeDasharray="3 0" vertical={false} />
             <XAxis hide />
-            <YAxis hide />
-            <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" strokeWidth={2} dot={false} />
+            <YAxis orientation="right" width={50} unit="%" />
+            <Tooltip formatter={(value, name, props) => [`${value}%`, "PNL"]} />
+            <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" strokeWidth={2} dot={false} label />
           </LineChart>
         </ResponsiveContainer>
 
@@ -143,6 +155,24 @@ const Dashboard = () => {
         </ChartTimeFrame>
       </ChartWrapper>
 
+      {!tonPriceError && (
+        <TonPriceWrapper>
+          <h2>Current value of TON</h2>
+
+          <TonPriceItem>
+            <TonPriceItemLeft>
+              <img src={IcTonLogo} alt="ton_logo" />
+              <p>TON</p>
+            </TonPriceItemLeft>
+
+            <TonPriceItemRight>
+              <p>${tonPriceData?.rates?.TON?.prices?.USD.toFixed(2)}</p>
+              <TonPriceItemRightPercentage>{tonPriceData?.rates?.TON?.diff_24h?.USD}</TonPriceItemRightPercentage>
+            </TonPriceItemRight>
+          </TonPriceItem>
+        </TonPriceWrapper>
+      )}
+
       <PerformanceWrapper>
         <h2>Bot Performance</h2>
 
@@ -153,7 +183,10 @@ const Dashboard = () => {
               <h4>Arbitrage Bot</h4>
             </PerformanceItemHeaderLeft>
 
-            <PerformanceItemHeaderRight>{limitDecimals(performanceData?.pnlRate, 3)}%</PerformanceItemHeaderRight>
+            <PerformanceItemHeaderRight>
+              <span>APY</span>
+              {limitDecimals(performanceData?.pnlRate, 3)}%
+            </PerformanceItemHeaderRight>
           </PerformanceItemHeader>
 
           <Divider />
@@ -165,7 +198,7 @@ const Dashboard = () => {
             </PerformanceItemBodyBox>
 
             <PerformanceItemBodyBox>
-              <h4>Subscribed</h4>
+              <h4>Stakers</h4>
               <p>{performanceData?.subscribedCount}</p>
             </PerformanceItemBodyBox>
           </PerformanceItemBody>

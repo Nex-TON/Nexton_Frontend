@@ -141,17 +141,17 @@ export const PerformanceItemHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  h4 {
-    color: #303234;
-    ${({ theme }) => theme.fonts.Nexton_Title_Small};
-  }
 `;
 
 export const PerformanceItemHeaderLeft = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
+  h4 {
+    color: #303234;
+    ${({ theme }) => theme.fonts.Nexton_Title_Small};
+  }
 `;
 
 export const PerformanceItemHeaderRight = styled.div`
@@ -160,6 +160,14 @@ export const PerformanceItemHeaderRight = styled.div`
 
   color: #303234;
   ${({ theme }) => theme.fonts.Nexton_Title_Medium};
+
+  span {
+    ${({ theme }) => theme.fonts.Telegram_Caption_3};
+    color: #909394;
+    align-self: flex-start;
+    margin-right: 0.5rem;
+    margin-top: 0.3rem;
+  }
 `;
 
 export const Divider = styled.hr`
@@ -183,12 +191,12 @@ export const PerformanceItemBodyBox = styled.div`
 
   h4 {
     color: #909394;
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
+    ${({ theme }) => theme.fonts.Telegram_Caption_3};
   }
 
   p {
     color: #303234;
-    ${({ theme }) => theme.fonts.Nexton_Label_Medium};
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
 `;
 
 export const PerformanceItemFooter = styled.div`
@@ -215,4 +223,60 @@ export const StakeButton = styled.button`
 
   padding: 1rem;
   gap: 4px;
+`;
+
+export const TonPriceWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+
+  margin-top: 4.6rem;
+
+  h2 {
+    color: #2c3542;
+    ${({ theme }) => theme.fonts.Nexton_Title_Small};
+  }
+`;
+
+export const TonPriceItem = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 2rem 2.4rem;
+  margin-top: 1rem;
+
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 4px 4px 16px 0px rgba(0, 0, 0, 0.15);
+`;
+
+export const TonPriceItemLeft = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  p {
+    color: #303234;
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2};
+  }
+`;
+
+export const TonPriceItemRight = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  p {
+    color: #303234;
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+  }
+`;
+
+export const TonPriceItemRightPercentage = styled.div<{ $positive?: boolean }>`
+  color: ${({ $positive }) => ($positive ? "#34C759" : "#FF7979")};
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
 `;
