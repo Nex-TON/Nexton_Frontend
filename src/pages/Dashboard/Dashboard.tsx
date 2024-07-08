@@ -137,7 +137,7 @@ const Dashboard = () => {
             <CartesianGrid strokeDasharray="3 0" vertical={false} />
             <XAxis hide />
             <YAxis orientation="right" width={50} unit="%" />
-            <Tooltip formatter={(value, name, props) => [`${value}%`, "PNL"]} />
+            <Tooltip formatter={(value, name, props) => [`${Number(value).toFixed(2)}%`, "PNL"]} />
             <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" strokeWidth={2} dot={false} />
           </LineChart>
         </ResponsiveContainer>
