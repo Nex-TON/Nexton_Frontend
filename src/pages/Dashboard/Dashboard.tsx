@@ -128,7 +128,9 @@ const Dashboard = () => {
 
           <ChartHeaderSubtitle>
             <h5>Daily PNL</h5>
-            <span>+{chartData?.dailyPnlRate}%</span>
+            <span>
+              {chartData?.dailyPnlRate > 0 && "+"} {chartData?.dailyPnlRate}%
+            </span>
           </ChartHeaderSubtitle>
         </ChartHeader>
 
