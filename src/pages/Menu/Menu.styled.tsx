@@ -1,0 +1,146 @@
+import { styled } from "styled-components";
+
+export const MyAssetWrapper = styled.div`
+  width: 100%;
+  padding: 0 0.6rem 1rem 0.6rem;
+
+  background-color: #fff;
+`;
+
+export const AssetInnerBox = styled.div`
+  height: 215px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  padding: 2.3rem 2.1rem 2.7rem 2.3rem;
+
+  border-radius: 3.2rem;
+  background: linear-gradient(270deg, #002639 0%, #001b29 28.13%, #000 100%);
+`;
+
+export const AssetTopBox = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  margin-bottom: 2.9rem;
+
+  color: #c6c5d0;
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+`;
+
+export const AssetTopLeft = styled.div<{ $isActive?: boolean }>`
+  display: flex;
+  align-items: center;
+`;
+
+export const AssetLeftItem = styled.div<{ $isActive?: boolean }>`
+  padding: 0.7rem 1.3rem;
+
+  cursor: pointer;
+
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+  color: ${({ $isActive }) => ($isActive ? "#fff" : "#FFFFFF4D")};
+  border-bottom: ${({ $isActive }) => ($isActive ? "0.2rem solid #fff" : "0.2rem solid #FFFFFF4D")};
+`;
+
+export const AssetTopRight = styled.div`
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+export const AssetBottomBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & + & {
+    margin-top: 2rem;
+  }
+`;
+
+export const AssetBottomLeft = styled.div`
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+
+  gap: 2.5rem;
+`;
+
+export const AssetBottomLeftItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const AssetBottomRight = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+export const AssetBottomRightItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+
+  span {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+    color: #c6c5d0;
+  }
+
+  h4 {
+    ${({ theme }) => theme.fonts.Nexton_Title_Large_2};
+    background-image: linear-gradient(134deg, #6bd3ff 7.39%, #3461ff 97.6%);
+    color: transparent;
+    background-clip: text;
+  }
+`;
+
+export const AssetBottomLeftItemTitle = styled.h3`
+  ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
+  color: #c6c5d0;
+`;
+
+export const AssetBottomLeftItemValue = styled.div`
+  display: flex;
+  color: #fff;
+  gap: 1rem;
+
+  h4 {
+    ${({ theme }) => theme.fonts.Nexton_Title_Large_2};
+  }
+
+  span {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+    align-self: flex-end;
+  }
+`;
+
+export const AssetBottomTitle = styled.div`
+  width: 77px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.8rem 1.6rem;
+
+  border-radius: 4rem;
+  border: 0.1rem solid #5d5e67;
+
+  color: #c6c5d0;
+  ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
+`;
+
+export const AssetBottomValue = styled.span`
+  color: #fff;
+  ${({ theme }) => theme.fonts.Nexton_Title_Large_2};
+`;

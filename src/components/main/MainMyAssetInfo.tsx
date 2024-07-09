@@ -1,13 +1,34 @@
-import { useState } from "react";
-import { styled } from "styled-components";
+import { useEffect, useState } from "react";
 import { mutate } from "swr";
 
 import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
+import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
+import {
+  AssetBottomBox,
+  AssetBottomLeft,
+  AssetBottomLeftItem,
+  AssetBottomLeftItemTitle,
+  AssetBottomLeftItemValue,
+  AssetBottomRight,
+  AssetBottomRightItem,
+  AssetBottomTitle,
+  AssetBottomValue,
+  AssetInnerBox,
+  AssetLeftItem,
+  AssetTopBox,
+  AssetTopLeft,
+  AssetTopRight,
+  MyAssetWrapper,
+} from "@/pages/Menu/Menu.styled";
+import { limitDecimals } from "@/utils/limitDecimals";
 
 import Loader from "../common/Loader";
 
 import MainButton from "./MainButton";
 
+type AssetsView = "dashboard" | "asset";
+
+const tele = (window as any).Telegram.WebApp;
 
 const MainMyAssetInfo = ({
   address,
@@ -24,7 +45,28 @@ const MainMyAssetInfo = ({
   isLoading: boolean;
   isError: boolean;
 }) => {
+  const [userId, setUserId] = useState<number>();
+  const [view, setView] = useState<AssetsView>("dashboard");
   const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary(userId);
+
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+
+      const tgUser = tele.initDataUnsafe?.user;
+      if (tgUser) {
+        setUserId(tgUser?.id);
+      } else {
+        console.warn("You should launch the app inside the Telegram Mini App.");
+      }
+    }
+  }, []);
+
+  const handleViewChange = (view: AssetsView) => {
+    setView(view);
+  };
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -39,96 +81,95 @@ const MainMyAssetInfo = ({
   };
 
   return (
-    <MainMyAssetInfoWrapper>
-      <MainMyAssetInfoInnerBox>
-        <MainMyAssetInfoInnerTopBox>
-          My Asset
-          <MainMyAssetInfoInnerTopBoxIcon>
-            {address && <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} />}
-          </MainMyAssetInfoInnerTopBoxIcon>
-        </MainMyAssetInfoInnerTopBox>
-        <MainMyAssetInfoInnerBottomBox>
-          <MainMyAssetInfoInnerBottomTitleBox>Balance</MainMyAssetInfoInnerBottomTitleBox>
-          <MainMyAssetInfoInnerBottomValue>
-            {isRefreshing ? <Loader /> : `${balance === 0 || balance ? balance.toFixed(3) : "-.--"} TON`}
-          </MainMyAssetInfoInnerBottomValue>
-        </MainMyAssetInfoInnerBottomBox>
-        <MainMyAssetInfoInnerBottomBox>
-          <MainMyAssetInfoInnerBottomTitleBox>Staked</MainMyAssetInfoInnerBottomTitleBox>
-          <MainMyAssetInfoInnerBottomValue>
-            {isError ? "-.-- TON" : isLoading || isRefreshing ? <Loader /> : `${totalStaked.toFixed(3)} TON`}
-          </MainMyAssetInfoInnerBottomValue>
-        </MainMyAssetInfoInnerBottomBox>
-      </MainMyAssetInfoInnerBox>
+    <MyAssetWrapper>
+      <AssetInnerBox>
+        <AssetTopBox>
+          <AssetTopLeft>
+            <AssetLeftItem $isActive={view === "dashboard"} onClick={() => handleViewChange("dashboard")}>
+              Dashboard
+            </AssetLeftItem>
+            <AssetLeftItem $isActive={view === "asset"} onClick={() => handleViewChange("asset")}>
+              My Asset
+            </AssetLeftItem>
+          </AssetTopLeft>
+
+          <AssetTopRight>{address && <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} />}</AssetTopRight>
+        </AssetTopBox>
+
+        {view === "dashboard" ? (
+          <>
+            <AssetBottomLeft>
+              <AssetBottomTitle>Balance</AssetBottomTitle>
+              <AssetBottomLeftItemValue>
+                {isRefreshing ? (
+                  <Loader />
+                ) : (
+                  <>
+                    <h4>{balance === 0 || balance ? balance.toFixed(3) : "-.--"}</h4> <span>TON</span>
+                  </>
+                )}
+              </AssetBottomLeftItemValue>
+            </AssetBottomLeft>
+
+            <AssetBottomBox>
+              <AssetBottomTitle>Staked</AssetBottomTitle>
+              <AssetBottomValue>
+                {isError ? "-.-- TON" : isLoading || isRefreshing ? <Loader /> : `${totalStaked.toFixed(3)} TON`}
+              </AssetBottomValue>
+            </AssetBottomBox>
+          </>
+        ) : (
+          <AssetBottomBox>
+            <AssetBottomLeft>
+              <AssetBottomLeftItem>
+                <AssetBottomLeftItemTitle>Balance</AssetBottomLeftItemTitle>
+                <AssetBottomLeftItemValue>
+                  {isRefreshing ? (
+                    <Loader />
+                  ) : (
+                    <>
+                      <h4>{balance === 0 || balance ? balance.toFixed(3) : "-.--"}</h4> <span>TON</span>
+                    </>
+                  )}
+                </AssetBottomLeftItemValue>
+              </AssetBottomLeftItem>
+
+              <AssetBottomLeftItem>
+                <AssetBottomLeftItemTitle>Staked</AssetBottomLeftItemTitle>
+                <AssetBottomLeftItemValue>
+                  {isRefreshing ? (
+                    <Loader />
+                  ) : (
+                    <>
+                      <h4>{isError ? "-.-- TON" : isLoading || isRefreshing ? <Loader /> : totalStaked.toFixed(3)}</h4>
+                      <span>TON</span>
+                    </>
+                  )}
+                </AssetBottomLeftItemValue>
+              </AssetBottomLeftItem>
+            </AssetBottomLeft>
+
+            <AssetBottomRight>
+              <AssetBottomRightItem>
+                <span>PNL</span>
+                <h4>
+                  {performanceLoading ? (
+                    <Loader />
+                  ) : performanceData?.pnlRate ? (
+                    `${limitDecimals(performanceData?.pnlRate, 3)}%`
+                  ) : (
+                    "-"
+                  )}
+                </h4>
+              </AssetBottomRightItem>
+            </AssetBottomRight>
+          </AssetBottomBox>
+        )}
+      </AssetInnerBox>
 
       <MainButton />
-    </MainMyAssetInfoWrapper>
+    </MyAssetWrapper>
   );
 };
 
 export default MainMyAssetInfo;
-
-const MainMyAssetInfoWrapper = styled.div`
-  width: 100%;
-  padding: 0 0.6rem 1rem 0.6rem;
-
-  background-color: #fff;
-`;
-
-const MainMyAssetInfoInnerBox = styled.div`
-  width: 100%;
-  padding: 2.3rem 2.1rem 2.7rem 2.3rem;
-
-  border-radius: 3.2rem;
-  background: linear-gradient(270deg, #002639 0%, #001b29 28.13%, #000 100%);
-`;
-
-const MainMyAssetInfoInnerTopBox = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  margin-bottom: 2.4rem;
-
-  color: #c6c5d0;
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
-`;
-
-const MainMyAssetInfoInnerTopBoxIcon = styled.div<{ $isRefreshing?: boolean }>`
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-`;
-
-const MainMyAssetInfoInnerBottomBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  & + & {
-    margin-top: 2rem;
-  }
-`;
-
-const MainMyAssetInfoInnerBottomTitleBox = styled.div`
-  width: 77px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 0.8rem 1.6rem;
-
-  border-radius: 4rem;
-  border: 0.1rem solid #5d5e67;
-
-  color: #c6c5d0;
-  ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
-`;
-
-const MainMyAssetInfoInnerBottomValue = styled.span`
-  color: #fff;
-  ${({ theme }) => theme.fonts.Nexton_Title_Large_2};
-`;
