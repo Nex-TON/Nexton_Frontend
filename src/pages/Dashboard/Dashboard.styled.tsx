@@ -131,7 +131,7 @@ export const PerformanceItem = styled.div`
 
   border-radius: 20px;
   background: #fff;
-  box-shadow: 4px 4px 16px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 4px 4px 16px 0px rgba(206, 216, 225, 0.5);
 
   padding: 2.4rem;
   margin-top: 1rem;
@@ -250,7 +250,7 @@ export const TonPriceItem = styled.div`
 
   border-radius: 20px;
   background: #fff;
-  box-shadow: 4px 4px 16px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 4px 4px 16px 0px rgba(206, 216, 225, 0.5);
 `;
 
 export const TonPriceItemLeft = styled.div`
