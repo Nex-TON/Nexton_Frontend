@@ -1,13 +1,13 @@
 import { styled } from "styled-components";
 
-export const MyAssetWrapper = styled.div`
+export const MainWrapper = styled.div`
   width: 100%;
   padding: 0 0.6rem 1rem 0.6rem;
 
   background-color: #fff;
 `;
 
-export const AssetInnerBox = styled.div`
+export const MainInnerBox = styled.div`
   height: 215px;
   width: 100%;
   display: flex;
@@ -19,25 +19,25 @@ export const AssetInnerBox = styled.div`
   background: linear-gradient(270deg, #002639 0%, #001b29 28.13%, #000 100%);
 `;
 
-export const AssetTopBox = styled.div`
+export const MainTopBox = styled.div<{ $isConnected: boolean }>`
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   width: 100%;
-  margin-bottom: 2.9rem;
+  margin-bottom: ${({ $isConnected }) => ($isConnected ? "2.9rem" : "0")};
 
   color: #c6c5d0;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
 `;
 
-export const AssetTopLeft = styled.div<{ $isActive?: boolean }>`
+export const MainTopLeft = styled.div<{ $isActive?: boolean }>`
   display: flex;
   align-items: center;
 `;
 
-export const AssetLeftItem = styled.div<{ $isActive?: boolean }>`
+export const MainLeftItem = styled.div<{ $isActive?: boolean }>`
   padding: 0.7rem 1.3rem;
 
   cursor: pointer;
@@ -47,7 +47,7 @@ export const AssetLeftItem = styled.div<{ $isActive?: boolean }>`
   border-bottom: ${({ $isActive }) => ($isActive ? "0.2rem solid #fff" : "0.2rem solid #FFFFFF4D")};
 `;
 
-export const AssetTopRight = styled.div`
+export const MainTopRight = styled.div`
   position: absolute;
   right: 0;
   top: 50%;
@@ -58,16 +58,32 @@ export const AssetBottomBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex: 1;
 
-  & + & {
-    margin-top: 2rem;
+  margin-bottom: 2rem;
+`;
+
+export const AssetBottomNotConnected = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: start;
+
+  cursor: pointer;
+
+  p {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Large};
+    color: #fff;
+    margin-left: 0.7rem;
+    margin-right: 1.1rem;
   }
 `;
 
 export const AssetBottomLeft = styled.div`
-  width: 60%;
+  height: 100%;
+  width: 50%;
   display: flex;
   flex-direction: column;
+  justify-content: end;
 
   gap: 2.5rem;
 `;
@@ -89,7 +105,7 @@ export const AssetBottomRight = styled.div`
 export const AssetBottomRightItem = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   gap: 0.3rem;
 
   span {
@@ -143,4 +159,36 @@ export const AssetBottomTitle = styled.div`
 export const AssetBottomValue = styled.span`
   color: #fff;
   ${({ theme }) => theme.fonts.Nexton_Title_Large_2};
+`;
+
+export const DashboardBottomBox = styled(AssetBottomBox)``;
+
+export const DashboardBottomLeft = styled(AssetBottomLeft)`
+  justify-content: start;
+  width: 80%;
+`;
+
+export const DashboardBottomLeftTitle = styled.h3`
+  ${({ theme }) => theme.fonts.Nexton_Title_Large_2};
+  color: #fff;
+`;
+
+export const DashboardBottomLeftData = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 2rem;
+`;
+
+export const DashboardBottomLeftDataItem = styled(AssetBottomRightItem)`
+  align-items: start;
+`;
+
+export const DashboardBottomRight = styled(AssetBottomRight)`
+  width: 20%;
+  align-items: end;
+  justify-content: center;
+
+  cursor: pointer;
 `;

@@ -1,6 +1,6 @@
 import { TailSpin } from "react-loader-spinner";
 
-const Loader = ({ height = 30, width = 30 }: { height?: number; width?: number }) => {
+const Loader = ({ height = 25, width = 25 }: { height?: number; width?: number }) => {
   return (
     <TailSpin
       visible={true}

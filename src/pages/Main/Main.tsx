@@ -19,7 +19,7 @@ const tele = (window as any).Telegram.WebApp;
 
 const Main = () => {
   const location = useLocation();
-  const { address, balance, refreshTonData } = useTonConnect();
+  const { address, balance, refreshTonData, connected, tonConnectUI } = useTonConnect();
   const { nftList, isLoading, isError } = useStakeInfo(address);
 
   const { trigger: triggerManageReferral } = useManageReferral();
@@ -156,8 +156,10 @@ const Main = () => {
       {modal && <WelcomeModal toggleModal={toggleModal} />}
 
       <MainWrapper>
-        <Header isOpen={false} text="NEXTON" backgroundType={false} />
+        <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} tonConnectUI={tonConnectUI} />
         <MainMyAssetInfo
+          tonConnectUI={tonConnectUI}
+          connected={connected}
           address={address}
           balance={balance}
           refreshTonData={refreshTonData}

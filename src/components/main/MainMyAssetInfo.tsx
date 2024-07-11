@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { mutate } from "swr";
 
+import IcArrowRight from "@/assets/icons/MyAsset/ic_arrow_right.svg";
 import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
+import IcSmallArrowRight from "@/assets/icons/MyAsset/ic_small_arrow_right.svg";
+import IcWallet from "@/assets/icons/MyAsset/ic_wallet.svg";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import {
   AssetBottomBox,
@@ -9,16 +13,21 @@ import {
   AssetBottomLeftItem,
   AssetBottomLeftItemTitle,
   AssetBottomLeftItemValue,
+  AssetBottomNotConnected,
   AssetBottomRight,
   AssetBottomRightItem,
-  AssetBottomTitle,
-  AssetBottomValue,
-  AssetInnerBox,
-  AssetLeftItem,
-  AssetTopBox,
-  AssetTopLeft,
-  AssetTopRight,
-  MyAssetWrapper,
+  DashboardBottomBox,
+  DashboardBottomLeft,
+  DashboardBottomLeftData,
+  DashboardBottomLeftDataItem,
+  DashboardBottomLeftTitle,
+  DashboardBottomRight,
+  MainInnerBox,
+  MainLeftItem,
+  MainTopBox,
+  MainTopLeft,
+  MainTopRight,
+  MainWrapper,
 } from "@/pages/Menu/Menu.styled";
 import { limitDecimals } from "@/utils/limitDecimals";
 
@@ -31,6 +40,8 @@ type AssetsView = "dashboard" | "asset";
 const tele = (window as any).Telegram.WebApp;
 
 const MainMyAssetInfo = ({
+  tonConnectUI,
+  connected,
   address,
   balance,
   refreshTonData,
@@ -38,6 +49,8 @@ const MainMyAssetInfo = ({
   isLoading,
   isError,
 }: {
+  tonConnectUI: any;
+  connected: boolean;
   address: string;
   balance: number;
   refreshTonData: () => Promise<void>;
@@ -45,11 +58,13 @@ const MainMyAssetInfo = ({
   isLoading: boolean;
   isError: boolean;
 }) => {
+  const navigate = useNavigate();
+
   const [userId, setUserId] = useState<number>();
   const [view, setView] = useState<AssetsView>("dashboard");
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary(userId);
+  const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary(/* userId */ 1);
 
   useEffect(() => {
     if (tele) {
@@ -81,94 +96,132 @@ const MainMyAssetInfo = ({
   };
 
   return (
-    <MyAssetWrapper>
-      <AssetInnerBox>
-        <AssetTopBox>
-          <AssetTopLeft>
-            <AssetLeftItem $isActive={view === "dashboard"} onClick={() => handleViewChange("dashboard")}>
+    <MainWrapper>
+      <MainInnerBox>
+        <MainTopBox $isConnected={connected}>
+          <MainTopLeft>
+            <MainLeftItem $isActive={view === "dashboard"} onClick={() => handleViewChange("dashboard")}>
               Dashboard
-            </AssetLeftItem>
-            <AssetLeftItem $isActive={view === "asset"} onClick={() => handleViewChange("asset")}>
+            </MainLeftItem>
+            <MainLeftItem $isActive={view === "asset"} onClick={() => handleViewChange("asset")}>
               My Asset
-            </AssetLeftItem>
-          </AssetTopLeft>
+            </MainLeftItem>
+          </MainTopLeft>
 
-          <AssetTopRight>{address && <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} />}</AssetTopRight>
-        </AssetTopBox>
+          <MainTopRight>{address && <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} />}</MainTopRight>
+        </MainTopBox>
 
         {view === "dashboard" ? (
-          <>
-            <AssetBottomLeft>
-              <AssetBottomTitle>Balance</AssetBottomTitle>
-              <AssetBottomLeftItemValue>
-                {isRefreshing ? (
-                  <Loader />
-                ) : (
-                  <>
-                    <h4>{balance === 0 || balance ? balance.toFixed(3) : "-.--"}</h4> <span>TON</span>
-                  </>
-                )}
-              </AssetBottomLeftItemValue>
-            </AssetBottomLeft>
+          <DashboardBottomBox>
+            <DashboardBottomLeft>
+              <DashboardBottomLeftTitle>Arbitrage Bot</DashboardBottomLeftTitle>
+              <DashboardBottomLeftData>
+                <DashboardBottomLeftDataItem>
+                  <span>bot PNL</span>
+                  <h4>
+                    {performanceLoading ? (
+                      <Loader />
+                    ) : performanceData?.pnlRate ? (
+                      `${performanceData?.pnlRate.toFixed(3)}%`
+                    ) : (
+                      "-"
+                    )}
+                  </h4>
+                </DashboardBottomLeftDataItem>
+                <DashboardBottomLeftDataItem>
+                  <span>Daily PNL</span>
+                  <h4>
+                    {performanceLoading ? (
+                      <Loader />
+                    ) : performanceData?.pnlWinRate ? (
+                      `${performanceData?.pnlRate.toFixed(0)}%`
+                    ) : (
+                      "-"
+                    )}
+                  </h4>
+                </DashboardBottomLeftDataItem>
+                <DashboardBottomLeftDataItem>
+                  <span>Stakers</span>
+                  <h4>
+                    {performanceLoading ? (
+                      <Loader />
+                    ) : performanceData?.subscribedCount ? (
+                      `${performanceData?.subscribedCount.toFixed(0)}`
+                    ) : (
+                      "-"
+                    )}
+                  </h4>
+                </DashboardBottomLeftDataItem>
+              </DashboardBottomLeftData>
+            </DashboardBottomLeft>
 
-            <AssetBottomBox>
-              <AssetBottomTitle>Staked</AssetBottomTitle>
-              <AssetBottomValue>
-                {isError ? "-.-- TON" : isLoading || isRefreshing ? <Loader /> : `${totalStaked.toFixed(3)} TON`}
-              </AssetBottomValue>
-            </AssetBottomBox>
-          </>
+            <DashboardBottomRight onClick={() => navigate("/dashboard")}>
+              <img src={IcSmallArrowRight} alt="small_arrow_right" />
+            </DashboardBottomRight>
+          </DashboardBottomBox>
         ) : (
           <AssetBottomBox>
-            <AssetBottomLeft>
-              <AssetBottomLeftItem>
-                <AssetBottomLeftItemTitle>Balance</AssetBottomLeftItemTitle>
-                <AssetBottomLeftItemValue>
-                  {isRefreshing ? (
-                    <Loader />
-                  ) : (
-                    <>
-                      <h4>{balance === 0 || balance ? balance.toFixed(3) : "-.--"}</h4> <span>TON</span>
-                    </>
-                  )}
-                </AssetBottomLeftItemValue>
-              </AssetBottomLeftItem>
+            {!connected ? (
+              <AssetBottomNotConnected onClick={() => tonConnectUI.connectWallet()}>
+                <img src={IcWallet} alt="icon_wallet" />
+                <p>Please connect your wallet.</p>
+                <img src={IcArrowRight} alt="icon_arrow_right" />
+              </AssetBottomNotConnected>
+            ) : (
+              <>
+                <AssetBottomLeft>
+                  <AssetBottomLeftItem>
+                    <AssetBottomLeftItemTitle>Balance</AssetBottomLeftItemTitle>
+                    <AssetBottomLeftItemValue>
+                      {isRefreshing ? (
+                        <Loader />
+                      ) : (
+                        <>
+                          <h4>{balance === 0 || balance ? balance.toFixed(3) : "-.--"}</h4> <span>TON</span>
+                        </>
+                      )}
+                    </AssetBottomLeftItemValue>
+                  </AssetBottomLeftItem>
 
-              <AssetBottomLeftItem>
-                <AssetBottomLeftItemTitle>Staked</AssetBottomLeftItemTitle>
-                <AssetBottomLeftItemValue>
-                  {isRefreshing ? (
-                    <Loader />
-                  ) : (
-                    <>
-                      <h4>{isError ? "-.-- TON" : isLoading || isRefreshing ? <Loader /> : totalStaked.toFixed(3)}</h4>
-                      <span>TON</span>
-                    </>
-                  )}
-                </AssetBottomLeftItemValue>
-              </AssetBottomLeftItem>
-            </AssetBottomLeft>
+                  <AssetBottomLeftItem>
+                    <AssetBottomLeftItemTitle>Staked</AssetBottomLeftItemTitle>
+                    <AssetBottomLeftItemValue>
+                      {isRefreshing ? (
+                        <Loader />
+                      ) : (
+                        <>
+                          <h4>
+                            {isError ? "-.-- TON" : isLoading || isRefreshing ? <Loader /> : totalStaked.toFixed(3)}
+                          </h4>
+                          <span>TON</span>
+                        </>
+                      )}
+                    </AssetBottomLeftItemValue>
+                  </AssetBottomLeftItem>
+                </AssetBottomLeft>
 
-            <AssetBottomRight>
-              <AssetBottomRightItem>
-                <span>PNL</span>
-                <h4>
-                  {performanceLoading ? (
-                    <Loader />
-                  ) : performanceData?.pnlRate ? (
-                    `${limitDecimals(performanceData?.pnlRate, 3)}%`
-                  ) : (
-                    "-"
-                  )}
-                </h4>
-              </AssetBottomRightItem>
-            </AssetBottomRight>
+                <AssetBottomRight>
+                  <AssetBottomRightItem>
+                    <span>bot PNL</span>
+                    <h4>
+                      {performanceLoading ? (
+                        <Loader />
+                      ) : performanceData?.pnlRate ? (
+                        `${limitDecimals(performanceData?.pnlRate, 3)}%`
+                      ) : (
+                        "-"
+                      )}
+                    </h4>
+                  </AssetBottomRightItem>
+                </AssetBottomRight>
+              </>
+            )}
           </AssetBottomBox>
         )}
-      </AssetInnerBox>
+      </MainInnerBox>
 
       <MainButton />
-    </MyAssetWrapper>
+    </MainWrapper>
   );
 };
 
