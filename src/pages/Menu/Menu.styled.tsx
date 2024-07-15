@@ -15,6 +15,7 @@ export const MainInnerBox = styled.div`
   flex-direction: column;
 
   padding: 2.3rem 2.1rem 2.7rem 2.3rem;
+  margin-bottom: 1.2rem;
 
   border-radius: 3.2rem;
   background: linear-gradient(270deg, #002639 0%, #001b29 28.13%, #000 100%);
@@ -125,8 +126,9 @@ export const AssetBottomRightItem = styled.div`
   gap: 0.3rem;
 
   span {
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
     color: #c6c5d0;
+    text-transform: capitalize;
   }
 
   h4 {
@@ -152,8 +154,9 @@ export const AssetBottomLeftItemValue = styled.div`
   }
 
   span {
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
     align-self: flex-end;
+    text-transform: capitalize;
   }
 `;
 
@@ -201,11 +204,19 @@ export const DashboardBottomLeftData = styled.div`
 
 export const DashboardBottomLeftDataItem = styled(AssetBottomRightItem)`
   align-items: start;
+  text-transform: capitalize;
 `;
 
 export const DashboardBottomRight = styled(AssetBottomRight)`
-  width: 20%;
-  align-items: end;
+  width: 10%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  z-index: 10;
+  border-radius: 0 3.2rem 3.2rem 0;
+
+  align-items: center;
   justify-content: center;
 
   cursor: pointer;
