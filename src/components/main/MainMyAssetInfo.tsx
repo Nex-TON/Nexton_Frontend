@@ -6,6 +6,7 @@ import IcArrowRight from "@/assets/icons/MyAsset/ic_arrow_right.svg";
 import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
 import IcSmallArrowRight from "@/assets/icons/MyAsset/ic_small_arrow_right.svg";
 import IcWallet from "@/assets/icons/MyAsset/ic_wallet.svg";
+import MyAssetsDashboardBg from "@/assets/image/MyAssetsDashboardBg.png";
 import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceChart";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import {
@@ -101,7 +102,7 @@ const MainMyAssetInfo = ({
   return (
     <MainWrapper>
       <MainInnerBox>
-        <BackgroundChart $isVisible={view === "dashboard"} />
+        <BackgroundChart $isVisible={view === "dashboard"} $src={MyAssetsDashboardBg} />
 
         <MainTopBox $marginBottom={connected || view === "dashboard"}>
           <MainTopLeft>

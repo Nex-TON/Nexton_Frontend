@@ -20,7 +20,7 @@ export const MainInnerBox = styled.div`
   background: linear-gradient(270deg, #002639 0%, #001b29 28.13%, #000 100%);
 `;
 
-export const BackgroundChart = styled.div<{ $isVisible: boolean }>`
+export const BackgroundChart = styled.div<{ $isVisible: boolean; $src: string }>`
   position: absolute;
   width: 241px;
   top: 0;
@@ -28,7 +28,7 @@ export const BackgroundChart = styled.div<{ $isVisible: boolean }>`
   bottom: 0;
   z-index: 0;
   pointer-events: none; // Ensures the image doesn't interfere with interactions
-  background-image: ${({ $isVisible }) => ($isVisible ? "url('/src/assets/image/MyAssetsDashboardBg.png')" : "none")};
+  background-image: ${({ $isVisible, $src }) => ($isVisible ? `url(${$src})` : "none")};
   background-size: cover;
   background-position: center;
 
