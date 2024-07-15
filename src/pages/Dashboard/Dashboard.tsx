@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useSetRecoilState } from "recoil";
 
@@ -55,6 +55,7 @@ const chartTimeFrameOptions: Record<TimeFrame | "All", number> = {
 };
 
 const Dashboard = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const setError = useSetRecoilState(globalError);
 
@@ -80,7 +81,8 @@ const Dashboard = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/menu");
+        const { prev } = location.state;
+        navigate(prev ? prev : "/");
       });
 
       const tgUser = tele.initDataUnsafe?.user;

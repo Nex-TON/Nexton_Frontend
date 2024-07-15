@@ -120,7 +120,7 @@ const MainMyAssetInfo = ({
         </MainTopBox>
 
         {view === "dashboard" ? (
-          <DashboardBottomBox>
+          <DashboardBottomBox onClick={() => navigate("/dashboard")}>
             <DashboardBottomLeft>
               <DashboardBottomLeftTitle>Arbitrage Bot</DashboardBottomLeftTitle>
               <DashboardBottomLeftData>

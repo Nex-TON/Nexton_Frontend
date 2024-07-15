@@ -182,6 +182,7 @@ export const AssetBottomValue = styled.span`
 
 export const DashboardBottomBox = styled(AssetBottomBox)`
   margin-bottom: 0;
+  cursor: pointer;
 `;
 
 export const DashboardBottomLeft = styled(AssetBottomLeft)`
