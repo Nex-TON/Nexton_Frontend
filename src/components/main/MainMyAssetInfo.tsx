@@ -6,6 +6,7 @@ import IcArrowRight from "@/assets/icons/MyAsset/ic_arrow_right.svg";
 import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
 import IcSmallArrowRight from "@/assets/icons/MyAsset/ic_small_arrow_right.svg";
 import IcWallet from "@/assets/icons/MyAsset/ic_wallet.svg";
+import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceChart";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import {
   AssetBottomBox,
@@ -16,6 +17,7 @@ import {
   AssetBottomNotConnected,
   AssetBottomRight,
   AssetBottomRightItem,
+  BackgroundChart,
   DashboardBottomBox,
   DashboardBottomLeft,
   DashboardBottomLeftData,
@@ -64,7 +66,8 @@ const MainMyAssetInfo = ({
   const [view, setView] = useState<AssetsView>("dashboard");
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary(/* userId */ 1);
+  const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary(userId);
+  const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
 
   useEffect(() => {
     if (tele) {
@@ -73,9 +76,9 @@ const MainMyAssetInfo = ({
       const tgUser = tele.initDataUnsafe?.user;
       if (tgUser) {
         setUserId(tgUser?.id);
-      } else {
-        console.warn("You should launch the app inside the Telegram Mini App.");
       }
+    } else {
+      console.warn("You should launch the app inside the Telegram Mini App.");
     }
   }, []);
 
@@ -98,7 +101,9 @@ const MainMyAssetInfo = ({
   return (
     <MainWrapper>
       <MainInnerBox>
-        <MainTopBox $isConnected={connected}>
+        <BackgroundChart $isVisible={view === "dashboard"} />
+
+        <MainTopBox $marginBottom={connected || view === "dashboard"}>
           <MainTopLeft>
             <MainLeftItem $isActive={view === "dashboard"} onClick={() => handleViewChange("dashboard")}>
               Dashboard
@@ -108,7 +113,9 @@ const MainMyAssetInfo = ({
             </MainLeftItem>
           </MainTopLeft>
 
-          <MainTopRight>{address && <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} />}</MainTopRight>
+          {view === "asset" && (
+            <MainTopRight>{address && <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} />}</MainTopRight>
+          )}
         </MainTopBox>
 
         {view === "dashboard" ? (
@@ -116,42 +123,30 @@ const MainMyAssetInfo = ({
             <DashboardBottomLeft>
               <DashboardBottomLeftTitle>Arbitrage Bot</DashboardBottomLeftTitle>
               <DashboardBottomLeftData>
-                <DashboardBottomLeftDataItem>
-                  <span>bot PNL</span>
-                  <h4>
-                    {performanceLoading ? (
-                      <Loader />
-                    ) : performanceData?.pnlRate ? (
-                      `${performanceData?.pnlRate.toFixed(3)}%`
-                    ) : (
-                      "-"
-                    )}
-                  </h4>
-                </DashboardBottomLeftDataItem>
-                <DashboardBottomLeftDataItem>
-                  <span>Daily PNL</span>
-                  <h4>
-                    {performanceLoading ? (
-                      <Loader />
-                    ) : performanceData?.pnlWinRate ? (
-                      `${performanceData?.pnlRate.toFixed(0)}%`
-                    ) : (
-                      "-"
-                    )}
-                  </h4>
-                </DashboardBottomLeftDataItem>
-                <DashboardBottomLeftDataItem>
-                  <span>Stakers</span>
-                  <h4>
-                    {performanceLoading ? (
-                      <Loader />
-                    ) : performanceData?.subscribedCount ? (
-                      `${performanceData?.subscribedCount.toFixed(0)}`
-                    ) : (
-                      "-"
-                    )}
-                  </h4>
-                </DashboardBottomLeftDataItem>
+                {performanceLoading || chartLoading ? (
+                  <Loader />
+                ) : (
+                  <>
+                    <DashboardBottomLeftDataItem>
+                      <span>bot PNL</span>
+                      <h4>{performanceData?.pnlRate ? `${performanceData?.pnlRate.toFixed(3)}%` : "-"}</h4>
+                    </DashboardBottomLeftDataItem>
+                    <DashboardBottomLeftDataItem>
+                      <span>Daily PNL</span>
+                      <h4>
+                        {chartData?.dailyPnlRate
+                          ? `${chartData?.dailyPnlRate > 0 ? "+" : ""}${chartData?.dailyPnlRate}%`
+                          : "-"}
+                      </h4>
+                    </DashboardBottomLeftDataItem>
+                    <DashboardBottomLeftDataItem>
+                      <span>Stakers</span>
+                      <h4>
+                        {performanceData?.subscribedCount ? `${performanceData?.subscribedCount.toFixed(0)}` : "-"}
+                      </h4>
+                    </DashboardBottomLeftDataItem>
+                  </>
+                )}
               </DashboardBottomLeftData>
             </DashboardBottomLeft>
 

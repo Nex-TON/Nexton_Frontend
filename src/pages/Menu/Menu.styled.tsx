@@ -8,6 +8,7 @@ export const MainWrapper = styled.div`
 `;
 
 export const MainInnerBox = styled.div`
+  position: relative;
   height: 215px;
   width: 100%;
   display: flex;
@@ -19,14 +20,29 @@ export const MainInnerBox = styled.div`
   background: linear-gradient(270deg, #002639 0%, #001b29 28.13%, #000 100%);
 `;
 
-export const MainTopBox = styled.div<{ $isConnected: boolean }>`
+export const BackgroundChart = styled.div<{ $isVisible: boolean }>`
+  position: absolute;
+  width: 241px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none; // Ensures the image doesn't interfere with interactions
+  background-image: ${({ $isVisible }) => ($isVisible ? "url('/src/assets/image/MyAssetsDashboardBg.png')" : "none")};
+  background-size: cover;
+  background-position: center;
+
+  border-radius: 0 3.2rem 3.2rem 0;
+`;
+
+export const MainTopBox = styled.div<{ $marginBottom: boolean }>`
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   width: 100%;
-  margin-bottom: ${({ $isConnected }) => ($isConnected ? "2.9rem" : "0")};
+  margin-bottom: ${({ $marginBottom }) => ($marginBottom ? "2.9rem" : "0")};
 
   color: #c6c5d0;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
@@ -161,7 +177,9 @@ export const AssetBottomValue = styled.span`
   ${({ theme }) => theme.fonts.Nexton_Title_Large_2};
 `;
 
-export const DashboardBottomBox = styled(AssetBottomBox)``;
+export const DashboardBottomBox = styled(AssetBottomBox)`
+  margin-bottom: 0;
+`;
 
 export const DashboardBottomLeft = styled(AssetBottomLeft)`
   justify-content: start;
