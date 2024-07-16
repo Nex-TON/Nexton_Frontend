@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { mutate } from "swr";
 
 import Header from "@/components/common/Header";
+import ActionCards from "@/components/main/ActionCards";
 import MainMyAssetInfo from "@/components/main/MainMyAssetInfo";
 import { WelcomeModal } from "@/components/main/Modal/WelcomeModal";
 import StakeView from "@/components/main/StakeView/StakeView";
@@ -168,6 +169,7 @@ const Main = () => {
           isError={isError}
         />
         <MainBorder />
+        <ActionCards />
         <StakeView />
       </MainWrapper>
 
