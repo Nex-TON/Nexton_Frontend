@@ -47,7 +47,7 @@ const ActionCardsWrapper = styled.div`
 `;
 
 const Card = styled.div<{ $dark?: boolean; $large?: boolean }>`
-  flex: ${({ $large }) => ($large ? 2 : 1)};
+  flex: ${({ $large }) => ($large ? 1.65 : 1)};
   height: 145px;
   padding: 1.6rem;
   border-radius: 2rem;
