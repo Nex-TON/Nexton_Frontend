@@ -132,7 +132,8 @@ export const AssetBottomRightItem = styled.div`
   }
 
   h4 {
-    ${({ theme }) => theme.fonts.Nexton_Title_Large_2};
+    ${({ theme }) => theme.fonts.Nexton_Title_Large_Small};
+    font-size: 2rem;
     background-image: linear-gradient(134deg, #6bd3ff 7.39%, #3461ff 97.6%);
     color: transparent;
     background-clip: text;
