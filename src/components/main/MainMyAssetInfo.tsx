@@ -6,10 +6,10 @@ import IcArrowRight from "@/assets/icons/MyAsset/ic_arrow_right.svg";
 import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
 import IcSmallArrowRight from "@/assets/icons/MyAsset/ic_small_arrow_right.svg";
 import IcWallet from "@/assets/icons/MyAsset/ic_wallet.svg";
-import MyAssetsDashboardBg from "@/assets/image/MyAssetsDashboardBg.png";
 import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceChart";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import {
+  APYBox,
   AssetBottomBox,
   AssetBottomLeft,
   AssetBottomLeftItem,
@@ -18,12 +18,12 @@ import {
   AssetBottomNotConnected,
   AssetBottomRight,
   AssetBottomRightItem,
-  BackgroundChart,
   DashboardBottomBox,
   DashboardBottomLeft,
   DashboardBottomLeftData,
   DashboardBottomLeftDataItem,
   DashboardBottomLeftTitle,
+  DashboardBottomLeftTitleBox,
   DashboardBottomRight,
   MainInnerBox,
   MainLeftItem,
@@ -39,8 +39,6 @@ import Loader from "../common/Loader";
 import MainButton from "./MainButton";
 
 type AssetsView = "dashboard" | "asset";
-
-const tele = (window as any).Telegram.WebApp;
 
 const MainMyAssetInfo = ({
   tonConnectUI,
@@ -63,25 +61,11 @@ const MainMyAssetInfo = ({
 }) => {
   const navigate = useNavigate();
 
-  const [userId, setUserId] = useState<number>();
   const [view, setView] = useState<AssetsView>("dashboard");
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary(userId);
+  const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary();
   const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
-
-  useEffect(() => {
-    if (tele) {
-      tele.ready();
-
-      const tgUser = tele.initDataUnsafe?.user;
-      if (tgUser) {
-        setUserId(tgUser?.id);
-      }
-    } else {
-      console.warn("You should launch the app inside the Telegram Mini App.");
-    }
-  }, []);
 
   const handleViewChange = (view: AssetsView) => {
     setView(view);
@@ -102,7 +86,8 @@ const MainMyAssetInfo = ({
   return (
     <MainWrapper>
       <MainInnerBox>
-        <BackgroundChart $isVisible={view === "dashboard"} $src={MyAssetsDashboardBg} />
+        {/* Will be removed in next release */}
+        {/* <BackgroundChart $isVisible={view === "dashboard"} $src={MyAssetsDashboardBg} /> */}
 
         <MainTopBox $marginBottom={connected || view === "dashboard"}>
           <MainTopLeft>
@@ -122,7 +107,15 @@ const MainMyAssetInfo = ({
         {view === "dashboard" ? (
           <DashboardBottomBox onClick={() => navigate("/dashboard")}>
             <DashboardBottomLeft>
-              <DashboardBottomLeftTitle>Arbitrage Bot</DashboardBottomLeftTitle>
+              <DashboardBottomLeftTitleBox>
+                <DashboardBottomLeftTitle>Arbitrage Bot</DashboardBottomLeftTitle>
+
+                <APYBox>
+                  <span>APY</span>
+                  <h4>{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</h4>
+                </APYBox>
+              </DashboardBottomLeftTitleBox>
+
               <DashboardBottomLeftData>
                 {performanceLoading || chartLoading ? (
                   <Loader />
@@ -146,14 +139,18 @@ const MainMyAssetInfo = ({
                         {performanceData?.subscribedCount ? `${performanceData?.subscribedCount.toFixed(0)}` : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
+
+                    <DashboardBottomLeftDataItem onClick={() => navigate("/dashboard")}>
+                      <img src={IcSmallArrowRight} alt="small_arrow_right" />
+                    </DashboardBottomLeftDataItem>
                   </>
                 )}
               </DashboardBottomLeftData>
             </DashboardBottomLeft>
 
-            <DashboardBottomRight onClick={() => navigate("/dashboard")}>
+            {/* <DashboardBottomRight onClick={() => navigate("/dashboard")}>
               <img src={IcSmallArrowRight} alt="small_arrow_right" />
-            </DashboardBottomRight>
+            </DashboardBottomRight> */}
           </DashboardBottomBox>
         ) : (
           <AssetBottomBox>

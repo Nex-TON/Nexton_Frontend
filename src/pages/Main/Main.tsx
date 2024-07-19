@@ -8,6 +8,7 @@ import Header from "@/components/common/Header";
 import ActionCards from "@/components/main/ActionCards";
 import MainMyAssetInfo from "@/components/main/MainMyAssetInfo";
 import { WelcomeModal } from "@/components/main/Modal/WelcomeModal";
+import MyTokens from "@/components/main/MyTokens";
 import StakeView from "@/components/main/StakeView/StakeView";
 import { useManageReferral } from "@/hooks/api/referral/useManageReferral";
 import { useTrackReferral } from "@/hooks/api/referral/useTrackReferral";
@@ -170,7 +171,10 @@ const Main = () => {
         />
         <MainBorder />
         <ActionCards />
-        <StakeView />
+        {/* @deprecated */}
+        {/* <StakeView /> */}
+
+        <MyTokens />
       </MainWrapper>
 
       <ToastContainer

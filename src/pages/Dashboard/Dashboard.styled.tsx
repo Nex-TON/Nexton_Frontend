@@ -61,10 +61,16 @@ export const ChartHeaderTitle = styled.div`
   }
 `;
 
+export const ChartHeaderSubtitleBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+`;
+
 export const ChartHeaderSubtitle = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
 
   h5 {
     color: #76797a;

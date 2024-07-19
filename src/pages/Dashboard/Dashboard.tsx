@@ -17,6 +17,7 @@ import { limitDecimals } from "@/utils/limitDecimals";
 import {
   ChartHeader,
   ChartHeaderSubtitle,
+  ChartHeaderSubtitleBox,
   ChartHeaderTitle,
   ChartTimeFrame,
   ChartTimeFrameItem,
@@ -59,14 +60,9 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const setError = useSetRecoilState(globalError);
 
-  const [userId, setUserId] = useState<number>();
   const [timeFrame, setTimeFrame] = useState<TimeFrame>("1D");
 
-  const {
-    data: performanceData,
-    isLoading: performanceLoading,
-    error: performanceError,
-  } = useBotPerformanceSummary(userId);
+  const { data: performanceData, isLoading: performanceLoading, error: performanceError } = useBotPerformanceSummary();
 
   const {
     data: chartData,
@@ -84,19 +80,12 @@ const Dashboard = () => {
         const { prev } = location.state;
         navigate(prev ? prev : "/");
       });
-
-      const tgUser = tele.initDataUnsafe?.user;
-      if (tgUser) {
-        setUserId(tgUser?.id);
-      } else {
-        console.warn("You should launch the app inside the Telegram Mini App.");
-      }
     }
 
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, [navigate]);
+  }, [navigate, location.state]);
 
   // Set global error state if there is an error
   useEffect(() => {
@@ -128,12 +117,19 @@ const Dashboard = () => {
             <h4>Arbitrage Bot</h4>
           </ChartHeaderTitle>
 
-          <ChartHeaderSubtitle>
-            <h5>Daily PNL</h5>
-            <span>
-              {chartData?.dailyPnlRate > 0 && "+"} {chartData?.dailyPnlRate}%
-            </span>
-          </ChartHeaderSubtitle>
+          <ChartHeaderSubtitleBox>
+            <ChartHeaderSubtitle>
+              <h5>APY</h5>
+              <span>{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</span>
+            </ChartHeaderSubtitle>
+
+            <ChartHeaderSubtitle>
+              <h5>Daily PNL</h5>
+              <span>
+                {chartData?.dailyPnlRate > 0 && "+"} {chartData?.dailyPnlRate}%
+              </span>
+            </ChartHeaderSubtitle>
+          </ChartHeaderSubtitleBox>
         </ChartHeader>
 
         <ResponsiveContainer width="100%" height="100%">

@@ -9,7 +9,7 @@ export const MainWrapper = styled.div`
 
 export const MainInnerBox = styled.div`
   position: relative;
-  height: 215px;
+  height: 240px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@ export const MainTopBox = styled.div<{ $marginBottom: boolean }>`
   align-items: center;
 
   width: 100%;
-  margin-bottom: ${({ $marginBottom }) => ($marginBottom ? "2.9rem" : "0")};
+  margin-bottom: ${({ $marginBottom }) => ($marginBottom ? "2.1rem" : "0")};
 
   color: #c6c5d0;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
@@ -188,12 +188,47 @@ export const DashboardBottomBox = styled(AssetBottomBox)`
 
 export const DashboardBottomLeft = styled(AssetBottomLeft)`
   justify-content: start;
-  width: 80%;
+  width: 100%;
+`;
+
+export const DashboardBottomLeftTitleBox = styled.div`
+  display: flex;
+  align-items: end;
+  gap: 1.8rem;
 `;
 
 export const DashboardBottomLeftTitle = styled.h3`
   ${({ theme }) => theme.fonts.Nexton_Title_Large_2};
   color: #fff;
+`;
+
+export const APYBox = styled.div`
+  width: 130px;
+  max-width: 130px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  border-radius: 30px 30px 30px 0px;
+  border: 1px solid #7796ff;
+  background: linear-gradient(262deg, #102e34 10.02%, #142b34 21.92%, #2b1338 101.69%);
+
+  padding: 0.75rem 2.8rem 0.75rem 3.3rem;
+
+  span {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
+    color: #c6c5d0;
+    text-transform: capitalize;
+  }
+
+  h4 {
+    ${({ theme }) => theme.fonts.Nexton_Title_Large_Small};
+    font-size: 2rem;
+    background: linear-gradient(95deg, #3491ff 6.73%, #e0e7ff 41.98%, #3491ff 85.62%);
+    color: transparent;
+    background-clip: text;
+  }
 `;
 
 export const DashboardBottomLeftData = styled.div`
@@ -207,6 +242,12 @@ export const DashboardBottomLeftData = styled.div`
 export const DashboardBottomLeftDataItem = styled(AssetBottomRightItem)`
   align-items: start;
   text-transform: capitalize;
+
+  h4 {
+    ${({ theme }) => theme.fonts.Nexton_Title_Large_Small};
+    font-size: 2rem;
+    color: #fff;
+  }
 `;
 
 export const DashboardBottomRight = styled(AssetBottomRight)`
