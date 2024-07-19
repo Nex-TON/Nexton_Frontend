@@ -125,7 +125,7 @@ const MyTokensItemContent = styled.div`
 `;
 
 const MyTokensDisclaimer = styled.div`
-  margin-top: 1.6rem;
+  margin-top: 5rem;
   display: flex;
   align-items: start;
 

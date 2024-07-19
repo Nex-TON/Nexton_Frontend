@@ -97,17 +97,17 @@ export const AssetBottomNotConnected = styled.div`
 
 export const AssetBottomLeft = styled.div`
   height: 100%;
-  width: 50%;
+  width: 70%;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: center;
 
   gap: 2.5rem;
 `;
 
 export const AssetBottomLeftItem = styled.div`
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: space-between;
 `;
 
@@ -152,12 +152,15 @@ export const AssetBottomLeftItemValue = styled.div`
 
   h4 {
     ${({ theme }) => theme.fonts.Nexton_Title_Large_2};
+    font-size: 2.8rem;
   }
 
   span {
     ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
     align-self: flex-end;
     text-transform: capitalize;
+    font-size: 2.4rem;
+    font-weight: 500;
   }
 `;
 
@@ -245,7 +248,7 @@ export const DashboardBottomLeftDataItem = styled(AssetBottomRightItem)`
 
   h4 {
     ${({ theme }) => theme.fonts.Nexton_Title_Large_Small};
-    font-size: 2rem;
+    font-size: 1.6rem;
     color: #fff;
   }
 `;

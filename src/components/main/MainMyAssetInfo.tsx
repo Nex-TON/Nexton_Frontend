@@ -112,7 +112,7 @@ const MainMyAssetInfo = ({
 
                 <APYBox>
                   <span>APY</span>
-                  <h4>{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</h4>
+                  <h4>{performanceData?.apy ? `${limitDecimals(performanceData?.apy, 2)}%` : "-"}</h4>
                 </APYBox>
               </DashboardBottomLeftTitleBox>
 
@@ -123,13 +123,13 @@ const MainMyAssetInfo = ({
                   <>
                     <DashboardBottomLeftDataItem>
                       <span>bot PNL</span>
-                      <h4>{performanceData?.pnlRate ? `${performanceData?.pnlRate.toFixed(3)}%` : "-"}</h4>
+                      <h4>{performanceData?.pnlRate ? `${limitDecimals(performanceData?.pnlRate, 2)}%` : "-"}</h4>
                     </DashboardBottomLeftDataItem>
                     <DashboardBottomLeftDataItem>
                       <span>Daily PNL</span>
                       <h4>
                         {chartData?.dailyPnlRate
-                          ? `${chartData?.dailyPnlRate > 0 ? "+" : ""}${chartData?.dailyPnlRate}%`
+                          ? `${chartData?.dailyPnlRate > 0 ? "+" : ""}${limitDecimals(chartData?.dailyPnlRate, 2)}%`
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
@@ -193,20 +193,21 @@ const MainMyAssetInfo = ({
                   </AssetBottomLeftItem>
                 </AssetBottomLeft>
 
-                <AssetBottomRight>
+                {/* @deprecated */}
+                {/* <AssetBottomRight>
                   <AssetBottomRightItem>
                     <span>bot PNL</span>
                     <h4>
                       {performanceLoading ? (
                         <Loader />
                       ) : performanceData?.pnlRate ? (
-                        `${limitDecimals(performanceData?.pnlRate, 3)}%`
+                        `${limitDecimals(performanceData?.pnlRate, 2)}%`
                       ) : (
                         "-"
                       )}
                     </h4>
                   </AssetBottomRightItem>
-                </AssetBottomRight>
+                </AssetBottomRight> */}
               </>
             )}
           </AssetBottomBox>
