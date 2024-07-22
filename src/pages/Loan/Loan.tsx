@@ -1,14 +1,35 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
+import IcArrowRight from "@/assets/icons/Loan/ic_arrow_right.svg";
+import IcBars from "@/assets/icons/Loan/ic_bars.svg";
+import NFTsEmpty from "@/assets/image/Loan/NFTsEmpty.png";
+
 import LoanHeader from "../../components/loan/common/LoanHeader";
 import LoanList from "../../components/loan/LoanList";
+
+import {
+  LoanHeaderBox,
+  LoanHeaderBoxButton,
+  LoanHeaderBoxTitle,
+  LoanNFTBox,
+  LoanNFTBoxHeader,
+  LoanNFTBoxList,
+  LoanNFTBoxListEmpty,
+  LoanNFTBoxListEmptyLink,
+  LoanSwitcherBox,
+  LoanSwitcherBoxItem,
+  LoanWrapper,
+} from "./Loan.styled";
+
+type LoanView = "borrow" | "repay";
 
 const tele = (window as any).Telegram.WebApp;
 
 const Loan = () => {
   const navigate = useNavigate();
+  const [view, setView] = useState<LoanView>("borrow");
 
   useEffect(() => {
     if (tele) {
@@ -24,35 +45,53 @@ const Loan = () => {
     };
   }, []);
 
+  const handleViewChange = (view: LoanView) => {
+    setView(view);
+  };
+
   return (
     <LoanWrapper>
-      <LoanHeader />
-      <LoanList />
+      <LoanHeaderBox>
+        <LoanHeaderBoxTitle>
+          <h1>Loan</h1>
+        </LoanHeaderBoxTitle>
+
+        <LoanHeaderBoxButton>
+          <img src={IcBars} alt="loan_icon" />
+        </LoanHeaderBoxButton>
+      </LoanHeaderBox>
+
+      <LoanSwitcherBox>
+        <LoanSwitcherBoxItem $isActive={view === "borrow"} onClick={() => handleViewChange("borrow")}>
+          Borrow
+        </LoanSwitcherBoxItem>
+        <LoanSwitcherBoxItem $isActive={view === "repay"} onClick={() => handleViewChange("repay")}>
+          Repay
+        </LoanSwitcherBoxItem>
+      </LoanSwitcherBox>
+
+      <LoanNFTBox>
+        <LoanNFTBoxHeader>
+          <span>You have</span>
+          <h4>0 NFTs</h4>
+        </LoanNFTBoxHeader>
+
+        <LoanNFTBoxList>
+          <img src={NFTsEmpty} alt="nfts_empty" />
+
+          <LoanNFTBoxListEmpty>
+            <h2>No results</h2>
+            <LoanNFTBoxListEmptyLink>
+              Let’s move to staking to get new NFT <img src={IcArrowRight} alt="arrow_right" />
+            </LoanNFTBoxListEmptyLink>
+          </LoanNFTBoxListEmpty>
+        </LoanNFTBoxList>
+      </LoanNFTBox>
     </LoanWrapper>
   );
 };
 
 export default Loan;
-
-const LoanWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-
-  width: 100%;
-
-  padding: 2.9rem 2rem 2.9rem 2rem;
-`;
-
-const LoanHeaderBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-`;
 
 const LoanHeaderTop = styled.div`
   padding-top: 3rem;
