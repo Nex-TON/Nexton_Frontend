@@ -141,8 +141,9 @@ export const AssetBottomRightItem = styled.div`
 `;
 
 export const AssetBottomLeftItemTitle = styled.h3`
-  ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
   color: #c6c5d0;
+  text-transform: capitalize;
 `;
 
 export const AssetBottomLeftItemValue = styled.div`
