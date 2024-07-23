@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
+import IcAlert from "@/assets/icons/Loan/ic_alert.svg";
 import IcArrowRight from "@/assets/icons/Loan/ic_arrow_right.svg";
 import IcBars from "@/assets/icons/Loan/ic_bars.svg";
 import NFTsEmpty from "@/assets/image/Loan/NFTsEmpty.png";
@@ -20,6 +21,7 @@ import {
   LoanNFTBoxListEmptyLink,
   LoanSwitcherBox,
   LoanSwitcherBoxItem,
+  LoanSwitcherBoxTooltip,
   LoanWrapper,
 } from "./Loan.styled";
 
@@ -68,6 +70,10 @@ const Loan = () => {
         <LoanSwitcherBoxItem $isActive={view === "repay"} onClick={() => handleViewChange("repay")}>
           Repay
         </LoanSwitcherBoxItem>
+
+        <LoanSwitcherBoxTooltip onClick={() => navigate("/loan/risk-disclosure")}>
+          <img src={IcAlert} alt="alert_icon" />
+        </LoanSwitcherBoxTooltip>
       </LoanSwitcherBox>
 
       <LoanNFTBox>
@@ -77,9 +83,9 @@ const Loan = () => {
         </LoanNFTBoxHeader>
 
         <LoanNFTBoxList>
-          <img src={NFTsEmpty} alt="nfts_empty" />
-
           <LoanNFTBoxListEmpty>
+            <img src={NFTsEmpty} alt="nfts_empty" />
+
             <h2>No results</h2>
             <LoanNFTBoxListEmptyLink>
               Let’s move to staking to get new NFT <img src={IcArrowRight} alt="arrow_right" />

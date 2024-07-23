@@ -48,6 +48,7 @@ export const LoanHeaderBoxButton = styled.div`
 `;
 
 export const LoanSwitcherBox = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,6 +65,17 @@ export const LoanSwitcherBoxItem = styled.div<{ $isActive?: boolean }>`
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2};
   color: ${({ $isActive }) => ($isActive ? "#303234" : "#C6CACA")};
   border-bottom: ${({ $isActive }) => ($isActive ? "0.2rem solid #303234" : "0.2rem solid #C6CACA")};
+`;
+
+export const LoanSwitcherBoxTooltip = styled.div`
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 70%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const LoanNFTBox = styled.div`
@@ -98,7 +110,6 @@ export const LoanNFTBoxHeader = styled.div`
 export const LoanNFTBoxList = styled.div`
   height: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
 `;
@@ -110,10 +121,12 @@ export const LoanNFTBoxListEmpty = styled.div`
   align-items: center;
 
   gap: 1rem;
+  margin-top: 5.7rem;
 
   h2 {
     ${({ theme }) => theme.fonts.Nexton_Title_Medium_2};
     color: #000;
+    margin-top: 1.7rem;
   }
 `;
 
