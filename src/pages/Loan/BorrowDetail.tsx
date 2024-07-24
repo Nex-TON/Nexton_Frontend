@@ -5,16 +5,15 @@ import { styled } from "styled-components";
 
 import BasicModal from "../../components/common/Modal/BasicModal";
 import BorrowDetailInfo from "../../components/loan/Borrow/BorrowDetailInfo";
-import LoanHeader from "../../components/loan/common/LoanHeader";
 
 const tele = (window as any).Telegram.WebApp;
-
+// * Legacy code
 const BorrowDetail = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
 
   const handleToggleModal = () => {
-    setIsOpenModal((prev) => !prev);
+    setIsOpenModal(prev => !prev);
   };
 
   useEffect(() => {
@@ -34,10 +33,7 @@ const BorrowDetail = () => {
   return (
     <>
       <BorrowDetailWrapper>
-        {isOpenModal && (
-          <BasicModal type="loan" toggleModal={handleToggleModal} />
-        )}
-        <LoanHeader type="detail" />
+        {isOpenModal && <BasicModal type="loan" toggleModal={handleToggleModal} />}
         {/* <BorrowDetailHeader>
           <BackButton type="detail" handleMoveLoan={handleMoveLoan} loan />
           Borrow NXT

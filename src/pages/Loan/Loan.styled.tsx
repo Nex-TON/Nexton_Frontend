@@ -106,37 +106,3 @@ export const LoanNFTBoxHeader = styled.div`
     color: #303234;
   }
 `;
-
-export const LoanNFTBoxList = styled.div`
-  height: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
-
-export const LoanNFTBoxListEmpty = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  gap: 1rem;
-  margin-top: 5.7rem;
-
-  h2 {
-    ${({ theme }) => theme.fonts.Nexton_Title_Medium_2};
-    color: #000;
-    margin-top: 1.7rem;
-  }
-`;
-
-export const LoanNFTBoxListEmptyLink = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-
-  ${({ theme }) => theme.fonts.Nexton_Label_Medium};
-  color: #5d5e67;
-
-  cursor: pointer;
-`;

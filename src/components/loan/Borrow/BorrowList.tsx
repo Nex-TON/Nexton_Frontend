@@ -1,148 +1,141 @@
-import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
-import IcLoanArrow from "../../../assets/icons/Loan/ic_loan_arrow.svg";
-import { nftInfo } from "../../../types/Nft";
-import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
-import { numberCutter } from "../../../utils/numberCutter";
-import { NftStatus } from "../common/Nftstatus";
+import IcArrowRight from "@/assets/icons/Loan/ic_arrow_right.svg";
+import NFTsEmpty from "@/assets/image/Loan/NFTsEmpty.png";
+import { useStakeInfo } from "@/hooks/api/useStakeInfo";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
-interface BorrowListProps {
-  item: nftInfo;
-}
+import BorrowListItem from "./BorrowListItem";
 
-const BorrowList = (props: BorrowListProps) => {
-  const { nftId, amount, timeStamp, lockPeriod } = props.item;
+const _NFTsMock = [
+  {
+    nftId: 1,
+    amount: 1000,
+    leverage: 2,
+    lockPeriod: 30,
+    timeStamp: "2024-07-01T12:00:00Z",
+    nominator: "User1",
+    status: 1,
+  },
+  {
+    nftId: 2,
+    amount: 500,
+    leverage: 3,
+    lockPeriod: 60,
+    timeStamp: "2024-07-02T12:00:00Z",
+    nominator: "User2",
+    status: 2,
+  },
+  {
+    nftId: 3,
+    amount: 750,
+    leverage: 1.5,
+    lockPeriod: 90,
+    timeStamp: "2024-07-03T12:00:00Z",
+    nominator: "User3",
+    status: 1,
+  },
+  {
+    nftId: 4,
+    amount: 1200,
+    leverage: 2.5,
+    lockPeriod: 45,
+    timeStamp: "2024-07-04T12:00:00Z",
+    nominator: "User4",
+    status: 3,
+  },
+  {
+    nftId: 5,
+    amount: 300,
+    leverage: 4,
+    lockPeriod: 15,
+    timeStamp: "2024-07-05T12:00:00Z",
+    nominator: "User5",
+    status: 0,
+  },
+];
 
-  const navigate = useNavigate();
+const BorrowList = () => {
+  const { address } = useTonConnect();
+  const { nftList } = useStakeInfo(address);
 
   return (
-    <BorrowLlistWrapper>
-      <BorrowListTop>
-        <BorrowListTopLeft>
-          {DDayChange(timeStamp, lockPeriod) > 55 ? (
-            <NftStatus type="ongoing" />
-          ) : DDayChange(timeStamp, lockPeriod) === 0 ? (
-            <NftStatus type="expired" />
-          ) : (
-            <NftStatus type="forthComing" />
-          )}
-          <div>
-            <Caption3 style={{ color: "#000" }}>NFT</Caption3>
-            <LabelMedium style={{ color: "#000" }}>
-              {" "}
-              {String(nftId).padStart(5, "0")}
-            </LabelMedium>
-          </div>
-          <div style={{ marginLeft: "1.4rem" }}>
-            <Caption3>Max.LTV</Caption3>
-            <LabelMedium> 80%</LabelMedium>
-          </div>
-        </BorrowListTopLeft>
-        <BorrowButton onClick={() => navigate(`/loan/${nftId}`)}>
-          Borrow
-          <img src={IcLoanArrow} alt="loan" />
-        </BorrowButton>
-      </BorrowListTop>
-      <BorrowListBottom>
-        <BorrowListBottomTextBottom>
-          <Caption3>Principal</Caption3>
-          <LabelMedium>{numberCutter(amount)} TON</LabelMedium>
-        </BorrowListBottomTextBottom>
-        <BorrowListBottomTextBottom>
-          <Caption3>Evaluation</Caption3>
-          <LabelMedium>{numberCutter(amount)} TON</LabelMedium>
-        </BorrowListBottomTextBottom>
-        <BorrowListBottomTextBottom>
-          <Caption3>Expired date</Caption3>
-          <LabelMedium>
-            {expiredDateChanger(timeStamp, lockPeriod, "detail")}
-          </LabelMedium>
-        </BorrowListBottomTextBottom>
-      </BorrowListBottom>
-    </BorrowLlistWrapper>
+    <BorrowListWrapper>
+      {/* {nftList && nftList.length > 0 ? (
+        nftList.sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp)).map(item => <p>{item.nftId}</p>)
+      ) : (
+        <LoanNFTBoxListEmpty>
+          <img src={NFTsEmpty} alt="nfts_empty" />
+
+          <h2>No results</h2>
+          <LoanNFTBoxListEmptyLink>
+            Let’s move to staking to get new NFT <img src={IcArrowRight} alt="arrow_right" />
+          </LoanNFTBoxListEmptyLink>
+        </LoanNFTBoxListEmpty>
+      )} */}
+      {_NFTsMock && _NFTsMock.length > 0 ? (
+        <BorrowListItemBox>
+          {_NFTsMock
+            .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
+            .map(item => (
+              <BorrowListItem key={item.nftId} item={item} />
+            ))}
+        </BorrowListItemBox>
+      ) : (
+        <LoanNFTBoxListEmpty>
+          <img src={NFTsEmpty} alt="nfts_empty" />
+
+          <h2>No results</h2>
+          <LoanNFTBoxListEmptyLink>
+            Let’s move to staking to get new NFT <img src={IcArrowRight} alt="arrow_right" />
+          </LoanNFTBoxListEmptyLink>
+        </LoanNFTBoxListEmpty>
+      )}
+    </BorrowListWrapper>
   );
 };
 
 export default BorrowList;
 
-const BorrowLlistWrapper = styled.div`
+const BorrowListWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const BorrowListItemBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 2.3rem 0;
+`;
+
+const LoanNFTBoxListEmpty = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  width: 100%;
-  padding: 2.2rem;
+  gap: 1rem;
+  margin-top: 5.7rem;
 
-  border: 0.1rem solid #e1e4e6;
-  border-radius: 2rem;
-  background-color: #fff;
-
-  & + & {
-    margin-top: 1rem;
+  h2 {
+    ${({ theme }) => theme.fonts.Nexton_Title_Medium_2};
+    color: #000;
+    margin-top: 1.7rem;
   }
 `;
 
-const BorrowListTop = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2.6rem;
-
-  width: 100%;
-  margin-bottom: 1.6rem;
-
-  border-radius: 2rem 2rem 0 0;
-`;
-
-const BorrowListBottom = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 100%;
-
-  border-radius: 0 0 2rem 2rem;
-`;
-
-const BorrowListBottomTextBottom = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 0.6rem;
-`;
-
-const BorrowListTopLeft = styled.div`
+const LoanNFTBoxListEmptyLink = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 0.6rem;
-`;
-const Caption3 = styled.span`
-  color: #303234;
-  ${({ theme }) => theme.fonts.Telegram_Caption_3};
-`;
+  gap: 0.5rem;
 
-const LabelMedium = styled.span`
   ${({ theme }) => theme.fonts.Nexton_Label_Medium};
-`;
+  color: #5d5e67;
 
-const BorrowButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.4rem;
-
-  padding: 0.7rem 1.2rem;
-
-  border: none;
-  border-radius: 2rem;
-  background-color: #007aff;
-  color: #fff;
-  ${({ theme }) => theme.fonts.Nexton_Label_Medium};
-
-  outline: none;
   cursor: pointer;
 `;
