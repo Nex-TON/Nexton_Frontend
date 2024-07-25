@@ -73,6 +73,8 @@ const BorrowList = () => {
           </LoanNFTBoxListEmptyLink>
         </LoanNFTBoxListEmpty>
       )} */}
+
+      {/* // * Mocked data */}
       {_NFTsMock && _NFTsMock.length > 0 ? (
         <BorrowListItemBox>
           {_NFTsMock
