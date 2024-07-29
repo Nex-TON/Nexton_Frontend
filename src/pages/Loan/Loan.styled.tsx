@@ -91,9 +91,13 @@ export const LoanNFTBoxHeader = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: space-between;
+`;
 
+export const LoanNFTBoxHeaderLeft = styled.div`
+  display: flex;
   gap: 0.4rem;
+  align-items: center;
 
   span {
     ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
@@ -104,5 +108,16 @@ export const LoanNFTBoxHeader = styled.div`
     ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
     font-weight: 600;
     color: #303234;
+  }
+`;
+
+export const LoanNFTBoxHeaderRight = styled.div`
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+
+  span {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
+    color: #76797a;
   }
 `;

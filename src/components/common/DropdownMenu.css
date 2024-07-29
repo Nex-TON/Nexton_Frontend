@@ -1,0 +1,44 @@
+.DropdownRoot {
+  width: auto;
+}
+
+.DropdownControl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+
+  padding: 0;
+
+  font-family: Montserrat;
+  font-size: 1.9rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 21px; /* 161.538% */
+  letter-spacing: -0.052px;
+}
+
+.DropdownMenu {
+  right: 10px;
+  min-width: 100px;
+  height: auto;
+  align-self: stretch;
+
+  border-radius: 10px;
+  background: #fff;
+
+  box-shadow: 0px 6px 10px 0px rgba(94, 97, 98, 0.3);
+
+  font-family: Montserrat;
+  font-size: 1.9rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 21px; /* 161.538% */
+  letter-spacing: -0.052px;
+  color: #c6caca;
+
+  :active {
+    color: #303234;
+  }
+}

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import IcAlert from "@/assets/icons/Loan/ic_alert.svg";
 import IcBars from "@/assets/icons/Loan/ic_bars.svg";
+import DropdownMenu from "@/components/common/DropdownMenu";
 import BorrowList from "@/components/loan/Borrow/BorrowList";
 
 import {
@@ -11,6 +12,8 @@ import {
   LoanHeaderBoxTitle,
   LoanNFTBox,
   LoanNFTBoxHeader,
+  LoanNFTBoxHeaderLeft,
+  LoanNFTBoxHeaderRight,
   LoanSwitcherBox,
   LoanSwitcherBoxItem,
   LoanSwitcherBoxTooltip,
@@ -18,11 +21,15 @@ import {
 } from "./Loan.styled";
 
 type LoanView = "borrow" | "repay";
+export type FilterNFTs = "Ongoing" | "Forthcoming" | "Expired" | "All";
 
 const tele = (window as any).Telegram.WebApp;
 
+const filters: FilterNFTs[] = ["Ongoing", "Forthcoming", "Expired", "All"];
+
 const Loan = () => {
   const navigate = useNavigate();
+  const [filter, setFilter] = useState<FilterNFTs>("All");
   const [view, setView] = useState<LoanView>("borrow");
 
   useEffect(() => {
@@ -41,6 +48,10 @@ const Loan = () => {
 
   const handleViewChange = (view: LoanView) => {
     setView(view);
+  };
+
+  const handleSortOptionChange = value => {
+    setFilter(value);
   };
 
   return (
@@ -70,11 +81,20 @@ const Loan = () => {
 
       <LoanNFTBox>
         <LoanNFTBoxHeader>
-          <span>You have</span>
-          <h4>0 NFTs</h4>
+          <LoanNFTBoxHeaderLeft>
+            <span>You have</span>
+            <h4>0 NFTs</h4>
+          </LoanNFTBoxHeaderLeft>
+
+          {view === "borrow" && (
+            <LoanNFTBoxHeaderRight>
+              <span>Sort by</span>
+              <DropdownMenu options={filters} defaultValue={filter} onOptionSelect={handleSortOptionChange} />
+            </LoanNFTBoxHeaderRight>
+          )}
         </LoanNFTBoxHeader>
 
-        {view === "borrow" && <BorrowList />}
+        {view === "borrow" && <BorrowList filter={filter} />}
       </LoanNFTBox>
     </LoanWrapper>
   );

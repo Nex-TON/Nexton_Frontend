@@ -4,6 +4,8 @@ import IcArrowRight from "@/assets/icons/Loan/ic_arrow_right.svg";
 import NFTsEmpty from "@/assets/image/Loan/NFTsEmpty.png";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";
+import { FilterNFTs } from "@/pages/Loan/Loan";
+import { DDayChange } from "@/utils/dateChanger";
 
 import BorrowListItem from "./BorrowListItem";
 
@@ -12,8 +14,8 @@ const _NFTsMock = [
     nftId: 1,
     amount: 1000,
     leverage: 2,
-    lockPeriod: 30,
-    timeStamp: "2024-07-01T12:00:00Z",
+    lockPeriod: 55,
+    timeStamp: "2024-03-01T12:00:00Z",
     nominator: "User1",
     status: 1,
   },
@@ -21,8 +23,8 @@ const _NFTsMock = [
     nftId: 2,
     amount: 500,
     leverage: 3,
-    lockPeriod: 60,
-    timeStamp: "2024-07-02T12:00:00Z",
+    lockPeriod: 55,
+    timeStamp: "2024-10-02T12:00:00Z",
     nominator: "User2",
     status: 2,
   },
@@ -30,7 +32,7 @@ const _NFTsMock = [
     nftId: 3,
     amount: 750,
     leverage: 1.5,
-    lockPeriod: 90,
+    lockPeriod: 55,
     timeStamp: "2024-07-03T12:00:00Z",
     nominator: "User3",
     status: 1,
@@ -39,8 +41,8 @@ const _NFTsMock = [
     nftId: 4,
     amount: 1200,
     leverage: 2.5,
-    lockPeriod: 45,
-    timeStamp: "2024-07-04T12:00:00Z",
+    lockPeriod: 55,
+    timeStamp: "2023-07-04T12:00:00Z",
     nominator: "User4",
     status: 3,
   },
@@ -48,14 +50,14 @@ const _NFTsMock = [
     nftId: 5,
     amount: 300,
     leverage: 4,
-    lockPeriod: 15,
+    lockPeriod: 55,
     timeStamp: "2024-07-05T12:00:00Z",
     nominator: "User5",
     status: 0,
   },
 ];
 
-const BorrowList = () => {
+const BorrowList = ({ filter }: { filter?: FilterNFTs }) => {
   const { address } = useTonConnect();
   const { nftList } = useStakeInfo(address);
 
