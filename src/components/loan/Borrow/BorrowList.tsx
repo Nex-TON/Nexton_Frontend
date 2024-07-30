@@ -5,7 +5,6 @@ import NFTsEmpty from "@/assets/image/Loan/NFTsEmpty.png";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import { FilterNFTs } from "@/pages/Loan/Loan";
-import { DDayChange } from "@/utils/dateChanger";
 
 import BorrowListItem from "./BorrowListItem";
 

@@ -25,17 +25,13 @@ export const BorrowCard = styled.div`
 `;
 
 export const NFTStatus = styled.div<{ type?: string }>`
-  background-color: lightgray;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50%;
   width: 100%;
   padding-top: 100%;
   border-radius: 12px;
 
-  background-image: ${({ type }) =>
+  background: ${({ type }) =>
     type === "ongoing"
-      ? `linear-gradient(217deg, rgba(61, 80, 255, 0.00) 9.1%, #C7CAE9 88.74%), url("./src/assets/image/Loan/OngoingNFTItem.png") lightgray 50% / cover no-repeat`
+      ? `linear-gradient(217deg, rgba(61, 80, 255, 0.00) 9.1%, #C7CAE9 88.74%), url("./src/assets/image/Loan/OngoingNFTLarge.png") lightgray 50% / cover no-repeat;`
       : type === "forthComing"
         ? `linear-gradient(217deg, rgba(255, 93, 57, 0.00) 57.93%, #FF5D39 88.74%), url("./src/assets/image/Loan/ForthcomingNFTItem.png") lightgray 50% / cover no-repeat;`
         : `linear-gradient(217deg, rgba(255, 255, 255, 0.00) 35.65%, #A4A4A4 88.74%), url("./src/assets/image/Loan/ExpiredNFTItem.png") lightgray 50% / cover no-repeat`};
@@ -79,12 +75,12 @@ export const BorrowDetailWrapper = styled.div`
   gap: 1rem;
 `;
 
-export const BorrowDetailItem = styled.div`
+export const BorrowDetailItem = styled.div<{ $marginTop?: boolean; $itemsCenter?: boolean }>`
   width: 100%;
   display: inline-flex;
-  padding: 1.3rem 1.5rem 3rem 1.5rem;
+  padding: 1.5rem 2rem;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: ${({ $itemsCenter }) => ($itemsCenter ? "center" : "flex-start")};
   gap: 0.3rem;
 
   border-radius: 2rem;
@@ -92,6 +88,8 @@ export const BorrowDetailItem = styled.div`
 
   /* drop shadow_type 4 */
   box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
+
+  margin-top: ${({ $marginTop }) => ($marginTop ? "3.7rem" : "0")};
 `;
 
 export const BorrowDetailItemCaption = styled.span`
@@ -99,17 +97,59 @@ export const BorrowDetailItemCaption = styled.span`
   color: rgba(170, 174, 175, 1);
 `;
 
-export const BorrowDetailItemText = styled.p`
+export const BorrowDetailItemText = styled.p<{ $textCenter?: boolean }>`
+  width: 100%;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
   color: #303234;
 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  text-align: ${({ $textCenter }) => ($textCenter ? "center" : "left")};
 `;
 
 export const BorrowDetailItemBox = styled.div`
   width: 100%;
   display: flex;
   gap: 1rem;
+`;
+
+export const StakingInfoExpanded = styled(BorrowDetailItem)``;
+
+export const StakingInfoExpandedHeader = styled(BorrowDetailItemText)`
+  margin-bottom: 1rem;
+`;
+
+export const StakingInfoExpandedItem = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+    color: #aaaeaf;
+  }
+
+  p {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+    color: #303234;
+  }
+`;
+
+export const StakingInfoExpandedDivider = styled.div`
+  width: 100%;
+  height: 1px;
+
+  background: #f1f4f4;
+
+  margin: 1rem 0;
+`;
+
+export const StakingInfoExpandedCloseBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  margin-top: 2.9rem;
 `;
