@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import IcDoubleArrowsBottom from "@/assets/icons/Loan/ic_double_arrows_bottom.svg";
-import IcDoubleArrowsTop from "@/assets/icons/Loan/ic_double_arrows_top.svg";
+import IcTrendUp from "@/assets/icons/Loan/ic_trend_up.svg";
+import { DoubleArrows } from "@/components/loan/common/DoubleArrows";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 
 import {
@@ -21,12 +21,12 @@ import {
   StakingInfoExpandedDivider,
   StakingInfoExpandedHeader,
   StakingInfoExpandedItem,
-} from "./Borrow.styled";
+} from "./NFTDetail.styled";
 
 const tele = (window as any).Telegram.WebApp;
 
 // ! Data is currently mocked
-const Borrow = () => {
+const NFTDetail = () => {
   const [isStakingExpanded, setIsStakingExpanded] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -57,7 +57,9 @@ const Borrow = () => {
         <NFTStatus type="ongoing" />
 
         <BorrowCardTitle>Staking NFT</BorrowCardTitle>
-        <BorrowCardButton>Borrow nxTON &rarr;</BorrowCardButton>
+        <BorrowCardButton onClick={() => navigate(`/loan/${id}/borrow/details`)}>
+          Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
+        </BorrowCardButton>
       </BorrowCard>
 
       <BorrowDetailWrapper>
@@ -122,13 +124,13 @@ const Borrow = () => {
             </StakingInfoExpandedItem>
 
             <StakingInfoExpandedCloseBox onClick={handleExpandStakingInfo}>
-              <img src={IcDoubleArrowsTop} alt="arrows_top" />
+              <DoubleArrows stroke="black" direction="up" />
             </StakingInfoExpandedCloseBox>
           </StakingInfoExpanded>
         ) : (
           <BorrowDetailItem $marginTop $itemsCenter onClick={handleExpandStakingInfo}>
             <BorrowDetailItemText $textCenter>Staking info</BorrowDetailItemText>
-            <img src={IcDoubleArrowsBottom} alt="arrows_bottom" />
+            <DoubleArrows stroke="black" direction="down" />
           </BorrowDetailItem>
         )}
       </BorrowDetailWrapper>
@@ -136,18 +138,4 @@ const Borrow = () => {
   );
 };
 
-export default Borrow;
-
-{
-  /* <BorrowDetailWrapper>
-        {isOpenModal && <BasicModal type="loan" toggleModal={handleToggleModal} />}
-         <BorrowDetailHeader>
-          <BackButton type="detail" handleMoveLoan={handleMoveLoan} loan />
-          Borrow NXT
-        </BorrowDetailHeader>
-        <BorrowDetailInfo />
-
-        <MainButton text="Confirm" onClick={handleToggleModal} />
-         <ConfirmButton onClick={handleToggleModal}>Confirm</ConfirmButton>
-      </BorrowDetailWrapper> */
-}
+export default NFTDetail;

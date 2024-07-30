@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Dashboard from "@/pages/Dashboard/Dashboard";
-import Borrow from "@/pages/Loan/Borrow";
+import BorrowDetails from "@/pages/Loan/BorrowDetails";
 import Loan from "@/pages/Loan/Loan";
+import NFTDetail from "@/pages/Loan/NFTDetail";
 import RiskDisclosure from "@/pages/Loan/RiskDisclosure";
 import Main from "@/pages/Main/Main";
 import Menu from "@/pages/Menu/Menu";
@@ -33,9 +34,12 @@ const Router = () => {
         <Route path="/stake/leverage" element={<Leverage />} />
         <Route path="/stake/nominator" element={<NominatorList />} />
         <Route path="/stake/preview" element={<NFTPreview />} />
-        <Route path="/loan" element={<Loan />} />
-        <Route path="/loan/risk-disclosure" element={<RiskDisclosure />} />
-        <Route path="/loan/:id" element={<Borrow />} />
+        <Route path="/loan">
+          <Route path="" element={<Loan />} />
+          <Route path="risk-disclosure" element={<RiskDisclosure />} />
+          <Route path=":id" element={<NFTDetail />} />
+          <Route path=":id/borrow/details" element={<BorrowDetails />} />
+        </Route>
         <Route path="/swap" element={<Swap />} />
         <Route path="/nlp" element={<Nlp />} />
         <Route path="/myasset" element={<MyAsset />}>

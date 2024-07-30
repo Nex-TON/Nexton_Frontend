@@ -143,7 +143,7 @@ export const StakingInfoExpandedDivider = styled.div`
 
   background: #f1f4f4;
 
-  margin: 1rem 0;
+  margin: 0.9rem 0;
 `;
 
 export const StakingInfoExpandedCloseBox = styled.div`
@@ -152,4 +152,6 @@ export const StakingInfoExpandedCloseBox = styled.div`
   justify-content: center;
 
   margin-top: 2.9rem;
+
+  cursor: pointer;
 `;
