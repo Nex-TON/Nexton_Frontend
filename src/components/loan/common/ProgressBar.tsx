@@ -10,11 +10,12 @@ const ProgressBarWrapper = styled.div`
 `;
 
 const StepsWrapper = styled.div`
+  position: relative;
   display: flex;
   align-items: start;
   justify-content: space-between;
-  width: 100%;
-  margin: 2rem 0;
+  width: 200px;
+  margin: 2rem 0 3.5rem 0;
 `;
 
 const Step = styled.div`
@@ -25,6 +26,7 @@ const Step = styled.div`
 `;
 
 const StepCircle = styled.div<{ active: boolean }>`
+  position: relative;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -45,23 +47,23 @@ const StepCircle = styled.div<{ active: boolean }>`
   border: 1px solid ${({ active }) => (active ? "#1F53FF" : "#C6CACA")};
 `;
 
-const StepLabel = styled.div<{ active: boolean }>`
+const StepLabel = styled.div<{ position: "left" | "center" | "right" }>`
+  top: 3.5rem;
+  left: ${({ position }) => (position === "left" ? "-30%" : position === "center" ? "7.5%" : "50%")};
+  position: absolute;
+  width: 175px;
   ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
-  margin-top: 0.6rem;
   text-align: center;
-  color: ${({ active }) => (active ? "#000000" : "#A0A0A0")};
+  color: #5e6162;
 `;
 
-const StepConnector = styled.div`
+const StepConnector = styled.div<{ active: boolean }>`
+  position: relative;
+  top: 15px;
   width: 100%;
   height: 1px;
-  background-color: #c6caca;
-  position: relative;
-`;
-
-const StepConnectorActive = styled(StepConnector)`
-  background-color: #0056ff;
-  z-index: 1;
+  border-bottom: 1px dashed ${({ active }) => (active ? "#0056ff" : "#C6CACA")};
+  background-color: transparent;
 `;
 
 const ProgressBar = ({ currentStep }) => {
@@ -71,15 +73,21 @@ const ProgressBar = ({ currentStep }) => {
     { label: "Verify the information before loan approval." },
   ];
 
+  const getStepPosition = currentStep => {
+    if (currentStep === 1) return "left";
+    if (currentStep === steps.length) return "right";
+    return "center";
+  };
+
   return (
     <ProgressBarWrapper>
       <StepsWrapper>
         {steps.map((step, index) => (
           <React.Fragment key={index}>
-            {index > 0 && <StepConnector>{index <= currentStep && <StepConnectorActive />}</StepConnector>}
+            {index > 0 && <StepConnector active={index <= currentStep} />}
             <Step>
               <StepCircle active={index + 1 <= currentStep}>{index + 1}</StepCircle>
-              {index + 1 <= currentStep && <StepLabel active={index + 1 <= currentStep}>{step.label}</StepLabel>}
+              {index + 1 === currentStep && <StepLabel position={getStepPosition(currentStep)}>{step.label}</StepLabel>}
             </Step>
           </React.Fragment>
         ))}

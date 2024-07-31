@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 import IcExclude from "@/assets/icons/Loan/ic_exclude.svg";
 import IcTonLogo from "@/assets/icons/Loan/ic_ton_logo.svg";
 import { DoubleArrows } from "@/components/loan/common/DoubleArrows.tsx";
 import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
+import { isDevMode } from "@/utils/isDevMode.ts";
 
 import {
   BorrowContentBox,
@@ -13,6 +15,7 @@ import {
   BorrowHeaderBoxTitle,
   BorrowRateBox,
   BorrowRateBoxBottom,
+  BorrowRateBoxDivider,
   BorrowRateBoxHeader,
   BorrowRateBoxHeaderLeft,
   BorrowRateBoxHeaderRight,
@@ -166,15 +169,21 @@ const BorrowDetails = () => {
           <img src={IcExclude} alt="exclude_icon" />
         </ExcludeBox>
 
-        {/* // ! To be implemented */}
         <BorrowRateBox>
           <BorrowRateBoxHeader>
             <BorrowRateBoxHeaderLeft>Borrow</BorrowRateBoxHeaderLeft>
             <BorrowRateBoxHeaderRight>1NXT = n TON</BorrowRateBoxHeaderRight>
           </BorrowRateBoxHeader>
+          <BorrowRateBoxDivider />
           <BorrowRateBoxBottom>000.00 nxTON</BorrowRateBoxBottom>
         </BorrowRateBox>
       </BorrowContentBox>
+
+      {!isDevMode ? (
+        <MainButton text="Next" onClick={() => navigate(`/loan/${id}/borrow/risk-disclosure`)} />
+      ) : (
+        <button onClick={() => navigate(`/loan/${id}/borrow/risk-disclosure`)}>next</button>
+      )}
     </BorrowWrapper>
   );
 };

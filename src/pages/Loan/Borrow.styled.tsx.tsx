@@ -105,17 +105,25 @@ export const BorrowRateBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  padding: 1.6rem 2.4rem;
+
+  border-radius: 2rem;
+  box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
 `;
 
 export const BorrowRateBoxHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
 
-  background: #d9d9d9;
-  border-radius: 2rem 2rem 1rem 1rem;
+export const BorrowRateBoxDivider = styled.div`
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px dashed #f1f4f4;
 
-  padding: 1.6rem 2.4rem;
+  margin: 1.2rem 1.7rem 2.3rem 1.7rem;
 `;
 
 export const BorrowRateBoxHeaderLeft = styled.h2`
@@ -133,9 +141,4 @@ export const BorrowRateBoxBottom = styled.div`
   display: flex;
   justify-content: end;
   align-items: center;
-
-  background: #d9d9d9;
-  border-radius: 1rem 1rem 2rem 2rem;
-
-  padding: 2.3rem 2.5rem 2.4rem;
 `;

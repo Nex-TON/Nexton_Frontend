@@ -57,9 +57,11 @@ export const OpenTonViewer = styled.button`
   cursor: pointer;
 `;
 
-export const Title = styled.p<{ $isDark?: boolean }>`
+export const Title = styled.p<{ $isDark?: boolean; $textCenter?: boolean }>`
   color: ${({ $isDark }) => ($isDark ? "#fff" : "#007aff")};
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2}
+
+  text-align: ${({ $textCenter }) => $textCenter && "center"};
 `;
 
 export const SubTitleBox = styled.div<{ $marginBottom?: boolean }>`
