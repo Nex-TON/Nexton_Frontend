@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const BorrowWrapper = styled.div`
+export const NFTDetailWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,7 +9,7 @@ export const BorrowWrapper = styled.div`
   width: 100%;
 `;
 
-export const BorrowCard = styled.div`
+export const NFTDetailCard = styled.div`
   width: 100%;
   display: flex;
 
@@ -24,20 +24,7 @@ export const BorrowCard = styled.div`
   box-shadow: 0px 4px 8.6px 0px rgba(206, 216, 225, 0.5);
 `;
 
-export const NFTStatus = styled.div<{ type?: string }>`
-  width: 100%;
-  padding-top: 100%;
-  border-radius: 12px;
-
-  background: ${({ type }) =>
-    type === "ongoing"
-      ? `linear-gradient(217deg, rgba(61, 80, 255, 0.00) 9.1%, #C7CAE9 88.74%), url("./src/assets/image/Loan/OngoingNFTLarge.png") lightgray 50% / cover no-repeat;`
-      : type === "forthComing"
-        ? `linear-gradient(217deg, rgba(255, 93, 57, 0.00) 57.93%, #FF5D39 88.74%), url("./src/assets/image/Loan/ForthcomingNFTItem.png") lightgray 50% / cover no-repeat;`
-        : `linear-gradient(217deg, rgba(255, 255, 255, 0.00) 35.65%, #A4A4A4 88.74%), url("./src/assets/image/Loan/ExpiredNFTItem.png") lightgray 50% / cover no-repeat`};
-`;
-
-export const BorrowCardTitle = styled.h1`
+export const NFTDetailCardTitle = styled.h1`
   color: #fff;
   text-align: center;
   align-self: stretch;
@@ -45,7 +32,7 @@ export const BorrowCardTitle = styled.h1`
   ${({ theme }) => theme.fonts.Nexton_Title_Medium_2};
 `;
 
-export const BorrowCardButton = styled.button`
+export const NFTDetailCardButton = styled.button`
   all: unset;
 
   width: 200px;
@@ -63,7 +50,7 @@ export const BorrowCardButton = styled.button`
   color: #fff;
 `;
 
-export const BorrowDetailWrapper = styled.div`
+export const NFTDetailContentBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,7 +62,7 @@ export const BorrowDetailWrapper = styled.div`
   gap: 1rem;
 `;
 
-export const BorrowDetailItem = styled.div<{ $marginTop?: boolean; $itemsCenter?: boolean }>`
+export const NFTDetailItem = styled.div<{ $marginTop?: boolean; $itemsCenter?: boolean }>`
   width: 100%;
   display: inline-flex;
   padding: 1.5rem 2rem;
@@ -92,12 +79,12 @@ export const BorrowDetailItem = styled.div<{ $marginTop?: boolean; $itemsCenter?
   margin-top: ${({ $marginTop }) => ($marginTop ? "3.7rem" : "0")};
 `;
 
-export const BorrowDetailItemCaption = styled.span`
+export const NFTDetailItemCaption = styled.span`
   ${({ theme }) => theme.fonts.Nexton_Label_Small};
   color: rgba(170, 174, 175, 1);
 `;
 
-export const BorrowDetailItemText = styled.p<{ $textCenter?: boolean }>`
+export const NFTDetailItemText = styled.p<{ $textCenter?: boolean }>`
   width: 100%;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
   color: #303234;
@@ -109,7 +96,7 @@ export const BorrowDetailItemText = styled.p<{ $textCenter?: boolean }>`
   text-align: ${({ $textCenter }) => ($textCenter ? "center" : "left")};
 `;
 
-export const BorrowDetailItemBox = styled.div`
+export const NFTDetailItemBox = styled.div`
   width: 100%;
   display: flex;
   gap: 1rem;

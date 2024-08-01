@@ -2,20 +2,20 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import IcTrendUp from "@/assets/icons/Loan/ic_trend_up.svg";
+import OngoingNFTLarge from "@/assets/image/Loan/OngoingNFTLarge.png";
 import { DoubleArrows } from "@/components/loan/common/DoubleArrows";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 
 import {
-  BorrowCard,
-  BorrowCardButton,
-  BorrowCardTitle,
-  BorrowDetailItem,
-  BorrowDetailItemBox,
-  BorrowDetailItemCaption,
-  BorrowDetailItemText,
-  BorrowDetailWrapper,
-  BorrowWrapper,
-  NFTStatus,
+  NFTDetailCard,
+  NFTDetailCardButton,
+  NFTDetailCardTitle,
+  NFTDetailContentBox,
+  NFTDetailItem,
+  NFTDetailItemBox,
+  NFTDetailItemCaption,
+  NFTDetailItemText,
+  NFTDetailWrapper,
   StakingInfoExpanded,
   StakingInfoExpandedCloseBox,
   StakingInfoExpandedDivider,
@@ -52,32 +52,39 @@ const NFTDetail = () => {
   };
 
   return (
-    <BorrowWrapper>
-      <BorrowCard>
-        <NFTStatus type="ongoing" />
+    <NFTDetailWrapper>
+      <NFTDetailCard>
+        {/* NFTs are currently hardcoded to be ongoing. This should be changed to a dynamic value. */}
+        {true === "ongoing" ? (
+          <img src={OngoingNFTLarge} alt="nft" />
+        ) : false === "forthComing" ? (
+          <img src={OngoingNFTLarge} alt="nft" />
+        ) : (
+          <img src={OngoingNFTLarge} alt="nft" />
+        )}
 
-        <BorrowCardTitle>Staking NFT</BorrowCardTitle>
-        <BorrowCardButton onClick={() => navigate(`/loan/${id}/borrow/details`)}>
+        <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
+        <NFTDetailCardButton onClick={() => navigate(`/loan/${id}/borrow/details`)}>
           Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
-        </BorrowCardButton>
-      </BorrowCard>
+        </NFTDetailCardButton>
+      </NFTDetailCard>
 
-      <BorrowDetailWrapper>
-        <BorrowDetailItem>
-          <BorrowDetailItemCaption>Token ID</BorrowDetailItemCaption>
-          <BorrowDetailItemText>542394817863ddddddddd</BorrowDetailItemText>
-        </BorrowDetailItem>
+      <NFTDetailContentBox>
+        <NFTDetailItem>
+          <NFTDetailItemCaption>Token ID</NFTDetailItemCaption>
+          <NFTDetailItemText>542394817863ddddddddd</NFTDetailItemText>
+        </NFTDetailItem>
 
-        <BorrowDetailItemBox>
-          <BorrowDetailItem>
-            <BorrowDetailItemCaption>Network</BorrowDetailItemCaption>
-            <BorrowDetailItemText>TON</BorrowDetailItemText>
-          </BorrowDetailItem>
-          <BorrowDetailItem>
-            <BorrowDetailItemCaption>LTV</BorrowDetailItemCaption>
-            <BorrowDetailItemText>50%</BorrowDetailItemText>
-          </BorrowDetailItem>
-        </BorrowDetailItemBox>
+        <NFTDetailItemBox>
+          <NFTDetailItem>
+            <NFTDetailItemCaption>Network</NFTDetailItemCaption>
+            <NFTDetailItemText>TON</NFTDetailItemText>
+          </NFTDetailItem>
+          <NFTDetailItem>
+            <NFTDetailItemCaption>LTV</NFTDetailItemCaption>
+            <NFTDetailItemText>50%</NFTDetailItemText>
+          </NFTDetailItem>
+        </NFTDetailItemBox>
 
         {isStakingExpanded ? (
           <StakingInfoExpanded $marginTop>
@@ -128,13 +135,13 @@ const NFTDetail = () => {
             </StakingInfoExpandedCloseBox>
           </StakingInfoExpanded>
         ) : (
-          <BorrowDetailItem $marginTop $itemsCenter onClick={handleExpandStakingInfo}>
-            <BorrowDetailItemText $textCenter>Staking info</BorrowDetailItemText>
+          <NFTDetailItem $marginTop $itemsCenter onClick={handleExpandStakingInfo}>
+            <NFTDetailItemText $textCenter>Staking info</NFTDetailItemText>
             <DoubleArrows stroke="black" direction="down" />
-          </BorrowDetailItem>
+          </NFTDetailItem>
         )}
-      </BorrowDetailWrapper>
-    </BorrowWrapper>
+      </NFTDetailContentBox>
+    </NFTDetailWrapper>
   );
 };
 

@@ -1,6 +1,38 @@
 import React from "react";
 import styled from "styled-components";
 
+const ProgressBar = ({ currentStep }) => {
+  const steps = [
+    { label: "Check NFT details and Borrow information." },
+    { label: "Checking Loan Protocol Risk" },
+    { label: "Verify the information before loan approval." },
+  ];
+
+  const getStepPosition = currentStep => {
+    if (currentStep === 1) return "left";
+    if (currentStep === steps.length) return "right";
+    return "center";
+  };
+
+  return (
+    <ProgressBarWrapper>
+      <StepsWrapper>
+        {steps.map((step, index) => (
+          <React.Fragment key={index}>
+            {index > 0 && <StepConnector />}
+            <Step>
+              <StepCircle active={index + 1 === currentStep}>{index + 1}</StepCircle>
+              {index + 1 === currentStep && <StepLabel position={getStepPosition(currentStep)}>{step.label}</StepLabel>}
+            </Step>
+          </React.Fragment>
+        ))}
+      </StepsWrapper>
+    </ProgressBarWrapper>
+  );
+};
+
+export default ProgressBar;
+
 const ProgressBarWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -45,11 +77,12 @@ const StepCircle = styled.div<{ active: boolean }>`
   letter-spacing: -0.12px;
 
   border: 1px solid ${({ active }) => (active ? "#1F53FF" : "#C6CACA")};
+  ${({ active }) => active && "outline: solid 4px rgba(31, 83, 255, 0.36)"};
 `;
 
 const StepLabel = styled.div<{ position: "left" | "center" | "right" }>`
   top: 3.5rem;
-  left: ${({ position }) => (position === "left" ? "-30%" : position === "center" ? "7.5%" : "50%")};
+  left: ${({ position }) => (position === "left" ? "-35%" : position === "center" ? "7.5%" : "50%")};
   position: absolute;
   width: 175px;
   ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
@@ -57,43 +90,11 @@ const StepLabel = styled.div<{ position: "left" | "center" | "right" }>`
   color: #5e6162;
 `;
 
-const StepConnector = styled.div<{ active: boolean }>`
+const StepConnector = styled.div`
   position: relative;
   top: 15px;
   width: 100%;
   height: 1px;
-  border-bottom: 1px dashed ${({ active }) => (active ? "#0056ff" : "#C6CACA")};
+  border-bottom: 1px dashed #c6caca;
   background-color: transparent;
 `;
-
-const ProgressBar = ({ currentStep }) => {
-  const steps = [
-    { label: "Check NFT details and Borrow information." },
-    { label: "Checking Loan Protocol Risk" },
-    { label: "Verify the information before loan approval." },
-  ];
-
-  const getStepPosition = currentStep => {
-    if (currentStep === 1) return "left";
-    if (currentStep === steps.length) return "right";
-    return "center";
-  };
-
-  return (
-    <ProgressBarWrapper>
-      <StepsWrapper>
-        {steps.map((step, index) => (
-          <React.Fragment key={index}>
-            {index > 0 && <StepConnector active={index <= currentStep} />}
-            <Step>
-              <StepCircle active={index + 1 <= currentStep}>{index + 1}</StepCircle>
-              {index + 1 === currentStep && <StepLabel position={getStepPosition(currentStep)}>{step.label}</StepLabel>}
-            </Step>
-          </React.Fragment>
-        ))}
-      </StepsWrapper>
-    </ProgressBarWrapper>
-  );
-};
-
-export default ProgressBar;
