@@ -37,7 +37,9 @@ export const BorrowContentBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+
   margin-top: 2rem;
+  margin-bottom: 2.9rem;
 `;
 
 export const CollateralizingNFTInfo = styled.div`

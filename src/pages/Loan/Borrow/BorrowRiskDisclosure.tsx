@@ -60,7 +60,9 @@ const BorrowContentBox = styled.div`
   padding: 13px 25px 37.5px 20px;
   flex-direction: column;
   align-items: center;
+
   margin-top: 2rem;
+  margin-bottom: 2.9rem;
 
   border-radius: 20px;
   background: #fff;
