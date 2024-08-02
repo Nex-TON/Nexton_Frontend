@@ -62,7 +62,6 @@ const BorrowContentBox = styled.div`
   align-items: center;
 
   margin-top: 2rem;
-  padding-bottom: 4rem;
 
   border-radius: 20px;
   background: #fff;
