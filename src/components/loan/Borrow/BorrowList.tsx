@@ -56,6 +56,7 @@ const _NFTsMock = [
   },
 ];
 
+// ! Data is currently mocked
 const BorrowList = ({ filter }: { filter?: FilterNFTs }) => {
   const { address } = useTonConnect();
   const { nftList } = useStakeInfo(address);

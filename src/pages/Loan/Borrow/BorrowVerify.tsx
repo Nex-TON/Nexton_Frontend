@@ -6,15 +6,10 @@ import BasicModal from "@/components/common/Modal/BasicModal.tsx";
 import TransactionConfirmModal from "@/components/common/Modal/TransactionConfirmModal.tsx";
 import { ConfirmBorrowModal } from "@/components/loan/Borrow/ConfirmBorrowModal.tsx";
 import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
+import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
 import { isDevMode } from "@/utils/isDevMode.ts";
 
-import { BorrowHeaderBox, BorrowHeaderBoxTitle, BorrowWrapper } from "./Borrow.styled.tsx.tsx";
-import {
-  StakingInfoExpanded,
-  StakingInfoExpandedDivider,
-  StakingInfoExpandedHeader,
-  StakingInfoExpandedItem,
-} from "./NFTDetail.styled.tsx";
+import { BorrowHeaderBox, BorrowHeaderBoxTitle, BorrowWrapper } from "./BorrowDetails.styled.tsx";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -22,6 +17,13 @@ interface ModalState {
   type: "borrow" | "confirmBorrow";
   toggled: boolean;
 }
+
+const stakingInfoItems = [
+  { label: "Borrowed nxTON", value: "000.00 nxTON" },
+  { label: "Principal", value: "00000 TON" },
+  { label: "LTV", value: "50.0%" },
+  { label: "Maturity date", value: "mm.dd.yy" },
+];
 
 // ! Data is currently mocked
 const BorrowVerify = () => {
@@ -72,29 +74,9 @@ const BorrowVerify = () => {
 
         <ProgressBar currentStep={3} />
 
-        <StakingInfoExpanded $marginTop>
-          <StakingInfoExpandedHeader>Loan 01</StakingInfoExpandedHeader>
-
-          <StakingInfoExpandedItem>
-            <span>Borrowed nxTON</span>
-            <p>000.00 nxTON</p>
-          </StakingInfoExpandedItem>
-          <StakingInfoExpandedDivider />
-          <StakingInfoExpandedItem>
-            <span>Principal</span>
-            <p>00000 TON</p>
-          </StakingInfoExpandedItem>
-          <StakingInfoExpandedDivider />
-          <StakingInfoExpandedItem>
-            <span>LTV</span>
-            <p>50.0%</p>
-          </StakingInfoExpandedItem>
-          <StakingInfoExpandedDivider />
-          <StakingInfoExpandedItem style={{ marginBottom: "4rem" }}>
-            <span>Maturity date</span>
-            <p>mm.dd.yy</p>
-          </StakingInfoExpandedItem>
-        </StakingInfoExpanded>
+        <div style={{ marginTop: "2rem" }}>
+          <StakingInfo isExpandable={false} theme="white" title="Loan 01" stakingInfoItems={stakingInfoItems} />
+        </div>
 
         {!isDevMode ? (
           <MainButton text="Confirm loan" onClick={toggleModal} />

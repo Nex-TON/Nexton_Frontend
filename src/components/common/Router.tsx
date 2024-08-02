@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Dashboard from "@/pages/Dashboard/Dashboard";
-import BorrowDetails from "@/pages/Loan/BorrowDetails";
-import BorrowRiskDisclosure from "@/pages/Loan/BorrowRiskDisclosure";
-import BorrowVerify from "@/pages/Loan/BorrowVerify";
+import BorrowDetails from "@/pages/Loan/Borrow/BorrowDetails";
+import BorrowRiskDisclosure from "@/pages/Loan/Borrow/BorrowRiskDisclosure";
+import BorrowVerify from "@/pages/Loan/Borrow/BorrowVerify";
+import NFTDetail from "@/pages/Loan/Borrow/NFTDetail";
 import Loan from "@/pages/Loan/Loan";
-import NFTDetail from "@/pages/Loan/NFTDetail";
 import RiskDisclosure from "@/pages/Loan/RiskDisclosure";
 import Main from "@/pages/Main/Main";
 import Menu from "@/pages/Menu/Menu";

@@ -1,7 +1,5 @@
 import { styled } from "styled-components";
 
-import { StakingInfoExpandedCloseBox, StakingInfoExpandedDivider, StakingInfoExpandedItem } from "./NFTDetail.styled";
-
 export const BorrowWrapper = styled.div`
   position: relative;
   display: flex;
@@ -66,32 +64,12 @@ export const CollateralizingNFTInfoHeader = styled.div`
   color: #fff;
 `;
 
-export const CollateralizingNFTInfoItem = styled(StakingInfoExpandedItem)`
-  span {
-    color: #aaaeaf;
-  }
-
-  p {
-    max-width: 50%;
-    color: #fff;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-`;
-
 export const CollateralizingNFTInfoItemBox = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: end;
   gap: 0.6rem;
-`;
-
-export const CollateralizingNFTInfoDivider = styled(StakingInfoExpandedDivider)``;
-
-export const CollateralizingNFTInfoItemBottom = styled(StakingInfoExpandedCloseBox)`
-  margin-top: 1.6rem;
 `;
 
 export const ExcludeBox = styled.div`

@@ -7,7 +7,7 @@ import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
 import RisksList from "@/components/loan/common/RisksList.tsx";
 import { isDevMode } from "@/utils/isDevMode.ts";
 
-import { BorrowHeaderBox, BorrowHeaderBoxTitle, BorrowWrapper } from "./Borrow.styled.tsx";
+import { BorrowHeaderBox, BorrowHeaderBoxTitle, BorrowWrapper } from "./BorrowDetails.styled.tsx";
 
 const tele = (window as any).Telegram.WebApp;
 

@@ -100,45 +100,6 @@ export const NFTDetailItemBox = styled.div`
   width: 100%;
   display: flex;
   gap: 1rem;
-`;
 
-export const StakingInfoExpanded = styled(BorrowDetailItem)``;
-
-export const StakingInfoExpandedHeader = styled(BorrowDetailItemText)`
-  margin-bottom: 1rem;
-`;
-
-export const StakingInfoExpandedItem = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-
-  span {
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
-    color: #aaaeaf;
-  }
-
-  p {
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
-    color: #303234;
-  }
-`;
-
-export const StakingInfoExpandedDivider = styled.div`
-  width: 100%;
-  height: 1px;
-
-  background: #f1f4f4;
-
-  margin: 0.9rem 0;
-`;
-
-export const StakingInfoExpandedCloseBox = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-
-  margin-top: 2.9rem;
-
-  cursor: pointer;
+  margin-bottom: 3.7rem;
 `;
