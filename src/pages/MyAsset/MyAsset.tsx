@@ -2,10 +2,13 @@ import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
+import useTonConnect from "@/hooks/contract/useTonConnect";
+
 import Header from "../../components/common/Header";
 import NftHeader from "../../components/myAsset/NftHeader";
 
 const MyAsset = () => {
+  const { connected, tonConnectUI } = useTonConnect();
   const { pathname } = useLocation();
   const [myAssetMenu, setMyAssetMenu] = useState("NFT");
 
@@ -15,6 +18,8 @@ const MyAsset = () => {
         isOpen={false}
         backgroundType={pathname.includes("nftlist") ? false : true}
         text="My Asset"
+        connected={connected}
+        tonConnectUI={tonConnectUI}
       />
       <MyAssetContentWrapper>
         <NftHeader myAssetMenu={myAssetMenu} />

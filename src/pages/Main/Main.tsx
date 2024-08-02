@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import styled from "styled-components";
 import { mutate } from "swr";
 
 import Header from "@/components/common/Header";
+import ActionCards from "@/components/main/ActionCards";
 import MainMyAssetInfo from "@/components/main/MainMyAssetInfo";
 import { WelcomeModal } from "@/components/main/Modal/WelcomeModal";
+import MyTokens from "@/components/main/MyTokens";
 import StakeView from "@/components/main/StakeView/StakeView";
 import { useManageReferral } from "@/hooks/api/referral/useManageReferral";
 import { useTrackReferral } from "@/hooks/api/referral/useTrackReferral";
@@ -19,7 +21,7 @@ const tele = (window as any).Telegram.WebApp;
 
 const Main = () => {
   const location = useLocation();
-  const { address, balance, refreshTonData } = useTonConnect();
+  const { address, balance, refreshTonData, connected, tonConnectUI } = useTonConnect();
   const { nftList, isLoading, isError } = useStakeInfo(address);
 
   const { trigger: triggerManageReferral } = useManageReferral();
@@ -117,7 +119,7 @@ const Main = () => {
     };
 
     trackReferral();
-  }, [tele, trigger, triggerManageReferral]);
+  }, [trigger, triggerManageReferral]);
 
   // Show toast message when the user has successfully staked
   useEffect(() => {
@@ -141,21 +143,25 @@ const Main = () => {
   }, [location]);
 
   // Calculate the total amount staked
-  const totalStaked = nftList?.reduce((acc, nft) => acc + nft.amount, 0) || 0;
+  const totalStaked = useMemo(() => {
+    return nftList?.reduce((acc, nft) => acc + nft.amount, 0) || 0;
+  }, [nftList]);
 
   // Toggle welcome modal
-  const toggleModal = () => {
+  const toggleModal = useCallback(() => {
     setModal(prev => !prev);
     localStorage.setItem("hasVisited", "true");
-  };
+  }, []);
 
   return (
     <>
       {modal && <WelcomeModal toggleModal={toggleModal} />}
 
       <MainWrapper>
-        <Header isOpen={false} text="NEXTON" backgroundType={false} />
+        <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} tonConnectUI={tonConnectUI} />
         <MainMyAssetInfo
+          tonConnectUI={tonConnectUI}
+          connected={connected}
           address={address}
           balance={balance}
           refreshTonData={refreshTonData}
@@ -164,7 +170,11 @@ const Main = () => {
           isError={isError}
         />
         <MainBorder />
-        <StakeView />
+        <ActionCards />
+        {/* @deprecated */}
+        {/* <StakeView /> */}
+
+        <MyTokens />
       </MainWrapper>
 
       <ToastContainer

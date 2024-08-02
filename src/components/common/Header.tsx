@@ -5,7 +5,6 @@ import { styled } from "styled-components";
 import IcReferral from "@/assets/icons/Landing/ic_landing_referral.svg";
 import IcWalletConnect from "@/assets/icons/Landing/ic_landing_wallet.svg";
 import IcWalletDisconnect from "@/assets/icons/Landing/ic_landing_wallet_disconnect.svg";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 
 import DisconnectModal from "../main/Modal/DisconnectModal";
 
@@ -13,11 +12,12 @@ interface HeaderProps {
   isOpen: boolean;
   text: string;
   backgroundType: boolean;
+  connected: boolean;
+  tonConnectUI: any;
 }
 
 const Header = (props: HeaderProps) => {
-  const { connected, tonConnectUI } = useTonConnect();
-  const { isOpen, text, backgroundType } = props;
+  const { isOpen, text, backgroundType, connected, tonConnectUI } = props;
   const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();

@@ -56,7 +56,7 @@ const MainNftViewWrapper = styled.div`
 const MainNFtViewInnerBox = styled.div`
   width: 100%;
   margin-top: 0.6rem;
-  padding: 1.5rem;
+  padding: 1.1rem;
 `;
 
 const MainNftViewInnerTitleBox = styled.div`

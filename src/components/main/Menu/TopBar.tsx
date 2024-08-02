@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
 import IcMenuMyAsset from "@/assets/icons/Menu/ic_menu_asset.svg";
-import IcMenuMarket from "@/assets/icons/Menu/ic_menu_market.svg";
+import IcMenuDashboard from "@/assets/icons/Menu/ic_menu_dashboard.svg";
 import IcMenuStake from "@/assets/icons/Menu/ic_menu_stake.svg";
 
 const TopBar = () => {
@@ -18,9 +18,9 @@ const TopBar = () => {
         <img src={IcMenuMyAsset} alt="asset" />
         My Asset
       </TopBarButton>
-      <TopBarButton $inactive>
-        <img src={IcMenuMarket} alt="market" />
-        Marketplace
+      <TopBarButton onClick={() => navigate("/dashboard")}>
+        <img src={IcMenuDashboard} alt="dashboard" />
+        Dashboard
       </TopBarButton>
     </TopBarWrapper>
   );

@@ -6,10 +6,12 @@ import Header from "@/components/common/Header";
 import JoinCommunity from "@/components/main/Menu/JoinCommunity";
 import TopBar from "@/components/main/Menu/TopBar";
 import UpcomingMenu from "@/components/main/Menu/UpcomingMenu";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
 
 const Menu = () => {
+  const { connected, tonConnectUI } = useTonConnect();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,9 +27,10 @@ const Menu = () => {
       tele.offEvent("backButtonClicked");
     };
   }, []);
+
   return (
     <MenuWrapper>
-      <Header isOpen={true} text="NEXTON" backgroundType={true} />
+      <Header isOpen={true} text="NEXTON" backgroundType={true} connected={connected} tonConnectUI={tonConnectUI} />
       <TopBar />
       <UpcomingMenu />
       <JoinCommunity />

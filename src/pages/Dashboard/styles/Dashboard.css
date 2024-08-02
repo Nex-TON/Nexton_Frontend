@@ -1,0 +1,11 @@
+.recharts-cartesian-axis-tick-value {
+  font-size: 14px;
+}
+
+.recharts-tooltip-label {
+  display: none;
+}
+
+.recharts-tooltip-item-list {
+  font-size: 32px;
+}
