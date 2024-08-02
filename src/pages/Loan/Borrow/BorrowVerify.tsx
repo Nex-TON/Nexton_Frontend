@@ -53,7 +53,7 @@ const BorrowVerify = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, [navigate]);
+  }, []);
 
   const handleBorrowConfirm = () => {
     toggleModal();

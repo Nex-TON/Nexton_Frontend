@@ -22,7 +22,7 @@ const RiskDisclosure = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, [navigate]);
+  }, []);
 
   return (
     <RiskDisclosureWrapper>
