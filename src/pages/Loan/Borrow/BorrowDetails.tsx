@@ -46,7 +46,7 @@ const BorrowDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { data } = useNFTDetail(Number(id));
+  // const { nftDetail } = useNFTDetail(Number(id));
 
   useEffect(() => {
     if (tele) {
