@@ -77,8 +77,7 @@ const Dashboard = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        const { prev } = location.state;
-        navigate(prev ? prev : "/");
+        navigate("/");
       });
     }
 
