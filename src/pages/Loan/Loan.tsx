@@ -5,6 +5,7 @@ import IcAlert from "@/assets/icons/Loan/ic_alert.svg";
 import IcBars from "@/assets/icons/Loan/ic_bars.svg";
 import DropdownMenu from "@/components/common/DropdownMenu";
 import BorrowList from "@/components/loan/Borrow/BorrowList";
+import RepayList from "@/components/loan/Repay/RepayList";
 
 import {
   LoanHeaderBox,
@@ -95,6 +96,7 @@ const Loan = () => {
         </LoanNFTBoxHeader>
 
         {view === "borrow" && <BorrowList filter={filter} />}
+        {view === "repay" && <RepayList />}
       </LoanNFTBox>
     </LoanWrapper>
   );

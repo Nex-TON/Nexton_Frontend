@@ -1,34 +1,16 @@
 import { useNavigate } from "react-router-dom";
 
-import { nftInfo } from "@/types/Nft";
 import { DDayChange, expiredDateChanger } from "@/utils/dateChanger";
 import { numberCutter } from "@/utils/numberCutter";
 
-import {
-  BorrowListBottom,
-  BorrowListBottomTextBottom,
-  BorrowListItemDivider,
-  BorrowListItemWrapper,
-  BorrowListTop,
-  BorrowListTopLeft,
-  BorrowListTopLeftText,
-  Caption3,
-  LabelMedium,
-  NFTStatus,
-} from "./BorrowListItem.styled";
+import { RepayListItemWrapper, RepayListTop } from "./RepayListItem.styled";
 
-interface BorrowListProps {
-  item: nftInfo;
-}
-
-const BorrowListItem = (props: BorrowListProps) => {
-  const { nftId, amount, timeStamp, lockPeriod } = props.item;
-
+const RepayListItem = () => {
   const navigate = useNavigate();
 
   return (
-    <BorrowListItemWrapper onClick={() => navigate(`/loan/${nftId}`)}>
-      <BorrowListTop>
+    <RepayListItemWrapper onClick={() => navigate(`/repay/${1}`)}>
+      <RepayListTop>
         <BorrowListTopLeft>
           {DDayChange(timeStamp, lockPeriod) > 55 ? (
             <NFTStatus type="ongoing" />
@@ -48,7 +30,7 @@ const BorrowListItem = (props: BorrowListProps) => {
           Borrow
           <img src={IcLoanArrow} alt="loan" />
         </BorrowButton> */}
-      </BorrowListTop>
+      </RepayListTop>
 
       <BorrowListItemDivider />
 
@@ -66,8 +48,8 @@ const BorrowListItem = (props: BorrowListProps) => {
           <LabelMedium>50%</LabelMedium>
         </BorrowListBottomTextBottom>
       </BorrowListBottom>
-    </BorrowListItemWrapper>
+    </RepayListItemWrapper>
   );
 };
 
-export default BorrowListItem;
+export default RepayListItem;
