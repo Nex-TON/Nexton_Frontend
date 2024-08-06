@@ -47,10 +47,10 @@ const StakingInfo = ({ isExpandable, theme, title, stakingInfoItems, alwaysVisib
                 <p>{item.value}</p>
               )}
             </StakingInfoItem>
-            {index < alwaysVisibleItems.length - 1 && <StakingInfoDivider />}
+            {index < alwaysVisibleItems.length - 1 && <StakingInfoDivider $theme={theme} />}
           </>
         ))}
-      {alwaysVisibleItems && alwaysVisibleItems.length > 0 && isExpanded && <StakingInfoDivider />}
+      {alwaysVisibleItems && alwaysVisibleItems.length > 0 && isExpanded && <StakingInfoDivider $theme={theme} />}
 
       {isExpandable && !isExpanded && (
         <StakingInfoBottomBox $marginTop={Boolean(alwaysVisibleItems)} onClick={handleExpandInfo}>
@@ -65,7 +65,7 @@ const StakingInfo = ({ isExpandable, theme, title, stakingInfoItems, alwaysVisib
                 <span>{item.label}</span>
                 <p>{item.value}</p>
               </StakingInfoItem>
-              {index < stakingInfoItems.length - 1 && <StakingInfoDivider />}
+              {index < stakingInfoItems.length - 1 && <StakingInfoDivider $theme={theme} />}
             </>
           ))}
           {isExpandable && (
@@ -130,11 +130,11 @@ const StakingInfoItem = styled.div<{ $theme: Theme }>`
   }
 `;
 
-const StakingInfoDivider = styled.div`
+const StakingInfoDivider = styled.div<{ $theme: Theme }>`
   width: 100%;
   height: 1px;
 
-  background: #f1f4f4;
+  background: ${({ $theme }) => ($theme === "black" ? "#46494A" : "#F1F4F4")};
 
   margin: 0.9rem 0;
 `;

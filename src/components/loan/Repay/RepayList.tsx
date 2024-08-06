@@ -7,8 +7,10 @@ import {
   LoanNFTBoxListEmptyLink,
 } from "../Borrow/BorrowList.styled";
 
+import RepayListItem from "./RepayListItem";
+
 const _RepaysMock = [
-  /*   {
+  {
     nftId: 1,
     amount: 1000,
     due: "2025-03-01T12:00:00Z",
@@ -22,7 +24,7 @@ const _RepaysMock = [
     nftId: 3,
     amount: 3100,
     due: "2025-06-01T12:00:00Z",
-  }, */
+  },
 ];
 
 // ! Data is currently mocked
@@ -34,7 +36,7 @@ const RepayList = () => {
           {_RepaysMock
             .sort((a, b) => Number(b.due) - Number(a.due))
             .map(item => (
-              <>{item.amount}</>
+              <RepayListItem />
             ))}
         </BorrowListItemBox>
       ) : (

@@ -81,10 +81,10 @@ const StepCircle = styled.div<{ active: boolean }>`
 `;
 
 const StepLabel = styled.div<{ position: "left" | "center" | "right" }>`
-  top: 3.5rem;
-  left: ${({ position }) => (position === "left" ? "-35%" : position === "center" ? "7.5%" : "50%")};
+  top: 4rem;
+  left: ${({ position }) => (position === "left" ? "-35%" : position === "center" ? "7.5%" : "55%")};
   position: absolute;
-  width: 175px;
+  width: ${({ position }) => (position === "right" ? "150px" : "175px")};
   ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
   text-align: center;
   color: #5e6162;

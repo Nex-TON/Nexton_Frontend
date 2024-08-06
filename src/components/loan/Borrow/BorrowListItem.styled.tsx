@@ -51,10 +51,10 @@ export const NFTStatus = styled.div<{ type?: string }>`
   border-radius: 1rem;
   background: ${({ type }) =>
     type === "ongoing"
-      ? `linear-gradient(217deg, rgba(61, 80, 255, 0.00) 9.1%, #C7CAE9 88.74%), url("./src/assets/image/Loan/OngoingNFTItem.png") lightgray 50% / cover no-repeat`
+      ? `url("./src/assets/image/Loan/OngoingNFTItem.png") lightgray 50% / cover no-repeat`
       : type === "forthComing"
-        ? `linear-gradient(217deg, rgba(255, 93, 57, 0.00) 57.93%, #FF5D39 88.74%), url("./src/assets/image/Loan/ForthcomingNFTItem.png") lightgray 50% / cover no-repeat;`
-        : `linear-gradient(217deg, rgba(255, 255, 255, 0.00) 35.65%, #A4A4A4 88.74%), url("./src/assets/image/Loan/ExpiredNFTItem.png") lightgray 50% / cover no-repeat`};
+        ? `url("./src/assets/image/Loan/ForthcomingNFTItem.png") lightgray 50% / cover no-repeat;`
+        : `url("./src/assets/image/Loan/ExpiredNFTItem.png") lightgray 50% / cover no-repeat`};
 `;
 
 export const BorrowListTopLeftText = styled.div`

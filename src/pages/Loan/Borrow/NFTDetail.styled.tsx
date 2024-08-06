@@ -24,6 +24,24 @@ export const NFTDetailCard = styled.div`
   box-shadow: 0px 4px 8.6px 0px rgba(206, 216, 225, 0.5);
 `;
 
+export const NFTDetailCardImageBox = styled.div`
+  position: relative;
+
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    ${({ theme }) => theme.fonts.Nexton_Title_Large};
+  }
+
+  img {
+    width: 171px;
+    height: auto;
+  }
+`;
+
 export const NFTDetailCardTitle = styled.h1`
   color: #fff;
   text-align: center;
@@ -80,8 +98,8 @@ export const NFTDetailItem = styled.div<{ $marginTop?: boolean; $itemsCenter?: b
 `;
 
 export const NFTDetailItemCaption = styled.span`
-  ${({ theme }) => theme.fonts.Nexton_Label_Small};
-  color: rgba(170, 174, 175, 1);
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+  color: #aaaeaf;
 `;
 
 export const NFTDetailItemText = styled.p<{ $textCenter?: boolean }>`

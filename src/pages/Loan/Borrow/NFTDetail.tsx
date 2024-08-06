@@ -4,11 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import IcTrendUp from "@/assets/icons/Loan/ic_trend_up.svg";
 import OngoingNFTLarge from "@/assets/image/Loan/OngoingNFTLarge.png";
 import StakingInfo from "@/components/loan/common/StakingInfo";
-import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 
 import {
   NFTDetailCard,
   NFTDetailCardButton,
+  NFTDetailCardImageBox,
   NFTDetailCardTitle,
   NFTDetailContentBox,
   NFTDetailItem,
@@ -56,7 +56,10 @@ const NFTDetail = () => {
     <NFTDetailWrapper>
       <NFTDetailCard>
         {/* NFTs are currently hardcoded to be ongoing. This should be changed to a dynamic value. */}
-        <img src={OngoingNFTLarge} alt="ongoing_nft" />
+        <NFTDetailCardImageBox>
+          <img src={OngoingNFTLarge} alt="ongoing_nft" />
+          <span>D-30</span>
+        </NFTDetailCardImageBox>
 
         <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
         <NFTDetailCardButton onClick={() => navigate(`/loan/${id}/borrow/details`)}>

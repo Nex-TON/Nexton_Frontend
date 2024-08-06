@@ -1,53 +1,60 @@
 import { useNavigate } from "react-router-dom";
 
-import { DDayChange, expiredDateChanger } from "@/utils/dateChanger";
 import { numberCutter } from "@/utils/numberCutter";
 
-import { RepayListItemWrapper, RepayListTop } from "./RepayListItem.styled";
+import { Caption3, LabelMedium } from "../Borrow/BorrowListItem.styled";
+
+import {
+  RepayListBottom,
+  RepayListBottomTextBottom,
+  RepayListDueDate,
+  RepayListItemDivider,
+  RepayListItemWrapper,
+  RepayListTop,
+  RepayListTopButton,
+  RepayListTopLeft,
+  RepayListTopLeftIcon,
+  RepayListTopLeftText,
+} from "./RepayListItem.styled";
 
 const RepayListItem = () => {
   const navigate = useNavigate();
 
   return (
-    <RepayListItemWrapper onClick={() => navigate(`/repay/${1}`)}>
+    <RepayListItemWrapper>
       <RepayListTop>
-        <BorrowListTopLeft>
-          {DDayChange(timeStamp, lockPeriod) > 55 ? (
-            <NFTStatus type="ongoing" />
-          ) : DDayChange(timeStamp, lockPeriod) === 0 ? (
-            <NFTStatus type="expired" />
-          ) : (
-            <NFTStatus type="forthComing" />
-          )}
-          <BorrowListTopLeftText>
-            <Caption3>Token ID</Caption3>
-            <p>{nftId}</p>
-          </BorrowListTopLeftText>
-        </BorrowListTopLeft>
+        <RepayListTopLeft>
+          <RepayListTopLeftIcon>1</RepayListTopLeftIcon>
+          <RepayListTopLeftText>
+            <Caption3>Borrowed nxTON</Caption3>
+            <p>000.00 nxTON</p>
+          </RepayListTopLeftText>
+        </RepayListTopLeft>
 
-        {/* Not finalized yet */}
-        {/* <BorrowButton onClick={() => navigate(`/loan/${nftId}`)}>
-          Borrow
-          <img src={IcLoanArrow} alt="loan" />
-        </BorrowButton> */}
+        <RepayListTopButton onClick={() => navigate(`/repay/${1}`)}>Repayment</RepayListTopButton>
       </RepayListTop>
 
-      <BorrowListItemDivider />
+      <RepayListDueDate>
+        <span>Before the due date</span>
+        <p>2 days</p>
+      </RepayListDueDate>
 
-      <BorrowListBottom>
-        <BorrowListBottomTextBottom>
+      <RepayListItemDivider />
+
+      <RepayListBottom>
+        <RepayListBottomTextBottom>
           <Caption3>Principal</Caption3>
-          <LabelMedium>{numberCutter(amount)} TON</LabelMedium>
-        </BorrowListBottomTextBottom>
-        <BorrowListBottomTextBottom>
-          <Caption3>Expired date</Caption3>
-          <LabelMedium>{expiredDateChanger(timeStamp, lockPeriod, "detail")}</LabelMedium>
-        </BorrowListBottomTextBottom>
-        <BorrowListBottomTextBottom>
-          <Caption3>max LTV.</Caption3>
+          <LabelMedium>{numberCutter(123.42)} TON</LabelMedium>
+        </RepayListBottomTextBottom>
+        <RepayListBottomTextBottom>
+          <Caption3>Maturity date</Caption3>
+          <LabelMedium>mm.dd.yy</LabelMedium>
+        </RepayListBottomTextBottom>
+        <RepayListBottomTextBottom>
+          <Caption3>Interest rate</Caption3>
           <LabelMedium>50%</LabelMedium>
-        </BorrowListBottomTextBottom>
-      </BorrowListBottom>
+        </RepayListBottomTextBottom>
+      </RepayListBottom>
     </RepayListItemWrapper>
   );
 };
