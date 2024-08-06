@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
+import ExpiredNFTItem from "@/assets/image/Loan/ExpiredNFTItem.png";
+import ForthcomingNFTItem from "@/assets/image/Loan/ForthcomingNFTItem.png";
+import OngoingNFTItem from "@/assets/image/Loan/OngoingNFTItem.png";
 import { nftInfo } from "@/types/Nft";
 import { DDayChange, expiredDateChanger } from "@/utils/dateChanger";
 import { numberCutter } from "@/utils/numberCutter";
@@ -31,11 +34,11 @@ const BorrowListItem = (props: BorrowListProps) => {
       <BorrowListTop>
         <BorrowListTopLeft>
           {DDayChange(timeStamp, lockPeriod) > 55 ? (
-            <NFTStatus type="ongoing" />
+            <NFTStatus src={OngoingNFTItem} />
           ) : DDayChange(timeStamp, lockPeriod) === 0 ? (
-            <NFTStatus type="expired" />
+            <NFTStatus src={ExpiredNFTItem} />
           ) : (
-            <NFTStatus type="forthComing" />
+            <NFTStatus src={ForthcomingNFTItem} />
           )}
           <BorrowListTopLeftText>
             <Caption3>Token ID</Caption3>
