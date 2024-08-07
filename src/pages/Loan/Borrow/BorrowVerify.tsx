@@ -19,10 +19,14 @@ interface ModalState {
 }
 
 const stakingInfoItems = [
-  { label: "Borrowed nxTON", value: "000.00 nxTON" },
-  { label: "Principal", value: "00000 TON" },
-  { label: "LTV", value: "50.0%" },
-  { label: "Maturity date", value: "mm.dd.yy" },
+  {
+    items: [
+      { label: "Borrowed nxTON", value: "000.00 nxTON" },
+      { label: "Principal", value: "00000 TON" },
+      { label: "LTV", value: "95.0%" },
+      { label: "Maturity date", value: "mm.dd.yy" },
+    ],
+  },
 ];
 
 // ! Data is currently mocked
@@ -90,7 +94,7 @@ const BorrowVerify = () => {
         <ConfirmBorrowModal toggleModal={toggleModal} onConfirm={handleBorrowConfirm} />
       )}
       {modal.type === "borrow" && modal.toggled && (
-        <BasicModal isDark type="loan" toggleModal={toggleModal} onClose={() => console.log("Borrowed!")} />
+        <BasicModal isDark type="borrow" toggleModal={toggleModal} onClose={() => console.log("Borrowed!")} />
       )}
     </>
   );

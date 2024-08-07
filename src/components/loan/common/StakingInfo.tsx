@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 import { styled } from "styled-components";
 
 import IcTonLogo from "@/assets/icons/Loan/ic_ton_logo.svg";
@@ -7,12 +8,22 @@ import { DoubleArrows } from "./DoubleArrows";
 
 type Theme = "black" | "white";
 
+interface SectionItem {
+  label: string;
+  value: string | JSX.Element;
+}
+
+interface Section {
+  header?: string;
+  items: SectionItem[];
+}
+
 interface StakingInfoProps {
   isExpandable: boolean;
   theme: Theme;
   title: string;
-  stakingInfoItems: { label: string; value: string }[];
-  alwaysVisibleItems?: { label: string; value: string }[];
+  alwaysVisibleItems?: SectionItem[];
+  stakingInfoItems: Section[];
 }
 
 const StakingInfo = ({ isExpandable, theme, title, stakingInfoItems, alwaysVisibleItems }: StakingInfoProps) => {
@@ -50,7 +61,6 @@ const StakingInfo = ({ isExpandable, theme, title, stakingInfoItems, alwaysVisib
             {index < alwaysVisibleItems.length - 1 && <StakingInfoDivider $theme={theme} />}
           </>
         ))}
-      {alwaysVisibleItems && alwaysVisibleItems.length > 0 && isExpanded && <StakingInfoDivider $theme={theme} />}
 
       {isExpandable && !isExpanded && (
         <StakingInfoBottomBox $marginTop={Boolean(alwaysVisibleItems)} onClick={handleExpandInfo}>
@@ -59,14 +69,30 @@ const StakingInfo = ({ isExpandable, theme, title, stakingInfoItems, alwaysVisib
       )}
       {(!isExpandable || isExpanded) && stakingInfoItems && stakingInfoItems.length > 0 && (
         <>
-          {stakingInfoItems.map((item, index) => (
-            <>
-              <StakingInfoItem $theme={theme} key={index}>
-                <span>{item.label}</span>
-                <p>{item.value}</p>
-              </StakingInfoItem>
-              {index < stakingInfoItems.length - 1 && <StakingInfoDivider $theme={theme} />}
-            </>
+          {stakingInfoItems.map((section, index) => (
+            <React.Fragment key={`section-${index}`}>
+              {section.header && (
+                <StakingInfoHeaderText $marginTop $theme={theme}>
+                  {section.header}
+                </StakingInfoHeaderText>
+              )}
+              {section.items.map((sectionItem, index) => (
+                <React.Fragment key={`section-item-${index}`}>
+                  <StakingInfoItem $theme={theme} key={index}>
+                    <span>{sectionItem.label}</span>
+                    {sectionItem.label === "Network" ? (
+                      <NetworkValueBox>
+                        <img src={IcTonLogo} alt="TON_logo" />
+                        <p>{sectionItem.value}</p>
+                      </NetworkValueBox>
+                    ) : (
+                      <p>{sectionItem.value}</p>
+                    )}
+                  </StakingInfoItem>
+                  {index < section.items.length - 1 && <StakingInfoDivider $theme={theme} />}
+                </React.Fragment>
+              ))}
+            </React.Fragment>
           ))}
           {isExpandable && (
             <StakingInfoBottomBox $marginTop onClick={handleExpandInfo}>
@@ -96,7 +122,7 @@ const StakingInfoWrapper = styled.div<{ $theme: Theme; $marginTop?: boolean; $it
   box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
 `;
 
-const StakingInfoHeaderText = styled.p<{ $theme: Theme; $textCenter?: boolean }>`
+const StakingInfoHeaderText = styled.p<{ $theme: Theme; $textCenter?: boolean; $marginTop?: boolean }>`
   width: 100%;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
   color: ${({ $theme }) => ($theme === "black" ? "#fff" : "#303234")};
@@ -108,6 +134,7 @@ const StakingInfoHeaderText = styled.p<{ $theme: Theme; $textCenter?: boolean }>
   text-align: ${({ $textCenter }) => ($textCenter ? "center" : "left")};
 
   margin-bottom: 1rem;
+  margin-top: ${({ $marginTop }) => ($marginTop ? "1.6rem" : "0")};
 `;
 
 const StakingInfoItem = styled.div<{ $theme: Theme }>`

@@ -31,14 +31,19 @@ const alwaysVisibleItems = [
 ];
 
 const stakingInfoItems = [
-  { label: "Principal", value: "10,000 TON" },
-  { label: "Nominator Pool", value: "DG Pool #1" },
-  { label: "Leveraged", value: "X1.0" },
-  { label: "Lockup period", value: "60 days" },
-  { label: "Unstakable date", value: "DD.MM.YY" },
-  { label: "Protocol Fees", value: "2%" },
-  { label: "Staking APR", value: "5%" },
-  { label: "Total Amount", value: "10,083 TON" },
+  {
+    header: "Staking info",
+    items: [
+      { label: "Principal", value: "10,000 TON" },
+      { label: "Nominator Pool", value: "DG Pool #1" },
+      { label: "Leveraged", value: "X1.0" },
+      { label: "Lockup period", value: "60 days" },
+      { label: "Unstakable date", value: "DD.MM.YY" },
+      { label: "Protocol Fees", value: "2%" },
+      { label: "Staking APR", value: "5%" },
+      { label: "Total Amount", value: "10,083 TON" },
+    ],
+  },
 ];
 
 // ! Data is currently mocked

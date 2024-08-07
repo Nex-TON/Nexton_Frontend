@@ -31,16 +31,14 @@ const RepayListItem = () => {
           </RepayListTopLeftText>
         </RepayListTopLeft>
 
-        <RepayListTopButton onClick={() => navigate(`/repay/${1}`)}>Repayment</RepayListTopButton>
+        <RepayListTopButton onClick={() => navigate(`/loan/${1}/repay/details`)}>Repayment</RepayListTopButton>
       </RepayListTop>
-
+      /repay/details
       <RepayListDueDate>
         <span>Before the due date</span>
         <p>2 days</p>
       </RepayListDueDate>
-
       <RepayListItemDivider />
-
       <RepayListBottom>
         <RepayListBottomTextBottom>
           <Caption3>Principal</Caption3>

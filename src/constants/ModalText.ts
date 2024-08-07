@@ -4,11 +4,17 @@ export const MODAL_TEXT = {
     desc: "For now you can check minted NFT",
     descBr: "on My asset, and transaction data",
   },
-  loan: {
+  borrow: {
     title: "Successfully borrowed NXT",
     desc: "Please check deposited NXT",
     descBr: "in your wallet, and transaction",
     descBr2: "history by tapping below button",
+  },
+  repay: {
+    title: "Repayment was successful!",
+    desc: "You can view the repayment history",
+    descBr: "in the History section and also in the",
+    descBr2: "TON viewer at the bottom.",
   },
   unstaking: {
     title: "Successfully",
