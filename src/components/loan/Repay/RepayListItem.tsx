@@ -31,9 +31,8 @@ const RepayListItem = () => {
           </RepayListTopLeftText>
         </RepayListTopLeft>
 
-        <RepayListTopButton onClick={() => navigate(`/loan/${1}/repay/details`)}>Repayment</RepayListTopButton>
+        <RepayListTopButton onClick={() => navigate("/loan/1/repay/details")}>Repayment</RepayListTopButton>
       </RepayListTop>
-      /repay/details
       <RepayListDueDate>
         <span>Before the due date</span>
         <p>2 days</p>
