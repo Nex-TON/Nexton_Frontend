@@ -82,14 +82,14 @@ const RepaymentDetails = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate(-1);
+        navigate("/loan");
       });
     }
 
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, []);
+  }, [navigate]);
 
   const handleRepayConfirm = () => {
     toggleModal();

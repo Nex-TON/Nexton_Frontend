@@ -65,7 +65,7 @@ const BorrowDetails = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, []);
+  }, [navigate]);
 
   return (
     <BorrowWrapper>

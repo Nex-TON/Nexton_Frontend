@@ -54,7 +54,7 @@ const NFTDetail = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, []);
+  }, [navigate]);
 
   return (
     <NFTDetailWrapper>
