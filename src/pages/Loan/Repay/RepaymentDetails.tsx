@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 import BasicModal from "@/components/common/Modal/BasicModal";
@@ -18,8 +18,6 @@ import {
   RepayRateBoxDivider,
   RepayRateBoxHeader,
 } from "./RepaymentDetails.styled";
-
-const tele = (window as any).Telegram.WebApp;
 
 const alwaysVisibleItems = [
   { label: "Borrowed nxTON", value: "000.00 nxTON" },
@@ -57,10 +55,11 @@ interface ModalState {
   toggled: boolean;
 }
 
+const tele = (window as any).Telegram?.WebApp;
+
 // ! Data is currently mocked
 const RepaymentDetails = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
 
   const [modal, setModal] = useState<ModalState>({
     type: "confirmRepay",
@@ -74,8 +73,6 @@ const RepaymentDetails = () => {
     }));
   };
 
-  // const { nftDetail } = useNFTDetail(Number(id));
-
   useEffect(() => {
     if (tele) {
       tele.ready();
@@ -86,7 +83,9 @@ const RepaymentDetails = () => {
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      if (tele) {
+        tele.offEvent("backButtonClicked");
+      }
     };
   }, [navigate]);
 
