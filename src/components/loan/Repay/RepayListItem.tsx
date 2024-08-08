@@ -21,7 +21,7 @@ const RepayListItem = () => {
   const navigate = useNavigate();
 
   return (
-    <RepayListItemWrapper>
+    <RepayListItemWrapper onClick={() => navigate("/loan/1/repay/details")}>
       <RepayListTop>
         <RepayListTopLeft>
           <RepayListTopLeftIcon>1</RepayListTopLeftIcon>

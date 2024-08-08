@@ -98,7 +98,7 @@ const RepaymentDetails = () => {
   };
 
   return (
-    <>
+    <div>
       <RepaymentWrapper>
         <RepaymentHeaderBox>
           <RepaymentHeaderBoxTitle>
@@ -136,7 +136,7 @@ const RepaymentDetails = () => {
       {modal.type === "repay" && modal.toggled && (
         <BasicModal isDark type="repay" toggleModal={toggleModal} onClose={() => console.log("Repayed!")} />
       )}
-    </>
+    </div>
   );
 };
 

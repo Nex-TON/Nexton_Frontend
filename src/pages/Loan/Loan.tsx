@@ -62,7 +62,7 @@ const Loan = () => {
           <h1>Loan</h1>
         </LoanHeaderBoxTitle>
 
-        <LoanHeaderBoxButton>
+        <LoanHeaderBoxButton onClick={() => navigate("/loan/history")}>
           <img src={IcBars} alt="loan_icon" />
         </LoanHeaderBoxButton>
       </LoanHeaderBox>
