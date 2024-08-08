@@ -58,7 +58,7 @@ const BorrowDetails = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate(-1);
+        navigate("/loan/1");
       });
     }
 

@@ -6,7 +6,6 @@ import BasicModal from "@/components/common/Modal/BasicModal";
 import TransactionConfirmModal from "@/components/common/Modal/TransactionConfirmModal";
 import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
 import { ConfirmRepaymentModal } from "@/components/loan/Repay/ConfirmRepaymentModal";
-import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { isDevMode } from "@/utils/isDevMode.ts";
 
 import {
