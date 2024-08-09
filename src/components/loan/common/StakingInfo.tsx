@@ -22,11 +22,19 @@ interface StakingInfoProps {
   isExpandable: boolean;
   theme: Theme;
   title: string;
+  titleButton?: JSX.Element;
   alwaysVisibleItems?: SectionItem[];
   stakingInfoItems: Section[];
 }
 
-const StakingInfo = ({ isExpandable, theme, title, stakingInfoItems, alwaysVisibleItems }: StakingInfoProps) => {
+const StakingInfo = ({
+  isExpandable,
+  theme,
+  title,
+  titleButton,
+  stakingInfoItems,
+  alwaysVisibleItems,
+}: StakingInfoProps) => {
   const [isExpanded, setExpanded] = useState(false);
   const arrowsTheme = theme === "black" ? "white" : "black";
 
@@ -40,9 +48,11 @@ const StakingInfo = ({ isExpandable, theme, title, stakingInfoItems, alwaysVisib
       $itemsCenter={isExpandable}
       onClick={isExpandable && !isExpanded ? handleExpandInfo : undefined}
     >
-      <StakingInfoHeaderText $theme={theme} $textCenter={isExpandable && !alwaysVisibleItems}>
-        {title}
-      </StakingInfoHeaderText>
+      <StakingInfoHeader $theme={theme} $textCenter={isExpandable && !alwaysVisibleItems}>
+        <p>{title}</p>
+
+        {titleButton && titleButton}
+      </StakingInfoHeader>
       {alwaysVisibleItems &&
         alwaysVisibleItems.length > 0 &&
         alwaysVisibleItems.map((item, index) => (
@@ -72,9 +82,9 @@ const StakingInfo = ({ isExpandable, theme, title, stakingInfoItems, alwaysVisib
           {stakingInfoItems.map((section, index) => (
             <React.Fragment key={`section-${index}`}>
               {section.header && (
-                <StakingInfoHeaderText $marginTop $theme={theme}>
-                  {section.header}
-                </StakingInfoHeaderText>
+                <StakingInfoHeader $marginTop $theme={theme}>
+                  <p>{section.header}</p>
+                </StakingInfoHeader>
               )}
               {section.items.map((sectionItem, index) => (
                 <React.Fragment key={`section-item-${index}`}>
@@ -122,19 +132,24 @@ const StakingInfoWrapper = styled.div<{ $theme: Theme; $marginTop?: boolean; $it
   box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
 `;
 
-const StakingInfoHeaderText = styled.p<{ $theme: Theme; $textCenter?: boolean; $marginTop?: boolean }>`
+const StakingInfoHeader = styled.div<{ $theme: Theme; $textCenter?: boolean; $marginTop?: boolean }>`
   width: 100%;
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
-  color: ${({ $theme }) => ($theme === "black" ? "#fff" : "#303234")};
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  text-align: ${({ $textCenter }) => ($textCenter ? "center" : "left")};
-
+  display: flex;
+  justify-content: ${({ $textCenter }) => ($textCenter ? "center" : "space-between")};
+  align-items: center;
   margin-bottom: 1rem;
   margin-top: ${({ $marginTop }) => ($marginTop ? "1.6rem" : "0")};
+
+  p {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+    color: ${({ $theme }) => ($theme === "black" ? "#fff" : "#303234")};
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    text-align: ${({ $textCenter }) => ($textCenter ? "center" : "left")};
+  }
 `;
 
 const StakingInfoItem = styled.div<{ $theme: Theme }>`

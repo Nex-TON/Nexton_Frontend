@@ -8,8 +8,9 @@ import {
   LoanNFTBoxListEmpty,
   LoanNFTBoxListEmptyLink,
 } from "@/components/loan/Borrow/BorrowList.styled";
+import HistoryListItem from "@/components/loan/History/HistoryListItem";
 
-import { LoanHeaderBox, LoanHeaderBoxTitle, LoanWrapper } from "./Loan.styled";
+import { LoanHeaderBox, LoanHeaderBoxTitle, LoanWrapper } from "../Loan.styled";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -59,11 +60,11 @@ const LoanHistory = () => {
       <BorrowListWrapper>
         {_LoanHistoryMock && _LoanHistoryMock.length > 0 ? (
           <BorrowListItemBox>
-            {/* {_RepaysMock
+            {_LoanHistoryMock
               .sort((a, b) => Number(b.due) - Number(a.due))
               .map(item => (
-                <RepayListItem />
-              ))} */}
+                <HistoryListItem />
+              ))}
           </BorrowListItemBox>
         ) : (
           <LoanNFTBoxListEmpty>

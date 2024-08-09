@@ -5,8 +5,9 @@ import BorrowDetails from "@/pages/Loan/Borrow/BorrowDetails";
 import BorrowRiskDisclosure from "@/pages/Loan/Borrow/BorrowRiskDisclosure";
 import BorrowVerify from "@/pages/Loan/Borrow/BorrowVerify";
 import NFTDetail from "@/pages/Loan/Borrow/NFTDetail";
+import LoanHistory from "@/pages/Loan/History/LoanHistory";
+import LoanHistoryDetails from "@/pages/Loan/History/LoanHistoryDetails";
 import Loan from "@/pages/Loan/Loan";
-import LoanHistory from "@/pages/Loan/LoanHistory";
 import RepaymentDetails from "@/pages/Loan/Repay/RepaymentDetails";
 import RiskDisclosure from "@/pages/Loan/RiskDisclosure";
 import Main from "@/pages/Main/Main";
@@ -47,6 +48,7 @@ const Router = () => {
           <Route path=":id/borrow/verify" element={<BorrowVerify />} />
           <Route path=":id/repay/details" element={<RepaymentDetails />} />
           <Route path="history" element={<LoanHistory />} />
+          <Route path=":id/history/details" element={<LoanHistoryDetails />} />
         </Route>
         <Route path="/swap" element={<Swap />} />
         <Route path="/nlp" element={<Nlp />} />

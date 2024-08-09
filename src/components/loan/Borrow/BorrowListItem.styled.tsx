@@ -87,8 +87,8 @@ export const BorrowListBottomTextBottom = styled.div`
 `;
 
 export const Caption3 = styled.span`
-  ${({ theme }) => theme.fonts.Nexton_Label_Small};
-  color: rgba(170, 174, 175, 1);
+  ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
+  color: #aaaeaf;
 `;
 
 export const LabelMedium = styled.p`
