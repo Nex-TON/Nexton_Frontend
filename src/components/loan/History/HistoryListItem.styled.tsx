@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import { BorrowListBottom, BorrowListItemDivider } from "../Borrow/BorrowListItem.styled";
 import { RepayListBottomTextBottom } from "../Repay/RepayListItem.styled";
 
-export const HistoryListItemWrapper = styled.div`
+export const HistoryListItemWrapper = styled.div<{ $inactive?: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,7 +15,7 @@ export const HistoryListItemWrapper = styled.div`
   box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
   border-radius: 2rem;
   background-color: #fff;
-  border-left: 0.7rem solid #1f53ff;
+  border-left: ${({ $inactive }) => ($inactive ? "0.7rem solid #E1E4E6" : "0.7rem solid #1f53ff")};
 
   cursor: pointer;
 

@@ -91,8 +91,8 @@ export const Caption3 = styled.span`
   color: #aaaeaf;
 `;
 
-export const LabelMedium = styled.p`
-  color: #303234;
+export const LabelMedium = styled.p<{ $inactive?: boolean }>`
+  color: ${({ $inactive }) => ($inactive ? "#B9B9BA" : "#303234")};
   font-family: Montserrat;
   font-size: 11px;
   font-style: normal;

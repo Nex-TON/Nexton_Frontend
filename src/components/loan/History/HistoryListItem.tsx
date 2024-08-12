@@ -40,7 +40,7 @@ const HistoryListItem = () => {
         </HistoryListBottomTextBottom>
         <HistoryListBottomTextBottom>
           <Caption3>max. LTV</Caption3>
-          <LabelMedium>95%</LabelMedium>
+          <LabelMedium>95.0%</LabelMedium>
         </HistoryListBottomTextBottom>
       </HistoryListBottom>
     </HistoryListItemWrapper>

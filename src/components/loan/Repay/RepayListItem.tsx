@@ -49,7 +49,7 @@ const RepayListItem = () => {
         </RepayListBottomTextBottom>
         <RepayListBottomTextBottom>
           <Caption3>Interest rate</Caption3>
-          <LabelMedium>50%</LabelMedium>
+          <LabelMedium>95%</LabelMedium>
         </RepayListBottomTextBottom>
       </RepayListBottom>
     </RepayListItemWrapper>

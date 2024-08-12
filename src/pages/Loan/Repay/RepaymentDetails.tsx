@@ -32,7 +32,7 @@ const stakingInfoItems = [
     items: [
       { label: "Token ID", value: "4817sddss863ddddwdwsdwd" },
       { label: "Network", value: "TON" },
-      { label: "LTV", value: "50.0%" },
+      { label: "LTV", value: "95.0%" },
     ],
   },
   {
@@ -92,7 +92,7 @@ const RepaymentDetails = () => {
   const handleRepayConfirm = () => {
     toggleModal();
 
-    console.log("Borrow confirmed!");
+    console.log("Repayment confirmed!");
 
     setModal({ type: "repay", toggled: true });
   };
@@ -123,9 +123,9 @@ const RepaymentDetails = () => {
         </RepaymentContentBox>
 
         {!isDevMode ? (
-          <MainButton text="Pay now" onClick={() => console.log("Repay Modal")} />
+          <MainButton text="Pay now" onClick={toggleModal} />
         ) : (
-          <button onClick={() => console.log("Repay Modal")}>Pay now</button>
+          <button onClick={toggleModal}>Pay now</button>
         )}
       </RepaymentWrapper>
 

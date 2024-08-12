@@ -43,7 +43,18 @@ function BasicModal(props: BasicModalProps) {
             </SubTitleBox>
           </>
         );
-      case "loan":
+      case "borrow":
+        return (
+          <>
+            <Title $isDark={isDark}>{MODAL_TEXT[type].title}</Title>
+            <SubTitleBox>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].desc}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr2}</SubTitle>
+            </SubTitleBox>
+          </>
+        );
+      case "repay":
         return (
           <>
             <Title $isDark={isDark}>{MODAL_TEXT[type].title}</Title>
