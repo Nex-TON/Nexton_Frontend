@@ -66,7 +66,7 @@ const BorrowListItem = (props: BorrowListProps) => {
         </BorrowListBottomTextBottom>
         <BorrowListBottomTextBottom>
           <Caption3>max LTV.</Caption3>
-          <LabelMedium>50%</LabelMedium>
+          <LabelMedium>95%</LabelMedium>
         </BorrowListBottomTextBottom>
       </BorrowListBottom>
     </BorrowListItemWrapper>

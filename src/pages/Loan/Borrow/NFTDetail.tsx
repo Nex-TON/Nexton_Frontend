@@ -84,7 +84,7 @@ const NFTDetail = () => {
           </NFTDetailItem>
           <NFTDetailItem>
             <NFTDetailItemCaption>LTV</NFTDetailItemCaption>
-            <NFTDetailItemText>50%</NFTDetailItemText>
+            <NFTDetailItemText>95%</NFTDetailItemText>
           </NFTDetailItem>
         </NFTDetailItemBox>
 
