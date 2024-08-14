@@ -9,12 +9,13 @@ interface TokenInputProps extends NumericFormatProps {
   name: string;
   setValue: (name: string, value: string) => void;
   tokenLabel: string;
-   
+
   control: any;
-  balance: number;
+  balance?: number;
   error?: string;
   disabled?: boolean;
   saveAs?: "floatValue" | "formattedValue";
+  disableMax?: boolean;
 }
 
 const TokenInput = ({
@@ -26,6 +27,7 @@ const TokenInput = ({
   error,
   disabled,
   saveAs = "formattedValue",
+  disableMax = false,
   ...props
 }: TokenInputProps) => {
   return (
@@ -48,9 +50,12 @@ const TokenInput = ({
         />
 
         <RightSection>
-          <MaxWrapper type="button" disabled={!balance} onClick={() => setValue(name, String(numberCutter(balance)))}>
-            MAX
-          </MaxWrapper>
+          {!disableMax && (
+            <MaxWrapper type="button" disabled={!balance} onClick={() => setValue(name, String(numberCutter(balance)))}>
+              MAX
+            </MaxWrapper>
+          )}
+
           <TokenLabel>{tokenLabel}</TokenLabel>
         </RightSection>
       </LeverageInputWrapper>

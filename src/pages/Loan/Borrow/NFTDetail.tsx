@@ -73,7 +73,7 @@ const NFTDetail = () => {
 
       <NFTDetailContentBox>
         <NFTDetailItem>
-          <NFTDetailItemCaption>Token ID</NFTDetailItemCaption>
+          <NFTDetailItemCaption>NFT ID</NFTDetailItemCaption>
           <NFTDetailItemText>542394817863ddddddddd</NFTDetailItemText>
         </NFTDetailItem>
 

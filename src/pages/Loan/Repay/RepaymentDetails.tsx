@@ -30,7 +30,7 @@ const stakingInfoItems = [
   {
     header: "Collateralizing NFT info",
     items: [
-      { label: "Token ID", value: "4817sddss863ddddwdwsdwd" },
+      { label: "NFT ID", value: "4817sddss863ddddwdwsdwd" },
       { label: "Network", value: "TON" },
       { label: "LTV", value: "95.0%" },
     ],
