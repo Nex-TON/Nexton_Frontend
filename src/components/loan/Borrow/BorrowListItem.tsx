@@ -25,7 +25,7 @@ interface BorrowListProps {
 }
 
 const BorrowListItem = (props: BorrowListProps) => {
-  const { nftId, amount, timeStamp, lockPeriod } = props.item;
+  const { nftId, principal, totalAmount, unstakableDate, timeStamp, lockPeriod } = props.item;
 
   const navigate = useNavigate();
 
@@ -58,7 +58,7 @@ const BorrowListItem = (props: BorrowListProps) => {
       <BorrowListBottom>
         <BorrowListBottomTextBottom>
           <Caption3>Principal</Caption3>
-          <LabelMedium>{numberCutter(amount)} TON</LabelMedium>
+          <LabelMedium>{numberCutter(principal)} TON</LabelMedium>
         </BorrowListBottomTextBottom>
         <BorrowListBottomTextBottom>
           <Caption3>Expired date</Caption3>

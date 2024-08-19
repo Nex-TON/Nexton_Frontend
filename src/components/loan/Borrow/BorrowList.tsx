@@ -15,7 +15,9 @@ import BorrowListItem from "./BorrowListItem";
 const _NFTsMock = [
   {
     nftId: 1,
-    amount: 1000,
+    principal: 1000,
+    totalAmount: 1000,
+    unstakableDate: "2024-03-01T12:00:00Z",
     leverage: 2,
     lockPeriod: 55,
     timeStamp: "2024-03-01T12:00:00Z",
@@ -24,7 +26,9 @@ const _NFTsMock = [
   },
   {
     nftId: 2,
-    amount: 500,
+    principal: 500,
+    totalAmount: 500,
+    unstakableDate: "2024-10-02T12:00:00Z",
     leverage: 3,
     lockPeriod: 55,
     timeStamp: "2024-10-02T12:00:00Z",
@@ -33,7 +37,9 @@ const _NFTsMock = [
   },
   {
     nftId: 3,
-    amount: 750,
+    principal: 750,
+    totalAmount: 1000,
+    unstakableDate: "2024-07-03T12:00:00Z",
     leverage: 1.5,
     lockPeriod: 55,
     timeStamp: "2024-07-03T12:00:00Z",
@@ -42,7 +48,9 @@ const _NFTsMock = [
   },
   {
     nftId: 4,
-    amount: 1200,
+    principal: 1200,
+    totalAmount: 1200,
+    unstakableDate: "2023-07-04T12:00:00Z",
     leverage: 2.5,
     lockPeriod: 55,
     timeStamp: "2023-07-04T12:00:00Z",
@@ -51,7 +59,9 @@ const _NFTsMock = [
   },
   {
     nftId: 5,
-    amount: 300,
+    principal: 300,
+    totalAmount: 300,
+    unstakableDate: "2024-07-05T12:00:00Z",
     leverage: 4,
     lockPeriod: 55,
     timeStamp: "2024-07-05T12:00:00Z",
@@ -63,7 +73,7 @@ const _NFTsMock = [
 // ! Data is currently mocked
 const BorrowList = ({ filter }: { filter?: FilterNFTs }) => {
   const { address } = useTonConnect();
-  const { nftList } = useStakeInfo(address);
+  // const { nftList } = useStakeInfo("kQA0OzE2rmi0k54C_WtmO3pqXCEnpdG8k_S_eA2K1er6EZfd");
 
   return (
     <BorrowListWrapper>

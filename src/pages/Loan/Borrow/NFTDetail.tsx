@@ -40,8 +40,6 @@ const NFTDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  // const { nftDetail } = useNFTDetail(Number(id));
-
   useEffect(() => {
     if (tele) {
       tele.ready();
