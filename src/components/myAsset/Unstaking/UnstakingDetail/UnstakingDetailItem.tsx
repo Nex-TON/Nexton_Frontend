@@ -14,7 +14,7 @@ interface UnstakingDetailItemProps {
 }
 
 const UnstakingDetailItem = (props: UnstakingDetailItemProps) => {
-  const { nftId, amount, timeStamp } = props.item;
+  const { nftId, principal, timeStamp } = props.item;
   const navigate = useNavigate();
 
   return (
@@ -38,7 +38,7 @@ const UnstakingDetailItem = (props: UnstakingDetailItemProps) => {
         <UnstakingDetailRightTopBox>
           <CaptionText>Value</CaptionText>
           <BoldText>
-            {numberCutter(amount)}
+            {numberCutter(principal)}
             <BoldText style={{ marginLeft: "0.4rem" }}>TON</BoldText>
           </BoldText>
         </UnstakingDetailRightTopBox>
