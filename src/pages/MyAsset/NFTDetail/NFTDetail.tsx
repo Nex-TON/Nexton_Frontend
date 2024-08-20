@@ -10,6 +10,7 @@ import StakingInfo from "@/components/loan/common/StakingInfo";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { nftInfo } from "@/types/Nft";
 import { DDayChange } from "@/utils/dateChanger";
+import { numberCutter } from "@/utils/numberCutter";
 
 import {
   NFTDetailCard,
@@ -61,7 +62,7 @@ const NFTDetail = () => {
             { label: "Unstakable date", value: nftDetail[0].unstakableDate },
             { label: "Protocol Fees", value: "2%" },
             { label: "Staking APR", value: "5%" },
-            { label: "Total Amount", value: `${nftDetail[0].totalAmount} TON` },
+            { label: "Total Amount", value: `${numberCutter(nftDetail[0].totalAmount)} TON` },
           ],
         },
       ]);

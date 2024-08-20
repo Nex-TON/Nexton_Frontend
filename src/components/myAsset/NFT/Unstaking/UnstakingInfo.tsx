@@ -2,10 +2,7 @@ import { styled } from "styled-components";
 
 import IcTonSymbol from "../../../../assets/icons/MyAsset/ic_tonSymbol.svg";
 import { nftInfo } from "../../../../types/Nft";
-import {
-  expiredDateChanger,
-  UnstakingDateChanger,
-} from "../../../../utils/dateChanger";
+import { expiredDateChanger, UnstakingDateChanger } from "../../../../utils/dateChanger";
 import { numberCutter } from "../../../../utils/numberCutter";
 
 interface UnstakingInfoProps {
@@ -13,13 +10,13 @@ interface UnstakingInfoProps {
 }
 
 const UnstakingInfo = (props: UnstakingInfoProps) => {
-  const { amount, leverage, lockPeriod, timeStamp } = props.item;
+  const { principal, leverage, lockPeriod, timeStamp } = props.item;
 
   return (
     <UnstakingInfoWrapper>
       <UnstakingBoldWrapper>
         <UnstakingBoldText>Principal</UnstakingBoldText>
-        <UnstakingBoldText>{numberCutter(amount)} TON</UnstakingBoldText>
+        <UnstakingBoldText>{numberCutter(principal)} TON</UnstakingBoldText>
       </UnstakingBoldWrapper>
       <UnstakingBoldWrapper>
         <UnstakingBoldText>Rewards</UnstakingBoldText>
@@ -49,9 +46,7 @@ const UnstakingInfo = (props: UnstakingInfoProps) => {
             <UnstakingBottomText>TON</UnstakingBottomText>
           </UnstakingInfoBottomRightBox>
         </UnstakingInfoBottomBox> */}
-        <UnstakingBoldWrapper
-          style={{ marginTop: "3rem", marginBottom: "1.4rem" }}
-        >
+        <UnstakingBoldWrapper style={{ marginTop: "3rem", marginBottom: "1.4rem" }}>
           <UnstakingBoldText>Available in</UnstakingBoldText>
           <UnstakingBoldText> ＜ 9H </UnstakingBoldText>
         </UnstakingBoldWrapper>
@@ -62,9 +57,7 @@ const UnstakingInfo = (props: UnstakingInfoProps) => {
         <UnstakingInfoBottomBox>
           <UnstakingInfoBottomBox>
             <UnstakingBottomText>Date of Unstaking</UnstakingBottomText>
-            <UnstakingBottomText>
-              {UnstakingDateChanger(timeStamp)}
-            </UnstakingBottomText>
+            <UnstakingBottomText>{UnstakingDateChanger(timeStamp)}</UnstakingBottomText>
           </UnstakingInfoBottomBox>
         </UnstakingInfoBottomBox>
       </UnstakingInfoBottomWrapper>

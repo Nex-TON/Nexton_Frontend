@@ -48,7 +48,7 @@ const UnstakingNftDetail = () => {
         };
       };
 
-      await sendMessage(data(), `${nftDetail[0].amount}`);
+      await sendMessage(data(), `${nftDetail.principal}`);
       const response = await postUnstake(newUnstaking);
       if (response === 200) {
         // handleToggleModal();
