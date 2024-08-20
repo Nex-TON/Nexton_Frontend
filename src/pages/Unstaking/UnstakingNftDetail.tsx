@@ -79,12 +79,12 @@ const UnstakingNftDetail = () => {
 
   return (
     <>
-      {nftDetail && nftDetail.length > 0 && (
+      {nftDetail && (
         <UnstakingWrapper>
           {/* {toggleModal && <BasicModal type="unstaking" toggleModal={handleToggleModal} />} */}
           <UnstakingHeader>Unstaking NFT</UnstakingHeader>
-          <UnstakingPreview item={nftDetail[0]} />
-          <UnstakingInfo item={nftDetail[0]} />
+          <UnstakingPreview item={nftDetail} />
+          <UnstakingInfo item={nftDetail} />
           <UnstakingMessageBox>During this period you may not cancel the transaction.</UnstakingMessageBox>
           {!pathname.includes("view") && (
             // <UnstakingButtonWrapper>
