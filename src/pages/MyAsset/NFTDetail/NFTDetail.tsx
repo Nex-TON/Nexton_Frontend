@@ -92,9 +92,12 @@ const NFTDetail = () => {
         </NFTDetailCardImageBox>
 
         <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
-        <NFTDetailCardButton onClick={() => navigate(`/loan/${id}/borrow/details`)}>
-          Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
-        </NFTDetailCardButton>
+        {DDayChange(nftInfo?.timeStamp, nftInfo?.lockPeriod) > 0 && (
+          <NFTDetailCardButton onClick={() => navigate(`/loan/${id}/borrow/details`)}>
+            Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
+          </NFTDetailCardButton>
+        )}
+
         <NFTDetailCardButton $disabled>
           Unstake Now <img src={IcTrendRight} alt="trend_right" />
         </NFTDetailCardButton>
