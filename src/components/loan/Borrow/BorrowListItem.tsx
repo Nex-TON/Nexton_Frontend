@@ -30,7 +30,7 @@ const BorrowListItem = (props: BorrowListProps) => {
   const navigate = useNavigate();
 
   return (
-    <BorrowListItemWrapper onClick={() => navigate(`/loan/${nftId}`)}>
+    <BorrowListItemWrapper onClick={() => navigate(`/myasset/${nftId}`)}>
       <BorrowListTop>
         <BorrowListTopLeft>
           {DDayChange(timeStamp, lockPeriod) > 55 ? (
@@ -62,7 +62,7 @@ const BorrowListItem = (props: BorrowListProps) => {
         </BorrowListBottomTextBottom>
         <BorrowListBottomTextBottom>
           <Caption3>Expired date</Caption3>
-          <LabelMedium>{expiredDateChanger(timeStamp, lockPeriod, "detail")}</LabelMedium>
+          <LabelMedium>{unstakableDate}</LabelMedium>
         </BorrowListBottomTextBottom>
         <BorrowListBottomTextBottom>
           <Caption3>max LTV.</Caption3>

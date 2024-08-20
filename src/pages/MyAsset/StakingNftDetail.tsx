@@ -8,6 +8,7 @@ import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 
 const tele = (window as any).Telegram.WebApp;
 
+// ! @deprecated
 const StakingNftDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();

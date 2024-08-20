@@ -4,7 +4,6 @@ import Dashboard from "@/pages/Dashboard/Dashboard";
 import BorrowDetails from "@/pages/Loan/Borrow/BorrowDetails";
 import BorrowRiskDisclosure from "@/pages/Loan/Borrow/BorrowRiskDisclosure";
 import BorrowVerify from "@/pages/Loan/Borrow/BorrowVerify";
-import NFTDetail from "@/pages/Loan/Borrow/NFTDetail";
 import LoanHistory from "@/pages/Loan/History/LoanHistory";
 import LoanHistoryDetails from "@/pages/Loan/History/LoanHistoryDetails";
 import Loan from "@/pages/Loan/Loan";
@@ -13,8 +12,8 @@ import RiskDisclosure from "@/pages/Loan/RiskDisclosure";
 import Main from "@/pages/Main/Main";
 import Menu from "@/pages/Menu/Menu";
 import MyAsset from "@/pages/MyAsset/MyAsset";
+import NFTDetail from "@/pages/MyAsset/NFTDetail/NFTDetail";
 import NftList from "@/pages/MyAsset/NftList";
-import StakingNftDetail from "@/pages/MyAsset/StakingNftDetail";
 import UnstakingDetail from "@/pages/MyAsset/UnstakingDetail";
 import UnstakingList from "@/pages/MyAsset/UnstakingList";
 import Nlp from "@/pages/Nlp/Nlp";
@@ -42,7 +41,6 @@ const Router = () => {
         <Route path="/loan">
           <Route path="" element={<Loan />} />
           <Route path="risk-disclosure" element={<RiskDisclosure />} />
-          <Route path=":id" element={<NFTDetail />} />
           <Route path=":id/borrow/details" element={<BorrowDetails />} />
           <Route path=":id/borrow/risk-disclosure" element={<BorrowRiskDisclosure />} />
           <Route path=":id/borrow/verify" element={<BorrowVerify />} />
@@ -57,7 +55,7 @@ const Router = () => {
           <Route path="unstaking" element={<UnstakingList />} />
           <Route path="unstakingdetail" element={<UnstakingDetail />} />
         </Route>
-        <Route path="/myasset/:id" element={<StakingNftDetail />} />
+        <Route path="/myasset/:id" element={<NFTDetail />} />
         <Route path="/unstaking/:id" element={<UnstakingNftDetail />} />
         <Route path="/unstaking/beta" element={<UnstakingBetaInfo />} />
         <Route path="/unstaking/view/:id" element={<UnstakingNftDetail />} />

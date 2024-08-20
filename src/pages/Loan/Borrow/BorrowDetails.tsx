@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,35 +29,13 @@ import {
 
 const tele = (window as any).Telegram.WebApp;
 
-const alwaysVisibleItems = [
-  { label: "NFT ID", value: "4817sddss863ddddwdwsdwd" },
-  { label: "Network", value: "TON" },
-  { label: "LTV", value: "50.0%" },
-];
-
-const stakingInfoItems = [
-  {
-    header: "Staking info",
-    items: [
-      { label: "Principal", value: "10,000 TON" },
-      { label: "Nominator Pool", value: "DG Pool #1" },
-      { label: "Leveraged", value: "X1.0" },
-      { label: "Lockup period", value: "60 days" },
-      { label: "Unstakable date", value: "DD.MM.YY" },
-      { label: "Protocol Fees", value: "2%" },
-      { label: "Staking APR", value: "5%" },
-      { label: "Total Amount", value: "10,083 TON" },
-    ],
-  },
-];
-
-// ! Data is currently mocked
 const BorrowDetails = () => {
   const { connected } = useTonConnect();
   const navigate = useNavigate();
+  const [alwaysVisibleInfo, setAlwaysVisibleInfo] = useState<any>([]);
+  const [stakingInfo, setStakingInfo] = useState<any>([{ items: [] }]);
   const { id } = useParams();
-
-  // const { nftDetail } = useNFTDetail(Number(id));
+  const { nftDetail } = useNFTDetail(Number(id));
 
   const schema = z.object({
     borrowAmount: z
@@ -108,6 +86,32 @@ const BorrowDetails = () => {
     }
   }, [connected, setError]);
 
+  useEffect(() => {
+    if (nftDetail) {
+      setAlwaysVisibleInfo([
+        { label: "NFT ID", value: nftDetail[0].nftId },
+        { label: "Network", value: "TON" },
+        { label: "LTV", value: "95.0%" },
+      ]);
+
+      setStakingInfo([
+        {
+          header: "Staking info",
+          items: [
+            { label: "Principal", value: `${nftDetail[0].principal} TON` },
+            { label: "Nominator Pool", value: nftDetail[0].nominator },
+            { label: "Leveraged", value: `${nftDetail[0].leverage}x` },
+            { label: "Lockup period", value: `${nftDetail[0].lockPeriod} days` },
+            { label: "Unstakable date", value: nftDetail[0].unstakableDate },
+            { label: "Protocol Fees", value: "2%" },
+            { label: "Staking APR", value: "5%" },
+            { label: "Total Amount", value: `${nftDetail[0].totalAmount} TON` },
+          ],
+        },
+      ]);
+    }
+  }, [nftDetail]);
+
   const onSubmit = data => {
     console.log("form data", data);
 
@@ -130,8 +134,8 @@ const BorrowDetails = () => {
             isExpandable={true}
             theme="black"
             title="Collateralizing NFT info"
-            alwaysVisibleItems={alwaysVisibleItems}
-            stakingInfoItems={stakingInfoItems}
+            alwaysVisibleItems={alwaysVisibleInfo}
+            stakingInfoItems={stakingInfo}
           />
 
           <ExcludeBox>

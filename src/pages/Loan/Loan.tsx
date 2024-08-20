@@ -6,6 +6,8 @@ import IcBars from "@/assets/icons/Loan/ic_bars.svg";
 import DropdownMenu from "@/components/common/DropdownMenu";
 import BorrowList from "@/components/loan/Borrow/BorrowList";
 import RepayList from "@/components/loan/Repay/RepayList";
+import { useStakeInfo } from "@/hooks/api/useStakeInfo";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 import {
   LoanHeaderBox,
@@ -29,9 +31,11 @@ const tele = (window as any).Telegram.WebApp;
 const filters: FilterNFTs[] = ["Ongoing", "Forthcoming", "Expired", "All"];
 
 const Loan = () => {
+  const { address } = useTonConnect();
   const navigate = useNavigate();
   const [filter, setFilter] = useState<FilterNFTs>("All");
   const [view, setView] = useState<LoanView>("borrow");
+  const { nftList } = useStakeInfo(address);
 
   useEffect(() => {
     if (tele) {
@@ -95,7 +99,7 @@ const Loan = () => {
           )}
         </LoanNFTBoxHeader>
 
-        {view === "borrow" && <BorrowList filter={filter} />}
+        {view === "borrow" && <BorrowList filter={filter} nftList={nftList} />}
         {view === "repay" && <RepayList />}
       </LoanNFTBox>
     </LoanWrapper>

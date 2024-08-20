@@ -50,7 +50,7 @@ export const NFTDetailCardTitle = styled.h1`
   ${({ theme }) => theme.fonts.Nexton_Title_Medium_2};
 `;
 
-export const NFTDetailCardButton = styled.button`
+export const NFTDetailCardButton = styled.button<{ $disabled?: boolean }>`
   all: unset;
 
   width: 200px;
@@ -61,8 +61,8 @@ export const NFTDetailCardButton = styled.button`
   gap: 4px;
 
   border-radius: 10px;
-  background: #1f53ff;
-  cursor: pointer;
+  background: ${({ $disabled }) => ($disabled ? "#E1E4E6" : "#1f53ff")};
+  cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
 
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
   color: #fff;
