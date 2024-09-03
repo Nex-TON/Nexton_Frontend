@@ -4,7 +4,7 @@ import ExpiredNFTItem from "@/assets/image/Loan/ExpiredNFTItem.png";
 import ForthcomingNFTItem from "@/assets/image/Loan/ForthcomingNFTItem.png";
 import OngoingNFTItem from "@/assets/image/Loan/OngoingNFTItem.png";
 import { nftInfo } from "@/types/Nft";
-import { DDayChange, expiredDateChanger } from "@/utils/dateChanger";
+import { getNftState } from "@/utils/getNftState";
 import { numberCutter } from "@/utils/numberCutter";
 
 import {
@@ -25,7 +25,7 @@ interface BorrowListProps {
 }
 
 const BorrowListItem = (props: BorrowListProps) => {
-  const { nftId, principal, totalAmount, unstakableDate, timeStamp, lockPeriod } = props.item;
+  const { nftId, principal, unstakableDate } = props.item;
 
   const navigate = useNavigate();
 
@@ -33,12 +33,12 @@ const BorrowListItem = (props: BorrowListProps) => {
     <BorrowListItemWrapper onClick={() => navigate(`/myasset/${nftId}`)}>
       <BorrowListTop>
         <BorrowListTopLeft>
-          {DDayChange(timeStamp, lockPeriod) > 55 ? (
+          {getNftState(unstakableDate) === "ongoing" ? (
             <NFTStatus src={OngoingNFTItem} />
-          ) : DDayChange(timeStamp, lockPeriod) === 0 ? (
-            <NFTStatus src={ExpiredNFTItem} />
-          ) : (
+          ) : getNftState(unstakableDate) === "forthcoming" ? (
             <NFTStatus src={ForthcomingNFTItem} />
+          ) : (
+            <NFTStatus src={ExpiredNFTItem} />
           )}
           <BorrowListTopLeftText>
             <Caption3>Token ID</Caption3>

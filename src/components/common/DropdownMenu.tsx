@@ -8,9 +8,9 @@ const DropdownArrow = () => (
     <path
       d="M16.7998 9.5999L11.9998 14.3999L7.19981 9.5999"
       stroke="black"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

@@ -3,7 +3,7 @@
 <circle cx="40.5" cy="40.5" r="29.5" fill="url(#paint0_linear_3220_12224)"/>
 <circle cx="32.3526" cy="34.6002" r="2.24762" fill="#23232A"/>
 <circle cx="48.0855" cy="34.6002" r="2.24762" fill="#23232A"/>
-<path d="M29.7107 54.7776C33.7116 44.6042 44.6113 40.6819 52.6846 47.3794" stroke="#23232A" stroke-width="3" stroke-linecap="round"/>
+<path d="M29.7107 54.7776C33.7116 44.6042 44.6113 40.6819 52.6846 47.3794" stroke="#23232A" strokeWidth="3" strokeLinecap="round"/>
 </g>
 <defs>
 <filter id="filter0_d_3220_12224" x="0" y="0" width="89" height="89" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">

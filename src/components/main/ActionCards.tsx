@@ -7,9 +7,9 @@ const ArrowIcon = ({ dark, disabled }: { dark?: boolean; disabled?: boolean }) =
       <path
         d="M9.60039 7.20001L14.4004 12L9.60039 16.8"
         stroke={disabled ? "#B9B9BA" : dark ? "#fff" : "#303234"}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

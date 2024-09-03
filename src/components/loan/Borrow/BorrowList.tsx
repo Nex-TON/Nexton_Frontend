@@ -1,6 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 import IcArrowRight from "@/assets/icons/Loan/ic_arrow_right.svg";
 import NFTsEmpty from "@/assets/image/Loan/NFTsEmpty.png";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 import { FilterNFTs } from "@/pages/Loan/Loan";
 import { nftInfo } from "@/types/Nft";
 
@@ -14,6 +15,8 @@ import BorrowListItem from "./BorrowListItem";
 
 // ! Data is currently mocked
 const BorrowList = ({ filter, nftList }: { filter?: FilterNFTs; nftList: nftInfo[] }) => {
+  const navigate = useNavigate();
+
   return (
     <BorrowListWrapper>
       {nftList && nftList.length > 0 ? (
@@ -29,7 +32,7 @@ const BorrowList = ({ filter, nftList }: { filter?: FilterNFTs; nftList: nftInfo
           <img src={NFTsEmpty} alt="nfts_empty" />
 
           <h2>No results</h2>
-          <LoanNFTBoxListEmptyLink>
+          <LoanNFTBoxListEmptyLink onClick={() => navigate("/stake/amount")}>
             Let’s move to staking to get new NFT <img src={IcArrowRight} alt="arrow_right" />
           </LoanNFTBoxListEmptyLink>
         </LoanNFTBoxListEmpty>

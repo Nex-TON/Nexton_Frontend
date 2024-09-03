@@ -10,6 +10,7 @@ import StakingInfo from "@/components/loan/common/StakingInfo";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { nftInfo } from "@/types/Nft";
 import { DDayChange } from "@/utils/dateChanger";
+import { calculateRemainingDays, getNftState } from "@/utils/getNftState";
 import { numberCutter } from "@/utils/numberCutter";
 
 import {
@@ -26,6 +27,18 @@ import {
 } from "./NFTDetail.styled";
 
 const tele = (window as any).Telegram.WebApp;
+
+const getDDayText = (unstakableDate: string): string => {
+  const remainingDays = calculateRemainingDays(unstakableDate);
+
+  if (remainingDays > 0) {
+    return `D-${remainingDays}`;
+  } else if (remainingDays === 0) {
+    return `D-Day`;
+  } else {
+    return `D+${remainingDays * -1}`;
+  }
+};
 
 const NFTDetail = () => {
   const navigate = useNavigate();
@@ -69,28 +82,22 @@ const NFTDetail = () => {
     }
   }, [nftDetail]);
 
-  // todo: migrate to the unstakableDate from the backend
-  const SwitchDDayNftImage = () => {
-    if (DDayChange(nftInfo?.timeStamp, nftInfo?.lockPeriod) > 15) {
-      return <img src={OngoingNFTLarge} alt="ongoing_nft" />;
-    } else if (DDayChange(nftInfo?.timeStamp, nftInfo?.lockPeriod) > 0) {
-      return <img src={ForthComingNFTLarge} alt="forthcoming_nft" />;
-    } else {
-      return <img src={ExpiredNFTLarge} alt="expired_nft" />;
-    }
-  };
-
   return (
     <NFTDetailWrapper>
       <NFTDetailCard>
-        <NFTDetailCardImageBox>
-          {SwitchDDayNftImage()}
-          {DDayChange(nftInfo?.timeStamp, nftInfo?.lockPeriod) > 0
-            ? `D-${DDayChange(nftInfo?.timeStamp, nftInfo?.lockPeriod)}`
-            : DDayChange(nftInfo?.timeStamp, nftInfo?.lockPeriod) === 0
-              ? `D-Day`
-              : `D+${DDayChange(nftInfo?.timeStamp, nftInfo?.lockPeriod) * -1}`}
-        </NFTDetailCardImageBox>
+        {nftInfo?.unstakableDate && (
+          <NFTDetailCardImageBox>
+            {getNftState(nftInfo.unstakableDate) === "ongoing" ? (
+              <img src={OngoingNFTLarge} alt="ongoing_nft" />
+            ) : getNftState(nftInfo.unstakableDate) === "forthcoming" ? (
+              <img src={ForthComingNFTLarge} alt="forthcoming_nft" />
+            ) : (
+              <img src={ExpiredNFTLarge} alt="expired_nft" />
+            )}
+
+            <span>{getDDayText(nftInfo.unstakableDate)}</span>
+          </NFTDetailCardImageBox>
+        )}
 
         <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
         {DDayChange(nftInfo?.timeStamp, nftInfo?.lockPeriod) > 0 && (
