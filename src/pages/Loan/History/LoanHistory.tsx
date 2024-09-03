@@ -32,6 +32,7 @@ const _LoanHistoryMock = [
   },
 ];
 
+// ! Data is currently mocked
 const LoanHistory = () => {
   const navigate = useNavigate();
 
