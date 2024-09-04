@@ -15,6 +15,7 @@ import useTonConnect from "@/hooks/contract/useTonConnect";
 import { Transfer } from "@/hooks/contract/wrappers/tact_FakeItem";
 import { telegramAtom } from "@/lib/atom/telegram";
 import { UnstakingProps } from "@/types/staking";
+import { isDevMode } from "@/utils/isDevMode";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -81,15 +82,17 @@ const UnstakingNftDetail = () => {
     <>
       {nftDetail && (
         <UnstakingWrapper>
-          {/* {toggleModal && <BasicModal type="unstaking" toggleModal={handleToggleModal} />} */}
           <UnstakingHeader>Unstaking NFT</UnstakingHeader>
-          <UnstakingPreview item={nftDetail} />
+
+          <UnstakingPreview item={nftDetail[0]} />
+
           <UnstakingInfo item={nftDetail} />
+
           <UnstakingMessageBox>During this period you may not cancel the transaction.</UnstakingMessageBox>
-          {!pathname.includes("view") && (
-            // <UnstakingButtonWrapper>
-            //   <UnstakingButton onClick={postUnstaking}>Confirm</UnstakingButton>
-            // </UnstakingButtonWrapper>
+
+          {isDevMode ? (
+            <UnstakingButton onClick={postUnstaking}>Confirm</UnstakingButton>
+          ) : (
             <MainButton text="Confirm" onClick={postUnstaking} />
           )}
         </UnstakingWrapper>
@@ -106,11 +109,12 @@ const UnstakingWrapper = styled.div`
   position: relative;
 
   width: 100%;
+  padding: 0 1.5rem;
   background-color: #f2f2f7;
 `;
 const UnstakingHeader = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 
   width: 100%;

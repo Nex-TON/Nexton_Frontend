@@ -19,7 +19,7 @@ const UnstakingDetailItem = (props: UnstakingDetailItemProps) => {
 
   return (
     <UnstakingDetailItemWrapper
-      onClick={() => navigate(`/unstaking/view/${nftId}`)}
+      onClick={() => navigate(`/unstaking/${nftId}`)}
     >
       <UnstakingDetailTopBox>
         <UnstakingDetailId>

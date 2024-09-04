@@ -34,10 +34,12 @@ const Router = () => {
         <Route path="/menu" element={<Menu />} />
         <Route path="/referral" element={<Referral />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/stake/amount" element={<Amount />} />
-        <Route path="/stake/leverage" element={<Leverage />} />
-        <Route path="/stake/nominator" element={<NominatorList />} />
-        <Route path="/stake/preview" element={<NFTPreview />} />
+        <Route path="/stake">
+          <Route path="amount" element={<Amount />} />
+          <Route path="leverage" element={<Leverage />} />
+          <Route path="nominator" element={<NominatorList />} />
+          <Route path="preview" element={<NFTPreview />} />
+        </Route>
         <Route path="/loan">
           <Route path="" element={<Loan />} />
           <Route path="risk-disclosure" element={<RiskDisclosure />} />
@@ -48,17 +50,19 @@ const Router = () => {
           <Route path="history" element={<LoanHistory />} />
           <Route path=":id/history/details" element={<LoanHistoryDetails />} />
         </Route>
-        <Route path="/swap" element={<Swap />} />
-        <Route path="/nlp" element={<Nlp />} />
         <Route path="/myasset" element={<MyAsset />}>
           <Route path="nftlist" element={<NftList />} />
-          <Route path="unstaking" element={<UnstakingList />} />
-          <Route path="unstakingdetail" element={<UnstakingDetail />} />
+          <Route path="unstaked" element={<UnstakingList />} />
+          <Route path="unstaked/detail/:id" element={<UnstakingDetail />} />
         </Route>
         <Route path="/myasset/:id" element={<NFTDetail />} />
-        <Route path="/unstaking/:id" element={<UnstakingNftDetail />} />
-        <Route path="/unstaking/beta" element={<UnstakingBetaInfo />} />
-        <Route path="/unstaking/view/:id" element={<UnstakingNftDetail />} />
+        <Route path="/unstaking">
+          <Route path=":id" element={<UnstakingNftDetail />} />
+          <Route path="beta" element={<UnstakingBetaInfo />} />
+        </Route>
+
+        <Route path="/swap" element={<Swap />} />
+        <Route path="/nlp" element={<Nlp />} />
       </Routes>
     </BrowserRouter>
   );

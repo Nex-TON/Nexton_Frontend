@@ -10,7 +10,7 @@ import StakingInfo from "@/components/loan/common/StakingInfo";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { nftInfo } from "@/types/Nft";
 import { DDayChange } from "@/utils/dateChanger";
-import { calculateRemainingDays, getNftState } from "@/utils/getNftState";
+import { getDDayText, getNftState } from "@/utils/getNftState";
 import { numberCutter } from "@/utils/numberCutter";
 
 import {
@@ -27,18 +27,6 @@ import {
 } from "./NFTDetail.styled";
 
 const tele = (window as any).Telegram.WebApp;
-
-const getDDayText = (unstakableDate: string): string => {
-  const remainingDays = calculateRemainingDays(unstakableDate);
-
-  if (remainingDays > 0) {
-    return `D-${remainingDays}`;
-  } else if (remainingDays === 0) {
-    return `D-Day`;
-  } else {
-    return `D+${remainingDays * -1}`;
-  }
-};
 
 const NFTDetail = () => {
   const navigate = useNavigate();

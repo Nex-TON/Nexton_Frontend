@@ -1,56 +1,43 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
-import IcCardActive from "../../assets/icons/MyAsset/ic_card_active.svg";
-import IcCardDisable from "../../assets/icons/MyAsset/ic_card_disable.svg";
-import IcCardCheckActive from "../../assets/icons/MyAsset/ic_cardCheck_active.svg";
-import IcCardCheckDisable from "../../assets/icons/MyAsset/ic_cardCheck_disable.svg";
-import IcCoinsActive from "../../assets/icons/MyAsset/ic_coins_active.svg";
-import IcCoinsDisable from "../../assets/icons/MyAsset/ic_coins_disable.svg";
+import IcCardActive from "@/assets/icons/MyAsset/ic_card_active.svg";
+import IcCardDisable from "@/assets/icons/MyAsset/ic_card_disable.svg";
+import IcCardCheckActive from "@/assets/icons/MyAsset/ic_cardCheck_active.svg";
+import IcCardCheckDisable from "@/assets/icons/MyAsset/ic_cardCheck_disable.svg";
+import IcCoinsActive from "@/assets/icons/MyAsset/ic_coins_active.svg";
+import IcCoinsDisable from "@/assets/icons/MyAsset/ic_coins_disable.svg";
 
-interface NftHeaderProps {
-  myAssetMenu: string;
-}
-
-const NftHeader = (props: NftHeaderProps) => {
+const NftHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { myAssetMenu } = props;
   const { pathname } = location;
 
   return (
     <NftHeaderWrapper>
       <NFTHeadingItem onClick={() => navigate("/myasset/nftlist")}>
-        <NftBox $active={pathname.includes("nftlist") ? true : false}>
+        <NftBox $active={pathname.includes("nftlist")}>
           {pathname.includes("nftlist") ? (
-            <img src={IcCardActive} alt="card" />
+            <img src={IcCardActive} alt="card_active" />
           ) : (
-            <img src={IcCardDisable} alt="card" />
+            <img src={IcCardDisable} alt="card_disable" />
           )}
         </NftBox>
         <NFTHeadingItemText>NFT</NFTHeadingItemText>
       </NFTHeadingItem>
-      <NFTHeadingItem onClick={() => navigate("/myasset/unstaking")}>
-        <UnstakingBox $active={pathname.includes("unstaking") ? true : false}>
-          {pathname.includes("unstaking") ? (
-            <img src={IcCardCheckActive} alt="cardCheck" />
-          ) : (
-            <img src={IcCardCheckDisable} alt="cardCheck" />
-          )}
-        </UnstakingBox>
-        <NFTHeadingItemText>Unstaking</NFTHeadingItemText>
-      </NFTHeadingItem>
+
       <NFTHeadingItem>
         <NFTHeadingImageBox>
-          {myAssetMenu === "Reward" ? (
-            <img src={IcCoinsActive} alt="cardCheck" />
-          ) : (
-            <img src={IcCoinsDisable} alt="cardCheck" />
-          )}
+          <img src={IcCardCheckDisable} alt="cardCheck" />
         </NFTHeadingImageBox>
-        <NFTHeadingItemText style={{ color: "#90909A" }}>
-          Reward
-        </NFTHeadingItemText>
+        <NFTHeadingItemText $disabled>Unstaked</NFTHeadingItemText>
+      </NFTHeadingItem>
+
+      <NFTHeadingItem>
+        <NFTHeadingImageBox>
+          <img src={IcCoinsDisable} alt="cardCheck" />
+        </NFTHeadingImageBox>
+        <NFTHeadingItemText $disabled>Reward</NFTHeadingItemText>
       </NFTHeadingItem>
     </NftHeaderWrapper>
   );
@@ -115,7 +102,7 @@ const UnstakingBox = styled(NFTHeadingImageBox)<{ $active: boolean }>`
           box-shadow: 0px 0px 14px 0px rgba(206, 216, 225, 0.8);
         `}
 `;
-const NFTHeadingItemText = styled.span`
-  color: #333;
+const NFTHeadingItemText = styled.span<{ $disabled?: boolean }>`
+  color: ${({ $disabled }) => ($disabled ? `#90909A` : `#333`)};
   ${({ theme }) => theme.fonts.Nexton_Label_Medium};
 `;

@@ -1,37 +1,28 @@
 import { styled } from "styled-components";
 
-import NftPreviewExpired from "../../../../assets/image/NftPreviewExpired.png";
-import { nftInfo } from "../../../../types/Nft";
-import { expiredDateChanger } from "../../../../utils/dateChanger";
+import NftPreviewExpired from "@/assets/image/NftPreviewExpired.png";
+import { nftInfo } from "@/types/Nft";
 
 interface UnstakingPreviewProps {
   item: nftInfo;
 }
 
 const UnstakingPreview = (props: UnstakingPreviewProps) => {
-  const { nftId, timeStamp, lockPeriod } = props.item;
+  const { nftId, unstakableDate } = props.item;
+  console.log(props.item);
 
   return (
     <UnstakingPreviewWrapper>
       <UnstakingPreviewImageWrapper>
         <img src={NftPreviewExpired} alt="expired" />
+
         <UnstakingPreviewTop>
-          <UnstakingPreviewTopTitle>
-            NFT ID {String(nftId).padStart(5, "0")}
-          </UnstakingPreviewTopTitle>
-          <UnstakingPreviewTopDesc>
-            Expired Date {expiredDateChanger(timeStamp, lockPeriod, "detail")}
-          </UnstakingPreviewTopDesc>
+          <UnstakingPreviewTopTitle>NFT ID {String(nftId).padStart(5, "0")}</UnstakingPreviewTopTitle>
+          <UnstakingPreviewTopDesc>Expired Date {unstakableDate}</UnstakingPreviewTopDesc>
         </UnstakingPreviewTop>
         <UnstakingPreviewBottom>
           <UnstakingPreviewBottomDesc>
-            When the contract receives
-          </UnstakingPreviewBottomDesc>
-          <UnstakingPreviewBottomDesc>
-            Unstaking transaction,
-          </UnstakingPreviewBottomDesc>
-          <UnstakingPreviewBottomDesc>
-            This NFT will be burned.
+            When the contract receives unstaking transaction, This NFT will be burned.
           </UnstakingPreviewBottomDesc>
         </UnstakingPreviewBottom>
       </UnstakingPreviewImageWrapper>
@@ -44,6 +35,7 @@ export default UnstakingPreview;
 const UnstakingPreviewWrapper = styled.div`
   display: flex;
   justify-content: center;
+  border-radius: 2rem;
 
   width: 100%;
 `;
@@ -52,10 +44,6 @@ const UnstakingPreviewImageWrapper = styled.div`
   position: relative;
 
   width: 100%;
-
-  @media (max-width: 500px) {
-    padding: 0 1.7rem;
-  }
 
   img {
     width: 100%;
@@ -70,17 +58,17 @@ const UnstakingPreviewTop = styled.div`
   gap: 1.1rem;
   position: absolute;
   top: 3rem;
-  left: 4.5rem;
+  left: 3.5rem;
 `;
 
 const UnstakingPreviewTopTitle = styled.span`
   color: #fff;
-  ${({ theme }) => theme.fonts.Telegram_Headline};
+  ${({ theme }) => theme.fonts.Nexton_Title_Medium_1};
 `;
 
 const UnstakingPreviewTopDesc = styled.span`
   color: #fff;
-  ${({ theme }) => theme.fonts.Telegram_Medium_1};
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
 `;
 
 const UnstakingPreviewBottom = styled.div`
@@ -88,9 +76,10 @@ const UnstakingPreviewBottom = styled.div`
   flex-direction: column;
   position: absolute;
   bottom: 2.1rem;
-  left: 4.5rem;
+  left: 3.5rem;
 `;
 const UnstakingPreviewBottomDesc = styled.p`
+  width: 240px;
   color: #fff;
-  ${({ theme }) => theme.fonts.Telegram_Caption_1};
+  ${({ theme }) => theme.fonts.Nexton_Label_Small};
 `;
