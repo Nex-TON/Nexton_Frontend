@@ -32,8 +32,9 @@ const NFTDetail = () => {
   const navigate = useNavigate();
   const [nftInfo, setNftInfo] = useState<nftInfo>();
   const [stakingInfo, setStakingInfo] = useState<any>([{ items: [] }]);
+  const [isNftExpired, setIsNftExpired] = useState(false);
   const { id } = useParams();
-  const { nftDetail } = useNFTDetail(Number(id));
+  const { nftDetail, isLoading } = useNFTDetail(Number(id));
 
   useEffect(() => {
     if (tele) {
@@ -52,6 +53,7 @@ const NFTDetail = () => {
   useEffect(() => {
     if (nftDetail) {
       setNftInfo(nftDetail[0]);
+      setIsNftExpired(getNftState(nftDetail[0].unstakableDate) === "expired");
 
       setStakingInfo([
         {
@@ -88,13 +90,11 @@ const NFTDetail = () => {
         )}
 
         <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
-        {DDayChange(nftInfo?.timeStamp, nftInfo?.lockPeriod) > 0 && (
-          <NFTDetailCardButton onClick={() => navigate(`/loan/${id}/borrow/details`)}>
-            Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
-          </NFTDetailCardButton>
-        )}
+        <NFTDetailCardButton $disabled /* onClick={() => navigate(`/loan/${id}/borrow/details`)} */>
+          Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
+        </NFTDetailCardButton>
 
-        <NFTDetailCardButton $disabled>
+        <NFTDetailCardButton $disabled={!isNftExpired} onClick={() => isNftExpired && navigate(`/unstaking/${id}`)}>
           Unstake Now <img src={IcTrendRight} alt="trend_right" />
         </NFTDetailCardButton>
       </NFTDetailCard>

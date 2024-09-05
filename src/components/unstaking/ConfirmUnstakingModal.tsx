@@ -19,7 +19,6 @@ export const ConfirmUnstakingModal = (props: ConfirmUnstakingModalProps) => {
             alt="close"
             onClick={() => {
               toggleModal();
-              s;
             }}
           />
         </ModalHeader>
