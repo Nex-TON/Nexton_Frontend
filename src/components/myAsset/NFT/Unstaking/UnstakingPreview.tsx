@@ -3,22 +3,15 @@ import { styled } from "styled-components";
 import NftPreviewExpired from "@/assets/image/NftPreviewExpired.png";
 import { nftInfo } from "@/types/Nft";
 
-interface UnstakingPreviewProps {
-  item: nftInfo;
-}
-
-const UnstakingPreview = (props: UnstakingPreviewProps) => {
-  const { nftId, unstakableDate } = props.item;
-  console.log(props.item);
-
+const UnstakingPreview = ({ nftDetail }: { nftDetail: nftInfo | undefined }) => {
   return (
     <UnstakingPreviewWrapper>
       <UnstakingPreviewImageWrapper>
         <img src={NftPreviewExpired} alt="expired" />
 
         <UnstakingPreviewTop>
-          <UnstakingPreviewTopTitle>NFT ID {String(nftId).padStart(5, "0")}</UnstakingPreviewTopTitle>
-          <UnstakingPreviewTopDesc>Expired Date {unstakableDate}</UnstakingPreviewTopDesc>
+          <UnstakingPreviewTopTitle>NFT ID {String(nftDetail?.nftId).padStart(5, "0")}</UnstakingPreviewTopTitle>
+          <UnstakingPreviewTopDesc>Expired Date {nftDetail?.unstakableDate}</UnstakingPreviewTopDesc>
         </UnstakingPreviewTop>
         <UnstakingPreviewBottom>
           <UnstakingPreviewBottomDesc>

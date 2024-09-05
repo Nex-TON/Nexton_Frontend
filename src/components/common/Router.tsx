@@ -40,7 +40,8 @@ const Router = () => {
           <Route path="nominator" element={<NominatorList />} />
           <Route path="preview" element={<NFTPreview />} />
         </Route>
-        <Route path="/loan">
+        {/* // ! Paths under /loan are disabled until contract & API are ready */}
+        {/* <Route path="/loan">
           <Route path="" element={<Loan />} />
           <Route path="risk-disclosure" element={<RiskDisclosure />} />
           <Route path=":id/borrow/details" element={<BorrowDetails />} />
@@ -49,7 +50,7 @@ const Router = () => {
           <Route path=":id/repay/details" element={<RepaymentDetails />} />
           <Route path="history" element={<LoanHistory />} />
           <Route path=":id/history/details" element={<LoanHistoryDetails />} />
-        </Route>
+        </Route> */}
         <Route path="/myasset" element={<MyAsset />}>
           <Route path="nftlist" element={<NftList />} />
           <Route path="unstaked" element={<UnstakingList />} />

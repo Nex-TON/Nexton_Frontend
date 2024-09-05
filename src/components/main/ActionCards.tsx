@@ -20,11 +20,11 @@ const ActionCards = () => {
 
   return (
     <ActionCardsWrapper>
-      <Card $large onClick={() => navigate("/loan")}>
-        <CardHeader>Borrow nxTON using your NFT as collateral</CardHeader>
-        <CardBody>
-          Borrow
-          <ArrowIcon />
+      <Card $disabled $large /* onClick={() => navigate("/loan")} */>
+        <CardHeader $disabled>Borrow nxTON using your NFT as collateral</CardHeader>
+        <CardBody $disabled>
+          Coming Soon
+          <ArrowIcon disabled />
         </CardBody>
       </Card>
       <Card $dark onClick={() => navigate("/myasset/nftlist")}>
