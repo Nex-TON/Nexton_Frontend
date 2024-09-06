@@ -10,12 +10,13 @@ import BasicModal from "@/components/common/Modal/BasicModal";
 import TransactionConfirmModal from "@/components/common/Modal/TransactionConfirmModal";
 import UnstakingPreview from "@/components/myAsset/NFT/Unstaking/UnstakingPreview";
 import { ConfirmUnstakingModal } from "@/components/unstaking/ConfirmUnstakingModal";
+import { useUnstakingDetail } from "@/hooks/api/unstaking/useUnstakingDetail";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import { Transfer } from "@/hooks/contract/wrappers/tact_FakeItem";
 import { telegramAtom } from "@/lib/atom/telegram";
-import { UnstakingProps } from "@/types/staking";
 import { isDevMode } from "@/utils/isDevMode";
+import { limitDecimals } from "@/utils/limitDecimals";
 
 import {
   NFTDetailContentBox,
@@ -37,7 +38,7 @@ const UnstakingNftDetail = () => {
   const { address } = useTonConnect();
   // const { sendMessage } = Contract.useFakeItemContract();
   const { id } = useParams();
-  const { nftDetail, isLoading: isLoadingNftDetail } = useNFTDetail(Number(id));
+  const { data: unstakingDetail, isLoading: isLoadingUnstakingDetail } = useUnstakingDetail(Number(id));
   const location = useLocation();
   const navigate = useNavigate();
   const [isLoadingUnstake, setIsLoadingUnstake] = useState(false);
@@ -110,7 +111,7 @@ const UnstakingNftDetail = () => {
       <UnstakingWrapper>
         <UnstakingHeader>Unstaking NFT</UnstakingHeader>
 
-        <UnstakingPreview nftDetail={nftDetail[0]} />
+        <UnstakingPreview unstakingDetail={unstakingDetail} />
 
         {/* <UnstakingInfo item={nftDetail} /> */}
 
@@ -118,25 +119,25 @@ const UnstakingNftDetail = () => {
           <NFTDetailItemBox>
             <NFTDetailItem>
               <NFTDetailItemCaption>Principal</NFTDetailItemCaption>
-              <NFTDetailItemText>{nftDetail[0]?.principal} TON</NFTDetailItemText>
+              <NFTDetailItemText>{limitDecimals(unstakingDetail?.principal, 3)} TON</NFTDetailItemText>
             </NFTDetailItem>
             <NFTDetailItem>
               <NFTDetailItemCaption>Rewards</NFTDetailItemCaption>
-              <NFTDetailItemText>0.000 TON</NFTDetailItemText>
+              <NFTDetailItemText>{limitDecimals(unstakingDetail?.rewards, 3)} TON</NFTDetailItemText>
             </NFTDetailItem>
           </NFTDetailItemBox>
 
           <NFTDetailItem>
             <NFTDetailItemCaption>Available in</NFTDetailItemCaption>
-            <NFTDetailItemText>{nftDetail[0]?.unstakableDate}</NFTDetailItemText>
+            <NFTDetailItemText>{unstakingDetail?.availableIn}</NFTDetailItemText>
           </NFTDetailItem>
           <NFTDetailItem>
             <NFTDetailItemCaption>Unstaking period</NFTDetailItemCaption>
-            <NFTDetailItemText>14 days</NFTDetailItemText>
+            <NFTDetailItemText>{unstakingDetail?.unstakingPeriod} days</NFTDetailItemText>
           </NFTDetailItem>
           <NFTDetailItem>
             <NFTDetailItemCaption>Date of Unstaking</NFTDetailItemCaption>
-            <NFTDetailItemText>{nftDetail[0]?.unstakableDate}</NFTDetailItemText>
+            <NFTDetailItemText>{unstakingDetail?.unstakableDate}</NFTDetailItemText>
           </NFTDetailItem>
         </NFTDetailContentBox>
 

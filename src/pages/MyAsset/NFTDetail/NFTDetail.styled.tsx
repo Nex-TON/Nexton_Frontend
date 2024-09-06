@@ -29,8 +29,8 @@ export const NFTDetailCardImageBox = styled.div`
 
   span {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 15%;
+    left: 27.5%;
     transform: translate(-50%, -50%);
     color: #fff;
     ${({ theme }) => theme.fonts.Nexton_Title_Large};
