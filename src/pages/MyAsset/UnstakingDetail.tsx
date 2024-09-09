@@ -1,17 +1,18 @@
 import { styled } from "styled-components";
 
-import UnstakingDetailHeader from "@/components/myAsset/Unstaking/UnstakingDetail/UnstakingDetailHeader";
-import UnstakingDetailList from "@/components/myAsset/Unstaking/UnstakingDetail/UnstakingDetailList";
+import UnstakedDetailHeader from "@/components/myAsset/Unstaking/UnstakingDetail/UnstakedDetailHeader";
+import UnstakedDetailList from "@/components/myAsset/Unstaking/UnstakingDetail/UnstakedDetailList";
 
 import { useUnstakingList } from "./hooks/useUnstakingList";
 
+// ! @deprecated
 const UnstakingDetail = () => {
   const { unstakingList } = useUnstakingList();
 
   return (
     <UnstakingDetailWrapper>
-      <UnstakingDetailHeader UnstakingListLength={unstakingList?.length} />
-      <UnstakingDetailList />
+      <UnstakedDetailHeader UnstakingListLength={unstakingList?.length} />
+      <UnstakedDetailList />
     </UnstakingDetailWrapper>
   );
 };
