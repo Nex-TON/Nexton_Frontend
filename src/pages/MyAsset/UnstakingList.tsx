@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
 import IcClaimDisable from "@/assets/icons/MyAsset/ic_claim_disable.svg";
-import UnstakingDetailList from "@/components/myAsset/Unstaking/UnstakingDetail/UnstakingDetailList";
+import UnstakedDetailList from "@/components/myAsset/Unstaking/UnstakingDetail/UnstakedDetailList";
 
 const tele = (window as any).Telegram.WebApp;
 
+// ! @deprecated
 const UnstakingList = () => {
   const navigate = useNavigate();
 
@@ -64,7 +65,7 @@ const UnstakingList = () => {
 
         {/* <UnstakingDetailHeader UnstakingListLength={unstakingList?.length} /> */}
 
-        <UnstakingDetailList />
+        <UnstakedDetailList />
       </UnstakingDetailWrapper>
     </>
   );

@@ -14,8 +14,8 @@ import Menu from "@/pages/Menu/Menu";
 import MyAsset from "@/pages/MyAsset/MyAsset";
 import NFTDetail from "@/pages/MyAsset/NFTDetail/NFTDetail";
 import NftList from "@/pages/MyAsset/NftList";
+import UnstakedList from "@/pages/MyAsset/UnstakedList";
 import UnstakingDetail from "@/pages/MyAsset/UnstakingDetail";
-import UnstakingList from "@/pages/MyAsset/UnstakingList";
 import Nlp from "@/pages/Nlp/Nlp";
 import Referral from "@/pages/Referral/Referral";
 import Amount from "@/pages/Stake/Amount";
@@ -53,7 +53,7 @@ const Router = () => {
         </Route> */}
         <Route path="/myasset" element={<MyAsset />}>
           <Route path="nftlist" element={<NftList />} />
-          <Route path="unstaked" element={<UnstakingList />} />
+          <Route path="unstaked" element={<UnstakedList />} />
           <Route path="unstaked/detail/:id" element={<UnstakingDetail />} />
         </Route>
         <Route path="/myasset/:id" element={<NFTDetail />} />

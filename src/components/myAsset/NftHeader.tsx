@@ -26,11 +26,15 @@ const NftHeader = () => {
         <NFTHeadingItemText>NFT</NFTHeadingItemText>
       </NFTHeadingItem>
 
-      <NFTHeadingItem>
-        <NFTHeadingImageBox>
-          <img src={IcCardCheckDisable} alt="cardCheck" />
-        </NFTHeadingImageBox>
-        <NFTHeadingItemText $disabled>Unstaked</NFTHeadingItemText>
+      <NFTHeadingItem onClick={() => navigate("/myasset/unstaked")}>
+        <UnstakingBox $active={pathname.includes("unstaked")}>
+          {pathname.includes("unstaked") ? (
+            <img src={IcCardCheckActive} alt="cardCheck_active" />
+          ) : (
+            <img src={IcCardDisable} alt="card_disable" />
+          )}
+        </UnstakingBox>
+        <NFTHeadingItemText>Unstaked</NFTHeadingItemText>
       </NFTHeadingItem>
 
       <NFTHeadingItem>

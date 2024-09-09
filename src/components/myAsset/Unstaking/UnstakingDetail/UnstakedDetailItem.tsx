@@ -1,37 +1,26 @@
 import { useNavigate } from "react-router-dom";
-import { css, styled } from "styled-components";
+import { styled } from "styled-components";
 
-import IcTon from "../../../../assets/icons/MyAsset/ic_tonSymbol.svg";
-import { nftInfo } from "../../../../types/Nft";
-import {
-  AvailableDate,
-  UnstakingDateChanger,
-} from "../../../../utils/dateChanger";
-import { numberCutter } from "../../../../utils/numberCutter";
+import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
+import { nftInfo } from "@/types/Nft";
+import { AvailableDate, UnstakingDateChanger } from "@/utils/dateChanger";
+import { numberCutter } from "@/utils/numberCutter";
 
-interface UnstakingDetailItemProps {
+interface UnstakedDetailItemProps {
   item: nftInfo;
 }
 
-const UnstakingDetailItem = (props: UnstakingDetailItemProps) => {
+const UnstakedDetailItem = (props: UnstakedDetailItemProps) => {
   const { nftId, principal, timeStamp } = props.item;
   const navigate = useNavigate();
 
   return (
-    <UnstakingDetailItemWrapper
-      onClick={() => navigate(`/unstaking/${nftId}`)}
-    >
+    <UnstakingDetailItemWrapper onClick={() => navigate(`/unstaking/${nftId}`)}>
       <UnstakingDetailTopBox>
-        <UnstakingDetailId>
-          ID {String(nftId).padStart(5, "0")}
-        </UnstakingDetailId>
+        <UnstakingDetailId>ID {String(nftId).padStart(5, "0")}</UnstakingDetailId>
         <UnstakingDetailRightTopBox>
           <CaptionText>Available in</CaptionText>
-          <BoldText>
-            {AvailableDate(timeStamp) < 0
-              ? `0000 Hours`
-              : `${AvailableDate(timeStamp)} Hours`}
-          </BoldText>
+          <BoldText>{AvailableDate(timeStamp) < 0 ? `0000 Hours` : `${AvailableDate(timeStamp)} Hours`}</BoldText>
         </UnstakingDetailRightTopBox>
       </UnstakingDetailTopBox>
       <UnstakingDetailMiddel>
@@ -51,7 +40,7 @@ const UnstakingDetailItem = (props: UnstakingDetailItemProps) => {
   );
 };
 
-export default UnstakingDetailItem;
+export default UnstakedDetailItem;
 
 const UnstakingDetailItemWrapper = styled.div`
   width: 100%;
