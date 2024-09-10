@@ -40,23 +40,23 @@ const UnstakedDetailHeader = (props: UnstakedDetailHeaderProps) => {
       <UnstakingDetailHeaderWrapper>
         <UnstakingDetailHeaderLeft>
           <UnstakingDetailTitle onClick={() => setIsOpenDesc(prev => !prev)}>Unstaking NFT</UnstakingDetailTitle>
-          {isOpenDesc ? (
+          {/* {isOpenDesc ? (
             <img src={IcUp} alt="up" onClick={() => setIsOpenDesc(false)} style={pointerStyle} />
           ) : (
             <img src={IcDown} alt="down" onClick={() => setIsOpenDesc(true)} style={pointerStyle} />
-          )}
+          )} */}
         </UnstakingDetailHeaderLeft>
         <UnstakingDetailRightText>Total unstaking NFT {UnstakingListLength}</UnstakingDetailRightText>
       </UnstakingDetailHeaderWrapper>
-      {isOpenDesc && (
+      {/* {isOpenDesc && (
         <UnstakingNftDescBox>
           <div>
-            <UnstakingNftDesc>Unstaking will take approximately 7days to complete. Your</UnstakingNftDesc>
+            <UnstakingNftDesc>Unstaking will take approximately 7 days to complete. Your</UnstakingNftDesc>
             <UnstakingNftDesc>transaction history will be burned. Once you’ve had run burning</UnstakingNftDesc>
             <UnstakingNftDesc>NFT and unstaking, canceling transaction can not be accepted.</UnstakingNftDesc>
           </div>
         </UnstakingNftDescBox>
-      )}
+      )} */}
     </>
   );
 };

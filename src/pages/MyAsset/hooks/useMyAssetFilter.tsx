@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import { useStakeInfo } from "../../../hooks/api/useStakeInfo";
-import useTonConnect from "../../../hooks/contract/useTonConnect";
-import { DDayChange } from "../../../utils/dateChanger";
+import { useStakeInfo } from "@/hooks/api/useStakeInfo";
+import useTonConnect from "@/hooks/contract/useTonConnect";
+import { getNftState } from "@/utils/getNftState";
 
 const useMyAssetFilter = () => {
   const { address } = useTonConnect();
@@ -16,7 +16,7 @@ const useMyAssetFilter = () => {
   const { nftList } = useStakeInfo(address);
 
   const handleToggleFilter = () => {
-    setIsOpenFilter((prev) => !prev);
+    setIsOpenFilter(prev => !prev);
   };
 
   const handleCheckPeriod = (type: string) => {
@@ -43,19 +43,11 @@ const useMyAssetFilter = () => {
   const handlePrintMyAssetFilter = () => {
     switch (period) {
       case "Ongoing":
-        return nftList?.filter(
-          (item) => DDayChange(item.timeStamp, item.lockPeriod) > 15
-        );
+        return nftList?.filter(item => getNftState(item?.unstakableDate) === "ongoing");
       case "Forthcoming":
-        return nftList?.filter(
-          (item) =>
-            DDayChange(item.timeStamp, item.lockPeriod) <= 15 &&
-            DDayChange(item.timeStamp, item.lockPeriod) > 0
-        );
+        return nftList?.filter(item => getNftState(item?.unstakableDate) === "forthcoming");
       case "Expired":
-        return nftList?.filter(
-          (item) => DDayChange(item.timeStamp, item.lockPeriod) <= 0
-        );
+        return nftList?.filter(item => getNftState(item?.unstakableDate) === "expired");
       default:
         return nftList;
     }

@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
-import IcCheck from "../../assets/icons/MyAsset/ic_check.svg";
-import Icfilter from "../../assets/icons/MyAsset/ic_filter.svg";
-import IcReload from "../../assets/icons/MyAsset/ic_reload.svg";
-import NFTFilter from "../../components/myAsset/Filter/NFTFilter";
-import NftItem from "../../components/myAsset/NFT/NftItem";
+import IcCheck from "@/assets/icons/MyAsset/ic_check.svg";
+import Icfilter from "@/assets/icons/MyAsset/ic_filter.svg";
+import IcReload from "@/assets/icons/MyAsset/ic_reload.svg";
+import NFTFilter from "@/components/myAsset/Filter/NFTFilter";
+import NftItem from "@/components/myAsset/NFT/NftItem";
 
 import useMyAssetFilter from "./hooks/useMyAssetFilter";
 
@@ -71,15 +71,14 @@ const NftList = () => {
           <NFTReloadBox onClick={handleReload}>
             <img src={IcReload} alt="reload" />
           </NFTReloadBox>
-          <NFTSelectBox $active={isSelect[0]}>Staked</NFTSelectBox>
           {/* // ! Hidden for now, no functionality */}
-          {/* <NFTSelectBox disabled $active={isSelect[1]}>
+          {/*<NFTSelectBox $active={isSelect[0]}>Staked</NFTSelectBox>
+           <NFTSelectBox disabled $active={isSelect[1]}>
             Collateralized
           </NFTSelectBox> */}
         </NFTListHeaderLeft>
 
-        {/* // ! Hidden for now, works incorrectly */}
-        {/* <NFTSelectBox onClick={handleToggleFilter}>
+        <NFTSelectBox onClick={handleToggleFilter}>
           {period}
           {period === "Filter" ? (
             <img src={Icfilter} alt="filter" />
@@ -88,7 +87,7 @@ const NftList = () => {
           ) : (
             <NFTStatus type={period} />
           )}
-        </NFTSelectBox> */}
+        </NFTSelectBox>
       </NftListHeader>
 
       {handlePrintMyAssetFilter()?.filter(item => item.status !== 2).length > 0 ? (
