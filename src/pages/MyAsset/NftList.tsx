@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
+import IcArrowRight from "@/assets/icons/Loan/ic_arrow_right.svg";
 import IcCheck from "@/assets/icons/MyAsset/ic_check.svg";
-import Icfilter from "@/assets/icons/MyAsset/ic_filter.svg";
+import IcFilter from "@/assets/icons/MyAsset/ic_filter.svg";
 import IcReload from "@/assets/icons/MyAsset/ic_reload.svg";
+import NFTsEmpty from "@/assets/image/Loan/NFTsEmpty.png";
+import { LoanNFTBoxListEmpty, LoanNFTBoxListEmptyLink } from "@/components/loan/Borrow/BorrowList.styled";
 import NFTFilter from "@/components/myAsset/Filter/NFTFilter";
 import NftItem from "@/components/myAsset/NFT/NftItem";
 
@@ -81,7 +84,7 @@ const NftList = () => {
         <NFTSelectBox onClick={handleToggleFilter}>
           {period}
           {period === "Filter" ? (
-            <img src={Icfilter} alt="filter" />
+            <img src={IcFilter} alt="filter" />
           ) : period === "All" ? (
             <img src={IcCheck} alt="check" />
           ) : (
@@ -100,7 +103,14 @@ const NftList = () => {
             ))}
         </NFTItemWrapper>
       ) : (
-        <ExtraBox>Empty</ExtraBox>
+        <NftListEmpty>
+          <img src={NFTsEmpty} alt="nfts_empty" />
+
+          <h2>No results</h2>
+          <NftListEmptyLink onClick={() => navigate("/stake/amount")}>
+            Let’s move to staking to get new NFT <img src={IcArrowRight} alt="arrow_right" />
+          </NftListEmptyLink>
+        </NftListEmpty>
       )}
     </NFtListWrapper>
   );
@@ -211,15 +221,11 @@ const NFTItemWrapper = styled.div`
   }
 `;
 
-const ExtraBox = styled.div`
-  width: 100%;
-  margin-top: 5.6rem;
-
-  color: #2f3038;
-  ${({ theme }) => theme.fonts.Nexton_Title_Medium};
-
-  text-align: center;
+const NftListEmpty = styled(LoanNFTBoxListEmpty)`
+  padding-top: 1rem;
 `;
+
+const NftListEmptyLink = styled(LoanNFTBoxListEmptyLink)``;
 
 const NFTStatus = styled.div<{ type?: string }>`
   width: 1.4rem;
