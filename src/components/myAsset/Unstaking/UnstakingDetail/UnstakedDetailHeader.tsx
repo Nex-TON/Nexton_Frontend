@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
@@ -6,47 +6,26 @@ import IcBack from "@/assets/icons/ic_back.svg";
 import IcDown from "@/assets/icons/MyAsset/ic_arrow_down.svg";
 import IcUp from "@/assets/icons/MyAsset/ic_arrow_up.svg";
 
-const tele = (window as any).Telegram.WebApp;
-
 interface UnstakedDetailHeaderProps {
-  UnstakingListLength: number;
+  unstakedListLength: number | undefined;
 }
 
-const UnstakedDetailHeader = (props: UnstakedDetailHeaderProps) => {
-  const { UnstakingListLength } = props;
+const UnstakedDetailHeader = ({ unstakedListLength }: UnstakedDetailHeaderProps) => {
   const navigate = useNavigate();
   const [isOpenDesc, setIsOpenDesc] = useState(false);
-
-  useEffect(() => {
-    if (tele) {
-      tele.ready();
-      tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/myasset/unstaking");
-      });
-    }
-
-    return () => {
-      tele.offEvent("backButtonClicked");
-    };
-  }, []);
-
-  const pointerStyle = {
-    cursor: "pointer",
-  };
 
   return (
     <>
       <UnstakingDetailHeaderWrapper>
         <UnstakingDetailHeaderLeft>
-          <UnstakingDetailTitle onClick={() => setIsOpenDesc(prev => !prev)}>Unstaking NFT</UnstakingDetailTitle>
+          <UnstakingDetailTitle onClick={() => setIsOpenDesc(prev => !prev)}>Unstaked NFT</UnstakingDetailTitle>
           {/* {isOpenDesc ? (
             <img src={IcUp} alt="up" onClick={() => setIsOpenDesc(false)} style={pointerStyle} />
           ) : (
             <img src={IcDown} alt="down" onClick={() => setIsOpenDesc(true)} style={pointerStyle} />
           )} */}
         </UnstakingDetailHeaderLeft>
-        <UnstakingDetailRightText>Total unstaking NFT {UnstakingListLength}</UnstakingDetailRightText>
+        <UnstakingDetailRightText>Total unstaked NFT {unstakedListLength || 0}</UnstakingDetailRightText>
       </UnstakingDetailHeaderWrapper>
       {/* {isOpenDesc && (
         <UnstakingNftDescBox>

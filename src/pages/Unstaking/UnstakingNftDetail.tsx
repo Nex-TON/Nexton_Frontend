@@ -34,8 +34,8 @@ interface ModalState {
 }
 
 const UnstakingNftDetail = () => {
-  const telegramId = useRecoilValue(telegramAtom);
-  const { address } = useTonConnect();
+  // const telegramId = useRecoilValue(telegramAtom);
+  // const { address } = useTonConnect();
   // const { sendMessage } = Contract.useFakeItemContract();
   const { id } = useParams();
   const { data: unstakingDetail, isLoading: isLoadingUnstakingDetail } = useUnstakingDetail(Number(id));

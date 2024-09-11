@@ -2,19 +2,15 @@ import { styled } from "styled-components";
 
 import RepaysEmpty from "@/assets/image/Loan/RepaysEmpty.png";
 import { LoanNFTBoxListEmpty, LoanNFTBoxListEmptyLink } from "@/components/loan/Borrow/BorrowList.styled";
-import { useUnstakingList } from "@/pages/MyAsset/hooks/useUnstakingList";
+import { IUnstakedListData } from "@/hooks/api/unstaking/useUnstakedList";
 
 import UnstakedDetailItem from "./UnstakedDetailItem";
 
-const UnstakedDetailList = () => {
-  const { unstakingList } = useUnstakingList();
-
+const UnstakedDetailList = ({ unstakedList }: { unstakedList?: IUnstakedListData[] }) => {
   return (
     <UnstakedDetailListWrapper>
-      {unstakingList ? (
-        unstakingList
-          ?.sort((a: any, b: any) => b.timeStamp - a.timeStamp)
-          ?.map(data => <UnstakedDetailItem key={data.nftId} item={data} />)
+      {unstakedList ? (
+        unstakedList?.map(data => <UnstakedDetailItem key={data.nftId} item={data} />)
       ) : (
         <UnstakedDetailListEmpty>
           <img src={RepaysEmpty} alt="unstaked_empty" />
