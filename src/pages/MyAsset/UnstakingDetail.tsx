@@ -11,7 +11,7 @@ const UnstakingDetail = () => {
 
   return (
     <UnstakingDetailWrapper>
-      <UnstakedDetailHeader UnstakingListLength={unstakingList?.length} />
+      <UnstakedDetailHeader unstakedListLength={unstakingList?.length} />
       <UnstakedDetailList />
     </UnstakingDetailWrapper>
   );
