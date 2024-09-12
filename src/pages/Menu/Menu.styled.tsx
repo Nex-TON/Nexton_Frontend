@@ -9,7 +9,7 @@ export const MainWrapper = styled.div`
 
 export const MainInnerBox = styled.div`
   position: relative;
-  height: 240px;
+  height: 260px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -97,7 +97,7 @@ export const AssetBottomNotConnected = styled.div`
 
 export const AssetBottomLeft = styled.div`
   height: 100%;
-  width: 70%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -109,6 +109,12 @@ export const AssetBottomLeftItem = styled.div`
   display: flex;
   align-items: end;
   justify-content: space-between;
+`;
+
+export const AssetBottomLeftItemDivider = styled.div`
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
 `;
 
 export const AssetBottomRight = styled.div`

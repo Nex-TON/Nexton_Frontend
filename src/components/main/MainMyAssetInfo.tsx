@@ -8,11 +8,13 @@ import IcSmallArrowRight from "@/assets/icons/MyAsset/ic_small_arrow_right.svg";
 import IcWallet from "@/assets/icons/MyAsset/ic_wallet.svg";
 import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceChart";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
+import { useEarningsbyAddress } from "@/hooks/api/dashboard/useEarningsbyAddress";
 import {
   APYBox,
   AssetBottomBox,
   AssetBottomLeft,
   AssetBottomLeftItem,
+  AssetBottomLeftItemDivider,
   AssetBottomLeftItemTitle,
   AssetBottomLeftItemValue,
   AssetBottomNotConnected,
@@ -66,6 +68,7 @@ const MainMyAssetInfo = ({
 
   const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary();
   const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
+  const { data: earningsData, isLoading: earningsLoading } = useEarningsbyAddress(address);
 
   const handleViewChange = (view: AssetsView) => {
     setView(view);
@@ -75,7 +78,11 @@ const MainMyAssetInfo = ({
     setIsRefreshing(true);
 
     try {
-      await Promise.all([refreshTonData(), mutate(`/data/getAllStakeInfoByAddress?address=${address}`)]);
+      await Promise.all([
+        refreshTonData(),
+        mutate(`/data/getAllStakeInfoByAddress?address=${address}`),
+        mutate(`/data/getEarningsbyAddress/${address}`),
+      ]);
     } catch (error) {
       console.error("An error occurred during the refresh operation:", error);
     } finally {
@@ -134,10 +141,8 @@ const MainMyAssetInfo = ({
                       </h4>
                     </DashboardBottomLeftDataItem>
                     <DashboardBottomLeftDataItem>
-                      <span>Stakers</span>
-                      <h4>
-                        {performanceData?.subscribedCount ? `${performanceData?.subscribedCount.toFixed(0)}` : "-"}
-                      </h4>
+                      <span>TVL</span>
+                      <h4>{performanceData?.tvl ? `${limitDecimals(performanceData?.tvl, 3)} TON` : "-"}</h4>
                     </DashboardBottomLeftDataItem>
 
                     <DashboardBottomLeftDataItem onClick={() => navigate("/dashboard")}>
@@ -183,8 +188,30 @@ const MainMyAssetInfo = ({
                         <Loader />
                       ) : (
                         <>
+                          <h4>{isError ? "-.-- " : isLoading || isRefreshing ? <Loader /> : totalStaked.toFixed(3)}</h4>
+                          <span>TON</span>
+                        </>
+                      )}
+                    </AssetBottomLeftItemValue>
+                  </AssetBottomLeftItem>
+
+                  <AssetBottomLeftItemDivider />
+
+                  <AssetBottomLeftItem>
+                    <AssetBottomLeftItemTitle>Earnings</AssetBottomLeftItemTitle>
+                    <AssetBottomLeftItemValue>
+                      {isRefreshing ? (
+                        <Loader />
+                      ) : (
+                        <>
                           <h4>
-                            {isError ? "-.-- TON" : isLoading || isRefreshing ? <Loader /> : totalStaked.toFixed(3)}
+                            {isError ? (
+                              "-.-- "
+                            ) : isLoading || earningsLoading ? (
+                              <Loader />
+                            ) : (
+                              earningsData.totalRewards.toFixed(3)
+                            )}
                           </h4>
                           <span>TON</span>
                         </>
