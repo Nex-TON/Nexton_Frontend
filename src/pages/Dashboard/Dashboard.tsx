@@ -184,7 +184,7 @@ const Dashboard = () => {
 
             <PerformanceItemHeaderRight>
               <span>PNL</span>
-              {limitDecimals(performanceData?.pnlRate, 3)}%
+              {limitDecimals(performanceData?.pnlRate, 2)}%
             </PerformanceItemHeaderRight>
           </PerformanceItemHeader>
 
