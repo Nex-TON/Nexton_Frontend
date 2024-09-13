@@ -6,6 +6,7 @@ import { useRecoilValue } from "recoil";
 import { styled } from "styled-components";
 
 import { postUnstake } from "@/api/postUnstake";
+import Loader from "@/components/common/Loader";
 import BasicModal from "@/components/common/Modal/BasicModal";
 import TransactionConfirmModal from "@/components/common/Modal/TransactionConfirmModal";
 import UnstakingPreview from "@/components/myAsset/NFT/Unstaking/UnstakingPreview";
@@ -33,12 +34,12 @@ interface ModalState {
   toggled: boolean;
 }
 
-const UnstakingNftDetail = () => {
+const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
   // const telegramId = useRecoilValue(telegramAtom);
   // const { address } = useTonConnect();
   // const { sendMessage } = Contract.useFakeItemContract();
   const { id } = useParams();
-  const { data: unstakingDetail, isLoading: isLoadingUnstakingDetail } = useUnstakingDetail(Number(id));
+  const { data: unstakingDetail, isLoading: isLoadingUnstakingDetail, error } = useUnstakingDetail(Number(id));
   const location = useLocation();
   const navigate = useNavigate();
   const [isLoadingUnstake, setIsLoadingUnstake] = useState(false);
@@ -106,47 +107,71 @@ const UnstakingNftDetail = () => {
     postUnstaking();
   };
 
+  if (error) {
+    return (
+      <UnstakingWrapper style={{ justifyContent: "space-between" }}>
+        <div>
+          <UnstakingHeader>Unstaking NFT</UnstakingHeader>
+          <UnstakingMessageBox>Error: {error.message}</UnstakingMessageBox>
+        </div>
+
+        <UnstakingButton style={{ marginBottom: "1.6rem" }} onClick={() => navigate("/myasset/nftlist")}>
+          Go to NFT List
+        </UnstakingButton>
+      </UnstakingWrapper>
+    );
+  }
+
   return (
     <>
       <UnstakingWrapper>
         <UnstakingHeader>Unstaking NFT</UnstakingHeader>
 
-        <UnstakingPreview unstakingDetail={unstakingDetail} />
-
-        {/* <UnstakingInfo item={nftDetail} /> */}
-
-        <NFTDetailContentBox style={{ padding: "2.9rem 0" }}>
-          <NFTDetailItemBox>
-            <NFTDetailItem>
-              <NFTDetailItemCaption>Principal</NFTDetailItemCaption>
-              <NFTDetailItemText>{limitDecimals(unstakingDetail?.principal, 3)} TON</NFTDetailItemText>
-            </NFTDetailItem>
-            <NFTDetailItem>
-              <NFTDetailItemCaption>Rewards</NFTDetailItemCaption>
-              <NFTDetailItemText>{limitDecimals(unstakingDetail?.rewards, 3)} TON</NFTDetailItemText>
-            </NFTDetailItem>
-          </NFTDetailItemBox>
-
-          <NFTDetailItem>
-            <NFTDetailItemCaption>Available in</NFTDetailItemCaption>
-            <NFTDetailItemText>{unstakingDetail?.availableIn}</NFTDetailItemText>
-          </NFTDetailItem>
-          <NFTDetailItem>
-            <NFTDetailItemCaption>Unstaking period</NFTDetailItemCaption>
-            <NFTDetailItemText>{unstakingDetail?.unstakingPeriod} days</NFTDetailItemText>
-          </NFTDetailItem>
-          <NFTDetailItem>
-            <NFTDetailItemCaption>Date of Unstaking</NFTDetailItemCaption>
-            <NFTDetailItemText>{unstakingDetail?.unstakableDate}</NFTDetailItemText>
-          </NFTDetailItem>
-        </NFTDetailContentBox>
-
-        <UnstakingMessageBox>During this period you may not cancel the transaction.</UnstakingMessageBox>
-
-        {isDevMode ? (
-          <UnstakingButton onClick={() => setModal({ type: "confirmUnstake", toggled: true })}>Confirm</UnstakingButton>
+        {isLoadingUnstakingDetail ? (
+          <LoaderWrapper>
+            <Loader height={100} width={100} />
+          </LoaderWrapper>
         ) : (
-          <MainButton text="Confirm" onClick={() => setModal({ type: "confirmUnstake", toggled: true })} />
+          <>
+            <UnstakingPreview unstakingDetail={unstakingDetail} />
+
+            <NFTDetailContentBox style={{ padding: "2.9rem 0" }}>
+              <NFTDetailItemBox>
+                <NFTDetailItem>
+                  <NFTDetailItemCaption>Principal</NFTDetailItemCaption>
+                  <NFTDetailItemText>{limitDecimals(unstakingDetail?.principal, 3)} TON</NFTDetailItemText>
+                </NFTDetailItem>
+                <NFTDetailItem>
+                  <NFTDetailItemCaption>Rewards</NFTDetailItemCaption>
+                  <NFTDetailItemText>{limitDecimals(unstakingDetail?.rewards, 3)} TON</NFTDetailItemText>
+                </NFTDetailItem>
+              </NFTDetailItemBox>
+
+              <NFTDetailItem>
+                <NFTDetailItemCaption>Available in</NFTDetailItemCaption>
+                <NFTDetailItemText>{unstakingDetail?.availableIn}</NFTDetailItemText>
+              </NFTDetailItem>
+              <NFTDetailItem>
+                <NFTDetailItemCaption>Unstaking period</NFTDetailItemCaption>
+                <NFTDetailItemText>{unstakingDetail?.unstakingPeriod} days</NFTDetailItemText>
+              </NFTDetailItem>
+              <NFTDetailItem>
+                <NFTDetailItemCaption>Date of Unstaking</NFTDetailItemCaption>
+                <NFTDetailItemText>{unstakingDetail?.unstakableDate}</NFTDetailItemText>
+              </NFTDetailItem>
+            </NFTDetailContentBox>
+
+            <UnstakingMessageBox>During this period you may not cancel the transaction.</UnstakingMessageBox>
+
+            {!view &&
+              (isDevMode ? (
+                <UnstakingButton onClick={() => setModal({ type: "confirmUnstake", toggled: true })}>
+                  Confirm
+                </UnstakingButton>
+              ) : (
+                <MainButton text="Confirm" onClick={() => setModal({ type: "confirmUnstake", toggled: true })} />
+              ))}
+          </>
         )}
       </UnstakingWrapper>
 
@@ -169,9 +194,19 @@ const UnstakingWrapper = styled.div`
   position: relative;
 
   width: 100%;
+  min-height: 100vh;
   padding: 0 1.5rem;
   background-color: #f2f2f7;
 `;
+
+const LoaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+`;
+
 const UnstakingHeader = styled.div`
   display: flex;
   justify-content: start;
@@ -197,11 +232,6 @@ const UnstakingMessageBox = styled.div`
   color: #5e6162;
   ${({ theme }) => theme.fonts.Telegram_Caption_1};
   text-align: center;
-`;
-
-const UnstakingButtonWrapper = styled.div`
-  width: 100%;
-  padding: 0 1.6rem;
 `;
 
 const UnstakingButton = styled.button`

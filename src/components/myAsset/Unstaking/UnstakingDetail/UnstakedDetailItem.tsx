@@ -10,7 +10,7 @@ const UnstakedDetailItem = ({ item }: { item: IUnstakedListData }) => {
   const navigate = useNavigate();
 
   return (
-    <UnstakingDetailItemWrapper>
+    <UnstakingDetailItemWrapper onClick={() => navigate(`/unstaking/${nftId}/view`)}>
       <UnstakingDetailId>ID {String(nftId).padStart(4, "0")}</UnstakingDetailId>
 
       <UnstakingDetailContentBox>
@@ -52,7 +52,7 @@ const UnstakingDetailItemWrapper = styled.div`
     margin-top: 0.8rem;
   }
 
-  cursor: default;
+  cursor: pointer;
 `;
 
 const UnstakingDetailContentBox = styled.div`
