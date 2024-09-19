@@ -105,7 +105,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
             <DetailInfoItemText>x {leverage.toFixed(1)}</DetailInfoItemText>
           </DetailInfoItem>
           <DetailInfoItem>
-            <DetailInfoItemText>Lockup period</DetailInfoItemText>
+            <DetailInfoItemText>Remaining Lockup period</DetailInfoItemText>
             <DetailInfoItemText>{lockPeriod} days</DetailInfoItemText>
           </DetailInfoItem>
           <DetailInfoItem>
