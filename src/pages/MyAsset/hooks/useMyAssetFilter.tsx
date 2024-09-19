@@ -13,7 +13,7 @@ const useMyAssetFilter = () => {
   //ongoing,all 클릭 했을 떄 border 관리 하기 위한 state
   const [period, setPeriod] = useState("Filter");
   const [isOpenFilter, setIsOpenFilter] = useState(false);
-  const { nftList } = useStakeInfo(address);
+  const { nftList, isLoading } = useStakeInfo(address);
 
   const handleToggleFilter = () => {
     setIsOpenFilter(prev => !prev);
@@ -63,6 +63,7 @@ const useMyAssetFilter = () => {
     handleCheckPeriod,
     handlePrintMyAssetFilter,
     handleToggleFilter,
+    isLoading,
   };
 };
 

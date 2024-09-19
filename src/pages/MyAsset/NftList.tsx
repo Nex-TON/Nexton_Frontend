@@ -7,6 +7,7 @@ import IcCheck from "@/assets/icons/MyAsset/ic_check.svg";
 import IcFilter from "@/assets/icons/MyAsset/ic_filter.svg";
 import IcReload from "@/assets/icons/MyAsset/ic_reload.svg";
 import NFTsEmpty from "@/assets/image/Loan/NFTsEmpty.png";
+import Loader from "@/components/common/Loader";
 import { LoanNFTBoxListEmpty, LoanNFTBoxListEmptyLink } from "@/components/loan/Borrow/BorrowList.styled";
 import NFTFilter from "@/components/myAsset/Filter/NFTFilter";
 import NftItem from "@/components/myAsset/NFT/NftItem";
@@ -29,6 +30,7 @@ const NftList = () => {
     handleCheckPeriod,
     handlePrintMyAssetFilter,
     handleToggleFilter,
+    isLoading,
   } = useMyAssetFilter();
 
   const handleSelect = (index: number) => {
@@ -93,7 +95,11 @@ const NftList = () => {
         </NFTSelectBox>
       </NftListHeader>
 
-      {handlePrintMyAssetFilter()?.filter(item => item.status !== 2).length > 0 ? (
+      {isLoading ? (
+        <LoaderWrapper>
+          <Loader height={100} width={100} />
+        </LoaderWrapper>
+      ) : handlePrintMyAssetFilter()?.filter(item => item.status !== 2).length > 0 ? (
         <NFTItemWrapper>
           {handlePrintMyAssetFilter()
             .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
@@ -139,6 +145,14 @@ const NFtListWrapper = styled.div`
     margin-bottom: 3px;
     background-clip: padding-box;
   }
+`;
+
+const LoaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50vh;
 `;
 
 const NftListHeader = styled.div`

@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
 
 import IcClaimDisable from "@/assets/icons/MyAsset/ic_claim_disable.svg";
+import Loader from "@/components/common/Loader";
 import UnstakedDetailHeader from "@/components/myAsset/Unstaking/UnstakingDetail/UnstakedDetailHeader";
 import UnstakedDetailList from "@/components/myAsset/Unstaking/UnstakingDetail/UnstakedDetailList";
 import { useUnstakedList } from "@/hooks/api/unstaking/useUnstakedList";
@@ -14,7 +15,7 @@ const tele = (window as any).Telegram.WebApp;
 const UnstakedList = () => {
   const navigate = useNavigate();
   const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
-  const { data } = useUnstakedList(telegramId);
+  const { data, isLoading } = useUnstakedList(telegramId); // ! test ID - 555
 
   console.log("useUnstakedList: ", data);
 
@@ -44,7 +45,13 @@ const UnstakedList = () => {
     <UnstakedListWrapper>
       <UnstakedDetailHeader unstakedListLength={data?.length} />
 
-      <UnstakedDetailList unstakedList={data} />
+      {isLoading ? (
+        <LoaderWrapper>
+          <Loader height={100} width={100} />
+        </LoaderWrapper>
+      ) : (
+        <UnstakedDetailList unstakedList={data} />
+      )}
     </UnstakedListWrapper>
   );
 };
@@ -54,4 +61,12 @@ export default UnstakedList;
 const UnstakedListWrapper = styled.div`
   width: 100%;
   padding: 3rem 2rem;
+`;
+
+const LoaderWrapper = styled.div`
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
