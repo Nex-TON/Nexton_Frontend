@@ -32,9 +32,9 @@ const NFTPreviewInfo = (props: NFTPreviewInfoProps) => {
         </NFTPreviewInfoItemValue>
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>
-        <NFTPreviewInfoItemText>Remaining Lock-up period</NFTPreviewInfoItemText>
+        <NFTPreviewInfoItemText>Lock-up period</NFTPreviewInfoItemText>
         <NFTPreviewInfoItemValue>
-          <span>{stakingInfo.lockup}</span> Days
+          <span>{stakingInfo.lockup}</span> days remaining
         </NFTPreviewInfoItemValue>
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>

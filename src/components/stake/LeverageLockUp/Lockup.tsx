@@ -16,12 +16,12 @@ const Lockup = (props: Step3Props) => {
         <LockupDesc>Check remaining lock-up period</LockupDesc>
       </LockupDescWrapper>
       <LockUpBox>
-        <Title3_1>Remaining Lock-up period</Title3_1>
+        <Title3_1>Lock-up period</Title3_1>
         <LockupDaysWrapper>
           <Title3_1 style={{ marginRight: "2.1rem" }}>
             {getLockUpDate(input, ratio)}
           </Title3_1>
-          <Title3_1>days</Title3_1>
+          <Title3_1>days remaining</Title3_1>
         </LockupDaysWrapper>
       </LockUpBox>
     </LockupWrapper>
