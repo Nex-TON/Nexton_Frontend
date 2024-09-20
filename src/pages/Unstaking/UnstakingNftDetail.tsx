@@ -79,7 +79,7 @@ const UnstakingNftDetail = () => {
 
   return (
     <>
-      {nftDetail && nftDetail.length > 0 && (
+      {nftDetail && (
         <UnstakingWrapper>
           {/* {toggleModal && <BasicModal type="unstaking" toggleModal={handleToggleModal} />} */}
           <UnstakingHeader>Unstaking NFT</UnstakingHeader>

@@ -30,8 +30,7 @@ const StakingNftDetail = () => {
   }, []);
 
   return (
-    nftDetail &&
-    nftDetail.length > 0 && (
+    nftDetail && (
       <DetailWrapper>
         <DetailHeader>Staking NFT</DetailHeader>
         <DetailNFTPreview item={nftDetail[0]} />
