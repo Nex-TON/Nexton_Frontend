@@ -175,7 +175,7 @@ const MainMyAssetInfo = ({
                         <Loader />
                       ) : (
                         <>
-                          <h4>{balance === 0 || balance ? balance.toFixed(3) : "-.--"}</h4> <span>TON</span>
+                          <h4>{balance === 0 || balance ? balance?.toFixed(3) : "-.--"}</h4> <span>TON</span>
                         </>
                       )}
                     </AssetBottomLeftItemValue>
@@ -188,7 +188,9 @@ const MainMyAssetInfo = ({
                         <Loader />
                       ) : (
                         <>
-                          <h4>{isError ? "-.-- " : isLoading || isRefreshing ? <Loader /> : totalStaked.toFixed(3)}</h4>
+                          <h4>
+                            {isError ? "-.-- " : isLoading || isRefreshing ? <Loader /> : totalStaked?.toFixed(3)}
+                          </h4>
                           <span>TON</span>
                         </>
                       )}
@@ -210,7 +212,7 @@ const MainMyAssetInfo = ({
                             ) : isLoading || earningsLoading ? (
                               <Loader />
                             ) : (
-                              earningsData.totalRewards.toFixed(3)
+                              earningsData?.totalRewards.toFixed(3)
                             )}
                           </h4>
                           <span>TON</span>
