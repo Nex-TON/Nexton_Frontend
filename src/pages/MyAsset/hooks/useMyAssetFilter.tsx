@@ -16,7 +16,7 @@ const useMyAssetFilter = () => {
   const { nftList } = useStakeInfo(address);
 
   const handleToggleFilter = () => {
-    setIsOpenFilter((prev) => !prev);
+    setIsOpenFilter(prev => !prev);
   };
 
   const handleCheckPeriod = (type: string) => {
@@ -43,19 +43,13 @@ const useMyAssetFilter = () => {
   const handlePrintMyAssetFilter = () => {
     switch (period) {
       case "Ongoing":
-        return nftList?.filter(
-          (item) => DDayChange(item.timeStamp, item.lockPeriod) > 15
-        );
+        return nftList?.filter(item => DDayChange(item.timeStamp, item.lockPeriod) > 15);
       case "Forthcoming":
         return nftList?.filter(
-          (item) =>
-            DDayChange(item.timeStamp, item.lockPeriod) <= 15 &&
-            DDayChange(item.timeStamp, item.lockPeriod) > 0
+          item => DDayChange(item.timeStamp, item.lockPeriod) <= 15 && DDayChange(item.timeStamp, item.lockPeriod) > 0,
         );
       case "Expired":
-        return nftList?.filter(
-          (item) => DDayChange(item.timeStamp, item.lockPeriod) <= 0
-        );
+        return nftList?.filter(item => DDayChange(item.timeStamp, item.lockPeriod) <= 0);
       default:
         return nftList;
     }

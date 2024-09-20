@@ -1,18 +1,14 @@
 import useSWR from "swr";
 
 import { nextonFetcher } from "@/api/axios";
-import { stakeInfo } from "@/types/Nft";
+import { nftInfo } from "@/types/Nft";
 
 export const useNFTDetail = (nftId: number) => {
-  const { data } = useSWR<stakeInfo>(
-    `/data/getStakeInfoByNftId?nftId=${nftId}`,
-    nextonFetcher,
-    {
-      errorRetryInterval: 3,
-    }
-  );
+  const { data } = useSWR<nftInfo>(`/data/getStakeInfoByNftId?nftId=${nftId}`, nextonFetcher, {
+    errorRetryInterval: 3,
+  });
 
   return {
-    nftDetail: data?.stakeInfos,
+    nftDetail: data,
   };
 };
