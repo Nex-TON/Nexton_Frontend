@@ -118,8 +118,8 @@ const LeverageInputWrapper = styled.div<{ $error: boolean }>`
   background-color: #f9f9ff;
 `;
 
-const ConvertedValue = styled.span`
-  color: #e5e5ea;
+const ConvertedValue = styled.span<{ $isZero: boolean }>`
+  color: ${({ $isZero }) => ($isZero ? "#e5e5ea" : "#8E8E93")};
   font-family: Montserrat;
   font-size: 14px;
   font-style: normal;
