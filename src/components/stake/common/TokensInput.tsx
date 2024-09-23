@@ -58,7 +58,7 @@ const TokenInput = ({
               />
             )}
           />
-          <ConvertedValue>{isConverting ? "..." : convertedValue}</ConvertedValue>
+          <ConvertedValue $isZero={convertedValue === "$0.00"}>{isConverting ? "..." : convertedValue}</ConvertedValue>
         </LeftSection>
 
         <RightSection>
