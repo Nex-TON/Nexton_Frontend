@@ -16,6 +16,7 @@ import { limitDecimals } from "@/utils/limitDecimals";
 
 import {
   ChartHeader,
+  ChartHeaderDivider,
   ChartHeaderSubtitle,
   ChartHeaderSubtitleBox,
   ChartHeaderTitle,
@@ -122,11 +123,20 @@ const Dashboard = () => {
               <span>{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</span>
             </ChartHeaderSubtitle>
 
+            <ChartHeaderDivider />
+
             <ChartHeaderSubtitle>
               <h5>Daily PNL</h5>
               <span>
                 {chartData?.dailyPnlRate > 0 && "+"} {chartData?.dailyPnlRate}%
               </span>
+            </ChartHeaderSubtitle>
+
+            <ChartHeaderDivider />
+
+            <ChartHeaderSubtitle>
+              <h5>TVL</h5>
+              <span>{limitDecimals(performanceData?.tvl, 3)} TON</span>
             </ChartHeaderSubtitle>
           </ChartHeaderSubtitleBox>
         </ChartHeader>
@@ -166,7 +176,9 @@ const Dashboard = () => {
 
             <TonPriceItemRight>
               <p>${tonPriceData?.rates?.TON?.prices?.USD.toFixed(2)}</p>
-              <TonPriceItemRightPercentage>{tonPriceData?.rates?.TON?.diff_24h?.USD}</TonPriceItemRightPercentage>
+              <TonPriceItemRightPercentage $positive={Number(tonPriceData?.rates?.TON?.diff_24h?.USD) > 0}>
+                {tonPriceData?.rates?.TON?.diff_24h?.USD}
+              </TonPriceItemRightPercentage>
             </TonPriceItemRight>
           </TonPriceItem>
         </TonPriceWrapper>

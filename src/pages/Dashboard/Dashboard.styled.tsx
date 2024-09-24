@@ -62,15 +62,20 @@ export const ChartHeaderTitle = styled.div`
 `;
 
 export const ChartHeaderSubtitleBox = styled.div`
+  width: 100%;
   display: flex;
+  justify-content: start;
   align-items: center;
-  gap: 3rem;
+  gap: 3.2rem;
+
+  margin-top: 1.8rem;
 `;
 
 export const ChartHeaderSubtitle = styled.div`
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
 
   h5 {
     color: #76797a;
@@ -79,8 +84,19 @@ export const ChartHeaderSubtitle = styled.div`
 
   span {
     color: #007aff;
-    ${({ theme }) => theme.fonts.Nexton_Title_Small};
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 22px; /* 157.143% */
   }
+`;
+
+export const ChartHeaderDivider = styled.div`
+  width: 1px;
+  height: 34px;
+
+  background: #f1f4f4;
 `;
 
 export const ChartTimeFrame = styled.div`
