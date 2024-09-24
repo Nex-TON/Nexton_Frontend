@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,9 +11,11 @@ import ProgressBar from "@/components/stake/common/ProgressBar";
 import Step from "@/components/stake/common/Step";
 import Title from "@/components/stake/common/Title";
 import TokenInput from "@/components/stake/common/TokensInput";
+import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import { stakingAtom } from "@/lib/atom/staking";
 import { isDevMode } from "@/utils/isDevMode";
+import { limitDecimals } from "@/utils/limitDecimals";
 import { numberCutter } from "@/utils/numberCutter";
 
 const tele = (window as any).Telegram.WebApp;
@@ -22,6 +24,7 @@ const Amount = () => {
   const { address, balance, connected, refreshTonData } = useTonConnect();
   const navigate = useNavigate();
   const [, setStakingInfo] = useRecoilState(stakingAtom);
+  const { data: coinPrice } = useCoinPrice("TON", "USD");
 
   const schema = z.object({
     amount: z
@@ -76,6 +79,16 @@ const Amount = () => {
     }
   }, [connected, setError]);
 
+  // Conversion function
+  const convertAmount = useMemo(() => {
+    return (amount: string | number) => {
+      if (coinPrice && amount) {
+        return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
+      }
+      return "$0.00";
+    };
+  }, [coinPrice]);
+
   const onSubmit = data => {
     setStakingInfo(prev => ({
       ...prev,
@@ -106,6 +119,7 @@ const Amount = () => {
           tokenLabel="TON"
           placeholder="Stake (min. 1)"
           balance={balance}
+          convertAmount={convertAmount}
         />
 
         {!isDevMode ? (

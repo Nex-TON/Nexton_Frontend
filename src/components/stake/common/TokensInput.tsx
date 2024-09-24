@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { NumericFormat, NumericFormatProps } from "react-number-format";
 import styled from "styled-components";
@@ -9,9 +10,9 @@ interface TokenInputProps extends NumericFormatProps {
   name: string;
   setValue: (name: string, value: string) => void;
   tokenLabel: string;
-   
   control: any;
   balance: number;
+  convertAmount: (amount: string | number) => string;
   error?: string;
   disabled?: boolean;
   saveAs?: "floatValue" | "formattedValue";
@@ -23,32 +24,52 @@ const TokenInput = ({
   tokenLabel,
   control,
   balance,
+  convertAmount,
   error,
   disabled,
   saveAs = "formattedValue",
   ...props
 }: TokenInputProps) => {
+  const [convertedValue, setConvertedValue] = useState<string>("$0.00");
+  const [isConverting, setIsConverting] = useState<boolean>(false);
+
   return (
     <>
       <LeverageInputWrapper $error={Boolean(error)}>
-        <Controller
-          name={name}
-          control={control}
-          render={({ field: { onChange, ref, ...rest } }) => (
-            <Input
-              {...rest}
-              {...props}
-              id={name}
-              onValueChange={e => onChange(e[saveAs])}
-              getInputRef={ref}
-              disabled={disabled}
-              autoComplete="off"
-            />
-          )}
-        />
+        <LeftSection>
+          <Controller
+            name={name}
+            control={control}
+            render={({ field: { onChange, ref, ...rest } }) => (
+              <Input
+                {...rest}
+                {...props}
+                id={name}
+                onValueChange={e => {
+                  setIsConverting(true);
+                  console.log(e[saveAs]);
+                  onChange(e[saveAs]);
+                  setConvertedValue(convertAmount(e[saveAs]));
+                  setIsConverting(false);
+                }}
+                getInputRef={ref}
+                disabled={disabled}
+                autoComplete="off"
+              />
+            )}
+          />
+          <ConvertedValue $isZero={convertedValue === "$0.00"}>{isConverting ? "..." : convertedValue}</ConvertedValue>
+        </LeftSection>
 
         <RightSection>
-          <MaxWrapper type="button" disabled={!balance} onClick={() => setValue(name, String(numberCutter(balance)))}>
+          <MaxWrapper
+            type="button"
+            disabled={!balance}
+            onClick={() => {
+              setValue(name, String(numberCutter(balance)));
+              setConvertedValue(convertAmount(String(numberCutter(balance))));
+            }}
+          >
             MAX
           </MaxWrapper>
           <TokenLabel>{tokenLabel}</TokenLabel>
@@ -97,7 +118,29 @@ const LeverageInputWrapper = styled.div<{ $error: boolean }>`
   background-color: #f9f9ff;
 `;
 
-const RightSection = styled.div``;
+const ConvertedValue = styled.span<{ $isZero: boolean }>`
+  color: ${({ $isZero }) => ($isZero ? "#e5e5ea" : "#8E8E93")};
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px; /* 157.143% */
+`;
+
+const LeftSection = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.2rem;
+`;
+
+const RightSection = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+`;
 
 const MaxWrapper = styled.button`
   padding: 0.4rem 0.8rem;
@@ -113,8 +156,6 @@ const MaxWrapper = styled.button`
 `;
 
 const TokenLabel = styled.span`
-  margin-left: 0.7rem;
-
   color: #0b0b0b;
 
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
