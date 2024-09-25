@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { mutate } from "swr";
 
@@ -18,15 +18,12 @@ import {
   AssetBottomLeftItemTitle,
   AssetBottomLeftItemValue,
   AssetBottomNotConnected,
-  AssetBottomRight,
-  AssetBottomRightItem,
   DashboardBottomBox,
   DashboardBottomLeft,
   DashboardBottomLeftData,
   DashboardBottomLeftDataItem,
   DashboardBottomLeftTitle,
   DashboardBottomLeftTitleBox,
-  DashboardBottomRight,
   MainInnerBox,
   MainLeftItem,
   MainTopBox,
@@ -68,7 +65,7 @@ const MainMyAssetInfo = ({
 
   const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary();
   const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
-  const { data: earningsData, isLoading: earningsLoading } = useEarningsbyAddress(address);
+  const { data: earningsData, isLoading: earningsLoading, error: earningsError } = useEarningsbyAddress(address);
 
   const handleViewChange = (view: AssetsView) => {
     setView(view);
@@ -93,9 +90,6 @@ const MainMyAssetInfo = ({
   return (
     <MainWrapper>
       <MainInnerBox>
-        {/* Will be removed in next release */}
-        {/* <BackgroundChart $isVisible={view === "dashboard"} $src={MyAssetsDashboardBg} /> */}
-
         <MainTopBox $marginBottom={connected || view === "dashboard"}>
           <MainTopLeft>
             <MainLeftItem $isActive={view === "dashboard"} onClick={() => handleViewChange("dashboard")}>
@@ -152,10 +146,6 @@ const MainMyAssetInfo = ({
                 )}
               </DashboardBottomLeftData>
             </DashboardBottomLeft>
-
-            {/* <DashboardBottomRight onClick={() => navigate("/dashboard")}>
-              <img src={IcSmallArrowRight} alt="small_arrow_right" />
-            </DashboardBottomRight> */}
           </DashboardBottomBox>
         ) : (
           <AssetBottomBox>
@@ -207,7 +197,7 @@ const MainMyAssetInfo = ({
                       ) : (
                         <>
                           <h4>
-                            {isError ? (
+                            {isError || earningsError ? (
                               "-.-- "
                             ) : isLoading || earningsLoading ? (
                               <Loader />
@@ -221,22 +211,6 @@ const MainMyAssetInfo = ({
                     </AssetBottomLeftItemValue>
                   </AssetBottomLeftItem>
                 </AssetBottomLeft>
-
-                {/* @deprecated */}
-                {/* <AssetBottomRight>
-                  <AssetBottomRightItem>
-                    <span>bot PNL</span>
-                    <h4>
-                      {performanceLoading ? (
-                        <Loader />
-                      ) : performanceData?.pnlRate ? (
-                        `${limitDecimals(performanceData?.pnlRate, 2)}%`
-                      ) : (
-                        "-"
-                      )}
-                    </h4>
-                  </AssetBottomRightItem>
-                </AssetBottomRight> */}
               </>
             )}
           </AssetBottomBox>
