@@ -96,12 +96,12 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
         </NominatorItemBottomWrapper>
 
         {/* Temporarily removed */}
-        {totalStake && (
+        {/* {totalStake && (
           <NominatorItemBottomText style={{ alignItems: "flex-end" }}>
             <Caption3>TVL</Caption3>
             <LabelMedium>{totalStake.toLocaleString()} TON</LabelMedium>
           </NominatorItemBottomText>
-        )}
+        )} */}
       </NominatorItemBottom>
     </NominatorItemWrapper>
   );
