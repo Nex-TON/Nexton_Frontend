@@ -21,7 +21,6 @@ import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom, stakingInputAtom } from "@/lib/atom/staking";
 import { isDevMode } from "@/utils/isDevMode";
 
- 
 const tele = (window as any).Telegram.WebApp;
 
 interface ModalState {
@@ -100,6 +99,7 @@ const NFTPreview = () => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
+      tele.enableClosingConfirmation();
       tele.onEvent("backButtonClicked", () => {
         navigate("/stake/leverage");
       });
