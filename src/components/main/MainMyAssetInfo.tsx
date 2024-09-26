@@ -113,7 +113,7 @@ const MainMyAssetInfo = ({
 
                 <APYBox>
                   <span>APY</span>
-                  <h4>{performanceData?.apy ? `${limitDecimals(performanceData?.apy, 2)}%` : "-"}</h4>
+                  <h4>{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</h4>
                 </APYBox>
               </DashboardBottomLeftTitleBox>
 

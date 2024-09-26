@@ -77,7 +77,7 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
           {apy && (
             <NominatorAPY>
               <span>APY</span>
-              <h2>{apy}%</h2>
+              <h2>{apy.toFixed(2)}%</h2>
             </NominatorAPY>
           )}
         </NominatorItemTopRight>
@@ -96,12 +96,12 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
         </NominatorItemBottomWrapper>
 
         {/* Temporarily removed */}
-        {/* {totalStake && (
+        {totalStake && (
           <NominatorItemBottomText style={{ alignItems: "flex-end" }}>
             <Caption3>TVL</Caption3>
             <LabelMedium>{totalStake.toLocaleString()} TON</LabelMedium>
           </NominatorItemBottomText>
-        )} */}
+        )}
       </NominatorItemBottom>
     </NominatorItemWrapper>
   );
