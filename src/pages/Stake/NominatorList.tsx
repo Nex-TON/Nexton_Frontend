@@ -98,7 +98,6 @@ const NominatorList = () => {
               title={item.title}
               icon={item.icon}
               apy={item.apy}
-              totalStake={item.totalStake}
               pool={item.pool}
               profit={item.profit}
               check={item.check}

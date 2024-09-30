@@ -6,13 +6,14 @@ import IcTriangleDisabled from "@/assets/icons/Stake/ic_triangle_disabled.svg";
 import IcTriangleWhite from "@/assets/icons/Stake/ic_triangle_white.svg";
 import IcUnchecked from "@/assets/icons/Stake/ic_unchecked.svg";
 import { INominator } from "@/constants/Nominator";
+import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
+import { limitDecimals } from "@/utils/limitDecimals";
 
 export type PoolType = "bemo" | "arbitrage" | "nominator";
 
 interface NominatorItemProps {
   title: string;
   icon?: string;
-  totalStake?: number;
   profit: boolean;
   pool: PoolType;
   check: boolean;
@@ -29,7 +30,6 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
   pool,
   title,
   icon,
-  totalStake,
   id,
   selectedNominator,
   handleSelectNominator,
@@ -37,6 +37,8 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
   apy,
   description,
 }) => {
+  const { data: performanceData } = useBotPerformanceSummary();
+
   const isSelected = selectedNominator?.id === id;
   const iconUnchecked = profit && <img src={IcUnchecked} alt="unchecked" />;
   const iconChecked = profit && <img src={IcChecked} alt="checked" />;
@@ -95,13 +97,12 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
           </NominatorItemBottomText>
         </NominatorItemBottomWrapper>
 
-        {/* Temporarily removed */}
-        {/* {totalStake && (
+        {performanceData?.tvl && (
           <NominatorItemBottomText style={{ alignItems: "flex-end" }}>
             <Caption3>TVL</Caption3>
-            <LabelMedium>{totalStake.toLocaleString()} TON</LabelMedium>
+            <LabelMedium>{limitDecimals(performanceData.tvl, 3)} TON</LabelMedium>
           </NominatorItemBottomText>
-        )} */}
+        )}
       </NominatorItemBottom>
     </NominatorItemWrapper>
   );
