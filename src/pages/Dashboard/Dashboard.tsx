@@ -7,6 +7,7 @@ import IcNextonLogo from "@/assets/icons/Dashboard/ic_nexton_logo.svg";
 import IcNextonLogoSm from "@/assets/icons/Dashboard/ic_nexton_logo_sm.svg";
 import IcStakeLinkArrow from "@/assets/icons/Dashboard/ic_stake_link_arrow.svg";
 import IcTonLogo from "@/assets/icons/Dashboard/ic_ton_logo.svg";
+import IcWalletStake from "@/assets/icons/Landing/ic_wallet_stake.svg";
 import Loader from "@/components/common/Loader";
 import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceChart";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
@@ -24,15 +25,9 @@ import {
   ChartTimeFrameItem,
   ChartWrapper,
   DashboardWrapper,
-  Divider,
   LoaderWrapper,
   PerformanceItem,
-  PerformanceItemBody,
-  PerformanceItemBodyBox,
-  PerformanceItemFooter,
-  PerformanceItemHeader,
-  PerformanceItemHeaderLeft,
-  PerformanceItemHeaderRight,
+  PerformanceItemWrapper,
   PerformanceWrapper,
   StakeButton,
   TonPriceItem,
@@ -117,7 +112,8 @@ const Dashboard = () => {
             <h4>Arbitrage Bot</h4>
           </ChartHeaderTitle>
 
-          <ChartHeaderSubtitleBox>
+          {/* // ! @deprecated */}
+          {/* <ChartHeaderSubtitleBox>
             <ChartHeaderSubtitle>
               <h5>APY</h5>
               <span>{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</span>
@@ -138,7 +134,7 @@ const Dashboard = () => {
               <h5>TVL</h5>
               <span>{limitDecimals(performanceData?.tvl, 3)} TON</span>
             </ChartHeaderSubtitle>
-          </ChartHeaderSubtitleBox>
+          </ChartHeaderSubtitleBox> */}
         </ChartHeader>
 
         <ResponsiveContainer width="100%" height="100%">
@@ -164,6 +160,47 @@ const Dashboard = () => {
         </ChartTimeFrame>
       </ChartWrapper>
 
+      <PerformanceWrapper>
+        <h2>Arb Bot statistics</h2>
+
+        <PerformanceItemWrapper>
+          <PerformanceItem>
+            <h3>APY</h3>
+            <p>{performanceData?.apy?.toFixed(2)}%</p>
+          </PerformanceItem>
+
+          <PerformanceItem>
+            <h3>Daily PNL</h3>
+            <p>
+              {chartData?.dailyPnlRate > 0 ? "+" : "-"}
+              {chartData?.dailyPnlRate}%
+            </p>
+          </PerformanceItem>
+        </PerformanceItemWrapper>
+
+        <PerformanceItemWrapper>
+          <PerformanceItem>
+            <h3>Stakers Win Rate</h3>
+            <p>{performanceData?.pnlWinRate?.toFixed(2)}%</p>
+          </PerformanceItem>
+
+          <PerformanceItem>
+            <h3>TVL</h3>
+            <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
+          </PerformanceItem>
+        </PerformanceItemWrapper>
+
+        <PerformanceItem $fullWidth>
+          <h3>Stakers</h3>
+          <p>{performanceData?.subscribedCount}</p>
+        </PerformanceItem>
+
+        <StakeButton onClick={() => navigate("/stake/amount")}>
+          <img src={IcWalletStake} alt="wallet_stake" />
+          Stake Now!
+        </StakeButton>
+      </PerformanceWrapper>
+
       {!tonPriceError && (
         <TonPriceWrapper>
           <h2>Current value of TON</h2>
@@ -183,44 +220,6 @@ const Dashboard = () => {
           </TonPriceItem>
         </TonPriceWrapper>
       )}
-
-      <PerformanceWrapper>
-        <h2>Bot Performance</h2>
-
-        <PerformanceItem>
-          <PerformanceItemHeader>
-            <PerformanceItemHeaderLeft>
-              <img src={IcNextonLogoSm} alt="nexton_logo_sm" />
-              <h4>Arbitrage Bot</h4>
-            </PerformanceItemHeaderLeft>
-
-            <PerformanceItemHeaderRight>
-              <span>PNL</span>
-              {limitDecimals(performanceData?.pnlRate, 2)}%
-            </PerformanceItemHeaderRight>
-          </PerformanceItemHeader>
-
-          <Divider />
-
-          <PerformanceItemBody>
-            <PerformanceItemBodyBox>
-              <h4>Stakers win rate</h4>
-              <p>{performanceData?.pnlWinRate?.toFixed(2)}%</p>
-            </PerformanceItemBodyBox>
-
-            <PerformanceItemBodyBox>
-              <h4>Stakers</h4>
-              <p>{performanceData?.subscribedCount}</p>
-            </PerformanceItemBodyBox>
-          </PerformanceItemBody>
-
-          <PerformanceItemFooter>
-            <StakeButton onClick={() => navigate("/stake/amount")}>
-              Stake Now <img src={IcStakeLinkArrow} alt="stake-link-arrow" />
-            </StakeButton>
-          </PerformanceItemFooter>
-        </PerformanceItem>
-      </PerformanceWrapper>
     </DashboardWrapper>
   );
 };
