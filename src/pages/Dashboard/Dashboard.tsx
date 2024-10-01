@@ -4,11 +4,9 @@ import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YA
 import { useSetRecoilState } from "recoil";
 
 import IcNextonLogo from "@/assets/icons/Dashboard/ic_nexton_logo.svg";
-import IcNextonLogoSm from "@/assets/icons/Dashboard/ic_nexton_logo_sm.svg";
-import IcStakeLinkArrow from "@/assets/icons/Dashboard/ic_stake_link_arrow.svg";
 import IcTonLogo from "@/assets/icons/Dashboard/ic_ton_logo.svg";
-import IcWalletStake from "@/assets/icons/Landing/ic_wallet_stake.svg";
 import Loader from "@/components/common/Loader";
+import MainButton from "@/components/main/MainButton";
 import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceChart";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
@@ -17,9 +15,6 @@ import { limitDecimals } from "@/utils/limitDecimals";
 
 import {
   ChartHeader,
-  ChartHeaderDivider,
-  ChartHeaderSubtitle,
-  ChartHeaderSubtitleBox,
   ChartHeaderTitle,
   ChartTimeFrame,
   ChartTimeFrameItem,
@@ -29,7 +24,6 @@ import {
   PerformanceItem,
   PerformanceItemWrapper,
   PerformanceWrapper,
-  StakeButton,
   TonPriceItem,
   TonPriceItemLeft,
   TonPriceItemRight,
@@ -137,16 +131,6 @@ const Dashboard = () => {
           </ChartHeaderSubtitleBox> */}
         </ChartHeader>
 
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart width={500} height={300} data={chartData?.data} margin={{ top: 15, bottom: 15 }}>
-            <CartesianGrid strokeDasharray="3 0" vertical={false} />
-            <XAxis hide />
-            <YAxis orientation="right" width={50} unit="%" />
-            <Tooltip formatter={(value, name, props) => [`${Number(value).toFixed(2)}%`, "PNL"]} />
-            <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" strokeWidth={2} dot={false} />
-          </LineChart>
-        </ResponsiveContainer>
-
         <ChartTimeFrame>
           {Object.keys(chartTimeFrameOptions).map(key => (
             <ChartTimeFrameItem
@@ -158,6 +142,16 @@ const Dashboard = () => {
             </ChartTimeFrameItem>
           ))}
         </ChartTimeFrame>
+
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart width={500} height={300} data={chartData?.data} margin={{ top: 15, bottom: 15 }}>
+            <CartesianGrid strokeDasharray="3 0" vertical={false} />
+            <XAxis hide />
+            <YAxis orientation="right" width={50} unit="%" />
+            <Tooltip formatter={(value, name, props) => [`${Number(value).toFixed(2)}%`, "PNL"]} />
+            <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" strokeWidth={2} dot={false} />
+          </LineChart>
+        </ResponsiveContainer>
       </ChartWrapper>
 
       <PerformanceWrapper>
@@ -172,7 +166,7 @@ const Dashboard = () => {
           <PerformanceItem>
             <h3>Daily PNL</h3>
             <p>
-              {chartData?.dailyPnlRate > 0 ? "+" : "-"}
+              {chartData?.dailyPnlRate > 0 ? "+" : ""}
               {chartData?.dailyPnlRate}%
             </p>
           </PerformanceItem>
@@ -190,15 +184,7 @@ const Dashboard = () => {
           </PerformanceItem>
         </PerformanceItemWrapper>
 
-        <PerformanceItem $fullWidth>
-          <h3>Stakers</h3>
-          <p>{performanceData?.subscribedCount}</p>
-        </PerformanceItem>
-
-        <StakeButton onClick={() => navigate("/stake/amount")}>
-          <img src={IcWalletStake} alt="wallet_stake" />
-          Stake Now!
-        </StakeButton>
+        <MainButton style={{ margin: "1rem 0 0 0" }} />
       </PerformanceWrapper>
 
       {!tonPriceError && (

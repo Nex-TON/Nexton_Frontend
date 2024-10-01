@@ -147,7 +147,7 @@ export const PerformanceItemWrapper = styled.div`
 `;
 
 export const PerformanceItem = styled.div<{ $fullWidth?: boolean }>`
-  height: 113px;
+  height: 100px;
   width: ${({ $fullWidth }) => ($fullWidth ? "100%" : "50%")};
 
   display: flex;
@@ -164,40 +164,20 @@ export const PerformanceItem = styled.div<{ $fullWidth?: boolean }>`
   h3 {
     color: #76797a;
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
-    line-height: 22px; /* 169.231% */
+    line-height: 150%; /* 21px */
   }
 
   p {
     color: #46494a;
     font-family: Montserrat;
-    font-size: 20px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 700;
-    line-height: 26px; /* 130% */
+    line-height: 150%; /* 21px */
   }
-`;
-
-export const StakeButton = styled.button`
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 20px;
-  background: #1f53ff;
-  color: #fff;
-  border: none;
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
-
-  cursor: pointer;
-
-  padding: 1rem;
-  gap: 4px;
-  margin-top: 1rem;
 `;
 
 export const TonPriceWrapper = styled.div`
