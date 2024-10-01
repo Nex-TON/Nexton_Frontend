@@ -1,68 +1,77 @@
 import { styled } from "styled-components";
 
+import IcArbitrageBot from "@/assets/icons/Stake/ic_arbitrage_bot.svg";
+import IcBemoPool from "@/assets/icons/Stake/ic_bemo_pool.svg";
 import IcChecked from "@/assets/icons/Stake/ic_checked.svg";
 import IcTriangleBlack from "@/assets/icons/Stake/ic_triangle_black.svg";
 import IcTriangleDisabled from "@/assets/icons/Stake/ic_triangle_disabled.svg";
 import IcTriangleWhite from "@/assets/icons/Stake/ic_triangle_white.svg";
 import IcUnchecked from "@/assets/icons/Stake/ic_unchecked.svg";
-import { INominator } from "@/constants/Nominator";
-import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
+import { INominatorList } from "@/hooks/api/useNominatorList";
 import { limitDecimals } from "@/utils/limitDecimals";
 
 export type PoolType = "bemo" | "arbitrage" | "nominator";
 
 interface NominatorItemProps {
-  title: string;
-  icon?: string;
-  profit: boolean;
-  pool: PoolType;
-  check: boolean;
   id: number;
-  description: string;
-  selectedNominator: INominator;
+  title: string;
+  apy: number;
+  profitShare: number;
+  tvl: number;
+  disabled?: boolean;
+  selectedNominator: INominatorList;
   handleSelectNominator: (index: number) => void;
-  tag?: string;
-  apy?: number;
 }
 
 const NominatorItem: React.FC<NominatorItemProps> = ({
-  profit,
-  pool,
-  title,
-  icon,
   id,
+  title,
+  apy,
+  profitShare,
+  tvl,
+  disabled,
   selectedNominator,
   handleSelectNominator,
-  tag,
-  apy,
-  description,
 }) => {
-  const { data: performanceData } = useBotPerformanceSummary();
-
   const isSelected = selectedNominator?.id === id;
-  const iconUnchecked = profit && <img src={IcUnchecked} alt="unchecked" />;
-  const iconChecked = profit && <img src={IcChecked} alt="checked" />;
-  const triangleIcon = profit ? (
+
+  const iconUnchecked = !disabled && <img src={IcUnchecked} alt="unchecked" />;
+  const iconChecked = !disabled && <img src={IcChecked} alt="checked" />;
+  const triangleIcon = !disabled ? (
     <img src={isSelected ? IcTriangleWhite : IcTriangleBlack} alt="triangle" />
   ) : (
     <img src={IcTriangleDisabled} alt="triangle_disabled" />
   );
+
+  // * temp hardcoded
+  const tag = title === "Bemo pool" ? "+arb bot 12%" : title === "Arbitrage Bot" ? "+Bonus Point" : null;
+  const icon = title === "Bemo pool" ? IcBemoPool : title === "Arbitrage Bot" ? IcArbitrageBot : null;
+  const description =
+    title === "Bemo pool"
+      ? "you will receive an NFT through the Arbitrage Bot."
+      : title === "Arbitrage Bot"
+        ? "you can directly invest in the Arbitrage Bot."
+        : title === "Nominator Pool"
+          ? "you will receive an NFT through the Arbitrage Bot."
+          : null;
 
   const handleClick = () => {
     handleSelectNominator(id);
   };
 
   return (
-    <NominatorItemWrapper $disabled={!profit} $active={isSelected} onClick={() => (profit ? handleClick() : null)}>
+    <NominatorItemWrapper $disabled={disabled} $active={isSelected} onClick={() => (!disabled ? handleClick() : null)}>
       <NominatorItemTop>
         <NominatorItemTopLeft>
           {tag && <NominatorItemTopTag $active={isSelected}>{tag}</NominatorItemTopTag>}
           <TitleMedium style={{ gap: "1.7rem", marginTop: "0.4rem" }}>
             {icon && <img src={icon} alt="icon" />} {title}
           </TitleMedium>
-          <Caption3>
-            Profit share <LabelMedium>80%</LabelMedium>
-          </Caption3>
+          {profitShare && (
+            <Caption3>
+              Profit share <LabelMedium>{profitShare}%</LabelMedium>
+            </Caption3>
+          )}
         </NominatorItemTopLeft>
 
         <NominatorItemTopRight>
@@ -71,7 +80,7 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
               e.stopPropagation();
               handleClick();
             }}
-            disabled={!profit}
+            disabled={disabled}
           >
             {isSelected ? iconChecked : iconUnchecked}
           </NominatorCheckButton>
@@ -86,21 +95,23 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
       </NominatorItemTop>
 
       <NominatorItemBottom>
-        <NominatorItemBottomWrapper>
-          {triangleIcon}
-          <NominatorItemBottomText style={{ maxWidth: "75%" }}>
-            <Caption3>
-              By selecting this card,
-              <br />
-              <Caption3 style={{ fontWeight: "bold" }}>{description}</Caption3>
-            </Caption3>
-          </NominatorItemBottomText>
-        </NominatorItemBottomWrapper>
+        {description && (
+          <NominatorItemBottomWrapper>
+            {triangleIcon}
+            <NominatorItemBottomText style={{ maxWidth: "75%" }}>
+              <Caption3>
+                By selecting this card,
+                <br />
+                <Caption3 style={{ fontWeight: "bold" }}>{description}</Caption3>
+              </Caption3>
+            </NominatorItemBottomText>
+          </NominatorItemBottomWrapper>
+        )}
 
-        {performanceData?.tvl && (
+        {tvl && (
           <NominatorItemBottomText style={{ alignItems: "flex-end" }}>
             <Caption3>TVL</Caption3>
-            <LabelMedium>{limitDecimals(performanceData.tvl, 3)} TON</LabelMedium>
+            <LabelMedium>{limitDecimals(tvl, 3)} TON</LabelMedium>
           </NominatorItemBottomText>
         )}
       </NominatorItemBottom>

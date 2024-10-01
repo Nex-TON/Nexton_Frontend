@@ -4,26 +4,27 @@ import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
 
-import IcSearch from "@/assets/icons/Stake/ic_search.svg";
 import ProgressBar from "@/components/stake/common/ProgressBar";
 import Step from "@/components/stake/common/Step";
 import Title from "@/components/stake/common/Title";
 import { ConfirmNominatorModal } from "@/components/stake/Nominator/ConfirmNominatorModal";
 import NominatorItem from "@/components/stake/Nominator/NominatorItem";
+import { useNominatorList } from "@/hooks/api/useNominatorList";
 import { stakingAtom } from "@/lib/atom/staking";
+import { telegramAtom } from "@/lib/atom/telegram";
 import { isDevMode } from "@/utils/isDevMode";
 
-import { useSearchNominatorPool } from "./hooks/useSearchNominatorPoo";
 import { useSelectNominator } from "./hooks/useSelectNominator";
 
 const tele = (window as any).Telegram.WebApp;
 
 const NominatorList = () => {
-  const [searchInput, setSearchInput] = useState("");
-  const [modal, setModal] = useState(false);
+  const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
+  const { data: nominatorListData } = useNominatorList(String(telegramId));
 
-  const { selectedNominator, handleSelectNominator } = useSelectNominator();
-  const { searchNominator, handleSearchNominatorPool } = useSearchNominatorPool(searchInput);
+  const [confirmModal, setConfirmModal] = useState(false);
+
+  const { selectedNominator, handleSelectNominator } = useSelectNominator(nominatorListData);
 
   const [, setStakingInfo] = useRecoilState(stakingAtom);
 
@@ -33,7 +34,8 @@ const NominatorList = () => {
     if (selectedNominator) {
       setStakingInfo(prev => ({
         ...prev,
-        nominator: selectedNominator.title,
+        nominator: selectedNominator.name,
+        telegramId,
       }));
       navigate("/stake/leverage");
     }
@@ -49,6 +51,14 @@ const NominatorList = () => {
       });
     }
 
+    const tgId = tele?.initDataUnsafe?.user?.id;
+    if (tgId) {
+      setTelegramId(tgId);
+    } else {
+      // Edge case: when user is using Nexton app outside of Telegram
+      setTelegramId(0);
+    }
+
     return () => {
       tele.offEvent("backButtonClicked");
     };
@@ -56,18 +66,28 @@ const NominatorList = () => {
 
   const toggleModal = () => {
     if (selectedNominator) {
-      setModal(prev => !prev);
+      setConfirmModal(prev => !prev);
     }
   };
 
+  // * temp hardcoded (No info from BE)
+  const description =
+    selectedNominator?.name === "Bemo pool"
+      ? "you will receive an NFT through the Arbitrage Bot."
+      : selectedNominator?.name === "Arbitrage Bot"
+        ? "you can directly invest in the Arbitrage Bot."
+        : selectedNominator?.name === "Nominator Pool"
+          ? "you will receive an NFT through the Arbitrage Bot."
+          : null;
+
   return (
     <>
-      {modal && (
+      {confirmModal && (
         <ConfirmNominatorModal
           toggleModal={toggleModal}
           onConfirm={handleConfirmNominator}
-          name={selectedNominator.title}
-          description={selectedNominator.description}
+          name={selectedNominator.name}
+          description={description}
         />
       )}
 
@@ -87,27 +107,45 @@ const NominatorList = () => {
         </NominatorSearch> */}
       </NominatorListWrapper>
       <NominatorItemList>
-        {searchNominator.map((item, index) => (
-          <Fragment key={item.id}>
-            {/* // todo: remove hardcoded labels, once API is ready*/}
-            {item.type === "pool" && index === 0 && <TitleH3>Pool</TitleH3>}
-            {item.type === "bot" && index === 2 && <TitleH3>Bot</TitleH3>}
+        {nominatorListData && (
+          <>
+            {nominatorListData.some(item => item.type === "pool") && <TitleH3>Pool</TitleH3>}
+            {nominatorListData
+              .filter(item => item.type === "pool")
+              .map(item => (
+                <Fragment key={item.id}>
+                  <NominatorItem
+                    id={item.id}
+                    title={item.name}
+                    apy={item.apy}
+                    profitShare={item.profitShare}
+                    tvl={item.tvl}
+                    disabled={item.disabled}
+                    selectedNominator={selectedNominator}
+                    handleSelectNominator={handleSelectNominator}
+                  />
+                </Fragment>
+              ))}
 
-            <NominatorItem
-              id={item.id}
-              title={item.title}
-              icon={item.icon}
-              apy={item.apy}
-              pool={item.pool}
-              profit={item.profit}
-              check={item.check}
-              selectedNominator={selectedNominator}
-              handleSelectNominator={handleSelectNominator}
-              tag={item.tag}
-              description={item.description}
-            />
-          </Fragment>
-        ))}
+            {nominatorListData.some(item => item.type === "bot") && <TitleH3>Bot</TitleH3>}
+            {nominatorListData
+              .filter(item => item.type === "bot")
+              .map(item => (
+                <Fragment key={item.id}>
+                  <NominatorItem
+                    id={item.id}
+                    title={item.name}
+                    apy={item.apy}
+                    profitShare={item.profitShare}
+                    tvl={item.tvl}
+                    disabled={item.disabled}
+                    selectedNominator={selectedNominator}
+                    handleSelectNominator={handleSelectNominator}
+                  />
+                </Fragment>
+              ))}
+          </>
+        )}
       </NominatorItemList>
 
       {!isDevMode ? (
