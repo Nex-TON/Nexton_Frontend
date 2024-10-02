@@ -463,7 +463,7 @@ export type UserDeposit = {
 export function storeUserDeposit(src: UserDeposit) {
   return (builder: Builder) => {
     const b_0 = builder;
-    b_0.storeUint(1135344222, 32);
+    b_0.storeUint(1832664797, 32);
     b_0.storeUint(src.queryId, 64);
   };
 }
