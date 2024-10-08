@@ -4,6 +4,7 @@ import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 
+import IcArrorRight from "@/assets/icons/Stake/ic_arrow_right.svg";
 import Loader from "@/components/common/Loader";
 import ProgressBar from "@/components/stake/common/ProgressBar";
 import Step from "@/components/stake/common/Step";
@@ -63,7 +64,6 @@ const NominatorList = () => {
 
   const handleConfirmNominator = () => {
     if (selectedNominator) {
-      console.log("selectedNominator", selectedNominator);
       setStakingInfo(prev => ({
         ...prev,
         nominator: selectedNominator.name,
@@ -114,9 +114,16 @@ const NominatorList = () => {
           <>
             {nominatorListData && (
               <>
-                {nominatorListData.some(item => item.type === "pool") && <TitleH3>Pool</TitleH3>}
+                {nominatorListData.some(item => item.type === "bot") && (
+                  <BotTitleWrapper>
+                    <TitleH3>Bot</TitleH3>
+                    <DashboardLink onClick={() => navigate("/dashboard")}>
+                      Go to Dashboard <img src={IcArrorRight} alt="arrow_right" />
+                    </DashboardLink>
+                  </BotTitleWrapper>
+                )}
                 {nominatorListData
-                  .filter(item => item.type === "pool")
+                  .filter(item => item.type === "bot")
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem
@@ -132,9 +139,9 @@ const NominatorList = () => {
                     </Fragment>
                   ))}
 
-                {nominatorListData.some(item => item.type === "bot") && <TitleH3>Bot</TitleH3>}
+                {nominatorListData.some(item => item.type === "pool") && <TitleH3>Pool</TitleH3>}
                 {nominatorListData
-                  .filter(item => item.type === "bot")
+                  .filter(item => item.type === "pool")
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem
@@ -234,5 +241,33 @@ const NominatorItemList = styled.div`
 const TitleH3 = styled.h3`
   padding: 1.4rem 0;
 
-  ${({ theme }) => theme.fonts.Nexton_Title_Large_Small};
+  color: #333;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 120% */
+  letter-spacing: -0.46px;
+`;
+
+const BotTitleWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const DashboardLink = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  cursor: pointer;
+  color: #76797a;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 184.615% */
+  letter-spacing: -0.46px;
 `;

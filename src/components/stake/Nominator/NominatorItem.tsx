@@ -1,12 +1,8 @@
 import { styled } from "styled-components";
 
 import IcArbitrageBot from "@/assets/icons/Stake/ic_arbitrage_bot.svg";
+import IcArbitrageBotLight from "@/assets/icons/Stake/ic_arbitrage_bot_light.svg";
 import IcBemoPool from "@/assets/icons/Stake/ic_bemo_pool.svg";
-import IcChecked from "@/assets/icons/Stake/ic_checked.svg";
-import IcTriangleBlack from "@/assets/icons/Stake/ic_triangle_black.svg";
-import IcTriangleDisabled from "@/assets/icons/Stake/ic_triangle_disabled.svg";
-import IcTriangleWhite from "@/assets/icons/Stake/ic_triangle_white.svg";
-import IcUnchecked from "@/assets/icons/Stake/ic_unchecked.svg";
 import { INominatorList } from "@/hooks/api/useNominatorList";
 import { limitDecimals } from "@/utils/limitDecimals";
 
@@ -35,25 +31,16 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
 }) => {
   const isSelected = selectedNominator?.id === id;
 
-  const iconUnchecked = !disabled && <img src={IcUnchecked} alt="unchecked" />;
-  const iconChecked = !disabled && <img src={IcChecked} alt="checked" />;
-  const triangleIcon = !disabled ? (
-    <img src={isSelected ? IcTriangleWhite : IcTriangleBlack} alt="triangle" />
-  ) : (
-    <img src={IcTriangleDisabled} alt="triangle_disabled" />
-  );
-
   // * temp hardcoded
-  const tag = title === "Bemo pool" ? "+arb bot 12%" : title === "Arbitrage Bot" ? "+Bonus Point" : null;
-  const icon = title === "Bemo pool" ? IcBemoPool : title === "Arbitrage Bot" ? IcArbitrageBot : null;
-  const description =
+  const tag = title === "Arbitrage Bot" ? "+ NXT Points" : null;
+  const icon =
     title === "Bemo pool"
-      ? "you will receive an NFT through the Arbitrage Bot."
+      ? IcBemoPool
       : title === "Arbitrage Bot"
-        ? "you can directly invest in the Arbitrage Bot."
-        : title === "Nominator Pool"
-          ? "you will receive an NFT through the Arbitrage Bot."
-          : null;
+        ? isSelected
+          ? IcArbitrageBotLight
+          : IcArbitrageBot
+        : null;
 
   const handleClick = () => {
     handleSelectNominator(id);
@@ -63,56 +50,49 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
     <NominatorItemWrapper $disabled={disabled} $active={isSelected} onClick={() => (!disabled ? handleClick() : null)}>
       <NominatorItemTop>
         <NominatorItemTopLeft>
-          {tag && <NominatorItemTopTag $active={isSelected}>{tag}</NominatorItemTopTag>}
-          <TitleMedium style={{ gap: "1.7rem", marginTop: "0.4rem" }}>
+          <NominatorItemTitle $inactive={disabled} $selected={isSelected}>
             {icon && <img src={icon} alt="icon" />} {title}
-          </TitleMedium>
-          {profitShare && (
-            <Caption3>
-              Profit share <LabelMedium>{profitShare}%</LabelMedium>
-            </Caption3>
-          )}
+          </NominatorItemTitle>
         </NominatorItemTopLeft>
 
         <NominatorItemTopRight>
-          <NominatorCheckButton
-            onClick={e => {
-              e.stopPropagation();
-              handleClick();
-            }}
-            disabled={disabled}
-          >
-            {isSelected ? iconChecked : iconUnchecked}
-          </NominatorCheckButton>
-          {/* APY is only available for bemo and arbitrage pools */}
-          {apy && (
-            <NominatorAPY>
-              <span>APY</span>
-              <h2>{apy.toFixed(2)}%</h2>
-            </NominatorAPY>
+          {tag && (
+            <NominatorItemTopTag $active={isSelected}>
+              <p>{tag}</p>
+            </NominatorItemTopTag>
           )}
         </NominatorItemTopRight>
       </NominatorItemTop>
 
       <NominatorItemBottom>
-        {description && (
-          <NominatorItemBottomWrapper>
-            {triangleIcon}
-            <NominatorItemBottomText style={{ maxWidth: "75%" }}>
-              <Caption3>
-                By selecting this card,
-                <br />
-                <Caption3 style={{ fontWeight: "bold" }}>{description}</Caption3>
-              </Caption3>
-            </NominatorItemBottomText>
-          </NominatorItemBottomWrapper>
-        )}
+        {!disabled ? (
+          <>
+            <NominatorItemBottomItem $selected={isSelected}>
+              <h4>APY</h4>
+              <p>
+                {apy?.toFixed(2)}
+                <span> %</span>
+              </p>
+            </NominatorItemBottomItem>
 
-        {tvl && (
-          <NominatorItemBottomText style={{ alignItems: "flex-end" }}>
-            <Caption3>TVL</Caption3>
-            <LabelMedium>{limitDecimals(tvl, 3)} TON</LabelMedium>
-          </NominatorItemBottomText>
+            <NominatorItemBottomItem $selected={isSelected}>
+              <h4>TVL</h4>
+              <p>
+                {limitDecimals(tvl, 3)}
+                <span> TON</span>
+              </p>
+            </NominatorItemBottomItem>
+
+            <NominatorItemBottomItem $selected={isSelected}>
+              <h4>Profit Share</h4>
+              <p>
+                {profitShare?.toFixed(2)}
+                <span> %</span>
+              </p>
+            </NominatorItemBottomItem>
+          </>
+        ) : (
+          <NominatorComingSoon>Coming Soon</NominatorComingSoon>
         )}
       </NominatorItemBottom>
     </NominatorItemWrapper>
@@ -180,13 +160,16 @@ const NominatorItemTopTag = styled.div<{ $active: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0.4rem 0.8rem;
 
-  padding: 4px 6px;
-  gap: 10px;
+  border-radius: 4rem;
+  background: linear-gradient(90deg, #8468bf -1.21%, #6060ff 100%);
 
-  border-radius: 5px;
-  border: 1px dashed ${({ $active }) => ($active ? "#fff" : "#575757")};
-  ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
+  p {
+    text-align: center;
+    color: #fff;
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
+  }
 `;
 
 const NominatorItemTopLeft = styled.div`
@@ -205,74 +188,92 @@ const NominatorItemTopRight = styled.div`
   gap: 1rem;
 `;
 
-const NominatorCheckButton = styled.button`
+const NominatorComingSoon = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
+  justify-content: start;
+  align-items: start;
+  flex: 1;
 
-  width: 3rem;
-  height: 3rem;
-
-  border: none;
-  background-color: transparent;
-
-  outline: none;
-  cursor: pointer;
-`;
-
-const NominatorAPY = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  span {
-    text-align: end;
-    ${({ theme }) => theme.fonts.Telegram_Caption_3};
-  }
-
-  h2 {
-    ${({ theme }) => theme.fonts.Nexton_Title_Large};
-  }
+  color: #b9b9ba;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px; /* 138.462% */
 `;
 
 const NominatorItemBottom = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
   flex: 1;
+  gap: 1.7rem;
 
   width: 100%;
-  margin-top: 2.2rem;
+  margin-top: 2.3rem;
 `;
 
-const NominatorItemBottomWrapper = styled.div`
+const NominatorItemBottomItem = styled.div<{ $selected?: boolean }>`
+  width: 100%;
   display: flex;
-  align-items: flex-start;
-  flex: min-content;
+  align-items: center;
+  justify-content: space-between;
 
-  gap: 0.6rem;
+  h4 {
+    color: var(--Neutral-variant-Neutral-variant-80, #c6c5d0);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px; /* 138.462% */
+  }
 
-  img {
-    padding-top: 3px;
+  p {
+    color: ${({ $selected }) => ($selected ? "#fff" : "#000")};
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22px; /* 137.5% */
+    letter-spacing: -0.46px;
+
+    gap: 0.3rem;
+
+    span {
+      color: ${({ $selected }) => ($selected ? "#fff" : "#303234")};
+      font-family: Montserrat;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 22px; /* 137.5% */
+      letter-spacing: -0.46px;
+    }
   }
 `;
 
-const NominatorItemBottomText = styled.div`
+const NominatorItemTitle = styled.h1<{ $inactive?: boolean; $selected?: boolean }>`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 0.6rem;
-`;
+  align-items: center;
+  gap: 0.7rem;
 
-const Caption3 = styled.span`
-  ${({ theme }) => theme.fonts.Telegram_Caption_3};
-`;
+  color: ${({ $inactive, $selected }) => {
+    let color: string;
+    if ($inactive) {
+      color = "#B9B9BA";
+    } else if ($selected) {
+      color = "#fff";
+    } else {
+      color = "#303234";
+    }
 
-const TitleMedium = styled.h1`
-  ${({ theme }) => theme.fonts.Nexton_Title_Medium};
-`;
-
-const LabelMedium = styled.span`
-  ${({ theme }) => theme.fonts.Nexton_Label_Medium};
+    return color;
+  }};
+  text-align: right;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 26px; /* 130% */
+  letter-spacing: -0.4px;
 `;
