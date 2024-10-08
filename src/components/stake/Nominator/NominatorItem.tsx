@@ -120,7 +120,7 @@ const NominatorItemWrapper = styled.div<{ $active: boolean; $disabled?: boolean 
   background: ${({ $active, $disabled }) => {
     let background: string;
     if ($active) {
-      background = "#575757";
+      background = "#1A1B23";
     } else if ($disabled) {
       background = "#E1E4E6";
     } else {
@@ -160,7 +160,7 @@ const NominatorItemTopTag = styled.div<{ $active: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.4rem 0.8rem;
+  padding: 0.4rem 1.15rem;
 
   border-radius: 4rem;
   background: linear-gradient(90deg, #8468bf -1.21%, #6060ff 100%);
@@ -168,7 +168,11 @@ const NominatorItemTopTag = styled.div<{ $active: boolean }>`
   p {
     text-align: center;
     color: #fff;
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22px; /* 183.333% */
   }
 `;
 
@@ -177,7 +181,6 @@ const NominatorItemTopLeft = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 0.25rem;
 `;
 
 const NominatorItemTopRight = styled.div`
@@ -255,6 +258,7 @@ const NominatorItemBottomItem = styled.div<{ $selected?: boolean }>`
 const NominatorItemTitle = styled.h1<{ $inactive?: boolean; $selected?: boolean }>`
   display: flex;
   align-items: center;
+  text-align: center;
   gap: 0.7rem;
 
   color: ${({ $inactive, $selected }) => {
@@ -269,7 +273,7 @@ const NominatorItemTitle = styled.h1<{ $inactive?: boolean; $selected?: boolean 
 
     return color;
   }};
-  text-align: right;
+
   font-family: Montserrat;
   font-size: 20px;
   font-style: normal;
