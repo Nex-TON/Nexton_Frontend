@@ -8,6 +8,7 @@ interface WebApp {
   ready(): void;
   MainButton: MainButton;
   BackButton: BackButton;
+  enableClosingConfirmation(): void;
 }
 
 interface MainButton {

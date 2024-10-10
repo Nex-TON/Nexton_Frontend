@@ -99,6 +99,7 @@ const NFTPreview = () => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
+      tele.enableClosingConfirmation();
       tele.onEvent("backButtonClicked", () => {
         navigate("/stake/leverage");
       });

@@ -21,7 +21,7 @@ Before you begin, ensure you have the following installed:
 "@aws-crypto/sha256-js": "^5.0.0",
 "@orbs-network/ton-access": "^2.3.3",
 "@ton/test-utils": "^0.4.2",
-"@tonconnect/ui-react": "^2.0.0-beta.2",
+"@tonconnect/ui-react": "^2.0.9",
 "@vkruglikov/react-telegram-web-app": "^2.1.1",
 "axios": "^1.5.0",
 "react": "^18.2.0",

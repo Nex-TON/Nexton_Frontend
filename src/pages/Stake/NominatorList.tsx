@@ -43,6 +43,7 @@ const NominatorList = () => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
+      tele.enableClosingConfirmation();
       tele.onEvent("backButtonClicked", () => {
         navigate("/stake/amount");
       });
@@ -97,7 +98,6 @@ const NominatorList = () => {
               title={item.title}
               icon={item.icon}
               apy={item.apy}
-              totalStake={item.totalStake}
               pool={item.pool}
               profit={item.profit}
               check={item.check}

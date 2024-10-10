@@ -106,7 +106,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
           </DetailInfoItem>
           <DetailInfoItem>
             <DetailInfoItemText>Lockup period</DetailInfoItemText>
-            <DetailInfoItemText>{lockPeriod} days</DetailInfoItemText>
+            <DetailInfoItemText>{lockPeriod} days remaining</DetailInfoItemText>
           </DetailInfoItem>
           <DetailInfoItem>
             <DetailInfoItemText>Unstakable date</DetailInfoItemText>

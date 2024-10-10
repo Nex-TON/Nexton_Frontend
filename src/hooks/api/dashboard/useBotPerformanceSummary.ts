@@ -7,6 +7,7 @@ interface IBotPerformanceSummary {
   pnlWinRate: number;
   subscribedCount: number;
   apy: number;
+  tvl: number;
 }
 
 export function useBotPerformanceSummary() {
