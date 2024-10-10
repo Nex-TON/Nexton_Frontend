@@ -111,6 +111,12 @@ export const AssetBottomLeftItem = styled.div`
   justify-content: space-between;
 `;
 
+export const AssetBottomLeftItemDivider = styled.div`
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+`;
+
 export const AssetBottomRight = styled.div`
   height: 100%;
   display: flex;

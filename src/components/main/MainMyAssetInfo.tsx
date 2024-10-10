@@ -14,6 +14,7 @@ import {
   AssetBottomBox,
   AssetBottomLeft,
   AssetBottomLeftItem,
+  AssetBottomLeftItemDivider,
   AssetBottomLeftItemTitle,
   AssetBottomLeftItemValue,
   AssetBottomNotConnected,

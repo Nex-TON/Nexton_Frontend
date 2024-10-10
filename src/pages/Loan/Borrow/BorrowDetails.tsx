@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,20 +9,16 @@ import IcExclude from "@/assets/icons/Loan/ic_exclude.svg";
 import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
 import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
 import TokenInput from "@/components/stake/common/TokensInput.tsx";
+import { useCoinPrice } from "@/hooks/api/useCoinPrice.ts";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import useTonConnect from "@/hooks/contract/useTonConnect.ts";
 import { isDevMode } from "@/utils/isDevMode.ts";
+import { limitDecimals } from "@/utils/limitDecimals.ts";
 
 import {
   BorrowContentBox,
   BorrowHeaderBox,
   BorrowHeaderBoxTitle,
-  BorrowRateBox,
-  BorrowRateBoxBottom,
-  BorrowRateBoxDivider,
-  BorrowRateBoxHeader,
-  BorrowRateBoxHeaderLeft,
-  BorrowRateBoxHeaderRight,
   BorrowWrapper,
   ExcludeBox,
 } from "./BorrowDetails.styled.tsx";
@@ -30,12 +26,14 @@ import {
 const tele = (window as any).Telegram.WebApp;
 
 const BorrowDetails = () => {
-  const { connected } = useTonConnect();
+  const { connected, balance } = useTonConnect();
   const navigate = useNavigate();
   const [alwaysVisibleInfo, setAlwaysVisibleInfo] = useState<any>([]);
   const [stakingInfo, setStakingInfo] = useState<any>([{ items: [] }]);
   const { id } = useParams();
+
   const { nftDetail } = useNFTDetail(Number(id));
+  const { data: coinPrice } = useCoinPrice("TON", "USD");
 
   const schema = z.object({
     borrowAmount: z
@@ -112,6 +110,16 @@ const BorrowDetails = () => {
     }
   }, [nftDetail]);
 
+  // Conversion function
+  const convertAmount = useMemo(() => {
+    return (amount: string | number) => {
+      if (coinPrice && amount) {
+        return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
+      }
+      return "$0.00";
+    };
+  }, [coinPrice]);
+
   const onSubmit = data => {
     console.log("form data", data);
 
@@ -160,6 +168,8 @@ const BorrowDetails = () => {
             setValue={setValue}
             error={errors.borrowAmount?.message as string}
             disabled={!connected}
+            balance={balance}
+            convertAmount={convertAmount}
             tokenLabel="nxTON"
             placeholder="min 0.5"
             disableMax
