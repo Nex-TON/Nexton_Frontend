@@ -17,7 +17,6 @@ import { isDevMode } from "@/utils/isDevMode";
 const tele = (window as any).Telegram.WebApp;
 
 const Leverage = () => {
-  const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
   const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
 
   const [maxLeverage, setMaxLeverage] = useState(0);
@@ -30,7 +29,6 @@ const Leverage = () => {
       ...prev,
       leverage: ratio,
       lockup: getLockUpDate(stakingInfo.principal, ratio),
-      telegramId,
     }));
     navigate("/stake/preview");
   };
@@ -43,14 +41,6 @@ const Leverage = () => {
       tele.onEvent("backButtonClicked", () => {
         navigate("/stake/nominator");
       });
-
-      const tgId = tele?.initDataUnsafe?.user?.id;
-      if (tgId) {
-        setTelegramId(tgId);
-      } else {
-        // Edge case: when user is using Nexton app outside of Telegram
-        setTelegramId(0);
-      }
     }
 
     return () => {

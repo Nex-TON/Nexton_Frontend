@@ -5,7 +5,7 @@ import IcWalletConnect from "@/assets/icons/Landing/ic_wallet_connect.svg";
 import IcWalletStake from "@/assets/icons/Landing/ic_wallet_stake.svg";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 
-const MainButton = () => {
+const MainButton = ({ style }: { style?: React.CSSProperties }) => {
   const { connected, tonConnectUI } = useTonConnect();
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ const MainButton = () => {
   };
 
   return (
-    <TonWalletWrapper onClick={handleSwitchWalletFunction}>
+    <TonWalletWrapper onClick={handleSwitchWalletFunction} style={style}>
       {connected ? (
         <TonConnectCenterBox>
           <img src={IcWalletStake} alt="stake" /> Let's stake TON

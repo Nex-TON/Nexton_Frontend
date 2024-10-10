@@ -65,6 +65,7 @@ const Amount = () => {
       tele.BackButton.show();
       tele.enableClosingConfirmation();
       tele.onEvent("backButtonClicked", () => navigate("/"));
+
       return () => {
         tele.offEvent("backButtonClicked");
       };
