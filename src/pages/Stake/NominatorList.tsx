@@ -1,43 +1,37 @@
 import { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 
-import IcSearch from "@/assets/icons/Stake/ic_search.svg";
+import IcArrorRight from "@/assets/icons/Stake/ic_arrow_right.svg";
+import Loader from "@/components/common/Loader";
 import ProgressBar from "@/components/stake/common/ProgressBar";
 import Step from "@/components/stake/common/Step";
 import Title from "@/components/stake/common/Title";
 import { ConfirmNominatorModal } from "@/components/stake/Nominator/ConfirmNominatorModal";
 import NominatorItem from "@/components/stake/Nominator/NominatorItem";
+import { useNominatorList } from "@/hooks/api/useNominatorList";
+import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom } from "@/lib/atom/staking";
+import { telegramAtom } from "@/lib/atom/telegram";
 import { isDevMode } from "@/utils/isDevMode";
 
-import { useSearchNominatorPool } from "./hooks/useSearchNominatorPoo";
 import { useSelectNominator } from "./hooks/useSelectNominator";
 
 const tele = (window as any).Telegram.WebApp;
 
 const NominatorList = () => {
-  const [searchInput, setSearchInput] = useState("");
-  const [modal, setModal] = useState(false);
-
-  const { selectedNominator, handleSelectNominator } = useSelectNominator();
-  const { searchNominator, handleSearchNominatorPool } = useSearchNominatorPool(searchInput);
-
-  const [, setStakingInfo] = useRecoilState(stakingAtom);
-
   const navigate = useNavigate();
 
-  const handleConfirmNominator = () => {
-    if (selectedNominator) {
-      setStakingInfo(prev => ({
-        ...prev,
-        nominator: selectedNominator.title,
-      }));
-      navigate("/stake/leverage");
-    }
-  };
+  const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
+  const [, setStakingInfo] = useRecoilState(stakingAtom);
+  const setError = useSetRecoilState(globalError);
+  const [confirmModal, setConfirmModal] = useState(false);
+
+  const { data: nominatorListData, isLoading, error } = useNominatorList(String(telegramId));
+
+  const { selectedNominator, handleSelectNominator } = useSelectNominator(nominatorListData);
 
   useEffect(() => {
     if (tele) {
@@ -49,25 +43,60 @@ const NominatorList = () => {
       });
     }
 
+    const tgId = tele?.initDataUnsafe?.user?.id;
+    if (tgId) {
+      setTelegramId(tgId);
+    } else {
+      // Edge case: when user is using Nexton app outside of Telegram
+      setTelegramId(0);
+    }
+
     return () => {
       tele.offEvent("backButtonClicked");
     };
   }, []);
 
-  const toggleModal = () => {
+  useEffect(() => {
+    if (error) {
+      setError(error);
+    }
+  }, [error, setError]);
+
+  const handleConfirmNominator = () => {
     if (selectedNominator) {
-      setModal(prev => !prev);
+      setStakingInfo(prev => ({
+        ...prev,
+        nominator: selectedNominator.name,
+        telegramId,
+      }));
+      navigate("/stake/leverage");
     }
   };
 
+  const toggleModal = () => {
+    if (selectedNominator) {
+      setConfirmModal(prev => !prev);
+    }
+  };
+
+  // * temp. hardcoded (No info from BE -> will be redesigned soon)
+  const description =
+    selectedNominator?.name === "Bemo pool"
+      ? "you will receive an NFT through the Arbitrage Bot."
+      : selectedNominator?.name === "Arbitrage Bot"
+        ? "you can directly invest in the Arbitrage Bot."
+        : selectedNominator?.name === "Nominator Pool"
+          ? "you will receive an NFT through the Arbitrage Bot."
+          : null;
+
   return (
     <>
-      {modal && (
+      {confirmModal && (
         <ConfirmNominatorModal
           toggleModal={toggleModal}
           onConfirm={handleConfirmNominator}
-          name={selectedNominator.title}
-          description={selectedNominator.description}
+          name={selectedNominator.name}
+          description={description}
         />
       )}
 
@@ -75,39 +104,62 @@ const NominatorList = () => {
         <ProgressBar />
         <Step title="Step 2" type="nominator" />
         <Title title="Select Your Pool or Bot" />
-        {/* Search field is disabled for now */}
-        {/* <NominatorSearch onSubmit={handleSearchNominatorPool}>
-          <NominatorInput
-            type="text"
-            placeholder="Which pool would you stake?"
-            value={searchInput}
-            onChange={e => setSearchInput(e.target.value)}
-          />
-          <img src={IcSearch} alt="search" />
-        </NominatorSearch> */}
       </NominatorListWrapper>
       <NominatorItemList>
-        {searchNominator.map((item, index) => (
-          <Fragment key={item.id}>
-            {/* // todo: remove hardcoded labels, once API is ready*/}
-            {item.type === "pool" && index === 0 && <TitleH3>Pool</TitleH3>}
-            {item.type === "bot" && index === 2 && <TitleH3>Bot</TitleH3>}
+        {isLoading ? (
+          <LoaderWrapper>
+            <Loader height={40} width={40} />
+          </LoaderWrapper>
+        ) : (
+          <>
+            {nominatorListData && (
+              <>
+                {nominatorListData.some(item => item.type === "bot") && (
+                  <BotTitleWrapper>
+                    <TitleH3>Bot</TitleH3>
+                    <DashboardLink onClick={() => navigate("/dashboard")}>
+                      Go to Dashboard <img src={IcArrorRight} alt="arrow_right" />
+                    </DashboardLink>
+                  </BotTitleWrapper>
+                )}
+                {nominatorListData
+                  .filter(item => item.type === "bot")
+                  .map(item => (
+                    <Fragment key={item.id}>
+                      <NominatorItem
+                        id={item.id}
+                        title={item.name}
+                        apy={item.apy}
+                        profitShare={item.profitShare}
+                        tvl={item.tvl}
+                        disabled={item.disabled}
+                        selectedNominator={selectedNominator}
+                        handleSelectNominator={handleSelectNominator}
+                      />
+                    </Fragment>
+                  ))}
 
-            <NominatorItem
-              id={item.id}
-              title={item.title}
-              icon={item.icon}
-              apy={item.apy}
-              pool={item.pool}
-              profit={item.profit}
-              check={item.check}
-              selectedNominator={selectedNominator}
-              handleSelectNominator={handleSelectNominator}
-              tag={item.tag}
-              description={item.description}
-            />
-          </Fragment>
-        ))}
+                {nominatorListData.some(item => item.type === "pool") && <TitleH3>Pool</TitleH3>}
+                {nominatorListData
+                  .filter(item => item.type === "pool")
+                  .map(item => (
+                    <Fragment key={item.id}>
+                      <NominatorItem
+                        id={item.id}
+                        title={item.name}
+                        apy={item.apy}
+                        profitShare={item.profitShare}
+                        tvl={item.tvl}
+                        disabled={item.disabled}
+                        selectedNominator={selectedNominator}
+                        handleSelectNominator={handleSelectNominator}
+                      />
+                    </Fragment>
+                  ))}
+              </>
+            )}
+          </>
+        )}
       </NominatorItemList>
 
       {!isDevMode ? (
@@ -130,6 +182,15 @@ const NominatorListWrapper = styled.div`
 
   width: 100%;
   padding: 0 2rem;
+`;
+
+const LoaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100vh;
 `;
 
 const NominatorSearch = styled.form`
@@ -180,5 +241,33 @@ const NominatorItemList = styled.div`
 const TitleH3 = styled.h3`
   padding: 1.4rem 0;
 
-  ${({ theme }) => theme.fonts.Nexton_Title_Large_Small};
+  color: #333;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 120% */
+  letter-spacing: -0.46px;
+`;
+
+const BotTitleWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const DashboardLink = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  cursor: pointer;
+  color: #76797a;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 184.615% */
+  letter-spacing: -0.46px;
 `;

@@ -4,10 +4,9 @@ import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YA
 import { useSetRecoilState } from "recoil";
 
 import IcNextonLogo from "@/assets/icons/Dashboard/ic_nexton_logo.svg";
-import IcNextonLogoSm from "@/assets/icons/Dashboard/ic_nexton_logo_sm.svg";
-import IcStakeLinkArrow from "@/assets/icons/Dashboard/ic_stake_link_arrow.svg";
 import IcTonLogo from "@/assets/icons/Dashboard/ic_ton_logo.svg";
 import Loader from "@/components/common/Loader";
+import MainButton from "@/components/main/MainButton";
 import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceChart";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
@@ -16,25 +15,15 @@ import { limitDecimals } from "@/utils/limitDecimals";
 
 import {
   ChartHeader,
-  ChartHeaderDivider,
-  ChartHeaderSubtitle,
-  ChartHeaderSubtitleBox,
   ChartHeaderTitle,
   ChartTimeFrame,
   ChartTimeFrameItem,
   ChartWrapper,
   DashboardWrapper,
-  Divider,
   LoaderWrapper,
   PerformanceItem,
-  PerformanceItemBody,
-  PerformanceItemBodyBox,
-  PerformanceItemFooter,
-  PerformanceItemHeader,
-  PerformanceItemHeaderLeft,
-  PerformanceItemHeaderRight,
+  PerformanceItemWrapper,
   PerformanceWrapper,
-  StakeButton,
   TonPriceItem,
   TonPriceItemLeft,
   TonPriceItemRight,
@@ -117,7 +106,8 @@ const Dashboard = () => {
             <h4>Arbitrage Bot</h4>
           </ChartHeaderTitle>
 
-          <ChartHeaderSubtitleBox>
+          {/* // ! @deprecated */}
+          {/* <ChartHeaderSubtitleBox>
             <ChartHeaderSubtitle>
               <h5>APY</h5>
               <span>{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</span>
@@ -138,18 +128,8 @@ const Dashboard = () => {
               <h5>TVL</h5>
               <span>{limitDecimals(performanceData?.tvl, 3)} TON</span>
             </ChartHeaderSubtitle>
-          </ChartHeaderSubtitleBox>
+          </ChartHeaderSubtitleBox> */}
         </ChartHeader>
-
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart width={500} height={300} data={chartData?.data} margin={{ top: 15, bottom: 15 }}>
-            <CartesianGrid strokeDasharray="3 0" vertical={false} />
-            <XAxis hide />
-            <YAxis orientation="right" width={50} unit="%" />
-            <Tooltip formatter={(value, name, props) => [`${Number(value).toFixed(2)}%`, "PNL"]} />
-            <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" strokeWidth={2} dot={false} />
-          </LineChart>
-        </ResponsiveContainer>
 
         <ChartTimeFrame>
           {Object.keys(chartTimeFrameOptions).map(key => (
@@ -162,7 +142,50 @@ const Dashboard = () => {
             </ChartTimeFrameItem>
           ))}
         </ChartTimeFrame>
+
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart width={500} height={300} data={chartData?.data} margin={{ top: 15, bottom: 15 }}>
+            <CartesianGrid strokeDasharray="3 0" vertical={false} />
+            <XAxis hide />
+            <YAxis orientation="right" width={50} unit="%" />
+            <Tooltip formatter={(value, name, props) => [`${Number(value).toFixed(2)}%`, "PNL"]} />
+            <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" strokeWidth={2} dot={false} />
+          </LineChart>
+        </ResponsiveContainer>
       </ChartWrapper>
+
+      <PerformanceWrapper>
+        <h2>Arb Bot statistics</h2>
+
+        <PerformanceItemWrapper>
+          <PerformanceItem>
+            <h3>APY</h3>
+            <p>{performanceData?.apy?.toFixed(2)}%</p>
+          </PerformanceItem>
+
+          <PerformanceItem>
+            <h3>Daily PNL</h3>
+            <p>
+              {chartData?.dailyPnlRate > 0 ? "+" : ""}
+              {chartData?.dailyPnlRate}%
+            </p>
+          </PerformanceItem>
+        </PerformanceItemWrapper>
+
+        <PerformanceItemWrapper>
+          <PerformanceItem>
+            <h3>Stakers Win Rate</h3>
+            <p>{performanceData?.pnlWinRate?.toFixed(2)}%</p>
+          </PerformanceItem>
+
+          <PerformanceItem>
+            <h3>TVL</h3>
+            <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
+          </PerformanceItem>
+        </PerformanceItemWrapper>
+
+        <MainButton style={{ margin: "1rem 0 0 0" }} />
+      </PerformanceWrapper>
 
       {!tonPriceError && (
         <TonPriceWrapper>
@@ -183,44 +206,6 @@ const Dashboard = () => {
           </TonPriceItem>
         </TonPriceWrapper>
       )}
-
-      <PerformanceWrapper>
-        <h2>Bot Performance</h2>
-
-        <PerformanceItem>
-          <PerformanceItemHeader>
-            <PerformanceItemHeaderLeft>
-              <img src={IcNextonLogoSm} alt="nexton_logo_sm" />
-              <h4>Arbitrage Bot</h4>
-            </PerformanceItemHeaderLeft>
-
-            <PerformanceItemHeaderRight>
-              <span>PNL</span>
-              {limitDecimals(performanceData?.pnlRate, 2)}%
-            </PerformanceItemHeaderRight>
-          </PerformanceItemHeader>
-
-          <Divider />
-
-          <PerformanceItemBody>
-            <PerformanceItemBodyBox>
-              <h4>Stakers win rate</h4>
-              <p>{performanceData?.pnlWinRate?.toFixed(2)}%</p>
-            </PerformanceItemBodyBox>
-
-            <PerformanceItemBodyBox>
-              <h4>Stakers</h4>
-              <p>{performanceData?.subscribedCount}</p>
-            </PerformanceItemBodyBox>
-          </PerformanceItemBody>
-
-          <PerformanceItemFooter>
-            <StakeButton onClick={() => navigate("/stake/amount")}>
-              Stake Now <img src={IcStakeLinkArrow} alt="stake-link-arrow" />
-            </StakeButton>
-          </PerformanceItemFooter>
-        </PerformanceItem>
-      </PerformanceWrapper>
     </DashboardWrapper>
   );
 };

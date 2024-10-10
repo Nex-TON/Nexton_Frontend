@@ -15,7 +15,6 @@ export const DashboardWrapper = styled.div`
   min-height: 100%;
 
   padding: 2rem;
-  gap: 1.6rem;
 
   display: flex;
   align-items: center;
@@ -128,123 +127,57 @@ export const ChartTimeFrameItem = styled.div<{ $active?: boolean }>`
 export const PerformanceWrapper = styled.div`
   width: 100%;
   display: flex;
-  gap: 1rem;
   flex-direction: column;
+  gap: 1rem;
 
-  margin-top: 4.6rem;
+  margin-top: 4.3rem;
 
   h2 {
     color: #2c3542;
     ${({ theme }) => theme.fonts.Nexton_Title_Small};
   }
-
-  h3 {
-    color: #76797a;
-    ${({ theme }) => theme.fonts.Nexton_Title_Small};
-  }
 `;
 
-export const PerformanceItem = styled.div`
+export const PerformanceItemWrapper = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  gap: 1rem;
+`;
+
+export const PerformanceItem = styled.div<{ $fullWidth?: boolean }>`
+  height: 100px;
+  width: ${({ $fullWidth }) => ($fullWidth ? "100%" : "50%")};
 
   display: flex;
+  justify-content: start;
+  align-items: start;
   flex-direction: column;
-  gap: 1rem;
 
   border-radius: 20px;
   background: #fff;
   box-shadow: 4px 4px 16px 0px rgba(206, 216, 225, 0.5);
 
-  padding: 2.4rem;
-  margin-top: 1rem;
-`;
+  padding: 2.2rem;
 
-export const PerformanceItemHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const PerformanceItemHeaderLeft = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-
-  h4 {
-    color: #303234;
-    ${({ theme }) => theme.fonts.Nexton_Title_Small};
-  }
-`;
-
-export const PerformanceItemHeaderRight = styled.div`
-  display: flex;
-  align-items: center;
-
-  color: #303234;
-  ${({ theme }) => theme.fonts.Nexton_Title_Medium};
-
-  span {
-    ${({ theme }) => theme.fonts.Telegram_Caption_3};
-    color: #909394;
-    align-self: flex-start;
-    margin-right: 0.5rem;
-    margin-top: 0.3rem;
-  }
-`;
-
-export const Divider = styled.hr`
-  border: 0;
-  border-top: 1px solid #f1f4f4;
-  margin: 0;
-  height: 1px;
-  width: 100%;
-`;
-
-export const PerformanceItemBody = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const PerformanceItemBodyBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-
-  h4 {
-    color: #909394;
-    ${({ theme }) => theme.fonts.Telegram_Caption_3};
+  h3 {
+    color: #76797a;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 21px */
   }
 
   p {
-    color: #303234;
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
-`;
-
-export const PerformanceItemFooter = styled.div`
-  display: flex;
-  align-items: center;
-
-  margin-top: 1.6rem;
-`;
-
-export const StakeButton = styled.button`
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 20px;
-  background: #1f53ff;
-  color: #fff;
-  border: none;
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
-
-  cursor: pointer;
-
-  padding: 1rem;
-  gap: 4px;
+    color: #46494a;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%; /* 21px */
+  }
 `;
 
 export const TonPriceWrapper = styled.div`
