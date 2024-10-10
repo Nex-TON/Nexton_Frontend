@@ -1,7 +1,7 @@
-import { css, styled } from "styled-components";
+import { styled } from "styled-components";
 
-import NFTPreview from "../../../assets/image/MainNftOngoing.png";
-import { lockUpDateChanger } from "../../../utils/dateChanger";
+import NFTPreview from "@/assets/image/NftPreviewOngoing.png";
+import { lockUpDateChanger } from "@/utils/dateChanger";
 
 interface NftPreviewImageProps {
   lockup: number;
@@ -14,10 +14,13 @@ const NftPreviewImage = (props: NftPreviewImageProps) => {
     <NftPreviewImageWrapper>
       <NFTPreviewImageBoxWrapper>
         <NFTPreviewImageBox src={NFTPreview} alt="NFTPreview" />
-        <NFTPreviewImageText>D-{lockup}</NFTPreviewImageText>
+
         <NFTPreviewTextBottomBox>
-          <p>Expired Date</p>
-          <p>{lockUpDateChanger(lockup, "expired")}</p>
+          <NFTPreviewImageText>D-{lockup}</NFTPreviewImageText>
+          <div>
+            <p>Expired Date</p>
+            <p>{lockUpDateChanger(lockup, "expired")}</p>
+          </div>
         </NFTPreviewTextBottomBox>
       </NFTPreviewImageBoxWrapper>
     </NftPreviewImageWrapper>
@@ -42,24 +45,22 @@ const NFTPreviewImageBoxWrapper = styled.div`
 `;
 
 const NFTPreviewImageBox = styled.img`
-  width: 15rem;
-  height: 16rem;
+  width: 34rem;
+  height: 22rem;
   border-radius: 2rem;
 `;
 
 const NFTPreviewImageText = styled.span`
-  position: absolute;
-  top: 1.5rem;
-  left: 1.7rem;
-
   color: #fff;
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
+  ${({ theme }) => theme.fonts.Nexton_Title_Medium};
+
+  margin-bottom: 0.5rem;
 `;
 
 const NFTPreviewTextBottomBox = styled.div`
   position: absolute;
-  bottom: 1.5rem;
-  left: 1.7rem;
+  bottom: 3rem;
+  left: 2.4rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -67,6 +68,10 @@ const NFTPreviewTextBottomBox = styled.div`
 
   p {
     color: #fff;
-    ${({ theme }) => theme.fonts.Telegram_Caption_2};
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px; /* 183.333% */
   }
 `;

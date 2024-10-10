@@ -4,15 +4,15 @@ import { styled } from "styled-components";
 import { Container, SubTitle, Title } from "./Modal.styled";
 import ModalWrapper from "./ModalWrapper";
 
-const TransactionConfirmModal = () => {
+const TransactionConfirmModal = ({ isDark = true }: { isDark?: boolean }) => {
   return (
     <ModalWrapper>
-      <Container $isDark style={{ minHeight: "234px" }}>
+      <Container $isDark={isDark} style={{ minHeight: "234px" }}>
         <TailSpin
           visible={true}
           height="49"
           width="49"
-          color="#454347"
+          color={isDark ? "#fff" : "#454347"}
           ariaLabel="tail-spin-loading"
           radius="2"
           wrapperStyle={{}}
@@ -20,8 +20,8 @@ const TransactionConfirmModal = () => {
         />
 
         <TransactionConfirmModalContent>
-          <Title $isDark>Redirecting to wallet for transaction confirmation.</Title>
-          <SubTitle $isDark>It will only take a moment.</SubTitle>
+          <Title $isDark={isDark}>Redirecting to wallet for transaction confirmation.</Title>
+          <SubTitle $isDark={isDark}>It will only take a moment.</SubTitle>
         </TransactionConfirmModalContent>
       </Container>
     </ModalWrapper>

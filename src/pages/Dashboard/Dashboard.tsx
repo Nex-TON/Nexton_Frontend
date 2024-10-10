@@ -67,7 +67,8 @@ const Dashboard = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/");
+        const { prev } = location.state;
+        navigate(prev ? prev : "/");
       });
     }
 
@@ -112,8 +113,6 @@ const Dashboard = () => {
               <h5>APY</h5>
               <span>{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</span>
             </ChartHeaderSubtitle>
-
-            <ChartHeaderDivider />
 
             <ChartHeaderSubtitle>
               <h5>Daily PNL</h5>
@@ -199,9 +198,7 @@ const Dashboard = () => {
 
             <TonPriceItemRight>
               <p>${tonPriceData?.rates?.TON?.prices?.USD.toFixed(2)}</p>
-              <TonPriceItemRightPercentage $positive={Number(tonPriceData?.rates?.TON?.diff_24h?.USD) > 0}>
-                {tonPriceData?.rates?.TON?.diff_24h?.USD}
-              </TonPriceItemRightPercentage>
+              <TonPriceItemRightPercentage>{tonPriceData?.rates?.TON?.diff_24h?.USD}</TonPriceItemRightPercentage>
             </TonPriceItemRight>
           </TonPriceItem>
         </TonPriceWrapper>

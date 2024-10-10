@@ -25,7 +25,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
   const { item } = props;
   const address = useTonAddress();
   const telegramId = useRecoilValue(telegramAtom);
-  const { nftId, amount, leverage, timeStamp, lockPeriod, nominator, status } = item;
+  const { nftId, principal, leverage, timeStamp, lockPeriod, nominator, status } = item;
   const { sendMessage } = Contract.depositTon();
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -94,7 +94,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
         <DetailInfoItemWrapper>
           <DetailInfoItem>
             <DetailInfoItemText>Principal</DetailInfoItemText>
-            <DetailInfoItemText>{numberCutter(amount)} TON</DetailInfoItemText>
+            <DetailInfoItemText>{numberCutter(principal)} TON</DetailInfoItemText>
           </DetailInfoItem>
           <DetailInfoItem>
             <DetailInfoItemText>Nominator Pool</DetailInfoItemText>
@@ -114,7 +114,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
           </DetailInfoItem>
           <DetailInfoItem>
             <DetailInfoItemText>Protocol Fees</DetailInfoItemText>
-            <DetailInfoItemText>{numberCutter(getProtocolFee(String(amount), leverage))}%</DetailInfoItemText>
+            <DetailInfoItemText>{numberCutter(getProtocolFee(String(principal), leverage))}%</DetailInfoItemText>
           </DetailInfoItem>
           <DetailInfoItem>
             <DetailInfoItemText>Staking APR</DetailInfoItemText>
@@ -122,7 +122,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
           </DetailInfoItem>
           <DetailInfoItem>
             <DetailInfoItemText>Total Amount</DetailInfoItemText>
-            <DetailInfoItemText>{numberCutter(amount)} TON</DetailInfoItemText>
+            <DetailInfoItemText>{numberCutter(principal)} TON</DetailInfoItemText>
           </DetailInfoItem>
         </DetailInfoItemWrapper>
         <ButtonWrapper>

@@ -8,6 +8,8 @@ import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 
 const tele = (window as any).Telegram.WebApp;
 
+// ! @deprecated
+// todo: migrate to NFTDetail component
 const StakingNftDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,8 +35,8 @@ const StakingNftDetail = () => {
     nftDetail && (
       <DetailWrapper>
         <DetailHeader>Staking NFT</DetailHeader>
-        <DetailNFTPreview item={nftDetail[0]} />
-        <DetailNftInfo item={nftDetail[0]} />
+        <DetailNFTPreview item={nftDetail} />
+        <DetailNftInfo item={nftDetail} />
       </DetailWrapper>
     )
   );

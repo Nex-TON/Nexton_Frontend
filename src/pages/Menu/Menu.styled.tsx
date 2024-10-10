@@ -9,7 +9,7 @@ export const MainWrapper = styled.div`
 
 export const MainInnerBox = styled.div`
   position: relative;
-  height: 260px;
+  height: 240px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -97,7 +97,7 @@ export const AssetBottomNotConnected = styled.div`
 
 export const AssetBottomLeft = styled.div`
   height: 100%;
-  width: 100%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -147,9 +147,8 @@ export const AssetBottomRightItem = styled.div`
 `;
 
 export const AssetBottomLeftItemTitle = styled.h3`
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
+  ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
   color: #c6c5d0;
-  text-transform: capitalize;
 `;
 
 export const AssetBottomLeftItemValue = styled.div`

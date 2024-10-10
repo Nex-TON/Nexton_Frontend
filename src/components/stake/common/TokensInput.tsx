@@ -16,6 +16,7 @@ interface TokenInputProps extends NumericFormatProps {
   error?: string;
   disabled?: boolean;
   saveAs?: "floatValue" | "formattedValue";
+  disableMax?: boolean;
 }
 
 const TokenInput = ({
@@ -28,6 +29,7 @@ const TokenInput = ({
   error,
   disabled,
   saveAs = "formattedValue",
+  disableMax = false,
   ...props
 }: TokenInputProps) => {
   const [convertedValue, setConvertedValue] = useState<string>("$0.00");
