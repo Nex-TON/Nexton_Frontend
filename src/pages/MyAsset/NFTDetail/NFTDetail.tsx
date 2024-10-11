@@ -41,7 +41,7 @@ const NFTDetail = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/loan");
+        navigate("/myasset/nftlist");
       });
     }
 
