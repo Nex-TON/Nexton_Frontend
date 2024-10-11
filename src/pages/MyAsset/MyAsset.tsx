@@ -1,13 +1,31 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import Header from "@/components/common/Header";
 import NftHeader from "@/components/myAsset/NftHeader";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 
+const tele = (window as any).Telegram.WebApp;
+
 const MyAsset = () => {
   const { connected, tonConnectUI } = useTonConnect();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        navigate(`/`);
+      });
+    }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
+  }, []);
 
   return (
     <MyAssetWrapper $type={pathname.includes("nftlist") ? true : false}>

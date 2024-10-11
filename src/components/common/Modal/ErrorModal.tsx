@@ -12,6 +12,8 @@ export const ErrorModal = () => {
 
   if (error?.message.includes("UserRejectsError")) {
     defaultError = "User rejected the transaction.";
+  } else if (error?.message.includes("Error occurred while fetching NFT data")) {
+    defaultError = "Error occurred while fetching NFT data";
   }
 
   const handleClose = () => setError(null);
@@ -25,7 +27,9 @@ export const ErrorModal = () => {
               <img src={IcClose} alt="close" onClick={handleClose} />
             </ModalHeader>
 
-            <Title $isDark>{defaultError}</Title>
+            <Title $textCenter $isDark>
+              {defaultError}
+            </Title>
             <SubTitleBox style={{ marginBottom: "3.7rem" }}>
               <SubTitle $isDark>Please, try again later.</SubTitle>
             </SubTitleBox>

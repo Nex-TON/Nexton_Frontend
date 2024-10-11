@@ -22,11 +22,12 @@ interface BasicModalProps {
   toggleModal: () => void;
   onClose?: () => void;
   isDark?: boolean;
+  navigateOnClose?: string;
 }
 
 // todo: refactor this to reduce the code duplication
 function BasicModal(props: BasicModalProps) {
-  const { type, toggleModal, onClose, isDark } = props;
+  const { type, toggleModal, onClose, isDark, navigateOnClose } = props;
 
   const navigate = useNavigate();
   const { address } = useTonConnect();
@@ -127,7 +128,12 @@ function BasicModal(props: BasicModalProps) {
             if (onClose) {
               onClose();
             }
-            navigate("/");
+
+            if (navigateOnClose) {
+              navigate(navigateOnClose);
+            } else {
+              navigate("/");
+            }
           }}
         >
           Okay

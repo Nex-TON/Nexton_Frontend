@@ -9,7 +9,7 @@ import IcReload from "@/assets/icons/MyAsset/ic_reload.svg";
 import NFTsEmpty from "@/assets/image/Loan/NFTsEmpty.png";
 import Loader from "@/components/common/Loader";
 import { LoanNFTBoxListEmpty, LoanNFTBoxListEmptyLink } from "@/components/loan/Borrow/BorrowList.styled";
-import NFTFilter from "@/components/myAsset/Filter/NFTFilter";
+import NFTFilter from "@/components/myAsset/NFT/NFTFilter";
 import NftItem from "@/components/myAsset/NFT/NftItem";
 
 import useMyAssetFilter from "./hooks/useMyAssetFilter";

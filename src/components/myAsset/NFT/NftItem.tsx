@@ -1,11 +1,12 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { css, styled } from "styled-components";
 
 import NFTExpired from "@/assets/image/MainNftExpired.png";
 import NFTForthComing from "@/assets/image/MainNftForthComing.png";
 import NFTOngoing from "@/assets/image/MainNftOngoing.png";
+import { globalError } from "@/lib/atom/globalError";
 import { imageSizeAtom } from "@/lib/atom/imageSize";
 import { nftInfo } from "@/types/Nft";
 import { getDDayText, getNftState } from "@/utils/getNftState";
@@ -18,7 +19,14 @@ const NftItem = ({ item }: NftItemProps) => {
   const { nftId, unstakableDate } = item;
 
   const [, setImageSize] = useRecoilState(imageSizeAtom);
+  const setError = useSetRecoilState(globalError);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!unstakableDate || !nftId) {
+      setError(new Error("Error occurred while fetching NFT data"));
+    }
+  }, [unstakableDate, nftId, setError]);
 
   const handleImageClick = useCallback(
     (event: React.MouseEvent<HTMLImageElement>) => {
@@ -35,21 +43,16 @@ const NftItem = ({ item }: NftItemProps) => {
     const altText = `NFT${nftState.charAt(0).toUpperCase() + nftState.slice(1)}`;
 
     return (
-      <NFTImage
-        src={imageSrc}
-        alt={altText}
-        style={{ width: "100%", height: "100%" }}
-        onClick={handleImageClick}
-      />
+      <NFTImage src={imageSrc} alt={altText} style={{ width: "100%", height: "100%" }} onClick={handleImageClick} />
     );
   }, [unstakableDate, handleImageClick]);
 
   return (
     <NFTItemWrapper>
       {SwitchDDayNftImage}
-      <NFTDDayText>{getDDayText(unstakableDate)}</NFTDDayText>
+      <NFTDayText>{getDDayText(unstakableDate)}</NFTDayText>
       <NFTExpiredDateText>Expired Date</NFTExpiredDateText>
-      <NFTExpiredDateText $date>{unstakableDate}</NFTExpiredDateText>
+      <NFTExpiredDateText $date>{new Date(unstakableDate).toLocaleDateString()}</NFTExpiredDateText>
     </NFTItemWrapper>
   );
 };
@@ -68,7 +71,7 @@ const NFTImage = styled.img`
   border-radius: 2rem;
 `;
 
-const NFTDDayText = styled.span`
+const NFTDayText = styled.span`
   position: absolute;
   top: 1.5rem;
   left: 1.7rem;

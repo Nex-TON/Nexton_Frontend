@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
 
-import IcClaimDisable from "@/assets/icons/MyAsset/ic_claim_disable.svg";
 import Loader from "@/components/common/Loader";
-import UnstakedDetailHeader from "@/components/myAsset/Unstaking/UnstakingDetail/UnstakedDetailHeader";
-import UnstakedDetailList from "@/components/myAsset/Unstaking/UnstakingDetail/UnstakedDetailList";
+import UnstakedDetailHeader from "@/components/unstaking/UnstakedDetailHeader";
+import UnstakedDetailList from "@/components/unstaking/UnstakedDetailList";
 import { useUnstakedList } from "@/hooks/api/unstaking/useUnstakedList";
 import { telegramAtom } from "@/lib/atom/telegram";
 

@@ -62,7 +62,7 @@ const BorrowListItem = (props: BorrowListProps) => {
         </BorrowListBottomTextBottom>
         <BorrowListBottomTextBottom>
           <Caption3>Expired date</Caption3>
-          <LabelMedium>{unstakableDate}</LabelMedium>
+          <LabelMedium>{new Date(unstakableDate).toLocaleDateString()}</LabelMedium>
         </BorrowListBottomTextBottom>
         <BorrowListBottomTextBottom>
           <Caption3>max LTV.</Caption3>

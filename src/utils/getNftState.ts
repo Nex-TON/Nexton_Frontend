@@ -1,7 +1,7 @@
 /**
  * getNftState - Determines the state of the NFT based on the unstakable date.
  *
- * @param {string} unstakableDate - The unstakable date of the NFT in "dd.mm.yyyy" format.
+ * @param {string} unstakableDate - The unstakable date of the NFT in Date format.
  * @returns {string} - The state of the NFT ("ongoing", "forthcoming", "expired").
  *
  * The function calculates the remaining days until the unstakable date:
@@ -9,7 +9,11 @@
  * - If the remaining days are between 1 and 15, it returns "forthcoming".
  * - If the remaining days are 0 or less, it returns "expired".
  */
-export const getNftState = (unstakableDate: string): string => {
+export const getNftState = (unstakableDate?: string): string => {
+  if (!unstakableDate) {
+    return "unknown";
+  }
+
   const remainingDays = calculateRemainingDays(unstakableDate);
 
   if (remainingDays > 15) {
@@ -24,19 +28,14 @@ export const getNftState = (unstakableDate: string): string => {
 /**
  * calculateRemainingDays - Calculates the remaining days until the unstakable date.
  *
- * @param {string} unstakableDate - The unstakable date of the NFT in "dd.mm.yyyy" format.
+ * @param {string} unstakableDate - The unstakable date of the NFT in Date format.
  * @returns {number} - The number of remaining days until the unstakable date.
  */
 export const calculateRemainingDays = (unstakableDate: string): number => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const dateParts = unstakableDate.split(".");
-  const unstakableDateObj = new Date(
-    parseInt(dateParts[2], 10), // Assuming the year is in "yyyy" format
-    parseInt(dateParts[1], 10) - 1,
-    parseInt(dateParts[0], 10),
-  );
+  const unstakableDateObj = new Date(unstakableDate);
   unstakableDateObj.setHours(0, 0, 0, 0);
 
   const differenceInMs = unstakableDateObj.getTime() - today.getTime();
@@ -46,7 +45,7 @@ export const calculateRemainingDays = (unstakableDate: string): number => {
 /**
  * getDDayText - Generates a D-Day text based on the unstakable date.
  *
- * @param {string} unstakableDate - The unstakable date of the NFT in "dd.mm.yyyy" format.
+ * @param {string} unstakableDate - The unstakable date of the NFT in Date format.
  * @returns {string} - The D-Day text ("D-<days>", "D-Day", "D+<days>").
  *
  * The function calculates the remaining days until the unstakable date:
@@ -54,7 +53,11 @@ export const calculateRemainingDays = (unstakableDate: string): number => {
  * - If the remaining days are 0, it returns "D-Day".
  * - If the remaining days are less than 0, it returns "D+<absolute remainingDays>".
  */
-export const getDDayText = (unstakableDate: string): string => {
+export const getDDayText = (unstakableDate?: string): string => {
+  if (!unstakableDate) {
+    return "unknown";
+  }
+
   const remainingDays = calculateRemainingDays(unstakableDate);
 
   if (remainingDays > 0) {
