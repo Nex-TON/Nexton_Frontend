@@ -39,7 +39,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
   const { address, refreshTonData } = useTonConnect();
   const { id } = useParams();
   const { data: unstakingDetail, isLoading: isLoadingUnstakingDetail, error } = useUnstakingDetail(Number(id));
-  const { sendMessage } = Contract.transferNft(id);
+  const { sendMessage } = Contract.transferNft(id); // ! pass nftAddress instead of id
 
   const navigate = useNavigate();
 
@@ -163,7 +163,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
               </NFTDetailItem>
               <NFTDetailItem>
                 <NFTDetailItemCaption>Date of Unstaking</NFTDetailItemCaption>
-                <NFTDetailItemText>{unstakingDetail?.unstakableDate}</NFTDetailItemText>
+                <NFTDetailItemText>{new Date(unstakingDetail?.unstakableDate).toLocaleDateString()}</NFTDetailItemText>
               </NFTDetailItem>
             </NFTDetailContentBox>
 
