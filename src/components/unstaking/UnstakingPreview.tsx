@@ -10,10 +10,16 @@ const UnstakingPreview = ({ unstakingDetail }: { unstakingDetail?: IUnstakingDet
         <img src={NftPreviewExpired} alt="expired" />
 
         <UnstakingPreviewTop>
-          <UnstakingPreviewTopTitle>NFT ID {String(unstakingDetail?.nftId).padStart(5, "0")}</UnstakingPreviewTopTitle>
-          <UnstakingPreviewTopDesc>Expired Date {unstakingDetail?.unstakableDate}</UnstakingPreviewTopDesc>
+          <UnstakingPreviewTopDateWrapper>
+            <UnstakingPreviewTopDate>
+              Expiry {new Date(unstakingDetail?.unstakableDate).toLocaleDateString()}
+            </UnstakingPreviewTopDate>
+          </UnstakingPreviewTopDateWrapper>
         </UnstakingPreviewTop>
         <UnstakingPreviewBottom>
+          <UnstakingPreviewBottomTitle>
+            NFT ID {String(unstakingDetail?.nftId).padStart(5, "0")}
+          </UnstakingPreviewBottomTitle>
           <UnstakingPreviewBottomDesc>
             When the contract receives unstaking transaction, This NFT will be burned.
           </UnstakingPreviewBottomDesc>
@@ -40,6 +46,7 @@ const UnstakingPreviewImageWrapper = styled.div`
 
   img {
     width: 100%;
+    border-radius: 2rem;
   }
 `;
 
@@ -54,14 +61,32 @@ const UnstakingPreviewTop = styled.div`
   left: 3.5rem;
 `;
 
-const UnstakingPreviewTopTitle = styled.span`
-  color: #fff;
+const UnstakingPreviewBottomTitle = styled.span`
+  color: #1b1e1f;
   ${({ theme }) => theme.fonts.Nexton_Title_Medium_1};
+
+  margin-bottom: 2rem;
 `;
 
-const UnstakingPreviewTopDesc = styled.span`
-  color: #fff;
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
+const UnstakingPreviewTopDateWrapper = styled.div`
+  position: relative;
+  left: -10px;
+  padding: 8px 18px 7px 14px;
+  align-items: center;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%), rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(25px);
+`;
+
+const UnstakingPreviewTopDate = styled.span`
+  color: #2f3038;
+  /* body text/small2 */
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 21px; /* 161.538% */
+  letter-spacing: -0.052px;
 `;
 
 const UnstakingPreviewBottom = styled.div`
@@ -73,6 +98,6 @@ const UnstakingPreviewBottom = styled.div`
 `;
 const UnstakingPreviewBottomDesc = styled.p`
   width: 240px;
-  color: #fff;
+  color: #5d5e67;
   ${({ theme }) => theme.fonts.Nexton_Label_Small};
 `;

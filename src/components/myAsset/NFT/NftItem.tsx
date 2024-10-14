@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { css, styled } from "styled-components";
 
-import NFTExpired from "@/assets/image/MainNftExpired.png";
-import NFTForthComing from "@/assets/image/MainNftForthComing.png";
-import NFTOngoing from "@/assets/image/MainNftOngoing.png";
+import NFTExpired from "@/assets/image/NftExpired.png";
+import NFTForthComing from "@/assets/image/NftForthComing.png";
+import NFTOngoing from "@/assets/image/NftOngoing.png";
 import { globalError } from "@/lib/atom/globalError";
 import { imageSizeAtom } from "@/lib/atom/imageSize";
 import { nftInfo } from "@/types/Nft";

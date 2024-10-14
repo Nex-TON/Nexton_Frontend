@@ -7,12 +7,9 @@ import { styled } from "styled-components";
 
 import { postUnstake } from "@/api/postUnstake";
 import Loader from "@/components/common/Loader";
-import BasicModal from "@/components/common/Modal/BasicModal";
-import TransactionConfirmModal from "@/components/common/Modal/TransactionConfirmModal";
 import { ConfirmUnstakingModal } from "@/components/unstaking/ConfirmUnstakingModal";
 import UnstakingPreview from "@/components/unstaking/UnstakingPreview";
 import { useUnstakingDetail } from "@/hooks/api/unstaking/useUnstakingDetail";
-import * as Contract from "@/hooks/contract/transferNFT";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import { globalError } from "@/lib/atom/globalError";
 import { telegramAtom } from "@/lib/atom/telegram";
@@ -36,10 +33,10 @@ interface ModalState {
 }
 
 const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
-  const { address, refreshTonData } = useTonConnect();
+  const { address } = useTonConnect();
   const { id } = useParams();
   const { data: unstakingDetail, isLoading: isLoadingUnstakingDetail, error } = useUnstakingDetail(Number(id));
-  const { sendMessage } = Contract.transferNft(id); // ! pass nftAddress instead of id
+  // const { sendMessage } = Contract.transferNft(id); // ! pass nftAddress instead of id
 
   const navigate = useNavigate();
 
@@ -94,18 +91,19 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
       };
 
       // First, attempt to send the message to the contract
-      await sendMessage(data(), toNano("0.005"));
+      // !❗NOTE❗: Not used in the current contract version
+      // await sendMessage(data(), toNano("0.005"));
 
       // If sendMessage is successful, then call postStakingInfo
       await postUnstake(newUnstaking);
 
-      setModal({ type: "unstake", toggled: true });
+      navigate("/unstaking/beta");
     } catch (error) {
       setError(error);
     } finally {
       setIsLoading(false);
     }
-  }, [setError, address, id, telegramId, sendMessage]);
+  }, [setError, address, id, telegramId, navigate]);
 
   const handleUnstakeConfirm = () => {
     toggleModal();
@@ -189,7 +187,8 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
       {modal.type === "confirmUnstake" && modal.toggled && (
         <ConfirmUnstakingModal toggleModal={toggleModal} onConfirm={handleUnstakeConfirm} />
       )}
-      {modal.type === "unstake" && modal.toggled && (
+      {/* // ! @deprecated */}
+      {/* {modal.type === "unstake" && modal.toggled && (
         <BasicModal
           type="unstaking"
           toggleModal={toggleModal}
@@ -198,7 +197,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
             await refreshTonData();
           }}
         />
-      )}
+      )} */}
     </>
   );
 };

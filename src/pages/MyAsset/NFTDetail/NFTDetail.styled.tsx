@@ -29,16 +29,17 @@ export const NFTDetailCardImageBox = styled.div`
 
   span {
     position: absolute;
-    top: 15%;
-    left: 27.5%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    color: #fff;
+    color: #f5f5f5;
     ${({ theme }) => theme.fonts.Nexton_Title_Large};
   }
 
   img {
     width: 171px;
     height: auto;
+    border-radius: 2rem;
   }
 `;
 

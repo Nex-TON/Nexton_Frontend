@@ -3,9 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import IcTrendRight from "@/assets/icons/Loan/ic_trend_right.svg";
 import IcTrendUp from "@/assets/icons/Loan/ic_trend_up.svg";
-import ExpiredNFTLarge from "@/assets/image/Loan/ExpiredNFTLarge.png";
-import ForthComingNFTLarge from "@/assets/image/Loan/ForthcomingNFTLarge.png";
-import OngoingNFTLarge from "@/assets/image/Loan/OngoingNFTLarge.png";
+import ExpiredNFTLarge from "@/assets/image/NftExpired.png";
+import ForthComingNFTLarge from "@/assets/image/NftForthComing.png";
+import OngoingNFTLarge from "@/assets/image/NftOngoing.png";
 import StakingInfo from "@/components/loan/common/StakingInfo";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { nftInfo } from "@/types/Nft";
