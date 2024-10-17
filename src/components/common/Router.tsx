@@ -29,15 +29,24 @@ const Router = () => {
         <Route path="/menu" element={<Menu />} />
         <Route path="/referral" element={<Referral />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/stake/amount" element={<Amount />} />
-        <Route path="/stake/leverage" element={<Leverage />} />
-        <Route path="/stake/nominator" element={<NominatorList />} />
-        <Route path="/stake/preview" element={<NFTPreview />} />
-        <Route path="/stake/success" element={<StakeSuccess />} />
-        <Route path="/loan" element={<Loan />} />
-        <Route path="/loan/:id" element={<BorrowDetail />} />
-        <Route path="/swap" element={<Swap />} />
-        <Route path="/nlp" element={<Nlp />} />
+        <Route path="/stake">
+          <Route path="amount" element={<Amount />} />
+          <Route path="leverage" element={<Leverage />} />
+          <Route path="nominator" element={<NominatorList />} />
+          <Route path="preview" element={<NFTPreview />} />
+        <Route path="success" element={<StakeSuccess />} />
+        </Route>
+        {/* // ! Paths under /loan are disabled until contract & API are ready */}
+        {/* <Route path="/loan">
+          <Route path="" element={<Loan />} />
+          <Route path="risk-disclosure" element={<RiskDisclosure />} />
+          <Route path=":id/borrow/details" element={<BorrowDetails />} />
+          <Route path=":id/borrow/risk-disclosure" element={<BorrowRiskDisclosure />} />
+          <Route path=":id/borrow/verify" element={<BorrowVerify />} />
+          <Route path=":id/repay/details" element={<RepaymentDetails />} />
+          <Route path="history" element={<LoanHistory />} />
+          <Route path=":id/history/details" element={<LoanHistoryDetails />} />
+        </Route> */}
         <Route path="/myasset" element={<MyAsset />}>
           <Route path="nftlist" element={<NftList />} />
           <Route path="unstaking" element={<UnstakingList />} />

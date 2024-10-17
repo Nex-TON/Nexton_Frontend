@@ -18,8 +18,6 @@ const StakeSuccess = () => {
   const location = useLocation();
   const {lockPeriod, stakingInfo } = location.state || {};
 
-
-
   // Show toast message when the user has successfully staked
   useEffect(() => {
     const { state } = location;
