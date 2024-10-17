@@ -22,7 +22,7 @@ const StakeSuccess = () => {
   useEffect(() => {
     const { state } = location;
 
-    if (state?.isStakeSuccess) {
+    if (location.pathname === '/stake/success' && isStakeSuccess) {
       toast(`Transaction approved! Your balance will be updated within the next 30 seconds.`, {
         position: "top-center",
         autoClose: 5000,
