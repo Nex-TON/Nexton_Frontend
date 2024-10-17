@@ -18,11 +18,12 @@ const StakeSuccess = () => {
   const location = useLocation();
   const {lockPeriod, stakingInfo } = location.state || {};
 
+
   // Show toast message when the user has successfully staked
   useEffect(() => {
     const { state } = location;
 
-    if (state?.isStakeSuccess) {
+    if (location.pathname === '/stake/success'&&state?.isStakeSuccess) {
       toast(`Transaction approved! Your balance will be updated within the next 30 seconds.`, {
         position: "top-center",
         autoClose: 5000,
