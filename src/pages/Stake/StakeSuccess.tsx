@@ -35,8 +35,6 @@ const StakeSuccess = () => {
         theme: "light",
         transition: Slide,
       });
-
-      history.replaceState(null, "");
     }
   }, [location]);
 
