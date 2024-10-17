@@ -24,6 +24,7 @@ import NominatorList from "@/pages/Stake/NominatorList";
 import Swap from "@/pages/Swap/Swap";
 import UnstakingBetaInfo from "@/pages/Unstaking/UnstakingBetaInfo";
 import UnstakingNftDetail from "@/pages/Unstaking/UnstakingNftDetail";
+import StakeSuccess from '@/pages/Stake/StakeSuccess';
 
 const Router = () => {
   return (
@@ -38,6 +39,7 @@ const Router = () => {
           <Route path="leverage" element={<Leverage />} />
           <Route path="nominator" element={<NominatorList />} />
           <Route path="preview" element={<NFTPreview />} />
+        <Route path="/stake/success" element={<StakeSuccess />} />
         </Route>
         {/* // ! Paths under /loan are disabled until contract & API are ready */}
         {/* <Route path="/loan">

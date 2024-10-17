@@ -3,8 +3,7 @@ export interface stakeInfo {
 }
 export interface nftInfo {
   nftId: number;
-  principal: number;
-  totalAmount: number;
+  amount: number;
   leverage: number;
   lockPeriod: number;
   timeStamp: string;
