@@ -39,7 +39,7 @@ const Router = () => {
           <Route path="leverage" element={<Leverage />} />
           <Route path="nominator" element={<NominatorList />} />
           <Route path="preview" element={<NFTPreview />} />
-        <Route path="/stake/success" element={<StakeSuccess />} />
+          <Route path="success" element={<StakeSuccess />} />
         </Route>
         {/* // ! Paths under /loan are disabled until contract & API are ready */}
         {/* <Route path="/loan">
