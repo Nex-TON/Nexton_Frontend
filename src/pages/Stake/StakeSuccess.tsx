@@ -1,7 +1,7 @@
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { Slide, toast } from "react-toastify";
+import { Slide, toast, ToastContainer } from "react-toastify";
 
 import FooterButton from "@/components/common/FooterButton";
 import ReferralButtonBox from "@/components/referral/ReferralButtonBox";
@@ -14,30 +14,24 @@ import IcAlertBlue from "@/assets/icons/Stake/ic_alert_blue.svg";
 const tele = (window as any).Telegram.WebApp;
 
 const StakeSuccess = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
-  const {isStakeSuccess,lockPeriod, stakingInfo } = location.state || {};
+  const { isStakeSuccess, lockPeriod, stakingInfo } = location.state || {};
 
   // Show toast message when the user has successfully staked
   useEffect(() => {
-    if (isStakeSuccess) {
-      toast(`Transaction approved! Your balance will be updated within the next 30 seconds.`, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Slide,
-      });
-      return()=>{
-        navigate("/stake/success",{state:{isStakeSuccess:false}});
-      }
-    }
-  }, [isStakeSuccess]);
-
+    toast(`Transaction approved! Your balance will be updated within the next 30 seconds.`, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Slide,
+    });
+  }, []);
 
   return (
     <>
@@ -48,8 +42,8 @@ const StakeSuccess = () => {
         <ReferralButtonContainer>
           <ReferralButtonBox />
         </ReferralButtonContainer>
-        <NftPreviewImage lockup={lockPeriod} />
-        <NFTPreviewInfo stakingInfo={stakingInfo} />
+        {/* <NftPreviewImage lockup={lockPeriod} />
+        <NFTPreviewInfo stakingInfo={stakingInfo} /> */}
         <NFTPreviewConfirmBox>
           <img src={IcAlertBlue} alt="alertBlue" />
           <div>
@@ -61,8 +55,21 @@ const StakeSuccess = () => {
             <MainButton text="Back to main" onClick={() => navigate("/")} />
           ) : (
             /* Used for testing */
-            <FooterButton title="Back to main" onClick={() =>navigate("/")} />
+            <FooterButton title="Back to main" onClick={() => navigate("/")} />
           )}
+          <ToastContainer
+            position="top-center"
+            autoClose={4000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover={false}
+            theme="light"
+            style={{ fontSize: "7rem" }}
+          />
         </NFTPreviewConfirmBox>
       </StakeSuccessWrapper>
     </>
@@ -85,18 +92,18 @@ const NFTPreviewConfirmBox = styled.div`
   margin-bottom: 1.6rem;
 `;
 
-const ReferralButtonContainer=styled.div`
-padding: 0 2rem;
-margin: 20px 0;
+const ReferralButtonContainer = styled.div`
+  padding: 0 2rem;
+  margin: 20px 0;
 
-width:100%;
-height: auto;
-`
+  width: 100%;
+  height: auto;
+`;
 
 const StakeSuccessHeader = styled.div`
-width: 100%;
-margin-top: 40px;
-margin-bottom: 6px;
+  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 6px;
   p {
     color: #333;
     ${({ theme }) => theme.fonts.Nexton_Title_Large};
