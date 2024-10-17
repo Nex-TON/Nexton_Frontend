@@ -47,6 +47,7 @@ const ReferralButtonContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 26px;
+  border-radius: 20px;
 `;
 
 const ReferralButtonWrapper = styled.div``;
