@@ -1,6 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
+import { useEffect } from "react";
 
 import FooterButton from "@/components/common/FooterButton";
 import ReferralButtonBox from "@/components/referral/ReferralButtonBox";
@@ -15,6 +16,13 @@ import IcAlertBlue from "@/assets/icons/Stake/ic_alert_blue.svg";
 
 
 const tele = (window as any).Telegram.WebApp;
+
+useEffect(() => {
+  if (tele) {
+    tele.ready();
+    tele.expand(); // Expand the app to full screen
+    tele.BackButton.hide();
+  }}, []);
 
 const StakeSuccess = () => {
   const stakingInfo = useRecoilValue(stakingAtom);
