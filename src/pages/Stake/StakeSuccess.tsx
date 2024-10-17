@@ -16,14 +16,11 @@ const tele = (window as any).Telegram.WebApp;
 const StakeSuccess = () => {
   const navigate=useNavigate();
   const location = useLocation();
-  const {lockPeriod, stakingInfo } = location.state || {};
-
+  const {isStakeSuccess,lockPeriod, stakingInfo } = location.state || {};
 
   // Show toast message when the user has successfully staked
   useEffect(() => {
-    const { state } = location;
-
-    if (location.pathname === '/stake/success'&&state?.isStakeSuccess) {
+    if (isStakeSuccess) {
       toast(`Transaction approved! Your balance will be updated within the next 30 seconds.`, {
         position: "top-center",
         autoClose: 5000,
@@ -35,8 +32,11 @@ const StakeSuccess = () => {
         theme: "light",
         transition: Slide,
       });
+      return()=>{
+        navigate("/stake/success",{state:{isStakeSuccess:false}});
+      }
     }
-  }, [location]);
+  }, [isStakeSuccess]);
 
 
   return (
