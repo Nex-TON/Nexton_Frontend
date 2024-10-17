@@ -1,24 +1,46 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
+import { Slide, toast } from "react-toastify";
 
 import FooterButton from "@/components/common/FooterButton";
 import ReferralButtonBox from "@/components/referral/ReferralButtonBox";
-import { stakingAtom } from "@/lib/atom/staking";
 import NftPreviewImage from "@/components/stake/NFTPreview/NftPreviewImage";
 import NFTPreviewInfo from "@/components/stake/NFTPreview/NFTPreviewInfo";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { isDevMode } from "@/utils/isDevMode";
 import IcAlertBlue from "@/assets/icons/Stake/ic_alert_blue.svg";
 
-
-
-
 const tele = (window as any).Telegram.WebApp;
 
 const StakeSuccess = () => {
-  const stakingInfo = useRecoilValue(stakingAtom);
   const navigate=useNavigate();
+  const location = useLocation();
+  const {lockPeriod, stakingInfo } = location.state || {};
+
+
+
+  // Show toast message when the user has successfully staked
+  useEffect(() => {
+    const { state } = location;
+
+    if (state?.isStakeSuccess) {
+      toast(`Transaction approved! Your balance will be updated within the next 30 seconds.`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
+
+      history.replaceState(null, "");
+    }
+  }, [location]);
+
 
   return (
     <>
@@ -29,7 +51,7 @@ const StakeSuccess = () => {
         <ReferralButtonContainer>
           <ReferralButtonBox />
         </ReferralButtonContainer>
-        <NftPreviewImage lockup={stakingInfo.lockup} />
+        <NftPreviewImage lockup={lockPeriod} />
         <NFTPreviewInfo stakingInfo={stakingInfo} />
         <NFTPreviewConfirmBox>
           <img src={IcAlertBlue} alt="alertBlue" />
