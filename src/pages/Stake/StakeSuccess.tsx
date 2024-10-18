@@ -42,8 +42,8 @@ const StakeSuccess = () => {
         <ReferralButtonContainer>
           <ReferralButtonBox />
         </ReferralButtonContainer>
-        {/* <NftPreviewImage lockup={lockPeriod} />
-        <NFTPreviewInfo stakingInfo={stakingInfo} /> */}
+        <NftPreviewImage lockup={lockPeriod} />
+        <NFTPreviewInfo stakingInfo={stakingInfo} />
         <NFTPreviewConfirmBox>
           <img src={IcAlertBlue} alt="alertBlue" />
           <div>
