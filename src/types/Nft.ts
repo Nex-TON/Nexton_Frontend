@@ -6,7 +6,6 @@ export interface nftInfo {
   principal: number;
   totalAmount: number;
   amount: number;
-  principal: number;
   leverage: number;
   lockPeriod: number;
   timeStamp: string;
