@@ -18,7 +18,7 @@
     "@emotion/styled": "^11.11.0",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@hookform/resolvers": "^3.3.4",
-    "@mui/material": "^5.14.1",
+    "@mui/material": "^5.16.7",
     "@orbs-network/ton-access": "^2.3.3",
     "@ton/core": "^0.58.1",
     "@ton/crypto": "^3.3.0",
@@ -43,6 +43,7 @@
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
+    "scss": "^0.2.4",
     "styled-components": "^6.0.5",
     "swr": "^2.2.5",
     "zod": "^3.23.8"
@@ -59,6 +60,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "prettier": "^3.3.2",
+    "sass": "^1.80.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vitest": "^1.6.0"
