@@ -11,4 +11,5 @@ export interface nftInfo {
   timeStamp: string;
   nominator: string;
   status: number;
+  unstakableDate: string;
 }
