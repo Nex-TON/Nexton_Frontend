@@ -3,6 +3,9 @@ import { useLocation } from "react-router-dom";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import styled from "styled-components";
 import { mutate } from "swr";
+import { Fab, Action } from "react-tiny-fab";
+import "react-tiny-fab/dist/styles.css";
+import React from "react";
 
 import Header from "@/components/common/Header";
 import ActionCards from "@/components/main/ActionCards";
@@ -13,12 +16,15 @@ import { useManageReferral } from "@/hooks/api/referral/useManageReferral";
 import { useTrackReferral } from "@/hooks/api/referral/useTrackReferral";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";
+import FloatingOpenIc from "@/assets/icons/Main/floating_open.svg";
+import FloatCommunityIc from "@/assets/icons/Main/floating_community.svg";
+import FloatSupportIc from "@/assets/icons/Main/floating_support.svg";
 
 import "react-toastify/dist/ReactToastify.css";
 
 const tele = (window as any).Telegram.WebApp;
 
-const Main = () => {
+const Main: React.FC = () => {
   const { address, balance, refreshTonData, connected, tonConnectUI } = useTonConnect();
   const { nftList, isLoading, isError } = useStakeInfo(address);
 
@@ -152,6 +158,20 @@ const Main = () => {
         {/* <StakeView /> */}
 
         <MyTokens />
+        <Fab
+          mainButtonStyles={{ backgroundColor: "#1F53FF", width: "48px", height: "48px", padding: "12px" }}
+          style={{ bottom: "42px", right: "10px" }}
+          event="hover"
+          alwaysShowTitle={true}
+          icon={<img  src={FloatingOpenIc} style={{ width: "24px", height: "24px" }} />}
+        >
+          <Action text="Community" onClick={() => {window.open("https://t.me/+YBNeM9m_yhtlNzM9")}} style={{padding:"8px",height:"40px",width:"40px",backgroundColor:"#F8F8F8"}}>
+            <img src={FloatCommunityIc} style={{height:"24px", width:"24px"}} />
+          </Action>
+          <Action  text="Support" onClick={() => {window.open("https://t.me/m/-Y3bstHbMzE9")}} style={{padding:"8px",height:"40px",width:"40px",backgroundColor:"#F8F8F8"}}>
+          <img src={FloatSupportIc} style={{height:"24px", width:"24px"}}/>
+          </Action>
+        </Fab>
       </MainWrapper>
 
       <ToastContainer
