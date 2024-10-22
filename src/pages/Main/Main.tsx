@@ -14,11 +14,10 @@ import { useManageReferral } from "@/hooks/api/referral/useManageReferral";
 import { useTrackReferral } from "@/hooks/api/referral/useTrackReferral";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";
-import FloatingOpenIc from "@/assets/icons/Main/floating_open.svg";
 import FloatCommunityIc from "@/assets/icons/Main/floating_community.svg";
 import FloatSupportIc from "@/assets/icons/Main/floating_support.svg";
-import SupportBallon from "@/assets/image/support_ballon.png";
-import CommunityBallon from "@/assets/image/community_ballon.png";
+import FloatCloseIc from "@/assets/icons/Main/floating_close.svg";
+import FloatCsIc from "@/assets/icons/Main/floating_cs.svg";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -182,13 +181,11 @@ const Main: React.FC = () => {
           }}
           onClick={handleFloatingButton}
         >
-          <FloatingButton isOpen={isFbOpen}>
             <img
-              src={FloatingOpenIc}
-              alt="Floating button"
+            src={isFbOpen ? FloatCloseIc : FloatCsIc}
+            alt="Floating button"
               style={{ width: "24px", height: "24px", alignContent: "center", justifyContent: "center" }}
             />
-          </FloatingButton>
           {isFbOpen && (
             <>
               <Zoom in={isFbOpen} style={{ position: "absolute" }}>
@@ -310,14 +307,6 @@ to{
 }
 `;
 
-const FloatingButton = styled.div<{ isOpen: Boolean }>`
-  display: flex;
-  padding: 0;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  animation: ${props => (props.isOpen ? rotate45 : "none")} 2 linear forwards;
-`;
 
 const Overlay = styled.div<{ visible: boolean }>`
   position: fixed;
