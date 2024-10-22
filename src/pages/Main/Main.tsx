@@ -2,11 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import styled from "styled-components";
 import { mutate } from "swr";
-// import {Fab,Action} from "react-tiny-fab";
-// import "react-tiny-fab/dist/styles.css";
 import React from "react";
-import { Fab, Zoom } from "@mui/material";
-import { Popover } from "@mui/material";
+import { Fab, Zoom,Tooltip} from "@mui/material";
 
 import Header from "@/components/common/Header";
 import ActionCards from "@/components/main/ActionCards";
@@ -25,7 +22,6 @@ import SupportBallon from "@/assets/image/support_ballon.png";
 import CommunityBallon from "@/assets/image/community_ballon.png";
 
 import "react-toastify/dist/ReactToastify.css";
-import { fontFamily, fontSize } from "@mui/system";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -193,23 +189,37 @@ const Main: React.FC = () => {
           {isFbOpen && (
             <>
               <Zoom in={isFbOpen}>
-                  <Fab
-                    style={{
-                      backgroundColor: "#F8F8F8",
-                      padding: "8px",
-                      height: "40px",
-                      width: "40px",
-                      position: "absolute",
-                      bottom: "116px",
-                    }}
-                    onClick={() => {
-                      window.open("https://t.me/m/-Y3bstHbMzE9");
-                    }}
-                  >
-                    <img src={FloatSupportIc} alt="community link" />
-                  </Fab>
+              <Tooltip 
+              title="Support" 
+              open={true} 
+              placement="left" 
+              componentsProps={{tooltip:{sx:{bgcolor:"white", fontSize:"12px",color:"black",padding:"7px 9px",width:"73px",height:"32px",alignContent:"center",textAlign:"center",fontFamily:"Montserrat",fontWeight:"500",lineHeight:"150%",fontStyle:"normal"}},arrow:{sx:{color:"white"}}}} 
+              arrow>
+              <Fab
+                      style={{
+                        backgroundColor: "#F8F8F8",
+                        padding: "8px",
+                        height: "40px",
+                        width: "40px",
+                        position: "absolute",
+                        bottom: "116px",
+                      }}
+                      onClick={() => {
+                        window.open("https://t.me/m/-Y3bstHbMzE9");
+                      }}
+                    >
+                      <img src={FloatSupportIc} alt="community link" />
+                    </Fab>
+                  </Tooltip>
               </Zoom>
               <Zoom in={isFbOpen}>
+                <Tooltip 
+                title="Community" 
+                open={true} 
+                placement="left"  
+                componentsProps={{tooltip:{sx:{bgcolor:"white", fontSize:"12px",color:"black",padding:"7px 12px",width:"116px",height:"32px",alignContent:"center",textAlign:"center",fontFamily:"Montserrat",fontWeight:"500",lineHeight:"150%",fontStyle:"normal"}},arrow:{sx:{color:"white"}}}} 
+
+                arrow >
                 <Fab
                   style={{
                     backgroundColor: "#F8F8F8",
@@ -225,6 +235,7 @@ const Main: React.FC = () => {
                 >
                   <img src={FloatCommunityIc} alt="community link" />
                 </Fab>
+                </Tooltip>
               </Zoom>
             </>
           )}
