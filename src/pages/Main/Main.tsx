@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Slide, toast, ToastContainer } from "react-toastify";
-import styled from "styled-components";
+import { styled, keyframes } from "styled-components";
 import { mutate } from "swr";
 import React from "react";
-import { Fab, Zoom,Tooltip} from "@mui/material";
+import { Fab, Zoom, Tooltip } from "@mui/material";
 
 import Header from "@/components/common/Header";
 import ActionCards from "@/components/main/ActionCards";
@@ -15,7 +15,6 @@ import { useTrackReferral } from "@/hooks/api/referral/useTrackReferral";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import FloatingOpenIc from "@/assets/icons/Main/floating_open.svg";
-import FloatingCloseIc from "@/assets/icons/Main/floating_close.svg";
 import FloatCommunityIc from "@/assets/icons/Main/floating_community.svg";
 import FloatSupportIc from "@/assets/icons/Main/floating_support.svg";
 import SupportBallon from "@/assets/image/support_ballon.png";
@@ -178,63 +177,104 @@ const Main: React.FC = () => {
             padding: "12px",
             bottom: "42px",
             right: "10px",
+            alignItems: "center",
+            justifyContent: "center",
           }}
           onClick={handleFloatingButton}
         >
-          <img
-            src={isFbOpen ? FloatingCloseIc : FloatingOpenIc}
-            alt="Floating button"
-            style={{ width: "24px", height: "24px" }}
-          />
+          <FloatingButton isOpen={isFbOpen}>
+            <img
+              src={FloatingOpenIc}
+              alt="Floating button"
+              style={{ width: "24px", height: "24px", alignContent: "center", justifyContent: "center" }}
+            />
+          </FloatingButton>
           {isFbOpen && (
             <>
-              <Zoom in={isFbOpen}>
-              <Tooltip 
-              title="Support" 
-              open={true} 
-              placement="left" 
-              componentsProps={{tooltip:{sx:{bgcolor:"white", fontSize:"12px",color:"black",padding:"7px 9px",width:"73px",height:"32px",alignContent:"center",textAlign:"center",fontFamily:"Montserrat",fontWeight:"500",lineHeight:"150%",fontStyle:"normal"}},arrow:{sx:{color:"white"}}}} 
-              arrow>
-              <Fab
-                      style={{
-                        backgroundColor: "#F8F8F8",
-                        padding: "8px",
-                        height: "40px",
-                        width: "40px",
-                        position: "absolute",
-                        bottom: "116px",
-                      }}
-                      onClick={() => {
-                        window.open("https://t.me/m/-Y3bstHbMzE9");
-                      }}
-                    >
-                      <img src={FloatSupportIc} alt="community link" />
-                    </Fab>
-                  </Tooltip>
+              <Zoom in={isFbOpen} style={{ position: "absolute" }}>
+                <Tooltip
+                  title="Support"
+                  open={true}
+                  placement="left"
+                  componentsProps={{
+                    tooltip: {
+                      sx: {
+                        bgcolor: "white",
+                        fontSize: "12px",
+                        color: "black",
+                        padding: "7px 9px",
+                        width: "73px",
+                        height: "32px",
+                        alignContent: "center",
+                        textAlign: "center",
+                        fontFamily: "Montserrat",
+                        fontWeight: "500",
+                        lineHeight: "150%",
+                        fontStyle: "normal",
+                      },
+                    },
+                    arrow: { sx: { color: "white" } },
+                  }}
+                  arrow
+                >
+                  <Fab
+                    style={{
+                      backgroundColor: "#F8F8F8",
+                      padding: "8px",
+                      height: "40px",
+                      width: "40px",
+                      position: "absolute",
+                      bottom: "116px",
+                    }}
+                    onClick={() => {
+                      window.open("https://t.me/m/-Y3bstHbMzE9");
+                    }}
+                  >
+                    <img src={FloatSupportIc} alt="community link" />
+                  </Fab>
+                </Tooltip>
               </Zoom>
               <Zoom in={isFbOpen}>
-                <Tooltip 
-                title="Community" 
-                open={true} 
-                placement="left"  
-                componentsProps={{tooltip:{sx:{bgcolor:"white", fontSize:"12px",color:"black",padding:"7px 12px",width:"116px",height:"32px",alignContent:"center",textAlign:"center",fontFamily:"Montserrat",fontWeight:"500",lineHeight:"150%",fontStyle:"normal"}},arrow:{sx:{color:"white"}}}} 
-
-                arrow >
-                <Fab
-                  style={{
-                    backgroundColor: "#F8F8F8",
-                    padding: "8px",
-                    height: "40px",
-                    width: "40px",
-                    position: "absolute",
-                    bottom: "66px",
+                <Tooltip
+                  title="Community"
+                  open={true}
+                  placement="left"
+                  componentsProps={{
+                    tooltip: {
+                      sx: {
+                        bgcolor: "white",
+                        fontSize: "12px",
+                        color: "black",
+                        padding: "7px 12px",
+                        width: "116px",
+                        height: "32px",
+                        alignContent: "center",
+                        textAlign: "center",
+                        fontFamily: "Montserrat",
+                        fontWeight: "500",
+                        lineHeight: "150%",
+                        fontStyle: "normal",
+                      },
+                    },
+                    arrow: { sx: { color: "white" } },
                   }}
-                  onClick={() => {
-                    window.open("https://t.me/+YBNeM9m_yhtlNzM9");
-                  }}
+                  arrow
                 >
-                  <img src={FloatCommunityIc} alt="community link" />
-                </Fab>
+                  <Fab
+                    style={{
+                      backgroundColor: "#F8F8F8",
+                      padding: "8px",
+                      height: "40px",
+                      width: "40px",
+                      position: "absolute",
+                      bottom: "66px",
+                    }}
+                    onClick={() => {
+                      window.open("https://t.me/+YBNeM9m_yhtlNzM9");
+                    }}
+                  >
+                    <img src={FloatCommunityIc} alt="community link" />
+                  </Fab>
                 </Tooltip>
               </Zoom>
             </>
@@ -260,6 +300,24 @@ const Main: React.FC = () => {
 };
 
 export default Main;
+
+const rotate45 = keyframes`
+from{
+  transform:rotate(0deg);
+}
+to{
+  transform:rotate(135deg);
+}
+`;
+
+const FloatingButton = styled.div<{ isOpen: Boolean }>`
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  animation: ${props => (props.isOpen ? rotate45 : "none")} 2 linear forwards;
+`;
 
 const Overlay = styled.div<{ visible: boolean }>`
   position: fixed;
