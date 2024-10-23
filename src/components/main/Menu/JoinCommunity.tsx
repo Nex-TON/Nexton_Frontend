@@ -6,6 +6,7 @@ import IcMenuDiscord from "@/assets/icons/Menu/ic_menu_discord.svg";
 import IcMenuDiscordDisabled from "@/assets/icons/Menu/ic_menu_discord_disabled.svg";
 import IcMenuGithub from "@/assets/icons/Menu/ic_menu_github.svg";
 import IcMenuTwitter from "@/assets/icons/Menu/ic_menu_twitter.svg";
+import IcMenuTelegram from "@/assets/icons/Menu/ic_menu_telegram.svg";
 
 const JoinCommunity = () => {
   const handleNewTap = (url: string) => {
@@ -20,6 +21,13 @@ const JoinCommunity = () => {
           <div>
             <img src={IcMenuTwitter} alt="twitter" />
             Twitter
+          </div>
+          <img src={IcNftMoreArrow} alt="moreArrow" width={10} />
+        </JoinCommunityButton>
+        <JoinCommunityButton onClick={() => handleNewTap("https://t.me/+VXJb_F6k6sthNzhl")}>
+          <div>
+            <img src={IcMenuTelegram} alt="telegram" />
+            Global Channel
           </div>
           <img src={IcNftMoreArrow} alt="moreArrow" width={10} />
         </JoinCommunityButton>
