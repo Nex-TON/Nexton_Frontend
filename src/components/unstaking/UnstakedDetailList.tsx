@@ -5,6 +5,8 @@ import { LoanNFTBoxListEmpty, LoanNFTBoxListEmptyLink } from "@/components/loan/
 import { IUnstakedListData } from "@/hooks/api/unstaking/useUnstakedList";
 
 import UnstakedDetailItem from "./UnstakedDetailItem";
+//for the test
+// import UnstakedDetailItemTest from "./UnstakedDetailItemTest";
 
 const UnstakedDetailList = ({ unstakedList }: { unstakedList?: IUnstakedListData[] }) => {
   return (
@@ -12,6 +14,8 @@ const UnstakedDetailList = ({ unstakedList }: { unstakedList?: IUnstakedListData
       {unstakedList ? (
         unstakedList?.map(data => <UnstakedDetailItem key={data.nftId} item={data} />)
       ) : (
+        // for the test
+        // <UnstakedDetailItemTest/>
         <UnstakedDetailListEmpty>
           <img src={RepaysEmpty} alt="unstaked_empty" />
 
