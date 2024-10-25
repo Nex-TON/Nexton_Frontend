@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { mutate } from "swr";
 
+// import { VscInfo } from "react-icons/vsc";
+import { Tooltip } from "@mui/material";
 import IcArrowRight from "@/assets/icons/MyAsset/ic_arrow_right.svg";
 import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
 import IcSmallArrowRight from "@/assets/icons/MyAsset/ic_small_arrow_right.svg";
@@ -10,6 +12,7 @@ import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceC
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import { useEarningsbyAddress } from "@/hooks/api/dashboard/useEarningsbyAddress";
 import {
+  // TvlNotice,
   APYBox,
   AssetBottomBox,
   AssetBottomLeft,
@@ -135,7 +138,17 @@ const MainMyAssetInfo = ({
                       </h4>
                     </DashboardBottomLeftDataItem>
                     <DashboardBottomLeftDataItem>
-                      <span>TVL</span>
+                        <span style={{gap:"6px", alignItems:"center",display:"flex",justifyContent:""}}>
+                          TVL 
+                          {/* 보류 */}
+                          {/* <Tooltip 
+                          title="$TON + $nxTON"
+                          open={false}
+                          placement="top"
+                          >
+                          <VscInfo style={{width:"16px",height:"16px",color:"##C6C5D0"}} />
+                          </Tooltip> */}
+                        </span>
                       <h4>{performanceData?.tvl ? `${limitDecimals(performanceData?.tvl, 3)} TON` : "-"}</h4>
                     </DashboardBottomLeftDataItem>
 
