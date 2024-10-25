@@ -1,15 +1,20 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Dashboard from "@/pages/Dashboard/Dashboard";
-import BorrowDetail from "@/pages/Loan/BorrowDetail";
+// import BorrowDetails from "@/pages/Loan/Borrow/BorrowDetails";
+// import BorrowRiskDisclosure from "@/pages/Loan/Borrow/BorrowRiskDisclosure";
+// import BorrowVerify from "@/pages/Loan/Borrow/BorrowVerify";
+// import LoanHistory from "@/pages/Loan/History/LoanHistory";
+// import LoanHistoryDetails from "@/pages/Loan/History/LoanHistoryDetails";
 import Loan from "@/pages/Loan/Loan";
+// import RepaymentDetails from "@/pages/Loan/Repay/RepaymentDetails";
+// import RiskDisclosure from "@/pages/Loan/RiskDisclosure";
 import Main from "@/pages/Main/Main";
 import Menu from "@/pages/Menu/Menu";
 import MyAsset from "@/pages/MyAsset/MyAsset";
+import NFTDetail from "@/pages/MyAsset/NFTDetail/NFTDetail";
 import NftList from "@/pages/MyAsset/NftList";
-import StakingNftDetail from "@/pages/MyAsset/NFTDetail/NFTDetail";
-import UnstakingDetail from "@/pages/MyAsset/UnstakingDetail";
-import UnstakingList from "@/pages/MyAsset/UnstakingList";
+import UnstakedList from "@/pages/MyAsset/UnstakedList";
 import Nlp from "@/pages/Nlp/Nlp";
 import Referral from "@/pages/Referral/Referral";
 import Amount from "@/pages/Stake/Amount";
@@ -34,7 +39,7 @@ const Router = () => {
           <Route path="leverage" element={<Leverage />} />
           <Route path="nominator" element={<NominatorList />} />
           <Route path="preview" element={<NFTPreview />} />
-        <Route path="success" element={<StakeSuccess />} />
+          <Route path="success" element={<StakeSuccess />} />
         </Route>
         {/* // ! Paths under /loan are disabled until contract & API are ready */}
         {/* <Route path="/loan">
@@ -49,13 +54,17 @@ const Router = () => {
         </Route> */}
         <Route path="/myasset" element={<MyAsset />}>
           <Route path="nftlist" element={<NftList />} />
-          <Route path="unstaking" element={<UnstakingList />} />
-          <Route path="unstakingdetail" element={<UnstakingDetail />} />
+          <Route path="unstaked" element={<UnstakedList />} />
         </Route>
-        <Route path="/myasset/:id" element={<StakingNftDetail />} />
-        <Route path="/unstaking/:id" element={<UnstakingNftDetail />} />
-        <Route path="/unstaking/beta" element={<UnstakingBetaInfo />} />
-        <Route path="/unstaking/view/:id" element={<UnstakingNftDetail />} />
+        <Route path="/myasset/:id" element={<NFTDetail />} />
+        <Route path="/unstaking">
+          <Route path=":id" element={<UnstakingNftDetail />} />
+          <Route path=":id/view" element={<UnstakingNftDetail view />} />
+          <Route path="beta" element={<UnstakingBetaInfo />} />
+        </Route>
+
+        <Route path="/swap" element={<Swap />} />
+        <Route path="/nlp" element={<Nlp />} />
       </Routes>
     </BrowserRouter>
   );
