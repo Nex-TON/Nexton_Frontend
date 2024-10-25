@@ -7,6 +7,7 @@ import Loader from "@/components/common/Loader";
 import UnstakedDetailList from "@/components/unstaking/UnstakedDetailList";
 import { useUnstakedList } from "@/hooks/api/unstaking/useUnstakedList";
 import { telegramAtom } from "@/lib/atom/telegram";
+import UnstakedDetailHeader from "@/components/unstaking/UnstakedDetailHeader";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -41,6 +42,7 @@ const UnstakedList = () => {
 
   return (
     <UnstakedListWrapper>
+      <UnstakedDetailHeader unstakedListLength={data?.length} />
       {isLoading ? (
         <LoaderWrapper>
           <Loader height={100} width={100} />
@@ -56,7 +58,7 @@ export default UnstakedList;
 
 const UnstakedListWrapper = styled.div`
   width: 100%;
-  padding: 3rem 2rem;
+  padding: 0 2rem;
 `;
 
 const LoaderWrapper = styled.div`
