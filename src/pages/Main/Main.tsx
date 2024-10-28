@@ -4,7 +4,7 @@ import { styled, keyframes } from "styled-components";
 import { mutate } from "swr";
 import React from "react";
 import { Fab, Zoom, Tooltip } from "@mui/material";
-import axios from "axios";
+import {postUserAddress} from "@/api/postUserAddress";
 
 import Header from "@/components/common/Header";
 import ActionCards from "@/components/main/ActionCards";
@@ -85,22 +85,22 @@ const Main: React.FC = () => {
     }
   }, []);
 
-  //사용자 지갑 주소 post
-  const postAddress = async (userId, address) => {
-    try {
-      await axios.post(`${import.meta.env.VITE_BASE_URL}/addUserAddress`, {
-        telegramId: userId,
-        address: address,
-      });
-    } catch (error) {
-      console.log("사용자 주소 전송 실패", error);
-    }
-  };
-  //지갑 연결됐으
+  //사용자 지갑 주소 전송
   useEffect(() => {
-    if (connected && address && userId) {
-      postAddress(userId, address);
-    }
+    const sendAddress = async () => {
+      if (connected && address && userId) { // 조건 추가
+        try {
+          const response = await postUserAddress({ telegramId: userId, address });
+          if (response !== 200) {
+            console.log("사용자 주소 전송 실패");
+          }
+        } catch (error) {
+          console.error("주소 전송 중 오류 발생:", error);
+        }
+      }
+    };
+  
+    sendAddress();
   }, [connected, address, userId]);
 
   // Track referral on app launch
