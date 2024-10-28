@@ -162,7 +162,7 @@ const NFTPreview = () => {
             mutate(`/data/getAllStakeInfoByAddress?address=${stakingInfo.address}`);
             await refreshTonData();
 
-            navigate("/", { state: { isStakeSuccess: true } });
+            navigate("/stake/success", { state: { isStakeSuccess: true, lockPeriod: stakingInfo.lockup, stakingInfo:stakingInfo } });
           }}
         />
       )}

@@ -1,18 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import Header from "@/components/common/Header";
+import NftHeader from "@/components/myAsset/NftHeader";
 import useTonConnect from "@/hooks/contract/useTonConnect";
-
-import Header from "../../components/common/Header";
-import NftHeader from "../../components/myAsset/NftHeader";
 
 const tele = (window as any).Telegram.WebApp;
 
 const MyAsset = () => {
   const { connected, tonConnectUI } = useTonConnect();
   const { pathname } = useLocation();
-  const [myAssetMenu, setMyAssetMenu] = useState("NFT");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,7 +37,7 @@ const MyAsset = () => {
         tonConnectUI={tonConnectUI}
       />
       <MyAssetContentWrapper>
-        <NftHeader myAssetMenu={myAssetMenu} />
+        <NftHeader />
       </MyAssetContentWrapper>
       <Outlet />
     </MyAssetWrapper>

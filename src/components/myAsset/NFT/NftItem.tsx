@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { css, styled } from "styled-components";
 
-import NFTExpired from "../../../assets/image/MainNftExpired.png";
-import NFTForthComing from "../../../assets/image/MainNftForthComing.png";
-import NFTOngoing from "../../../assets/image/MainNftOngoing.png";
+import NFTExpired from "@/assets/image/MainNftExpired.png";
+import NFTForthComing from "@/assets/image/MainNftForthComing.png";
+import NFTOngoing from "@/assets/image/MainNftOngoing.png";;
 import { imageSizeAtom } from "../../../lib/atom/imageSize";
 import { nftInfo } from "../../../types/Nft";
-import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
+import { getDDayText, getNftState } from "@/utils/getNftState";
 
 interface NftItemProps {
   item: nftInfo;
@@ -15,7 +15,8 @@ interface NftItemProps {
 
 const NftItem = (props: NftItemProps) => {
   const { item } = props;
-  const { nftId, timeStamp, lockPeriod } = item;
+
+  const { nftId, unstakableDate } = item;
 
   const [, setImageSize] = useRecoilState(imageSizeAtom);
 
@@ -28,7 +29,7 @@ const NftItem = (props: NftItemProps) => {
   };
 
   const SwitchDDayNftImage = () => {
-    if (DDayChange(timeStamp, lockPeriod) > 15) {
+    if (getNftState(unstakableDate) ==="ongoing") {
       return (
         <NFTImage
           src={NFTOngoing}
@@ -40,7 +41,7 @@ const NftItem = (props: NftItemProps) => {
           onClick={handleMouseMove}
         />
       );
-    } else if (DDayChange(timeStamp, lockPeriod) > 0) {
+    } else if (getNftState(unstakableDate) ==="forthcoming") {
       return (
         <NFTImage
           src={NFTForthComing}
@@ -71,15 +72,11 @@ const NftItem = (props: NftItemProps) => {
     <NFTItemWrapper>
       {SwitchDDayNftImage()}
       <NFTDDayText>
-        {DDayChange(timeStamp, lockPeriod) > 0
-          ? `D-${DDayChange(timeStamp, lockPeriod)}`
-          : DDayChange(timeStamp, lockPeriod) === 0
-          ? `D-Day`
-          : `D+${DDayChange(timeStamp, lockPeriod) * -1}`}
+      {getDDayText(unstakableDate)}
       </NFTDDayText>
       <NFTExpiredDateText>Expired Date</NFTExpiredDateText>
       <NFTExpiredDateText $date>
-        {expiredDateChanger(timeStamp, lockPeriod)}
+      {new Date(unstakableDate).toLocaleDateString()}
       </NFTExpiredDateText>
     </NFTItemWrapper>
   );
