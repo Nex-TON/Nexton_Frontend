@@ -4,6 +4,7 @@ import { styled, keyframes } from "styled-components";
 import { mutate } from "swr";
 import React from "react";
 import { Fab, Zoom, Tooltip } from "@mui/material";
+import axios from "axios";
 
 import Header from "@/components/common/Header";
 import ActionCards from "@/components/main/ActionCards";
@@ -43,6 +44,8 @@ const Main: React.FC = () => {
   const [modal, setModal] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  const userId = tele?.initDataUnsafe?.user?.id;
+
   // Refresh TON data
   useEffect(() => {
     async function handleRefreshData() {
@@ -81,6 +84,25 @@ const Main: React.FC = () => {
       setModal(true); // Only show modal if user hasn't visited before
     }
   }, []);
+
+  //사용자 지갑 주소 post
+  const postAddress = async (userId,address) => {
+    try {
+      await axios.post('사용자 주소 보낼 url', {
+        userId:userId,
+        address: address,
+      });
+    } catch (error) {
+      console.log("사용자 주소 전송 실패", error);
+    }
+  };
+  //지갑 연결됐으
+  useEffect(() => {
+    if (connected && address&&userId) {
+      postAddress(userId,address);
+    }
+  }, [connected, address,userId]);
+  
 
   // Track referral on app launch
   useEffect(() => {
