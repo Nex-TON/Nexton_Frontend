@@ -3,6 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useSetRecoilState } from "recoil";
 
+import { ClickAwayListener } from "@mui/material";
+import { Tooltip as MuiTooltip, tooltipClasses } from "@mui/material";
+import { VscInfo } from "react-icons/vsc";
 import IcNextonLogo from "@/assets/icons/Dashboard/ic_nexton_logo.svg";
 import IcTonLogo from "@/assets/icons/Dashboard/ic_ton_logo.svg";
 import Loader from "@/components/common/Loader";
@@ -46,6 +49,15 @@ const chartTimeFrameOptions: Record<TimeFrame | "All", number> = {
 };
 
 const Dashboard = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleTooltip = () => {
+    setOpen(!open);
+  };
+  const handleTooltipClose = () => {
+    setOpen(false);
+  };
+
   const location = useLocation();
   const navigate = useNavigate();
   const setError = useSetRecoilState(globalError);
@@ -67,8 +79,7 @@ const Dashboard = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        const { prev } = location.state;
-        navigate(prev ? prev : "/");
+        navigate("/");
       });
     }
 
@@ -113,6 +124,8 @@ const Dashboard = () => {
               <h5>APY</h5>
               <span>{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</span>
             </ChartHeaderSubtitle>
+
+            <ChartHeaderDivider />
 
             <ChartHeaderSubtitle>
               <h5>Daily PNL</h5>
@@ -176,11 +189,65 @@ const Dashboard = () => {
             <h3>Stakers Win Rate</h3>
             <p>{performanceData?.pnlWinRate?.toFixed(2)}%</p>
           </PerformanceItem>
-
+          <ClickAwayListener onClickAway={handleTooltipClose}>
           <PerformanceItem>
-            <h3>TVL</h3>
+            <h3 onClick={handleTooltip} style={{ display: "flex", alignItems: "center", gap: "6px"}}>
+              TVL
+              <MuiTooltip
+                PopperProps={{
+                  disablePortal: true,
+                }}
+                onClose={handleTooltip}
+                open={open}
+                disableTouchListener
+                disableHoverListener// 추가
+                title="$TON + $nxTON"
+                placement="top-start"
+              slotProps={{
+                popper:{
+                  sx:{
+                    [`&.${tooltipClasses.popper}[data-popper-placement*="top"] .${tooltipClasses.tooltip}`]:
+                    {
+                      marginBottom: "5px",
+                    },
+                  }
+                }
+              }
+
+              }
+                componentsProps={{
+                  tooltip: {
+
+                    sx: {
+                      padding:"7px 15px",
+                      bgcolor: "#000",
+                      color: "#FFF",
+                      justifyContent:"center",
+                      alignContent:"center",
+                      width:"135px",
+                      height:"39px",
+                      fontSize:"13px",
+                      fontStyle:"normal",
+                      fontFamily:"Montserrat",
+                      fontWeight:"500",
+                      lineHeight:"18px",
+                      transform:"center bottom",
+                      border:"none",  
+                    },
+                  },
+                  arrow:{sx:{color:"black",border:"none"}},
+                }}
+                arrow
+              >
+                <div>
+                <VscInfo style={{ width: "16px", height: "16px", color: "#C6CACA",alignItems:"center",justifyContent:"center",display:"flex" }} />
+                </div>
+              </MuiTooltip>
+            </h3>
             <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
           </PerformanceItem>
+          </ClickAwayListener>
+
         </PerformanceItemWrapper>
 
         <MainButton style={{ margin: "1rem 0 0 0" }} />
@@ -198,7 +265,9 @@ const Dashboard = () => {
 
             <TonPriceItemRight>
               <p>${tonPriceData?.rates?.TON?.prices?.USD.toFixed(2)}</p>
-              <TonPriceItemRightPercentage>{tonPriceData?.rates?.TON?.diff_24h?.USD}</TonPriceItemRightPercentage>
+              <TonPriceItemRightPercentage $positive={Number(tonPriceData?.rates?.TON?.diff_24h?.USD) > 0}>
+                {tonPriceData?.rates?.TON?.diff_24h?.USD}
+              </TonPriceItemRightPercentage>
             </TonPriceItemRight>
           </TonPriceItem>
         </TonPriceWrapper>
