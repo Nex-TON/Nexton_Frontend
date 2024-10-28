@@ -7,9 +7,9 @@ const ArrowIcon = ({ dark, disabled }: { dark?: boolean; disabled?: boolean }) =
       <path
         d="M9.60039 7.20001L14.4004 12L9.60039 16.8"
         stroke={disabled ? "#B9B9BA" : dark ? "#fff" : "#303234"}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -20,23 +20,14 @@ const ActionCards = () => {
 
   return (
     <ActionCardsWrapper>
-      {/* Active version is disabled until "Borrow" section is implemented */}
-      {/* <Card $large onClick={() => navigate("/myasset")}>
-        <CardHeader>Borrow nxTON using your NFT as collateral</CardHeader>
-        <CardBody>
-          Borrow
-          <ArrowIcon />
-        </CardBody>
-      </Card> */}
-
-      <Card $large $disabled>
-        <CardHeader $disabled>Coming Soon</CardHeader>
+      <Card $disabled $large /* onClick={() => navigate("/loan")} */>
+        <CardHeader $disabled>Borrow nxTON using your NFT as collateral</CardHeader>
         <CardBody $disabled>
-          Loan
+          Coming Soon
           <ArrowIcon disabled />
         </CardBody>
       </Card>
-      <Card $dark onClick={() => navigate("/myasset")}>
+      <Card $dark onClick={() => navigate("/myasset/nftlist")}>
         <CardHeader>Check the NFT you received from staking</CardHeader>
         <CardBody $dark>
           My NFTs
