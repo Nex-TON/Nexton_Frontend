@@ -86,10 +86,10 @@ const Main: React.FC = () => {
   }, []);
 
   //사용자 지갑 주소 post
-  const postAddress = async (userId,address) => {
+  const postAddress = async (userId, address) => {
     try {
-      await axios.post('사용자 주소 보낼 url', {
-        userId:userId,
+      await axios.post(`${import.meta.env.VITE_BASE_URL}/addUserAddress`, {
+        telegramId: userId,
         address: address,
       });
     } catch (error) {
@@ -98,11 +98,10 @@ const Main: React.FC = () => {
   };
   //지갑 연결됐으
   useEffect(() => {
-    if (connected && address&&userId) {
-      postAddress(userId,address);
+    if (connected && address && userId) {
+      postAddress(userId, address);
     }
-  }, [connected, address,userId]);
-  
+  }, [connected, address, userId]);
 
   // Track referral on app launch
   useEffect(() => {
@@ -203,11 +202,11 @@ const Main: React.FC = () => {
           }}
           onClick={handleFloatingButton}
         >
-            <img
+          <img
             src={isFbOpen ? FloatCloseIc : FloatCsIc}
             alt="Floating button"
-              style={{ width: "24px", height: "24px", alignContent: "center", justifyContent: "center" }}
-            />
+            style={{ width: "24px", height: "24px", alignContent: "center", justifyContent: "center" }}
+          />
           {isFbOpen && (
             <>
               <Zoom in={isFbOpen} style={{ position: "absolute" }}>
@@ -328,7 +327,6 @@ to{
   transform:rotate(135deg);
 }
 `;
-
 
 const Overlay = styled.div<{ visible: boolean }>`
   position: fixed;
