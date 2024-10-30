@@ -18,7 +18,7 @@ const MainButton = ({ style }: { style?: React.CSSProperties }) => {
         gtmId:'GTM-N6BZZ8CX',
         dataLayer:{
           event:"connect wallet",
-          click_id:"connect wallet"
+          elementId:"connect wallet"
         },
       };
       TagManager.dataLayer(connectWalletTag);
