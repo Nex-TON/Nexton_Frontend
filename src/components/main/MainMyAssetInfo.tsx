@@ -75,7 +75,7 @@ const MainMyAssetInfo = ({
     const tagManagerArgs={
       dataLayer:{
         event:"connect wallet",
-        click_id:"connect wallet",
+        elementId:"connect wallet",
       },
     };
     TagManager.dataLayer(tagManagerArgs);
