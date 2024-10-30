@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import TagManager from "react-gtm-module"; 
 
 import IcWalletConnect from "@/assets/icons/Landing/ic_wallet_connect.svg";
 import IcWalletStake from "@/assets/icons/Landing/ic_wallet_stake.svg";
@@ -13,6 +14,13 @@ const MainButton = ({ style }: { style?: React.CSSProperties }) => {
     if (connected) {
       navigate("/stake/amount");
     } else {
+      const tagManagerArgs={
+        dataLayer:{
+          event:"connect wallet",
+          click_ids:"connect wallet",
+        },
+      };
+      TagManager.dataLayer(tagManagerArgs);
       tonConnectUI.connectWallet();
     }
   };

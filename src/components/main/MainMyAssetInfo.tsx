@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { mutate } from "swr";
-import TagManager from "react-gtm-module";
 
-// import { VscInfo } from "react-icons/vsc";
-import { Tooltip } from "@mui/material";
 import IcArrowRight from "@/assets/icons/MyAsset/ic_arrow_right.svg";
 import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
 import IcSmallArrowRight from "@/assets/icons/MyAsset/ic_small_arrow_right.svg";
@@ -70,18 +67,6 @@ const MainMyAssetInfo = ({
   const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary();
   const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
   const { data: earningsData, isLoading: earningsLoading, error: earningsError } = useEarningsbyAddress(address);
-
-  const handleConnectWallet=()=>{
-    const tagManagerArgs={
-      dataLayer:{
-        event:"connect wallet",
-        elementId:"connect wallet",
-      },
-    };
-    TagManager.dataLayer(tagManagerArgs);
-
-    tonConnectUI.connectWallet();
-  }
 
   const handleViewChange = (view: AssetsView) => {
     setView(view);
@@ -176,7 +161,7 @@ const MainMyAssetInfo = ({
         ) : (
           <AssetBottomBox>
             {!connected ? (
-              <AssetBottomNotConnected onClick={handleConnectWallet}>
+              <AssetBottomNotConnected onClick={()=>tonConnectUI.connectWallet()}>
                 <img src={IcWallet} alt="icon_wallet" />
                 <p>Please connect your wallet.</p>
                 <img src={IcArrowRight} alt="icon_arrow_right" />
