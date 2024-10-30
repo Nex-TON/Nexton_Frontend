@@ -17,11 +17,11 @@ const MainButton = ({ style }: { style?: React.CSSProperties }) => {
       const tagManagerArgs={
         gtmId:'GTM-N6BZZ8CX',
         dataLayer:{
-          event:"gtm.click",
+          event:"connect_wallet",
           click_id:"connect wallet",
         },
       };
-      TagManager.dataLayer(tagManagerArgs);
+      TagManager.initialize(tagManagerArgs);
       tonConnectUI.connectWallet();
     }
   };
