@@ -16,8 +16,8 @@ const MainButton = ({ style }: { style?: React.CSSProperties }) => {
     } else {
       const tagManagerArgs={
         dataLayer:{
-          event:"connect wallet",
-          click_ids:"connect wallet",
+          event:"gtm.click",
+          click_id:"connect wallet",
         },
       };
       TagManager.dataLayer(tagManagerArgs);
