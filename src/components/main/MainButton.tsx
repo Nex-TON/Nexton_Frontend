@@ -15,10 +15,9 @@ const MainButton = ({ style }: { style?: React.CSSProperties }) => {
       navigate("/stake/amount");
     } else {
       const connectWalletTag={
-        gtmId:'GTM-N6BZZ8CX',
+        gtmId:'GTM-PFM27JKW',
         dataLayer:{
           event:"gtm.click",
-          elementId:"connect wallet"
         },
       };
       TagManager.dataLayer(connectWalletTag);
