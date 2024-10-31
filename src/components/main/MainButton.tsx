@@ -14,13 +14,13 @@ const MainButton = ({ style }: { style?: React.CSSProperties }) => {
     if (connected) {
       navigate("/stake/amount");
     } else {
-      const connectWalletTag={
-        gtmId:'GTM-PFM27JKW',
-        dataLayer:{
-          event:"gtm.click",
-        },
-      };
-      TagManager.dataLayer(connectWalletTag);
+      // const connectWalletTag={
+      //   gtmId:'GTM-PFM27JKW',
+      //   dataLayer:{
+      //     event:"gtm.click",
+      //   },
+      // };
+      // TagManager.dataLayer(connectWalletTag);
       tonConnectUI.connectWallet();
     }
   };
