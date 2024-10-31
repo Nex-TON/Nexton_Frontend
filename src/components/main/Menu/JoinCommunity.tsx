@@ -20,7 +20,7 @@ const JoinCommunity = () => {
         <JoinCommunityButton onClick={() => handleNewTap("https://twitter.com/NextonNode")}>
           <div>
             <img src={IcMenuTwitter} alt="twitter" />
-            Twitter
+            X
           </div>
           <img src={IcNftMoreArrow} alt="moreArrow" width={10} />
         </JoinCommunityButton>
