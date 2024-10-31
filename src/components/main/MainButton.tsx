@@ -14,14 +14,6 @@ const MainButton = ({ style }: { style?: React.CSSProperties }) => {
     if (connected) {
       navigate("/stake/amount");
     } else {
-      const connectWalletTag={
-        gtmId:'GTM-N6BZZ8CX',
-        dataLayer:{
-          event:"gtm.click",
-          elementId:"connect wallet"
-        },
-      };
-      TagManager.dataLayer(connectWalletTag);
       tonConnectUI.connectWallet();
     }
   };
