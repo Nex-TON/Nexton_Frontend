@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import TagManager from "react-gtm-module"; 
 
 import IcWalletConnect from "@/assets/icons/Landing/ic_wallet_connect.svg";
 import IcWalletStake from "@/assets/icons/Landing/ic_wallet_stake.svg";
