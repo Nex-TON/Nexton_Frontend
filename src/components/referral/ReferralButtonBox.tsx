@@ -9,7 +9,7 @@ const ReferralButtonBox = () => {
   return (
     <>
       <ReferralButtonWrapper>
-        <ReferralButtonContainer  onClick={()=>navigate('/referral')}>
+        <ReferralButtonContainer  onClick={()=>navigate('/referral')} id="stake success page referral button">
           <ButtonText>
             You can refer NEXTON to <br /> a friend and earn points!
           </ButtonText>

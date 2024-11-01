@@ -15,7 +15,7 @@ const NftHeader = () => {
 
   return (
     <NftHeaderWrapper>
-      <NFTHeadingItem onClick={() => navigate("/myasset/nftlist")}>
+      <NFTHeadingItem onClick={() => navigate("/myasset/nftlist")} id="myasset page nftlist button">
         <NftBox $active={pathname.includes("nftlist")}>
           {pathname.includes("nftlist") ? (
             <img src={IcCardActive} alt="card_active" />
@@ -26,7 +26,7 @@ const NftHeader = () => {
         <NFTHeadingItemText>NFT</NFTHeadingItemText>
       </NFTHeadingItem>
 
-      <NFTHeadingItem onClick={() => navigate("/myasset/unstaked")}>
+      <NFTHeadingItem onClick={() => navigate("/myasset/unstaked")} id="myasset page unstaked button">
         <UnstakingBox $active={pathname.includes("unstaked")}>
           {pathname.includes("unstaked") ? (
             <img src={IcCardCheckActive} alt="cardCheck_active" />

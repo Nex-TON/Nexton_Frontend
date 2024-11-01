@@ -187,7 +187,7 @@ const Main: React.FC = () => {
         {/* <StakeView /> */}
 
         <MyTokens />
-        <Overlay visible={isFbOpen} onClick={closeFab} />
+        <Overlay visible={isFbOpen} onClick={closeFab} id="main page close floating button"/>
         <Fab
           style={{
             position: "absolute",
@@ -201,6 +201,7 @@ const Main: React.FC = () => {
             justifyContent: "center",
           }}
           onClick={handleFloatingButton}
+          id="main page floating button"
         >
           <img
             src={isFbOpen ? FloatCloseIc : FloatCsIc}
@@ -247,6 +248,7 @@ const Main: React.FC = () => {
                     onClick={() => {
                       window.open("https://t.me/m/-Y3bstHbMzE9");
                     }}
+                    id="mainpage floating button support"
                   >
                     <img src={FloatSupportIc} alt="community link" />
                   </Fab>
@@ -290,6 +292,7 @@ const Main: React.FC = () => {
                     onClick={() => {
                       window.open("https://t.me/+YBNeM9m_yhtlNzM9");
                     }}
+                    id="main page floating button community"
                   >
                     <img src={FloatCommunityIc} alt="community link" />
                   </Fab>

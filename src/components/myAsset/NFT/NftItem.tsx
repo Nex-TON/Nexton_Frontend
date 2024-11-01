@@ -4,7 +4,7 @@ import { css, styled } from "styled-components";
 
 import NFTExpired from "@/assets/image/MainNftExpired.png";
 import NFTForthComing from "@/assets/image/MainNftForthComing.png";
-import NFTOngoing from "@/assets/image/MainNftOngoing.png";;
+import NFTOngoing from "@/assets/image/MainNftOngoing.png";
 import { imageSizeAtom } from "../../../lib/atom/imageSize";
 import { nftInfo } from "../../../types/Nft";
 import { getDDayText, getNftState } from "@/utils/getNftState";
@@ -29,7 +29,7 @@ const NftItem = (props: NftItemProps) => {
   };
 
   const SwitchDDayNftImage = () => {
-    if (getNftState(unstakableDate) ==="ongoing") {
+    if (getNftState(unstakableDate) === "ongoing") {
       return (
         <NFTImage
           src={NFTOngoing}
@@ -41,7 +41,7 @@ const NftItem = (props: NftItemProps) => {
           onClick={handleMouseMove}
         />
       );
-    } else if (getNftState(unstakableDate) ==="forthcoming") {
+    } else if (getNftState(unstakableDate) === "forthcoming") {
       return (
         <NFTImage
           src={NFTForthComing}
@@ -71,13 +71,9 @@ const NftItem = (props: NftItemProps) => {
   return (
     <NFTItemWrapper>
       {SwitchDDayNftImage()}
-      <NFTDDayText>
-      {getDDayText(unstakableDate)}
-      </NFTDDayText>
+      <NFTDDayText>{getDDayText(unstakableDate)}</NFTDDayText>
       <NFTExpiredDateText>Expired Date</NFTExpiredDateText>
-      <NFTExpiredDateText $date>
-      {new Date(unstakableDate).toLocaleDateString()}
-      </NFTExpiredDateText>
+      <NFTExpiredDateText $date>{new Date(unstakableDate).toLocaleDateString()}</NFTExpiredDateText>
     </NFTItemWrapper>
   );
 };

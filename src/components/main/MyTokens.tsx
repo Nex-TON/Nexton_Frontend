@@ -16,7 +16,7 @@ const MyTokens = () => {
         </MyTokensInnerTitleBox>
 
         <MyTokensItemBox>
-          <MyTokensItem onClick={() => navigate("/stake/amount")}>
+          <MyTokensItem onClick={() => navigate("/stake/amount")} id="main page my tokens my lst">
             <MyTokensItemTitle>
               <img src={IcLSTCoin} alt="lst_coin" />
               <h4>My LST</h4>
@@ -24,7 +24,7 @@ const MyTokens = () => {
             <MyTokensItemContent>0.0</MyTokensItemContent>
           </MyTokensItem>
 
-          <MyTokensItem onClick={() => navigate("/stake/amount")}>
+          <MyTokensItem onClick={() => navigate("/stake/amount")} id="main page my tokens my jetton">
             <MyTokensItemTitle>
               <img src={IcJettonCoin} alt="jetton_coin" />
               <h4>My Jetton</h4>

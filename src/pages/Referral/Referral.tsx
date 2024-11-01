@@ -126,6 +126,7 @@ const Referral = () => {
                   src={ICQuestionColor}
                   alt="QuestionIcon"
                   onClick={() => setModal({ type: "nxt", toggled: true })}
+                  id="referral page nxt points"
                 />
               </ReferralBoxTop>
 
@@ -138,6 +139,7 @@ const Referral = () => {
                   src={ICQuestionColor}
                   alt="QuestionIcon"
                   onClick={() => setModal({ type: "refer", toggled: true })}
+                  id="referral page refer points"
                 />
               </ReferralBoxTop>
 
@@ -150,7 +152,7 @@ const Referral = () => {
             <ReferralLink>
               {isMutating ? <Loader /> : <h3>{referralLink}</h3>}
 
-              <CopyIcon $isCopied={isCopied} src={IcCopy} alt="copy" onClick={handleCopyClick} />
+              <CopyIcon $isCopied={isCopied} src={IcCopy} alt="copy" onClick={handleCopyClick} id="referral page link copy"/>
             </ReferralLink>
           </ReferralBox>
 

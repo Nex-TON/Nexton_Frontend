@@ -93,10 +93,10 @@ const MainMyAssetInfo = ({
       <MainInnerBox>
         <MainTopBox $marginBottom={connected || view === "dashboard"}>
           <MainTopLeft>
-            <MainLeftItem $isActive={view === "dashboard"} onClick={() => handleViewChange("dashboard")}>
+            <MainLeftItem $isActive={view === "dashboard"} onClick={() => handleViewChange("dashboard")} id="mainmyaseetdashbordview">
               Dashboard
             </MainLeftItem>
-            <MainLeftItem $isActive={view === "asset"} onClick={() => handleViewChange("asset")}>
+            <MainLeftItem $isActive={view === "asset"} onClick={() => handleViewChange("asset")} id="mainmyassetmyassetview">
               My Asset
             </MainLeftItem>
           </MainTopLeft>
@@ -107,7 +107,7 @@ const MainMyAssetInfo = ({
         </MainTopBox>
 
         {view === "dashboard" ? (
-          <DashboardBottomBox onClick={() => navigate("/dashboard")}>
+          <DashboardBottomBox onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
             <DashboardBottomLeft>
               <DashboardBottomLeftTitleBox>
                 <DashboardBottomLeftTitle>Arbitrage Bot</DashboardBottomLeftTitle>
@@ -161,7 +161,7 @@ const MainMyAssetInfo = ({
         ) : (
           <AssetBottomBox>
             {!connected ? (
-              <AssetBottomNotConnected onClick={()=>tonConnectUI.connectWallet()}>
+              <AssetBottomNotConnected onClick={()=>tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
                 <img src={IcWallet} alt="icon_wallet" />
                 <p>Please connect your wallet.</p>
                 <img src={IcArrowRight} alt="icon_arrow_right" />

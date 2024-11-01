@@ -10,15 +10,15 @@ const TopBar = () => {
 
   return (
     <TopBarWrapper>
-      <TopBarButton onClick={() => navigate("/stake/amount")}>
+      <TopBarButton onClick={() => navigate("/stake/amount")} id="menu page stake button">
         <img src={IcMenuStake} alt="stake" />
         Stake
       </TopBarButton>
-      <TopBarButton onClick={() => navigate("/myasset/nftlist")}>
+      <TopBarButton onClick={() => navigate("/myasset/nftlist")} id="menu page my asset button">
         <img src={IcMenuMyAsset} alt="asset" />
         My Asset
       </TopBarButton>
-      <TopBarButton onClick={() => navigate("/dashboard")}>
+      <TopBarButton onClick={() => navigate("/dashboard")} id="menu page dashboard button">
         <img src={IcMenuDashboard} alt="dashboard" />
         Dashboard
       </TopBarButton>

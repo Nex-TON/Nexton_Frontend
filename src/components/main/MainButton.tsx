@@ -20,11 +20,11 @@ const MainButton = ({ style }: { style?: React.CSSProperties }) => {
   return (
     <TonWalletWrapper onClick={handleSwitchWalletFunction} style={style}>
       {connected ? (
-        <TonConnectCenterBox>
+        <TonConnectCenterBox id="main button stake">
           <img src={IcWalletStake} alt="stake" /> Let's stake TON
         </TonConnectCenterBox>
       ) : (
-        <TonConnectCenterBox>
+        <TonConnectCenterBox id="main button connect wallet">
           <img src={IcWalletConnect} alt="connect" /> Connect wallet
         </TonConnectCenterBox>
       )}

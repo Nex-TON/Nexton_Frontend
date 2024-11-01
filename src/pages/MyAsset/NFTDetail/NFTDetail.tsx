@@ -94,7 +94,7 @@ const NFTDetail = () => {
           Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
         </NFTDetailCardButton>
 
-        <NFTDetailCardButton $disabled={!isNftExpired} onClick={() => isNftExpired && navigate(`/unstaking/${id}`)}>
+        <NFTDetailCardButton $disabled={!isNftExpired} onClick={() => isNftExpired && navigate(`/unstaking/${id}`)} id="nft detail page unstake now button">
           Unstake Now <img src={IcTrendRight} alt="trend_right" />
         </NFTDetailCardButton>
       </NFTDetailCard>

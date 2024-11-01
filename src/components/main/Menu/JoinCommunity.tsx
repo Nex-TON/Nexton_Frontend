@@ -17,21 +17,21 @@ const JoinCommunity = () => {
     <JoinCommunityWrapper>
       <JoinCommunityTitle>Join in our community</JoinCommunityTitle>
       <JoinCommunityButtonList>
-        <JoinCommunityButton onClick={() => handleNewTap("https://twitter.com/NextonNode")}>
+        <JoinCommunityButton onClick={() => handleNewTap("https://twitter.com/NextonNode")} id="menu page x button">
           <div>
             <img src={IcMenuTwitter} alt="twitter" />
             X
           </div>
           <img src={IcNftMoreArrow} alt="moreArrow" width={10} />
         </JoinCommunityButton>
-        <JoinCommunityButton onClick={() => handleNewTap("https://t.me/+VXJb_F6k6sthNzhl")}>
+        <JoinCommunityButton onClick={() => handleNewTap("https://t.me/+VXJb_F6k6sthNzhl")} id="menu page global channel button">
           <div>
             <img src={IcMenuTelegram} alt="telegram" />
             Global Channel
           </div>
           <img src={IcNftMoreArrow} alt="moreArrow" width={10} />
         </JoinCommunityButton>
-        <JoinCommunityButton onClick={() => handleNewTap("https://github.com/Nex-TON")}>
+        <JoinCommunityButton onClick={() => handleNewTap("https://github.com/Nex-TON")} id="menu page github button">
           <div>
             <img src={IcMenuGithub} alt="github" />
             Github

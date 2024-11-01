@@ -19,6 +19,7 @@ const NFTFilter = (props: NFTFilterProps) => {
           $check={checkPeriod[0]}
           $period={period}
           $activeOpacity={activeOpacity}
+          id="mynft list filter Ongoing"
         >
           Ongoing
           <NFTStatus type="Ongoing" />
@@ -27,6 +28,7 @@ const NFTFilter = (props: NFTFilterProps) => {
           onClick={() => handleCheckPeriod("Forthcoming")}
           $check={checkPeriod[1]}
           $activeOpacity={activeOpacity}
+          id="mynft list filter Forthcoming"
         >
           Forthcoming
           <NFTStatus type="Forthcoming" />
@@ -35,6 +37,7 @@ const NFTFilter = (props: NFTFilterProps) => {
           onClick={() => handleCheckPeriod("Expired")}
           $check={checkPeriod[2]}
           $activeOpacity={activeOpacity}
+          id="mynft list filter Expired"
         >
           Expired
           <NFTStatus type="Expired" />

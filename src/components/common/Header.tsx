@@ -38,21 +38,21 @@ const Header = (props: HeaderProps) => {
     <>
       {isOpenModal && <DisconnectModal handleModalState={handleModalState} />}
       <HeaderWrapper $isOpen={isOpen} $backgroundType={backgroundType}>
-        <HeaderTitle onClick={() => navigate("/")}>{text}</HeaderTitle>
+        <HeaderTitle onClick={() => navigate("/")} id="header title">{text}</HeaderTitle>
         <HeaderRightBox>
-          <ReferralButton onClick={() => navigate("/referral")}>
+          <ReferralButton onClick={() => navigate("/referral")} id="header referrral navigate button">
             <img src={IcReferral} alt="referral" />
           </ReferralButton>
           {pathname === "/" && (
             <DisconnectButton $connect={connected}>
               {connected ? (
-                <img src={IcWalletDisconnect} alt="walletConnectDisconnect" onClick={handleModalState} />
+                <img src={IcWalletDisconnect} alt="walletConnectDisconnect" onClick={handleModalState} id="header disconnect wallet"/>
               ) : (
-                <img src={IcWalletConnect} alt="walletConnect" onClick={() => tonConnectUI.connectWallet()} />
+                <img src={IcWalletConnect} alt="walletConnect" onClick={() => tonConnectUI.connectWallet()} id="header connect wallet" />
               )}
             </DisconnectButton>
           )}
-          <MenuButton onClick={handleRouter} $isOpen={isOpen}>
+          <MenuButton onClick={handleRouter} $isOpen={isOpen} id="header menu button">
             <span></span>
             <span></span>
             <span></span>
