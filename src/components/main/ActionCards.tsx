@@ -36,9 +36,9 @@ const ActionCards = () => {
           <ArrowIcon disabled />
         </CardBody>
       </Card>
-      <Card $dark onClick={() => navigate("/myasset/nftlist")} id="main page my NFTS">
+      <Card $dark onClick={() => navigate("/myasset/nftlist")} >
         <CardHeader>Check the NFT you received from staking</CardHeader>
-        <CardBody $dark>
+        <CardBody $dark id="main page my NFTS">
           My NFTs
           <ArrowIcon dark />
         </CardBody>
