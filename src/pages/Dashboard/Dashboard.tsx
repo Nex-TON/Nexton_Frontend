@@ -16,6 +16,7 @@ import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanc
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { globalError } from "@/lib/atom/globalError";
 import { limitDecimals } from "@/utils/limitDecimals";
+import IcnxTONLogo from '@/assets/icons/Dashboard/ic_nxTON_logo.svg';
 
 import {
   ChartHeader,
@@ -176,7 +177,12 @@ const Dashboard = () => {
                   open={open}
                   disableTouchListener
                   disableHoverListener // 추가
-                  title="$TON + $nxTON"
+                  title={<div style={{display:"flex",flexDirection:"row",gap:"2px",alignItems:"center",justifyContent:"center"}}>
+                  <img src={IcTonLogo} style={{width:"20px",height:"20px"}}/>
+                    <div style={{fontSize:"13px",fontFamily:"Montserrat",fontWeight:"500px",lineHeight:"18px"}}>TON+</div>
+                  <img src={IcnxTONLogo}/>
+                    <div style={{fontSize:"13px",fontFamily:"Montserrat",fontWeight:"500px",lineHeight:"18px"}}>nxTON</div>
+                  </div>}
                   placement="top-start"
                   slotProps={{
                     popper: {
@@ -190,12 +196,12 @@ const Dashboard = () => {
                   componentsProps={{
                     tooltip: {
                       sx: {
-                        padding: "7px 15px",
+                        padding: "7px 8px",
                         bgcolor: "#000",
                         color: "#FFF",
                         alignContent: "center",
                         textAlign: "center",
-                        width: "135px",
+                        width: "152px",
                         height: "39px",
                         fontSize: "13px",
                         fontStyle: "normal",
