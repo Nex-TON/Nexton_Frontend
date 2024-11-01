@@ -18,17 +18,21 @@ const MainButton = ({ style }: { style?: React.CSSProperties }) => {
   };
 
   return (
-    <TonWalletWrapper onClick={handleSwitchWalletFunction} style={style}>
+    <>
       {connected ? (
-        <TonConnectCenterBox id="main button stake">
-          <img src={IcWalletStake} alt="stake" id="main button stake" /> Let's stake TON
-        </TonConnectCenterBox>
+        <TonWalletWrapper onClick={handleSwitchWalletFunction} style={style}id="main button stake">
+          <TonConnectCenterBox id="main button stake">
+            <img src={IcWalletStake} alt="stake" id="main button stake" /> Let's stake TON
+          </TonConnectCenterBox>
+        </TonWalletWrapper>
       ) : (
-        <TonConnectCenterBox id="main button connect wallet">
-          <img src={IcWalletConnect} alt="connect" id="main button connect wallet" /> Connect wallet
-        </TonConnectCenterBox>
+        <TonWalletWrapper onClick={handleSwitchWalletFunction} style={style} id="main button connect wallet">
+          <TonConnectCenterBox id="main button connect wallet">
+            <img src={IcWalletConnect} alt="connect" id="main button connect wallet" /> Connect wallet
+          </TonConnectCenterBox>
+        </TonWalletWrapper>
       )}
-    </TonWalletWrapper>
+    </>
   );
 };
 
