@@ -40,8 +40,8 @@ const Header = (props: HeaderProps) => {
       <HeaderWrapper $isOpen={isOpen} $backgroundType={backgroundType}>
         <HeaderTitle onClick={() => navigate("/")} id="header title">{text}</HeaderTitle>
         <HeaderRightBox>
-          <ReferralButton onClick={() => navigate("/referral")}>
-            <img src={IcReferral} alt="referral"  id="header referral navigate button"/>
+          <ReferralButton onClick={() => navigate("/referral")} id="header referral navigate button">
+            <img src={IcReferral} alt="referral" />
           </ReferralButton>
           {pathname === "/" && (
             <DisconnectButton $connect={connected}>
