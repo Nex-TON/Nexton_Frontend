@@ -39,6 +39,7 @@ const NftItem = (props: NftItemProps) => {
             height: "100%",
           }}
           onClick={handleMouseMove}
+          id="nftitem"
         />
       );
     } else if (getNftState(unstakableDate) === "forthcoming") {
@@ -51,6 +52,7 @@ const NftItem = (props: NftItemProps) => {
             height: "100%",
           }}
           onClick={handleMouseMove}
+          id="nftitem"
         />
       );
     } else {
@@ -63,6 +65,7 @@ const NftItem = (props: NftItemProps) => {
             height: "100%",
           }}
           onClick={handleMouseMove}
+          id="nftitem"
         />
       );
     }
