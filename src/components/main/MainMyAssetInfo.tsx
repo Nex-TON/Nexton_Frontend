@@ -108,35 +108,35 @@ const MainMyAssetInfo = ({
 
         {view === "dashboard" ? (
           <DashboardBottomBox onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
-            <DashboardBottomLeft>
-              <DashboardBottomLeftTitleBox>
-                <DashboardBottomLeftTitle>Arbitrage Bot</DashboardBottomLeftTitle>
+            <DashboardBottomLeft id="mainmyassetinfodashboard">
+              <DashboardBottomLeftTitleBox id="mainmyassetinfodashboard">
+                <DashboardBottomLeftTitle id="mainmyassetinfodashboard">Arbitrage Bot</DashboardBottomLeftTitle>
 
-                <APYBox>
-                  <span>APY</span>
-                  <h4>{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</h4>
+                <APYBox id="mainmyassetinfodashboard">
+                  <span id="mainmyassetinfodashboard">APY</span>
+                  <h4 id="mainmyassetinfodashboard">{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</h4>
                 </APYBox>
               </DashboardBottomLeftTitleBox>
 
-              <DashboardBottomLeftData>
+              <DashboardBottomLeftData id="mainmyassetinfodashboard">
                 {performanceLoading || chartLoading ? (
                   <Loader />
                 ) : (
                   <>
-                    <DashboardBottomLeftDataItem>
-                      <span>bot PNL</span>
-                      <h4>{performanceData?.pnlRate ? `${limitDecimals(performanceData?.pnlRate, 2)}%` : "-"}</h4>
+                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
+                      <span id="mainmyassetinfodashboard">bot PNL</span>
+                      <h4 id="mainmyassetinfodashboard">{performanceData?.pnlRate ? `${limitDecimals(performanceData?.pnlRate, 2)}%` : "-"}</h4>
                     </DashboardBottomLeftDataItem>
-                    <DashboardBottomLeftDataItem>
-                      <span>Daily PNL</span>
-                      <h4>
+                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
+                      <span id="mainmyassetinfodashboard">Daily PNL</span>
+                      <h4 id="mainmyassetinfodashboard">
                         {chartData?.dailyPnlRate
                           ? `${chartData?.dailyPnlRate > 0 ? "+" : ""}${limitDecimals(chartData?.dailyPnlRate, 2)}%`
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
-                    <DashboardBottomLeftDataItem>
-                        <span style={{gap:"6px", alignItems:"center",display:"flex",justifyContent:""}}>
+                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
+                        <span style={{gap:"6px", alignItems:"center",display:"flex",justifyContent:""}} id="mainmyassetinfodashboard">
                           TVL 
                           {/* 보류 */}
                           {/* <Tooltip 
@@ -147,10 +147,10 @@ const MainMyAssetInfo = ({
                           <VscInfo style={{width:"16px",height:"16px",color:"##C6C5D0"}} />
                           </Tooltip> */}
                         </span>
-                      <h4>{performanceData?.tvl ? `${limitDecimals(performanceData?.tvl, 3)} TON` : "-"}</h4>
+                      <h4 id="mainmyassetinfodashboard">{performanceData?.tvl ? `${limitDecimals(performanceData?.tvl, 3)} TON` : "-"}</h4>
                     </DashboardBottomLeftDataItem>
 
-                    <DashboardBottomLeftDataItem onClick={() => navigate("/dashboard")}>
+                    <DashboardBottomLeftDataItem onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
                       <img src={IcSmallArrowRight} alt="small_arrow_right" />
                     </DashboardBottomLeftDataItem>
                   </>
@@ -162,9 +162,9 @@ const MainMyAssetInfo = ({
           <AssetBottomBox>
             {!connected ? (
               <AssetBottomNotConnected onClick={()=>tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
-                <img src={IcWallet} alt="icon_wallet" />
-                <p>Please connect your wallet.</p>
-                <img src={IcArrowRight} alt="icon_arrow_right" />
+                <img src={IcWallet} alt="icon_wallet" id="mainmyassetinfoconnectwallet" />
+                <p id="mainmyassetinfoconnectwallet">Please connect your wallet.</p>
+                <img src={IcArrowRight} alt="icon_arrow_right"  id="mainmyassetinfoconnectwallet"/>
               </AssetBottomNotConnected>
             ) : (
               <>

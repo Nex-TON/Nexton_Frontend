@@ -16,25 +16,25 @@ const NftHeader = () => {
   return (
     <NftHeaderWrapper>
       <NFTHeadingItem onClick={() => navigate("/myasset/nftlist")} id="myasset page nftlist button">
-        <NftBox $active={pathname.includes("nftlist")}>
+        <NftBox $active={pathname.includes("nftlist")} id="myasset page nftlist button">
           {pathname.includes("nftlist") ? (
-            <img src={IcCardActive} alt="card_active" />
+            <img src={IcCardActive} alt="card_active"  id="myasset page nftlist button"/>
           ) : (
-            <img src={IcCardDisable} alt="card_disable" />
+            <img src={IcCardDisable} alt="card_disable" id="myasset page nftlist button"/>
           )}
         </NftBox>
-        <NFTHeadingItemText>NFT</NFTHeadingItemText>
+        <NFTHeadingItemText id="myasset page nftlist button">NFT</NFTHeadingItemText>
       </NFTHeadingItem>
 
       <NFTHeadingItem onClick={() => navigate("/myasset/unstaked")} id="myasset page unstaked button">
-        <UnstakingBox $active={pathname.includes("unstaked")}>
+        <UnstakingBox $active={pathname.includes("unstaked")} id="myasset page unstaked button">
           {pathname.includes("unstaked") ? (
-            <img src={IcCardCheckActive} alt="cardCheck_active" />
+            <img src={IcCardCheckActive} alt="cardCheck_active" id="myasset page unstaked button"/>
           ) : (
-            <img src={IcCardDisable} alt="card_disable" />
+            <img src={IcCardDisable} alt="card_disable" id="myasset page unstaked button"/>
           )}
         </UnstakingBox>
-        <NFTHeadingItemText>Unstaked</NFTHeadingItemText>
+        <NFTHeadingItemText id="myasset page unstaked button">Unstaked</NFTHeadingItemText>
       </NFTHeadingItem>
 
       <NFTHeadingItem>

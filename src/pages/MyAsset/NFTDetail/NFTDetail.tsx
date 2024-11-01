@@ -95,7 +95,7 @@ const NFTDetail = () => {
         </NFTDetailCardButton>
 
         <NFTDetailCardButton $disabled={!isNftExpired} onClick={() => isNftExpired && navigate(`/unstaking/${id}`)} id="nft detail page unstake now button">
-          Unstake Now <img src={IcTrendRight} alt="trend_right" />
+          Unstake Now <img src={IcTrendRight} alt="trend_right" id="nft detail page unstake now button" />
         </NFTDetailCardButton>
       </NFTDetailCard>
 

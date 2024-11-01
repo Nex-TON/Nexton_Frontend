@@ -17,19 +17,19 @@ const MyTokens = () => {
 
         <MyTokensItemBox>
           <MyTokensItem onClick={() => navigate("/stake/amount")} id="main page my tokens my lst">
-            <MyTokensItemTitle>
-              <img src={IcLSTCoin} alt="lst_coin" />
-              <h4>My LST</h4>
+            <MyTokensItemTitle id="main page my tokens my lst">
+              <img src={IcLSTCoin} alt="lst_coin"  id="main page my tokens my lst"/>
+              <h4 id="main page my tokens my lst">My LST</h4>
             </MyTokensItemTitle>
-            <MyTokensItemContent>0.0</MyTokensItemContent>
+            <MyTokensItemContent id="main page my tokens my lst">0.0</MyTokensItemContent>
           </MyTokensItem>
 
           <MyTokensItem onClick={() => navigate("/stake/amount")} id="main page my tokens my jetton">
-            <MyTokensItemTitle>
-              <img src={IcJettonCoin} alt="jetton_coin" />
-              <h4>My Jetton</h4>
+            <MyTokensItemTitle id="main page my tokens my jetton">
+              <img src={IcJettonCoin} alt="jetton_coin" id="main page my tokens my jetton" />
+              <h4 id="main page my tokens my jetton">My Jetton</h4>
             </MyTokensItemTitle>
-            <MyTokensItemContent>0.0</MyTokensItemContent>
+            <MyTokensItemContent id="main page my tokens my jetton">0.0</MyTokensItemContent>
           </MyTokensItem>
         </MyTokensItemBox>
 

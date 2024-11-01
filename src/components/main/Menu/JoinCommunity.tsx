@@ -18,25 +18,25 @@ const JoinCommunity = () => {
       <JoinCommunityTitle>Join in our community</JoinCommunityTitle>
       <JoinCommunityButtonList>
         <JoinCommunityButton onClick={() => handleNewTap("https://twitter.com/NextonNode")} id="menu page x button">
-          <div>
-            <img src={IcMenuTwitter} alt="twitter" />
+          <div id="menu page x button">
+            <img src={IcMenuTwitter} alt="twitter" id="menu page x button" />
             X
           </div>
-          <img src={IcNftMoreArrow} alt="moreArrow" width={10} />
+          <img src={IcNftMoreArrow} alt="moreArrow" width={10} id="menu page x button" />
         </JoinCommunityButton>
         <JoinCommunityButton onClick={() => handleNewTap("https://t.me/+VXJb_F6k6sthNzhl")} id="menu page global channel button">
-          <div>
-            <img src={IcMenuTelegram} alt="telegram" />
+          <div id="menu page global channel button">
+            <img src={IcMenuTelegram} alt="telegram"  id="menu page global channel button"/>
             Global Channel
           </div>
-          <img src={IcNftMoreArrow} alt="moreArrow" width={10} />
+          <img src={IcNftMoreArrow} alt="moreArrow" width={10}  id="menu page global channel button"/>
         </JoinCommunityButton>
         <JoinCommunityButton onClick={() => handleNewTap("https://github.com/Nex-TON")} id="menu page github button">
-          <div>
-            <img src={IcMenuGithub} alt="github" />
+          <div  id="menu page github button">
+            <img src={IcMenuGithub} alt="github"  id="menu page github button"/>
             Github
           </div>
-          <img src={IcNftMoreArrow} alt="moreArrow" width={10} />
+          <img src={IcNftMoreArrow} alt="moreArrow" width={10}  id="menu page github button"/>
         </JoinCommunityButton>
         <JoinCommunityButton $inactive>
           <div>

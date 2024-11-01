@@ -72,11 +72,11 @@ const NftItem = (props: NftItemProps) => {
   };
 
   return (
-    <NFTItemWrapper>
+    <NFTItemWrapper id="nftitem">
       {SwitchDDayNftImage()}
-      <NFTDDayText>{getDDayText(unstakableDate)}</NFTDDayText>
-      <NFTExpiredDateText>Expired Date</NFTExpiredDateText>
-      <NFTExpiredDateText $date>{new Date(unstakableDate).toLocaleDateString()}</NFTExpiredDateText>
+      <NFTDDayText id="nftitem">{getDDayText(unstakableDate)}</NFTDDayText>
+      <NFTExpiredDateText id="nftitem">Expired Date</NFTExpiredDateText>
+      <NFTExpiredDateText $date id="nftitem">{new Date(unstakableDate).toLocaleDateString()}</NFTExpiredDateText>
     </NFTItemWrapper>
   );
 };

@@ -207,6 +207,7 @@ const Main: React.FC = () => {
             src={isFbOpen ? FloatCloseIc : FloatCsIc}
             alt="Floating button"
             style={{ width: "24px", height: "24px", alignContent: "center", justifyContent: "center" }}
+            id="main page floating button"
           />
           {isFbOpen && (
             <>
@@ -250,7 +251,7 @@ const Main: React.FC = () => {
                     }}
                     id="mainpage floating button support"
                   >
-                    <img src={FloatSupportIc} alt="community link" />
+                    <img src={FloatSupportIc} alt="community link" id="mainpage floating button support"/>
                   </Fab>
                 </Tooltip>
               </Zoom>
@@ -294,7 +295,7 @@ const Main: React.FC = () => {
                     }}
                     id="main page floating button community"
                   >
-                    <img src={FloatCommunityIc} alt="community link" />
+                    <img src={FloatCommunityIc} alt="community link" id="main page floating button community" />
                   </Fab>
                 </Tooltip>
               </Zoom>
