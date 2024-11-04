@@ -89,7 +89,7 @@ const TokenInput = ({
 export default TokenInput;
 
 const Input = styled(NumericFormat)`
-  width: 80%;
+  width: 100%;
 
   border: none;
 

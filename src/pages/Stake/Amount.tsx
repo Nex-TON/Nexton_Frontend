@@ -120,7 +120,7 @@ const Amount = () => {
           error={errors.amount?.message as string}
           disabled={!connected}
           tokenLabel={<TokenFilter/>}
-          placeholder="Stake (min.1)"
+          placeholder="min 1TON"
           balance={balance}
           convertAmount={convertAmount}
         />
