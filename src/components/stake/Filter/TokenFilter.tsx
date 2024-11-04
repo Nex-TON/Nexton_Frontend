@@ -38,6 +38,7 @@ const TokenFilter = () => {
     <div>
       <FormControl>
         <Select
+        //   variant="solid"
           value={token}
           onChange={handleChange}
           displayEmpty
