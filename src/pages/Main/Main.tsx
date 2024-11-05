@@ -43,6 +43,8 @@ const Main: React.FC = () => {
 
   const [modal, setModal] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [hasSentAddress, setHasSentAddress] = useState(false); // 주소 중복 전송 방지
+
 
   const userId = tele?.initDataUnsafe?.user?.id;
 
@@ -88,10 +90,12 @@ const Main: React.FC = () => {
   //사용자 지갑 주소 전송
   useEffect(() => {
     const sendAddress = async () => {
-      if (connected && address && userId) { // 조건 추가
+      if (connected && address && userId&&!hasSentAddress) {
         try {
           const response = await postUserAddress({ telegramId: userId, address });
-          if (response !== 200) {
+          if (response == 200) {
+            setHasSentAddress(true);
+          }else{
             console.log("사용자 주소 전송 실패");
           }
         } catch (error) {
@@ -101,7 +105,7 @@ const Main: React.FC = () => {
     };
   
     sendAddress();
-  }, [connected, address, userId]);
+  }, [connected, address, userId,hasSentAddress]);
 
   // Track referral on app launch
   useEffect(() => {
