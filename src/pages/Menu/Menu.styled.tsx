@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import MainMyAssetInfoCard from "@/assets/image/MainMyAssetInfoCard.svg";
 
 export const MainWrapper = styled.div`
   width: 100%;
@@ -19,6 +20,32 @@ export const MainInnerBox = styled.div`
 
   border-radius: 3.2rem;
   background: linear-gradient(270deg, #002639 0%, #001b29 28.13%, #000 100%);
+  overflow: hidden; /* 자식 요소가 부모 요소를 넘지 않도록 설정 */
+  &::before {
+    content: "";
+    position: absolute;
+    top: -82px;
+    left: -50px;
+    right: -50px;
+    bottom: 103px;
+    width: 179px;
+    height: 179px;
+    background: rgba(31, 83, 255, 0.4);
+    filter: blur(60px);
+    pointer-events: none; /* 클릭 이벤트를 방지 */
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+    width: 179px;
+    height: 179px;
+    background: rgba(152, 255, 126, 0.2);
+    filter: blur(60px);
+    pointer-events: none; /* 클릭 이벤트를 방지 */
+  }
 `;
 
 export const BackgroundChart = styled.div<{ $isVisible: boolean; $src: string }>`
@@ -78,7 +105,7 @@ export const AssetBottomBox = styled.div`
 `;
 
 export const AssetBottomNotConnected = styled.div`
-margin-top: 27px;
+  margin-top: 27px;
   display: flex;
   justify-content: center;
 
@@ -290,6 +317,7 @@ export const DashboardBottomLeftDataItem = styled(AssetBottomRightItem)`
     font-size: 1.6rem;
     color: #fff;
   }
+  margin-top: 15px;
 `;
 
 export const DashboardBottomRight = styled(AssetBottomRight)`
