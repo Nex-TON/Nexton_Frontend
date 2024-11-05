@@ -183,7 +183,7 @@ const Dashboard = () => {
                   <img src={IcnxTONLogo}/>
                     <div style={{fontSize:"13px",fontFamily:"Montserrat",fontWeight:"500px",lineHeight:"18px"}}>nxTON</div>
                   </div>}
-                  placement="top-start"
+                  placement="top"
                   slotProps={{
                     popper: {
                       sx: {
