@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { mutate } from "swr";
 
-import IcArrowRight from "@/assets/icons/MyAsset/ic_arrow_right.svg";
+import IcArrowRight from "@/assets/icons/MyAsset/chevron-right.svg";
 import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
 import IcSmallArrowRight from "@/assets/icons/MyAsset/ic_small_arrow_right.svg";
-import IcWallet from "@/assets/icons/MyAsset/ic_wallet.svg";
+import MyAssetNotConnected from "@/assets/image/MyAssetNotConnected.svg";
 import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceChart";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import { useEarningsbyAddress } from "@/hooks/api/dashboard/useEarningsbyAddress";
@@ -19,6 +19,8 @@ import {
   AssetBottomLeftItemTitle,
   AssetBottomLeftItemValue,
   AssetBottomNotConnected,
+  AssetBottomNotConnectedImg,
+  AssetBottomNotConnectedText,
   DashboardBottomBox,
   DashboardBottomLeft,
   DashboardBottomLeftData,
@@ -162,9 +164,13 @@ const MainMyAssetInfo = ({
           <AssetBottomBox>
             {!connected ? (
               <AssetBottomNotConnected onClick={()=>tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
-                <img src={IcWallet} alt="icon_wallet" id="mainmyassetinfoconnectwallet" />
+                <AssetBottomNotConnectedImg>
+                  <img src={MyAssetNotConnected} alt="my asset not connected image"/>
+                  <AssetBottomNotConnectedText>
                 <p id="mainmyassetinfoconnectwallet">Please connect your wallet.</p>
                 <img src={IcArrowRight} alt="icon_arrow_right"  id="mainmyassetinfoconnectwallet"/>
+                </AssetBottomNotConnectedText>
+                </AssetBottomNotConnectedImg>
               </AssetBottomNotConnected>
             ) : (
               <>

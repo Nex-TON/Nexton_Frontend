@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 
-
 export const MainWrapper = styled.div`
   width: 100%;
   padding: 0 0.6rem 1rem 0.6rem;
@@ -10,7 +9,7 @@ export const MainWrapper = styled.div`
 
 export const MainInnerBox = styled.div`
   position: relative;
-  height: 260px;
+  height: 222px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -74,25 +73,44 @@ export const MainTopRight = styled.div`
 
 export const AssetBottomBox = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   flex: 1;
-
-  margin-bottom: 2rem;
 `;
 
 export const AssetBottomNotConnected = styled.div`
+margin-top: 27px;
   display: flex;
-  align-items: center;
-  justify-content: start;
+  justify-content: center;
 
   cursor: pointer;
+`;
 
+export const AssetBottomNotConnectedImg = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  gap: 12px;
+
+  img {
+    width: 125.065px;
+    height: 74.472px;
+    flex-shrink: 0;
+  }
+`;
+export const AssetBottomNotConnectedText = styled.div`
+  display: flex;
   p {
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Large};
-    color: #fff;
-    margin-left: 0.7rem;
-    margin-right: 1.1rem;
+    color: var(--Neutral-Neutural-80, #c6caca);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px; /* 157.143% */
+  }
+  img {
+    width: 24px;
+    height: 24px;
   }
 `;
 
@@ -103,7 +121,7 @@ export const AssetBottomLeft = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  gap: 2.5rem;
+  gap: 9px;
 `;
 
 export const AssetBottomLeftItem = styled.div`
@@ -159,16 +177,23 @@ export const AssetBottomLeftItemValue = styled.div`
   gap: 1rem;
 
   h4 {
-    ${({ theme }) => theme.fonts.Nexton_Title_Large_2};
-    font-size: 2.8rem;
+    color: #fff;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; /* 24px */
+    letter-spacing: -0.46px;
   }
 
   span {
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
-    align-self: flex-end;
-    text-transform: capitalize;
-    font-size: 2.4rem;
-    font-weight: 500;
+    color: var(--Neutral-variant-Neutral-variant-80, #c6c5d0);
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+    letter-spacing: -0.46px;
   }
 `;
 
@@ -204,7 +229,7 @@ export const DashboardBottomLeft = styled(AssetBottomLeft)`
 
 export const DashboardBottomLeftTitleBox = styled.div`
   display: flex;
-  align-items: end;
+  align-items: center;
   gap: 1.8rem;
 `;
 
@@ -218,27 +243,33 @@ export const APYBox = styled.div`
   max-width: 130px;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: start;
+  gap: 6px;
 
-  border-radius: 30px 30px 30px 0px;
-  border: 1px solid #7796ff;
-  background: linear-gradient(262deg, #102e34 10.02%, #142b34 21.92%, #2b1338 101.69%);
+  border-radius: 0px 20px 20px 20px;
+  background: linear-gradient(263deg, #6561ff 1.72%, #2d27ff 95.22%);
 
-  padding: 0.75rem 2.8rem 0.75rem 3.3rem;
+  padding: 9px 25px 9px 14px;
 
   span {
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
-    color: #c6c5d0;
+    color: var(--Neutral-Neutural-100, #fff);
+    font-family: Montserrat;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 16.5px */
     text-transform: capitalize;
   }
 
   h4 {
-    ${({ theme }) => theme.fonts.Nexton_Title_Large_Small};
-    font-size: 2rem;
-    background: linear-gradient(95deg, #3491ff 6.73%, #e0e7ff 41.98%, #3491ff 85.62%);
-    color: transparent;
-    background-clip: text;
+    color: #fff;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%; /* 24px */
+    letter-spacing: -0.46px;
   }
 `;
 
