@@ -1,17 +1,14 @@
-import { css, styled } from "styled-components";
+import { styled } from "styled-components";
+import { StyledEngineProvider } from "@mui/material";
 
 import IcTon from "@/assets/icons/Stake/Staking_TON.png";
 import IcNxTon from "@/assets/icons/Stake/Staking_nxTON.png";
 import IcArrowDown from "@/assets/icons/Stake/chevron-down.svg";
 import IcArrowUp from "@/assets/icons/Stake/chevron-up.svg";
 import * as React from "react";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Option, { optionClasses } from "@mui/joy/Option";
-import ListItemDecorator, { listItemDecoratorClasses } from "@mui/joy/ListItemDecorator";
 
 const TokenFilter = () => {
   const [token, setToken] = React.useState("TON");
@@ -35,24 +32,13 @@ const TokenFilter = () => {
   const selectWidth = token === "nxTON" ? "114px" : "98px";
 
   return (
-    <div>
+    <StyledEngineProvider injectFirst>
       <FormControl>
-        <Select
-        //   variant="solid"
+        <MySelect
+          selectWidth={selectWidth}
           value={token}
           onChange={handleChange}
           displayEmpty
-          // inputProps={{ "aria-label": "Whitout label" }}
-          sx={{
-            backgroundColor: "#1A1B23",
-            borderRadius: "20px",
-            height: "35px",
-            width: selectWidth,
-            display: "flex",
-            textAlign: "start",
-            outline: "none",
-            border: "none",
-          }}
           onMouseDown={handleToggle}
           IconComponent={() => <CustomIcon isOpen={isOpen} />}
           MenuProps={{
@@ -62,19 +48,6 @@ const TokenFilter = () => {
                 borderRadius: "10px",
                 marginTop: "8px",
                 width: "119px",
-              },
-            },
-          }}
-          slotProps={{
-            root: {
-              sx: {
-                "&:focus": {
-                  outline: "none", // 포커스 시 아웃라인 제거
-                  backgroundColor: "#1A1B23", // 포커스 시 배경색 유지
-                },
-                "&:hover": {
-                  backgroundColor: "#1A1B23", // 호버 시 배경색 유지
-                },
               },
             },
           }}
@@ -91,12 +64,29 @@ const TokenFilter = () => {
               <DefaultValueText>nxTON</DefaultValueText>
             </DefaultFilterWrapper>
           </MenuItem>
-        </Select>
+        </MySelect>
       </FormControl>
-    </div>
+    </StyledEngineProvider>
   );
 };
 export default TokenFilter;
+
+const MySelect = styled(Select)<{ selectWidth: string }>`
+  background-color: #1a1b23;
+  border-radius: 20px;
+  height: 35px;
+  width: ${props => props.selectWidth};
+  display: flex;
+  text-align: start;
+  
+  & .MuiSelect-select {
+    border: none;
+  }
+
+  &.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: transparent;
+  }
+`;
 
 const DefaultValueText = styled.div`
   display: flex;
