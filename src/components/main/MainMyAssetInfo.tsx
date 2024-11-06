@@ -209,7 +209,7 @@ const MainMyAssetInfo = ({
                         <>
                           <h4>
                             {isError || earningsError ? (
-                              "-.-- "
+                              "0.000 "
                             ) : isLoading || earningsLoading ? (
                               <Loader />
                             ) : (
