@@ -130,8 +130,8 @@ const MainMyAssetInfo = ({
                     <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
                       <span id="mainmyassetinfodashboard">Daily PNL</span>
                       <h4 id="mainmyassetinfodashboard">
-                        {chartData?.dailyPnlRate
-                          ? `${chartData?.dailyPnlRate > 0 ? "+" : ""}${limitDecimals(chartData?.dailyPnlRate, 2)}%`
+                        {chartData?
+                          `${chartData?.dailyPnlRate > 0 ? "+" : ""}${limitDecimals(chartData?.dailyPnlRate, 2)}%`
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
