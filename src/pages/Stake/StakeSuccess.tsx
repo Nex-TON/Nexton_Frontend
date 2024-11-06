@@ -18,6 +18,21 @@ const StakeSuccess = () => {
   const location = useLocation();
   const { isStakeSuccess, lockPeriod, stakingInfo } = location.state || {};
 
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.enableClosingConfirmation();
+      tele.onEvent("backButtonClicked", () => {
+        navigate("/");
+      });
+    }
+
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
+  }, []);
+
   // Show toast message when the user has successfully staked
   useEffect(() => {
     toast(`Transaction approved! Your balance will be updated within the next 30 seconds.`, {
