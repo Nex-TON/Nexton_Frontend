@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 
 import IcNftMoreArrow from "@/assets/icons/Landing/ic_nftMore_arrow.svg";
 import IcNftMoreArrowDisabled from "@/assets/icons/Landing/ic_nftMore_arrow_disabled.svg";
-import IcMenuDiscord from "@/assets/icons/Menu/ic_menu_discord.svg";
 import IcMenuDiscordDisabled from "@/assets/icons/Menu/ic_menu_discord_disabled.svg";
 import IcMenuGithub from "@/assets/icons/Menu/ic_menu_github.svg";
 import IcMenuTwitter from "@/assets/icons/Menu/ic_menu_twitter.svg";
