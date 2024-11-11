@@ -23,7 +23,7 @@ const UnstakedList = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/");
+        navigate("/main");
       });
 
       const tgId = tele?.initDataUnsafe?.user?.id;

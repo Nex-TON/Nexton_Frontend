@@ -24,7 +24,7 @@ const StakeSuccess = () => {
       tele.BackButton.show();
       tele.enableClosingConfirmation();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/");
+        navigate("/main");
       });
     }
 
@@ -67,10 +67,10 @@ const StakeSuccess = () => {
           </div>
 
           {!isDevMode ? (
-            <MainButton text="Back to main" onClick={() => navigate("/")} />
+            <MainButton text="Back to main" onClick={() => navigate("/main")} />
           ) : (
             /* Used for testing */
-            <FooterButton title="Back to main" onClick={() => navigate("/")} />
+            <FooterButton title="Back to main" onClick={() => navigate("/main")} />
           )}
           <ToastContainer
             position="top-center"

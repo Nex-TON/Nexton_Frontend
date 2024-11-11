@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes,Navigate } from "react-router-dom";
 
 import Dashboard from "@/pages/Dashboard/Dashboard";
 // import BorrowDetails from "@/pages/Loan/Borrow/BorrowDetails";
@@ -6,7 +6,7 @@ import Dashboard from "@/pages/Dashboard/Dashboard";
 // import BorrowVerify from "@/pages/Loan/Borrow/BorrowVerify";
 // import LoanHistory from "@/pages/Loan/History/LoanHistory";
 // import LoanHistoryDetails from "@/pages/Loan/History/LoanHistoryDetails";
-import Loan from "@/pages/Loan/Loan";
+// import Loan from "@/pages/Loan/Loan";
 // import RepaymentDetails from "@/pages/Loan/Repay/RepaymentDetails";
 // import RiskDisclosure from "@/pages/Loan/RiskDisclosure";
 import Main from "@/pages/Main/Main";
@@ -25,12 +25,14 @@ import Swap from "@/pages/Swap/Swap";
 import UnstakingBetaInfo from "@/pages/Unstaking/UnstakingBetaInfo";
 import UnstakingNftDetail from "@/pages/Unstaking/UnstakingNftDetail";
 import StakeSuccess from '@/pages/Stake/StakeSuccess';
+import SplashScreen from "@/pages/Splash/splash";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main />} />
+      <Route path="/" element={<SplashScreen />} />
+      <Route path="/main" element={<Main />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/referral" element={<Referral />} />
         <Route path="/dashboard" element={<Dashboard />} />

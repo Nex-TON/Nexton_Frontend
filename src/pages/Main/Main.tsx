@@ -4,7 +4,7 @@ import { styled, keyframes } from "styled-components";
 import { mutate } from "swr";
 import React from "react";
 import { Fab, Zoom, Tooltip } from "@mui/material";
-import {postUserAddress} from "@/api/postUserAddress";
+import { postUserAddress } from "@/api/postUserAddress";
 
 import Header from "@/components/common/Header";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
@@ -22,6 +22,7 @@ import FloatCloseIc from "@/assets/icons/Main/floating_close.svg";
 import FloatCsIc from "@/assets/icons/Main/floating_cs.svg";
 
 import "react-toastify/dist/ReactToastify.css";
+import SplashScreen from "../Splash/splash";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -44,7 +45,7 @@ const Main: React.FC = () => {
 
   const [modal, setModal] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-
+  const [isSplashVisible, setIsSplashVisible] = useState(true);
 
   const userId = tele?.initDataUnsafe?.user?.id;
 
@@ -101,7 +102,7 @@ const Main: React.FC = () => {
         }
       }
     };
-  
+
     sendAddress();
   }, [connected, address, userId]);
 
@@ -189,8 +190,8 @@ const Main: React.FC = () => {
         {/* <StakeView /> */}
 
         <MyTokens />
-        <MainNavigationBar/>
-        <Overlay visible={isFbOpen} onClick={closeFab} id="main page close floating button"/>
+        <MainNavigationBar />
+        <Overlay visible={isFbOpen} onClick={closeFab} id="main page close floating button" />
         <Fab
           style={{
             position: "absolute",
@@ -254,7 +255,7 @@ const Main: React.FC = () => {
                     }}
                     id="mainpage floating button support"
                   >
-                    <img src={FloatSupportIc} alt="community link" id="mainpage floating button support"/>
+                    <img src={FloatSupportIc} alt="community link" id="mainpage floating button support" />
                   </Fab>
                 </Tooltip>
               </Zoom>

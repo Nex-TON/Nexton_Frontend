@@ -13,7 +13,7 @@ const MainNavigationBar = () => {
   const { pathname } = useLocation();
   return (
     <Nav>
-      <NavButton pathname={pathname} path={"/"} img_active={home_active} img_inactive={home_inactive} title="home"/>
+      <NavButton pathname={pathname} path={"/main"} img_active={home_active} img_inactive={home_inactive} title="home"/>
       <NavButton pathname={pathname} path={"/dashboard"} img_active={dashboard_active} img_inactive={dashboard_inacticve} title="Dashboard"/>
       <NavButton pathname={pathname} path={"/referral"} img_active={friends_active} img_inactive={friends_inactive} title="Friends"/>
       <NavButton pathname={pathname} path={"/myasset"} img_active={mypage_active} img_inactive={mypage_inactive} title="My"/>
