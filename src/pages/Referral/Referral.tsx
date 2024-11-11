@@ -18,6 +18,7 @@ import { copyText } from "@/utils/copyText";
 import { ReferralDateFormatter } from "@/utils/dateChanger";
 
 import "react-toastify/dist/ReactToastify.css";
+import MainNavigationBar from "@/components/common/MainNavigationBar";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -112,7 +113,6 @@ const Referral = () => {
     <>
       {modal.type === "nxt" && modal.toggled && <NXTPointsModal toggleModal={toggleModal} />}
       {modal.type === "refer" && modal.toggled && <ReferPointsModal toggleModal={toggleModal} />}
-
       <ReferralWrapper>
         <h1>Earn your Point</h1>
         <img width={234} src={ReferralGroup} alt="ReferralGroup" />
@@ -152,7 +152,13 @@ const Referral = () => {
             <ReferralLink>
               {isMutating ? <Loader /> : <h3>{referralLink}</h3>}
 
-              <CopyIcon $isCopied={isCopied} src={IcCopy} alt="copy" onClick={handleCopyClick} id="referral page link copy"/>
+              <CopyIcon
+                $isCopied={isCopied}
+                src={IcCopy}
+                alt="copy"
+                onClick={handleCopyClick}
+                id="referral page link copy"
+              />
             </ReferralLink>
           </ReferralBox>
 
@@ -180,6 +186,7 @@ const Referral = () => {
             </TransactionsWrapper>
           </ReferralBox>
         </BottomWrapper>
+        <MainNavigationBar />
       </ReferralWrapper>
 
       <ToastContainer

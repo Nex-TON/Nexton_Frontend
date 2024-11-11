@@ -187,10 +187,10 @@ const Dashboard = () => {
             <h3>Stakers Win Rate</h3>
             <p>{performanceData?.pnlWinRate?.toFixed(2)}%</p>
           </PerformanceItem>
-            <PerformanceItem>
-              <h3>TVL</h3>
-              <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
-            </PerformanceItem>
+          <PerformanceItem>
+            <h3>TVL</h3>
+            <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
+          </PerformanceItem>
         </PerformanceItemWrapper>
 
         <MainButton style={{ margin: "1rem 0 0 0" }} />
@@ -215,6 +215,7 @@ const Dashboard = () => {
           </TonPriceItem>
         </TonPriceWrapper>
       )}
+      <MainNavigationBar />
     </DashboardWrapper>
   );
 };

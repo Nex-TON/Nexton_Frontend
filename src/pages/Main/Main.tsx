@@ -190,7 +190,6 @@ const Main: React.FC = () => {
         {/* <StakeView /> */}
 
         <MyTokens />
-        <MainNavigationBar />
         <Overlay visible={isFbOpen} onClick={closeFab} id="main page close floating button" />
         <Fab
           style={{
@@ -306,7 +305,9 @@ const Main: React.FC = () => {
             </>
           )}
         </Fab>
+        <MainNavigationBar />
       </MainWrapper>
+
       <ToastContainer
         position="top-center"
         autoClose={4000}
