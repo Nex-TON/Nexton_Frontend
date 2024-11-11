@@ -7,6 +7,7 @@ import { Fab, Zoom, Tooltip } from "@mui/material";
 import {postUserAddress} from "@/api/postUserAddress";
 
 import Header from "@/components/common/Header";
+import MainNavigationBar from "@/components/common/MainNavigationBar";
 import ActionCards from "@/components/main/ActionCards";
 import MainMyAssetInfo from "@/components/main/MainMyAssetInfo";
 import { WelcomeModal } from "@/components/main/Modal/WelcomeModal";
@@ -188,6 +189,7 @@ const Main: React.FC = () => {
         {/* <StakeView /> */}
 
         <MyTokens />
+        <MainNavigationBar/>
         <Overlay visible={isFbOpen} onClick={closeFab} id="main page close floating button"/>
         <Fab
           style={{
@@ -304,7 +306,6 @@ const Main: React.FC = () => {
           )}
         </Fab>
       </MainWrapper>
-
       <ToastContainer
         position="top-center"
         autoClose={4000}

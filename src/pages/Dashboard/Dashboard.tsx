@@ -32,6 +32,7 @@ import {
 } from "./Dashboard.styled";
 
 import "./styles/Dashboard.css";
+import MainNavigationBar from "@/components/common/MainNavigationBar";
 
 const tele = (window as any).Telegram.WebApp;
 
