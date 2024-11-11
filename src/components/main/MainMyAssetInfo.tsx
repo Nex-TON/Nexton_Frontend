@@ -104,7 +104,7 @@ const MainMyAssetInfo = ({
           </MainTopLeft>
 
           {view === "asset" && (
-            <MainTopRight>{address && <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} id="mainmyassetviewrefresh"id="main myasset view refresh"/>}</MainTopRight>
+            <MainTopRight>{address && <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} id="main myasset view refresh"/>}</MainTopRight>
           )}
         </MainTopBox>
 
