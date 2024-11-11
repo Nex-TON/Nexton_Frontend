@@ -3,6 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useSetRecoilState } from "recoil";
 
+import { ClickAwayListener } from "@mui/material";
+//tooltip name이 겹쳐서 변수명 설정해줌
+import { Tooltip as MuiTooltip, tooltipClasses } from "@mui/material";
+import { VscInfo } from "react-icons/vsc";
 import IcNextonLogo from "@/assets/icons/Dashboard/ic_nexton_logo.svg";
 import IcTonLogo from "@/assets/icons/Dashboard/ic_ton_logo.svg";
 import Loader from "@/components/common/Loader";
@@ -12,6 +16,7 @@ import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanc
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { globalError } from "@/lib/atom/globalError";
 import { limitDecimals } from "@/utils/limitDecimals";
+import IcnxTONLogo from '@/assets/icons/Dashboard/ic_nxTON_logo.svg';
 
 import {
   ChartHeader,
@@ -115,32 +120,7 @@ const Dashboard = () => {
             <img src={IcNextonLogo} alt="nexton_logo" />
             <h4>Arbitrage Bot</h4>
           </ChartHeaderTitle>
-
-          {/* // ! @deprecated */}
-          {/* <ChartHeaderSubtitleBox>
-            <ChartHeaderSubtitle>
-              <h5>APY</h5>
-              <span>{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</span>
-            </ChartHeaderSubtitle>
-
-            <ChartHeaderDivider />
-
-            <ChartHeaderSubtitle>
-              <h5>Daily PNL</h5>
-              <span>
-                {chartData?.dailyPnlRate > 0 && "+"} {chartData?.dailyPnlRate}%
-              </span>
-            </ChartHeaderSubtitle>
-
-            <ChartHeaderDivider />
-
-            <ChartHeaderSubtitle>
-              <h5>TVL</h5>
-              <span>{limitDecimals(performanceData?.tvl, 3)} TON</span>
-            </ChartHeaderSubtitle>
-          </ChartHeaderSubtitleBox> */}
         </ChartHeader>
-
         <ChartTimeFrame>
           {Object.keys(chartTimeFrameOptions).map(key => (
             <ChartTimeFrameItem
@@ -181,16 +161,79 @@ const Dashboard = () => {
             </p>
           </PerformanceItem>
         </PerformanceItemWrapper>
-
         <PerformanceItemWrapper>
           <PerformanceItem>
             <h3>Stakers Win Rate</h3>
             <p>{performanceData?.pnlWinRate?.toFixed(2)}%</p>
           </PerformanceItem>
-          <PerformanceItem>
-            <h3>TVL</h3>
-            <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
-          </PerformanceItem>
+          <ClickAwayListener onClickAway={handleTooltipClose}>
+            <PerformanceItem onClick={handleTooltip}>
+              <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                TVL
+                <MuiTooltip
+                  PopperProps={{
+                    disablePortal: true,
+                  }}
+                  onClose={handleTooltip}
+                  open={open}
+                  disableTouchListener
+                  disableHoverListener // 추가
+                  title={<div style={{display:"flex",flexDirection:"row",gap:"2px",alignItems:"center",justifyContent:"center"}}>
+                  <img src={IcTonLogo} style={{width:"20px",height:"20px"}}/>
+                    <div style={{fontSize:"13px",fontFamily:"Montserrat",fontWeight:"500px",lineHeight:"18px"}}>TON+</div>
+                  <img src={IcnxTONLogo}/>
+                    <div style={{fontSize:"13px",fontFamily:"Montserrat",fontWeight:"500px",lineHeight:"18px"}}>nxTON</div>
+                  </div>}
+                  placement="top"
+                  slotProps={{
+                    popper: {
+                      sx: {
+                        [`&.${tooltipClasses.popper}[data-popper-placement*="top"] .${tooltipClasses.tooltip}`]: {
+                          marginBottom: "5px",
+                        },
+                      },
+                    },
+                  }}
+                  componentsProps={{
+                    tooltip: {
+                      sx: {
+                        padding: "7px 8px",
+                        bgcolor: "#000",
+                        color: "#FFF",
+                        alignContent: "center",
+                        textAlign: "center",
+                        width: "152px",
+                        height: "39px",
+                        fontSize: "13px",
+                        fontStyle: "normal",
+                        fontFamily: "Montserrat",
+                        fontWeight: "500",
+                        lineHeight: "18px",
+                        transform: "center bottom",
+                        border: "none",
+                      },
+                    },
+                    arrow: { sx: { color: "black", border: "none" } },
+                  }}
+                  arrow
+                >
+                  <div>
+                    <VscInfo
+                      style={{
+                        width: "16px",
+                        height: "16px",
+                        color: "#C6CACA",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        display: "flex",
+                      }}
+                    />
+                  </div>
+                </MuiTooltip>
+              </h3>
+              <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
+            </PerformanceItem>
+          </ClickAwayListener>
         </PerformanceItemWrapper>
 
         <MainButton style={{ margin: "1rem 0 0 0" }} />

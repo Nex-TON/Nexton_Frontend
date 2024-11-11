@@ -17,6 +17,7 @@ import { stakingAtom } from "@/lib/atom/staking";
 import { isDevMode } from "@/utils/isDevMode";
 import { limitDecimals } from "@/utils/limitDecimals";
 import { numberCutter } from "@/utils/numberCutter";
+import TokenFilter from "@/components/stake/Filter/TokenFilter";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -118,8 +119,8 @@ const Amount = () => {
           setValue={setValue}
           error={errors.amount?.message as string}
           disabled={!connected}
-          tokenLabel="TON"
-          placeholder="Stake (min. 1)"
+          tokenLabel={<TokenFilter/>}
+          placeholder="min 1TON"
           balance={balance}
           convertAmount={convertAmount}
         />

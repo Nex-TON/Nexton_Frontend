@@ -9,7 +9,7 @@ import { numberCutter } from "@/utils/numberCutter";
 interface TokenInputProps extends NumericFormatProps {
   name: string;
   setValue: (name: string, value: string) => void;
-  tokenLabel: string;
+  tokenLabel:any;
   control: any;
   balance: number;
   convertAmount: (amount: string | number) => string;
@@ -89,7 +89,7 @@ const TokenInput = ({
 export default TokenInput;
 
 const Input = styled(NumericFormat)`
-  width: 50%;
+  width: 100%;
 
   border: none;
 

@@ -16,10 +16,11 @@ import NftPreviewImage from "@/components/stake/NFTPreview/NftPreviewImage";
 import NFTPreviewInfo from "@/components/stake/NFTPreview/NFTPreviewInfo";
 import * as Contract from "@/hooks/contract/depositTon";
 import useTonConnect from "@/hooks/contract/useTonConnect";
-import { UserDeposit } from "@/hooks/contract/wrappers/tact_NexTon";
+import { TonDeposit } from "@/hooks/contract/wrappers/tact_NexTon";
 import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom, stakingInputAtom } from "@/lib/atom/staking";
 import { isDevMode } from "@/utils/isDevMode";
+import { toNano } from "@ton/core";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -58,11 +59,12 @@ const NFTPreview = () => {
     setIsLoading(true);
 
     try {
-      const data = (): UserDeposit => {
+      const data = (): TonDeposit => {
+        const PROTOCOL_FEE = toNano(0.1);
         return {
-          $$type: "UserDeposit",
-          queryId: BigInt(Date.now()),
-          // ❗NOTE❗: Not used in the current contract version
+          $$type: "TonDeposit",
+          query_id: BigInt(Date.now()),
+          amount: toNano(stakingInfo.principal) - PROTOCOL_FEE,          // ❗NOTE❗: Not used in the current contract version
           // lockPeriod: BigInt(stakingInfo.lockup),
           // leverage: BigInt(stakingInfo.leverage),
         };
