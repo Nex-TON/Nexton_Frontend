@@ -43,7 +43,7 @@ const Header = (props: HeaderProps) => {
         <HeaderRightBox>
           {pathname === "/main" && (
             <DisconnectButton $connect={connected}>
-              {connected ? <img src={IcWalletDisconnect} /> : <></>}
+              {connected ? <img src={IcWalletDisconnect} onClick={handleModalState} id="header disconnect wallet"/> : <></>}
             </DisconnectButton>
           )}
           <MenuButton onClick={handleRouter} $isOpen={isOpen} id="header menu button">
@@ -78,7 +78,7 @@ const HeaderRightBox = styled.div`
 `;
 
 const DisconnectButton = styled.button<{ $connect: boolean }>`
-  display: flex;
+  display: ${({ $connect }) => ($connect ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
 
