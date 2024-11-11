@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import dashboard_inacticve from "@/assets/icons/Main/dashboard_inactive.svg";
 import home_inactive from "@/assets/icons/Main/home_inactive.svg";
@@ -8,8 +8,19 @@ import dashboard_active from "@/assets/icons/Main/dashboard_active.svg";
 import home_active from "@/assets/icons/Main/home_active.svg";
 import friends_active from "@/assets/icons/Main/friends_active.svg";
 import mypage_active from "@/assets/icons/Main/mypage_active.svg";
+import { useEffect } from "react";
+
+const tele = (window as any).Telegram.WebApp;
 
 const MainNavigationBar = () => {
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.expand(); // Expand the app to full screen
+      tele.BackButton.hide();
+    }
+  }, []);
+
   const { pathname } = useLocation();
   return (
     <Nav>
@@ -47,9 +58,10 @@ const MainNavigationBar = () => {
 export default MainNavigationBar;
 
 const NavButton = ({ pathname, path, img_inactive, img_active, title }) => {
+  const navigate=useNavigate();
   return (
     <NavWrapper>
-      <NavLink to={path}>
+      <Link to={path}>
         {pathname === path ? (
           <>
             <img src={img_active} alt={title} />
@@ -61,7 +73,7 @@ const NavButton = ({ pathname, path, img_inactive, img_active, title }) => {
             <NavText>{title}</NavText>
           </>
         )}
-      </NavLink>
+      </Link>
     </NavWrapper>
   );
 };
@@ -71,21 +83,20 @@ const colorChange = keyframes`
     color: #fff;
   }
   100% {
-    color: #1f53ff; /* 파란색 */
+    color: #1f53ff;
   }
 `;
 
 const ActiveNavText = styled.div`
   color: #1f53ff;
   text-align: center;
-  animation: ${colorChange} 0.2s ease-in-out; /* 애니메이션 적용 */
+  animation: ${colorChange} 0.2s ease-in-out;
 
-  /* Labal/small */
   font-family: Montserrat;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
-  line-height: 16px; /* 133.333% */
+  line-height: 16px;
   letter-spacing: -0.12px;
 `;
 
@@ -95,19 +106,22 @@ const NavWrapper = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  a{
+    text-decoration: none;
+  }
 `;
 
 const NavText = styled.div`
   color: #fff;
   text-align: center;
 
-  /* Labal/small */
   font-family: Montserrat;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
-  line-height: 16px; /* 133.333% */
+  line-height: 16px;
   letter-spacing: -0.12px;
+
 `;
 
 const Nav = styled.div`

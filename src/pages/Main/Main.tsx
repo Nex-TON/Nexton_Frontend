@@ -22,7 +22,6 @@ import FloatCloseIc from "@/assets/icons/Main/floating_close.svg";
 import FloatCsIc from "@/assets/icons/Main/floating_cs.svg";
 
 import "react-toastify/dist/ReactToastify.css";
-import SplashScreen from "../Splash/splash";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -45,7 +44,6 @@ const Main: React.FC = () => {
 
   const [modal, setModal] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [isSplashVisible, setIsSplashVisible] = useState(true);
 
   const userId = tele?.initDataUnsafe?.user?.id;
 
@@ -327,15 +325,6 @@ const Main: React.FC = () => {
 
 export default Main;
 
-const rotate45 = keyframes`
-from{
-  transform:rotate(0deg);
-}
-to{
-  transform:rotate(135deg);
-}
-`;
-
 const Overlay = styled.div<{ visible: boolean }>`
   position: fixed;
   top: 0;
@@ -345,7 +334,7 @@ const Overlay = styled.div<{ visible: boolean }>`
   opacity: 0.5;
   background: var(--Neutral-Neutural-0, #000);
   display: ${({ visible }) => (visible ? "block" : "none")};
-  z-index: 999; /* 오버레이가 Fab보다 위에 오도록 */
+  z-index: 999;
 `;
 
 const MainWrapper = styled.div`
