@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Slide, toast, ToastContainer } from "react-toastify";
-import { styled, keyframes } from "styled-components";
+import { styled} from "styled-components";
 import { mutate } from "swr";
 import React from "react";
 import { Fab, Zoom, Tooltip } from "@mui/material";
@@ -11,7 +11,6 @@ import MainNavigationBar from "@/components/common/MainNavigationBar";
 import ActionCards from "@/components/main/ActionCards";
 import MainMyAssetInfo from "@/components/main/MainMyAssetInfo";
 import { WelcomeModal } from "@/components/main/Modal/WelcomeModal";
-import MyTokens from "@/components/main/MyTokens";
 import { useManageReferral } from "@/hooks/api/referral/useManageReferral";
 import { useTrackReferral } from "@/hooks/api/referral/useTrackReferral";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
@@ -20,6 +19,7 @@ import FloatCommunityIc from "@/assets/icons/Main/floating_community.svg";
 import FloatSupportIc from "@/assets/icons/Main/floating_support.svg";
 import FloatCloseIc from "@/assets/icons/Main/floating_close.svg";
 import FloatCsIc from "@/assets/icons/Main/floating_cs.svg";
+
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -186,8 +186,6 @@ const Main: React.FC = () => {
         <ActionCards />
         {/* @deprecated */}
         {/* <StakeView /> */}
-
-        <MyTokens />
         <Overlay visible={isFbOpen} onClick={closeFab} id="main page close floating button" />
         <Fab
           style={{
@@ -196,7 +194,7 @@ const Main: React.FC = () => {
             width: "48px",
             height: "48px",
             padding: "12px",
-            bottom: "42px",
+            bottom: "98px",
             right: "10px",
             alignItems: "center",
             justifyContent: "center",
