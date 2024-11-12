@@ -68,7 +68,7 @@ const UpcomingMenuButton = styled.button`
     height: 24px;
   }
   div {
-    color: var(--Neutral-Neutural-100, #fff);
+    color:#B9B9BA;
     text-align: center;
     font-family: Montserrat;
     font-size: 14px;

@@ -5,9 +5,12 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import IcCopy from "@/assets/icons/ic_copy.svg";
-import ICQuestionColor from "@/assets/icons/Referral/ic_question_color.svg";
-import ReferralGroup from "@/assets/image/ReferralGroup.png";
+import IcExcliamation from "@/assets/icons/Referral/ic_ exclamation.svg";
+import IcNXTPoint from "@/assets/icons/Referral/ic_nxt_points.svg";
+import IcRefersPoint from "@/assets/icons/Referral/ic_refer_points.svg";
+import FriendsIllust from "@/assets/image/FriendsIllust.svg";
 import Loader from "@/components/common/Loader";
+import IcMenuIcon from "@/assets/icons/Referral/ic_menu_button_white.svg";
 import { NXTPointsModal } from "@/components/referral/Modals/NXTPoints";
 import { ReferPointsModal } from "@/components/referral/Modals/ReferPointsModal";
 import { useManageReferral } from "@/hooks/api/referral/useManageReferral";
@@ -16,9 +19,11 @@ import { useReferralStatus } from "@/hooks/api/referral/useReferralStatus";
 import { globalError } from "@/lib/atom/globalError";
 import { copyText } from "@/utils/copyText";
 import { ReferralDateFormatter } from "@/utils/dateChanger";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 import "react-toastify/dist/ReactToastify.css";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
+import MainButton from "@/components/main/MainButton";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -34,7 +39,21 @@ interface ModalState {
   toggled: boolean;
 }
 
+const ShareToFriend = ({ link, text }) => {
+  const shareToTelegram = () => {
+    const telegramLink = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
+    window.open(telegramLink, "_blank");
+  };
+
+  return (
+    <ShareToFriendButton>
+      <button onClick={shareToTelegram}>Invite a friend</button>
+    </ShareToFriendButton>
+  );
+};
+
 const Referral = () => {
+  const { address, balance, refreshTonData, connected, tonConnectUI } = useTonConnect();
   const navigate = useNavigate();
   const setError = useSetRecoilState(globalError);
   const { trigger, isMutating } = useManageReferral();
@@ -110,85 +129,110 @@ const Referral = () => {
   };
 
   return (
-    <>
+    <MainWrapper>
       {modal.type === "nxt" && modal.toggled && <NXTPointsModal toggleModal={toggleModal} />}
       {modal.type === "refer" && modal.toggled && <ReferPointsModal toggleModal={toggleModal} />}
       <ReferralWrapper>
-        <h1>Earn your Point</h1>
-        <img width={234} src={ReferralGroup} alt="ReferralGroup" />
-
-        <BottomWrapper>
-          <ReferralBoxWrapper>
-            <ReferralBox>
-              <ReferralBoxTop>
+        <ReferralHeader>
+          <ReferralHeaderText>Earn your Point</ReferralHeaderText>
+          <img src={IcMenuIcon} alt="referral header menu icon" />
+        </ReferralHeader>
+        <FriendsIllustWrapper>
+          <img src={FriendsIllust} alt="Friends illust" />
+        </FriendsIllustWrapper>
+      </ReferralWrapper>
+      <ReferralContainer>
+        <ReferralIntroText>
+          Invite a friend and earn points
+          <br />
+          for both you and your friend!
+        </ReferralIntroText>
+        <ReferralBoxWrapper>
+          <ReferralBox>
+            <ReferralBoxTop>
+              <PointNameWrapper>
+                <img src={IcNXTPoint} alt="referral page nxt point icon" />
                 <h3>NXT Points</h3>
                 <img
-                  src={ICQuestionColor}
+                  src={IcExcliamation}
                   alt="QuestionIcon"
                   onClick={() => setModal({ type: "nxt", toggled: true })}
                   id="referral page nxt points"
                 />
-              </ReferralBoxTop>
-
-              {pointsLoading ? <Loader /> : <span>{pointsData?.loyaltyPoints} Points</span>}
-            </ReferralBox>
-            <ReferralBox>
-              <ReferralBoxTop>
+              </PointNameWrapper>
+              <PointValueWrapper>
+                <EarnedPoint>
+                  10
+                  <EarnedPointUnit>%</EarnedPointUnit>
+                </EarnedPoint>
+              </PointValueWrapper>
+            </ReferralBoxTop>
+            <PointExplain>
+              Users earn Loyalty Points by staking $TON at a fixed hourly rate of 0.1 points per $TON.
+            </PointExplain>
+          </ReferralBox>
+          <ReferralBox>
+            <ReferralBoxTop>
+              <PointNameWrapper>
+                <img src={IcRefersPoint} alt="referral page refers point icon" />
                 <h3>Refer Points</h3>
                 <img
-                  src={ICQuestionColor}
+                  src={IcExcliamation}
                   alt="QuestionIcon"
                   onClick={() => setModal({ type: "refer", toggled: true })}
                   id="referral page refer points"
                 />
-              </ReferralBoxTop>
-
-              {pointsLoading ? <Loader /> : <span>{pointsData?.referralPoints} Points</span>}
-            </ReferralBox>
-          </ReferralBoxWrapper>
-
-          <ReferralBox>
-            <h3>Your Link</h3>
-            <ReferralLink>
-              {isMutating ? <Loader /> : <h3>{referralLink}</h3>}
-
-              <CopyIcon
-                $isCopied={isCopied}
-                src={IcCopy}
-                alt="copy"
-                onClick={handleCopyClick}
-                id="referral page link copy"
-              />
-            </ReferralLink>
+              </PointNameWrapper>
+              <EarnedPoint>
+                10 <EarnedPointUnit>Points</EarnedPointUnit>
+              </EarnedPoint>{" "}
+            </ReferralBoxTop>
+            <PointExplain>Users earn 10 points each when friends stake at least 1 $TON via Nexton. </PointExplain>
           </ReferralBox>
-
-          <ReferralBox style={{ height: "100%" }}>
-            <h3>Referral History</h3>
-            <TransactionsWrapper $isEmpty={!referralStatus?.totalReferrals}>
-              {statusLoading ? (
-                <Loader />
-              ) : referralStatus?.referralDetails.length > 0 ? (
-                <>
-                  {referralStatus?.referralDetails.map((item, idx) => (
-                    <TransactionsItem key={idx}>
-                      <DateSpan>{ReferralDateFormatter(item.createdAt)}</DateSpan>
-                      {item.users.map(user => (
-                        <NameItem key={user._id}>
-                          <p>{user?.username || user?.userId}</p>
-                        </NameItem>
-                      ))}
-                    </TransactionsItem>
-                  ))}
-                </>
-              ) : (
-                <h3>No Transaction Record</h3>
-              )}
-            </TransactionsWrapper>
-          </ReferralBox>
-        </BottomWrapper>
-        <MainNavigationBar />
-      </ReferralWrapper>
-
+        </ReferralBoxWrapper>
+        <InviteFriendWrapper>
+          <InviteThroughTelegram>
+            {connected ? <ShareToFriend link={`${TMA_URL}`} text="test sample text" /> : <MainButton />}
+          </InviteThroughTelegram>
+          <InviteClipboard>
+            <CopyIcon
+              $isCopied={isCopied}
+              src={IcCopy}
+              alt="copy"
+              onClick={handleCopyClick}
+              id="referral page link copy"
+            />
+          </InviteClipboard>
+        </InviteFriendWrapper>
+        <StaticsWrapper>
+          <h3>Your Statistic</h3>
+          <StaticsBox>
+            <ReferralStaticTitle>Referrals</ReferralStaticTitle>
+            <ReferralStatic>{referralStatus ? referralStatus?.referralDetails.length : 0}</ReferralStatic>
+          </StaticsBox>
+        </StaticsWrapper>
+        <EarnedWrapper>
+          <h3>Earned</h3>
+          <EarnedContainer>
+            <EarnedPointWrapper>
+              <img src={IcNXTPoint} alt="earned nxt point icon" />
+              <EarnedPoint>
+                {pointsData ? pointsData?.loyaltyPoints : 0}
+                <EarnedPointUnit>NXT Points</EarnedPointUnit>
+              </EarnedPoint>
+            </EarnedPointWrapper>
+            <EarnedDivision />
+            <EarnedPointWrapper>
+              <img src={IcRefersPoint} alt="earned refers point icon" />
+              <EarnedPoint>
+                {pointsData ? pointsData?.referralPoints : 0}
+                <EarnedPointUnit>Refer Points</EarnedPointUnit>
+              </EarnedPoint>
+            </EarnedPointWrapper>
+          </EarnedContainer>
+        </EarnedWrapper>
+      </ReferralContainer>
+      <MainNavigationBar />
       <ToastContainer
         position="top-center"
         autoClose={4000}
@@ -202,99 +246,124 @@ const Referral = () => {
         theme="light"
         style={{ fontSize: "7rem" }}
       />
-    </>
+    </MainWrapper>
   );
 };
 
 export default Referral;
 
-const ReferralWrapper = styled.div`
+const ShareToFriendButton = styled.div`
+  button {
+    border-radius: 15px;
+    background: #1f53ff;
+    border: none;
+    width: 100%;
+    height: 60px;
+
+    color: white;
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2}
+  }
+`;
+
+const EarnedDivision = styled.div`
+  background: #e5e5ea;
   width: 100%;
-  height: auto;
-  min-height: 100%;
+  height: 1px;
+`;
 
-  padding: 2rem;
-  gap: 1.6rem;
+const EarnedPointUnit = styled.div`
+  color: #76797a;
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3}
+`;
 
+const EarnedPoint = styled.div`
+  color: #303234;
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2}
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: row;
   align-items: center;
-  flex-direction: column;
-
-  background: linear-gradient(96deg, #c078f9 5.73%, #6047f4 100%);
-
-  h1 {
-    color: #fff;
-    ${({ theme }) => theme.fonts.Nexton_Title_Large};
-  }
+  gap: 0.7rem;
 `;
 
-const BottomWrapper = styled.div`
-  width: 100%;
+const EarnedPointWrapper = styled.div`
   display: flex;
-  gap: 1rem;
-  flex-direction: column;
-`;
-
-const ReferralBoxWrapper = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-`;
-
-const ReferralBox = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-
-  padding: 14px 22px;
-  border-radius: 20px;
-
-  background-color: #fff;
-  text-align: start;
-
-  h3 {
-    ${({ theme }) => theme.fonts.Telegram_Body};
-    color: #8e8e93;
-  }
-
-  span {
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Large};
-    color: #000;
-    text-align: end;
-  }
-`;
-
-const ReferralBoxTop = styled.div`
-  width: 100%;
-  display: flex;
+  flex-direction: row;
   justify-content: space-between;
-
   img {
-    cursor: pointer;
+    width: 30px;
+    height: 30px;
   }
 `;
 
-const ReferralLink = styled.div`
-  width: 100%;
+const EarnedContainer = styled.div`
+  gap: 2.7rem;
   display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  width: 100%;
+  height: 158px;
+  padding: 2rem 1.9rem;
+
+  border-radius: 15px;
+  background: white;
+
+  box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
+`;
+
+const EarnedWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 28px;
+  h3 {
+    color: #2f3038;
+    ${({ theme }) => theme.fonts.Nexton_Title_Medium_1};
+  }
+`;
+
+const ReferralStatic = styled.div`
+  color: #303234;
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2}
+`;
+
+const ReferralStaticTitle = styled.div`
+  color: #76797a;
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3}
+`;
+
+const StaticsBox = styled.div`
+  display: flex;
+  width: 100%;
+  height: 76px;
+  padding: 25px 19px;
   justify-content: space-between;
   align-items: center;
 
-  padding: 14px 12px;
-  border-radius: 10px;
+  border-radius: 15px;
+  background: var(--Neutral-Neutural-100, #fff);
+  box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
+`;
+
+const StaticsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  h3 {
+    color: #2f3038;
+    ${({ theme }) => theme.fonts.Nexton_Title_Medium_1};
+  }
+`;
+
+const InviteClipboard = styled.div`
+  display: flex;
+  align-items: center;
+
+  padding: 1.8rem;
 
   color: #fff;
-  background: linear-gradient(270deg, #002639 0%, #001b29 28.13%, #000 100%);
-
-  h3 {
-    ${({ theme }) => theme.fonts.Nexton_Label_Medium};
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  border-radius: 15px;
+  background: #1a1b23;
+  height: 60px;
+  width: 60px;
 `;
 
 const CopyIcon = styled.img<{ $isCopied: boolean }>`
@@ -314,53 +383,153 @@ const CopyIcon = styled.img<{ $isCopied: boolean }>`
   }
 `;
 
-const TransactionsWrapper = styled.div<{ $isEmpty?: boolean }>`
+const InviteThroughTelegram = styled.div`
+  height: 18px;
   width: 100%;
-  min-height: ${({ $isEmpty }) => ($isEmpty ? "200px" : "100%")};
-  max-height: 200px;
+`;
+
+const InviteFriendWrapper = styled.div`
+  margin-top: 36px;
+  margin-bottom: 65px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+`;
+
+const PointExplain = styled.div`
+  color: #76797a;
+  ${({ theme }) => theme.fonts.Nexton_Label_Small}
+`;
+
+const PointNameWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.7rem;
+`;
+
+const PointValueWrapper = styled.div``;
+
+const ReferralBoxWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const ReferralBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 113px;
+
+  padding: 14px 22px;
+  border-radius: 20px;
+
+  background-color: #fff;
+  text-align: start;
+
+  border-radius: 15px;
+  background: var(--Neutral-Neutural-100, #fff);
+
+  /* drop shadow_type 4 */
+  box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
+
+  h3 {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2};
+    color: #303234;
+  }
+
+  span {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+    color: #76797a;
+    text-align: end;
+  }
+`;
+
+const ReferralBoxTop = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 7px;
+  align-items: start;
+  justify-content: space-between;
+
+  img {
+    cursor: pointer;
+  }
+`;
+
+const ReferralIntroText = styled.div`
+  margin-bottom: 24px;
+  color: #303234;
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
+`;
+
+const ReferralContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 155px;
+  background-color: white;
+
+  border-radius: 15px 15px 0px 0px;
+
+  width: 100%;
+  height: auto;
+  padding: 2.8rem 1rem 11.5rem 1rem;
+`;
+
+const FriendsIllustWrapper = styled.div`
+  padding: 0 1rem 0 1rem;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+  position: absolute;
+  top: 28px;
+`;
+
+const ReferralHeaderText = styled.div`
+  color: white;
+  ${({ theme }) => theme.fonts.Nexton_Title_Medium}
+  text-align: start;
+`;
+
+const ReferralHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  padding: 1.9rem 1rem 0 1rem;
+
+  img {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+`;
+
+const ReferralWrapper = styled.div`
+  position: absolute;
+  top: 0;
+
+  width: 100%;
+  height: 180px;
+  max-width: 76.8rem;
 
   display: flex;
   flex-direction: column;
 
-  padding: 1.8rem;
-  border-radius: 10px;
+  background: linear-gradient(96deg, #c078f9 5.73%, #6047f4 100%);
 
-  justify-content: ${({ $isEmpty }) => ($isEmpty ? "center" : "flex-start")};
-  align-items: ${({ $isEmpty }) => ($isEmpty ? "center" : "flex-start")};
-
-  background: linear-gradient(270deg, #002639 0%, #001b29 28.13%, #000 100%);
-
-  overflow-y: auto;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-
-  h3 {
-    ${({ theme }) => theme.fonts.Nexton_Label_Medium};
-  }
-`;
-
-const TransactionsItem = styled.div`
-  width: 100%;
-  margin-bottom: 1.2rem;
-`;
-
-const DateSpan = styled.p`
-  ${({ theme }) => theme.fonts.Nexton_Label_Small};
-  color: rgba(255, 255, 255, 0.5);
-
-  margin-bottom: 0.6rem;
-`;
-
-const NameItem = styled.div`
-  width: 100%;
-  display: flex;
-
-  padding: 0.6rem 0;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-
-  p {
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
+  h1 {
     color: #fff;
+    ${({ theme }) => theme.fonts.Nexton_Title_Large};
   }
+`;
+
+const MainWrapper = styled.div`
+  position: relative;
 `;

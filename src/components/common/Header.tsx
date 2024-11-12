@@ -74,7 +74,7 @@ const HeaderWrapper = styled.header<{
 const HeaderRightBox = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
 `;
 
 const DisconnectButton = styled.button<{ $connect: boolean }>`
