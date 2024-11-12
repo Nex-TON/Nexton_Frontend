@@ -38,6 +38,7 @@ import {
 
 import "./styles/Dashboard.css";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
+import Header from "@/components/common/Header";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -111,10 +112,12 @@ const Dashboard = () => {
   }
 
   return (
-    <DashboardWrapper>
-      <ChartWrapper>
-        <h1>Dashboard</h1>
+    <>
+    <Header isOpen={true} text="Dashboard" backgroundType={false} connected={true} tonConnectUI={true} />
 
+    <DashboardWrapper>
+      
+      <ChartWrapper>
         <ChartHeader>
           <ChartHeaderTitle>
             <img src={IcNextonLogo} alt="nexton_logo" />
@@ -235,14 +238,9 @@ const Dashboard = () => {
             </PerformanceItem>
           </ClickAwayListener>
         </PerformanceItemWrapper>
-
-        <MainButton style={{ margin: "1rem 0 0 0" }} />
-      </PerformanceWrapper>
-
-      {!tonPriceError && (
+        {!tonPriceError && (
         <TonPriceWrapper>
           <h2>Current value of TON</h2>
-
           <TonPriceItem>
             <TonPriceItemLeft>
               <img src={IcTonLogo} alt="ton_logo" />
@@ -258,8 +256,12 @@ const Dashboard = () => {
           </TonPriceItem>
         </TonPriceWrapper>
       )}
+
+        <MainButton style={{ margin: "5.6rem 0 8.6rem 0" }} />
+      </PerformanceWrapper>
       <MainNavigationBar />
     </DashboardWrapper>
+    </>
   );
 };
 

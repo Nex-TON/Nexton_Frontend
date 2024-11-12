@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-import IcWalletDisconnect from "@/assets/icons/Landing/ic_landing_wallet_disconnect.svg";
+import IcWalletDisconnect from "@/assets/icons/Modal/ic_wallet_disconnect_white.svg";
 import { Container } from "@/components/common/Modal/Modal.styled";
 import ModalWrapper from "@/components/common/Modal/ModalWrapper";
 
@@ -98,13 +98,13 @@ const DisconnectBox = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: 4.4rem;
-  height: 4.4rem;
+  width: 44px;
+  height: 44px;
   padding: 1.2rem;
   margin-bottom: 2.4rem;
 
   border: none;
-  border-radius: 1.8rem;
+  border-radius: 15px;
   background-color: #2f3038;
 
   filter: drop-shadow(0px 0px 14px rgba(0, 0, 0, 0.4));

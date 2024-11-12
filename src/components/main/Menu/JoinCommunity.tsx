@@ -2,11 +2,11 @@ import { styled } from "styled-components";
 
 import IcNftMoreArrow from "@/assets/icons/Landing/ic_nftMore_arrow.svg";
 import IcNftMoreArrowDisabled from "@/assets/icons/Landing/ic_nftMore_arrow_disabled.svg";
-import IcMenuDiscord from "@/assets/icons/Menu/ic_menu_discord.svg";
 import IcMenuDiscordDisabled from "@/assets/icons/Menu/ic_menu_discord_disabled.svg";
 import IcMenuGithub from "@/assets/icons/Menu/ic_menu_github.svg";
 import IcMenuTwitter from "@/assets/icons/Menu/ic_menu_twitter.svg";
 import IcMenuTelegram from "@/assets/icons/Menu/ic_menu_telegram.svg";
+import IcMenuSupport from "@/assets/icons/Menu/ic_menu_support.svg";
 
 const JoinCommunity = () => {
   const handleNewTap = (url: string) => {
@@ -15,28 +15,37 @@ const JoinCommunity = () => {
 
   return (
     <JoinCommunityWrapper>
-      <JoinCommunityTitle>Join in our community</JoinCommunityTitle>
+      <JoinCommunityTitle>Community</JoinCommunityTitle>
       <JoinCommunityButtonList>
         <JoinCommunityButton onClick={() => handleNewTap("https://twitter.com/NextonNode")} id="menu page x button">
           <div id="menu page x button">
-            <img src={IcMenuTwitter} alt="twitter" id="menu page x button" />
-            X
+            <img src={IcMenuTwitter} alt="twitter" id="menu page x button" />X
           </div>
           <img src={IcNftMoreArrow} alt="moreArrow" width={10} id="menu page x button" />
         </JoinCommunityButton>
-        <JoinCommunityButton onClick={() => handleNewTap("https://t.me/+VXJb_F6k6sthNzhl")} id="menu page global channel button">
+        <JoinCommunityButton
+          onClick={() => handleNewTap("https://t.me/+VXJb_F6k6sthNzhl")}
+          id="menu page global channel button"
+        >
           <div id="menu page global channel button">
-            <img src={IcMenuTelegram} alt="telegram"  id="menu page global channel button"/>
+            <img src={IcMenuTelegram} alt="telegram" id="menu page global channel button" />
             Global Channel
           </div>
-          <img src={IcNftMoreArrow} alt="moreArrow" width={10}  id="menu page global channel button"/>
+          <img src={IcNftMoreArrow} alt="moreArrow" width={10} id="menu page global channel button" />
+        </JoinCommunityButton>
+        <JoinCommunityButton onClick={() => handleNewTap("https://t.me/m/-Y3bstHbMzE9")} id="menu page support button">
+          <div id="menu page github button">
+            <img src={IcMenuSupport} alt="support" id="menu page support button" />
+            support
+          </div>
+          <img src={IcNftMoreArrow} alt="moreArrow" width={10} id="menu page github button" />
         </JoinCommunityButton>
         <JoinCommunityButton onClick={() => handleNewTap("https://github.com/Nex-TON")} id="menu page github button">
-          <div  id="menu page github button">
-            <img src={IcMenuGithub} alt="github"  id="menu page github button"/>
+          <div id="menu page github button">
+            <img src={IcMenuGithub} alt="github" id="menu page github button" />
             Github
           </div>
-          <img src={IcNftMoreArrow} alt="moreArrow" width={10}  id="menu page github button"/>
+          <img src={IcNftMoreArrow} alt="moreArrow" width={10} id="menu page github button" />
         </JoinCommunityButton>
         <JoinCommunityButton $inactive>
           <div>
@@ -54,16 +63,17 @@ export default JoinCommunity;
 
 const JoinCommunityWrapper = styled.div`
   width: 100%;
-  padding: 0 1.5rem 1.5rem 1.5rem;
+  padding: 0 10px;
+  margin-top: 49px;
 `;
 
 const JoinCommunityTitle = styled.div`
-  width: 100%;
-  padding-left: 1rem;
-
-  color: #2c3542;
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
-  text-align: left;
+  color: var(--Neutral-variant-Neutral-variant-20, #2f3038);
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 30px */
 `;
 
 const JoinCommunityButtonList = styled.div`
@@ -71,7 +81,7 @@ const JoinCommunityButtonList = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.6rem;
+  gap: 6px;
 
   width: 100%;
   margin-top: 1rem;
@@ -83,11 +93,11 @@ const JoinCommunityButton = styled.button<{ $inactive?: boolean }>`
   align-items: center;
 
   width: 100%;
-  padding: 1.7rem 2rem;
+  padding: 1.5rem 2rem;
 
-  border: ${({ $inactive }) => ($inactive ? "0.1rem solid #E1E4E6" : "0.1rem solid #d1d1d6")};
-  border-radius: 2rem;
-  background-color: #f2f2f7;
+  border: none;
+  border-radius: 15px;
+  background-color: ${({ $inactive }) => ($inactive ? "#E1E4E6" : "#FFF")};
 
   cursor: ${({ $inactive }) => ($inactive ? "default" : "pointer")};
 
@@ -97,7 +107,7 @@ const JoinCommunityButton = styled.button<{ $inactive?: boolean }>`
     align-items: center;
     gap: 2.2rem;
 
-    color: ${({ $inactive }) => ($inactive ? "#E1E4E6" : "#2f3038")};
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
+    color: ${({ $inactive }) => ($inactive ? "#B9B9BA" : "#2f3038")};
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
   }
 `;

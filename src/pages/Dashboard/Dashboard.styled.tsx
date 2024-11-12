@@ -19,6 +19,7 @@ export const DashboardWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  background-color: white;
 
   h1 {
     color: #46494a;
@@ -46,7 +47,6 @@ export const ChartHeader = styled.div`
   justify-content: center;
   align-items: start;
 
-  margin-top: 1.8rem;
 `;
 
 export const ChartHeaderTitle = styled.div`
@@ -155,7 +155,7 @@ export const PerformanceItem = styled.div<{ $fullWidth?: boolean }>`
   align-items: start;
   flex-direction: column;
 
-  border-radius: 20px;
+  border-radius: 15px;
   background: #fff;
   box-shadow: 4px 4px 16px 0px rgba(206, 216, 225, 0.5);
 
@@ -203,7 +203,7 @@ export const TonPriceItem = styled.div`
   padding: 2rem 2.4rem;
   margin-top: 1rem;
 
-  border-radius: 20px;
+  border-radius: 15px;
   background: #fff;
   box-shadow: 4px 4px 16px 0px rgba(206, 216, 225, 0.5);
 `;
