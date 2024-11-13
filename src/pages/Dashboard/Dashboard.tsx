@@ -19,6 +19,7 @@ import { limitDecimals } from "@/utils/limitDecimals";
 import IcnxTONLogo from '@/assets/icons/Dashboard/ic_nxTON_logo.svg';
 
 import {
+  DashboardHeader,
   ChartHeader,
   ChartHeaderTitle,
   ChartTimeFrame,
@@ -113,10 +114,10 @@ const Dashboard = () => {
 
   return (
     <>
-    <Header isOpen={true} text="Dashboard" backgroundType={false} connected={true} tonConnectUI={true} />
-
+    <DashboardHeader>
+      Dashboard
+    </DashboardHeader>
     <DashboardWrapper>
-      
       <ChartWrapper>
         <ChartHeader>
           <ChartHeaderTitle>
@@ -238,6 +239,8 @@ const Dashboard = () => {
             </PerformanceItem>
           </ClickAwayListener>
         </PerformanceItemWrapper>
+        <MainButton style={{ margin: "1.5rem 0 6.1rem 0" }} />
+
         {!tonPriceError && (
         <TonPriceWrapper>
           <h2>Current value of TON</h2>
@@ -257,7 +260,6 @@ const Dashboard = () => {
         </TonPriceWrapper>
       )}
 
-        <MainButton style={{ margin: "5.6rem 0 8.6rem 0" }} />
       </PerformanceWrapper>
       <MainNavigationBar />
     </DashboardWrapper>

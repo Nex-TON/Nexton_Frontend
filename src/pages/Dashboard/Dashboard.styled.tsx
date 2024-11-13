@@ -1,5 +1,13 @@
 import { styled } from "styled-components";
 
+export const DashboardHeader=styled.div`
+  color: #46494A;
+  ${({theme})=>theme.fonts.Nexton_Title_Medium_1};
+  padding-top:0.9rem;
+  display: flex;
+  justify-content: center;
+`
+
 export const LoaderWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -14,7 +22,7 @@ export const DashboardWrapper = styled.div`
   height: auto;
   min-height: 100%;
 
-  padding: 2rem;
+  padding: 2rem 2rem 8.8rem 2rem;
 
   display: flex;
   align-items: center;
@@ -185,8 +193,6 @@ export const TonPriceWrapper = styled.div`
   display: flex;
   gap: 1rem;
   flex-direction: column;
-
-  margin-top: 4.6rem;
 
   h2 {
     color: #2c3542;
