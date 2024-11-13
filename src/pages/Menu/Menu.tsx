@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
-import Header from "@/components/common/Header";
 import JoinCommunity from "@/components/main/Menu/JoinCommunity";
 import TopBar from "@/components/main/Menu/TopBar";
 import UpcomingMenu from "@/components/main/Menu/UpcomingMenu";
@@ -30,7 +29,7 @@ const Menu = () => {
 
   return (
     <MenuWrapper>
-      <Header isOpen={true} text="Menu" backgroundType={true} connected={connected} tonConnectUI={tonConnectUI} />
+      <MenuPageHeader>Menu</MenuPageHeader>
       <TopBar />
       <JoinCommunity />
       <UpcomingMenu />
@@ -39,6 +38,12 @@ const Menu = () => {
 };
 
 export default Menu;
+
+const MenuPageHeader=styled.div`
+  color:#46494A;
+  padding:2.4rem 1rem;
+  ${({theme})=>theme.fonts.Nexton_Title_Medium}
+`
 
 const MenuWrapper = styled.div`
   width: 100%;
