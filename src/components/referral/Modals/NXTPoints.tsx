@@ -1,4 +1,3 @@
-import IcQuestion from "@/assets/icons/Referral/ic_question.svg";
 import ReferralCoins from "@/assets/image/ReferralCoins.png";
 import { Button, Container, Title } from "@/components/common/Modal/Modal.styled";
 import ModalWrapper from "@/components/common/Modal/ModalWrapper";
@@ -15,7 +14,6 @@ export const NXTPointsModal = (props: NXTPointsModalProps) => {
   return (
     <ModalWrapper>
       <Container $isDark $disablePaddingTop>
-        <img src={IcQuestion} alt="Question" style={{ alignSelf: "start" }} onClick={toggleModal} />
         <ReferralModalContent>
           <Title style={{ marginBottom: "1.2rem" }} $isDark>
             NXT Points
