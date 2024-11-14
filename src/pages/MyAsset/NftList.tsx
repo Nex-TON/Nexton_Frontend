@@ -139,7 +139,7 @@ const NftListHeader = styled.div`
   padding: 1rem;
 
   border-radius: 3rem;
-  background-color: #f2f2f7;
+  background-color: white;
 `;
 
 const NFTListHeaderLeft = styled.div`
