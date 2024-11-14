@@ -37,7 +37,7 @@ const NftHeader = () => {
     <>
       <NftHeaderTitle>My Activity</NftHeaderTitle>
       <NftHeaderTab>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: "100%",}}>
           <Tabs
             value={value}
             onChange={handleTabChange}
@@ -45,6 +45,7 @@ const NftHeader = () => {
             centered={true}
             indicatorColor="primary"
             sx={{
+              display:"flex",
               "& .Mui-selected": {
                 color: "#000", // 선택된 탭 글자 색상
               },
@@ -58,6 +59,7 @@ const NftHeader = () => {
             <Tab
               label="NFT"
               sx={{
+                flex:1,
                 borderBottom: value === 0 ? "0.3rem solid #1F53FF" : "0.1rem solid #E5E5EA;",
                 fontSize: "1.4rem",
                 fontFamily: "Montserrat",
@@ -70,6 +72,7 @@ const NftHeader = () => {
             <Tab
               label="Unstaked"
               sx={{
+                flex:1,
                 borderBottom: value === 1 ? "0.3rem solid #1F53FF" : "0.1rem solid #E5E5EA;",
                 fontSize: "1.4rem",
                 fontFamily: "Montserrat",
@@ -82,6 +85,7 @@ const NftHeader = () => {
             <Tab
               label="Reward"
               sx={{
+                flex:1,
                 borderBottom: value === 2 ? "0.3rem solid #1F53FF" : "0.1rem solid #E5E5EA;",
                 fontSize: "1.4rem",
                 fontFamily: "Montserrat",
