@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 const NftHeader = () => {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
-  const location = useLocation();
 
   //tab바 누르면 각 페이지로 이동하게 설정
   const handleTabChange = (event,newValue) => {

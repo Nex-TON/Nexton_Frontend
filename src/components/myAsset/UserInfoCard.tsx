@@ -3,7 +3,7 @@ import styled from "styled-components";
 const tele = (window as any).Telegram.WebApp;
 
 export const UserInfoCard = () => {
-  const userId = tele?.initDataUnsafe?.user?.id;
+  const userName = tele?.initDataUnsafe?.user?.last_name;
   const userProfileUrl = tele?.initDataUnsafe?.user?.photoUrl;
 
 
@@ -12,7 +12,7 @@ export const UserInfoCard = () => {
       <UserInfoContainer>
         <UserInfoText>
           <WelcomeText>Hello,</WelcomeText>
-          <UserNameText>{userId}</UserNameText>
+          <UserNameText>{userName}</UserNameText>
         </UserInfoText>
         <UserProfile><img src={userProfileUrl} alt="my page user's telegram profile"/></UserProfile>
       </UserInfoContainer>
