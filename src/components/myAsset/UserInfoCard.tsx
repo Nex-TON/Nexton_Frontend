@@ -3,8 +3,8 @@ import styled from "styled-components";
 const tele = (window as any).Telegram.WebApp;
 
 export const UserInfoCard = () => {
-  const userName = tele?.initDataUnsafe?.user?.last_name;
-  const userProfileUrl = tele?.initDataUnsafe?.user?.photoUrl;
+  const userName = tele?.initDataUnsafe?.user?.username;
+  const userProfileUrl = tele?.initDataUnsafe?.user?.photo_url;
 
 
   return (
