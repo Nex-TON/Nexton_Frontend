@@ -6,7 +6,6 @@ export const UserInfoCard = () => {
   const userName = tele?.initDataUnsafe?.user?.username;
   const userProfileUrl = tele?.initDataUnsafe?.user?.photo_url;
 
-
   return (
     <>
       <UserInfoContainer>
@@ -14,7 +13,9 @@ export const UserInfoCard = () => {
           <WelcomeText>Hello,</WelcomeText>
           <UserNameText>{userName}</UserNameText>
         </UserInfoText>
-        <UserProfile><img src={userProfileUrl} alt="my page user's telegram profile"/></UserProfile>
+        <UserProfile>
+          <img src={userProfileUrl} alt="my page user's telegram profile" />
+        </UserProfile>
       </UserInfoContainer>
     </>
   );
@@ -22,7 +23,7 @@ export const UserInfoCard = () => {
 
 const UserNameText = styled.div`
   color: #2f3038;
-  ${({theme})=>theme.fonts.Nexton_Title_Medium_1};
+  ${({ theme }) => theme.fonts.Nexton_Title_Medium_1};
 `;
 
 const WelcomeText = styled.div`
@@ -31,14 +32,16 @@ const WelcomeText = styled.div`
 `;
 
 const UserProfile = styled.div`
-width: 5.5rem;
-height: 5.5rem;
-border-radius: 50%;
+  img {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+  border-radius: 50%;
 `;
 
 const UserInfoText = styled.div`
-display: felx;
-flex-direction: column;
+  display: felx;
+  flex-direction: column;
 `;
 
 const UserInfoContainer = styled.div`
@@ -53,6 +56,6 @@ const UserInfoContainer = styled.div`
 
   height: 110px;
   width: 100%;
-  
+
   margin-bottom: 1.6rem;
 `;
