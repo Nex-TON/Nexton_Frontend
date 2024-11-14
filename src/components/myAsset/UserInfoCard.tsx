@@ -35,8 +35,8 @@ const UserProfile = styled.div`
   img {
     width: 5.5rem;
     height: 5.5rem;
+    border-radius: 400px;
   }
-  border-radius: 50%;
 `;
 
 const UserInfoText = styled.div`
