@@ -1,118 +1,80 @@
-import { css, styled } from "styled-components";
+import { useState } from "react";
+import styled, { css } from "styled-components";
 
-import IcCheck from "../../../assets/icons/MyAsset/ic_check.svg";
-interface NFTFilterProps {
-  activeOpacity: boolean;
-  checkPeriod: boolean[];
-  period: string;
-  handleCheckPeriod: (type: string) => void;
-}
-
-const NFTFilter = (props: NFTFilterProps) => {
-  const { activeOpacity, checkPeriod, period, handleCheckPeriod } = props;
-
+const NFTFilter = () => {
+  const [selected, setSelected] = useState<String[]>(["All"]);
+  const handleButtonClick = (type: string) => {
+    if (type === "All") {
+      setSelected(["All"]);
+    } else {
+      if (selected.includes("All")) {
+        setSelected([type]);
+      } else {
+        setSelected(prev => (prev.includes(type) ? prev.filter(item => item !== type) : [...prev, type]));
+      }
+    }
+  };
   return (
-    <NFTFilterWrapper>
-      <NFTFilterUl>
-        <NFTFilterLi
-          onClick={() => handleCheckPeriod("Ongoing")}
-          $check={checkPeriod[0]}
-          $period={period}
-          $activeOpacity={activeOpacity}
-          id="mynft list filter Ongoing"
-        >
-          Ongoing
+    <>
+      <NftFilterWrapper>
+        <NftFilterButton $selected={selected.includes("All")} onClick={() => handleButtonClick("All")}>
+          All
+        </NftFilterButton>
+        <NftFilterButton $selected={selected.includes("Ongoing")} onClick={() => handleButtonClick("Ongoing")}>
           <NFTStatus type="Ongoing" />
-        </NFTFilterLi>
-        <NFTFilterLi
-          onClick={() => handleCheckPeriod("Forthcoming")}
-          $check={checkPeriod[1]}
-          $activeOpacity={activeOpacity}
-          id="mynft list filter Forthcoming"
-        >
-          Forthcoming
+          Ongoing
+        </NftFilterButton>
+        <NftFilterButton $selected={selected.includes("Forthcoming")} onClick={() => handleButtonClick("Forthcoming")}>
           <NFTStatus type="Forthcoming" />
-        </NFTFilterLi>
-        <NFTFilterLi
-          onClick={() => handleCheckPeriod("Expired")}
-          $check={checkPeriod[2]}
-          $activeOpacity={activeOpacity}
-          id="mynft list filter Expired"
-        >
-          Expired
+          Forthcoming
+        </NftFilterButton>
+        <NftFilterButton $selected={selected.includes("Expired")} onClick={() => handleButtonClick("Expired")}>
           <NFTStatus type="Expired" />
-        </NFTFilterLi>
-      </NFTFilterUl>
-    </NFTFilterWrapper>
+          Expired
+        </NftFilterButton>
+      </NftFilterWrapper>
+    </>
   );
 };
-
 export default NFTFilter;
 
-const NFTFilterWrapper = styled.div`
-  position: absolute;
-  top: 4.5rem;
-  right: 1.2rem;
+const NftFilterButton = styled.div<{ $selected: boolean }>`
+  height: 34px;
+  padding: 0.8rem 1rem;
 
-  border-radius: 1rem;
-  background-color: #f9f9ff;
-  box-shadow: 0px 6px 10px 0px rgba(94, 97, 98, 0.3);
+  border: 1px solid #e5e5ea;
+  border-radius: 15px;
 
-  z-index: 10;
-`;
-const NFTFilterUl = styled.ul`
-  margin: 0;
-  padding: 0;
-`;
-const NFTFilterLi = styled.li<{
-  $check: boolean;
-  $period?: string;
-  $activeOpacity?: boolean;
-}>`
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
+  justify-content: center;
+  gap: 0.4rem;
 
-  padding: 1rem 1.2rem;
+  ${({ theme }) => theme.fonts.Nexton_Label_Medium};
+  color: #5d5e67;
 
-  color: #5e6162;
-  cursor: pointer;
-
-  ${({ theme }) => theme.fonts.Nexton_Label_Small};
-
-  ${({ $activeOpacity }) =>
-    $activeOpacity &&
+  ${({ $selected }) =>
+    $selected &&
     css`
-      opacity: 0.3;
+      background-color: #1a1b23;
+      color: #ffffff;
     `}
-
-  ${({ $check, $period }) =>
-    $check &&
-    $period === "Ongoing" &&
-    css`
-      border-radius: 1.4rem 1.4rem 0 0;
-      background-color: #e5e5ea;
-    `}
-
-    ${({ $check, $period }) =>
-    $check &&
-    $period === "All" &&
-    css`
-      border-radius: 0 0 1.4rem 1.4rem;
-      background-color: #e5e5ea;
-    `}
-      
-
-  ${({ $check }) =>
-    $check &&
-    css`
-      background-color: #e5e5ea;
-    `}
-
-    transition: all 0.2s ease-in-out;
 `;
 
+const NftFilterWrapper = styled.div`
+  overflow-x: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 0.8rem;
+
+  /* 스크롤바 숨기기 */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+`;
 const NFTStatus = styled.div<{ type?: string }>`
   width: 1.4rem;
   height: 1.4rem;

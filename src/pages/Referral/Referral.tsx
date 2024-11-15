@@ -228,7 +228,7 @@ const ReferralContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 155px;
+  top: 18.6rem;
   background-color: white;
 
   border-radius: 15px 15px 0px 0px;
@@ -245,7 +245,7 @@ const FriendsIllustWrapper = styled.div`
   justify-content: center;
 
   position: absolute;
-  top: 28px;
+  top: 6.2rem;
 `;
 
 const ReferralHeaderText = styled.div`
@@ -259,7 +259,8 @@ const ReferralHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
 
-  padding: 1.9rem 1rem 0 1rem;
+  padding: 2rem 1.5rem;
+  height: 7rem;
 
   img {
     width: 24px;
@@ -273,7 +274,7 @@ const ReferralWrapper = styled.div`
   top: 0;
 
   width: 100%;
-  height: 180px;
+  height: 20rem;
   max-width: 76.8rem;
 
   display: flex;

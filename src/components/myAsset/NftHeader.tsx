@@ -20,9 +20,9 @@ const NftHeader = () => {
       case 1:
         navigate("/myasset/unstaked"); // Unstaked 페이지 경로
         break;
-      case 2:
-        navigate("/myasset/reward"); // Reward 페이지 경로
-        break;
+      // case 2:
+      //   navigate("/myasset/reward"); // Reward 페이지 경로
+      //   break;
       default:
         break;
     }
@@ -84,6 +84,7 @@ const NftHeader = () => {
             />
             <Tab
               label="Reward"
+              disabled={true}
               sx={{
                 flex:1,
                 borderBottom: value === 2 ? "0.3rem solid #1F53FF" : "0.1rem solid #E5E5EA;",

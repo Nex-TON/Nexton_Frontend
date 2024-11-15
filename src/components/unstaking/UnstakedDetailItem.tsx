@@ -15,7 +15,7 @@ const UnstakedDetailItem = ({ item }: { item: IUnstakedListData }) => {
 
       <UnstakingDetailContentBox>
         <UnstakingDetailContentBoxItem style={{ marginBottom: "0.9rem" }}>
-          <span>Available in</span>
+          <span>State</span>
           <p>{availableIn}</p>
         </UnstakingDetailContentBoxItem>
 
@@ -47,6 +47,7 @@ const UnstakingDetailItemWrapper = styled.div`
 
   border-radius: 2rem;
   background-color: #fff;
+  box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.50);
 
   & + & {
     margin-top: 0.8rem;

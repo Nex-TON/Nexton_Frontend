@@ -3,9 +3,10 @@ import { styled } from "styled-components";
 export const DashboardHeader=styled.div`
   color: #46494A;
   ${({theme})=>theme.fonts.Nexton_Title_Medium_1};
-  padding-top:0.9rem;
+  padding:2rem 1.5rem;
   display: flex;
   justify-content: center;
+  height: 70px;
 `
 
 export const LoaderWrapper = styled.div`
@@ -22,7 +23,7 @@ export const DashboardWrapper = styled.div`
   height: auto;
   min-height: 100%;
 
-  padding: 2rem 2rem 8.8rem 2rem;
+  padding: 1.8rem 2rem 8.8rem 2rem;
 
   display: flex;
   align-items: center;

@@ -2,9 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
-import IcCheck from "../../assets/icons/MyAsset/ic_check.svg";
-import Icfilter from "../../assets/icons/MyAsset/ic_filter.svg";
-import IcReload from "../../assets/icons/MyAsset/ic_reload.svg";
 import NFTFilter from "../../components/myAsset/Filter/NFTFilter";
 import NftItem from "../../components/myAsset/NFT/NftItem";
 
@@ -13,9 +10,8 @@ import useMyAssetFilter from "./hooks/useMyAssetFilter";
 const tele = (window as any).Telegram.WebApp;
 
 const NftList = () => {
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]); // 선택된 필터 상태
   const navigate = useNavigate();
-
-  const [isSelect, setIsSelect] = useState([true, false]);
   const {
     isOpenFilter,
     activeOpacity,
@@ -27,20 +23,6 @@ const NftList = () => {
     handlePrintMyAssetFilter,
     handleToggleFilter,
   } = useMyAssetFilter();
-
-  const handleSelect = (index: number) => {
-    if (index === 1) {
-      setIsSelect([true, false]);
-    } else {
-      setIsSelect([false, true]);
-    }
-  };
-
-  const handleReload = () => {
-    setIsSelect([true, false]);
-    setPeriod("Filter");
-    setIsOpenFilter(false);
-  };
 
   useEffect(() => {
     if (tele) {
@@ -59,34 +41,7 @@ const NftList = () => {
   return (
     <NFtListWrapper>
       <NftListHeader>
-        {isOpenFilter && (
-          <NFTFilter
-            activeOpacity={activeOpacity}
-            checkPeriod={checkPeriod}
-            period={period}
-            handleCheckPeriod={handleCheckPeriod}
-          />
-        )}
-        <NFTListHeaderLeft>
-          <NFTReloadBox onClick={handleReload}>
-            <img src={IcReload} alt="reload" />
-          </NFTReloadBox>
-          <NFTSelectBox $active={isSelect[0]}>Staked</NFTSelectBox>
-          {/* Hidden for now */}
-          {/* <NFTSelectBox disabled $active={isSelect[1]}>
-            Collateralized
-          </NFTSelectBox> */}
-        </NFTListHeaderLeft>
-        <NFTSelectBox onClick={handleToggleFilter}>
-          {period}
-          {period === "Filter" ? (
-            <img src={Icfilter} alt="filter" />
-          ) : period === "All" ? (
-            <img src={IcCheck} alt="check" />
-          ) : (
-            <NFTStatus type={period} />
-          )}
-        </NFTSelectBox>
+        <NFTFilter />
       </NftListHeader>
       {handlePrintMyAssetFilter()?.filter(item => item.status !== 2).length > 0 ? (
         <NFTItemWrapper>
