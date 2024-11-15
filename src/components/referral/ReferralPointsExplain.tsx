@@ -241,6 +241,7 @@ const ReferralIntroText = styled.div`
   margin-bottom: 24px;
   color: #303234;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
+  text-align: center;
 `;
 
 const EarnedPointUnit = styled.div`

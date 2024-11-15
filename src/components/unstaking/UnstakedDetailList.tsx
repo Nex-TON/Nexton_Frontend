@@ -15,16 +15,16 @@ const UnstakedDetailList = ({ unstakedList }: { unstakedList?: IUnstakedListData
         unstakedList?.map(data => <UnstakedDetailItem key={data.nftId} item={data} />)
       ) : (
         // for the test
-        <>
-        <UnstakedDetailItemTest/>
-        <UnstakedDetailItemTest/>
-        </>
-        // <UnstakedDetailListEmpty>
-        //   <img src={RepaysEmpty} alt="unstaked_empty" />
+        // <>
+        // <UnstakedDetailItemTest/>
+        // <UnstakedDetailItemTest/>
+        // </>
+        <UnstakedDetailListEmpty>
+          <img src={RepaysEmpty} alt="unstaked_empty" />
 
-        //   <h2>No results</h2>
-        //   <UnstakedDetailListEmptyLink>There is no record of unstaking.</UnstakedDetailListEmptyLink>
-        // </UnstakedDetailListEmpty>
+          <h2>No results</h2>
+          <UnstakedDetailListEmptyLink>There is no record of unstaking.</UnstakedDetailListEmptyLink>
+        </UnstakedDetailListEmpty>
       )}
     </UnstakedDetailListWrapper>
   );

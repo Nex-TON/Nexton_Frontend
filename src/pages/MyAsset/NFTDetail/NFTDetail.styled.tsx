@@ -103,10 +103,10 @@ export const NFTDetailItemCaption = styled.span`
   color: #aaaeaf;
 `;
 
-export const NFTDetailItemText = styled.p<{ $textCenter?: boolean }>`
+export const NFTDetailItemText = styled.p<{ $textCenter?: boolean}>`
   width: 100%;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
-  color: #303234;
+  color:#303234;
 
   white-space: nowrap;
   overflow: hidden;

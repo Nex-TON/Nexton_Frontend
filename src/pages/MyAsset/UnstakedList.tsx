@@ -8,13 +8,18 @@ import UnstakedDetailList from "@/components/unstaking/UnstakedDetailList";
 import { useUnstakedList } from "@/hooks/api/unstaking/useUnstakedList";
 import { telegramAtom } from "@/lib/atom/telegram";
 import UnstakedDetailHeader from "@/components/unstaking/UnstakedDetailHeader";
+import { address } from "@ton/core";
+import useTonConnect from "@/hooks/contract/useTonConnect";
+
 
 const tele = (window as any).Telegram.WebApp;
 
 const UnstakedList = () => {
+  const { address, balance, refreshTonData, connected, tonConnectUI } = useTonConnect();
   const navigate = useNavigate();
   const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
-  const { data, isLoading } = useUnstakedList(telegramId); // ! test ID - 555
+
+  const { data, isLoading } = useUnstakedList(address); // ! test ID - 555
 
   console.log("useUnstakedList: ", data);
 

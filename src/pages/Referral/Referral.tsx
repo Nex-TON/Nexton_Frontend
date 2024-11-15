@@ -258,8 +258,9 @@ const ReferralHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 
-  padding: 2rem 1.8rem 2rem 1rem;
+  padding: 2rem 2.1rem 2rem 1.5rem;
   height: 7rem;
 
   img {

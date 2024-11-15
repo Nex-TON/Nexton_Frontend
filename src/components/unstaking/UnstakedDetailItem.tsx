@@ -6,7 +6,7 @@ import { IUnstakedListData } from "@/hooks/api/unstaking/useUnstakedList";
 import { limitDecimals } from "@/utils/limitDecimals";
 
 const UnstakedDetailItem = ({ item }: { item: IUnstakedListData }) => {
-  const { nftId, availableIn, unstakedAt, unstakedAmount } = item;
+  const { nftId, unstakedAt, unstakedAmount,unstakeState } = item;
   const navigate = useNavigate();
 
   return (
@@ -16,11 +16,16 @@ const UnstakedDetailItem = ({ item }: { item: IUnstakedListData }) => {
       <UnstakingDetailContentBox>
         <UnstakingDetailContentBoxItem style={{ marginBottom: "0.9rem" }}>
           <span>State</span>
-          <p>{availableIn}</p>
+          <UnstakeState $unstakeState={unstakeState}>
+            {unstakeState==1?
+            "Requested":"Completed"}
+          </UnstakeState>
+          
         </UnstakingDetailContentBoxItem>
 
         <UnstakingDetailContentBoxItem>
           <span>Value</span>
+          <p>{unstakedAmount}</p>
           <p>{limitDecimals(unstakedAmount, 3)} TON</p>
         </UnstakingDetailContentBoxItem>
 
@@ -40,6 +45,12 @@ const UnstakedDetailItem = ({ item }: { item: IUnstakedListData }) => {
 };
 
 export default UnstakedDetailItem;
+
+const UnstakeState=styled.div<{$unstakeState:number}>`
+${({theme})=>theme.fonts.Nexton_Body_Text_Medium_2};
+color: ${({$unstakeState})=>$unstakeState==1?"#76797A":"#34C759"};
+
+`
 
 const UnstakingDetailItemWrapper = styled.div`
   width: 100%;
