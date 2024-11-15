@@ -150,7 +150,7 @@ const NFTItemWrapper = styled.div`
   gap: 1.6rem;
 
   width: 100%;
-  padding: 2.5rem;
+  padding: 2.5rem 2.5rem 15.4rem 2.5rem;
 
   background-color: #fff;
 

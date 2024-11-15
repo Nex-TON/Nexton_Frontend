@@ -64,7 +64,7 @@ export default UnstakedList;
 const UnstakedListWrapper = styled.div`
   width: 100%;
   padding: 0 2rem;
-  padding-bottom: 7rem;
+  padding-bottom: 15.4rem;
 `;
 
 const LoaderWrapper = styled.div`

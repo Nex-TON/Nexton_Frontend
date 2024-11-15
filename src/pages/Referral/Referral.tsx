@@ -235,7 +235,7 @@ const ReferralContainer = styled.div`
 
   width: 100%;
   height: auto;
-  padding: 2.8rem 1rem 11.5rem 1rem;
+  padding: 2.8rem 1rem 15.4rem 1rem;
 `;
 
 const FriendsIllustWrapper = styled.div`

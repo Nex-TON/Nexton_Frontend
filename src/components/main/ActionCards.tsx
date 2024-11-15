@@ -76,7 +76,7 @@ const ActionCardsTitle = styled.div`
 const ActionCardsWrapper = styled.div`
   display: flex;
   gap: 15px;
-  padding: 3.9rem 10px;
+  padding: 3.9rem 1rem 15.4rem 1rem;
   flex-direction: column;
 `;
 
