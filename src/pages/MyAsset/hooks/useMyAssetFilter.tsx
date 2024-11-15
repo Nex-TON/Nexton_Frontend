@@ -18,7 +18,7 @@ const useMyAssetFilter = () => {
   const handleToggleFilter = () => {
     setIsOpenFilter(prev => !prev);
   };
-
+  //period mapping에서 다중선택 가능하게 변경하려면 각 필터 눌리면 true값 받아와서 배열 변수로 채워주기
   const handleCheckPeriod = (type: string) => {
     const defaultCheck = [false, false, false, false];
 

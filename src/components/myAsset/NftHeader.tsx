@@ -44,6 +44,7 @@ const NftHeader = () => {
             aria-label="Tabs where each tab needs to be selected manually"
             centered={true}
             indicatorColor="primary"
+            textColor="inherit"
             sx={{
               display:"flex",
               "& .Mui-selected": {
@@ -64,9 +65,9 @@ const NftHeader = () => {
                 fontSize: "1.4rem",
                 fontFamily: "Montserrat",
                 fontStyle: "normal",
-                fontWeight: "500",
+                fontWeight: value===0?"700":"500",
                 lineHeight: "2.2rem",
-                color: "#909394",
+                color:value===0?"#000":"#909394",
               }}
             />
             <Tab
@@ -77,9 +78,9 @@ const NftHeader = () => {
                 fontSize: "1.4rem",
                 fontFamily: "Montserrat",
                 fontStyle: "normal",
-                fontWeight: "500",
+                fontWeight: value===1?"700":"500",
                 lineHeight: "2.2rem",
-                color: "#909394",
+                color:value===1?"#000":"#909394",
               }}
             />
             <Tab
