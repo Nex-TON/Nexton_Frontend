@@ -23,7 +23,7 @@ export const DashboardWrapper = styled.div`
   height: auto;
   min-height: 100%;
 
-  padding: 1.8rem 2rem 8.8rem 2rem;
+  padding: 0rem 2rem 8.8rem 2rem;
 
   display: flex;
   align-items: center;

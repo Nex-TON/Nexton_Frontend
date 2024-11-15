@@ -41,7 +41,7 @@ export default Menu;
 
 const MenuPageHeader=styled.div`
   color:#46494A;
-  padding:2.4rem 1rem;
+  padding:2rem 1.5rem;
   ${({theme})=>theme.fonts.Nexton_Title_Medium}
 `
 
