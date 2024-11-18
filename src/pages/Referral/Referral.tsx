@@ -122,7 +122,7 @@ const Referral = () => {
       <ReferralWrapper>
         <ReferralHeader>
           <ReferralHeaderText>Earn your Point</ReferralHeaderText>
-          <img src={IcMenuIcon} alt="referral header menu icon" onClick={()=>navigate("/menu")}/>
+          <img src={IcMenuIcon} alt="referral header menu icon" onClick={() => navigate("/menu")} />
         </ReferralHeader>
         <FriendsIllustWrapper>
           <img src={FriendsIllust} alt="Friends illust" />
@@ -132,7 +132,14 @@ const Referral = () => {
         <ReferralPointsExplain />
         <InviteFriendWrapper>
           <InviteThroughTelegram>
-            {connected ? <ShareToFriend link={`${TMA_URL}`} text="test sample text" /> : <MainButton />}
+            {connected ? (
+              <ShareToFriend
+                link={`${TMA_URL}`}
+                text="Invite your friends to NEXTON and earn refer points! NEXTON is always happy to welcome you."
+              />
+            ) : (
+              <MainButton />
+            )}
           </InviteThroughTelegram>
           <InviteClipboard>
             <CopyIcon
@@ -144,8 +151,11 @@ const Referral = () => {
             />
           </InviteClipboard>
         </InviteFriendWrapper>
-        <ReferralStatistic referralNum={referralStatus? referralStatus.referralDetails.length:0}/>
-        <ReferralEarned nxtPoints={pointsData ? pointsData?.loyaltyPoints : 0} referPoints={pointsData ? pointsData?.referralPoints : 0}/>
+        <ReferralStatistic referralNum={referralStatus ? referralStatus.referralDetails.length : 0} />
+        <ReferralEarned
+          nxtPoints={pointsData ? pointsData?.loyaltyPoints : 0}
+          referPoints={pointsData ? pointsData?.referralPoints : 0}
+        />
       </ReferralContainer>
       <MainNavigationBar />
       <ToastContainer

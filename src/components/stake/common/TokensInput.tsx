@@ -9,7 +9,7 @@ import { numberCutter } from "@/utils/numberCutter";
 interface TokenInputProps extends NumericFormatProps {
   name: string;
   setValue: (name: string, value: string) => void;
-  tokenLabel:any;
+  tokenLabel: string;
   control: any;
   balance: number;
   convertAmount: (amount: string | number) => string;
