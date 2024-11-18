@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { useState } from "react";
 
 import IcExcliamation from "@/assets/icons/Referral/ic_ exclamation.svg";
-import IcRefersPoint from "@/assets/icons/Referral/ic_refer_points.svg";
-import IcNXTPoint from "@/assets/icons/Referral/ic_nxt_points.svg";
+import IcRefersPoint from "@/assets/icons/Referral/ic_refer_points.png";
+import IcNXTPoint from "@/assets/icons/Referral/ic_nxt_points.png";
 import ReferralCoins from "@/assets/image/ReferralCoins.png";
 import ReferralPointsImg from "@/assets/image/ReferralPoints.svg";
 
@@ -183,6 +183,10 @@ const PointNameWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 0.7rem;
+  img{
+    width: 3rem;
+    height: 3rem;
+  }
 `;
 
 const PointValueWrapper = styled.div``;
