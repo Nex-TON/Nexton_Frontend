@@ -162,6 +162,7 @@ const NFTItemWrapper = styled.div`
 const ExtraBox = styled.div`
   width: 100%;
   margin-top: 5.6rem;
+  margin-bottom: 15.4rem;
 
   color: #2f3038;
   ${({ theme }) => theme.fonts.Nexton_Title_Medium};
