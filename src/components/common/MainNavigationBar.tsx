@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import dashboard_inacticve from "@/assets/icons/Main/dashboard_inactive.svg";
 import home_inactive from "@/assets/icons/Main/home_inactive.svg";
@@ -58,11 +58,11 @@ const MainNavigationBar = () => {
 export default MainNavigationBar;
 
 const NavButton = ({ pathname, path, img_inactive, img_active, title }) => {
-  const navigate=useNavigate();
+  const isActive = pathname.includes(path); 
   return (
     <NavWrapper>
       <Link to={path}>
-        {pathname === path ? (
+        {isActive ? (
           <>
             <img src={img_active} alt={title} />
             <ActiveNavText>{title}</ActiveNavText>
