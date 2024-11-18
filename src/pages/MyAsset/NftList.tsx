@@ -10,21 +10,15 @@ import useMyAssetFilter from "./hooks/useMyAssetFilter";
 const tele = (window as any).Telegram.WebApp;
 
 const NftList = () => {
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]); // 선택된 필터 상태
   const navigate = useNavigate();
   const {
-    isOpenFilter,
-    activeOpacity,
     checkPeriod,
-    period,
-    setPeriod,
-    setIsOpenFilter,
     handleCheckPeriod,
     handlePrintMyAssetFilter,
-    handleToggleFilter,
   } = useMyAssetFilter();
 
   useEffect(() => {
+    const tele = (window as any).Telegram.WebApp;
     if (tele) {
       tele.ready();
       tele.BackButton.show();
@@ -34,20 +28,22 @@ const NftList = () => {
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      const tele = (window as any).Telegram.WebApp;
+      if (tele) {
+        tele.offEvent("backButtonClicked");
+      }
     };
-  }, []);
+  }, [navigate]);
 
   return (
     <NFtListWrapper>
       <NftListHeader>
-        <NFTFilter />
+        <NFTFilter checkPeriod={checkPeriod} handleCheckPeriod={handleCheckPeriod} />
       </NftListHeader>
       {handlePrintMyAssetFilter()?.filter(item => item.status !== 2).length > 0 ? (
         <NFTItemWrapper>
           {handlePrintMyAssetFilter()
             .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
-            .filter(item => item.status !== 2)
             .map(item => (
               <NftItem key={item.nftId} item={item} />
             ))}
@@ -58,7 +54,6 @@ const NftList = () => {
     </NFtListWrapper>
   );
 };
-
 export default NftList;
 
 const NFtListWrapper = styled.div`

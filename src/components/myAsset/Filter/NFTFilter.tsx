@@ -1,41 +1,27 @@
-import { useState } from "react";
 import styled, { css } from "styled-components";
 
-const NFTFilter = () => {
-  const [selected, setSelected] = useState<String[]>(["All"]);
-  const handleButtonClick = (type: string) => {
-    if (type === "All") {
-      setSelected(["All"]);
-    } else {
-      if (selected.includes("All")) {
-        setSelected([type]);
-      } else {
-        setSelected(prev => (prev.includes(type) ? prev.filter(item => item !== type) : [...prev, type]));
-      }
-    }
-  };
+const NFTFilter = ({ checkPeriod, handleCheckPeriod }) => {
   return (
-    <>
-      <NftFilterWrapper>
-        <NftFilterButton $selected={selected.includes("All")} onClick={() => handleButtonClick("All")}>
-          All
-        </NftFilterButton>
-        <NftFilterButton $selected={selected.includes("Ongoing")} onClick={() => handleButtonClick("Ongoing")}>
-          <NFTStatus type="Ongoing" />
-          Ongoing
-        </NftFilterButton>
-        <NftFilterButton $selected={selected.includes("Forthcoming")} onClick={() => handleButtonClick("Forthcoming")}>
-          <NFTStatus type="Forthcoming" />
-          Forthcoming
-        </NftFilterButton>
-        <NftFilterButton $selected={selected.includes("Expired")} onClick={() => handleButtonClick("Expired")}>
-          <NFTStatus type="Expired" />
-          Expired
-        </NftFilterButton>
-      </NftFilterWrapper>
-    </>
+    <NftFilterWrapper>
+      <NftFilterButton $selected={checkPeriod[3]} onClick={() => handleCheckPeriod("All")}>
+        All
+      </NftFilterButton>
+      <NftFilterButton $selected={checkPeriod[0]} onClick={() => handleCheckPeriod("Ongoing")}>
+        <NFTStatus type="Ongoing" />
+        Ongoing
+      </NftFilterButton>
+      <NftFilterButton $selected={checkPeriod[1]} onClick={() => handleCheckPeriod("Forthcoming")}>
+        <NFTStatus type="Forthcoming" />
+        Forthcoming
+      </NftFilterButton>
+      <NftFilterButton $selected={checkPeriod[2]} onClick={() => handleCheckPeriod("Expired")}>
+        <NFTStatus type="Expired" />
+        Expired
+      </NftFilterButton>
+    </NftFilterWrapper>
   );
 };
+
 export default NFTFilter;
 
 const NftFilterButton = styled.div<{ $selected: boolean }>`
@@ -68,12 +54,11 @@ const NftFilterWrapper = styled.div`
   flex-direction: row;
   gap: 0.8rem;
 
-  /* 스크롤바 숨기기 */
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    display: none;
   }
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 const NFTStatus = styled.div<{ type?: string }>`
   width: 1.4rem;
