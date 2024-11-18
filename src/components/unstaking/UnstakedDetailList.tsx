@@ -6,7 +6,7 @@ import { IUnstakedListData } from "@/hooks/api/unstaking/useUnstakedList";
 
 import UnstakedDetailItem from "./UnstakedDetailItem";
 //for the test
-import UnstakedDetailItemTest from "./UnstakedDetailItemTest";
+// import UnstakedDetailItemTest from "./UnstakedDetailItemTest";
 
 const UnstakedDetailList = ({ unstakedList }: { unstakedList?: IUnstakedListData[] }) => {
   return (
@@ -21,7 +21,6 @@ const UnstakedDetailList = ({ unstakedList }: { unstakedList?: IUnstakedListData
         // </>
         <UnstakedDetailListEmpty>
           <img src={RepaysEmpty} alt="unstaked_empty" />
-
           <h2>No results</h2>
           <UnstakedDetailListEmptyLink>There is no record of unstaking.</UnstakedDetailListEmptyLink>
         </UnstakedDetailListEmpty>
