@@ -7,10 +7,19 @@ const tele = (window as any).Telegram.WebApp;
 
 const SplashScreen = () => {
   const navigate = useNavigate();
+
   useEffect(() => {
-      const timer = setTimeout(() => navigate("/main"),2000);
-      return()=>clearTimeout(timer);
-    },[]);
+    if (tele) {
+      tele.ready();
+      tele.expand(); // Expand the app to full screen
+      tele.BackButton.hide();
+    }
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => navigate("/main"), 2000);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <SplashWrapper>
       <ScreenWrapper>

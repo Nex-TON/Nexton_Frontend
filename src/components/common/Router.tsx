@@ -26,10 +26,12 @@ import UnstakingBetaInfo from "@/pages/Unstaking/UnstakingBetaInfo";
 import UnstakingNftDetail from "@/pages/Unstaking/UnstakingNftDetail";
 import StakeSuccess from '@/pages/Stake/StakeSuccess';
 import SplashScreen from "@/pages/Splash/splash";
+import ScrollToTop from "./ScrollTo";
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop/>
       <Routes>
       <Route path="/" element={<SplashScreen />} />
       <Route path="/main" element={<Main />} />
