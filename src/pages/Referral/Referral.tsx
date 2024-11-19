@@ -132,14 +132,10 @@ const Referral = () => {
         <ReferralPointsExplain />
         <InviteFriendWrapper>
           <InviteThroughTelegram>
-            {connected ? (
-              <ShareToFriend
-                link={`${TMA_URL}`}
-                text="Invite your friends to NEXTON and earn refer points! NEXTON is always happy to welcome you."
-              />
-            ) : (
-              <MainButton />
-            )}
+            <ShareToFriend
+              link={`${TMA_URL}`}
+              text="Invite your friends to NEXTON and earn refer points! NEXTON is always happy to welcome you."
+            />
           </InviteThroughTelegram>
           <InviteClipboard>
             <CopyIcon

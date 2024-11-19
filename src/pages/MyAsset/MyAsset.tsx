@@ -43,7 +43,7 @@ const MyAsset = () => {
   }, []);
 
   return (
-    <MyAssetWrapper $type={pathname.includes("nftlist") ? true : false}>
+    <MyAssetWrapper $type={pathname.includes("myasset") ? true : false}>
       <Header isOpen={false} backgroundType={false} text="My page" connected={connected} tonConnectUI={tonConnectUI} />
       <MyAssetContentWrapper>
         <UserInfoCard />
@@ -58,8 +58,6 @@ const MyAsset = () => {
 };
 
 export default MyAsset;
-
-const ScrollWrapper = styled.div``;
 
 const MyAssetWrapper = styled.div<{ $type: boolean }>`
   width: 100%;

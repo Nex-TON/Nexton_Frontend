@@ -112,7 +112,6 @@ const MyTokensDisclaimer = styled.div`
   margin-top: 68px;
   display: flex;
   align-items: start;
-  margin-bottom: 47px;
 
   p {
     color: var(--Neutral-Neutural-60, #909394);
