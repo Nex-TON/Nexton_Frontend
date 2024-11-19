@@ -50,5 +50,5 @@ const MenuWrapper = styled.div`
   height: auto;
   min-height: 100%;
 
-  background-color: #f2f2f7;
+  background-color: white;
 `;

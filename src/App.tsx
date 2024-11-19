@@ -21,7 +21,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <RecoilRoot>
         <GlobalStyle />
-        <ErrorModal />ㄷ
+        <ErrorModal />
         <Analytics />
         <Router />
       </RecoilRoot>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { mutate } from "swr";
 
@@ -70,6 +70,32 @@ const MainMyAssetInfo = ({
   const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
   const { data: earningsData, isLoading: earningsLoading, error: earningsError } = useEarningsbyAddress(address);
 
+  const touchStartX = useRef(0); // 터치 시작 위치 저장
+  const touchEndX = useRef(0); // 터치 종료 위치 저장
+
+  // 슬라이드 동작 감지
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX; // 터치 시작 X 좌표 저장
+  };
+
+  const handleTouchEnd = () => {
+    const deltaX = touchStartX.current - touchEndX.current; // 이동 거리 계산
+    if (Math.abs(deltaX) > 50) {
+      // 슬라이드 거리가 일정 이상일 때만 동작
+      if (deltaX > 0) {
+        // 오른쪽 → 왼쪽 슬라이드: `dashboard → asset`
+        setView("asset");
+      } else {
+        // 왼쪽 → 오른쪽 슬라이드: `asset → dashboard`
+        setView("dashboard");
+      }
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX; // 터치 이동 중 X 좌표 저장
+  };
+
   const handleViewChange = (view: AssetsView) => {
     setView(view);
   };
@@ -91,20 +117,36 @@ const MainMyAssetInfo = ({
   };
 
   return (
-    <MainWrapper>
+    <MainWrapper
+    onTouchStart={handleTouchStart} // 터치 시작 이벤트
+      onTouchMove={handleTouchMove} // 터치 이동 이벤트
+      onTouchEnd={handleTouchEnd} // 터치 종료 이벤트
+      >
       <MainInnerBox>
         <MainTopBox $marginBottom={connected || view === "dashboard"}>
           <MainTopLeft>
-            <MainLeftItem $isActive={view === "dashboard"} onClick={() => handleViewChange("dashboard")} id="mainmyaseetdashbordview">
+            <MainLeftItem
+              $isActive={view === "dashboard"}
+              onClick={() => handleViewChange("dashboard")}
+              id="mainmyaseetdashbordview"
+            >
               Dashboard
             </MainLeftItem>
-            <MainLeftItem $isActive={view === "asset"} onClick={() => handleViewChange("asset")} id="mainmyassetmyassetview">
+            <MainLeftItem
+              $isActive={view === "asset"}
+              onClick={() => handleViewChange("asset")}
+              id="mainmyassetmyassetview"
+            >
               My Asset
             </MainLeftItem>
           </MainTopLeft>
 
           {view === "asset" && (
-            <MainTopRight>{address && <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} id="main myasset view refresh"/>}</MainTopRight>
+            <MainTopRight>
+              {address && (
+                <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} id="main myasset view refresh" />
+              )}
+            </MainTopRight>
           )}
         </MainTopBox>
 
@@ -116,7 +158,9 @@ const MainMyAssetInfo = ({
 
                 <APYBox id="mainmyassetinfodashboard">
                   <span id="mainmyassetinfodashboard">APY</span>
-                  <h4 id="mainmyassetinfodashboard">{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</h4>
+                  <h4 id="mainmyassetinfodashboard">
+                    {performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}
+                  </h4>
                 </APYBox>
               </DashboardBottomLeftTitleBox>
 
@@ -127,29 +171,36 @@ const MainMyAssetInfo = ({
                   <>
                     <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
                       <span id="mainmyassetinfodashboard">bot PNL</span>
-                      <h4 id="mainmyassetinfodashboard">{performanceData?.pnlRate ? `${limitDecimals(performanceData?.pnlRate, 2)}%` : "-"}</h4>
+                      <h4 id="mainmyassetinfodashboard">
+                        {performanceData?.pnlRate ? `${limitDecimals(performanceData?.pnlRate, 2)}%` : "-"}
+                      </h4>
                     </DashboardBottomLeftDataItem>
                     <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
                       <span id="mainmyassetinfodashboard">Daily PNL</span>
                       <h4 id="mainmyassetinfodashboard">
-                        {chartData?
-                          `${chartData?.dailyPnlRate > 0 ? "+" : ""}${limitDecimals(chartData?.dailyPnlRate, 2)}%`
+                        {chartData
+                          ? `${chartData?.dailyPnlRate > 0 ? "+" : ""}${limitDecimals(chartData?.dailyPnlRate, 2)}%`
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
                     <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
-                        <span style={{gap:"6px", alignItems:"center",display:"flex",justifyContent:""}} id="mainmyassetinfodashboard">
-                          TVL 
-                          {/* 보류 */}
-                          {/* <Tooltip 
+                      <span
+                        style={{ gap: "6px", alignItems: "center", display: "flex", justifyContent: "" }}
+                        id="mainmyassetinfodashboard"
+                      >
+                        TVL
+                        {/* 보류 */}
+                        {/* <Tooltip 
                           title="$TON + $nxTON"
                           open={false}
                           placement="top"
                           >
                           <VscInfo style={{width:"16px",height:"16px",color:"##C6C5D0"}} />
                           </Tooltip> */}
-                        </span>
-                      <h4 id="mainmyassetinfodashboard">{performanceData?.tvl ? `${limitDecimals(performanceData?.tvl, 3)} TON` : "-"}</h4>
+                      </span>
+                      <h4 id="mainmyassetinfodashboard">
+                        {performanceData?.tvl ? `${limitDecimals(performanceData?.tvl, 3)} TON` : "-"}
+                      </h4>
                     </DashboardBottomLeftDataItem>
 
                     <DashboardBottomLeftDataItem onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
@@ -163,13 +214,13 @@ const MainMyAssetInfo = ({
         ) : (
           <AssetBottomBox>
             {!connected ? (
-              <AssetBottomNotConnected onClick={()=>tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
+              <AssetBottomNotConnected onClick={() => tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
                 <AssetBottomNotConnectedImg>
-                  <img src={MyAssetNotConnected} alt="my asset not connected image"/>
+                  <img src={MyAssetNotConnected} alt="my asset not connected image" />
                   <AssetBottomNotConnectedText>
-                <p id="mainmyassetinfoconnectwallet">Please connect your wallet.</p>
-                <img src={IcArrowRight} alt="icon_arrow_right"  id="mainmyassetinfoconnectwallet"/>
-                </AssetBottomNotConnectedText>
+                    <p id="mainmyassetinfoconnectwallet">Please connect your wallet.</p>
+                    <img src={IcArrowRight} alt="icon_arrow_right" id="mainmyassetinfoconnectwallet" />
+                  </AssetBottomNotConnectedText>
                 </AssetBottomNotConnectedImg>
               </AssetBottomNotConnected>
             ) : (

@@ -218,7 +218,7 @@ const UnstakingWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
   padding: 0 1.5rem;
-  background-color: #f2f2f7;
+  background-color: white;
 `;
 
 const LoaderWrapper = styled.div`

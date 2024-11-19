@@ -66,11 +66,7 @@ const ActionCardsInnerBox = styled.div`
 
 const ActionCardsTitle = styled.div`
   color: var(--Neutral-variant-Neutral-variant-20, #2f3038);
-  font-family: Montserrat;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 34px;
+  ${({theme})=>theme.fonts.Nexton_Title_Medium_1}
 `;
 
 const ActionCardsWrapper = styled.div`
