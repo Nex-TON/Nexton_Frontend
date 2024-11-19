@@ -112,6 +112,14 @@ const Referral = () => {
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 1000); // reset the state after the animation duration
   };
+  const texts=[
+    ":fire: NEXTON: High Yields, High Returns, Extra Rewards!",
+    ":rocket: Unlock High Returns with NEXTON’s Enhanced Strategies!",
+    ":smile: Stake Smarter with NEXTON – More Yields, More Rewards!",
+    ":coin: Boost Your TON with NEXTON: High Yields, Extra Gains!",
+    ":outbox_tray: NEXTON: Superior Returns, Enhanced Rewards, Unmatched Yields!",
+  ]
+  const randomText = texts[Math.floor(Math.random() * texts.length)];
 
   return (
     <MainWrapper>
@@ -130,7 +138,7 @@ const Referral = () => {
           <InviteThroughTelegram>
             <ShareToFriend
               link={`${TMA_URL}`}
-              text="Invite your friends to NEXTON and earn refer points! NEXTON is always happy to welcome you."
+              text={randomText}
             />
           </InviteThroughTelegram>
           <InviteClipboard>
