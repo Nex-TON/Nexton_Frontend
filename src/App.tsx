@@ -21,12 +21,11 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <RecoilRoot>
         <GlobalStyle />
-        <ErrorModal />
+        <ErrorModal />ㄷ
         <Analytics />
         <Router />
       </RecoilRoot>
     </ThemeProvider>
   );
 };
-
 export default App;

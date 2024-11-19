@@ -35,7 +35,7 @@ const NftList = () => {
 
   return (
     <NFtListWrapper>
-      <NftListHeader>
+      <NftListHeader id="specific-element-nftlist">
         <NFTFilter checkPeriod={checkPeriod} handleCheckPeriod={handleCheckPeriod} />
       </NftListHeader>
       {handlePrintMyAssetFilter()?.filter(item => item.status !== 2).length > 0 ? (
@@ -52,7 +52,11 @@ const NftList = () => {
           <h2>No results</h2>
           <NftListEmptyLink onClick={() => navigate("/stake/amount")}>
             <div>Let’s move to staking to get new NFT</div>{" "}
-            <img src={RightNavIc} alt="nftlist empty navigation icon" style={{ height: "1.6rem", width: "1.6rem",marginBottom:"0px" }} />
+            <img
+              src={RightNavIc}
+              alt="nftlist empty navigation icon"
+              style={{ height: "1.6rem", width: "1.6rem", marginBottom: "0px" }}
+            />
           </NftListEmptyLink>
         </NftListEmpty>
       )}

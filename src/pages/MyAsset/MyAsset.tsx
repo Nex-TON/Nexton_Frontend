@@ -17,6 +17,18 @@ const MyAsset = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
+  //main page my NFTs 버튼 누르면 my activity로 가게
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      console.log("Element found:", element);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, []);
+
   useEffect(() => {
     if (tele) {
       tele.ready();
@@ -37,7 +49,7 @@ const MyAsset = () => {
       <MyAssetContentWrapper>
         <UserInfoCard />
         <MainButton />
-        <TotalBalance/>
+        <TotalBalance />
         <NftHeader />
       </MyAssetContentWrapper>
       <Outlet />
@@ -47,6 +59,8 @@ const MyAsset = () => {
 };
 
 export default MyAsset;
+
+const ScrollWrapper = styled.div``;
 
 const MyAssetWrapper = styled.div<{ $type: boolean }>`
   width: 100%;

@@ -37,7 +37,7 @@ const ActionCards = () => {
             <ArrowIcon disabled />
           </CardBody>
         </Card>
-        <Card $dark onClick={() => navigate("/myasset/nftlist")} id="main page my NFTS">
+        <Card $dark onClick={() => navigate("/myasset/nftlist#specific-element")} id="main page my NFTS">
           <CardHeader id="main page my NFTS">Check the NFT you received from staking</CardHeader>
           <CardBody $dark id="main page my NFTS">
             My NFTs
@@ -70,7 +70,7 @@ const ActionCardsTitle = styled.div`
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
-  line-height: 34px; /* 170% */
+  line-height: 34px;
 `;
 
 const ActionCardsWrapper = styled.div`

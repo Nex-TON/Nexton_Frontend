@@ -46,8 +46,8 @@ const UnstakedList = () => {
   }, []);
 
   return (
-    <UnstakedListWrapper>
-      <UnstakedDetailHeader unstakedListLength={data?.length} />
+    <UnstakedListWrapper id="specific-element-unstakedlist">
+      <UnstakedDetailHeader unstakedListLength={data?.length}/>
       {isLoading ? (
         <LoaderWrapper>
           <Loader height={100} width={100} />
