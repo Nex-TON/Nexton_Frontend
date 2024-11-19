@@ -17,8 +17,8 @@ const UnstakedDetailItem = ({ item }: { item: IUnstakedListData }) => {
         <UnstakingDetailContentBoxItem style={{ marginBottom: "0.9rem" }}>
           <span>State</span>
           <UnstakeState $unstakeState={unstakeState}>
-            {unstakeState==1?
-            "Requested":"Completed"}
+            {unstakeState===2?
+            "Completed":"Requested"}
           </UnstakeState>
           
         </UnstakingDetailContentBoxItem>

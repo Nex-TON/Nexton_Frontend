@@ -154,7 +154,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
               <NFTDetailItem>
                 <NFTDetailItemCaption>State</NFTDetailItemCaption>
                 <NFTDetailItemStatus $unstakeState={unstakingDetail?.unstakeState}>
-                  {unstakingDetail?.unstakeState == 1 ? "Requested" : "Complete"}
+                  {unstakingDetail?.unstakeState === 2 ? "Completed" : "Requested"}
                 </NFTDetailItemStatus>
               </NFTDetailItem>
               <NFTDetailItem>
