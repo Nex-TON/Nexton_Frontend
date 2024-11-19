@@ -152,8 +152,10 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
               </NFTDetailItemBox>
 
               <NFTDetailItem>
-                <NFTDetailItemCaption>Available in</NFTDetailItemCaption>
-                <NFTDetailItemText>{unstakingDetail?.availableIn}</NFTDetailItemText>
+                <NFTDetailItemCaption>State</NFTDetailItemCaption>
+                <NFTDetailItemStatus $unstakeState={unstakingDetail?.unstakeState}>
+                  {unstakingDetail?.unstakeState == 1 ? "Requested" : "Complete"}
+                </NFTDetailItemStatus>
               </NFTDetailItem>
               <NFTDetailItem>
                 <NFTDetailItemCaption>Unstaking period</NFTDetailItemCaption>
@@ -203,6 +205,10 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
 };
 
 export default UnstakingNftDetail;
+const NFTDetailItemStatus = styled.div<{ $unstakeState: number }>`
+  color: ${({ $unstakeState }) => ($unstakeState == 1 ? "#76797A" : "#34C759")};
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+`;
 
 const UnstakingWrapper = styled.div`
   display: flex;
@@ -212,7 +218,7 @@ const UnstakingWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
   padding: 0 1.5rem;
-  background-color: #f2f2f7;
+  background-color: white;
 `;
 
 const LoaderWrapper = styled.div`

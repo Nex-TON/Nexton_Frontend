@@ -3,6 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useSetRecoilState } from "recoil";
 
+import { ClickAwayListener } from "@mui/material";
+//tooltip name이 겹쳐서 변수명 설정해줌
+import { Tooltip as MuiTooltip, tooltipClasses } from "@mui/material";
+import { VscInfo } from "react-icons/vsc";
 import IcNextonLogo from "@/assets/icons/Dashboard/ic_nexton_logo.svg";
 import IcTonLogo from "@/assets/icons/Dashboard/ic_ton_logo.svg";
 import Loader from "@/components/common/Loader";
@@ -12,8 +16,11 @@ import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanc
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { globalError } from "@/lib/atom/globalError";
 import { limitDecimals } from "@/utils/limitDecimals";
+import IcnxTONLogo from "@/assets/icons/Dashboard/ic_nxTON_logo.svg";
+import "@/components/common/Header";
 
 import {
+  DashboardHeader,
   ChartHeader,
   ChartHeaderTitle,
   ChartTimeFrame,
@@ -32,6 +39,9 @@ import {
 } from "./Dashboard.styled";
 
 import "./styles/Dashboard.css";
+import MainNavigationBar from "@/components/common/MainNavigationBar";
+import Header from "@/components/common/Header";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -46,6 +56,7 @@ const chartTimeFrameOptions: Record<TimeFrame | "All", number> = {
 };
 
 const Dashboard = () => {
+  const { connected, tonConnectUI } = useTonConnect();
   const [open, setOpen] = useState(false);
 
   const handleTooltip = () => {
@@ -76,7 +87,7 @@ const Dashboard = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/");
+        navigate("/main");
       });
     }
 
@@ -105,116 +116,98 @@ const Dashboard = () => {
   }
 
   return (
-    <DashboardWrapper>
-      <ChartWrapper>
-        <h1>Dashboard</h1>
+    <>
+      <Header
+        isOpen={false}
+        backgroundType={false}
+        text="Dashboard"
+        connected={connected}
+        tonConnectUI={tonConnectUI}
+      />
+      <DashboardWrapper>
+        <ChartWrapper>
+          <ChartHeader>
+            <ChartHeaderTitle>
+              <img src={IcNextonLogo} alt="nexton_logo" />
+              <h4>Arbitrage Bot</h4>
+            </ChartHeaderTitle>
+          </ChartHeader>
+          <ChartTimeFrame>
+            {Object.keys(chartTimeFrameOptions).map(key => (
+              <ChartTimeFrameItem
+                key={key}
+                $active={timeFrame === key}
+                onClick={() => handleTimeFrameChange(key as TimeFrame)}
+              >
+                {key}
+              </ChartTimeFrameItem>
+            ))}
+          </ChartTimeFrame>
 
-        <ChartHeader>
-          <ChartHeaderTitle>
-            <img src={IcNextonLogo} alt="nexton_logo" />
-            <h4>Arbitrage Bot</h4>
-          </ChartHeaderTitle>
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart width={500} height={300} data={chartData?.data} margin={{ top: 15, bottom: 15 }}>
+              <CartesianGrid strokeDasharray="3 0" vertical={false} />
+              <XAxis hide />
+              <YAxis orientation="right" width={50} unit="%" />
+              <Tooltip formatter={(value, name, props) => [`${Number(value).toFixed(2)}%`, "PNL"]} />
+              <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" strokeWidth={2} dot={false} />
+            </LineChart>
+          </ResponsiveContainer>
+        </ChartWrapper>
 
-          {/* // ! @deprecated */}
-          {/* <ChartHeaderSubtitleBox>
-            <ChartHeaderSubtitle>
-              <h5>APY</h5>
-              <span>{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</span>
-            </ChartHeaderSubtitle>
+        <PerformanceWrapper>
+          <h2>Arb Bot statistics</h2>
 
-            <ChartHeaderDivider />
-
-            <ChartHeaderSubtitle>
-              <h5>Daily PNL</h5>
-              <span>
-                {chartData?.dailyPnlRate > 0 && "+"} {chartData?.dailyPnlRate}%
-              </span>
-            </ChartHeaderSubtitle>
-
-            <ChartHeaderDivider />
-
-            <ChartHeaderSubtitle>
-              <h5>TVL</h5>
-              <span>{limitDecimals(performanceData?.tvl, 3)} TON</span>
-            </ChartHeaderSubtitle>
-          </ChartHeaderSubtitleBox> */}
-        </ChartHeader>
-
-        <ChartTimeFrame>
-          {Object.keys(chartTimeFrameOptions).map(key => (
-            <ChartTimeFrameItem
-              key={key}
-              $active={timeFrame === key}
-              onClick={() => handleTimeFrameChange(key as TimeFrame)}
-            >
-              {key}
-            </ChartTimeFrameItem>
-          ))}
-        </ChartTimeFrame>
-
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart width={500} height={300} data={chartData?.data} margin={{ top: 15, bottom: 15 }}>
-            <CartesianGrid strokeDasharray="3 0" vertical={false} />
-            <XAxis hide />
-            <YAxis orientation="right" width={50} unit="%" />
-            <Tooltip formatter={(value, name, props) => [`${Number(value).toFixed(2)}%`, "PNL"]} />
-            <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" strokeWidth={2} dot={false} />
-          </LineChart>
-        </ResponsiveContainer>
-      </ChartWrapper>
-
-      <PerformanceWrapper>
-        <h2>Arb Bot statistics</h2>
-
-        <PerformanceItemWrapper>
-          <PerformanceItem>
-            <h3>APY</h3>
-            <p>{performanceData?.apy?.toFixed(2)}%</p>
-          </PerformanceItem>
-
-          <PerformanceItem>
-            <h3>Daily PNL</h3>
-            <p>
-              {chartData?.dailyPnlRate > 0 ? "+" : ""}
-              {chartData?.dailyPnlRate}%
-            </p>
-          </PerformanceItem>
-        </PerformanceItemWrapper>
-
-        <PerformanceItemWrapper>
-          <PerformanceItem>
-            <h3>Stakers Win Rate</h3>
-            <p>{performanceData?.pnlWinRate?.toFixed(2)}%</p>
-          </PerformanceItem>
+          <PerformanceItemWrapper>
             <PerformanceItem>
-              <h3>TVL</h3>
-              <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
+              <h3>APY</h3>
+              <p>{performanceData?.apy?.toFixed(2)}%</p>
             </PerformanceItem>
-        </PerformanceItemWrapper>
 
-        <MainButton style={{ margin: "1rem 0 0 0" }} />
-      </PerformanceWrapper>
+            <PerformanceItem>
+              <h3>Daily PNL</h3>
+              <p>
+                {chartData?.dailyPnlRate > 0 ? "+" : ""}
+                {chartData?.dailyPnlRate}%
+              </p>
+            </PerformanceItem>
+          </PerformanceItemWrapper>
+          <PerformanceItemWrapper>
+            <PerformanceItem>
+              <h3>Stakers Win Rate</h3>
+              <p>{performanceData?.pnlWinRate?.toFixed(2)}%</p>
+            </PerformanceItem>
+              <PerformanceItem>
+                <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  TVL
+                </h3>
+                <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
+              </PerformanceItem>
+          </PerformanceItemWrapper>
+          <MainButton style={{ margin: "1.5rem 0 6.1rem 0" }} />
 
-      {!tonPriceError && (
-        <TonPriceWrapper>
-          <h2>Current value of TON</h2>
+          {!tonPriceError && (
+            <TonPriceWrapper>
+              <h2>Current value of TON</h2>
+              <TonPriceItem>
+                <TonPriceItemLeft>
+                  <img src={IcTonLogo} alt="ton_logo" />
+                  <p>TON</p>
+                </TonPriceItemLeft>
 
-          <TonPriceItem>
-            <TonPriceItemLeft>
-              <img src={IcTonLogo} alt="ton_logo" />
-              <p>TON</p>
-            </TonPriceItemLeft>
-
-            <TonPriceItemRight>
-              <p>${tonPriceData?.rates?.TON?.prices?.USD.toFixed(2)}</p>
-              <TonPriceItemRightPercentage $positive={Number(tonPriceData?.rates?.TON?.diff_24h?.USD) > 0}>
-                {tonPriceData?.rates?.TON?.diff_24h?.USD}
-              </TonPriceItemRightPercentage>
-            </TonPriceItemRight>
-          </TonPriceItem>
-        </TonPriceWrapper>
-      )}
-    </DashboardWrapper>
+                <TonPriceItemRight>
+                  <p>${tonPriceData?.rates?.TON?.prices?.USD.toFixed(2)}</p>
+                  <TonPriceItemRightPercentage $positive={Number(tonPriceData?.rates?.TON?.diff_24h?.USD) > 0}>
+                    {tonPriceData?.rates?.TON?.diff_24h?.USD}
+                  </TonPriceItemRightPercentage>
+                </TonPriceItemRight>
+              </TonPriceItem>
+            </TonPriceWrapper>
+          )}
+        </PerformanceWrapper>
+        <MainNavigationBar />
+      </DashboardWrapper>
+    </>
   );
 };
 

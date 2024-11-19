@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-import IcCheck from "../../assets/icons/MyAsset/ic_check.svg";
-import Icfilter from "../../assets/icons/MyAsset/ic_filter.svg";
-import IcReload from "../../assets/icons/MyAsset/ic_reload.svg";
 import NFTFilter from "../../components/myAsset/Filter/NFTFilter";
 import NftItem from "../../components/myAsset/NFT/NftItem";
+import NftEmpty from "@/assets/image/NftList_empty.svg";
+import RightNavIc from "@/assets/icons/MyAsset/chevron-right_dartk.svg";
 
 import useMyAssetFilter from "./hooks/useMyAssetFilter";
 
@@ -14,97 +13,90 @@ const tele = (window as any).Telegram.WebApp;
 
 const NftList = () => {
   const navigate = useNavigate();
-
-  const [isSelect, setIsSelect] = useState([true, false]);
-  const {
-    isOpenFilter,
-    activeOpacity,
-    checkPeriod,
-    period,
-    setPeriod,
-    setIsOpenFilter,
-    handleCheckPeriod,
-    handlePrintMyAssetFilter,
-    handleToggleFilter,
-  } = useMyAssetFilter();
-
-  const handleSelect = (index: number) => {
-    if (index === 1) {
-      setIsSelect([true, false]);
-    } else {
-      setIsSelect([false, true]);
-    }
-  };
-
-  const handleReload = () => {
-    setIsSelect([true, false]);
-    setPeriod("Filter");
-    setIsOpenFilter(false);
-  };
+  const { checkPeriod, handleCheckPeriod, handlePrintMyAssetFilter } = useMyAssetFilter();
+  
 
   useEffect(() => {
+    const tele = (window as any).Telegram.WebApp;
     if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/");
+        navigate("/main");
       });
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      const tele = (window as any).Telegram.WebApp;
+      if (tele) {
+        tele.offEvent("backButtonClicked");
+      }
     };
-  }, []);
+  }, [navigate]);
 
   return (
     <NFtListWrapper>
-      <NftListHeader>
-        {isOpenFilter && (
-          <NFTFilter
-            activeOpacity={activeOpacity}
-            checkPeriod={checkPeriod}
-            period={period}
-            handleCheckPeriod={handleCheckPeriod}
-          />
-        )}
-        <NFTListHeaderLeft>
-          <NFTReloadBox onClick={handleReload}>
-            <img src={IcReload} alt="reload" />
-          </NFTReloadBox>
-          <NFTSelectBox $active={isSelect[0]}>Staked</NFTSelectBox>
-          {/* Hidden for now */}
-          {/* <NFTSelectBox disabled $active={isSelect[1]}>
-            Collateralized
-          </NFTSelectBox> */}
-        </NFTListHeaderLeft>
-        <NFTSelectBox onClick={handleToggleFilter}>
-          {period}
-          {period === "Filter" ? (
-            <img src={Icfilter} alt="filter" />
-          ) : period === "All" ? (
-            <img src={IcCheck} alt="check" />
-          ) : (
-            <NFTStatus type={period} />
-          )}
-        </NFTSelectBox>
+      <NftListHeader id="specific-element">
+        <NFTFilter checkPeriod={checkPeriod} handleCheckPeriod={handleCheckPeriod} />
       </NftListHeader>
       {handlePrintMyAssetFilter()?.filter(item => item.status !== 2).length > 0 ? (
         <NFTItemWrapper>
           {handlePrintMyAssetFilter()
             .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
-            .filter(item => item.status !== 2)
             .map(item => (
               <NftItem key={item.nftId} item={item} />
             ))}
         </NFTItemWrapper>
       ) : (
-        <ExtraBox>Empty</ExtraBox>
+        <NftListEmpty>
+          <img src={NftEmpty} alt="Nft_list_empty" />
+          <h2>No results</h2>
+          <NftListEmptyLink onClick={() => navigate("/stake/amount")}>
+            <div>Let’s move to staking to get new NFT</div>{" "}
+            <img
+              src={RightNavIc}
+              alt="nftlist empty navigation icon"
+              style={{ height: "1.6rem", width: "1.6rem", marginBottom: "0px" }}
+            />
+          </NftListEmptyLink>
+        </NftListEmpty>
       )}
     </NFtListWrapper>
   );
 };
-
 export default NftList;
+
+const NftListEmptyLink = styled.div`
+  cursor: default;
+  div {
+    color: #5d5e67;
+    ${({ theme }) => theme.fonts.Nexton_Label_Medium};
+  }
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const NftListEmpty = styled.div`
+  padding-top: 3.5rem;
+  margin-bottom: 15.4rem;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  img {
+    width: 23.6rem;
+    height: 23.6rem;
+    margin-bottom: 0.7rem;
+  }
+  h2 {
+    ${({ theme }) => theme.fonts.Nexton_Title_Medium_1};
+    color: black;
+    margin-bottom: 1rem;
+  }
+`;
 
 const NFtListWrapper = styled.div`
   width: 100%;
@@ -139,54 +131,7 @@ const NftListHeader = styled.div`
   padding: 1rem;
 
   border-radius: 3rem;
-  background-color: #f2f2f7;
-`;
-
-const NFTListHeaderLeft = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-`;
-
-const NFTReloadBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 3rem;
-  height: 3rem;
-
-  border-radius: 50%;
-  background-color: #fff;
-  cursor: pointer;
-`;
-
-const NFTSelectBox = styled.button<{ $active?: boolean }>`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  padding: 0.8rem 1.4rem;
-
-  border: none;
-  border-radius: 2rem;
-  background-color: #f9f9ff;
-
-  ${({ theme }) => theme.fonts.Nexton_Label_Small};
-
-  ${({ $active }) =>
-    $active
-      ? css`
-          background-color: #333;
-          color: #fff;
-        `
-      : css`
-          background-color: #fff;
-          color: #5d5e67;
-        `}
-
-  outline: none;
-  cursor: pointer;
+  background-color: white;
 `;
 
 const NFTItemWrapper = styled.div`
@@ -195,7 +140,7 @@ const NFTItemWrapper = styled.div`
   gap: 1.6rem;
 
   width: 100%;
-  padding: 2.5rem;
+  padding: 2.5rem 2.5rem 15.4rem 2.5rem;
 
   background-color: #fff;
 
@@ -207,36 +152,4 @@ const NFTItemWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none; /* 크롬, 사파리, 오페라, 엣지 */
   }
-`;
-
-const ExtraBox = styled.div`
-  width: 100%;
-  margin-top: 5.6rem;
-
-  color: #2f3038;
-  ${({ theme }) => theme.fonts.Nexton_Title_Medium};
-
-  text-align: center;
-`;
-
-const NFTStatus = styled.div<{ type?: string }>`
-  width: 1.4rem;
-  height: 1.4rem;
-
-  border-radius: 50%;
-  ${({ type }) =>
-    type === "Ongoing" &&
-    css`
-      background: linear-gradient(90deg, #61b5f2 0%, #98a1fe 100%);
-    `}
-  ${({ type }) =>
-    type === "Forthcoming" &&
-    css`
-      background: linear-gradient(140deg, #ff8c73 0%, #ffe0b0 100%);
-    `}
-      ${({ type }) =>
-    type === "Expired" &&
-    css`
-      background: linear-gradient(127deg, #a2a9bc 0%, #e5edff 100%);
-    `}
 `;

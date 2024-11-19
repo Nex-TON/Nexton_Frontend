@@ -10,9 +10,7 @@ const UnstakingPreview = ({ unstakingDetail }: { unstakingDetail?: IUnstakingDet
         <img src={NftPreviewExpired} alt="expired" />
 
         <UnstakingPreviewTop>
-          <UnstakingPreviewTopTitle>
-            NFT ID {String(unstakingDetail?.nftId).padStart(5, "0")}
-          </UnstakingPreviewTopTitle>
+          <UnstakingPreviewTopTitle>NFT ID {String(unstakingDetail?.nftId).padStart(5, "0")}</UnstakingPreviewTopTitle>
           <UnstakingPreviewTopDateWrapper>
             <UnstakingPreviewTopDate>
               Expired date {new Date(unstakingDetail?.unstakableDate).toLocaleDateString()}
@@ -61,7 +59,7 @@ const UnstakingPreviewTop = styled.div`
 `;
 
 const UnstakingPreviewTopTitle = styled.span`
-  color: #FFF;
+  color: #fff;
   ${({ theme }) => theme.fonts.Nexton_Title_Medium_1};
 
   margin-bottom: 7px;
@@ -72,7 +70,7 @@ const UnstakingPreviewTopDateWrapper = styled.div`
 `;
 
 const UnstakingPreviewTopDate = styled.span`
-  color: #FFF;
+  color: #fff;
   /* body text/small2 */
   font-family: Montserrat;
   font-size: 13px;
@@ -91,6 +89,6 @@ const UnstakingPreviewBottom = styled.div`
 `;
 const UnstakingPreviewBottomDesc = styled.p`
   width: 240px;
-  color: #FFF;
+  color: #fff;
   ${({ theme }) => theme.fonts.Nexton_Label_Small};
 `;

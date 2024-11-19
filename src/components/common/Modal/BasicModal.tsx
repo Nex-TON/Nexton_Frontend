@@ -91,7 +91,7 @@ function BasicModal(props: BasicModalProps) {
               if (onClose) {
                 onClose();
               }
-              navigate("/");
+              navigate("/main");
             }}
           />
         </ModalHeader>
@@ -114,7 +114,7 @@ function BasicModal(props: BasicModalProps) {
             if (onClose) {
               onClose();
             }
-            navigate("/");
+            navigate("/main");
           }}
         >
           Okay

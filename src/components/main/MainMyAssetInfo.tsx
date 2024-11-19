@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { mutate } from "swr";
 
-import IcArrowRight from "@/assets/icons/MyAsset/ic_arrow_right.svg";
+import IcArrowRight from "@/assets/icons/MyAsset/chevron-right.svg";
 import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
 import IcSmallArrowRight from "@/assets/icons/MyAsset/ic_small_arrow_right.svg";
-import IcWallet from "@/assets/icons/MyAsset/ic_wallet.svg";
+import MyAssetNotConnected from "@/assets/image/MyAssetNotConnected.svg";
 import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceChart";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import { useEarningsbyAddress } from "@/hooks/api/dashboard/useEarningsbyAddress";
@@ -19,6 +19,8 @@ import {
   AssetBottomLeftItemTitle,
   AssetBottomLeftItemValue,
   AssetBottomNotConnected,
+  AssetBottomNotConnectedImg,
+  AssetBottomNotConnectedText,
   DashboardBottomBox,
   DashboardBottomLeft,
   DashboardBottomLeftData,
@@ -68,6 +70,28 @@ const MainMyAssetInfo = ({
   const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
   const { data: earningsData, isLoading: earningsLoading, error: earningsError } = useEarningsbyAddress(address);
 
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const deltaX = touchStartX.current - touchEndX.current; 
+    if (Math.abs(deltaX) > 50) {
+      if (deltaX > 0) {
+        setView("asset");
+      } else {
+        setView("dashboard");
+      }
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX; // 터치 이동 중 X 좌표 저장
+  };
+
   const handleViewChange = (view: AssetsView) => {
     setView(view);
   };
@@ -89,20 +113,36 @@ const MainMyAssetInfo = ({
   };
 
   return (
-    <MainWrapper>
+    <MainWrapper
+    onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      >
       <MainInnerBox>
         <MainTopBox $marginBottom={connected || view === "dashboard"}>
           <MainTopLeft>
-            <MainLeftItem $isActive={view === "dashboard"} onClick={() => handleViewChange("dashboard")} id="mainmyaseetdashbordview">
+            <MainLeftItem
+              $isActive={view === "dashboard"}
+              onClick={() => handleViewChange("dashboard")}
+              id="mainmyaseetdashbordview"
+            >
               Dashboard
             </MainLeftItem>
-            <MainLeftItem $isActive={view === "asset"} onClick={() => handleViewChange("asset")} id="mainmyassetmyassetview">
+            <MainLeftItem
+              $isActive={view === "asset"}
+              onClick={() => handleViewChange("asset")}
+              id="mainmyassetmyassetview"
+            >
               My Asset
             </MainLeftItem>
           </MainTopLeft>
 
           {view === "asset" && (
-            <MainTopRight>{address && <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} id="main myasset view refresh"/>}</MainTopRight>
+            <MainTopRight>
+              {address && (
+                <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} id="main myasset view refresh" />
+              )}
+            </MainTopRight>
           )}
         </MainTopBox>
 
@@ -114,7 +154,9 @@ const MainMyAssetInfo = ({
 
                 <APYBox id="mainmyassetinfodashboard">
                   <span id="mainmyassetinfodashboard">APY</span>
-                  <h4 id="mainmyassetinfodashboard">{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</h4>
+                  <h4 id="mainmyassetinfodashboard">
+                    {performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}
+                  </h4>
                 </APYBox>
               </DashboardBottomLeftTitleBox>
 
@@ -125,29 +167,36 @@ const MainMyAssetInfo = ({
                   <>
                     <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
                       <span id="mainmyassetinfodashboard">bot PNL</span>
-                      <h4 id="mainmyassetinfodashboard">{performanceData?.pnlRate ? `${limitDecimals(performanceData?.pnlRate, 2)}%` : "-"}</h4>
+                      <h4 id="mainmyassetinfodashboard">
+                        {performanceData?.pnlRate ? `${limitDecimals(performanceData?.pnlRate, 2)}%` : "-"}
+                      </h4>
                     </DashboardBottomLeftDataItem>
                     <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
                       <span id="mainmyassetinfodashboard">Daily PNL</span>
                       <h4 id="mainmyassetinfodashboard">
-                        {chartData?
-                          `${chartData?.dailyPnlRate > 0 ? "+" : ""}${limitDecimals(chartData?.dailyPnlRate, 2)}%`
+                        {chartData
+                          ? `${chartData?.dailyPnlRate > 0 ? "+" : ""}${limitDecimals(chartData?.dailyPnlRate, 2)}%`
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
                     <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
-                        <span style={{gap:"6px", alignItems:"center",display:"flex",justifyContent:""}} id="mainmyassetinfodashboard">
-                          TVL 
-                          {/* 보류 */}
-                          {/* <Tooltip 
+                      <span
+                        style={{ gap: "6px", alignItems: "center", display: "flex", justifyContent: "" }}
+                        id="mainmyassetinfodashboard"
+                      >
+                        TVL
+                        {/* 보류 */}
+                        {/* <Tooltip 
                           title="$TON + $nxTON"
                           open={false}
                           placement="top"
                           >
                           <VscInfo style={{width:"16px",height:"16px",color:"##C6C5D0"}} />
                           </Tooltip> */}
-                        </span>
-                      <h4 id="mainmyassetinfodashboard">{performanceData?.tvl ? `${limitDecimals(performanceData?.tvl, 3)} TON` : "-"}</h4>
+                      </span>
+                      <h4 id="mainmyassetinfodashboard">
+                        {performanceData?.tvl ? `${limitDecimals(performanceData?.tvl, 3)} TON` : "-"}
+                      </h4>
                     </DashboardBottomLeftDataItem>
 
                     <DashboardBottomLeftDataItem onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
@@ -161,10 +210,14 @@ const MainMyAssetInfo = ({
         ) : (
           <AssetBottomBox>
             {!connected ? (
-              <AssetBottomNotConnected onClick={()=>tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
-                <img src={IcWallet} alt="icon_wallet" id="mainmyassetinfoconnectwallet" />
-                <p id="mainmyassetinfoconnectwallet">Please connect your wallet.</p>
-                <img src={IcArrowRight} alt="icon_arrow_right"  id="mainmyassetinfoconnectwallet"/>
+              <AssetBottomNotConnected onClick={() => tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
+                <AssetBottomNotConnectedImg>
+                  <img src={MyAssetNotConnected} alt="my asset not connected image" />
+                  <AssetBottomNotConnectedText>
+                    <p id="mainmyassetinfoconnectwallet">Please connect your wallet.</p>
+                    <img src={IcArrowRight} alt="icon_arrow_right" id="mainmyassetinfoconnectwallet" />
+                  </AssetBottomNotConnectedText>
+                </AssetBottomNotConnectedImg>
               </AssetBottomNotConnected>
             ) : (
               <>

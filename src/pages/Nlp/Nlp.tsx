@@ -5,7 +5,7 @@ import IcBack from "../../assets/icons/ic_back.svg";
 import FooterButton from "../../components/common/FooterButton";
 import NlpContext from "../../components/nlp/NlpContext";
 import * as Contract from "../../hooks/contract/depositTon";
-import { UserDeposit } from "../../hooks/contract/wrappers/tact_NexTon";
+// import { UserDeposit } from "../../hooks/contract/wrappers/tact_NexTon";
 
 const Nlp = () => {
   const { sendMessage } = Contract.depositTon();
@@ -20,17 +20,17 @@ const Nlp = () => {
         <FooterButton
           title="Confirm"
           onClick={() => {
-            const data = (): UserDeposit => {
-              return {
-                $$type: "UserDeposit",
-                queryId: BigInt(Date.now()),
-                // ❗NOTE❗: Not used in the current contract version
-                // lockPeriod: 0n,
-                // leverage: 0n,
-              };
-            };
-            console.log(data());
-            sendMessage(data());
+            // const data = (): UserDeposit => {
+            //   return {
+            //     $$type: "UserDeposit",
+            //     queryId: BigInt(Date.now()),
+            //     // ❗NOTE❗: Not used in the current contract version
+            //     // lockPeriod: 0n,
+            //     // leverage: 0n,
+            //   };
+            // };
+            // console.log(data());
+            // sendMessage(data());
           }}
         />
       </NlpWrapper>

@@ -4,13 +4,13 @@ import { nextonFetcher } from "@/api/axios";
 
 export interface IUnstakedListData {
   nftId: string | number;
-  availableIn: string;
   unstakedAt: Date | null;
   unstakedAmount: number;
+  unstakeState:number;
 }
 
-export function useUnstakedList(telegramId: string) {
-  const swrKey = `/data/unstakingList/${telegramId}`;
+export function useUnstakedList(address: string) {
+  const swrKey = `/data/unstakingList/${address}`;
 
   return useSWR<IUnstakedListData[]>(swrKey, nextonFetcher);
 }

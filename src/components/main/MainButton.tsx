@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import IcWalletConnect from "@/assets/icons/Landing/ic_wallet_connect.svg";
+import IcTonLogo from "@/assets/icons/Main/mainbutton_ton_logo.svg";
 import IcWalletStake from "@/assets/icons/Landing/ic_wallet_stake.svg";
 import useTonConnect from "@/hooks/contract/useTonConnect";
+import { boolean } from "zod";
 
 const MainButton = ({ style }: { style?: React.CSSProperties }) => {
   const { connected, tonConnectUI } = useTonConnect();
@@ -20,15 +21,25 @@ const MainButton = ({ style }: { style?: React.CSSProperties }) => {
   return (
     <>
       {connected ? (
-        <TonWalletWrapper onClick={handleSwitchWalletFunction} style={style}id="main button stake">
+        <TonWalletWrapper
+          onClick={handleSwitchWalletFunction}
+          style={style}
+          id="main button stake"
+          $connected={connected}
+        >
           <TonConnectCenterBox id="main button stake">
             <img src={IcWalletStake} alt="stake" id="main button stake" /> Let's stake TON
           </TonConnectCenterBox>
         </TonWalletWrapper>
       ) : (
-        <TonWalletWrapper onClick={handleSwitchWalletFunction} style={style} id="main button connect wallet">
+        <TonWalletWrapper
+          onClick={handleSwitchWalletFunction}
+          style={style}
+          id="main button connect wallet"
+          $connected={connected}
+        >
           <TonConnectCenterBox id="main button connect wallet">
-            <img src={IcWalletConnect} alt="connect" id="main button connect wallet" /> Connect wallet
+            <img src={IcTonLogo} alt="connect" id="main button connect wallet" /> Connect wallet
           </TonConnectCenterBox>
         </TonWalletWrapper>
       )}
@@ -38,7 +49,7 @@ const MainButton = ({ style }: { style?: React.CSSProperties }) => {
 
 export default MainButton;
 
-const TonWalletWrapper = styled.div`
+const TonWalletWrapper = styled.div<{ $connected: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,8 +59,8 @@ const TonWalletWrapper = styled.div`
   margin-bottom: 3.7rem;
   padding: 0.5rem 0;
 
-  border-radius: 42px;
-  background-color: #1f53ff;
+  border-radius: 15px;
+  background-color: ${({ $connected }) => ($connected ? "#1F53FF" : "#0098EA")};
 
   cursor: pointer;
 `;
@@ -62,5 +73,14 @@ const TonConnectCenterBox = styled.div`
   gap: 0.7rem;
 
   color: #fff;
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2};
+  font-family: Montserrat;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 26px;
+  
+  img {
+    height: 24px;
+    width: 24px;
+  }
 `;

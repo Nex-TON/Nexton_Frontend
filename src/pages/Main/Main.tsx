@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Slide, toast, ToastContainer } from "react-toastify";
-import { styled, keyframes } from "styled-components";
+import { styled} from "styled-components";
 import { mutate } from "swr";
 import React from "react";
 import { Fab, Zoom, Tooltip } from "@mui/material";
-import {postUserAddress} from "@/api/postUserAddress";
+import { postUserAddress } from "@/api/postUserAddress";
 
 import Header from "@/components/common/Header";
+import MainNavigationBar from "@/components/common/MainNavigationBar";
 import ActionCards from "@/components/main/ActionCards";
 import MainMyAssetInfo from "@/components/main/MainMyAssetInfo";
 import { WelcomeModal } from "@/components/main/Modal/WelcomeModal";
-import MyTokens from "@/components/main/MyTokens";
 import { useManageReferral } from "@/hooks/api/referral/useManageReferral";
 import { useTrackReferral } from "@/hooks/api/referral/useTrackReferral";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
@@ -19,6 +19,7 @@ import FloatCommunityIc from "@/assets/icons/Main/floating_community.svg";
 import FloatSupportIc from "@/assets/icons/Main/floating_support.svg";
 import FloatCloseIc from "@/assets/icons/Main/floating_close.svg";
 import FloatCsIc from "@/assets/icons/Main/floating_cs.svg";
+
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -43,7 +44,6 @@ const Main: React.FC = () => {
 
   const [modal, setModal] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-
 
   const userId = tele?.initDataUnsafe?.user?.id;
 
@@ -100,7 +100,7 @@ const Main: React.FC = () => {
         }
       }
     };
-  
+
     sendAddress();
   }, [connected, address, userId]);
 
@@ -186,9 +186,7 @@ const Main: React.FC = () => {
         <ActionCards />
         {/* @deprecated */}
         {/* <StakeView /> */}
-
-        <MyTokens />
-        <Overlay visible={isFbOpen} onClick={closeFab} id="main page close floating button"/>
+        <Overlay visible={isFbOpen} onClick={closeFab} id="main page close floating button" />
         <Fab
           style={{
             position: "absolute",
@@ -196,7 +194,7 @@ const Main: React.FC = () => {
             width: "48px",
             height: "48px",
             padding: "12px",
-            bottom: "42px",
+            bottom: "98px",
             right: "10px",
             alignItems: "center",
             justifyContent: "center",
@@ -252,7 +250,7 @@ const Main: React.FC = () => {
                     }}
                     id="mainpage floating button support"
                   >
-                    <img src={FloatSupportIc} alt="community link" id="mainpage floating button support"/>
+                    <img src={FloatSupportIc} alt="community link" id="mainpage floating button support" />
                   </Fab>
                 </Tooltip>
               </Zoom>
@@ -303,6 +301,7 @@ const Main: React.FC = () => {
             </>
           )}
         </Fab>
+        <MainNavigationBar />
       </MainWrapper>
 
       <ToastContainer
@@ -324,15 +323,6 @@ const Main: React.FC = () => {
 
 export default Main;
 
-const rotate45 = keyframes`
-from{
-  transform:rotate(0deg);
-}
-to{
-  transform:rotate(135deg);
-}
-`;
-
 const Overlay = styled.div<{ visible: boolean }>`
   position: fixed;
   top: 0;
@@ -342,7 +332,7 @@ const Overlay = styled.div<{ visible: boolean }>`
   opacity: 0.5;
   background: var(--Neutral-Neutural-0, #000);
   display: ${({ visible }) => (visible ? "block" : "none")};
-  z-index: 999; /* 오버레이가 Fab보다 위에 오도록 */
+  z-index: 999;
 `;
 
 const MainWrapper = styled.div`

@@ -25,7 +25,7 @@ const Swap = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/");
+        navigate("/main");
       });
     }
 

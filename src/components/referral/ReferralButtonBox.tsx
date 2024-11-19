@@ -1,7 +1,7 @@
+// stake success page 상단에 뜨는 referral 바로가기 배너
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-import NextonLogo from "@/assets/image/ReferralButtonLogo.png";
 import ReferralButton from "@/assets/image/ReferralButton.png";
 import NavigateButton from "@/assets/image/NavigateButton.png";
 const ReferralButtonBox = () => {

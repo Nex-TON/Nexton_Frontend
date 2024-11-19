@@ -6,6 +6,6 @@ export const useUnstakingList = () => {
   const { nftList } = useStakeInfo(address);
 
   return {
-    unstakingList: nftList?.filter(item => item.status === 1),
+    unstakingList: nftList?.filter(item => item.status === 2),
   };
 };

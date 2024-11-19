@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
-import Header from "@/components/common/Header";
 import JoinCommunity from "@/components/main/Menu/JoinCommunity";
 import TopBar from "@/components/main/Menu/TopBar";
 import UpcomingMenu from "@/components/main/Menu/UpcomingMenu";
@@ -19,7 +18,7 @@ const Menu = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/");
+        navigate("/main");
       });
     }
 
@@ -30,20 +29,26 @@ const Menu = () => {
 
   return (
     <MenuWrapper>
-      <Header isOpen={true} text="NEXTON" backgroundType={true} connected={connected} tonConnectUI={tonConnectUI} />
+      <MenuPageHeader>Menu</MenuPageHeader>
       <TopBar />
-      <UpcomingMenu />
       <JoinCommunity />
+      <UpcomingMenu />
     </MenuWrapper>
   );
 };
 
 export default Menu;
 
+const MenuPageHeader=styled.div`
+  color:#46494A;
+  padding:2rem 1.5rem;
+  ${({theme})=>theme.fonts.Nexton_Title_Medium}
+`
+
 const MenuWrapper = styled.div`
   width: 100%;
   height: auto;
   min-height: 100%;
 
-  background-color: #f2f2f7;
+  background-color: white;
 `;
