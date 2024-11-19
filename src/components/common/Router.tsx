@@ -64,7 +64,6 @@ const Router = () => {
           <Route path=":id/view" element={<UnstakingNftDetail view />} />
           <Route path="beta" element={<UnstakingBetaInfo />} />
         </Route>
-
         <Route path="/swap" element={<Swap />} />
         <Route path="/nlp" element={<Nlp />} />
       </Routes>

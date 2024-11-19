@@ -46,7 +46,7 @@ const UnstakedList = () => {
   }, []);
 
   return (
-    <UnstakedListWrapper id="specific-element-unstakedlist">
+    <UnstakedListWrapper>
       <UnstakedDetailHeader unstakedListLength={data?.length}/>
       {isLoading ? (
         <LoaderWrapper>

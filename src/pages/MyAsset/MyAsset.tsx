@@ -28,7 +28,6 @@ const MyAsset = () => {
       }
     }
   }, []);
-
   useEffect(() => {
     if (tele) {
       tele.ready();

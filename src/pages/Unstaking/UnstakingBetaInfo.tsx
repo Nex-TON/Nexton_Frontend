@@ -20,7 +20,7 @@ const UnstakingBetaInfo = () => {
         <MainButton
           text="Okay"
           onClick={() => {
-            navigate(`/myasset/unstaked#specific-element-unstakedlist`);
+            navigate(`/myasset/unstaked`);
           }}
         />
       </ContentWrapper>

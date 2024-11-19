@@ -14,6 +14,7 @@ const tele = (window as any).Telegram.WebApp;
 const NftList = () => {
   const navigate = useNavigate();
   const { checkPeriod, handleCheckPeriod, handlePrintMyAssetFilter } = useMyAssetFilter();
+  
 
   useEffect(() => {
     const tele = (window as any).Telegram.WebApp;
@@ -35,7 +36,7 @@ const NftList = () => {
 
   return (
     <NFtListWrapper>
-      <NftListHeader id="specific-element-nftlist">
+      <NftListHeader id="specific-element">
         <NFTFilter checkPeriod={checkPeriod} handleCheckPeriod={handleCheckPeriod} />
       </NftListHeader>
       {handlePrintMyAssetFilter()?.filter(item => item.status !== 2).length > 0 ? (
