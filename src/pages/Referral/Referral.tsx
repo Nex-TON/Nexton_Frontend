@@ -12,11 +12,9 @@ import { useReferralPoints } from "@/hooks/api/referral/useReferralPoints";
 import { useReferralStatus } from "@/hooks/api/referral/useReferralStatus";
 import { globalError } from "@/lib/atom/globalError";
 import { copyText } from "@/utils/copyText";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 
 import "react-toastify/dist/ReactToastify.css";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
-import MainButton from "@/components/main/MainButton";
 import { ReferralPointsExplain } from "@/components/referral/ReferralPointsExplain";
 import { ReferralStatistic } from "@/components/referral/ReferralStatistic";
 import { ReferralEarned } from "@/components/referral/ReferralEarned";
@@ -49,7 +47,6 @@ const ShareToFriend = ({ link, text }) => {
 };
 
 const Referral = () => {
-  const { address, balance, refreshTonData, connected, tonConnectUI } = useTonConnect();
   const navigate = useNavigate();
   const setError = useSetRecoilState(globalError);
   const { trigger, isMutating } = useManageReferral();
@@ -57,7 +54,6 @@ const Referral = () => {
   const [referralLink, setReferralLink] = useState<string>("");
   const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [isCopied, setIsCopied] = useState<boolean>(false);
-  const [modal, setModal] = useState<ModalState>({ type: "nxt", toggled: false });
 
   const { data: referralStatus, isLoading: statusLoading, error: errorLoading } = useReferralStatus(userInfo?.userId);
 

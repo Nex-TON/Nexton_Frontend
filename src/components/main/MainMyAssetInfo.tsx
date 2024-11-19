@@ -70,23 +70,19 @@ const MainMyAssetInfo = ({
   const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
   const { data: earningsData, isLoading: earningsLoading, error: earningsError } = useEarningsbyAddress(address);
 
-  const touchStartX = useRef(0); // 터치 시작 위치 저장
-  const touchEndX = useRef(0); // 터치 종료 위치 저장
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
-  // 슬라이드 동작 감지
   const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX; // 터치 시작 X 좌표 저장
+    touchStartX.current = e.touches[0].clientX;
   };
 
   const handleTouchEnd = () => {
-    const deltaX = touchStartX.current - touchEndX.current; // 이동 거리 계산
+    const deltaX = touchStartX.current - touchEndX.current; 
     if (Math.abs(deltaX) > 50) {
-      // 슬라이드 거리가 일정 이상일 때만 동작
       if (deltaX > 0) {
-        // 오른쪽 → 왼쪽 슬라이드: `dashboard → asset`
         setView("asset");
       } else {
-        // 왼쪽 → 오른쪽 슬라이드: `asset → dashboard`
         setView("dashboard");
       }
     }
@@ -118,9 +114,9 @@ const MainMyAssetInfo = ({
 
   return (
     <MainWrapper
-    onTouchStart={handleTouchStart} // 터치 시작 이벤트
-      onTouchMove={handleTouchMove} // 터치 이동 이벤트
-      onTouchEnd={handleTouchEnd} // 터치 종료 이벤트
+    onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
       >
       <MainInnerBox>
         <MainTopBox $marginBottom={connected || view === "dashboard"}>
