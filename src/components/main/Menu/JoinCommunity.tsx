@@ -98,6 +98,7 @@ const JoinCommunityButton = styled.button<{ $inactive?: boolean }>`
   border: none;
   border-radius: 15px;
   background-color: ${({ $inactive }) => ($inactive ? "#E1E4E6" : "#FFF")};
+  box-shadow:${({ $inactive }) => ($inactive ? "none" : "0px 0px 12px 0px rgba(206, 216, 225, 0.50)")};
 
   cursor: ${({ $inactive }) => ($inactive ? "default" : "pointer")};
 
