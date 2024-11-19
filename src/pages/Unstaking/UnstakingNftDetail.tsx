@@ -206,7 +206,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
 
 export default UnstakingNftDetail;
 const NFTDetailItemStatus = styled.div<{ $unstakeState: number }>`
-  color: ${({ $unstakeState }) => ($unstakeState == 1 ? "#76797A" : "#34C759")};
+  color: ${({ $unstakeState }) => ($unstakeState ===2 ? "#34C759":"#76797A" )};
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
 `;
 

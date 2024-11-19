@@ -47,7 +47,7 @@ export default UnstakedDetailItem;
 
 const UnstakeState=styled.div<{$unstakeState:number}>`
 ${({theme})=>theme.fonts.Nexton_Body_Text_Medium_2};
-color: ${({$unstakeState})=>$unstakeState==1?"#76797A":"#34C759"};
+color: ${({$unstakeState})=>$unstakeState===2?"#34C759":"#76797A"};
 
 `
 
