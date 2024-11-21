@@ -1,11 +1,34 @@
 import styled from "styled-components";
+import { mutate } from "swr";
 
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import { numberCutter } from "@/utils/numberCutter";
+import { useEffect, useState } from "react";
 
 export const TotalBalance = () => {
   const { address, balance, connected, refreshTonData } = useTonConnect();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  useEffect(() => {
+    const initializeData = async () => {
+      setIsRefreshing(true);
+      try {
+        await Promise.all([
+          refreshTonData(),
+          mutate(`/data/getAllStakeInfoByAddress?address=${address}`),
+          mutate(`/data/getEarningsbyAddress/${address}`),
+        ]);
+      } catch (error) {
+        console.error("An error occurred during the initial data load:", error);
+      } finally {
+        setIsRefreshing(false);
+      }
+    };
+
+    initializeData();
+  }, [address, refreshTonData]);
+
   return (
     <TotalBalanceWrapper>
       <TotalBalanceHeader>Total Balance</TotalBalanceHeader>
@@ -13,7 +36,15 @@ export const TotalBalance = () => {
         <img src={IcTon} alt="my asset page ton logo" />
         <TotalBalanceText>
           <SideText>Balance</SideText>
-          <Balance>{balance ? numberCutter(balance) : `0.000`}TON</Balance>
+          <Balance>
+            {isRefreshing ? (
+              <Balance>-.---</Balance>
+            ) : (
+              <>
+                <Balance>{balance === 0 || balance ? balance?.toFixed(3) : "0.000"}TON</Balance>
+              </>
+            )}
+          </Balance>
         </TotalBalanceText>
       </TotalBalanceBoxWrapper>
     </TotalBalanceWrapper>
