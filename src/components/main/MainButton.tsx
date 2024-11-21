@@ -73,12 +73,8 @@ const TonConnectCenterBox = styled.div`
   gap: 0.7rem;
 
   color: #fff;
-  font-family: Montserrat;
-  font-size: 17px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 26px;
-  
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2};
+
   img {
     height: 24px;
     width: 24px;

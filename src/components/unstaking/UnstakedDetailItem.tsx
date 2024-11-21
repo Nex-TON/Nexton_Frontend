@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
-import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import { IUnstakedListData } from "@/hooks/api/unstaking/useUnstakedList";
 import { limitDecimals } from "@/utils/limitDecimals";
 

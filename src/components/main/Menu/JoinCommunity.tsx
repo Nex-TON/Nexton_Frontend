@@ -69,11 +69,7 @@ const JoinCommunityWrapper = styled.div`
 
 const JoinCommunityTitle = styled.div`
   color: var(--Neutral-variant-Neutral-variant-20, #2f3038);
-  font-family: Montserrat;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 150%; /* 30px */
+  ${({theme})=>theme.fonts.Nexton_Title_Medium};
 `;
 
 const JoinCommunityButtonList = styled.div`

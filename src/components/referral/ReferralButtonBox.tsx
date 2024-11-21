@@ -26,13 +26,7 @@ export default ReferralButtonBox;
 const NavigateButtonContainer = styled.div``;
 const ButtonText = styled.div`
   color: #fff;
-
-  /* body text/Large 2 */
-  font-family: Montserrat;
-  font-size: 17px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 26px; /* 152.941% */
+  ${({theme})=>theme.fonts.Nexton_Body_Text_Large_2};
 `;
 
 const ReferralButtonContainer = styled.div`

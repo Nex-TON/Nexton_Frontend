@@ -35,13 +35,7 @@ const RightText = styled.div`
   color: var(--Dark-surfaces-Dark-surfaces-4, #2e2f3a);
   text-align: center;
 
-  /* Labal/small */
-  font-family: Montserrat;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 16px; /* 133.333% */
-  letter-spacing: -0.12px;
+  ${({theme})=>theme.fonts.Nexton_Label_Small};
 `;
 
 const ScreenWrapper = styled.div`

@@ -9,7 +9,6 @@ import OngoingNFTLarge from "@/assets/image/NftOngoing.png";
 import StakingInfo from "@components/loan/common/StakingInfo";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { nftInfo } from "@/types/Nft";
-import { DDayChange } from "@/utils/dateChanger";
 import { getDDayText, getNftState } from "@/utils/getNftState";
 import { numberCutter } from "@/utils/numberCutter";
 

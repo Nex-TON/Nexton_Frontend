@@ -70,10 +70,6 @@ const UpcomingMenuButton = styled.button`
   div {
     color:#B9B9BA;
     text-align: center;
-    font-family: Montserrat;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 22px; /* 157.143% */
+    ${({theme})=>theme.fonts.Nexton_Body_Text_Medium_3};
   }
 `;

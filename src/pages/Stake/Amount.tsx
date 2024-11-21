@@ -157,10 +157,5 @@ const BalanceWrapper = styled.div`
 
 const BalanceText = styled.span`
   color: #333;
-  font-family: Montserrat;
-  font-size: 1.3rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.8rem; /* 138.462% */
-  letter-spacing: -0.024rem;
+  ${({theme})=>theme.fonts.Nexton_Body_Text_Small};
 `;

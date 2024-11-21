@@ -1,4 +1,4 @@
-import { Link, useLocation} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import dashboard_inacticve from "@/assets/icons/Main/dashboard_inactive.svg";
 import home_inactive from "@/assets/icons/Main/home_inactive.svg";
@@ -58,7 +58,7 @@ const MainNavigationBar = () => {
 export default MainNavigationBar;
 
 const NavButton = ({ pathname, path, img_inactive, img_active, title }) => {
-  const isActive = pathname.includes(path); 
+  const isActive = pathname.includes(path);
   return (
     <NavWrapper>
       <Link to={path}>
@@ -90,14 +90,8 @@ const colorChange = keyframes`
 const ActiveNavText = styled.div`
   color: #1f53ff;
   text-align: center;
+  ${({ theme }) => theme.fonts.Nexton_Label_Small};
   animation: ${colorChange} 0.2s ease-in-out;
-
-  font-family: Montserrat;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 16px;
-  letter-spacing: -0.12px;
 `;
 
 const NavWrapper = styled.div`
@@ -106,7 +100,7 @@ const NavWrapper = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  a{
+  a {
     text-decoration: none;
   }
 `;
@@ -114,14 +108,7 @@ const NavWrapper = styled.div`
 const NavText = styled.div`
   color: #fff;
   text-align: center;
-
-  font-family: Montserrat;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 16px;
-  letter-spacing: -0.12px;
-
+  ${({ theme }) => theme.fonts.Nexton_Label_Small};
 `;
 
 const Nav = styled.div`

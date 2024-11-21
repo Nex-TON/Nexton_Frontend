@@ -240,7 +240,7 @@ const UnstakingHeader = styled.div`
 
   color: #0f0f0f;
   font-family: Montserrat;
-  font-size: 20px;
+  font-size: 2rem;
   font-style: normal;
   font-weight: 600;
   line-height: 34px; /* 170% */
