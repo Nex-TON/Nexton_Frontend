@@ -16,6 +16,7 @@ import { telegramAtom } from "@/lib/atom/telegram";
 import { UnstakingProps } from "@/types/staking";
 import { isDevMode } from "@/utils/isDevMode";
 import { limitDecimals } from "@/utils/limitDecimals";
+import * as Contract from "@/hooks/contract/transferNft.js";
 
 import {
   NFTDetailContentBox,
@@ -36,7 +37,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
   const { address } = useTonConnect();
   const { id } = useParams();
   const { data: unstakingDetail, isLoading: isLoadingUnstakingDetail, error } = useUnstakingDetail(Number(id));
-  // const { sendMessage } = Contract.transferNft(id); // ! pass nftAddress instead of id
+  const { sendMessage } = Contract.transferNft(id); // ! pass nftAddress instead of id
 
   const navigate = useNavigate();
 
@@ -92,7 +93,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
 
       // First, attempt to send the message to the contract
       // !❗NOTE❗: Not used in the current contract version
-      // await sendMessage(data(), toNano("0.005"));
+      await sendMessage(data(), toNano("0.005"));
 
       // If sendMessage is successful, then call postStakingInfo
       await postUnstake(newUnstaking);
@@ -206,7 +207,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
 
 export default UnstakingNftDetail;
 const NFTDetailItemStatus = styled.div<{ $unstakeState: number }>`
-  color: ${({ $unstakeState }) => ($unstakeState ===2 ? "#34C759":"#76797A" )};
+  color: ${({ $unstakeState }) => ($unstakeState === 2 ? "#34C759" : "#76797A")};
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
 `;
 
