@@ -1,15 +1,16 @@
-import { Address, TupleBuilder, toNano } from "@ton/core";
+import { Address, OpenedContract, TupleBuilder, beginCell, toNano } from "@ton/core";
 
 import { NftItem } from "./wrappers/NftItem";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { useTonClient } from "./useTonClient";
 import useTonConnect from "./useTonConnect";
+import { TonClient } from "@ton/ton";
 
-function transferNft(id) {
-  const client = useTonClient();
+function transferNft(id: number) {
+  const client: TonClient = useTonClient();
   const { sender, address } = useTonConnect();
 
-  let nftItem = useAsyncInitialize(async () => {
+  let nftItem: OpenedContract<NftItem> = useAsyncInitialize(async () => {
     if (!client) return;
     const nftItemAddress = await idToAddress(id, client);
     console.log(nftItemAddress.toString());
@@ -18,14 +19,24 @@ function transferNft(id) {
   }, [client]);
 
   return {
-    sendMessage: async (data, value) => {
+    sendMessage: async (
+      data: {
+        queryId: bigint;
+        value: bigint;
+        newOwner: Address;
+        responseAddress: Address;
+        fwdAmount: bigint;
+      },
+      value: bigint,
+    ) => {
       if (nftItem) {
         return await nftItem.sendTransfer(sender, {
           queryId: data.queryId,
           value: value,
-          newOwner: data.newOwner,
-          responseAddress: data.responseAddress,
-          fwdAmount: data.fwdAmount,
+          newOwnerAddress: data.newOwner,
+          responseDestination: data.responseAddress,
+          forwardAmount: data.fwdAmount,
+          forwardPayload: beginCell().storeUint(12, 8),
         });
       } else {
         return () => {};
@@ -34,7 +45,7 @@ function transferNft(id) {
   };
 }
 
-async function idToAddress(id, client) {
+async function idToAddress(id: number, client: TonClient) {
   let nftCollectionAddress = null;
   if (id < 100) {
     nftCollectionAddress = Address.parse(import.meta.env.VITE_NFT_V1);
