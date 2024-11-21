@@ -39,7 +39,7 @@ export const ReferralPointsExplain = () => {
       <ReferralBoxWrapper>
         <ReferralBox>
           <ClickAwayListener onClickAway={handleNxtTooltipClose}>
-            <ReferralBoxTop onClick={handleNxtTooltip}>
+            <ReferralBoxTop onClick={handleNxtTooltip} id="friends page nxt tooltip">
               <PointNameWrapper>
                 <img src={IcNXTPoint} alt="referral page nxt point icon" />
                 <h3>NXT Points</h3>
@@ -76,7 +76,7 @@ export const ReferralPointsExplain = () => {
           </PointExplain>
         </ReferralBox>
         <ClickAwayListener onClickAway={handleReferTooltipClose}>
-        <ReferralBox onClick={handleReferTooltip}>
+        <ReferralBox onClick={handleReferTooltip} id="friends page refer tooltip">
           <ReferralBoxTop>
             <PointNameWrapper>
               <img src={IcRefersPoint} alt="referral page refers point icon" />
