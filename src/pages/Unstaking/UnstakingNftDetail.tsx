@@ -16,7 +16,7 @@ import { telegramAtom } from "@/lib/atom/telegram";
 import { UnstakingProps } from "@/types/staking";
 import { isDevMode } from "@/utils/isDevMode";
 import { limitDecimals } from "@/utils/limitDecimals";
-import * as Contract from "@/hooks/contract/transferNft.js";
+import * as Contract from "@/hooks/contract/transferNft";
 
 import {
   NFTDetailContentBox,
