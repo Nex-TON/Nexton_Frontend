@@ -27,6 +27,7 @@ import UnstakingNftDetail from "@/pages/Unstaking/UnstakingNftDetail";
 import StakeSuccess from '@/pages/Stake/StakeSuccess';
 import SplashScreen from "@/pages/Splash/splash";
 import ScrollToTop from "./ScrollTo";
+import Onboarding1 from "@/pages/Onboarding/Onboarding1";
 
 const Router = () => {
   return (
@@ -34,6 +35,7 @@ const Router = () => {
       <ScrollToTop/>
       <Routes>
       <Route path="/" element={<SplashScreen />} />
+      <Route path="/onboarding1" element={<Onboarding1/>}/>
       <Route path="/main" element={<Main />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/referral" element={<Referral />} />
