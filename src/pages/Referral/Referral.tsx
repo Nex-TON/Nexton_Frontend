@@ -40,8 +40,8 @@ const ShareToFriend = ({ link, text }) => {
   };
 
   return (
-    <ShareToFriendButton>
-      <button onClick={shareToTelegram}>Invite a friend</button>
+    <ShareToFriendButton id="referral page share button">
+      <button onClick={shareToTelegram} id="referral page share button">Invite a friend</button>
     </ShareToFriendButton>
   );
 };

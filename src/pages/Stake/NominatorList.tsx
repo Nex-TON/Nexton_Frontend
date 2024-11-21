@@ -117,7 +117,7 @@ const NominatorList = () => {
                 {nominatorListData.some(item => item.type === "bot") && (
                   <BotTitleWrapper>
                     <TitleH3>Bot</TitleH3>
-                    <DashboardLink onClick={() => navigate("/dashboard")}>
+                    <DashboardLink onClick={() => navigate("/dashboard")} id="nominator list dashboard button">
                       Go to Dashboard <img src={IcArrorRight} alt="arrow_right" />
                     </DashboardLink>
                   </BotTitleWrapper>
@@ -191,43 +191,6 @@ const LoaderWrapper = styled.div`
 
   width: 100%;
   height: 100vh;
-`;
-
-const NominatorSearch = styled.form`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 100%;
-  margin-top: 1.8rem;
-
-  border-bottom: 0.1rem solid #e1e4e6;
-`;
-
-const NominatorInput = styled.input`
-  width: 80%;
-  padding-bottom: 0.8rem;
-
-  border: none;
-  color: #333;
-  font-family: Montserrat;
-  font-size: 1.3rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.8rem; /* 138.462% */
-  letter-spacing: -0.024rem;
-
-  outline: none;
-
-  &::placeholder {
-    color: #333;
-  }
-
-  &:focus {
-    &::placeholder {
-      color: transparent;
-    }
-  }
 `;
 
 const NominatorItemList = styled.div`
