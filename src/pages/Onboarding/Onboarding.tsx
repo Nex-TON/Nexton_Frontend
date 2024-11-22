@@ -30,18 +30,18 @@ const Onboarding = () => {
     {
       image: OnboardingIllust2,
       circle: BackgroundCircle2,
-      title1: "Stake your TON",
-      title2: "with NEXTON!",
-      description1: "Stake your TON.",
-      description2: "And get the nxTON with the NFT.",
+      title1: "Liquid Stake TON,",
+      title2: "Earn with Arb Bot!",
+      description1: "Liquid stake TON,",
+      description2: "let the Arb bot earn profits!",
     },
     {
       image: OnboardingIllust3,
       circle: BackgroundCircle3,
-      title1: "Stake your TON",
-      title2: "with NEXTON!",
-      description1: "Stake your TON.",
-      description2: "And get the nxTON with the NFT.",
+      title1: "Unlock NFT in 60 Days,",
+      title2: "Start Earning!",
+      description1: "Unlock your NFT after 60 days",
+      description2: "and start earning profits!",
     },
   ];
 
@@ -237,7 +237,7 @@ const BottomBoxWrapper = styled.div`
 
 const IllustWrapper = styled.div<{ index: number }>`
   margin-left: ${props => (props.index === 0 ? "none" : props.index === 1 ? "4.3rem" : "none")};
-  right: ${props => (props.index === 0 ? "3.4rem" : props.index === 2 ? "0" : "none")};
+  right: ${props => (props.index === 0 ? "3.4rem" : props.index === 2 ? "1rem" : "none")};
   position: absolute;
   bottom: ${props => (props.index === 0 ? "28rem" : props.index === 1 ? "30.4rem" : "28rem")};
   img {
