@@ -1,26 +1,32 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+
+import OnboardingIllust from "@/assets/image/Onboarding/onboarding2_illust.svg";
+import BackgroundCircle from "@/assets/image/Onboarding/onboarding2_circle.svg";
 import { useEffect } from "react";
 
-import OnboardingIllust from "@/assets/image/Onboarding/onboarding1_illust.svg";
-import BackgroundCircle from "@/assets/image/Onboarding/onboarding1_circle.svg";
+const tele = (window as any).Telegram.WebApp;
 
-const tele=(window as any).Telegram.WebApp;
-
-const Onboarding1 = () => {
-  const navigate=useNavigate()
+const Onboarding2 = () => {
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (tele) {
       tele.ready();
-      tele.BackButton.hide();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", () => {
+        navigate("/onboarding1");
+      });
     }
+    return () => {
+      tele.offEvent("backButtonClicked");
+    };
   }, []);
 
   return (
     <>
       <OnboardingWrapper>
-        <SkipButton onClick={()=>navigate("/main")}>Skip</SkipButton>
+        <SkipButton onClick={() => navigate("/main")}>Skip</SkipButton>
         <BackgroundImage>
           <img src={BackgroundCircle} alt="background circle" />
         </BackgroundImage>
@@ -29,38 +35,36 @@ const Onboarding1 = () => {
         </IllustWrapper>
         <BottomBoxWrapper>
           <h3>
-            Stake your TON
+            Liquid Stake TON,
             <br />
-            with NEXTON!
+            Earn with Arb Bot!
           </h3>
           <p>
-            Stake your TON.
+            Liquid stake TON,
             <br />
-            And get the nxTON with the NFT.
+            let the Arb bot earn profits!
           </p>
           <BottomStatusWrapper>
             <ProgressDot>
-              <DotActive/>
-              <DotInActive/>
-              <DotInActive/>
+              <DotInActive />
+              <DotActive />
+              <DotInActive />
             </ProgressDot>
-            <NextButton onClick={()=>navigate("/onboarding2")}>NEXT</NextButton>
+            <NextButton onClick={() => navigate("/onboarding3")}>NEXT</NextButton>
           </BottomStatusWrapper>
         </BottomBoxWrapper>
       </OnboardingWrapper>
     </>
   );
 };
-export default Onboarding1;
+export default Onboarding2;
 
-const SkipButton=styled.div`
-  color:white;
+const SkipButton = styled.div`
+  color: white;
   position: absolute;
   top: 3rem;
   left: 2rem;
-  ${({theme})=>theme.fonts.Nexton_Title_Large_Small};
-
-
+  ${({ theme }) => theme.fonts.Nexton_Title_Large_Small};
 `;
 
 const DotActive = styled.div`
@@ -77,33 +81,33 @@ const DotInActive = styled.div`
 `;
 
 const BottomStatusWrapper = styled.div`
-display:flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const NextButton = styled.div`
-background-color: #1F53FF;
-color: white;
+  background-color: #1f53ff;
+  color: white;
 
-display: flex;
-align-items:center;
-justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-width: 12.1rem;
-height: 5rem;
-border-radius: 1.2rem;
+  width: 12.1rem;
+  height: 5rem;
+  border-radius: 1.2rem;
 
-//font
-color: var(--iOS-Light-Button-Text-Color, #FFF);
-text-align: center;
-font-family: "SF Pro";
-font-size: 17px;
-font-style: normal;
-font-weight: 400;
-line-height: 22px; /* 129.412% */
-letter-spacing: -0.442px;
+  //font
+  color: var(--iOS-Light-Button-Text-Color, #fff);
+  text-align: center;
+  font-family: "SF Pro";
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px; /* 129.412% */
+  letter-spacing: -0.442px;
 `;
 
 const ProgressDot = styled.div`
@@ -114,8 +118,8 @@ const ProgressDot = styled.div`
 
 const BackgroundImage = styled.div`
   position: absolute;
-  right: 0;
-  top: 22.4rem;
+  left: 0;
+  top: 17rem;
 `;
 
 const BottomBoxWrapper = styled.div`
@@ -144,9 +148,11 @@ const BottomBoxWrapper = styled.div`
 `;
 
 const IllustWrapper = styled.div`
-  margin-left: 3.9rem;
+  margin-left: 4.5rem;
   position: absolute;
-  top: 4.2rem;
+  top: 4.3rem;
+  width: 128.779px;
+  height: 14.057px;
 `;
 
 const OnboardingWrapper = styled.div`

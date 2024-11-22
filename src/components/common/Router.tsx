@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes,Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import Dashboard from "@/pages/Dashboard/Dashboard";
 // import BorrowDetails from "@/pages/Loan/Borrow/BorrowDetails";
@@ -24,19 +24,23 @@ import NominatorList from "@/pages/Stake/NominatorList";
 import Swap from "@/pages/Swap/Swap";
 import UnstakingBetaInfo from "@/pages/Unstaking/UnstakingBetaInfo";
 import UnstakingNftDetail from "@/pages/Unstaking/UnstakingNftDetail";
-import StakeSuccess from '@/pages/Stake/StakeSuccess';
+import StakeSuccess from "@/pages/Stake/StakeSuccess";
 import SplashScreen from "@/pages/Splash/splash";
 import ScrollToTop from "./ScrollTo";
 import Onboarding1 from "@/pages/Onboarding/Onboarding1";
+import Onboarding2 from "@/pages/Onboarding/Onboarding2";
+import Onboarding3 from "@/pages/Onboarding/Onboarding3";
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <ScrollToTop/>
+      <ScrollToTop />
       <Routes>
-      <Route path="/" element={<SplashScreen />} />
-      <Route path="/onboarding1" element={<Onboarding1/>}/>
-      <Route path="/main" element={<Main />} />
+        <Route path="/" element={<SplashScreen />} />
+        <Route path="/onboarding1" element={<Onboarding1 />} />
+        <Route path="/onboarding2" element={<Onboarding2 />} />
+        <Route path="/onboarding3" element={<Onboarding3 />} />
+        <Route path="/main" element={<Main />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/referral" element={<Referral />} />
         <Route path="/dashboard" element={<Dashboard />} />
