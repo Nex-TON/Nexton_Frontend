@@ -54,10 +54,15 @@ const Onboarding = () => {
   const handleTouchMove = (e: React.TouchEvent) => {
     touchEndX.current = e.touches[0].clientX;
   };
+  const handleTouchStart = (e: React.TouchEvent) => {
+    // 터치 시작 시 X 좌표 저장
+    touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = e.touches[0].clientX; // 초기화
+  };
 
   const handleTouchEnd = () => {
     const deltaX = touchStartX.current - touchEndX.current;
-    if (Math.abs(deltaX) > 50) {
+    if (Math.abs(deltaX) > 80) {
       if (currentSlide < 2 && deltaX > 0) {
         setCurrentSlide(currentSlide + 1);
       } else if (currentSlide > 0 && deltaX < 0) {
@@ -70,7 +75,7 @@ const Onboarding = () => {
 
   return (
     <>
-      <OnboardingWrapper onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
+      <OnboardingWrapper onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
         <SkipButton onClick={() => navigate("/main")}>Skip</SkipButton>
         <BackgroundImage index={currentSlide}>
           <img src={TextSlide[currentSlide].circle} />
@@ -97,8 +102,8 @@ const Onboarding = () => {
             </ProgressDot>
             <NextButton
               onClick={() => {
-                if (currentSlide < 2) setCurrentSlide(currentSlide + 1);
-                else navigate("/main");
+                if (currentSlide < 2) {setCurrentSlide(currentSlide + 1)}
+                else {navigate("/main")};
               }}
             >
               NEXT
