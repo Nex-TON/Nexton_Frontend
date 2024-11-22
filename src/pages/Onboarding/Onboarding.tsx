@@ -204,9 +204,6 @@ const BackgroundImage = styled.div<{ index: number }>`
   right: ${props => (props.index === 0 ? "0" : props.index === 1 ? "none" : "0")};
   left: ${props => (props.index === 0 ? "none" : props.index === 1 ? "0" : "none")};
   bottom: ${props => (props.index === 0 ? "16rem" : props.index === 1 ? "19rem" : "22rem")};
-img{
-  width: ${props => (props.index === 0 ? "80vw" : props.index === 1 ? "62vw" : "55vw")};
-}
 `;
 
 const BottomBoxWrapper = styled.div`
@@ -240,8 +237,11 @@ const IllustWrapper = styled.div<{ index: number }>`
   right: ${props => (props.index === 0 ? "3.4rem" : props.index === 2 ? "1rem" : "none")};
   position: absolute;
   bottom: ${props => (props.index === 0 ? "28rem" : props.index === 1 ? "30.4rem" : "28rem")};
-  img {
-    width: ${props => (props.index === 0 ? "65vw" : props.index === 1 ? "65vw" : "80vw")};
+  img{
+    @media(min-height:720px){
+      height:  ${props => (props.index === 0 ? "408px" : props.index === 1 ? "367.416px" : "407px")};
+    }
+    height:  ${props => (props.index === 0 ? "281px" : props.index === 1 ? "275.267px" : "226px")};
   }
 `;
 
