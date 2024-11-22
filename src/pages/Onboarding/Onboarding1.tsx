@@ -126,6 +126,7 @@ const BottomBoxWrapper = styled.div`
   height: calc(100% - 43.3rem);
   border-radius: 2rem 2rem 0 0;
   padding: 2rem 2.6rem 2rem;
+  max-width: 76.8rem;
 
   h3 {
     color: #000;

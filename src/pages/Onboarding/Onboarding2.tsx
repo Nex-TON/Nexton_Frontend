@@ -123,6 +123,7 @@ const BackgroundImage = styled.div`
 `;
 
 const BottomBoxWrapper = styled.div`
+  max-width: 76.8rem;
   background-color: white;
   position: absolute;
   top: 43.3rem;

@@ -5,23 +5,23 @@ import OnboardingIllust from "@/assets/image/Onboarding/onboarding3_illust.svg";
 import BackgroundCircle from "@/assets/image/Onboarding/onboarding3_circle.svg";
 import { useEffect } from "react";
 
-const tele=(window as any).Telegram.WebApp;
+const tele = (window as any).Telegram.WebApp;
 
 const Onboarding3 = () => {
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(tele){
+  useEffect(() => {
+    if (tele) {
       tele.ready();
       tele.BackButton.show();
-      tele.onEvent("backButtonClicked",()=>{
+      tele.onEvent("backButtonClicked", () => {
         navigate("/onboarding2");
       });
     }
-    return()=>{
+    return () => {
       tele.offEvent("backButtonClicked");
     };
-  },[]);
+  }, []);
 
   return (
     <>
@@ -46,9 +46,9 @@ const Onboarding3 = () => {
           </p>
           <BottomStatusWrapper>
             <ProgressDot>
-              <DotActive/>
-              <DotInActive/>
-              <DotInActive/>
+              <DotInActive />
+              <DotInActive />
+              <DotActive />
             </ProgressDot>
             <NextButton onClick={() => navigate("/main")}>NEXT</NextButton>
           </BottomStatusWrapper>
@@ -123,6 +123,7 @@ const BackgroundImage = styled.div`
 `;
 
 const BottomBoxWrapper = styled.div`
+  max-width: 76.8rem;
   background-color: white;
   position: absolute;
   top: 43.3rem;
