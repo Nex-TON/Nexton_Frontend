@@ -102,8 +102,11 @@ const Onboarding = () => {
             </ProgressDot>
             <NextButton
               onClick={() => {
-                if (currentSlide < 2) {setCurrentSlide(currentSlide + 1)}
-                else {navigate("/main")};
+                if (currentSlide < 2) {
+                  setCurrentSlide(currentSlide + 1);
+                } else {
+                  navigate("/main");
+                }
               }}
             >
               NEXT
@@ -201,6 +204,9 @@ const BackgroundImage = styled.div<{ index: number }>`
   right: ${props => (props.index === 0 ? "0" : props.index === 1 ? "none" : "0")};
   left: ${props => (props.index === 0 ? "none" : props.index === 1 ? "0" : "none")};
   bottom: ${props => (props.index === 0 ? "16rem" : props.index === 1 ? "19rem" : "22rem")};
+img{
+  width: ${props => (props.index === 0 ? "80vw" : props.index === 1 ? "62vw" : "55vw")};
+}
 `;
 
 const BottomBoxWrapper = styled.div`
@@ -233,7 +239,10 @@ const IllustWrapper = styled.div<{ index: number }>`
   margin-left: ${props => (props.index === 0 ? "none" : props.index === 1 ? "4.3rem" : "none")};
   right: ${props => (props.index === 0 ? "3.4rem" : props.index === 2 ? "0" : "none")};
   position: absolute;
-  bottom: ${props => (props.index === 0 ? "26.9rem" : props.index === 1 ? "30.4rem" : "15.2rem")};
+  bottom: ${props => (props.index === 0 ? "28rem" : props.index === 1 ? "30.4rem" : "28rem")};
+  img {
+    width: ${props => (props.index === 0 ? "65vw" : props.index === 1 ? "65vw" : "80vw")};
+  }
 `;
 
 const OnboardingWrapper = styled.div`
