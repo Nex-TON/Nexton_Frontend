@@ -84,7 +84,7 @@ const MainMyAssetInfo = ({
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.touches[0].clientX; // 터치 이동 중 X 좌표 저장
+    touchEndX.current = e.touches[0].clientX; 
   };
 
   const handleViewChange = (view: AssetsView) => {

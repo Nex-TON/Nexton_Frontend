@@ -239,7 +239,7 @@ const IllustWrapper = styled.div<{ index: number }>`
   bottom: ${props => (props.index === 0 ? "28rem" : props.index === 1 ? "30.4rem" : "28rem")};
   img{
     @media(min-height:720px){
-      height:  ${props => (props.index === 0 ? "408px" : props.index === 1 ? "367.416px" : "407px")};
+      height:  ${props => (props.index === 0 ? "408px" : props.index === 1 ? "367.416px" : "300px")};
     }
     height:  ${props => (props.index === 0 ? "281px" : props.index === 1 ? "275.267px" : "226px")};
   }
