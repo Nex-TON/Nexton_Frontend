@@ -226,7 +226,7 @@ const BottomBoxWrapper = styled.div`
 
 const IllustWrapper = styled.div<{ index: number }>`
   margin-left: ${props => (props.index === 0 ? "none" : props.index === 1 ? "4.3rem" : "none")};
-  right: ${props => (props.index === 0 ? "3.4rem" : props.index === 2 ? "-2.5rem" : "none")};
+  right: ${props => (props.index === 0 ? "3.4rem" : props.index === 2 ? "0" : "none")};
   position: absolute;
   bottom: ${props => (props.index === 0 ? "26.9rem" : props.index === 1 ? "30.4rem" : "15.2rem")};
 `;
