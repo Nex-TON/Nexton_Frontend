@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
 import OnboardingIllust from "@/assets/image/Onboarding/onboarding3_illust.svg";
 import BackgroundCircle from "@/assets/image/Onboarding/onboarding3_circle.svg";
@@ -9,6 +10,8 @@ const tele = (window as any).Telegram.WebApp;
 
 const Onboarding3 = () => {
   const navigate = useNavigate();
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   useEffect(() => {
     if (tele) {
@@ -23,10 +26,25 @@ const Onboarding3 = () => {
     };
   }, []);
 
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const deltaX = touchStartX.current - touchEndX.current;
+    if (Math.abs(deltaX) > 200) {
+      if (deltaX > 0) {
+        navigate("/main");
+      }else{
+        navigate("/onboarding2")
+      }
+    }
+  };
+
   return (
     <>
-      <OnboardingWrapper>
-        <SkipButton onClick={() => navigate("/main")}>Skip</SkipButton>
+      <OnboardingWrapper onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
+      <SkipButton onClick={() => navigate("/main")}>Skip</SkipButton>
         <BackgroundImage>
           <img src={BackgroundCircle} alt="background circle" />
         </BackgroundImage>

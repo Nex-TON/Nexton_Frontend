@@ -1,14 +1,16 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import OnboardingIllust from "@/assets/image/Onboarding/onboarding1_illust.svg";
 import BackgroundCircle from "@/assets/image/Onboarding/onboarding1_circle.svg";
 
-const tele=(window as any).Telegram.WebApp;
+const tele = (window as any).Telegram.WebApp;
 
 const Onboarding1 = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   useEffect(() => {
     if (tele) {
@@ -16,11 +18,23 @@ const Onboarding1 = () => {
       tele.BackButton.hide();
     }
   }, []);
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const deltaX = touchStartX.current - touchEndX.current;
+    if (Math.abs(deltaX) > 100) {
+      if (deltaX > 0) {
+        navigate("/onboarding2");
+      }
+    }
+  };
 
   return (
     <>
-      <OnboardingWrapper>
-        <SkipButton onClick={()=>navigate("/main")}>Skip</SkipButton>
+      <OnboardingWrapper onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
+        <SkipButton onClick={() => navigate("/main")}>Skip</SkipButton>
         <BackgroundImage>
           <img src={BackgroundCircle} alt="background circle" />
         </BackgroundImage>
@@ -40,11 +54,11 @@ const Onboarding1 = () => {
           </p>
           <BottomStatusWrapper>
             <ProgressDot>
-              <DotActive/>
-              <DotInActive/>
-              <DotInActive/>
+              <DotActive />
+              <DotInActive />
+              <DotInActive />
             </ProgressDot>
-            <NextButton onClick={()=>navigate("/onboarding2")}>NEXT</NextButton>
+            <NextButton onClick={() => navigate("/onboarding2")}>NEXT</NextButton>
           </BottomStatusWrapper>
         </BottomBoxWrapper>
       </OnboardingWrapper>
@@ -53,14 +67,12 @@ const Onboarding1 = () => {
 };
 export default Onboarding1;
 
-const SkipButton=styled.div`
-  color:white;
+const SkipButton = styled.div`
+  color: white;
   position: absolute;
   top: 3rem;
   left: 2rem;
-  ${({theme})=>theme.fonts.Nexton_Title_Large_Small};
-
-
+  ${({ theme }) => theme.fonts.Nexton_Title_Large_Small};
 `;
 
 const DotActive = styled.div`
@@ -77,33 +89,33 @@ const DotInActive = styled.div`
 `;
 
 const BottomStatusWrapper = styled.div`
-display:flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const NextButton = styled.div`
-background-color: #1F53FF;
-color: white;
+  background-color: #1f53ff;
+  color: white;
 
-display: flex;
-align-items:center;
-justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-width: 12.1rem;
-height: 5rem;
-border-radius: 1.2rem;
+  width: 12.1rem;
+  height: 5rem;
+  border-radius: 1.2rem;
 
-//font
-color: var(--iOS-Light-Button-Text-Color, #FFF);
-text-align: center;
-font-family: "SF Pro";
-font-size: 17px;
-font-style: normal;
-font-weight: 400;
-line-height: 22px; /* 129.412% */
-letter-spacing: -0.442px;
+  //font
+  color: var(--iOS-Light-Button-Text-Color, #fff);
+  text-align: center;
+  font-family: "SF Pro";
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px; /* 129.412% */
+  letter-spacing: -0.442px;
 `;
 
 const ProgressDot = styled.div`

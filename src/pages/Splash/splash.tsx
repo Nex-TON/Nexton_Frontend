@@ -9,10 +9,9 @@ const SplashScreen = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Telegram WebApp settings
     if (tele) {
       tele.ready();
-      tele.expand(); // Expand the app to full screen
+      tele.expand(); 
       tele.BackButton.hide();
     }
 
@@ -21,14 +20,14 @@ const SplashScreen = () => {
 
     const timer = setTimeout(() => {
       if (hasSeenOnboarding) {
-        navigate("/main"); // Redirect to main if onboarding has been seen
+        // navigate("/main"); 
+        navigate("/onboarding1") //for testing onboarding page in testnet
       } else {
         localStorage.setItem("hasSeen","true");
-        navigate("/onboarding1"); // Redirect to onboarding if not seen
+        navigate("/onboarding1");
       }
     }, 2000);
 
-    // Cleanup timeout on component unmount
     return () => clearTimeout(timer);
   }, [navigate]);
 
