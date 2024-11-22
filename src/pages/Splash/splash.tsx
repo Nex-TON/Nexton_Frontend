@@ -8,28 +8,29 @@ const tele = (window as any).Telegram.WebApp;
 const SplashScreen = () => {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (tele) {
-  //     tele.ready();
-  //     tele.expand(); 
-  //     tele.BackButton.hide();
-  //   }
+  useEffect(() => {
+    if (tele) {
+      tele.ready();
+      tele.expand(); 
+      tele.BackButton.hide();
+    }
 
-  //   // Check if user has seen onboarding
-  //   const hasSeenOnboarding = localStorage.getItem("hasSeen");
+    // Check if user has seen onboarding
+    // const hasSeenOnboarding = localStorage.getItem("hasSeen");
 
-  //   const timer = setTimeout(() => {
-  //     if (hasSeenOnboarding) {
-  //       navigate("/main"); 
-  //       navigate("/onboarding1") //for testing onboarding page in testnet
-  //     } else {
-  //       localStorage.setItem("hasSeen","true");
-  //       navigate("/onboarding1");
-  //     }
-  //   }, 2000);
+    const timer = setTimeout(() => {
+      // if (hasSeenOnboarding) {
+      //   navigate("/main"); 
+      //   navigate("/onboarding1") //for testing onboarding page in testnet
+      // } else {
+      //   localStorage.setItem("hasSeen","true");
+      //   navigate("/onboarding1");
+      // }
+      navigate("/onboarding");
+    }, 2000);
 
-  //   return () => clearTimeout(timer);
-  // }, [navigate]);
+    return () => clearTimeout(timer);
+  }, [navigate]);
 
   return (
     <SplashWrapper>
