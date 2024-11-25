@@ -24,7 +24,7 @@ const SplashScreen = () => {
         // navigate("/onboarding1") //for testing onboarding page in testnet
       } else {
         localStorage.setItem("hasSeen","true");
-        navigate("/onboarding1");
+        navigate("/onboarding");
       }
     }, 2000);
 
