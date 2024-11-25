@@ -109,7 +109,7 @@ const Onboarding = () => {
                 }
               }}
             >
-              NEXT
+              {currentSlide===2?"START":"NEXT"}
             </NextButton>
           </BottomStatusWrapper>
         </BottomBoxWrapper>
