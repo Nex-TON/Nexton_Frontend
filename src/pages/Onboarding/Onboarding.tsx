@@ -76,7 +76,7 @@ const Onboarding = () => {
   return (
     <>
       <OnboardingWrapper onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
-        <SkipButton onClick={() => navigate("/main")}>Skip</SkipButton>
+          <SkipButton onClick={() => navigate("/main")}>Skip</SkipButton>
         <BackgroundImage index={currentSlide}>
           <img src={TextSlide[currentSlide].circle} />
         </BackgroundImage>
@@ -140,13 +140,18 @@ const shrink = keyframes`
   }
 `;
 
+
 const SkipButton = styled.div`
   color: white;
   position: absolute;
   top: 3rem;
-  left: 2rem;
+  right: 2rem;
   ${({ theme }) => theme.fonts.Nexton_Title_Large_Small};
   animation: ${expand} 0.5s ease forwards;
+  
+  display: flex;
+  justify-content: end;
+  align-items:start;
 `;
 
 const DotActive = styled.div`
@@ -233,15 +238,20 @@ const BottomBoxWrapper = styled.div`
 `;
 
 const IllustWrapper = styled.div<{ index: number }>`
-  right: ${props => (props.index === 0 ? "3.4rem" :"none")};
-  left: ${props => (props.index === 2 ? "2.5rem" : props.index===1?"4.3rem":"none")};
+  right: ${props => (props.index === 0 ? "3.4rem" : "none")};
+  left: ${props => (props.index === 2 ? "2.5rem" : props.index === 1 ? "4.3rem" : "none")};
   position: absolute;
   bottom: ${props => (props.index === 1 ? "30.4rem" : "28rem")};
-  img{
-    @media(min-height:720px){
-      height:  ${props => (props.index === 0 ? "408px" : props.index === 1 ? "367.416px" : "421px")};
+  img {
+    @media (min-height: 640px) and (max-height: 719px) {
+      height: ${props => (props.index === 0 ? "350px" : props.index === 1 ? "333.621px" : "360.884px")};
     }
-    height:  ${props => (props.index === 0 ? "281px" : props.index === 1 ? "275.267px" : "311.899px")};
+    @media (min-height: 720px) {
+      height: ${props => (props.index === 0 ? "408px" : props.index === 1 ? "367.416px" : "421px")};
+    }
+    @media (max-height: 639px) {
+      height: ${props => (props.index === 0 ? "281px" : props.index === 1 ? "275.267px" : "311.292px")};
+    }
   }
 `;
 
@@ -252,4 +262,5 @@ const OnboardingWrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
