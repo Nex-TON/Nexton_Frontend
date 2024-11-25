@@ -116,8 +116,8 @@ export class NftItem implements Contract {
     params: {
       value: bigint;
       queryId: bigint;
-      newOwnerAddress: Address;
-      responseDestination: Address;
+      newOwner: Address;
+      responseAddress: Address;
       forwardAmount: bigint;
       forwardPayload: Builder;
     },
@@ -127,8 +127,8 @@ export class NftItem implements Contract {
       body: beginCell()
         .storeUint(0x5fcc3d14, 32) //operation code
         .storeUint(params.queryId ?? 0, 64)
-        .storeAddress(params.newOwnerAddress)
-        .storeAddress(params.responseDestination)
+        .storeAddress(params.newOwner)
+        .storeAddress(params.responseAddress)
         .storeInt(BigInt(0), 1) //custom payload
         .storeCoins(params.forwardAmount)
         .storeUint(123, 8)

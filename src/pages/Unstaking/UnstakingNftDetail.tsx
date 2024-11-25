@@ -91,8 +91,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
         };
       };
 
-      // First, attempt to send the message to the contract
-      // !❗NOTE❗: Not used in the current contract version
+      // send nft to null address (burn nft)
       await sendMessage(data(), toNano("0.005"));
 
       // If sendMessage is successful, then call postStakingInfo
