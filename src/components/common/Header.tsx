@@ -47,7 +47,7 @@ const Header = (props: HeaderProps) => {
             </DisconnectButton>
           )}
           <MenuButton onClick={handleRouter} $isOpen={isOpen} id="header menu button">
-            <img src={IcMenuButton} />
+            <img src={IcMenuButton} id="header menu button"/>
           </MenuButton>
         </HeaderRightBox>
       </HeaderWrapper>
