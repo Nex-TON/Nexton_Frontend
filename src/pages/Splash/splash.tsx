@@ -16,17 +16,16 @@ const SplashScreen = () => {
     }
 
     // Check if user has seen onboarding
-    // const hasSeenOnboarding = localStorage.getItem("hasSeen");
+    const hasSeenOnboarding = localStorage.getItem("hasSeen");
 
     const timer = setTimeout(() => {
-      // if (hasSeenOnboarding) {
-      //   navigate("/main"); 
-      //   navigate("/onboarding1") //for testing onboarding page in testnet
-      // } else {
-      //   localStorage.setItem("hasSeen","true");
-      //   navigate("/onboarding1");
-      // }
-      navigate("/onboarding");
+      if (hasSeenOnboarding) {
+        navigate("/main"); 
+        // navigate("/onboarding1") //for testing onboarding page in testnet
+      } else {
+        localStorage.setItem("hasSeen","true");
+        navigate("/onboarding1");
+      }
     }, 2000);
 
     return () => clearTimeout(timer);
