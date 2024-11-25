@@ -233,15 +233,15 @@ const BottomBoxWrapper = styled.div`
 `;
 
 const IllustWrapper = styled.div<{ index: number }>`
-  margin-left: ${props => (props.index === 0 ? "none" : props.index === 1 ? "4.3rem" : "none")};
-  right: ${props => (props.index === 0 ? "3.4rem" : props.index === 2 ? "1rem" : "none")};
+  right: ${props => (props.index === 0 ? "3.4rem" :"none")};
+  left: ${props => (props.index === 2 ? "2.5rem" : props.index===1?"4.3rem":"none")};
   position: absolute;
-  bottom: ${props => (props.index === 0 ? "28rem" : props.index === 1 ? "30.4rem" : "28rem")};
+  bottom: ${props => (props.index === 1 ? "30.4rem" : "28rem")};
   img{
     @media(min-height:720px){
-      height:  ${props => (props.index === 0 ? "408px" : props.index === 1 ? "367.416px" : "300px")};
+      height:  ${props => (props.index === 0 ? "408px" : props.index === 1 ? "367.416px" : "421px")};
     }
-    height:  ${props => (props.index === 0 ? "281px" : props.index === 1 ? "275.267px" : "226px")};
+    height:  ${props => (props.index === 0 ? "281px" : props.index === 1 ? "275.267px" : "311.899px")};
   }
 `;
 
