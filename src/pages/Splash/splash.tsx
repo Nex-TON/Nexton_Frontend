@@ -11,15 +11,26 @@ const SplashScreen = () => {
   useEffect(() => {
     if (tele) {
       tele.ready();
-      tele.expand(); // Expand the app to full screen
+      tele.expand(); 
       tele.BackButton.hide();
     }
-  }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => navigate("/main"), 2000);
+    // Check if user has seen onboarding
+    const hasSeenOnboarding = localStorage.getItem("hasSeen");
+
+    const timer = setTimeout(() => {
+      if (hasSeenOnboarding) {
+        navigate("/main"); 
+        // navigate("/onboarding1") //for testing onboarding page in testnet
+      } else {
+        localStorage.setItem("hasSeen","true");
+        navigate("/onboarding1");
+      }
+    }, 2000);
+
     return () => clearTimeout(timer);
-  }, []);
+  }, [navigate]);
+
   return (
     <SplashWrapper>
       <ScreenWrapper>
@@ -35,7 +46,6 @@ const RightText = styled.div`
   color: var(--Dark-surfaces-Dark-surfaces-4, #2e2f3a);
   text-align: center;
 
-  /* Labal/small */
   font-family: Montserrat;
   font-size: 12px;
   font-style: normal;
@@ -49,6 +59,7 @@ const ScreenWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
+
   img {
     width: 139.714px;
     height: 165.29px;

@@ -72,11 +72,6 @@ const MainMyAssetInfo = ({
 
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
   const handleTouchEnd = () => {
     const deltaX = touchStartX.current - touchEndX.current; 
     if (Math.abs(deltaX) > 50) {
@@ -89,7 +84,7 @@ const MainMyAssetInfo = ({
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.touches[0].clientX; // 터치 이동 중 X 좌표 저장
+    touchEndX.current = e.touches[0].clientX; 
   };
 
   const handleViewChange = (view: AssetsView) => {
@@ -114,7 +109,6 @@ const MainMyAssetInfo = ({
 
   return (
     <MainWrapper
-    onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       >
