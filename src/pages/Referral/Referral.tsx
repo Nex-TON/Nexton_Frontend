@@ -126,7 +126,7 @@ const Referral = () => {
       <ReferralWrapper>
         <ReferralHeader>
           <ReferralHeaderText>Earn your Point</ReferralHeaderText>
-          <img src={IcMenuIcon} alt="referral header menu icon" onClick={() => navigate("/menu")} />
+          <img src={IcMenuIcon} alt="referral header menu icon" onClick={() => navigate("/menu")} id="friends page header menu button" />
         </ReferralHeader>
         <FriendsIllustWrapper>
           <img src={FriendsIllust} alt="Friends illust" />
