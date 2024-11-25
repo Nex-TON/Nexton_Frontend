@@ -239,7 +239,7 @@ const BottomBoxWrapper = styled.div`
 
 const IllustWrapper = styled.div<{ index: number }>`
   right: ${props => (props.index === 0 ? "3.4rem" : "none")};
-  left: ${props => (props.index === 2 ? "2.5rem" : props.index === 1 ? "4.3rem" : "none")};
+  left: ${props => (props.index === 1 ? "4.3rem" : "none")};
   position: absolute;
   bottom: ${props => (props.index === 1 ? "30.4rem" : "28rem")};
   img {
