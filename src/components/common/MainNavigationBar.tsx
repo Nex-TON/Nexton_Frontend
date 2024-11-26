@@ -1,4 +1,4 @@
-import { Link, useLocation} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import dashboard_inacticve from "@/assets/icons/Main/dashboard_inactive.svg";
 import home_inactive from "@/assets/icons/Main/home_inactive.svg";
@@ -25,6 +25,7 @@ const MainNavigationBar = () => {
   return (
     <Nav>
       <NavButton
+        id="nav button main"
         pathname={pathname}
         path={"/main"}
         img_active={home_active}
@@ -32,6 +33,7 @@ const MainNavigationBar = () => {
         title="Main"
       />
       <NavButton
+        id="nav button dashboard"
         pathname={pathname}
         path={"/dashboard"}
         img_active={dashboard_active}
@@ -39,6 +41,7 @@ const MainNavigationBar = () => {
         title="Dashboard"
       />
       <NavButton
+        id="nav button friends"
         pathname={pathname}
         path={"/referral"}
         img_active={friends_active}
@@ -46,6 +49,7 @@ const MainNavigationBar = () => {
         title="Friends"
       />
       <NavButton
+        id="nav button mypage"
         pathname={pathname}
         path={"/myasset"}
         img_active={mypage_active}
@@ -57,20 +61,20 @@ const MainNavigationBar = () => {
 };
 export default MainNavigationBar;
 
-const NavButton = ({ pathname, path, img_inactive, img_active, title }) => {
-  const isActive = pathname.includes(path); 
+const NavButton = ({ id, pathname, path, img_inactive, img_active, title }) => {
+  const isActive = pathname.includes(path);
   return (
-    <NavWrapper>
-      <Link to={path}>
+    <NavWrapper id={id}>
+      <Link to={path} id={id}>
         {isActive ? (
           <>
-            <img src={img_active} alt={title} />
-            <ActiveNavText>{title}</ActiveNavText>
+            <img src={img_active} alt={title} id={id}/>
+            <ActiveNavText id={id}>{title}</ActiveNavText>
           </>
         ) : (
           <>
-            <img src={img_inactive} alt={title} />
-            <NavText>{title}</NavText>
+            <img src={img_inactive} alt={title} id={id}/>
+            <NavText id={id}>{title}</NavText>
           </>
         )}
       </Link>
@@ -106,7 +110,7 @@ const NavWrapper = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  a{
+  a {
     text-decoration: none;
   }
 `;
@@ -121,7 +125,6 @@ const NavText = styled.div`
   font-weight: 500;
   line-height: 16px;
   letter-spacing: -0.12px;
-
 `;
 
 const Nav = styled.div`

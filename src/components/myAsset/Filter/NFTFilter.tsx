@@ -3,18 +3,18 @@ import styled, { css } from "styled-components";
 const NFTFilter = ({ checkPeriod, handleCheckPeriod }) => {
   return (
     <NftFilterWrapper>
-      <NftFilterButton $selected={checkPeriod[3]} onClick={() => handleCheckPeriod("All")}>
+      <NftFilterButton $selected={checkPeriod[3]} onClick={() => handleCheckPeriod("All")} id="nft filter selectall">
         All
       </NftFilterButton>
-      <NftFilterButton $selected={checkPeriod[0]} onClick={() => handleCheckPeriod("Ongoing")}>
+      <NftFilterButton $selected={checkPeriod[0]} onClick={() => handleCheckPeriod("Ongoing")} id="nft filter ongoing">
         <NFTStatus type="Ongoing" />
         Ongoing
       </NftFilterButton>
-      <NftFilterButton $selected={checkPeriod[1]} onClick={() => handleCheckPeriod("Forthcoming")}>
+      <NftFilterButton $selected={checkPeriod[1]} onClick={() => handleCheckPeriod("Forthcoming")} id="nft filter forthcoming">
         <NFTStatus type="Forthcoming" />
         Forthcoming
       </NftFilterButton>
-      <NftFilterButton $selected={checkPeriod[2]} onClick={() => handleCheckPeriod("Expired")}>
+      <NftFilterButton $selected={checkPeriod[2]} onClick={() => handleCheckPeriod("Expired")} id="nft filter expired">
         <NFTStatus type="Expired" />
         Expired
       </NftFilterButton>

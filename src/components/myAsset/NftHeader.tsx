@@ -70,6 +70,7 @@ const NftHeader = () => {
             }}
           >
             <Tab
+              id="my page NFT tab"
               label="NFT"
               sx={{
                 flex: 1,
@@ -83,6 +84,7 @@ const NftHeader = () => {
               }}
             />
             <Tab
+              id="my activity UNSTAKED tab"
               label="Unstaked"
               sx={{
                 flex: 1,
