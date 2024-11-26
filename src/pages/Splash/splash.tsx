@@ -20,8 +20,8 @@ const SplashScreen = () => {
 
     const timer = setTimeout(() => {
       if (hasSeenOnboarding) {
-        // navigate("/main"); 
-        navigate("/onboarding") //for testing onboarding page in testnet
+        navigate("/main"); 
+        // navigate("/onboarding") //for testing onboarding page in testnet
       } else {
         localStorage.setItem("hasSeen","true");
         navigate("/onboarding");
