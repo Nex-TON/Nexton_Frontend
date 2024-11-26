@@ -50,6 +50,9 @@ const Onboarding = () => {
       TextSlide.forEach(slide => {
         const img = new Image();
         img.src = slide.image;
+
+        const circleImg=new Image();
+        circleImg.src=slide.circle;
       });
     };
     preloadImages();
