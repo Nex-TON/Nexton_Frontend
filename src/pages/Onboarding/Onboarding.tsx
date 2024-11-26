@@ -216,6 +216,8 @@ const ProgressDot = styled.div`
 `;
 
 const BackgroundImage = styled.div<{ index: number }>`
+  transition: all 800ms ease;
+
   position: absolute;
   right: ${props => (props.index === 0 ? "0" : props.index === 1 ? "none" : "0")};
   left: ${props => (props.index === 0 ? "none" : props.index === 1 ? "0" : "none")};
