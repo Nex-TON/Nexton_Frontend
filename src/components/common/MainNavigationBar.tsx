@@ -29,7 +29,7 @@ const MainNavigationBar = () => {
         path={"/main"}
         img_active={home_active}
         img_inactive={home_inactive}
-        title="home"
+        title="Main"
       />
       <NavButton
         pathname={pathname}
