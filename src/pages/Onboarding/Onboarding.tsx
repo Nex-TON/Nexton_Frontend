@@ -46,6 +46,19 @@ const Onboarding = () => {
   ];
 
   useEffect(() => {
+    const preloadImages = () => {
+      TextSlide.forEach(slide => {
+        const img = new Image();
+        img.src = slide.image;
+
+        const circleImg=new Image();
+        circleImg.src=slide.circle;
+      });
+    };
+    preloadImages();
+  }, []);
+
+  useEffect(() => {
     if (tele) {
       tele.ready();
       tele.BackButton.hide();
@@ -55,9 +68,8 @@ const Onboarding = () => {
     touchEndX.current = e.touches[0].clientX;
   };
   const handleTouchStart = (e: React.TouchEvent) => {
-    // 터치 시작 시 X 좌표 저장
     touchStartX.current = e.touches[0].clientX;
-    touchEndX.current = e.touches[0].clientX; // 초기화
+    touchEndX.current = e.touches[0].clientX;
   };
 
   const handleTouchEnd = () => {
@@ -69,6 +81,7 @@ const Onboarding = () => {
         setCurrentSlide(currentSlide - 1);
       } else if (currentSlide == 2 && deltaX > 0) {
         navigate("/main");
+        return;
       }
     }
   };
@@ -76,7 +89,7 @@ const Onboarding = () => {
   return (
     <>
       <OnboardingWrapper onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
-          <SkipButton onClick={() => navigate("/main")}>Skip</SkipButton>
+        <SkipButton onClick={() => navigate("/main")}>Skip</SkipButton>
         <BackgroundImage index={currentSlide}>
           <img src={TextSlide[currentSlide].circle} />
         </BackgroundImage>
@@ -103,13 +116,15 @@ const Onboarding = () => {
             <NextButton
               onClick={() => {
                 if (currentSlide < 2) {
-                  setCurrentSlide(currentSlide + 1);
+                  setTimeout(() => {
+                    setCurrentSlide(currentSlide + 1);
+                  }, 400);
                 } else {
                   navigate("/main");
                 }
               }}
             >
-              {currentSlide===2?"START":"NEXT"}
+              {currentSlide === 2 ? "START" : "NEXT"}
             </NextButton>
           </BottomStatusWrapper>
         </BottomBoxWrapper>
@@ -140,7 +155,6 @@ const shrink = keyframes`
   }
 `;
 
-
 const SkipButton = styled.div`
   color: white;
   position: absolute;
@@ -148,10 +162,10 @@ const SkipButton = styled.div`
   right: 2rem;
   ${({ theme }) => theme.fonts.Nexton_Title_Large_Small};
   animation: ${expand} 0.5s ease forwards;
-  
+
   display: flex;
   justify-content: end;
-  align-items:start;
+  align-items: start;
 `;
 
 const DotActive = styled.div`
@@ -205,6 +219,8 @@ const ProgressDot = styled.div`
 `;
 
 const BackgroundImage = styled.div<{ index: number }>`
+  transition: all 800ms ease;
+
   position: absolute;
   right: ${props => (props.index === 0 ? "0" : props.index === 1 ? "none" : "0")};
   left: ${props => (props.index === 0 ? "none" : props.index === 1 ? "0" : "none")};
@@ -238,6 +254,8 @@ const BottomBoxWrapper = styled.div`
 `;
 
 const IllustWrapper = styled.div<{ index: number }>`
+  transition: all 800ms ease;
+
   right: ${props => (props.index === 0 ? "3.4rem" : "none")};
   left: ${props => (props.index === 1 ? "4.3rem" : "none")};
   position: absolute;
