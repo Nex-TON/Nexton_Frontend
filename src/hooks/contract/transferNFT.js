@@ -1,33 +1,62 @@
-import { Address, toNano } from "@ton/core";
-
 import { NftItem } from "./wrappers/NftItem";
-import { NexTon } from "./wrappers/tact_NexTon";
-import { useAsyncInitialize } from "./useAsyncInitialize";
-import { useTonClient } from "./useTonClient";
 import useTonConnect from "./useTonConnect";
+import { useEffect, useState } from "react";
 
-function transferNft(nftItemAddress) {
-  const client = useTonClient();
+function transferNft(id) {
   const { sender, address } = useTonConnect();
+  const [nftAddress, setNftAddress] = useState(null);
 
-  let nftItem = useAsyncInitialize(async () => {
-    if (!client) return;
-    const contract = new NftItem(Address.parse(nftItemAddress));
-    return client.open(contract);
-  }, [client]);
+  useEffect(() => {
+    const address = NftItem.idxToAddress(id);
+    if (address) setNftAddress(address);
+  }, [id]);
 
   return {
+    nftAddress: nftAddress,
     sendMessage: async (data, value) => {
-      if (nftItem) {
-        return await nftItem.sendTransfer(sender, {
-          queryId: data.queryId,
-          value: value,
-          newOwner: data.newOwner,
-          responseAddress: data.responseAddress,
-          fwdAmount: data.fwdAmount,
-        });
-      } else {
-        return () => {};
+      try {
+        if (nftAddress) {
+          const payload = NftItem.storeTransfer({
+            queryId: data.queryId,
+            value: value,
+            newOwner: data.newOwner,
+            responseAddress: data.responseAddress,
+            forwardAmount: data.fwdAmount,
+          });
+
+          await sender.send({
+            to: nftAddress,
+            value: data.value,
+            body: payload,
+          });
+        } else {
+          throw new Error("NftAddress not set");
+        }
+      } catch {
+        throw new Error("Error while sending nft");
+      }
+    },
+    sendWithData: async (data, value) => {
+      try {
+        if (nftAddress) {
+          const payload = NftItem.storeTransferWithData({
+            queryId: data.queryId,
+            value: value,
+            newOwnerAddress: data.newOwner,
+            responseDestination: data.responseAddress,
+            forwardAmount: data.fwdAmount,
+          });
+
+          await sender.send({
+            to: nftAddress,
+            value: data.value,
+            body: payload,
+          });
+        } else {
+          throw new Error("NftAddress not set");
+        }
+      } catch {
+        throw new Error("Error while sending nft");
       }
     },
   };

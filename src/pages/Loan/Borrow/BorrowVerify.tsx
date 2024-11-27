@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import { toNano, Address } from "@ton/core";
 
 import BasicModal from "@/components/common/Modal/BasicModal.tsx";
 import TransactionConfirmModal from "@/components/common/Modal/TransactionConfirmModal.tsx";
@@ -8,6 +9,8 @@ import { ConfirmBorrowModal } from "@/components/loan/Borrow/ConfirmBorrowModal.
 import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
 import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
 import { isDevMode } from "@/utils/isDevMode.ts";
+import * as Contract from "@/hooks/contract/transferNFT";
+import useTonConnect from "@/hooks/contract/useTonConnect.ts";
 
 import { BorrowHeaderBox, BorrowHeaderBoxTitle, BorrowWrapper } from "./BorrowDetails.styled.tsx";
 
@@ -33,6 +36,8 @@ const stakingInfoItems = [
 const BorrowVerify = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { sendWithData } = Contract.transferNft(id);
+  const { address } = useTonConnect();
   const [modal, setModal] = useState<ModalState>({
     type: "confirmBorrow",
     toggled: false,
@@ -59,13 +64,29 @@ const BorrowVerify = () => {
     };
   }, [navigate]);
 
-  const handleBorrowConfirm = () => {
+  const handleBorrowConfirm = useCallback(async () => {
+    try {
+      const data = () => {
+        return {
+          queryId: BigInt(Date.now()),
+          value: toNano("0.06"),
+          newOwner: Address.parse(import.meta.env.VITE_LEND_CONTRACT),
+          responseAddress: Address.parse(address),
+          fwdAmount: toNano("0.01"),
+        };
+      };
+
+      await sendWithData(data(), toNano("0.05"));
+      //TODO: send server message
+    } catch (error) {
+      return;
+    } finally {
+    }
+
     toggleModal();
 
-    console.log("Borrow confirmed!");
-
     setModal({ type: "borrow", toggled: true });
-  };
+  }, [address, id, navigate]);
 
   return (
     <>
