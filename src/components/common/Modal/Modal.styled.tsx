@@ -15,7 +15,7 @@ export const Container = styled.div<{ $isDark?: boolean; $disablePaddingTop?: bo
   height: max-content;
 
   background-color: ${({ $isDark }) => ($isDark ? "#1A1B23" : "#fff")};
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   box-sizing: border-box;
   padding: 3.4rem 1rem 1rem 1rem;
   padding-top: ${({ $disablePaddingTop }) => $disablePaddingTop && "1.2rem"};
@@ -94,7 +94,7 @@ export const Button = styled.button`
   color: #fff;
 
   box-sizing: border-box;
-  border-radius: 1.4rem;
+  border-radius: 1.5rem;
   padding: 1.2rem 8.2rem;
   background: #007aff;
 

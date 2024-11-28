@@ -125,7 +125,7 @@ const StakingInfoWrapper = styled.div<{ $theme: Theme; $marginTop?: boolean; $it
   align-items: ${({ $itemsCenter }) => ($itemsCenter ? "center" : "flex-start")};
   gap: 0.3rem;
 
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   background: ${({ $theme }) => ($theme === "black" ? "#1a1b23" : "#fff")};
 
   /* drop shadow_type 4 */

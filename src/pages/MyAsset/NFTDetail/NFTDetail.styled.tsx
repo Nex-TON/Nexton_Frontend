@@ -61,7 +61,7 @@ export const NFTDetailCardButton = styled.button<{ $disabled?: boolean }>`
   align-items: center;
   gap: 4px;
 
-  border-radius: 10px;
+  border-radius: 1.5rem;
   background: ${({ $disabled }) => ($disabled ? "#E1E4E6" : "#1f53ff")};
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
 
@@ -89,7 +89,7 @@ export const NFTDetailItem = styled.div<{ $marginTop?: boolean; $itemsCenter?: b
   align-items: ${({ $itemsCenter }) => ($itemsCenter ? "center" : "flex-start")};
   gap: 0.3rem;
 
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   background: #fff;
 
   /* drop shadow_type 4 */

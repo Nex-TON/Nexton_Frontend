@@ -20,7 +20,6 @@ import FloatSupportIc from "@/assets/icons/Main/floating_support.svg";
 import FloatCloseIc from "@/assets/icons/Main/floating_close.svg";
 import FloatCsIc from "@/assets/icons/Main/floating_cs.svg";
 
-
 import "react-toastify/dist/ReactToastify.css";
 
 const tele = (window as any).Telegram.WebApp;
