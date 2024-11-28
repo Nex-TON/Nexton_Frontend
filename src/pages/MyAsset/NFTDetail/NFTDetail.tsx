@@ -109,7 +109,7 @@ const NFTDetail = () => {
 
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
-            $disabled={!isNftExpired}
+            $disabled={false}
             onClick={() => setModal({ toggled: true })} /* onClick={() => navigate(`/loan/${id}/borrow/details`)} */
           >
             Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
