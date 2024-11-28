@@ -32,7 +32,7 @@ const ActionCards = () => {
       toggled: !prev.toggled,
     }));
   };
-  const handleStakeConfirm = () => {
+  const handleOkayButton = () => {
     toggleModal();
   };
 
@@ -74,7 +74,7 @@ const ActionCards = () => {
       </MyTokensDisclaimer>
     </ActionCardsWrapper>
     {modal.toggled && (
-      <ComingSoonModal toggleModal={toggleModal} onConfirm={handleStakeConfirm}/>
+      <ComingSoonModal toggleModal={toggleModal} onConfirm={handleOkayButton}/>
     )}
     </>
   );
