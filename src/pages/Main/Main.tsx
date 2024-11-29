@@ -22,6 +22,7 @@ import FloatCsIc from "@/assets/icons/Main/floating_cs.svg";
 import { OfficialAnouncementModal } from "@/components/main/Modal/OfficialAnnouncementModal";
 
 import "react-toastify/dist/ReactToastify.css";
+import NextonNews from "@/components/main/NextonNews";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -89,7 +90,7 @@ const Main: React.FC = () => {
 
   //사용자가 들어오자 마자 nxTON이 상장되었다는 소식 팝업으로 알림
   useEffect(() => {
-    const hasSeenOfficialNotice=localStorage.getItem("hasSeenOfficialNotice")
+    const hasSeenOfficialNotice = localStorage.getItem("hasSeenOfficialNotice");
     if (!hasSeenOfficialNotice) {
       setOfficialModal(true);
     }
@@ -178,7 +179,7 @@ const Main: React.FC = () => {
 
   const toggleOfficialModal = useCallback(() => {
     setOfficialModal(prev => !prev);
-    localStorage.setItem("hasSeenOfficialNotice","true");
+    localStorage.setItem("hasSeenOfficialNotice", "true");
   }, []);
 
   return (
@@ -197,6 +198,8 @@ const Main: React.FC = () => {
           isLoading={isLoading || isRefreshing}
           isError={isError}
         />
+        <MainBorder />
+        <NextonNews />
         <MainBorder />
         <ActionCards />
         {/* @deprecated */}
