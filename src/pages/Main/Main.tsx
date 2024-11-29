@@ -6,6 +6,7 @@ import React from "react";
 import { Fab, Zoom, Tooltip } from "@mui/material";
 import { postUserAddress } from "@/api/postUserAddress";
 
+import { ComingSoonModal } from "@/components/loan/ComingSoonModal";
 import Header from "@/components/common/Header";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
 import ActionCards from "@/components/main/ActionCards";
@@ -26,6 +27,10 @@ import "react-toastify/dist/ReactToastify.css";
 import NextonNews from "@/components/main/NextonNews";
 
 const tele = (window as any).Telegram.WebApp;
+
+interface ModalState {
+  toggled: boolean;
+}
 
 const Main: React.FC = () => {
   const [isFbOpen, setIsFbOpen] = useState(false);
@@ -55,6 +60,19 @@ const Main: React.FC = () => {
   const handleTokenSelect = selectedToken => {
     setTokenSort(selectedToken); // Update token selection
     setTokenModal(false); // Close modal
+  };
+
+  const [comingSoonModal, setComingSoonModal] = useState<ModalState>({
+    toggled: false,
+  });
+
+  const toggleComingSoonModal = () => {
+    setComingSoonModal(prev => ({
+      toggled: !prev.toggled,
+    }));
+  };
+  const handleOkayButton = () => {
+    toggleComingSoonModal();
   };
 
   // Refresh TON data
@@ -121,6 +139,13 @@ const Main: React.FC = () => {
 
     sendAddress();
   }, [connected, address, userId]);
+
+  useEffect(() => {
+    if (tokenSort === "nxTON") {
+      setComingSoonModal({ toggled: true });
+      setTokenSort("TON");
+    }
+  });
 
   // Track referral on app launch
   useEffect(() => {
@@ -352,6 +377,7 @@ const Main: React.FC = () => {
         theme="light"
         style={{ fontSize: "7rem" }}
       />
+      {comingSoonModal.toggled && <ComingSoonModal toggleModal={toggleComingSoonModal} onConfirm={handleOkayButton} />}
     </>
   );
 };

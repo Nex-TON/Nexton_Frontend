@@ -9,7 +9,9 @@ const NextonNews = () => {
     <>
       <LayoutWrapper>
         <Title>Latest Update </Title>
-        <ContainerWrapper>
+        <ContainerWrapper
+          onClick={() => window.open("https://app.ston.fi/pools/EQDp1Wo856blEgAxh8SGrkN4MVaK1p-h6Ih4ydMT2n3sJucq")}
+        >
           <TextWrapper>
             <p>
               $nxTON is now

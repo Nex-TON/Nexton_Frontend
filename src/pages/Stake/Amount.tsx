@@ -20,8 +20,13 @@ import { numberCutter } from "@/utils/numberCutter";
 import TokenFilter from "@/components/stake/Filter/TokenFilter";
 import { TokenFilterModal } from "@/components/stake/Filter/TokenFilterModal";
 import NXTPointImg from "@/assets/image/NXTPoint.png";
+import { ComingSoonModal } from "@/components/loan/ComingSoonModal";
 
 const tele = (window as any).Telegram.WebApp;
+
+interface ModalState {
+  toggled: boolean;
+}
 
 const Amount = () => {
   const { address, balance, connected, refreshTonData } = useTonConnect();
@@ -30,9 +35,23 @@ const Amount = () => {
   const { data: coinPrice } = useCoinPrice("TON", "USD");
   const [modal, setModal] = useState(false);
   const [tokenSort, setTokenSort] = useState("TON");
+
   const handleTokenSelect = selectedToken => {
     setTokenSort(selectedToken); // Update token selection
     setModal(false); // Close modal
+  };
+
+  const [comingSoonModal, setComingSoonModal] = useState<ModalState>({
+    toggled: false,
+  });
+
+  const toggleComingSoonModal = () => {
+    setComingSoonModal(prev => ({
+      toggled: !prev.toggled,
+    }));
+  };
+  const handleOkayButton = () => {
+    toggleComingSoonModal();
   };
 
   const schema = z.object({
@@ -90,6 +109,13 @@ const Amount = () => {
     }
   }, [connected, setError]);
 
+  useEffect(() => {
+    if (tokenSort === "nxTON") {
+      setComingSoonModal({ toggled: true });
+      setTokenSort("TON");
+    }
+  });
+
   // Conversion function
   const convertAmount = useMemo(() => {
     return (amount: string | number) => {
@@ -135,7 +161,7 @@ const Amount = () => {
                 tokenSort={tokenSort} // Pass selection handler
               />
             }
-            placeholder={tokenSort==="TON"?("min 1TON"):("min 1nxTON")}
+            placeholder={tokenSort === "TON" ? "min 1TON" : "min 1nxTON"}
             balance={balance}
             convertAmount={convertAmount}
           />
@@ -170,6 +196,7 @@ const Amount = () => {
           </ModalWrapper>
         </>
       )}
+      {comingSoonModal.toggled && <ComingSoonModal toggleModal={toggleComingSoonModal} onConfirm={handleOkayButton} />}
     </>
   );
 };
