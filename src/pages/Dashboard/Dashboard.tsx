@@ -20,7 +20,7 @@ import IcnxTONLogo from "@/assets/icons/Dashboard/ic_nxTON_logo.svg";
 import "@/components/common/Header";
 
 import {
-  DashboardHeader,
+  DivideLine,
   ChartHeader,
   ChartHeaderTitle,
   ChartTimeFrame,
@@ -36,6 +36,7 @@ import {
   TonPriceItemRight,
   TonPriceItemRightPercentage,
   TonPriceWrapper,
+  PerformanceItemInnerWrapper
 } from "./Dashboard.styled";
 
 import "./styles/Dashboard.css";
@@ -183,6 +184,15 @@ const Dashboard = () => {
                 </h3>
                 <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
               </PerformanceItem>
+          </PerformanceItemWrapper>
+          <PerformanceItemWrapper>
+            <PerformanceItem $fullWidth>
+             <PerformanceItemInnerWrapper><h3>APR 24h</h3> <p>60.81%</p></PerformanceItemInnerWrapper>
+             <DivideLine/>
+             <PerformanceItemInnerWrapper><h3>APR 7d</h3><p>60.81%</p></PerformanceItemInnerWrapper>
+             <DivideLine/>
+             <PerformanceItemInnerWrapper><h3>APR 30d</h3><p>60.81%</p></PerformanceItemInnerWrapper>
+            </PerformanceItem>
           </PerformanceItemWrapper>
           <MainButton style={{ margin: "1.5rem 0 6.1rem 0" }} />
 

@@ -155,14 +155,24 @@ export const PerformanceItemWrapper = styled.div`
   gap: 1rem;
 `;
 
+export const DivideLine=styled.div`
+  width: 1px;
+  height: 29px;
+  background: #F1F4F4;
+`
+
+export const PerformanceItemInnerWrapper=styled.div`
+  
+`
+
 export const PerformanceItem = styled.div<{ $fullWidth?: boolean }>`
   height: 100px;
   width: ${({ $fullWidth }) => ($fullWidth ? "100%" : "50%")};
 
   display: flex;
-  justify-content: start;
+  justify-content: ${({ $fullWidth }) => ($fullWidth ? "space-between" : "start")};
   align-items: start;
-  flex-direction: column;
+  flex-direction: ${({ $fullWidth }) => ($fullWidth ? "row" : "column")};
 
   border-radius: 15px;
   background: #fff;
