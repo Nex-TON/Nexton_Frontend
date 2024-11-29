@@ -3,7 +3,7 @@ import MainMyAssetInfoCard from "@/assets/image/MainMyAssetInfoCard.svg";
 
 export const MainWrapper = styled.div`
   width: 100%;
-  padding: 0 0.6rem 1rem 0.6rem;
+  padding: 0 0.6rem 0rem 0.6rem;
 
   background-color: #fff;
 `;
@@ -17,7 +17,6 @@ export const MainInnerBox = styled.div`
 
   padding: 2.3rem 2.1rem 2.7rem 2.3rem;
   margin-bottom: 1.2rem;
-
   border-radius: 15px;
   background: linear-gradient(270deg, #002639 0%, #001b29 28.13%, #000 100%);
   overflow: hidden; /* 자식 요소가 부모 요소를 넘지 않도록 설정 */

@@ -80,9 +80,9 @@ const Title = styled.div`
 
 const LayoutWrapper = styled.div`
   gap: 1.5rem;
-  padding: 4.5rem 1rem;
+  padding: 2.7rem 1rem;
   width: 100%;
-  height: 260px;
+  height: 224px;
   background-color: white;
   display: flex;
   flex-direction: column;
