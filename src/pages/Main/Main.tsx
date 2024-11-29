@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Slide, toast, ToastContainer } from "react-toastify";
-import { styled} from "styled-components";
+import { styled } from "styled-components";
 import { mutate } from "swr";
 import React from "react";
 import { Fab, Zoom, Tooltip } from "@mui/material";
@@ -19,6 +19,7 @@ import FloatCommunityIc from "@/assets/icons/Main/floating_community.svg";
 import FloatSupportIc from "@/assets/icons/Main/floating_support.svg";
 import FloatCloseIc from "@/assets/icons/Main/floating_close.svg";
 import FloatCsIc from "@/assets/icons/Main/floating_cs.svg";
+import { OfficialAnouncementModal } from "@/components/main/Modal/OfficialAnnouncementModal";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -42,6 +43,7 @@ const Main: React.FC = () => {
   const { trigger } = useTrackReferral();
 
   const [modal, setModal] = useState(false);
+  const [officialModal, setOfficialModal] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const userId = tele?.initDataUnsafe?.user?.id;
@@ -82,6 +84,14 @@ const Main: React.FC = () => {
     const hasVisited = localStorage.getItem("hasVisited");
     if (!hasVisited) {
       setModal(true); // Only show modal if user hasn't visited before
+    }
+  }, []);
+
+  //사용자가 들어오자 마자 nxTON이 상장되었다는 소식 팝업으로 알림
+  useEffect(() => {
+    const hasSeenOfficialNotice=localStorage.getItem("hasSeenOfficialNotice")
+    if (!hasSeenOfficialNotice) {
+      setOfficialModal(true);
     }
   }, []);
 
@@ -166,9 +176,15 @@ const Main: React.FC = () => {
     localStorage.setItem("hasVisited", "true");
   }, []);
 
+  const toggleOfficialModal = useCallback(() => {
+    setOfficialModal(prev => !prev);
+    localStorage.setItem("hasSeenOfficialNotice","true");
+  }, []);
+
   return (
     <>
       {modal && <WelcomeModal toggleModal={toggleModal} />}
+      {officialModal && <OfficialAnouncementModal toggleModal={toggleOfficialModal} />}
       <MainWrapper>
         <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} tonConnectUI={tonConnectUI} />
         <MainMyAssetInfo

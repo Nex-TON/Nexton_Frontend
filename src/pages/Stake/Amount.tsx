@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,6 +18,8 @@ import { isDevMode } from "@/utils/isDevMode";
 import { limitDecimals } from "@/utils/limitDecimals";
 import { numberCutter } from "@/utils/numberCutter";
 import TokenFilter from "@/components/stake/Filter/TokenFilter";
+import { TokenFilterModal } from "@/components/stake/Filter/TokenFilterModal";
+import NXTPointImg from "@/assets/image/NXTPoint.png";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -26,6 +28,12 @@ const Amount = () => {
   const navigate = useNavigate();
   const [, setStakingInfo] = useRecoilState(stakingAtom);
   const { data: coinPrice } = useCoinPrice("TON", "USD");
+  const [modal, setModal] = useState(false);
+  const [tokenSort, setTokenSort] = useState("TON");
+  const handleTokenSelect = selectedToken => {
+    setTokenSort(selectedToken); // Update token selection
+    setModal(false); // Close modal
+  };
 
   const schema = z.object({
     amount: z
@@ -97,45 +105,130 @@ const Amount = () => {
       ...prev,
       address: address,
       principal: data.amount,
+      asset: tokenSort,
     }));
     navigate("/stake/nominator");
   };
 
   return (
-    <AmountWrapper>
-      <ProgressBar />
-      <Step title="Step 1" />
-      <Title title="Put stake amount" />
-      <BalanceWrapper>
-        <BalanceText>Balance : {balance ? numberCutter(balance) : `-.--`}</BalanceText>
-      </BalanceWrapper>
+    <>
+      <AmountWrapper>
+        <ProgressBar />
+        <Step title="Step 1" />
+        <Title title="Put stake amount" />
+        <BalanceWrapper>
+          <BalanceText>Balance : {balance ? numberCutter(balance) : `-.--`}</BalanceText>
+        </BalanceWrapper>
 
-      <form style={{ width: "100%" }}>
-        <TokenInput
-          name="amount"
-          control={control}
-          decimalSeparator="."
-          decimalScale={3}
-          setValue={setValue}
-          error={errors.amount?.message as string}
-          disabled={!connected}
-          tokenLabel={<TokenFilter/>}
-          placeholder="min 1TON"
-          balance={balance}
-          convertAmount={convertAmount}
-        />
+        <form style={{ width: "100%" }}>
+          <TokenInput
+            name="amount"
+            control={control}
+            decimalSeparator="."
+            decimalScale={3}
+            setValue={setValue}
+            error={errors.amount?.message as string}
+            disabled={!connected}
+            tokenLabel={
+              <TokenFilter
+                toggleModal={() => setModal(true)}
+                tokenSort={tokenSort} // Pass selection handler
+              />
+            }
+            placeholder="min 1TON"
+            balance={balance}
+            convertAmount={convertAmount}
+          />
 
-        {!isDevMode ? (
-          <MainButton text="NEXT" onClick={handleSubmit(onSubmit)} />
-        ) : (
-          <button onClick={handleSubmit(onSubmit)}>next</button>
+          {!isDevMode ? (
+            <MainButton text="NEXT" onClick={handleSubmit(onSubmit)} />
+          ) : (
+            <button onClick={handleSubmit(onSubmit)}>next</button>
+          )}
+        </form>
+        {tokenSort === "nxTON" && (
+          <>
+            <BonusPointWrapper>
+              <img src={NXTPointImg} />
+              <TextWrapper>
+                <h2>Bonus NXT Point!</h2>
+                <p>
+                  Earn bonus NXT points by staking!
+                  <br />
+                  Try the newly listed <span>$nxTON</span> now!
+                </p>
+              </TextWrapper>
+            </BonusPointWrapper>
+          </>
         )}
-      </form>
-    </AmountWrapper>
+      </AmountWrapper>
+      {modal && (
+        <>
+          <Overlay onClick={() => setModal(false)} />
+          <ModalWrapper>
+            <TokenFilterModal toggleModal={() => setModal(false)} onSelected={handleTokenSelect} />
+          </ModalWrapper>
+        </>
+      )}
+    </>
   );
 };
 
 export default Amount;
+
+const TextWrapper = styled.div`
+  h2 {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2};
+  }
+  p {
+    ${({ theme }) => theme.fonts.Nexton_Label_Small};
+    span {
+      ${({ theme }) => theme.fonts.Nexton_Label_Large};
+    }
+  }
+`;
+
+const BonusPointWrapper = styled.div`
+  margin-top: 1.8rem;
+  gap: 1.6rem;
+  padding: 21px 42px 21px 20px;
+  align-items: center;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 4px 4px 16px 0px rgba(206, 216, 225, 0.5);
+  width: 100%;
+  height: 106px;
+
+  display: flex;
+  flex-direction: row;
+  img {
+    width: 49px;
+    height: 49px;
+    flex-shrink: 0;
+  }
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+`;
+
+const ModalWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+`;
 
 const AmountWrapper = styled.div`
   display: flex;
