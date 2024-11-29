@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Slide, toast, ToastContainer } from "react-toastify";
-import { styled} from "styled-components";
+import { styled } from "styled-components";
 import { mutate } from "swr";
 import React from "react";
 import { Fab, Zoom, Tooltip } from "@mui/material";
 import { postUserAddress } from "@/api/postUserAddress";
 
+import { ComingSoonModal } from "@/components/loan/ComingSoonModal";
 import Header from "@/components/common/Header";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
 import ActionCards from "@/components/main/ActionCards";
@@ -19,11 +20,17 @@ import FloatCommunityIc from "@/assets/icons/Main/floating_community.svg";
 import FloatSupportIc from "@/assets/icons/Main/floating_support.svg";
 import FloatCloseIc from "@/assets/icons/Main/floating_close.svg";
 import FloatCsIc from "@/assets/icons/Main/floating_cs.svg";
-
+import { OfficialAnouncementModal } from "@/components/main/Modal/OfficialAnnouncementModal";
+import { TokenFilterModal } from "@/components/stake/Filter/TokenFilterModal";
 
 import "react-toastify/dist/ReactToastify.css";
+import NextonNews from "@/components/main/NextonNews";
 
 const tele = (window as any).Telegram.WebApp;
+
+interface ModalState {
+  toggled: boolean;
+}
 
 const Main: React.FC = () => {
   const [isFbOpen, setIsFbOpen] = useState(false);
@@ -43,9 +50,30 @@ const Main: React.FC = () => {
   const { trigger } = useTrackReferral();
 
   const [modal, setModal] = useState(false);
+  const [officialModal, setOfficialModal] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const userId = tele?.initDataUnsafe?.user?.id;
+
+  const [tokenModal, setTokenModal] = useState(false);
+  const [tokenSort, setTokenSort] = useState("TON");
+  const handleTokenSelect = selectedToken => {
+    setTokenSort(selectedToken); // Update token selection
+    setTokenModal(false); // Close modal
+  };
+
+  const [comingSoonModal, setComingSoonModal] = useState<ModalState>({
+    toggled: false,
+  });
+
+  const toggleComingSoonModal = () => {
+    setComingSoonModal(prev => ({
+      toggled: !prev.toggled,
+    }));
+  };
+  const handleOkayButton = () => {
+    toggleComingSoonModal();
+  };
 
   // Refresh TON data
   useEffect(() => {
@@ -86,6 +114,14 @@ const Main: React.FC = () => {
     }
   }, []);
 
+  //사용자가 들어오자 마자 nxTON이 상장되었다는 소식 팝업으로 알림
+  useEffect(() => {
+    const hasSeenOfficialNotice = localStorage.getItem("hasSeenOfficialNotice");
+    if (!hasSeenOfficialNotice) {
+      setOfficialModal(true);
+    }
+  }, []);
+
   //사용자 지갑 주소 전송
   useEffect(() => {
     const sendAddress = async () => {
@@ -103,6 +139,13 @@ const Main: React.FC = () => {
 
     sendAddress();
   }, [connected, address, userId]);
+
+  useEffect(() => {
+    if (tokenSort === "nxTON") {
+      setComingSoonModal({ toggled: true });
+      setTokenSort("TON");
+    }
+  });
 
   // Track referral on app launch
   useEffect(() => {
@@ -167,9 +210,15 @@ const Main: React.FC = () => {
     localStorage.setItem("hasVisited", "true");
   }, []);
 
+  const toggleOfficialModal = useCallback(() => {
+    setOfficialModal(prev => !prev);
+    localStorage.setItem("hasSeenOfficialNotice", "true");
+  }, []);
+
   return (
     <>
       {modal && <WelcomeModal toggleModal={toggleModal} />}
+      {officialModal && <OfficialAnouncementModal toggleModal={toggleOfficialModal} />}
       <MainWrapper>
         <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} tonConnectUI={tonConnectUI} />
         <MainMyAssetInfo
@@ -181,7 +230,11 @@ const Main: React.FC = () => {
           totalStaked={totalStaked}
           isLoading={isLoading || isRefreshing}
           isError={isError}
+          toggleModal={() => setTokenModal(true)}
+          tokenSort={tokenSort}
         />
+        <MainBorder />
+        <NextonNews />
         <MainBorder />
         <ActionCards />
         {/* @deprecated */}
@@ -302,8 +355,15 @@ const Main: React.FC = () => {
           )}
         </Fab>
         <MainNavigationBar />
+        {tokenModal && (
+          <>
+            <TokenModalOverlay onClick={() => setTokenModal(false)} />
+            <TokenModalWrapper>
+              <TokenFilterModal toggleModal={() => setTokenModal(false)} onSelected={handleTokenSelect} />
+            </TokenModalWrapper>
+          </>
+        )}
       </MainWrapper>
-
       <ToastContainer
         position="top-center"
         autoClose={4000}
@@ -317,11 +377,34 @@ const Main: React.FC = () => {
         theme="light"
         style={{ fontSize: "7rem" }}
       />
+      {comingSoonModal.toggled && <ComingSoonModal toggleModal={toggleComingSoonModal} onConfirm={handleOkayButton} />}
     </>
   );
 };
 
 export default Main;
+
+const TokenModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+`;
+
+const TokenModalWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+`;
 
 const Overlay = styled.div<{ visible: boolean }>`
   position: fixed;

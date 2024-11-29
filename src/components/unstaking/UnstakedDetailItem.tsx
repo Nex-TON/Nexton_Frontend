@@ -47,7 +47,7 @@ export default UnstakedDetailItem;
 
 const UnstakeState=styled.div<{$unstakeState:number}>`
 ${({theme})=>theme.fonts.Nexton_Body_Text_Medium_2};
-color: ${({$unstakeState})=>$unstakeState===2?"#34C759":"#76797A"};
+color: ${({$unstakeState})=>$unstakeState==2?"#34C759":$unstakeState==1?"#1F53FF":"#76797A"};
 
 `
 
@@ -55,7 +55,7 @@ const UnstakingDetailItemWrapper = styled.div`
   width: 100%;
   padding: 2rem;
 
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   background-color: #fff;
   box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.50);
 

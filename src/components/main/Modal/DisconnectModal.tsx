@@ -83,7 +83,7 @@ const ModalButton = styled.button<{ type: string }>`
   padding: 1.2rem 0;
 
   border: none;
-  border-radius: 1.4rem;
+  border-radius: 1.5rem;
 
   background-color: ${({ type }) => (type === "yes" ? "#FFF" : "#007AFF")};
   box-shadow: 0px 0px 20px 0px rgba(198, 197, 208, 0.3);
@@ -104,7 +104,7 @@ const DisconnectBox = styled.div`
   margin-bottom: 2.4rem;
 
   border: none;
-  border-radius: 15px;
+  border-radius: 1.5rem;
   background-color: #2f3038;
 
   filter: drop-shadow(0px 0px 14px rgba(0, 0, 0, 0.4));

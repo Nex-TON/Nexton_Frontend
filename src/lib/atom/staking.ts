@@ -14,6 +14,7 @@ export const stakingAtom = atom<StakingProps>({
     leverage: 0,
     lockup: 0,
     nominator: "",
+    asset:"",
   },
   effects_UNSTABLE: [persistAtom],
 });

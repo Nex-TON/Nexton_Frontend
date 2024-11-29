@@ -44,7 +44,7 @@ const UnstakingPreviewImageWrapper = styled.div`
 
   img {
     width: 100%;
-    border-radius: 2rem;
+    border-radius: 1.5rem;
   }
 `;
 

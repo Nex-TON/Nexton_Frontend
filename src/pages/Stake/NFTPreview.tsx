@@ -81,6 +81,7 @@ const NFTPreview = () => {
         amount: stakingInfo.principal,
         lockPeriod: stakingInfo.lockup.toString(),
         nominator: stakingInfo.nominator,
+        tokenSort:stakingInfo.asset,
       });
 
       setModal({ type: "stake", toggled: true });

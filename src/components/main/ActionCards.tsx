@@ -30,11 +30,11 @@ const ActionCards = () => {
       </Card> */}
       <ActionCardsTitle>My Activity</ActionCardsTitle>
       <ActionCardsInnerBox>
-        <Card $large $disabled>
-          <CardHeader $disabled>Coming Soon</CardHeader>
-          <CardBody $disabled>
+        <Card $large>
+          <CardHeader>Borrow nxTON using<br/>your NFT as collateral</CardHeader>
+          <CardBody>
             Loan
-            <ArrowIcon disabled />
+            <ArrowIcon/>
           </CardBody>
         </Card>
         <Card $dark onClick={() => navigate("/myasset/nftlist#specific-element")} id="main page my NFTS">

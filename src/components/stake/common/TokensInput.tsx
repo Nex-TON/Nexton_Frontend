@@ -9,7 +9,7 @@ import { numberCutter } from "@/utils/numberCutter";
 interface TokenInputProps extends NumericFormatProps {
   name: string;
   setValue: (name: string, value: string) => void;
-  tokenLabel: string;
+  tokenLabel: any;
   control: any;
   balance: number;
   convertAmount: (amount: string | number) => string;
@@ -37,6 +37,19 @@ const TokenInput = ({
     <>
       <LeverageInputWrapper $error={Boolean(error)}>
         <LeftSection>
+        <TokenLabel>{tokenLabel}</TokenLabel>
+          {/* <MaxWrapper
+            type="button"
+            disabled={!balance}
+            onClick={() => {
+              setValue(name, String(numberCutter(balance)));
+              setConvertedValue(convertAmount(String(numberCutter(balance))));
+            }}
+          >
+            MAX
+          </MaxWrapper> */}
+        </LeftSection>
+        <RightSection>
           <Controller
             name={name}
             control={control}
@@ -59,23 +72,8 @@ const TokenInput = ({
             )}
           />
           <ConvertedValue $isZero={convertedValue === "$0.00"}>{isConverting ? "..." : convertedValue}</ConvertedValue>
-        </LeftSection>
-
-        <RightSection>
-          <MaxWrapper
-            type="button"
-            disabled={!balance}
-            onClick={() => {
-              setValue(name, String(numberCutter(balance)));
-              setConvertedValue(convertAmount(String(numberCutter(balance))));
-            }}
-          >
-            MAX
-          </MaxWrapper>
-          <TokenLabel>{tokenLabel}</TokenLabel>
         </RightSection>
       </LeverageInputWrapper>
-
       {error && (
         <ErrorWrapper>
           <img src={IcError} alt="error" />
@@ -90,7 +88,7 @@ export default TokenInput;
 
 const Input = styled(NumericFormat)`
   width: 100%;
-
+  text-align:end;
   border: none;
 
   background-color: transparent;
@@ -98,6 +96,7 @@ const Input = styled(NumericFormat)`
   color: #45464f;
 
   &::placeholder {
+    text-align: end;
     color: #e5e5ea;
   }
 
@@ -127,17 +126,17 @@ const ConvertedValue = styled.span<{ $isZero: boolean }>`
   line-height: 22px; /* 157.143% */
 `;
 
-const LeftSection = styled.div`
+const RightSection = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: center;
   flex-direction: column;
   gap: 0.2rem;
 `;
 
-const RightSection = styled.div`
+const LeftSection = styled.div`
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   gap: 1.5rem;
 `;

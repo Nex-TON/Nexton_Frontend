@@ -1,6 +1,7 @@
 import { useState,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { mutate } from "swr";
+import styled from "styled-components";
 
 import IcArrowRight from "@/assets/icons/MyAsset/chevron-right.svg";
 import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
@@ -9,6 +10,8 @@ import MyAssetNotConnected from "@/assets/image/MyAssetNotConnected.svg";
 import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceChart";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import { useEarningsbyAddress } from "@/hooks/api/dashboard/useEarningsbyAddress";
+import IcArrowRightGrey from "@/assets/icons/Stake/ic_arrow_right.svg";
+import NxtPointTooltip from "@/assets/image/nxt_point_tooltip.png";
 import {
   // TvlNotice,
   APYBox,
@@ -51,6 +54,8 @@ const MainMyAssetInfo = ({
   totalStaked,
   isLoading,
   isError,
+  toggleModal,
+  tokenSort,
 }: {
   tonConnectUI: any;
   connected: boolean;
@@ -60,6 +65,8 @@ const MainMyAssetInfo = ({
   totalStaked: number;
   isLoading: boolean;
   isError: boolean;
+  toggleModal: any; //임시
+  tokenSort: string;
 }) => {
   const navigate = useNavigate();
 
@@ -202,7 +209,7 @@ const MainMyAssetInfo = ({
             </DashboardBottomLeft>
           </DashboardBottomBox>
         ) : (
-          <AssetBottomBox>
+          <AssetBottomBox onClick={toggleModal}>
             {!connected ? (
               <AssetBottomNotConnected onClick={() => tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
                 <AssetBottomNotConnectedImg>
@@ -222,9 +229,17 @@ const MainMyAssetInfo = ({
                       {isRefreshing ? (
                         <Loader />
                       ) : (
-                        <>
-                          <h4>{balance === 0 || balance ? balance?.toFixed(3) : "-.--"}</h4> <span>TON</span>
-                        </>
+                        <RightItemWrapper>
+                          {tokenSort === "TON" ? (
+                            <h4> {balance === 0 || balance ? balance?.toFixed(3) : "-.--"} TON</h4>
+                          ) : (
+                            <TooltipExist>
+                              <TooltipImage src={NxtPointTooltip} alt="main page tooltip" />
+                              <h4>0.000 nxTON</h4>
+                            </TooltipExist>
+                          )}
+                          <img src={IcArrowRightGrey} />
+                        </RightItemWrapper>
                       )}
                     </AssetBottomLeftItemValue>
                   </AssetBottomLeftItem>
@@ -235,12 +250,23 @@ const MainMyAssetInfo = ({
                       {isRefreshing ? (
                         <Loader />
                       ) : (
-                        <>
+                        <RightItemWrapper>
                           <h4>
-                            {isError ? "-.-- " : isLoading || isRefreshing ? <Loader /> : totalStaked?.toFixed(3)}
+                            {tokenSort === "TON" ? (
+                              isError ? (
+                                "-.-- "
+                              ) : isLoading || isRefreshing ? (
+                                <Loader />
+                              ) : (
+                                totalStaked?.toFixed(3)
+                              )
+                            ) : (
+                              "0.000"
+                            )}{" "}
+                            {tokenSort === "TON" ? "TON" : "nxTON"}
                           </h4>
-                          <span>TON</span>
-                        </>
+                          <img src={IcArrowRightGrey} />
+                        </RightItemWrapper>
                       )}
                     </AssetBottomLeftItemValue>
                   </AssetBottomLeftItem>
@@ -253,18 +279,23 @@ const MainMyAssetInfo = ({
                       {isRefreshing ? (
                         <Loader />
                       ) : (
-                        <>
+                        <RightItemWrapper>
                           <h4>
-                            {isError || earningsError ? (
-                              "0.000 "
-                            ) : isLoading || earningsLoading ? (
-                              <Loader />
+                            {tokenSort === "TON" ? (
+                              isError || earningsError ? (
+                                "0.000"
+                              ) : isLoading || earningsLoading ? (
+                                <Loader />
+                              ) : (
+                                earningsData?.totalRewards.toFixed(3)
+                              )
                             ) : (
-                              earningsData?.totalRewards.toFixed(3)
-                            )}
+                              "0.000"
+                            )}{" "}
+                            {tokenSort === "TON" ? "TON" : "nxTON"}
                           </h4>
-                          <span>TON</span>
-                        </>
+                          <img src={IcArrowRightGrey} />
+                        </RightItemWrapper>
                       )}
                     </AssetBottomLeftItemValue>
                   </AssetBottomLeftItem>
@@ -281,3 +312,24 @@ const MainMyAssetInfo = ({
 };
 
 export default MainMyAssetInfo;
+
+const RightItemWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const TooltipImage = styled.img`
+  position: absolute; /* 절대 위치 설정 */
+  right:0; /* TokenName 시작 위치에 정렬 */
+  bottom: 100%; /* TokenName 위에 위치 */
+  margin-bottom: 5px; /* TokenName과의 간격 조정 */
+  z-index: 1; /* 다른 요소 위에 표시 */
+  width: 90px;
+  height: 31px;
+`;
+
+const TooltipExist = styled.div`
+  position: relative; /* Tooltip의 기준 위치 설정 */
+  display: flex;
+  align-items:start;
+`;

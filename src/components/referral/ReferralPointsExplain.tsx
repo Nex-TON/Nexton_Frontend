@@ -206,8 +206,6 @@ const ReferralBox = styled.div`
   height: 113px;
 
   padding: 14px 22px;
-  border-radius: 20px;
-
   background-color: #fff;
   text-align: start;
 

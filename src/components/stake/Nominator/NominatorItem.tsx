@@ -111,7 +111,7 @@ const NominatorItemWrapper = styled.div<{ $active: boolean; $disabled?: boolean 
   height: 200px;
 
   padding: 2rem 2.4rem;
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.14);
   & + & {
     margin-top: 1rem;
