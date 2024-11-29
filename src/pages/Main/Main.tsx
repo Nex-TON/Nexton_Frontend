@@ -20,6 +20,7 @@ import FloatSupportIc from "@/assets/icons/Main/floating_support.svg";
 import FloatCloseIc from "@/assets/icons/Main/floating_close.svg";
 import FloatCsIc from "@/assets/icons/Main/floating_cs.svg";
 import { OfficialAnouncementModal } from "@/components/main/Modal/OfficialAnnouncementModal";
+import { TokenFilterModal } from "@/components/stake/Filter/TokenFilterModal";
 
 import "react-toastify/dist/ReactToastify.css";
 import NextonNews from "@/components/main/NextonNews";
@@ -48,6 +49,13 @@ const Main: React.FC = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const userId = tele?.initDataUnsafe?.user?.id;
+
+  const [tokenModal, setTokenModal] = useState(false);
+  const [tokenSort, setTokenSort] = useState("TON");
+  const handleTokenSelect = selectedToken => {
+    setTokenSort(selectedToken); // Update token selection
+    setTokenModal(false); // Close modal
+  };
 
   // Refresh TON data
   useEffect(() => {
@@ -197,6 +205,8 @@ const Main: React.FC = () => {
           totalStaked={totalStaked}
           isLoading={isLoading || isRefreshing}
           isError={isError}
+          toggleModal={() => setTokenModal(true)}
+          tokenSort={tokenSort}
         />
         <MainBorder />
         <NextonNews />
@@ -320,8 +330,15 @@ const Main: React.FC = () => {
           )}
         </Fab>
         <MainNavigationBar />
+        {tokenModal && (
+          <>
+            <TokenModalOverlay onClick={() => setTokenModal(false)} />
+            <TokenModalWrapper>
+              <TokenFilterModal toggleModal={() => setTokenModal(false)} onSelected={handleTokenSelect} />
+            </TokenModalWrapper>
+          </>
+        )}
       </MainWrapper>
-
       <ToastContainer
         position="top-center"
         autoClose={4000}
@@ -340,6 +357,28 @@ const Main: React.FC = () => {
 };
 
 export default Main;
+
+const TokenModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+`;
+
+const TokenModalWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+`;
 
 const Overlay = styled.div<{ visible: boolean }>`
   position: fixed;

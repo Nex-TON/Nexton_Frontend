@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { mutate } from "swr";
+import styled from "styled-components";
 
 import IcArrowRight from "@/assets/icons/MyAsset/chevron-right.svg";
 import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
@@ -9,6 +10,7 @@ import MyAssetNotConnected from "@/assets/image/MyAssetNotConnected.svg";
 import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceChart";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import { useEarningsbyAddress } from "@/hooks/api/dashboard/useEarningsbyAddress";
+import IcArrowRightGrey from "@/assets/icons/Stake/ic_arrow_right.svg";
 import {
   // TvlNotice,
   APYBox,
@@ -51,6 +53,8 @@ const MainMyAssetInfo = ({
   totalStaked,
   isLoading,
   isError,
+  toggleModal,
+  tokenSort,
 }: {
   tonConnectUI: any;
   connected: boolean;
@@ -60,6 +64,8 @@ const MainMyAssetInfo = ({
   totalStaked: number;
   isLoading: boolean;
   isError: boolean;
+  toggleModal:any, //임시
+  tokenSort:string,
 }) => {
   const navigate = useNavigate();
 
@@ -95,16 +101,28 @@ const MainMyAssetInfo = ({
       <MainInnerBox>
         <MainTopBox $marginBottom={connected || view === "dashboard"}>
           <MainTopLeft>
-            <MainLeftItem $isActive={view === "dashboard"} onClick={() => handleViewChange("dashboard")} id="mainmyaseetdashbordview">
+            <MainLeftItem
+              $isActive={view === "dashboard"}
+              onClick={() => handleViewChange("dashboard")}
+              id="mainmyaseetdashbordview"
+            >
               Dashboard
             </MainLeftItem>
-            <MainLeftItem $isActive={view === "asset"} onClick={() => handleViewChange("asset")} id="mainmyassetmyassetview">
+            <MainLeftItem
+              $isActive={view === "asset"}
+              onClick={() => handleViewChange("asset")}
+              id="mainmyassetmyassetview"
+            >
               My Asset
             </MainLeftItem>
           </MainTopLeft>
 
           {view === "asset" && (
-            <MainTopRight>{address && <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} id="main myasset view refresh"/>}</MainTopRight>
+            <MainTopRight>
+              {address && (
+                <img src={IcRefresh} alt="icon_refresh" onClick={handleRefresh} id="main myasset view refresh" />
+              )}
+            </MainTopRight>
           )}
         </MainTopBox>
 
@@ -116,7 +134,9 @@ const MainMyAssetInfo = ({
 
                 <APYBox id="mainmyassetinfodashboard">
                   <span id="mainmyassetinfodashboard">APY</span>
-                  <h4 id="mainmyassetinfodashboard">{performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}</h4>
+                  <h4 id="mainmyassetinfodashboard">
+                    {performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}
+                  </h4>
                 </APYBox>
               </DashboardBottomLeftTitleBox>
 
@@ -127,29 +147,36 @@ const MainMyAssetInfo = ({
                   <>
                     <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
                       <span id="mainmyassetinfodashboard">bot PNL</span>
-                      <h4 id="mainmyassetinfodashboard">{performanceData?.pnlRate ? `${limitDecimals(performanceData?.pnlRate, 2)}%` : "-"}</h4>
+                      <h4 id="mainmyassetinfodashboard">
+                        {performanceData?.pnlRate ? `${limitDecimals(performanceData?.pnlRate, 2)}%` : "-"}
+                      </h4>
                     </DashboardBottomLeftDataItem>
                     <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
                       <span id="mainmyassetinfodashboard">Daily PNL</span>
                       <h4 id="mainmyassetinfodashboard">
-                        {chartData?
-                          `${chartData?.dailyPnlRate > 0 ? "+" : ""}${limitDecimals(chartData?.dailyPnlRate, 2)}%`
+                        {chartData
+                          ? `${chartData?.dailyPnlRate > 0 ? "+" : ""}${limitDecimals(chartData?.dailyPnlRate, 2)}%`
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
                     <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
-                        <span style={{gap:"6px", alignItems:"center",display:"flex",justifyContent:""}} id="mainmyassetinfodashboard">
-                          TVL 
-                          {/* 보류 */}
-                          {/* <Tooltip 
+                      <span
+                        style={{ gap: "6px", alignItems: "center", display: "flex", justifyContent: "" }}
+                        id="mainmyassetinfodashboard"
+                      >
+                        TVL
+                        {/* 보류 */}
+                        {/* <Tooltip 
                           title="$TON + $nxTON"
                           open={false}
                           placement="top"
                           >
                           <VscInfo style={{width:"16px",height:"16px",color:"##C6C5D0"}} />
                           </Tooltip> */}
-                        </span>
-                      <h4 id="mainmyassetinfodashboard">{performanceData?.tvl ? `${limitDecimals(performanceData?.tvl, 3)} TON` : "-"}</h4>
+                      </span>
+                      <h4 id="mainmyassetinfodashboard">
+                        {performanceData?.tvl ? `${limitDecimals(performanceData?.tvl, 3)} TON` : "-"}
+                      </h4>
                     </DashboardBottomLeftDataItem>
 
                     <DashboardBottomLeftDataItem onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
@@ -161,15 +188,15 @@ const MainMyAssetInfo = ({
             </DashboardBottomLeft>
           </DashboardBottomBox>
         ) : (
-          <AssetBottomBox>
+          <AssetBottomBox onClick={toggleModal}>
             {!connected ? (
-              <AssetBottomNotConnected onClick={()=>tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
+              <AssetBottomNotConnected onClick={() => tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
                 <AssetBottomNotConnectedImg>
-                  <img src={MyAssetNotConnected} alt="my asset not connected image"/>
+                  <img src={MyAssetNotConnected} alt="my asset not connected image" />
                   <AssetBottomNotConnectedText>
-                <p id="mainmyassetinfoconnectwallet">Please connect your wallet.</p>
-                <img src={IcArrowRight} alt="icon_arrow_right"  id="mainmyassetinfoconnectwallet"/>
-                </AssetBottomNotConnectedText>
+                    <p id="mainmyassetinfoconnectwallet">Please connect your wallet.</p>
+                    <img src={IcArrowRight} alt="icon_arrow_right" id="mainmyassetinfoconnectwallet" />
+                  </AssetBottomNotConnectedText>
                 </AssetBottomNotConnectedImg>
               </AssetBottomNotConnected>
             ) : (
@@ -181,9 +208,10 @@ const MainMyAssetInfo = ({
                       {isRefreshing ? (
                         <Loader />
                       ) : (
-                        <>
-                          <h4>{balance === 0 || balance ? balance?.toFixed(3) : "-.--"}</h4> <span>TON</span>
-                        </>
+                        <RightItemWrapper>
+                          <h4>{tokenSort==="TON"?(balance === 0 || balance ? balance?.toFixed(3) : "-.--"):("0.000")} TON</h4>
+                          <img src={IcArrowRightGrey} />
+                        </RightItemWrapper>
                       )}
                     </AssetBottomLeftItemValue>
                   </AssetBottomLeftItem>
@@ -194,12 +222,12 @@ const MainMyAssetInfo = ({
                       {isRefreshing ? (
                         <Loader />
                       ) : (
-                        <>
+                        <RightItemWrapper>
                           <h4>
-                            {isError ? "-.-- " : isLoading || isRefreshing ? <Loader /> : totalStaked?.toFixed(3)}
+                            {tokenSort==="TON"?(isError ? "-.-- " : isLoading || isRefreshing ? <Loader /> : totalStaked?.toFixed(3)):("0.000")} TON
                           </h4>
-                          <span>TON</span>
-                        </>
+                          <img src={IcArrowRightGrey} />
+                        </RightItemWrapper>
                       )}
                     </AssetBottomLeftItemValue>
                   </AssetBottomLeftItem>
@@ -212,18 +240,18 @@ const MainMyAssetInfo = ({
                       {isRefreshing ? (
                         <Loader />
                       ) : (
-                        <>
+                        <RightItemWrapper>
                           <h4>
-                            {isError || earningsError ? (
+                            {tokenSort==="TON"?(isError || earningsError ? (
                               "0.000 "
                             ) : isLoading || earningsLoading ? (
                               <Loader />
                             ) : (
                               earningsData?.totalRewards.toFixed(3)
-                            )}
+                            )):("0.000")} TON
                           </h4>
-                          <span>TON</span>
-                        </>
+                          <img src={IcArrowRightGrey}/>
+                        </RightItemWrapper>
                       )}
                     </AssetBottomLeftItemValue>
                   </AssetBottomLeftItem>
@@ -240,3 +268,8 @@ const MainMyAssetInfo = ({
 };
 
 export default MainMyAssetInfo;
+
+const RightItemWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
