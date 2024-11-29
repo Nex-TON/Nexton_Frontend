@@ -263,7 +263,7 @@ const MainMyAssetInfo = ({
                           <h4>
                             {tokenSort === "TON" ? (
                               isError || earningsError ? (
-                                "0.000 "
+                                "0.000"
                               ) : isLoading || earningsLoading ? (
                                 <Loader />
                               ) : (
@@ -271,7 +271,7 @@ const MainMyAssetInfo = ({
                               )
                             ) : (
                               "0.000"
-                            )}
+                            )}{" "}
                             {tokenSort === "TON" ? "TON" : "nxTON"}
                           </h4>
                           <img src={IcArrowRightGrey} />
