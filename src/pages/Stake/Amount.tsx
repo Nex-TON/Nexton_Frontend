@@ -135,7 +135,7 @@ const Amount = () => {
                 tokenSort={tokenSort} // Pass selection handler
               />
             }
-            placeholder="min 1TON"
+            placeholder={tokenSort==="TON"?("min 1TON"):("min 1nxTON")}
             balance={balance}
             convertAmount={convertAmount}
           />
