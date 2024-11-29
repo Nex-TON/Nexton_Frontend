@@ -29,7 +29,11 @@ export const OfficialAnouncementModal = (props: OfficialAnouncementProps) => {
 
         <WelcomeButtonWrapper>
           <ButtonWrapper>
-            <StonfiLinkButton>Go to STON.fi DEX</StonfiLinkButton>
+            <StonfiLinkButton
+              onClick={() => {window.open("https://app.ston.fi/pools/EQDp1Wo856blEgAxh8SGrkN4MVaK1p-h6Ih4ydMT2n3sJucq");toggleModal();}}
+            >
+              Go to STON.fi DEX
+            </StonfiLinkButton>
             <CloseButton
               onClick={() => {
                 if (onClose) {
