@@ -28,7 +28,6 @@ interface ModalState {
   type: "stake" | "confirmStake";
   toggled: boolean;
 }
-
 const NFTPreview = () => {
   const { refreshTonData } = useTonConnect();
 
