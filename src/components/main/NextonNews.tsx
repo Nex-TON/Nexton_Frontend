@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 import StonfiLogo from "@/assets/image/StonfiLogoImg.svg";
+import LinkIcon from "@/assets/icons/Main/arrow-down-right-sm.svg";
+import BannerIllust from "@/assets/image/banner_illust.png";
 
 const NextonNews = () => {
   return (
@@ -8,7 +10,17 @@ const NextonNews = () => {
       <LayoutWrapper>
         <Title>Latest Update </Title>
         <ContainerWrapper>
-          <p>$nxTON is now<br/> listed on <img src={StonfiLogo} alt="stonfi logo" /><br/>(banner 디자인 진행 중)</p>
+          <TextWrapper>
+            <p>
+              $nxTON is now
+              <br /> listed on <StonfiImg src={StonfiLogo} alt="stonfi logo" />
+              <br />
+            </p>
+            <LinkToWebsite>
+              Let’s Check It Out! <img src={LinkIcon} />
+            </LinkToWebsite>
+          </TextWrapper>
+          <IllustImg src={BannerIllust} alt="banner illust" />
         </ContainerWrapper>
       </LayoutWrapper>
     </>
@@ -16,20 +28,46 @@ const NextonNews = () => {
 };
 export default NextonNews;
 
+const IllustImg = styled.img`
+  width: 92px;
+  height: 85px;
+`;
+
+const StonfiImg = styled.img`
+  width: 105px;
+  height: 22px;
+`;
+
+const LinkToWebsite = styled.div`
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+  color: white;
+  margin-top: 4.5px;
+  display: flex;
+  flex-direction: row;
+  img {
+    width: 24px;
+    height: 24px;
+  }
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const ContainerWrapper = styled.div`
   width: 100%;
-  background-color: black;
+  background: linear-gradient(98deg, #000 11.74%, #321b42 101.85%);
   height: 125px;
   border-radius: 1.5rem;
   display: flex;
-  flex-direction: column;
-  padding: 1.6rem 1.6rem;
-  img {
-    width: 105px;
-    height: 22px;
-  }
-  p{
-    ${({theme})=>theme.fonts.Nexton_Title_Medium_1}
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1.6rem;
+  align-items: center;
+
+  p {
+    ${({ theme }) => theme.fonts.Nexton_Title_Medium_1}
     color: white;
     line-height: 150%;
   }
