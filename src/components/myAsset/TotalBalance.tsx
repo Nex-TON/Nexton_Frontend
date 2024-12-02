@@ -2,12 +2,14 @@ import styled from "styled-components";
 import { mutate } from "swr";
 
 import useTonConnect from "@/hooks/contract/useTonConnect";
+import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import IcnxTon from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
 import { useEffect, useState } from "react";
 
 export const TotalBalance = () => {
   const { address, balance, connected, refreshTonData } = useTonConnect();
+  const{balance:nxTonBalance,}=useJettonWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
@@ -58,7 +60,7 @@ export const TotalBalance = () => {
                 <Balance>-.---</Balance>
               ) : (
                 <>
-                  <Balance>{balance === 0 || balance ? balance?.toFixed(3) : "0.000"} nxTON</Balance>
+                  <Balance>{nxTonBalance} nxTON</Balance>
                 </>
               )}
             </Balance>
