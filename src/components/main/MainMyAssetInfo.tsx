@@ -81,11 +81,11 @@ const MainMyAssetInfo = ({
   const touchEndX = useRef(0);
   const handleTouchEnd = () => {
     const deltaX = touchStartX.current - touchEndX.current; 
-    if (Math.abs(deltaX) > 30) {
+    if (Math.abs(deltaX) > 50) {
       if (deltaX > 0) {
-        setView("asset");
-      } else {
         setView("dashboard");
+      } else {
+        setView("asset");
       }
     }
   };
