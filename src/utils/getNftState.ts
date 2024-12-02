@@ -16,11 +16,9 @@ export const getNftState = (unstakableDate?: string): string => {
 
   const remainingDays = calculateRemainingDays(unstakableDate);
 
-  if (remainingDays > 15) {
+  if (remainingDays >0) {
     return "ongoing";
-  } else if (remainingDays > 0) {
-    return "forthcoming";
-  } else {
+  }else {
     return "expired";
   }
 };
