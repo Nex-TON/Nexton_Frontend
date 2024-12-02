@@ -8,7 +8,7 @@ import IcnxTon from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
 import { useEffect, useState } from "react";
 
 export const TotalBalance = () => {
-  const { address, balance, connected, refreshTonData } = useTonConnect();
+  const { address, balance, refreshTonData } = useTonConnect();
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -61,7 +61,7 @@ export const TotalBalance = () => {
                 <Balance>-.---</Balance>
               ) : (
                 <>
-                  <Balance>{nxTonBalance} nxTON</Balance>
+                  <Balance>{Number(nxTonBalance) === 0 || Number(nxTonBalance) ? Number(nxTonBalance)?.toFixed(3) : "0.000"} nxTON</Balance>
                 </>
               )}
             </Balance>
