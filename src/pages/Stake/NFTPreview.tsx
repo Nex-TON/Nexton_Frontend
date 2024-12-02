@@ -101,7 +101,7 @@ const NFTPreview = () => {
         return {
           value: PROTOCOL_FEE + toNano("0.05"),
           amount: amount,
-          fwdAmount: PROTOCOL_FEE + toNano("0.003"), //extra ton just in case.
+          fwdAmount: PROTOCOL_FEE, //extra ton just in case.
           fwdPayload: beginCell().storeUint(0, 4).endCell().asSlice(),
         };
       };
