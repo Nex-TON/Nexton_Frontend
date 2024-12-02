@@ -13,7 +13,6 @@ export default function useJettonWallet(token = "NXTON") {
 
   const jettonWallet: OpenedContract<JettonDefaultWallet> = useAsyncInitialize(async () => {
     const masterAddress = mapTokenMasterAddress(token);
-    console.log(address, client, masterAddress);
     if (address && client && masterAddress) {
       const jettonWallet = client.open(await JettonDefaultWallet.fromInit(Address.parse(address), masterAddress));
       return jettonWallet;
@@ -25,7 +24,6 @@ export default function useJettonWallet(token = "NXTON") {
       try {
         const result = await jettonWallet.getGetWalletData();
         setBalance(result.balance);
-        console.log(result.balance);
       } catch (error) {
         console.log("Failed to fetch token balance", error);
         if (error.code === "ERR_BAD_RESPONSE") {

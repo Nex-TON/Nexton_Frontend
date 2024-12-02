@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 export const TotalBalance = () => {
   const { address, balance, connected, refreshTonData } = useTonConnect();
-  const{balance:nxTonBalance,}=useJettonWallet();
+  const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
@@ -18,6 +18,7 @@ export const TotalBalance = () => {
       try {
         await Promise.all([
           refreshTonData(),
+          refreshNxtonData(),
           mutate(`/data/getAllStakeInfoByAddress?address=${address}`),
           mutate(`/data/getEarningsbyAddress/${address}`),
         ]);
@@ -29,7 +30,7 @@ export const TotalBalance = () => {
     };
 
     initializeData();
-  }, [address, refreshTonData]);
+  }, [address, refreshTonData, refreshNxtonData]);
 
   return (
     <TotalBalanceWrapper>
