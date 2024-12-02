@@ -9,7 +9,7 @@ import { useAsyncInitialize } from "./useAsyncInitialize";
 export default function useJettonWallet(token = "NXTON") {
   const client = useTonClient();
   const { sender, address } = useTonConnect();
-  const [balance, setBalance] = useState(BigInt(-1));
+  const [balance, setBalance] = useState(BigInt(0));
 
   const jettonWallet: OpenedContract<JettonDefaultWallet> = useAsyncInitialize(async () => {
     const masterAddress = mapTokenMasterAddress(token);
@@ -25,6 +25,11 @@ export default function useJettonWallet(token = "NXTON") {
         const result = await jettonWallet.getGetWalletData();
         setBalance(result.balance);
       } catch (error) {
+        if (error.message === "Unable to execute get method. Got exit_code: -13") {
+          setBalance(BigInt(0));
+          console.log("Jetton Wallet Uninitialized");
+          return;
+        }
         console.log("Failed to fetch token balance", error);
         if (error.code === "ERR_BAD_RESPONSE") {
           // Retry the fetch
