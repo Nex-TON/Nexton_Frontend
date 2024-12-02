@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import IcAlert from "@/assets/icons/Loan/ic_alert.svg";
-import IcBars from "@/assets/icons/Loan/ic_bars.svg";
 import DropdownMenu from "@/components/common/DropdownMenu";
 import BorrowList from "@/components/loan/Borrow/BorrowList";
 import RepayList from "@/components/loan/Repay/RepayList";
@@ -66,8 +65,8 @@ const Loan = () => {
           <h1>Loan</h1>
         </LoanHeaderBoxTitle>
 
-        <LoanHeaderBoxButton onClick={() => navigate("/loan/history")}>
-          <img src={IcBars} alt="loan_icon" />
+        <LoanHeaderBoxButton onClick={() => navigate("/loan/risk-disclosure")}>
+        <img src={IcAlert} alt="alert_icon" />
         </LoanHeaderBoxButton>
       </LoanHeaderBox>
 
@@ -78,10 +77,6 @@ const Loan = () => {
         <LoanSwitcherBoxItem $isActive={view === "repay"} onClick={() => handleViewChange("repay")}>
           Repay
         </LoanSwitcherBoxItem>
-
-        <LoanSwitcherBoxTooltip onClick={() => navigate("/loan/risk-disclosure")}>
-          <img src={IcAlert} alt="alert_icon" />
-        </LoanSwitcherBoxTooltip>
       </LoanSwitcherBox>
 
       <LoanNFTBox>

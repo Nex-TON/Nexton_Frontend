@@ -42,8 +42,6 @@ export const LoanHeaderBoxButton = styled.div`
   padding: 1.2rem;
 
   border-radius: 1.8rem;
-  background: linear-gradient(160deg, #f3f6fc 11.73%, #e6e7f7 98.61%);
-
   cursor: pointer;
 `;
 
