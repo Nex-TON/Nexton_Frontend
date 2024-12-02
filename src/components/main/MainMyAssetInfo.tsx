@@ -83,9 +83,9 @@ const MainMyAssetInfo = ({
     const deltaX = touchStartX.current - touchEndX.current; 
     if (Math.abs(deltaX) > 50) {
       if (deltaX > 0) {
-        setView("dashboard");
-      } else {
         setView("asset");
+      } else {
+        setView("dashboard");
       }
     }
   };
@@ -93,6 +93,10 @@ const MainMyAssetInfo = ({
   const handleTouchMove = (e: React.TouchEvent) => {
     touchEndX.current = e.touches[0].clientX; 
   };
+  const handleTouchStart=(e:React.TouchEvent)=>{
+    touchStartX.current=e.touches[0].clientX;
+    touchEndX.current=e.touches[0].clientX;
+  }
 
   const handleViewChange = (view: AssetsView) => {
     setView(view);
@@ -118,6 +122,7 @@ const MainMyAssetInfo = ({
     <MainWrapper
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      onTouchStart={handleTouchStart}
       >
       <MainInnerBox>
         <MainTopBox $marginBottom={connected || view === "dashboard"}>
@@ -209,7 +214,7 @@ const MainMyAssetInfo = ({
             </DashboardBottomLeft>
           </DashboardBottomBox>
         ) : (
-          <AssetBottomBox onClick={toggleModal}>
+          <AssetBottomBox onClick={connected?toggleModal:""}>
             {!connected ? (
               <AssetBottomNotConnected onClick={() => tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
                 <AssetBottomNotConnectedImg>
