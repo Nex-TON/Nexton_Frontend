@@ -80,8 +80,8 @@ const NftIdTag = styled.div`
   position: absolute;
   top: 1.4rem;
   border-radius: 0px 5px 5px 0px;
-  background: rgba(0, 0, 0, 0.7);
-
+  background: rgba(0, 0, 0, 0.30);
+  
   gap: 0.5rem;
   padding: 0.2rem 0.6rem 0.2rem 1.2rem;
   display: flex;
