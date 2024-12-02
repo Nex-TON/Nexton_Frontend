@@ -22,7 +22,9 @@ export default NFTFilter;
 
 const NftFilterButton = styled.div<{ $selected: boolean }>`
   height: 34px;
+  width: auto;
   padding: 0.8rem 1rem;
+  white-space: nowrap;
 
   border: 1px solid #e5e5ea;
   border-radius: 1rem;
