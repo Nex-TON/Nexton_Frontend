@@ -200,7 +200,6 @@ export const AssetBottomLeftItemTitle = styled.h3`
 export const AssetBottomLeftItemValue = styled.div`
   display: flex;
   color: #fff;
-  gap: 1rem;
 
   h4 {
     color: #fff;
@@ -210,6 +209,7 @@ export const AssetBottomLeftItemValue = styled.div`
     font-weight: 600;
     line-height: 120%; /* 24px */
     letter-spacing: -0.46px;
+    margin-right: 1rem;
   }
 
   span {
@@ -220,6 +220,7 @@ export const AssetBottomLeftItemValue = styled.div`
     font-weight: 600;
     line-height: 120%;
     letter-spacing: -0.46px;
+    margin-right: 0%.3rem;
   }
 `;
 
