@@ -7,6 +7,7 @@ import BorrowList from "@/components/loan/Borrow/BorrowList";
 import RepayList from "@/components/loan/Repay/RepayList";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";
+import IcArrowRight from "@/assets/icons/Loan/ic_arrow_right_black.svg";
 
 import {
   LoanHeaderBox,
@@ -88,8 +89,9 @@ const Loan = () => {
           </LoanNFTBoxHeaderLeft>
 
           {view === "borrow" && (
-            <LoanNFTBoxHeaderRight>
-              <span>Sort by</span>
+            <LoanNFTBoxHeaderRight onClick={()=>{navigate("/loan/history")}}>
+              <h4><span>Go to </span>Loan History</h4>
+              <img src={IcArrowRight} alt="arrow right to loan history"/>
               {/* <DropdownMenu options={filters} defaultValue={filter} onOptionSelect={handleSortOptionChange} /> */}
             </LoanNFTBoxHeaderRight>
           )}

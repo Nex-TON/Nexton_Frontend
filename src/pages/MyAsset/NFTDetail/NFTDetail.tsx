@@ -25,7 +25,6 @@ import {
   NFTDetailItemText,
   NFTDetailWrapper,
 } from "./NFTDetail.styled";
-import { ComingSoonModal } from "@/components/loan/ComingSoonModal";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -40,16 +39,13 @@ const NFTDetail = () => {
   const [isNftExpired, setIsNftExpired] = useState(false);
   const { id } = useParams();
   const { nftDetail, isLoading } = useNFTDetail(Number(id));
-  const [modal, setModal] = useState<ModalState>({
-    toggled: false,
-  });
 
   useEffect(() => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/myasset/nftlist");
+        navigate(-1);
       });
     }
 
@@ -80,15 +76,6 @@ const NFTDetail = () => {
     }
   }, [nftDetail]);
 
-  const toggleModal = () => {
-    setModal(prev => ({
-      toggled: !prev.toggled,
-    }));
-  };
-  const handleOkayButton = () => {
-    toggleModal();
-  };
-
   return (
     <>
       <NFTDetailWrapper>
@@ -110,7 +97,7 @@ const NFTDetail = () => {
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
             $disabled={false}
-            onClick={() => setModal({ toggled: true })} /* onClick={() => navigate(`/loan/${id}/borrow/details`)} */
+            onClick={() => navigate(`/loan/${id}/borrow/details`)}
           >
             Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
           </NFTDetailCardButton>
@@ -144,7 +131,6 @@ const NFTDetail = () => {
           <StakingInfo isExpandable={true} theme="white" title="Staking info" stakingInfoItems={stakingInfo} />
         </NFTDetailContentBox>
       </NFTDetailWrapper>
-      {modal.toggled && <ComingSoonModal toggleModal={toggleModal} onConfirm={handleOkayButton} />}
     </>
   );
 };

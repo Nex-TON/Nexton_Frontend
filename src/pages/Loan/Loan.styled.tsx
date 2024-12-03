@@ -111,11 +111,19 @@ export const LoanNFTBoxHeaderLeft = styled.div`
 
 export const LoanNFTBoxHeaderRight = styled.div`
   display: flex;
-  gap: 0.4rem;
   align-items: center;
+  img {
+    width: 24px;
+    height: 24px;
+  }
 
-  span {
+  h4 {
+    span {
+      ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
+      color: #76797a;
+    }
     ${({ theme }) => theme.fonts.Nexton_Body_Text_Small};
-    color: #76797a;
+    font-weight: 600;
+    color: #303234;
   }
 `;

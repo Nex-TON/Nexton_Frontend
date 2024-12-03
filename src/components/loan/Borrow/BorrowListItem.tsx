@@ -35,8 +35,6 @@ const BorrowListItem = (props: BorrowListProps) => {
         <BorrowListTopLeft>
           {getNftState(unstakableDate) === "ongoing" ? (
             <NFTStatus src={OngoingNFTItem} />
-          ) : getNftState(unstakableDate) === "forthcoming" ? (
-            <NFTStatus src={ForthcomingNFTItem} />
           ) : (
             <NFTStatus src={ExpiredNFTItem} />
           )}

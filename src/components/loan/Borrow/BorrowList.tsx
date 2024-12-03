@@ -4,14 +4,15 @@ import IcArrowRight from "@/assets/icons/Loan/ic_arrow_right.svg";
 import NFTsEmpty from "@/assets/image/Loan/NFTsEmpty.png";
 import { FilterNFTs } from "@/pages/Loan/Loan";
 import { nftInfo } from "@/types/Nft";
+import NftItem from "@/components/myAsset/NFT/NftItem";
 
 import {
-  BorrowListItemBox,
+  NFTItemWrapper,
+  // BorrowListItemBox,
   BorrowListWrapper,
   LoanNFTBoxListEmpty,
   LoanNFTBoxListEmptyLink,
 } from "./BorrowList.styled";
-import BorrowListItem from "./BorrowListItem";
 
 // ! Data is currently mocked
 const BorrowList = ({ filter, nftList }: { filter?: FilterNFTs; nftList: nftInfo[] }) => {
@@ -20,13 +21,13 @@ const BorrowList = ({ filter, nftList }: { filter?: FilterNFTs; nftList: nftInfo
   return (
     <BorrowListWrapper>
       {nftList && nftList.length > 0 ? (
-        <BorrowListItemBox>
+        <NFTItemWrapper>
           {nftList
             .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
             .map(item => (
-              <BorrowListItem key={item.nftId} item={item} />
+              <NftItem key={item.nftId} item={item} />
             ))}
-        </BorrowListItemBox>
+        </NFTItemWrapper>
       ) : (
         <LoanNFTBoxListEmpty>
           <img src={NFTsEmpty} alt="nfts_empty" />
