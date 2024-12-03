@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { mutate } from "swr";
 import styled from "styled-components";
@@ -73,6 +73,27 @@ const MainMyAssetInfo = ({
   const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
   const { data: earningsData, isLoading: earningsLoading, error: earningsError } = useEarningsbyAddress(address);
 
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const handleTouchEnd = () => {
+    const deltaX = touchStartX.current - touchEndX.current; 
+    if (Math.abs(deltaX) > 50) {
+      if (deltaX > 0) {
+        setView("asset");
+      } else {
+        setView("dashboard");
+      }
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX; 
+  };
+  const handleTouchStart=(e:React.TouchEvent)=>{
+    touchStartX.current=e.touches[0].clientX;
+    touchEndX.current=e.touches[0].clientX;
+  }
+
   const handleViewChange = (view: AssetsView) => {
     setView(view);
   };
@@ -94,7 +115,11 @@ const MainMyAssetInfo = ({
   };
 
   return (
-    <MainWrapper>
+    <MainWrapper
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onTouchStart={handleTouchStart}
+      >
       <MainInnerBox>
         <MainTopBox $marginBottom={connected || view === "dashboard"}>
           <MainTopLeft>

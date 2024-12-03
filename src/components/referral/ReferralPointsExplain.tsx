@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { useState } from "react";
 
 import IcExcliamation from "@/assets/icons/Referral/ic_ exclamation.svg";
-import IcRefersPoint from "@/assets/icons/Referral/ic_refer_points.svg";
-import IcNXTPoint from "@/assets/icons/Referral/ic_nxt_points.svg";
+import IcRefersPoint from "@/assets/icons/Referral/ic_refer_points.png";
+import IcNXTPoint from "@/assets/icons/Referral/ic_nxt_points.png";
 import ReferralCoins from "@/assets/image/ReferralCoins.png";
 import ReferralPointsImg from "@/assets/image/ReferralPoints.svg";
 
@@ -39,7 +39,7 @@ export const ReferralPointsExplain = () => {
       <ReferralBoxWrapper>
         <ReferralBox>
           <ClickAwayListener onClickAway={handleNxtTooltipClose}>
-            <ReferralBoxTop onClick={handleNxtTooltip}>
+            <ReferralBoxTop onClick={handleNxtTooltip} id="friends page nxt tooltip">
               <PointNameWrapper>
                 <img src={IcNXTPoint} alt="referral page nxt point icon" />
                 <h3>NXT Points</h3>
@@ -76,7 +76,7 @@ export const ReferralPointsExplain = () => {
           </PointExplain>
         </ReferralBox>
         <ClickAwayListener onClickAway={handleReferTooltipClose}>
-        <ReferralBox onClick={handleReferTooltip}>
+        <ReferralBox onClick={handleReferTooltip} id="friends page refer tooltip">
           <ReferralBoxTop>
             <PointNameWrapper>
               <img src={IcRefersPoint} alt="referral page refers point icon" />
@@ -183,6 +183,10 @@ const PointNameWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 0.7rem;
+  img{
+    width: 3rem;
+    height: 3rem;
+  }
 `;
 
 const PointValueWrapper = styled.div``;

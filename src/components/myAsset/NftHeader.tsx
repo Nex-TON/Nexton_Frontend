@@ -10,8 +10,26 @@ const NftHeader = () => {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    switch (location.pathname) {
+      case "/myasset/nftlist":
+        setValue(0);
+        break;
+      case "/myasset/unstaked":
+        setValue(1);
+        break;
+      case "/myasset/reward":
+        setValue(2);
+        break;
+      default:
+        setValue(0);
+        navigate("/myasset/nftlist"); // 기본 경로
+        break;
+    }
+  }, [location.pathname, navigate]);
+
   //tab바 누르면 각 페이지로 이동하게 설정
-  const handleTabChange = (event,newValue) => {
+  const handleTabChange = (event, newValue) => {
     setValue(newValue);
     switch (newValue) {
       case 0:
@@ -27,17 +45,11 @@ const NftHeader = () => {
         break;
     }
   };
-
-  //처음 mypage 들어왔을 때 nftlist 뜨게 설정
-  useEffect(()=>{
-    navigate('/myasset/nftlist');
-  },[]);
-
   return (
     <>
       <NftHeaderTitle>My Activity</NftHeaderTitle>
       <NftHeaderTab>
-        <Box sx={{ width: "100%",}}>
+        <Box sx={{ width: "100%" }}>
           <Tabs
             value={value}
             onChange={handleTabChange}
@@ -46,48 +58,50 @@ const NftHeader = () => {
             indicatorColor="primary"
             textColor="inherit"
             sx={{
-              display:"flex",
+              display: "flex",
               "& .Mui-selected": {
                 color: "#000", // 선택된 탭 글자 색상
               },
               "& .MuiTabs-indicator": {
                 backgroundColor: "#1F53FF", // 선택된 탭 아래의 밑줄 색상
-                border:"0.3rem"
+                border: "0.3rem",
               },
               color: "black",
             }}
           >
             <Tab
+              id="my page NFT tab"
               label="NFT"
               sx={{
-                flex:1,
+                flex: 1,
                 borderBottom: value === 0 ? "0.3rem solid #1F53FF" : "0.1rem solid #E5E5EA;",
                 fontSize: "1.4rem",
                 fontFamily: "Montserrat",
                 fontStyle: "normal",
-                fontWeight: value===0?"700":"500",
+                fontWeight: value === 0 ? "700" : "500",
                 lineHeight: "2.2rem",
-                color:value===0?"#000":"#909394",
+                color: value === 0 ? "#000" : "#909394",
               }}
             />
             <Tab
+              id="my activity UNSTAKED tab"
               label="Unstaked"
               sx={{
-                flex:1,
+                flex: 1,
                 borderBottom: value === 1 ? "0.3rem solid #1F53FF" : "0.1rem solid #E5E5EA;",
                 fontSize: "1.4rem",
                 fontFamily: "Montserrat",
                 fontStyle: "normal",
-                fontWeight: value===1?"700":"500",
+                fontWeight: value === 1 ? "700" : "500",
                 lineHeight: "2.2rem",
-                color:value===1?"#000":"#909394",
+                color: value === 1 ? "#000" : "#909394",
               }}
             />
             <Tab
               label="Reward"
               disabled={true}
               sx={{
-                flex:1,
+                flex: 1,
                 borderBottom: value === 2 ? "0.3rem solid #1F53FF" : "0.1rem solid #E5E5EA;",
                 fontSize: "1.4rem",
                 fontFamily: "Montserrat",

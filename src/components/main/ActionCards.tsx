@@ -1,5 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { ComingSoonModal } from "../loan/ComingSoonModal";
+import { useState } from "react";
+
+interface ModalState {
+  toggled: boolean;
+}
 
 const ArrowIcon = ({ dark, disabled }: { dark?: boolean; disabled?: boolean }) => {
   return (
@@ -17,8 +23,21 @@ const ArrowIcon = ({ dark, disabled }: { dark?: boolean; disabled?: boolean }) =
 
 const ActionCards = () => {
   const navigate = useNavigate();
+  const [modal, setModal] = useState<ModalState>({
+    toggled: false,
+  });
+
+  const toggleModal = () => {
+    setModal(prev => ({
+      toggled: !prev.toggled,
+    }));
+  };
+  const handleOkayButton = () => {
+    toggleModal();
+  };
 
   return (
+    <>
     <ActionCardsWrapper>
       {/* Active version is disabled until "Borrow" section is implemented */}
       {/* <Card $large onClick={() => navigate("/myasset")}>
@@ -30,14 +49,15 @@ const ActionCards = () => {
       </Card> */}
       <ActionCardsTitle>My Activity</ActionCardsTitle>
       <ActionCardsInnerBox>
-        <Card $large>
-          <CardHeader>Borrow nxTON using<br/>your NFT as collateral</CardHeader>
-          <CardBody>
+        <Card $large onClick={() => setModal({toggled: true })}>
+          <CardHeader >Borrow nxTON using<br/>
+          your NFT as collateral</CardHeader>
+          <CardBody >
             Loan
-            <ArrowIcon/>
+            <ArrowIcon />
           </CardBody>
         </Card>
-        <Card $dark onClick={() => navigate("/myasset/nftlist")} id="main page my NFTS">
+        <Card $dark onClick={() => navigate("/myasset/nftlist#specific-element")} id="main page my NFTS">
           <CardHeader id="main page my NFTS">Check the NFT you received from staking</CardHeader>
           <CardBody $dark id="main page my NFTS">
             My NFTs
@@ -53,6 +73,10 @@ const ActionCards = () => {
         </p>
       </MyTokensDisclaimer>
     </ActionCardsWrapper>
+    {modal.toggled && (
+      <ComingSoonModal toggleModal={toggleModal} onConfirm={handleOkayButton}/>
+    )}
+    </>
   );
 };
 
@@ -66,11 +90,7 @@ const ActionCardsInnerBox = styled.div`
 
 const ActionCardsTitle = styled.div`
   color: var(--Neutral-variant-Neutral-variant-20, #2f3038);
-  font-family: Montserrat;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 34px; /* 170% */
+  ${({theme})=>theme.fonts.Nexton_Title_Medium_1}
 `;
 
 const ActionCardsWrapper = styled.div`
@@ -112,7 +132,6 @@ const MyTokensDisclaimer = styled.div`
   margin-top: 68px;
   display: flex;
   align-items: start;
-  margin-bottom: 47px;
 
   p {
     color: var(--Neutral-Neutural-60, #909394);

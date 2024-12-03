@@ -61,6 +61,7 @@
   },
   "devDependencies": {
     "@ton/test-utils": "^0.4.2",
+    "@types/q": "^1.5.8",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@types/styled-components": "^5.1.26",

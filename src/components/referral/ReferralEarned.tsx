@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import IcNXTPoint from "@/assets/icons/Referral/ic_nxt_points.svg";
-import IcRefersPoint from "@/assets/icons/Referral/ic_refer_points.svg";
+import IcNXTPoint from "@/assets/icons/Referral/ic_nxt_points.png";
+import IcRefersPoint from "@/assets/icons/Referral/ic_refer_points.png";
 
 interface ReferralEarnedProps{
     nxtPoints:number;

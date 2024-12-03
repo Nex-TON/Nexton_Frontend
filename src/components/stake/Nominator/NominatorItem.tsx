@@ -47,7 +47,7 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
   };
 
   return (
-    <NominatorItemWrapper $disabled={disabled} $active={isSelected} onClick={() => (!disabled ? handleClick() : null)}>
+    <NominatorItemWrapper id={`${title}`} $disabled={disabled} $active={isSelected} onClick={() => (!disabled ? handleClick() : null)}>
       <NominatorItemTop>
         <NominatorItemTopLeft>
           <NominatorItemTitle $inactive={disabled} $selected={isSelected}>

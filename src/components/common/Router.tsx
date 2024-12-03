@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes,Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import Dashboard from "@/pages/Dashboard/Dashboard";
 // import BorrowDetails from "@/pages/Loan/Borrow/BorrowDetails";
@@ -24,15 +24,19 @@ import NominatorList from "@/pages/Stake/NominatorList";
 import Swap from "@/pages/Swap/Swap";
 import UnstakingBetaInfo from "@/pages/Unstaking/UnstakingBetaInfo";
 import UnstakingNftDetail from "@/pages/Unstaking/UnstakingNftDetail";
-import StakeSuccess from '@/pages/Stake/StakeSuccess';
+import StakeSuccess from "@/pages/Stake/StakeSuccess";
 import SplashScreen from "@/pages/Splash/splash";
+import ScrollToTop from "./ScrollTo";
+import Onboarding from "@/pages/Onboarding/Onboarding";
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
-      <Route path="/" element={<SplashScreen />} />
-      <Route path="/main" element={<Main />} />
+        <Route path="/" element={<SplashScreen />} />
+        <Route path="/onboarding" element={<Onboarding />}/>
+        <Route path="/main" element={<Main />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/referral" element={<Referral />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -64,7 +68,6 @@ const Router = () => {
           <Route path=":id/view" element={<UnstakingNftDetail view />} />
           <Route path="beta" element={<UnstakingBetaInfo />} />
         </Route>
-
         <Route path="/swap" element={<Swap />} />
         <Route path="/nlp" element={<Nlp />} />
       </Routes>

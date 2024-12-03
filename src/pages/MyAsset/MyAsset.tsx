@@ -17,6 +17,17 @@ const MyAsset = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
+  //main page my NFTs 버튼 누르면 my activity로 가게
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      console.log("Element found:", element);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, []);
   useEffect(() => {
     if (tele) {
       tele.ready();
@@ -32,12 +43,12 @@ const MyAsset = () => {
   }, []);
 
   return (
-    <MyAssetWrapper $type={pathname.includes("nftlist") ? true : false}>
+    <MyAssetWrapper $type={pathname.includes("myasset") ? true : false}>
       <Header isOpen={false} backgroundType={false} text="My page" connected={connected} tonConnectUI={tonConnectUI} />
       <MyAssetContentWrapper>
         <UserInfoCard />
         <MainButton />
-        <TotalBalance/>
+        <TotalBalance />
         <NftHeader />
       </MyAssetContentWrapper>
       <Outlet />

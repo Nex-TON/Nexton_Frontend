@@ -12,11 +12,9 @@ import { useReferralPoints } from "@/hooks/api/referral/useReferralPoints";
 import { useReferralStatus } from "@/hooks/api/referral/useReferralStatus";
 import { globalError } from "@/lib/atom/globalError";
 import { copyText } from "@/utils/copyText";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 
 import "react-toastify/dist/ReactToastify.css";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
-import MainButton from "@/components/main/MainButton";
 import { ReferralPointsExplain } from "@/components/referral/ReferralPointsExplain";
 import { ReferralStatistic } from "@/components/referral/ReferralStatistic";
 import { ReferralEarned } from "@/components/referral/ReferralEarned";
@@ -42,14 +40,13 @@ const ShareToFriend = ({ link, text }) => {
   };
 
   return (
-    <ShareToFriendButton>
-      <button onClick={shareToTelegram}>Invite a friend</button>
+    <ShareToFriendButton id="referral page share button">
+      <button onClick={shareToTelegram} id="referral page share button">Invite a friend</button>
     </ShareToFriendButton>
   );
 };
 
 const Referral = () => {
-  const { address, balance, refreshTonData, connected, tonConnectUI } = useTonConnect();
   const navigate = useNavigate();
   const setError = useSetRecoilState(globalError);
   const { trigger, isMutating } = useManageReferral();
@@ -57,7 +54,6 @@ const Referral = () => {
   const [referralLink, setReferralLink] = useState<string>("");
   const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [isCopied, setIsCopied] = useState<boolean>(false);
-  const [modal, setModal] = useState<ModalState>({ type: "nxt", toggled: false });
 
   const { data: referralStatus, isLoading: statusLoading, error: errorLoading } = useReferralStatus(userInfo?.userId);
 
@@ -116,13 +112,21 @@ const Referral = () => {
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 1000); // reset the state after the animation duration
   };
+  const texts=[
+    "🔥 NEXTON: High Yields, High Returns, Extra Rewards!",
+    "🚀 Unlock High Returns with NEXTON’s Enhanced Strategies!",
+    "😄 Stake Smarter with NEXTON – More Yields, More Rewards!",
+    "🪙 Boost Your TON with NEXTON: High Yields, Extra Gains!",
+    "📤 NEXTON: Superior Returns, Enhanced Rewards, Unmatched Yields!",
+  ]
+  const randomText = texts[Math.floor(Math.random() * texts.length)];
 
   return (
     <MainWrapper>
       <ReferralWrapper>
         <ReferralHeader>
           <ReferralHeaderText>Earn your Point</ReferralHeaderText>
-          <img src={IcMenuIcon} alt="referral header menu icon" onClick={()=>navigate("/menu")}/>
+          <img src={IcMenuIcon} alt="referral header menu icon" onClick={() => navigate("/menu")} id="friends page header menu button" />
         </ReferralHeader>
         <FriendsIllustWrapper>
           <img src={FriendsIllust} alt="Friends illust" />
@@ -132,7 +136,10 @@ const Referral = () => {
         <ReferralPointsExplain />
         <InviteFriendWrapper>
           <InviteThroughTelegram>
-            {connected ? <ShareToFriend link={`${TMA_URL}`} text="test sample text" /> : <MainButton />}
+            <ShareToFriend
+              link={`${TMA_URL}`}
+              text={randomText}
+            />
           </InviteThroughTelegram>
           <InviteClipboard>
             <CopyIcon
@@ -144,8 +151,11 @@ const Referral = () => {
             />
           </InviteClipboard>
         </InviteFriendWrapper>
-        <ReferralStatistic referralNum={referralStatus? referralStatus.referralDetails.length:0}/>
-        <ReferralEarned nxtPoints={pointsData ? pointsData?.loyaltyPoints : 0} referPoints={pointsData ? pointsData?.referralPoints : 0}/>
+        <ReferralStatistic referralNum={referralStatus ? referralStatus.referralDetails.length : 0} />
+        <ReferralEarned
+          nxtPoints={pointsData ? pointsData?.loyaltyPoints : 0}
+          referPoints={pointsData ? pointsData?.referralPoints : 0}
+        />
       </ReferralContainer>
       <MainNavigationBar />
       <ToastContainer

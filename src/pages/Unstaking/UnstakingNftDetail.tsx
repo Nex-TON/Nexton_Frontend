@@ -16,6 +16,7 @@ import { telegramAtom } from "@/lib/atom/telegram";
 import { UnstakingProps } from "@/types/staking";
 import { isDevMode } from "@/utils/isDevMode";
 import { limitDecimals } from "@/utils/limitDecimals";
+import * as Contract from "@/hooks/contract/transferNFT";
 
 import {
   NFTDetailContentBox,
@@ -35,7 +36,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
   const { address } = useTonConnect();
   const { id } = useParams();
   const { data: unstakingDetail, isLoading: isLoadingUnstakingDetail, error } = useUnstakingDetail(Number(id));
-  // const { sendMessage } = Contract.transferNft(id); // ! pass nftAddress instead of id
+  const { sendMessage } = Contract.transferNft(id); // ! pass nftAddress instead of id
 
   const navigate = useNavigate();
 
@@ -82,16 +83,15 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
       const data = () => {
         return {
           queryId: BigInt(Date.now()),
-          value: toNano("0.005"),
+          value: toNano("0.05"),
           newOwner: Address.parse("UQD__________________________________________xYt"), // NULL ADDRESS
           responseAddress: Address.parse(address),
           fwdAmount: BigInt(0),
         };
       };
 
-      // First, attempt to send the message to the contract
-      // !❗NOTE❗: Not used in the current contract version
-      // await sendMessage(data(), toNano("0.005"));
+      // send nft to null address (burn nft)
+      await sendMessage(data(), toNano("0.05"));
 
       // If sendMessage is successful, then call postStakingInfo
       await postUnstake(newUnstaking);
@@ -235,7 +235,7 @@ const UnstakingWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
   padding: 0 1.5rem;
-  background-color: #f2f2f7;
+  background-color: white;
 `;
 
 const LoaderWrapper = styled.div`

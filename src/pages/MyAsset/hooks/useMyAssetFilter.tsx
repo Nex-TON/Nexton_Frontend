@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import {useState } from "react";
 
 import { useStakeInfo } from "../../../hooks/api/useStakeInfo";
 import useTonConnect from "../../../hooks/contract/useTonConnect";
-import { DDayChange } from "../../../utils/dateChanger";
 import { getNftState } from "@/utils/getNftState";
 
 const useMyAssetFilter = () => {
   const { address } = useTonConnect();
-  const [checkPeriod, setCheckPeriod] = useState([false, false, false, false]);
+  const [checkPeriod, setCheckPeriod] = useState([false, false, false, true]);
   const { nftList } = useStakeInfo(address);
 
   const handleCheckPeriod = (type: string) => {
@@ -42,7 +41,7 @@ const useMyAssetFilter = () => {
         (checkPeriod[0] && nftState === "ongoing") ||
         (checkPeriod[1] && nftState === "forthcoming") ||
         (checkPeriod[2] && nftState === "expired") ||
-        checkPeriod[3] // "All" 선택 시
+        checkPeriod[3] // "All" 선택
       );
     });
   };

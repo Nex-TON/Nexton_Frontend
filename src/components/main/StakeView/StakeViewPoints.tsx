@@ -1,12 +1,9 @@
 import { styled } from "styled-components";
 
 import IcSadSmile from "@/assets/icons/Menu/ic_menu_sad_smile.svg";
-import MainButton from "@/assets/image/MainButton.png";
 import MainButtonDisabled from "@/assets/image/MainButtonDisabled.png";
 import MainHand from "@/assets/image/MainHand.png";
-import MainNextonFlag from "@/assets/image/MainNextonFlag.png";
 import MainNextonFlagDisabled from "@/assets/image/MainNextonFlagDisabled.png";
-import MainRanking from "@/assets/image/MainRanking.png";
 import MainRankingDisabled from "@/assets/image/MainRankingDisabled.png";
 
 import { MainStakeViewBox, MainStakeViewWrapper } from "./common/StakeView.styled";
