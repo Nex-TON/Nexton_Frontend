@@ -42,7 +42,7 @@ export const TotalBalance = () => {
 
   return (
     <TotalBalanceWrapper id="specific-element-total-balance">
-      <TotalBalanceHeader>Total Balance</TotalBalanceHeader>
+      <TotalBalanceHeader>My asset</TotalBalanceHeader>
       <TotalBalanceBoxWrapper>
         <TokenTitle>
           <img src={IcTon} alt="my asset page ton logo" />
