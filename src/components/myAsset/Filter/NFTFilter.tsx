@@ -8,15 +8,11 @@ const NFTFilter = ({ checkPeriod, handleCheckPeriod }) => {
       </NftFilterButton>
       <NftFilterButton $selected={checkPeriod[0]} onClick={() => handleCheckPeriod("Ongoing")} id="nft filter ongoing">
         <NFTStatus type="Ongoing" />
-        Ongoing
-      </NftFilterButton>
-      <NftFilterButton $selected={checkPeriod[1]} onClick={() => handleCheckPeriod("Forthcoming")} id="nft filter forthcoming">
-        <NFTStatus type="Forthcoming" />
-        Forthcoming
+        Lending Available
       </NftFilterButton>
       <NftFilterButton $selected={checkPeriod[2]} onClick={() => handleCheckPeriod("Expired")} id="nft filter expired">
         <NFTStatus type="Expired" />
-        Expired
+        Unstaking Available
       </NftFilterButton>
     </NftFilterWrapper>
   );
@@ -26,10 +22,12 @@ export default NFTFilter;
 
 const NftFilterButton = styled.div<{ $selected: boolean }>`
   height: 34px;
+  width: auto;
   padding: 0.8rem 1rem;
+  white-space: nowrap;
 
   border: 1px solid #e5e5ea;
-  border-radius: 15px;
+  border-radius: 1rem;
 
   display: flex;
   align-items: center;
@@ -71,11 +69,6 @@ const NFTStatus = styled.div<{ type?: string }>`
       background: linear-gradient(90deg, #61b5f2 0%, #98a1fe 100%);
     `}
   ${({ type }) =>
-    type === "Forthcoming" &&
-    css`
-      background: linear-gradient(140deg, #ff8c73 0%, #ffe0b0 100%);
-    `}
-      ${({ type }) =>
     type === "Expired" &&
     css`
       background: linear-gradient(127deg, #a2a9bc 0%, #e5edff 100%);

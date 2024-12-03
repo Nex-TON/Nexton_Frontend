@@ -156,6 +156,7 @@ const shrink = keyframes`
 `;
 
 const SkipButton = styled.div`
+  z-index: 999;
   color: white;
   position: absolute;
   top: 3rem;
