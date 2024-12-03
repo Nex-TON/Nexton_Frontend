@@ -41,8 +41,8 @@ export const TotalBalance = () => {
   }, [address, refreshTonData, refreshNxtonData]);
 
   return (
-    <TotalBalanceWrapper>
-      <TotalBalanceHeader id="specific-element-total-balance">Total Balance</TotalBalanceHeader>
+    <TotalBalanceWrapper id="specific-element-total-balance">
+      <TotalBalanceHeader>Total Balance</TotalBalanceHeader>
       <TotalBalanceBoxWrapper>
         <TokenTitle>
           <img src={IcTon} alt="my asset page ton logo" />
