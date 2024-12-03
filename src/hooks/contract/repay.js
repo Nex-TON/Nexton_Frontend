@@ -6,53 +6,47 @@ import { NftItem } from "./wrappers/NftItem";
 import { useTonClient } from "./useTonClient";
 import useTonConnect from "./useTonConnect";
 import { useAsyncInitialize } from "./useAsyncInitialize";
+import { useJettonWallet } from "./useJettonWallet";
 
 function repay(id) {
   const { sender, address } = useTonConnect();
   const [nftAddress, setNftAddress] = useState(null);
-  const [nxtonWallet, setNxtonWallet] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const jettonWallet = useJettonWallet("nxTON");
 
-  useEffect(() => {
+  const refreshNftAddress = useCallback(async () => {
     const nftAddress = NftItem.idxToAddress(id);
-    console.log("nftAddress set: \n", nftAddress.toString());
     if (nftAddress) setNftAddress(nftAddress);
   }, [id]);
 
-  useEffect(() => {
-    const initNxtonWallet = async () => {
-      if (address) {
-        const nxtonWalletAddress = await initAddress(
-          Address.parse(address),
-          Address.parse(import.meta.env.VITE_LEND_CONTRACT),
-        );
-        console.log("nxtonWalletAddress set: \n", nxtonWalletAddress.toString());
-        if (nxtonWalletAddress) setNxtonWallet(nxtonWalletAddress);
-      }
-    };
-
-    initNxtonWallet();
-  }, [address]);
+  const refresh = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      await jettonWallet.refreshData();
+      await refreshNftAddress();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [refreshNftAddress, jettonWallet.refreshData]);
 
   return {
-    nftAddress: nftAddress,
-
+    nftAddress,
+    refresh,
+    isLoading,
     sendMessage: async param => {
-      const nxtonWalletAddress = await initAddress(
-        Address.parse(address),
-        Address.parse(import.meta.env.VITE_LEND_CONTRACT),
-      );
-      const nxtonWallet = client.open(JettonDefaultWallet.fromAddress(nxtonWalletAddress));
-      const data = {
-        $$type: "TokenTransfer",
-        queryId: BigInt(Date.now()),
-        amount: param.amount,
-        destination: Address.parse(import.meta.env.VITE_LEND_CONTRACT),
-        response_destination: Address.parse(address),
-        custom_payload: null,
-        forward_ton_amount: param.forward_ton_amount,
-        forward_payload: beginCell().storeAddress(nftAddress).asSlice(),
-      };
-      await nxtonWallet.send(sender, { value: param.value }, data);
+      if (nftAddress && jettonWallet) {
+        const lendContractAddress = Address.parse(import.meta.env.VITE_LEND_CONTRACT);
+        await jettonWallet.tokenTransfer(lendContractAddress, {
+          amount: param.amount,
+          fwdAmount: param.forward_ton_amount,
+          value: param.value,
+          fwdPayload: beginCell().storeAddress(nftAddress).asSlice(),
+        });
+      } else {
+        throw new Error("Addresses not set");
+      }
     },
   };
 }

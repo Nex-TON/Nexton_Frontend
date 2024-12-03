@@ -52,7 +52,7 @@ const stakingInfoItems = [
   },
 ];
 
-const REPAY_AMOUNT = toNano("1"); //Mock data. Replace with real data later.
+const REPAY_AMOUNT = toNano("0.3"); //Mock data. Replace with real data later.
 
 interface ModalState {
   type: "repay" | "confirmRepay";
@@ -65,7 +65,7 @@ const tele = (window as any).Telegram?.WebApp;
 const RepaymentDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { sendMessage } = Contract.repay(id);
+  const { sendMessage, refresh, isLoading: contractLoading } = Contract.repay(id);
 
   const [modal, setModal] = useState<ModalState>({
     type: "confirmRepay",
@@ -95,12 +95,23 @@ const RepaymentDetails = () => {
     };
   }, [navigate]);
 
+  useEffect(() => {
+    const initializeData = async () => {
+      try {
+        await refresh();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    initializeData();
+  }, [refresh, id]);
+
   const handleRepayConfirm = useCallback(async () => {
     try {
       const data = () => {
         return {
           query_id: BigInt(Date.now()),
-          amount: REPAY_AMOUNT,
+          amount: REPAY_AMOUNT, //Mock data. Replace with real data later.
           value: toNano("0.06"),
           forward_ton_amount: toNano("0.01"),
         };
@@ -114,7 +125,7 @@ const RepaymentDetails = () => {
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [contractLoading]);
 
   return (
     <div>
