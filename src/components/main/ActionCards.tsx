@@ -20,7 +20,7 @@ const ActionCards = () => {
 
   return (
     <ActionCardsWrapper>
-      <Card $disabled $large /* onClick={() => navigate("/loan")} */>
+      <Card $large onClick={() => navigate("/loan")}>
         <CardHeader $disabled>Borrow nxTON using your NFT as collateral</CardHeader>
         <CardBody $disabled>
           Coming Soon
