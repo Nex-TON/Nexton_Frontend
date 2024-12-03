@@ -7,7 +7,6 @@ import NFTOngoing from "@/assets/image/NFT_NEW/NFT_Ongoing.png";
 import { imageSizeAtom } from "../../../lib/atom/imageSize";
 import { nftInfo } from "../../../types/Nft";
 import { getDDayText, getNftState } from "@/utils/getNftState";
-import theme from "@/styles/theme";
 
 interface NftItemProps {
   item: nftInfo;
@@ -36,7 +35,7 @@ const NftItem = (props: NftItemProps) => {
           alt="NFTOngoing"
           style={{
             width: "100%",
-            height: "15.2rem",
+            height: "100%",
           }}
           onClick={handleMouseMove}
           id="nftitem"
@@ -49,7 +48,7 @@ const NftItem = (props: NftItemProps) => {
           alt="NFTExpired"
           style={{
             width: "100%",
-            height: "15.2rem",
+            height: "100%",
           }}
           onClick={handleMouseMove}
           id="nftitem"
@@ -60,7 +59,9 @@ const NftItem = (props: NftItemProps) => {
 
   return (
     <NFTItemWrapper id="nftitem">
-      <NftIdTag>ID<span>{nftId}</span></NftIdTag>
+      <NftIdTag>
+        ID<span>{nftId}</span>
+      </NftIdTag>
       {SwitchDDayNftImage()}
       <NFTBottomINfoWrapper>
         <TopInfo>
@@ -80,19 +81,19 @@ const NftIdTag = styled.div`
   position: absolute;
   top: 1.4rem;
   border-radius: 0px 5px 5px 0px;
-  background: rgba(0, 0, 0, 0.30);
-  
+  background: rgba(0, 0, 0, 0.10);
+
   gap: 0.5rem;
   padding: 0.2rem 0.6rem 0.2rem 1.2rem;
   display: flex;
   justify-content: flex-end;
-  
-  color: rgba(255, 255, 255, 0.40);
-  ${({theme})=>theme.fonts.Nexton_Body_Text_Medium_3}
 
-  span{
+  color: rgba(255, 255, 255, 0.4);
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3}
+
+  span {
     color: white;
-    ${({theme})=>theme.fonts.Nexton_Body_Text_Medium_2}
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2}
   }
 `;
 
@@ -118,9 +119,11 @@ const TopInfo = styled.div`
 `;
 
 const NFTBottomINfoWrapper = styled.div`
-  background-color: black;
+  background: rgba(0, 0, 0, 0.5);
   height: auto;
   width: 100%;
+  position: absolute;
+  bottom: 0;
 
   display: flex;
   flex-direction: column;
@@ -130,14 +133,16 @@ const NFTBottomINfoWrapper = styled.div`
 `;
 
 const NFTItemWrapper = styled.div`
-  width: 100%;
   border-radius: 2rem;
   display: flex;
   flex-direction: column;
   position: relative;
+  height: 100%;
+  width: 100%;
+  aspect-ratio: 172/213;
 `;
 
 const NFTImage = styled.img`
-  border-radius: 1rem 1rem 0 0;
+  border-radius: 1rem;
   margin: 0;
 `;

@@ -210,7 +210,7 @@ const MainMyAssetInfo = ({
             </DashboardBottomLeft>
           </DashboardBottomBox>
         ) : (
-          <AssetBottomBox onClick={() => navigate("/myasset")}>
+          <AssetBottomBox onClick={() => {connected?navigate("/myasset/nftlist#specific-element-total-balance"):""}}>
             {!connected ? (
               <AssetBottomNotConnected onClick={() => tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
                 <AssetBottomNotConnectedImg>

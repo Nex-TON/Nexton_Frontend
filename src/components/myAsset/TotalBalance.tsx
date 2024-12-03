@@ -1,16 +1,24 @@
 import styled from "styled-components";
 import { mutate } from "swr";
+import { useMemo } from "react";
 
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import IcnxTon from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
 import { useEffect, useState } from "react";
+import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 
 export const TotalBalance = () => {
   const { address, balance, refreshTonData } = useTonConnect();
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const { nftList, isLoading} = useStakeInfo(address);
+
+
+  const totalStaked = useMemo(() => {
+    return nftList?.reduce((acc, nft) => acc + nft.principal, 0) || 0;
+  }, [nftList]);
 
   useEffect(() => {
     const initializeData = async () => {
@@ -34,43 +42,99 @@ export const TotalBalance = () => {
 
   return (
     <TotalBalanceWrapper>
-      <TotalBalanceHeader>Total Balance</TotalBalanceHeader>
+      <TotalBalanceHeader id="specific-element-total-balance">Total Balance</TotalBalanceHeader>
       <TotalBalanceBoxWrapper>
-        <TokenWrapper>
+        <TokenTitle>
           <img src={IcTon} alt="my asset page ton logo" />
-          <TotalBalanceText>
-            <SideText>Balance</SideText>
-            <Balance>
-              {isRefreshing ? (
-                <Balance>-.---</Balance>
-              ) : (
-                <>
-                  <Balance>{balance === 0 || balance ? balance?.toFixed(3) : "0.000"} TON</Balance>
-                </>
-              )}
-            </Balance>
-          </TotalBalanceText>
-        </TokenWrapper>
+          <h2>TON</h2>{" "}
+        </TokenTitle>
+        <ValueWrapper>
+          <SideText>Balance</SideText>
+          <Balance>
+            {isRefreshing ? (
+              <Balance>-.---</Balance>
+            ) : (
+              <>
+                <Balance>
+                  <p>{balance === 0 || balance ? balance?.toFixed(3) : "0.000"}</p>
+                  <p>TON</p>
+                </Balance>
+              </>
+            )}
+          </Balance>
+        </ValueWrapper>
         <DivideLine />
-        <TokenWrapper>
+        <ValueWrapper>
+          <SideText>Staked</SideText>
+          <Balance>
+          {isLoading ? (
+              <Balance>-.---</Balance>
+            ) : (
+              <>
+                <Balance>
+                  <p>{totalStaked === 0 || totalStaked ? totalStaked?.toFixed(3) : "0.000"}</p>
+                  <p>TON</p>
+                </Balance>
+              </>
+            )}
+          </Balance>
+        </ValueWrapper>
+      </TotalBalanceBoxWrapper>
+      <TotalBalanceBoxWrapper>
+        <TokenTitle>
           <img src={IcnxTon} alt="my asset page ton logo" />
-          <TotalBalanceText>
-            <SideText>Balance</SideText>
-            <Balance>
-              {isRefreshing ? (
-                <Balance>-.---</Balance>
-              ) : (
-                <>
-                  <Balance>{Number(nxTonBalance) === 0 || Number(nxTonBalance) ? Number(nxTonBalance)?.toFixed(3) : "0.000"} nxTON</Balance>
-                </>
-              )}
-            </Balance>
-          </TotalBalanceText>
-        </TokenWrapper>
+          <h2>nxTON</h2>
+        </TokenTitle>
+        <ValueWrapper>
+          <SideText>Balance</SideText>
+          <Balance>
+            {isRefreshing ? (
+              <Balance>-.---</Balance>
+            ) : (
+              <>
+                <Balance>
+                  <p>{Number(nxTonBalance) === 0 || Number(nxTonBalance) ? Number(nxTonBalance)?.toFixed(3) : "0.000"}</p>
+                  <p>nxTON</p>
+                </Balance>
+              </>
+            )}
+          </Balance>
+        </ValueWrapper>
+        <DivideLine />
+        <ValueWrapper>
+          <SideText>Staked</SideText>
+          <Balance>
+                <Balance>
+                  <p>nxTON</p>
+                </Balance>
+          </Balance>
+        </ValueWrapper>
       </TotalBalanceBoxWrapper>
     </TotalBalanceWrapper>
   );
 };
+
+const ValueWrapper = styled.div`
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+`;
+
+const TokenTitle = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.1rem;
+  h2 {
+    color: black;
+    ${({ theme }) => theme.fonts.Telegram_Title_3_1}
+  }
+  img {
+    width: 33px;
+    height: 33px;
+  }
+  margin-bottom: 0.2rem;
+`;
 
 const DivideLine = styled.div`
   width: 100%;
@@ -78,21 +142,15 @@ const DivideLine = styled.div`
   background: #e5e5ea;
 `;
 
-const TokenWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  gap: 1.7rem;
-  img {
-    width: 43px;
-    height: 43px;
-  }
-`;
-
 const Balance = styled.div`
-  color: #303234;
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Large};
+justify-content: row;
+display: flex;
+gap: 0.7rem;
+align-items: center;
+  p {
+    color: #303234;
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Large};
+  }
 `;
 
 const SideText = styled.div`
@@ -100,23 +158,17 @@ const SideText = styled.div`
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
 `;
 
-const TotalBalanceText = styled.div`
-  gap: 0.6rem;
-  display: flex;
-  flex-direction: column;
-`;
-
 const TotalBalanceBoxWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2.2rem;
+  gap: 1.8rem;
+  margin-bottom: 1rem;
 
-  margin-bottom: 5.5rem;
   width: 100%;
   height: auto;
   box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
   border-radius: 15px;
-  padding: 2rem 2.2rem 2.7rem 1.9rem;
+  padding: 1.8rem 3.4rem 2.2rem 1.9rem;
 `;
 
 const TotalBalanceHeader = styled.div`
@@ -127,4 +179,5 @@ const TotalBalanceHeader = styled.div`
 const TotalBalanceWrapper = styled.div`
   display: felx;
   flex-direction: column;
+  margin-bottom: 3.2rem;
 `;
