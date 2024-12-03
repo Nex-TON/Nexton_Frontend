@@ -7,6 +7,7 @@ export interface IUnstakedListData {
   unstakedAt: Date | null;
   unstakedAmount: number;
   unstakeState:number;
+  tokenSort:string;
 }
 
 export function useUnstakedList(address: string) {

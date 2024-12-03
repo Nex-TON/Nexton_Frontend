@@ -12,4 +12,5 @@ export interface nftInfo {
   nominator: string;
   status: number;
   unstakableDate: string;
+  tokenSort:string;
 }
