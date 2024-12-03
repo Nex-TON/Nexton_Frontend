@@ -21,57 +21,71 @@ interface BasicModalProps {
   type: string;
   toggleModal: () => void;
   onClose?: () => void;
+  isDark?: boolean;
+  navigateOnClose?: string;
 }
 
+// todo: refactor this to reduce the code duplication
 function BasicModal(props: BasicModalProps) {
-  const { type, toggleModal, onClose } = props;
+  const { type, toggleModal, onClose, isDark, navigateOnClose } = props;
 
   const navigate = useNavigate();
   const { address } = useTonConnect();
 
-  const handleModalText = (type: string) => {
+  const handleModalText = (type: string, isDark?: boolean) => {
     switch (type) {
       case "stake":
         return (
           <>
-            <Title>{MODAL_TEXT[type].title}</Title>
+            <Title $isDark={isDark}>{MODAL_TEXT[type].title}</Title>
             <SubTitleBox>
-              <SubTitle>{MODAL_TEXT[type].desc}</SubTitle>
-              <SubTitle>{MODAL_TEXT[type].descBr}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].desc}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr}</SubTitle>
             </SubTitleBox>
           </>
         );
-      case "loan":
+      case "borrow":
         return (
           <>
-            <Title>{MODAL_TEXT[type].title}</Title>
+            <Title $isDark={isDark}>{MODAL_TEXT[type].title}</Title>
             <SubTitleBox>
-              <SubTitle>{MODAL_TEXT[type].desc}</SubTitle>
-              <SubTitle>{MODAL_TEXT[type].descBr}</SubTitle>
-              <SubTitle>{MODAL_TEXT[type].descBr2}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].desc}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr2}</SubTitle>
+            </SubTitleBox>
+          </>
+        );
+      case "repay":
+        return (
+          <>
+            <Title $isDark={isDark}>{MODAL_TEXT[type].title}</Title>
+            <SubTitleBox>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].desc}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr2}</SubTitle>
             </SubTitleBox>
           </>
         );
       case "unstaking":
         return (
           <>
-            <Title>{MODAL_TEXT[type].title}</Title>
-            <Title>{MODAL_TEXT[type].titleBr}</Title>
+            <Title $isDark={isDark}>{MODAL_TEXT[type].title}</Title>
+            <Title $isDark={isDark}>{MODAL_TEXT[type].titleBr}</Title>
             <SubTitleBox>
-              <SubTitle>{MODAL_TEXT[type].desc}</SubTitle>
-              <SubTitle>{MODAL_TEXT[type].descBr}</SubTitle>
-              <SubTitle>{MODAL_TEXT[type].descBr2}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].desc}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr2}</SubTitle>
             </SubTitleBox>
           </>
         );
       case "claim":
         return (
           <>
-            <Title>{MODAL_TEXT[type].title}</Title>
+            <Title $isDark={isDark}>{MODAL_TEXT[type].title}</Title>
             <SubTitleBox>
-              <SubTitle>{MODAL_TEXT[type].desc}</SubTitle>
-              <SubTitle>{MODAL_TEXT[type].descBr}</SubTitle>
-              <SubTitle>{MODAL_TEXT[type].descBr2}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].desc}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr2}</SubTitle>
             </SubTitleBox>
           </>
         );
@@ -82,7 +96,7 @@ function BasicModal(props: BasicModalProps) {
 
   return (
     <ModalWrapper>
-      <Container $disablePaddingTop>
+      <Container $disablePaddingTop $isDark={isDark}>
         <ModalHeader>
           <img
             src={IcClose}
@@ -91,12 +105,12 @@ function BasicModal(props: BasicModalProps) {
               if (onClose) {
                 onClose();
               }
-              navigate("/main");
+              navigate("/");
             }}
           />
         </ModalHeader>
 
-        {handleModalText(type)}
+        {handleModalText(type, isDark)}
 
         <OpenTonViewerBox>
           <OpenTonViewer
@@ -114,7 +128,12 @@ function BasicModal(props: BasicModalProps) {
             if (onClose) {
               onClose();
             }
-            navigate("/main");
+
+            if (navigateOnClose) {
+              navigate(navigateOnClose);
+            } else {
+              navigate("/");
+            }
           }}
         >
           Okay

@@ -1,78 +1,105 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
 
-import LoanHeader from "../../components/loan/common/LoanHeader";
-import LoanList from "../../components/loan/LoanList";
+import IcAlert from "@/assets/icons/Loan/ic_alert.svg";
+// import DropdownMenu from "@/components/common/DropdownMenu";
+import BorrowList from "@/components/loan/Borrow/BorrowList";
+import RepayList from "@/components/loan/Repay/RepayList";
+import { useStakeInfo } from "@/hooks/api/useStakeInfo";
+import useTonConnect from "@/hooks/contract/useTonConnect";
+
+import {
+  LoanHeaderBox,
+  LoanHeaderBoxButton,
+  LoanHeaderBoxTitle,
+  LoanNFTBox,
+  LoanNFTBoxHeader,
+  LoanNFTBoxHeaderLeft,
+  LoanNFTBoxHeaderRight,
+  LoanSwitcherBox,
+  LoanSwitcherBoxItem,
+  LoanSwitcherBoxTooltip,
+  LoanWrapper,
+} from "./Loan.styled";
+
+type LoanView = "borrow" | "repay";
+export type FilterNFTs = "Ongoing" | "Forthcoming" | "Expired" | "All";
 
 const tele = (window as any).Telegram.WebApp;
 
+const filters: FilterNFTs[] = ["Ongoing", "Forthcoming", "Expired", "All"];
+
 const Loan = () => {
+  const { address } = useTonConnect();
   const navigate = useNavigate();
+  const [filter, setFilter] = useState<FilterNFTs>("All");
+  const [view, setView] = useState<LoanView>("borrow");
+  const { nftList } = useStakeInfo(address);
 
   useEffect(() => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/main");
+        navigate("/");
       });
     }
 
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, []);
+  }, [navigate]);
+
+  const handleViewChange = (view: LoanView) => {
+    setView(view);
+  };
+
+  const handleSortOptionChange = value => {
+    setFilter(value);
+  };
 
   return (
     <LoanWrapper>
-      <LoanHeader />
-      <LoanList />
+      <LoanHeaderBox>
+        <LoanHeaderBoxTitle>
+          <h1>Loan</h1>
+        </LoanHeaderBoxTitle>
+
+        <LoanHeaderBoxButton onClick={() => navigate("/loan/risk-disclosure")}>
+        <img src={IcAlert} alt="alert_icon" />
+        </LoanHeaderBoxButton>
+      </LoanHeaderBox>
+
+      <LoanSwitcherBox>
+        <LoanSwitcherBoxItem $isActive={view === "borrow"} onClick={() => handleViewChange("borrow")}>
+          Borrow
+        </LoanSwitcherBoxItem>
+        <LoanSwitcherBoxItem $isActive={view === "repay"} onClick={() => handleViewChange("repay")}>
+          Repay
+        </LoanSwitcherBoxItem>
+      </LoanSwitcherBox>
+
+      <LoanNFTBox>
+        <LoanNFTBoxHeader>
+          <LoanNFTBoxHeaderLeft>
+            <span>You have</span>
+            {view === "borrow" && <h4>{nftList?.length || 0} NFTs</h4>}
+            {view === "repay" && <h4>0 Loans</h4>}
+          </LoanNFTBoxHeaderLeft>
+
+          {view === "borrow" && (
+            <LoanNFTBoxHeaderRight>
+              <span>Sort by</span>
+              {/* <DropdownMenu options={filters} defaultValue={filter} onOptionSelect={handleSortOptionChange} /> */}
+            </LoanNFTBoxHeaderRight>
+          )}
+        </LoanNFTBoxHeader>
+
+        {view === "borrow" && <BorrowList filter={filter} nftList={nftList} />}
+        {view === "repay" && <RepayList />}
+      </LoanNFTBox>
     </LoanWrapper>
   );
 };
 
 export default Loan;
-
-const LoanWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-
-  width: 100%;
-
-  padding: 2.9rem 2rem 2.9rem 2rem;
-`;
-
-const LoanHeaderBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-`;
-
-const LoanHeaderTop = styled.div`
-  padding-top: 3rem;
-
-  color: #46494a;
-  ${({ theme }) => theme.fonts.Nexton_Title_Large};
-`;
-
-const LoanHeaderDescBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  margin-top: 1.2rem;
-  margin-bottom: 3.3rem;
-`;
-
-const LoanHeaderDesc = styled.span`
-  color: #5e6162;
-  ${({ theme }) => theme.fonts.Telegram_Caption_3};
-`;
