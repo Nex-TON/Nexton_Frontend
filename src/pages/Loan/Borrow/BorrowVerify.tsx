@@ -24,7 +24,6 @@ const stakingInfoItems = [
       { label: "Borrowed nxTON", value: "000.00 nxTON" },
       { label: "Principal", value: "00000 TON" },
       { label: "LTV", value: "95.0%" },
-      { label: "Maturity date", value: "mm.dd.yy" },
     ],
   },
 ];

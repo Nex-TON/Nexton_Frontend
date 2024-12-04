@@ -12,7 +12,6 @@ const alwaysVisibleItems = [
   { label: "Borrowed nxTON", value: "000.00 nxTON" },
   { label: "Principal", value: "00000 TON" },
   { label: "LTV", value: "50.0%" },
-  { label: "Maturity date", value: "mm.dd.yy" },
 ];
 
 const stakingInfoItems = [
