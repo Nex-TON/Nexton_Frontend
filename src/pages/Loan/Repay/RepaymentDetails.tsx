@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState,useCallback } from "react";
+import { useNavigate,useParams } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 import BasicModal from "@/components/common/Modal/BasicModal";
@@ -7,6 +7,8 @@ import TransactionConfirmModal from "@/components/common/Modal/TransactionConfir
 import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
 import { ConfirmRepaymentModal } from "@/components/loan/Repay/ConfirmRepaymentModal";
 import { isDevMode } from "@/utils/isDevMode.ts";
+import * as Contract from "@/hooks/contract/repay";
+import { toNano } from "@ton/core";
 
 import {
   RepaymentContentBox,
@@ -49,6 +51,8 @@ const stakingInfoItems = [
   },
 ];
 
+const REPAY_AMOUNT = toNano("0.3"); //Mock data. Replace with real data later.
+
 interface ModalState {
   type: "repay" | "confirmRepay";
   toggled: boolean;
@@ -59,6 +63,8 @@ const tele = (window as any).Telegram?.WebApp;
 // ! Data is currently mocked
 const RepaymentDetails = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const { sendMessage, refresh, isLoading: contractLoading } = Contract.repay(id);
 
   const [modal, setModal] = useState<ModalState>({
     type: "confirmRepay",
@@ -88,13 +94,37 @@ const RepaymentDetails = () => {
     };
   }, [navigate]);
 
-  const handleRepayConfirm = () => {
-    toggleModal();
+  useEffect(() => {
+    const initializeData = async () => {
+      try {
+        await refresh();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    initializeData();
+  }, [refresh, id]);
 
-    console.log("Repayment confirmed!");
+  const handleRepayConfirm = useCallback(async () => {
+    try {
+      const data = () => {
+        return {
+          query_id: BigInt(Date.now()),
+          amount: REPAY_AMOUNT, //Mock data. Replace with real data later.
+          value: toNano("0.06"),
+          forward_ton_amount: toNano("0.01"),
+        };
+      };
 
-    setModal({ type: "repay", toggled: true });
-  };
+      await sendMessage(data());
+
+      toggleModal();
+
+      setModal({ type: "repay", toggled: true });
+    } catch (error) {
+      console.error(error);
+    }
+  }, [contractLoading]);
 
   return (
     <div>
