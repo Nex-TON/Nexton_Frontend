@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const ProgressBar = ({ currentStep }) => {
   const steps = [
-    { label: "Check NFT details and Borrow information." },
+    { label: "Check NFT details and Borrow information."},
     { label: "Checking Loan Protocol Risk" },
     { label: "Verify the information before loan approval." },
   ];
@@ -39,6 +39,7 @@ const ProgressBarWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 100%;
+  margin-bottom: 2.1rem;
 `;
 
 const StepsWrapper = styled.div`
@@ -84,7 +85,7 @@ const StepLabel = styled.div<{ position: "left" | "center" | "right" }>`
   top: 4rem;
   left: ${({ position }) => (position === "left" ? "-35%" : position === "center" ? "7.5%" : "55%")};
   position: absolute;
-  width: ${({ position }) => (position === "right" ? "150px" : "175px")};
+  width: ${({ position }) => (position === "center" ? "175px":"150px")};
   ${({ theme }) => theme.fonts.Nexton_Label_Small_2};
   text-align: center;
   color: #5e6162;

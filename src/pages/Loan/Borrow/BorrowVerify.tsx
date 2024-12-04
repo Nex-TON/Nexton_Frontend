@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams,useLocation } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 import BasicModal from "@/components/common/Modal/BasicModal.tsx";
@@ -33,6 +33,12 @@ const stakingInfoItems = [
 const BorrowVerify = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const location=useLocation();
+
+  const {borrowAmount}=location.state||{};
+
+  console.log(`borrow amount:${borrowAmount}`)//for the test
+
   const [modal, setModal] = useState<ModalState>({
     type: "confirmBorrow",
     toggled: false,

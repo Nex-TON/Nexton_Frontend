@@ -67,7 +67,7 @@ const Loan = () => {
         </LoanHeaderBoxTitle>
 
         <LoanHeaderBoxButton onClick={() => navigate("/loan/risk-disclosure")}>
-        <img src={IcAlert} alt="alert_icon" />
+          <img src={IcAlert} alt="alert_icon" />
         </LoanHeaderBoxButton>
       </LoanHeaderBox>
 
@@ -87,14 +87,17 @@ const Loan = () => {
             {view === "borrow" && <h4>{nftList?.length || 0} NFTs</h4>}
             {view === "repay" && <h4>0 Loans</h4>}
           </LoanNFTBoxHeaderLeft>
-
-          {view === "borrow" && (
-            <LoanNFTBoxHeaderRight onClick={()=>{navigate("/loan/history")}}>
-              <h4><span>Go to </span>Loan History</h4>
-              <img src={IcArrowRight} alt="arrow right to loan history"/>
-              {/* <DropdownMenu options={filters} defaultValue={filter} onOptionSelect={handleSortOptionChange} /> */}
-            </LoanNFTBoxHeaderRight>
-          )}
+          <LoanNFTBoxHeaderRight
+            onClick={() => {
+              navigate("/loan/history");
+            }}
+          >
+            <h4>
+              <span>Go to </span>Loan History
+            </h4>
+            <img src={IcArrowRight} alt="arrow right to loan history" />
+            {/* <DropdownMenu options={filters} defaultValue={filter} onOptionSelect={handleSortOptionChange} /> */}
+          </LoanNFTBoxHeaderRight>
         </LoanNFTBoxHeader>
 
         {view === "borrow" && <BorrowList filter={filter} nftList={nftList} />}

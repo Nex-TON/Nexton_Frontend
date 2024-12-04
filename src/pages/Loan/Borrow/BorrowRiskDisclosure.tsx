@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams,useLocation } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { styled } from "styled-components";
 
@@ -14,6 +14,15 @@ const tele = (window as any).Telegram.WebApp;
 const BorrowRiskDisclosure = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const location=useLocation();
+  const {borrowAmount}=location.state||{};
+
+  const handleNext = () => {
+    console.log(`borrow amount:${borrowAmount}`)
+    navigate(`/loan/${id}/borrow/verify`, {
+      state: { borrowAmount }, // 값을 그대로 다음 페이지로 전달
+    });
+  };
 
   useEffect(() => {
     if (tele) {
@@ -45,9 +54,9 @@ const BorrowRiskDisclosure = () => {
       </BorrowContentBox>
 
       {!isDevMode ? (
-        <MainButton text="Next" onClick={() => navigate(`/loan/${id}/borrow/verify`)} />
+        <MainButton text="Next" onClick={handleNext} />
       ) : (
-        <button onClick={() => navigate(`/loan/${id}/borrow/verify`)}>next</button>
+        <button onClick={handleNext}>next</button>
       )}
     </BorrowWrapper>
   );
@@ -63,7 +72,7 @@ const BorrowContentBox = styled.div`
 
   margin-top: 2rem;
 
-  border-radius: 20px;
+  border-radius: 1.5rem;
   background: #fff;
 
   /* drop shadow_type 4 */

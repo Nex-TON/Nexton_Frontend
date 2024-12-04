@@ -38,7 +38,6 @@ export const BorrowContentBox = styled.div`
   flex-direction: column;
   gap: 1.6rem;
 
-  margin-top: 2rem;
   padding-bottom: 4rem;
 `;
 
@@ -50,7 +49,7 @@ export const CollateralizingNFTInfo = styled.div`
   align-items: "center";
   gap: 1.2rem;
 
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   background: #1a1b23;
 
   /* drop shadow_type 4 */
@@ -88,7 +87,7 @@ export const BorrowRateBox = styled.div`
 
   padding: 1.6rem 2.4rem;
 
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
 `;
 

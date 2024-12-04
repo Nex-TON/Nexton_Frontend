@@ -8,14 +8,20 @@ import { z } from "zod";
 import IcExclude from "@/assets/icons/Loan/ic_exclude.svg";
 import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
 import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
-import TokenInput from "@/components/stake/common/TokensInput.tsx";
+// import TokenInput from "@/components/stake/common/TokensInput.tsx";
 import { useCoinPrice } from "@/hooks/api/useCoinPrice.ts";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import useTonConnect from "@/hooks/contract/useTonConnect.ts";
 import { isDevMode } from "@/utils/isDevMode.ts";
-import { limitDecimals } from "@/utils/limitDecimals.ts";
+// import { limitDecimals } from "@/utils/limitDecimals.ts";
 
 import {
+  BorrowRateBox,
+  BorrowRateBoxHeader,
+  BorrowRateBoxHeaderLeft,
+  BorrowRateBoxHeaderRight,
+  BorrowRateBoxDivider,
+  BorrowRateBoxBottom,
   BorrowContentBox,
   BorrowHeaderBox,
   BorrowHeaderBoxTitle,
@@ -33,33 +39,39 @@ const BorrowDetails = () => {
   const { id } = useParams();
 
   const { nftDetail } = useNFTDetail(Number(id));
-  const { data: coinPrice } = useCoinPrice("TON", "USD");
+  // const { data: coinPrice } = useCoinPrice("TON", "USD");
 
-  const schema = z.object({
-    borrowAmount: z
-      .string()
-      .min(1, "Please enter amount")
-      .transform(Number)
-      .refine(val => !isNaN(val), "Please enter a valid number")
-      .refine(val => val >= 1, "Please stake more than 1 TON"),
-  });
+  // const schema = z.object({
+  //   borrowAmount: z
+  //     .string()
+  //     .min(1, "Please enter amount")
+  //     .transform(Number)
+  //     .refine(val => !isNaN(val), "Please enter a valid number")
+  //     .refine(val => val >= 1, "Please stake more than 1 TON"),
+  // });
 
-  const {
-    handleSubmit,
-    setValue,
-    setError,
-    control,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(schema),
-    mode: "onChange",
-    shouldFocusError: true,
-    defaultValues: {
-      borrowAmount: "",
-    },
-  });
+  // const {
+  //   handleSubmit,
+  //   setValue,
+  //   setError,
+  //   control,
+  //   formState: { errors },
+  // } = useForm({
+  //   resolver: zodResolver(schema),
+  //   mode: "onChange",
+  //   shouldFocusError: true,
+  //   defaultValues: {
+  //     borrowAmount: "",
+  //   },
+  // });
 
-  console.log("errors", errors);
+  // console.log("errors", errors);
+
+  // const { handleSubmit, setValue } = useForm({
+  //   defaultValues: {
+  //     borrowAmount: 0, // 고정값 설정
+  //   },
+  // });
 
   useEffect(() => {
     if (tele) {
@@ -75,14 +87,14 @@ const BorrowDetails = () => {
     };
   }, [navigate]);
 
-  useEffect(() => {
-    if (!connected) {
-      setError("borrowAmount", {
-        type: "walletConnect",
-        message: "Please connect your wallet first",
-      });
-    }
-  }, [connected, setError]);
+  // useEffect(() => {
+  //   if (!connected) {
+  //     setError("borrowAmount", {
+  //       type: "walletConnect",
+  //       message: "Please connect your wallet first",
+  //     });
+  //   }
+  // }, [connected, setError]);
 
   useEffect(() => {
     if (nftDetail) {
@@ -111,20 +123,30 @@ const BorrowDetails = () => {
   }, [nftDetail]);
 
   // Conversion function
-  const convertAmount = useMemo(() => {
-    return (amount: string | number) => {
-      if (coinPrice && amount) {
-        return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
-      }
-      return "$0.00";
-    };
-  }, [coinPrice]);
+  // const convertAmount = useMemo(() => {
+  //   return (amount: string | number) => {
+  //     if (coinPrice && amount) {
+  //       return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
+  //     }
+  //     return "$0.00";
+  //   };
+  // }, [coinPrice]);
 
-  const onSubmit = data => {
-    console.log("form data", data);
+  // const onSubmit = data => {
+  //   console.log("form data", data);
 
-    navigate(`/loan/${id}/borrow/risk-disclosure`);
-  };
+  //   navigate(`/loan/${id}/borrow/risk-disclosure`,{
+  //     state: { borrowAmount: data.borrowAmount },
+  //   })
+  // };
+  const borrowAmount=1;//for the test
+
+  const handleSubmit=()=>{
+    console.log(`borrow amount:${borrowAmount}`)
+    navigate(`/loan/${id}/borrow/risk-disclosure`, {
+      state: { borrowAmount }, // 값을 그대로 다음 페이지로 전달
+    });
+  }
 
   return (
     <BorrowWrapper>
@@ -150,17 +172,17 @@ const BorrowDetails = () => {
             <img src={IcExclude} alt="exclude_icon" />
           </ExcludeBox>
 
-          {/* @deprecated */}
-          {/* <BorrowRateBox>
+          <BorrowRateBox>
           <BorrowRateBoxHeader>
             <BorrowRateBoxHeaderLeft>Borrow</BorrowRateBoxHeaderLeft>
             <BorrowRateBoxHeaderRight>1NXT = n TON</BorrowRateBoxHeaderRight>
           </BorrowRateBoxHeader>
           <BorrowRateBoxDivider />
           <BorrowRateBoxBottom>000.00 nxTON</BorrowRateBoxBottom>
-        </BorrowRateBox> */}
+        </BorrowRateBox>
 
-          <TokenInput
+          {/* @deprecated */}
+          {/* <TokenInput
             name="borrowAmount"
             control={control}
             decimalSeparator="."
@@ -173,13 +195,13 @@ const BorrowDetails = () => {
             tokenLabel="nxTON"
             placeholder="min 0.5"
             disableMax
-          />
+          /> */}
         </BorrowContentBox>
 
         {!isDevMode ? (
-          <MainButton text="Next" onClick={handleSubmit(onSubmit)} />
+          <MainButton text="Next" onClick={handleSubmit}/>
         ) : (
-          <button onClick={handleSubmit(onSubmit)}>next</button>
+          <button onClick={handleSubmit}>next</button>
         )}
       </form>
     </BorrowWrapper>

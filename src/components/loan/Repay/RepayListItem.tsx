@@ -2,12 +2,13 @@ import { useNavigate } from "react-router-dom";
 
 import { numberCutter } from "@/utils/numberCutter";
 
-import { Caption3, LabelMedium } from "../Borrow/BorrowListItem.styled";
+import { Caption3} from "../Borrow/BorrowListItem.styled";
 
 import {
+  RepayListBottomTextBottomRight,
+  RepayListBottomTextBottomLeft,
   RepayListBottom,
   RepayListBottomTextBottom,
-  RepayListDueDate,
   RepayListItemDivider,
   RepayListItemWrapper,
   RepayListTop,
@@ -26,30 +27,24 @@ const RepayListItem = () => {
         <RepayListTopLeft>
           <RepayListTopLeftIcon>1</RepayListTopLeftIcon>
           <RepayListTopLeftText>
-            <Caption3>Borrowed nxTON</Caption3>
-            <p>000.00 nxTON</p>
+            <Caption3>Borrowed</Caption3>
+            <p><span>000.00 </span>nxTON</p>
           </RepayListTopLeftText>
         </RepayListTopLeft>
 
         <RepayListTopButton onClick={() => navigate("/loan/1/repay/details")}>Repayment</RepayListTopButton>
       </RepayListTop>
-      <RepayListDueDate>
-        <span>Before the due date</span>
-        <p>2 days</p>
-      </RepayListDueDate>
+      <RepayListBottom>
+        <RepayListBottomTextBottom>
+          <RepayListBottomTextBottomLeft>Principal</RepayListBottomTextBottomLeft>
+          <RepayListBottomTextBottomRight>{numberCutter(123.42)} nxTON</RepayListBottomTextBottomRight>
+        </RepayListBottomTextBottom>
+      </RepayListBottom>
       <RepayListItemDivider />
       <RepayListBottom>
         <RepayListBottomTextBottom>
-          <Caption3>Principal</Caption3>
-          <LabelMedium>{numberCutter(123.42)} TON</LabelMedium>
-        </RepayListBottomTextBottom>
-        <RepayListBottomTextBottom>
-          <Caption3>Maturity date</Caption3>
-          <LabelMedium>mm.dd.yy</LabelMedium>
-        </RepayListBottomTextBottom>
-        <RepayListBottomTextBottom>
-          <Caption3>Interest rate</Caption3>
-          <LabelMedium>95%</LabelMedium>
+          <RepayListBottomTextBottomLeft>Interest rate</RepayListBottomTextBottomLeft>
+          <RepayListBottomTextBottomRight>95%</RepayListBottomTextBottomRight>
         </RepayListBottomTextBottom>
       </RepayListBottom>
     </RepayListItemWrapper>
