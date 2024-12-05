@@ -40,7 +40,7 @@ const BorrowDetails = () => {
   const [stakingInfo, setStakingInfo] = useState<any>([{ items: [] }]);
   const { id } = useParams();
   const { nftDetail } = useNFTDetail(Number(id));
-  const {data}=useTokenRate();
+  const { data } = useTokenRate();
   // const { data: coinPrice } = useCoinPrice("TON", "USD");
 
   // const schema = z.object({
@@ -80,7 +80,7 @@ const BorrowDetails = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/loan/1");
+        navigate(-1);
       });
     }
 
@@ -140,14 +140,14 @@ const BorrowDetails = () => {
   //     state: { borrowAmount: data.borrowAmount },
   //   })
   // };
-  const borrowAmount=1;//for the test
+  const borrowAmount = 1; //for the test
 
-  const handleSubmit=()=>{
-    console.log(`borrow amount:${borrowAmount}`)
+  const handleSubmit = () => {
+    console.log(`borrow amount:${borrowAmount}`);
     navigate(`/loan/${id}/borrow/risk-disclosure`, {
       state: { borrowAmount }, // 값을 그대로 다음 페이지로 전달
     });
-  }
+  };
 
   return (
     <BorrowWrapper>
@@ -174,13 +174,13 @@ const BorrowDetails = () => {
           </ExcludeBox>
 
           <BorrowRateBox>
-          <BorrowRateBoxHeader>
-            <BorrowRateBoxHeaderLeft>Borrow</BorrowRateBoxHeaderLeft>
-            <BorrowRateBoxHeaderRight>1NXT ={/*data[0].nxtonToTonRate*/}TON</BorrowRateBoxHeaderRight>
-          </BorrowRateBoxHeader>
-          <BorrowRateBoxDivider />
-          <BorrowRateBoxBottom>{nftDetail.principal/* *data[0].tonToNextonRate*/} nxTON</BorrowRateBoxBottom>
-        </BorrowRateBox>
+            <BorrowRateBoxHeader>
+              <BorrowRateBoxHeaderLeft>Borrow</BorrowRateBoxHeaderLeft>
+              <BorrowRateBoxHeaderRight>1NXT ={/*data[0].nxtonToTonRate*/}TON</BorrowRateBoxHeaderRight>
+            </BorrowRateBoxHeader>
+            <BorrowRateBoxDivider />
+            <BorrowRateBoxBottom>{nftDetail.principal /* *data[0].tonToNextonRate*/} nxTON</BorrowRateBoxBottom>
+          </BorrowRateBox>
 
           {/* @deprecated */}
           {/* <TokenInput
@@ -199,11 +199,7 @@ const BorrowDetails = () => {
           /> */}
         </BorrowContentBox>
 
-        {!isDevMode ? (
-          <MainButton text="Next" onClick={handleSubmit}/>
-        ) : (
-          <button onClick={handleSubmit}>next</button>
-        )}
+        {!isDevMode ? <MainButton text="Next" onClick={handleSubmit} /> : <button onClick={handleSubmit}>next</button>}
       </form>
     </BorrowWrapper>
   );
