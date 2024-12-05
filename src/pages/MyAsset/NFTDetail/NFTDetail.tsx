@@ -56,20 +56,20 @@ const NFTDetail = () => {
 
   useEffect(() => {
     if (nftDetail) {
-      setNftInfo(nftDetail[0]);
-      setIsNftExpired(getNftState(nftDetail[0].unstakableDate) === "expired");
+      setNftInfo(nftDetail);
+      setIsNftExpired(getNftState(nftDetail.unstakableDate) === "expired");
 
       setStakingInfo([
         {
           items: [
-            { label: "Principal", value: `${nftDetail[0].principal} TON` },
-            { label: "Nominator Pool", value: nftDetail[0].nominator },
-            { label: "Leveraged", value: `${nftDetail[0].leverage}x` },
-            { label: "Lock-up Period", value: `${nftDetail[0].lockPeriod} days remaining` },
-            { label: "Unstakable date", value: new Date(nftDetail[0].unstakableDate).toLocaleDateString() },
+            { label: "Principal", value: `${nftDetail.principal} TON` },
+            { label: "Nominator Pool", value: nftDetail.nominator },
+            { label: "Leveraged", value: `${nftDetail.leverage}x` },
+            { label: "Lock-up Period", value: `${nftDetail.lockPeriod} days remaining` },
+            { label: "Unstakable date", value: new Date(nftDetail.unstakableDate).toLocaleDateString() },
             { label: "Protocol Fees", value: "2%" },
             { label: "Staking APR", value: "5%" },
-            { label: "Total Amount", value: `${numberCutter(nftDetail[0].totalAmount)} TON` },
+            { label: "Total Amount", value: `${numberCutter(nftDetail.totalAmount)} TON` },
           ],
         },
       ]);
