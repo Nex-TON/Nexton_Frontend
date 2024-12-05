@@ -1,7 +1,6 @@
 export interface borrowInfo{
     borrowInfos:borrowNftInfo[];
 }
-
 export interface borrowNftInfo{
     nftId:number;// NFT의 고유 ID
     principal: number;// 대출 원금

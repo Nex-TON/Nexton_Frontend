@@ -11,6 +11,7 @@ import { isDevMode } from "@/utils/isDevMode.ts";
 import * as Contract from "@/hooks/contract/transferNFT";
 import useTonConnect from "@/hooks/contract/useTonConnect.ts";
 import { toNano,Address } from "@ton/core";
+import { useLoanDetail } from "@/hooks/api/loan/useLoanDetail.tsx";
 
 import { BorrowHeaderBox, BorrowHeaderBoxTitle, BorrowWrapper } from "./BorrowDetails.styled.tsx";
 
@@ -38,8 +39,9 @@ const BorrowVerify = () => {
   const location=useLocation();
   const { sendWithData } = Contract.transferNft(id);
   const { address } = useTonConnect();
-
   const {borrowAmount}=location.state||{};
+  const {data:loanInfo,isLoading,error}=useLoanDetail(Number(id));
+
 
   console.log(`borrow amount:${borrowAmount}`)//for the test
 

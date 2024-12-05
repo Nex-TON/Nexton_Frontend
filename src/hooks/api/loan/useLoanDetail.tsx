@@ -5,7 +5,6 @@ export interface IloanInfo{
     nxTonAmount:number;
     principal:number;
     loanToValue:number;
-    nxtonToTonRate:number;
 }
 
 export const useLoanDetail=(nftId:number)=>{
