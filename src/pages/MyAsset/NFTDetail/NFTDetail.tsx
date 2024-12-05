@@ -68,7 +68,6 @@ const NFTDetail = () => {
             { label: "Lock-up Period", value: `${nftDetail.lockPeriod} days remaining` },
             { label: "Unstakable date", value: new Date(nftDetail.unstakableDate).toLocaleDateString() },
             { label: "Protocol Fees", value: "2%" },
-            { label: "Staking APR", value: "5%" },
             { label: "Total Amount", value: `${numberCutter(nftDetail.totalAmount)} TON` },
           ],
         },

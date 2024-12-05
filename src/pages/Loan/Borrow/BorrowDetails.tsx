@@ -114,7 +114,6 @@ const BorrowDetails = () => {
             { label: "Lockup period", value: `${nftDetail[0].lockPeriod} days` },
             { label: "Unstakable date", value: new Date(nftDetail[0].unstakableDate).toLocaleDateString() },
             { label: "Protocol Fees", value: "2%" },
-            { label: "Staking APR", value: "5%" },
             { label: "Total Amount", value: `${nftDetail[0].totalAmount} TON` },
           ],
         },

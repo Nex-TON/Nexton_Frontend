@@ -24,7 +24,7 @@ import {
 const alwaysVisibleItems = [
   { label: "Borrowed nxTON", value: "000.00 nxTON" },
   { label: "Principal", value: "00000 TON" },
-  { label: "LTV", value: "50.0%" },
+  { label: "LTV", value: "95.0%" },
   { label: "Interest rate", value: "2.00%" },
 ];
 
@@ -45,7 +45,6 @@ const stakingInfoItems = [
       { label: "Lockup period", value: "60 days" },
       { label: "Unstakable date", value: "DD.MM.YY" },
       { label: "Protocol Fees", value: "2%" },
-      { label: "Staking APR", value: "5%" },
       { label: "Total Amount", value: "10,083 TON" },
     ],
   },
