@@ -15,7 +15,7 @@ const RiskDisclosure = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/loan");
+        navigate(-1);
       });
     }
 

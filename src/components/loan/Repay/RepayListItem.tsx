@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import { numberCutter } from "@/utils/numberCutter";
 
-import { Caption3} from "../Borrow/BorrowListItem.styled";
+import { Caption3 } from "../Borrow/BorrowListItem.styled";
 
 import {
   RepayListBottomTextBottomRight,
@@ -28,7 +28,9 @@ const RepayListItem = () => {
           <RepayListTopLeftIcon>1</RepayListTopLeftIcon>
           <RepayListTopLeftText>
             <Caption3>Borrowed</Caption3>
-            <p><span>000.00 </span>nxTON</p>
+            <p>
+              <span>000.00 </span>nxTON
+            </p>
           </RepayListTopLeftText>
         </RepayListTopLeft>
 
@@ -39,12 +41,15 @@ const RepayListItem = () => {
           <RepayListBottomTextBottomLeft>Principal</RepayListBottomTextBottomLeft>
           <RepayListBottomTextBottomRight>{numberCutter(123.42)} nxTON</RepayListBottomTextBottomRight>
         </RepayListBottomTextBottom>
-      </RepayListBottom>
       <RepayListItemDivider />
-      <RepayListBottom>
         <RepayListBottomTextBottom>
           <RepayListBottomTextBottomLeft>Interest rate</RepayListBottomTextBottomLeft>
-          <RepayListBottomTextBottomRight>95%</RepayListBottomTextBottomRight>
+          <RepayListBottomTextBottomRight>2%</RepayListBottomTextBottomRight>
+        </RepayListBottomTextBottom>
+      <RepayListItemDivider />
+        <RepayListBottomTextBottom>
+          <RepayListBottomTextBottomLeft>LTV</RepayListBottomTextBottomLeft>
+          <RepayListBottomTextBottomRight>95.0%</RepayListBottomTextBottomRight>
         </RepayListBottomTextBottom>
       </RepayListBottom>
     </RepayListItemWrapper>

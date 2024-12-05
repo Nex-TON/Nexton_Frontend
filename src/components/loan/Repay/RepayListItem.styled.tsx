@@ -15,7 +15,7 @@ export const RepayListItemWrapper = styled(BorrowListItemWrapper)<{ $inactive?: 
   cursor: ${({ $inactive }) => ($inactive ? "not-allowed" : "default")};
 
   box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
-  padding: 2.6rem 1.7rem 3rem 1.7rem;
+  padding: 2.6rem 1.7rem 1.3rem 1.7rem;
 `;
 
 export const RepayListTop = styled(BorrowListTop)`
@@ -101,7 +101,6 @@ export const RepayListItemDivider = styled(BorrowListItemDivider)``;
 export const RepayListBottom = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.3rem;
   width: 100%;
 `;
 

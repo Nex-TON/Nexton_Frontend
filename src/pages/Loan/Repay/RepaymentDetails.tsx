@@ -25,6 +25,7 @@ const alwaysVisibleItems = [
   { label: "Borrowed nxTON", value: "000.00 nxTON" },
   { label: "Principal", value: "00000 TON" },
   { label: "LTV", value: "50.0%" },
+  { label: "Interest rate", value: "2.00%" },
 ];
 
 const stakingInfoItems = [
@@ -33,7 +34,6 @@ const stakingInfoItems = [
     items: [
       { label: "NFT ID", value: "4817sddss863ddddwdwsdwd" },
       { label: "Network", value: "TON" },
-      { label: "LTV", value: "95.0%" },
     ],
   },
   {
