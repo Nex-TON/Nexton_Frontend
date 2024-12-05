@@ -8,6 +8,7 @@ import RepayList from "@/components/loan/Repay/RepayList";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import IcArrowRight from "@/assets/icons/Loan/ic_arrow_right_black.svg";
+import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 
 import {
   LoanHeaderBox,
@@ -36,6 +37,7 @@ const Loan = () => {
   const [filter, setFilter] = useState<FilterNFTs>("All");
   const [view, setView] = useState<LoanView>("borrow");
   const { nftList } = useStakeInfo(address);
+  const {borrowList}=useRepayNftList(address);
 
   useEffect(() => {
     if (tele) {
@@ -85,7 +87,7 @@ const Loan = () => {
           <LoanNFTBoxHeaderLeft>
             <span>You have</span>
             {view === "borrow" && <h4>{nftList?.length || 0} NFTs</h4>}
-            {view === "repay" && <h4>0 Loans</h4>}
+            {view === "repay" && <h4>{RepayList?.length||0} Loans</h4>}
           </LoanNFTBoxHeaderLeft>
           <LoanNFTBoxHeaderRight
             onClick={() => {
@@ -101,7 +103,7 @@ const Loan = () => {
         </LoanNFTBoxHeader>
 
         {view === "borrow" && <BorrowList filter={filter} nftList={nftList} />}
-        {view === "repay" && <RepayList />}
+        {view === "repay" && <RepayList borrowList={borrowList} />}
       </LoanNFTBox>
     </LoanWrapper>
   );

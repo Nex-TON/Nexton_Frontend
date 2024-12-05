@@ -101,7 +101,7 @@ const BorrowDetails = () => {
   useEffect(() => {
     if (nftDetail) {
       setAlwaysVisibleInfo([
-        { label: "NFT ID", value: nftDetail.nftId },
+        { label: "NFT ID", value: nftDetail[0].nftId },
         { label: "Network", value: "TON" },
         { label: "LTV", value: "95.0%" },
       ]);
@@ -110,13 +110,13 @@ const BorrowDetails = () => {
         {
           header: "Staking info",
           items: [
-            { label: "Principal", value: `${nftDetail.principal} TON` },
-            { label: "Nominator Pool", value: nftDetail.nominator },
-            { label: "Leveraged", value: `${nftDetail.leverage}x` },
-            { label: "Lockup period", value: `${nftDetail.lockPeriod} days` },
-            { label: "Unstakable date", value: new Date(nftDetail.unstakableDate).toLocaleDateString() },
+            { label: "Principal", value: `${nftDetail[0].principal} TON` },
+            { label: "Nominator Pool", value: nftDetail[0].nominator },
+            { label: "Leveraged", value: `${nftDetail[0].leverage}x` },
+            { label: "Lockup period", value: `${nftDetail[0].lockPeriod} days` },
+            { label: "Unstakable date", value: new Date(nftDetail[0].unstakableDate).toLocaleDateString() },
             { label: "Protocol Fees", value: "2%" },
-            { label: "Total Amount", value: `${nftDetail.totalAmount} TON` },
+            { label: "Total Amount", value: `${nftDetail[0].totalAmount} TON` },
           ],
         },
       ]);
@@ -176,10 +176,10 @@ const BorrowDetails = () => {
           <BorrowRateBox>
             <BorrowRateBoxHeader>
               <BorrowRateBoxHeaderLeft>Borrow</BorrowRateBoxHeaderLeft>
-              <BorrowRateBoxHeaderRight>1NXT ={/*data[0].nxtonToTonRate*/}TON</BorrowRateBoxHeaderRight>
+              <BorrowRateBoxHeaderRight>1NXT ={data[0].nxtonToTonRate}TON</BorrowRateBoxHeaderRight>
             </BorrowRateBoxHeader>
             <BorrowRateBoxDivider />
-            <BorrowRateBoxBottom>{nftDetail.principal /* *data[0].tonToNextonRate*/} nxTON</BorrowRateBoxBottom>
+            <BorrowRateBoxBottom>{nftDetail[0].principal*data[0].tonToNextonRate} nxTON</BorrowRateBoxBottom>
           </BorrowRateBox>
 
           {/* @deprecated */}

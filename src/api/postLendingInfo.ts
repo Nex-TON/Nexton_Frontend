@@ -1,6 +1,6 @@
 import { client } from "./axios";
 
-interface postLendingInfoProps{
+export interface postLendingInfoProps{
     telegramId:number,
     address:string,
     amount:string,
@@ -10,8 +10,8 @@ interface postLendingInfoProps{
 
 export const postLendingInfo=async(lendingInfo:postLendingInfoProps)=>{
     try{
-        const data=await client.post("data/lending",lendingInfo);
-        return data.status;
+        const response=await client.post("data/lending",lendingInfo);
+        return response.status;
     }catch(e){
         console.error(e)
     }

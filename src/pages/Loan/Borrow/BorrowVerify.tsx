@@ -14,6 +14,9 @@ import { toNano,Address } from "@ton/core";
 import { useLoanDetail } from "@/hooks/api/loan/useLoanDetail.tsx";
 
 import { BorrowHeaderBox, BorrowHeaderBoxTitle, BorrowWrapper } from "./BorrowDetails.styled.tsx";
+import { postLendingInfo,postLendingInfoProps } from "@/api/postLendingInfo.ts";
+import { useRecoilValue } from "recoil";
+import { telegramAtom } from "@/lib/atom/telegram.ts";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -41,6 +44,8 @@ const BorrowVerify = () => {
   const { address } = useTonConnect();
   const {borrowAmount}=location.state||{};
   const {data:loanInfo,isLoading,error}=useLoanDetail(Number(id));
+  const telegramId=useRecoilValue(telegramAtom);
+
 
 
   console.log(`borrow amount:${borrowAmount}`)//for the test
@@ -73,6 +78,14 @@ const BorrowVerify = () => {
 
   const handleBorrowConfirm = useCallback(async () => {
     try {
+      const newLending: postLendingInfoProps = {
+        telegramId: Number(telegramId),
+        address:address,
+    amount:borrowAmount,
+    nftId:Number(id),
+
+      };
+
       const data = () => {
         return {
           queryId: BigInt(Date.now()),
@@ -85,6 +98,8 @@ const BorrowVerify = () => {
 
       await sendWithData(data(), toNano("0.05"));
       //TODO: send server message
+      await postLendingInfo(newLending);
+      
     } catch (error) {
       return;
     } finally {

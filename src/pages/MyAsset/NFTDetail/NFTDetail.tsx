@@ -57,18 +57,18 @@ const NFTDetail = () => {
   useEffect(() => {
     if (nftDetail) {
       setNftInfo(nftDetail);
-      setIsNftExpired(getNftState(nftDetail.unstakableDate) === "expired");
+      setIsNftExpired(getNftState(nftDetail[0].unstakableDate) === "expired");
 
       setStakingInfo([
         {
           items: [
-            { label: "Principal", value: `${nftDetail.principal} TON` },
-            { label: "Nominator Pool", value: nftDetail.nominator },
-            { label: "Leveraged", value: `${nftDetail.leverage}x` },
-            { label: "Lock-up Period", value: `${nftDetail.lockPeriod} days remaining` },
-            { label: "Unstakable date", value: new Date(nftDetail.unstakableDate).toLocaleDateString() },
+            { label: "Principal", value: `${nftDetail[0].principal} TON` },
+            { label: "Nominator Pool", value: nftDetail[0].nominator },
+            { label: "Leveraged", value: `${nftDetail[0].leverage}x` },
+            { label: "Lock-up Period", value: `${nftDetail[0].lockPeriod} days remaining` },
+            { label: "Unstakable date", value: new Date(nftDetail[0].unstakableDate).toLocaleDateString() },
             { label: "Protocol Fees", value: "2%" },
-            { label: "Total Amount", value: `${numberCutter(nftDetail.totalAmount)} TON` },
+            { label: "Total Amount", value: `${numberCutter(nftDetail[0].totalAmount)} TON` },
           ],
         },
       ]);
@@ -79,17 +79,17 @@ const NFTDetail = () => {
     <>
       <NFTDetailWrapper>
         <NFTDetailCard>
-          {nftInfo?.unstakableDate && (
+          {nftInfo[0]?.unstakableDate && (
             <NFTDetailCardImageBox>
-              {getNftState(nftInfo.unstakableDate) === "ongoing" ? (
+              {getNftState(nftInfo[0].unstakableDate) === "ongoing" ? (
                 <img src={OngoingNFTLarge} alt="ongoing_nft" />
-              ) : getNftState(nftInfo.unstakableDate) === "forthcoming" ? (
+              ) : getNftState(nftInfo[0].unstakableDate) === "forthcoming" ? (
                 <img src={ForthComingNFTLarge} alt="forthcoming_nft" />
               ) : (
                 <img src={ExpiredNFTLarge} alt="expired_nft" />
               )}
 
-              <span>{getDDayText(nftInfo.unstakableDate)}</span>
+              <span>{getDDayText(nftInfo[0].unstakableDate)}</span>
             </NFTDetailCardImageBox>
           )}
 
@@ -113,7 +113,7 @@ const NFTDetail = () => {
         <NFTDetailContentBox>
           <NFTDetailItem>
             <NFTDetailItemCaption>NFT ID</NFTDetailItemCaption>
-            <NFTDetailItemText>{nftInfo?.nftId}</NFTDetailItemText>
+            <NFTDetailItemText>{nftInfo[0]?.nftId}</NFTDetailItemText>
           </NFTDetailItem>
 
           <NFTDetailItemBox>
