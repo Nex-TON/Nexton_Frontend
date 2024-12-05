@@ -1,12 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { css, styled } from "styled-components";
+import { useMemo } from "react";
 
 import NFTExpired from "@/assets/image/NFT_NEW/NFT_Expired.png";
 import NFTOngoing from "@/assets/image/NFT_NEW/NFT_Ongoing.png";
 import { imageSizeAtom } from "../../../lib/atom/imageSize";
 import { nftInfo } from "../../../types/Nft";
 import { getDDayText, getNftState } from "@/utils/getNftState";
+import { useCoinPrice } from "@/hooks/api/useCoinPrice";
+import { limitDecimals } from "@/utils/limitDecimals";
 
 interface NftItemProps {
   item: nftInfo;
@@ -14,12 +17,19 @@ interface NftItemProps {
 
 const NftItem = (props: NftItemProps) => {
   const { item } = props;
-
   const { nftId, unstakableDate, principal } = item;
-
   const [, setImageSize] = useRecoilState(imageSizeAtom);
-
+  const { data: coinPrice } = useCoinPrice("TON", "USD");
   const navigate = useNavigate();
+
+  const convertAmount = useMemo(() => {
+    return (amount: string | number) => {
+      if (coinPrice && amount) {
+        return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
+      }
+      return "$0.00";
+    };
+  }, [coinPrice]);
 
   const handleMouseMove = (event: React.MouseEvent<HTMLImageElement>) => {
     const rect = (event.target as HTMLImageElement).getBoundingClientRect();
@@ -69,6 +79,7 @@ const NftItem = (props: NftItemProps) => {
         </TopInfo>
         <BottomInfo>
           <p>{new Date(unstakableDate).toLocaleDateString()}</p>
+          <p>{convertAmount(principal)}</p>
         </BottomInfo>
       </NFTBottomINfoWrapper>
     </NFTItemWrapper>

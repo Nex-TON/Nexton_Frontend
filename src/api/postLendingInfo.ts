@@ -2,8 +2,10 @@ import { client } from "./axios";
 
 interface postLendingInfoProps{
     telegramId:number,
-    nftId:number,
     address:string,
+    amount:string,
+    nftId:number,
+
 }
 
 export const postLendingInfo=async(lendingInfo:postLendingInfoProps)=>{
