@@ -117,10 +117,6 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
             <DetailInfoItemText>{numberCutter(getProtocolFee(String(amount), leverage))}%</DetailInfoItemText>
           </DetailInfoItem>
           <DetailInfoItem>
-            <DetailInfoItemText>Staking APR</DetailInfoItemText>
-            <DetailInfoItemText>5%</DetailInfoItemText>
-          </DetailInfoItem>
-          <DetailInfoItem>
             <DetailInfoItemText>Total Amount</DetailInfoItemText>
             <DetailInfoItemText>{numberCutter(amount)} TON</DetailInfoItemText>
           </DetailInfoItem>

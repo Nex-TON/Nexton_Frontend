@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import { Controller } from "react-hook-form";
 import { NumericFormat, NumericFormatProps } from "react-number-format";
 import styled from "styled-components";
-
 import IcError from "@/assets/icons/Stake/ic_error.svg";
 import { numberCutter } from "@/utils/numberCutter";
 
@@ -16,8 +15,8 @@ interface TokenInputProps extends NumericFormatProps {
   error?: string;
   disabled?: boolean;
   saveAs?: "floatValue" | "formattedValue";
+  disableMax?: boolean;
 }
-
 const TokenInput = ({
   name,
   setValue,
@@ -28,6 +27,7 @@ const TokenInput = ({
   error,
   disabled,
   saveAs = "formattedValue",
+  disableMax = false,
   ...props
 }: TokenInputProps) => {
   const [convertedValue, setConvertedValue] = useState<string>("$0.00");
