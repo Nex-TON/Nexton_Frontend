@@ -8,8 +8,8 @@ export interface IloanInfo{
 }
 
 export const useLoanDetail=(nftId:number)=>{
-    const swrKey=nftId?`/data/loanDetail?nftId==${nftId}`:null;
+    const swrKey=nftId?`/data/loanDetail?nftId=${nftId}`:null;
     
-    return useSWR<IloanInfo[]>(swrKey, nextonFetcher);
+    return useSWR<IloanInfo>(swrKey, nextonFetcher);
 
 }

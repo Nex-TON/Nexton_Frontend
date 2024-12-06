@@ -9,12 +9,11 @@ import IcExclude from "@/assets/icons/Loan/ic_exclude.svg";
 import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
 import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
 // import TokenInput from "@/components/stake/common/TokensInput.tsx";
-import { useCoinPrice } from "@/hooks/api/useCoinPrice.ts";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import useTonConnect from "@/hooks/contract/useTonConnect.ts";
 import { isDevMode } from "@/utils/isDevMode.ts";
-// import { limitDecimals } from "@/utils/limitDecimals.ts";
-import { useTokenRate } from "@/hooks/api/loan/useNxtonTonRate.tsx";
+import { limitDecimals } from "@/utils/limitDecimals.ts";
+import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 
 import {
   BorrowRateBox,
@@ -29,18 +28,16 @@ import {
   BorrowWrapper,
   ExcludeBox,
 } from "./BorrowDetails.styled.tsx";
-import NFTDetail from "@/pages/MyAsset/NFTDetail/NFTDetail.tsx";
 
 const tele = (window as any).Telegram.WebApp;
 
 const BorrowDetails = () => {
-  const { connected, balance } = useTonConnect();
   const navigate = useNavigate();
   const [alwaysVisibleInfo, setAlwaysVisibleInfo] = useState<any>([]);
   const [stakingInfo, setStakingInfo] = useState<any>([{ items: [] }]);
   const { id } = useParams();
   const { nftDetail } = useNFTDetail(Number(id));
-  const { data } = useTokenRate();
+  const {data:tokenRate,isLoading,error } = useTokenRate();
   // const { data: coinPrice } = useCoinPrice("TON", "USD");
 
   // const schema = z.object({
@@ -101,7 +98,7 @@ const BorrowDetails = () => {
   useEffect(() => {
     if (nftDetail) {
       setAlwaysVisibleInfo([
-        { label: "NFT ID", value: nftDetail[0].nftId },
+        { label: "NFT ID", value: `${nftDetail[0].nftId}` },
         { label: "Network", value: "TON" },
         { label: "LTV", value: "95.0%" },
       ]);
@@ -116,7 +113,7 @@ const BorrowDetails = () => {
             { label: "Lockup period", value: `${nftDetail[0].lockPeriod} days` },
             { label: "Unstakable date", value: new Date(nftDetail[0].unstakableDate).toLocaleDateString() },
             { label: "Protocol Fees", value: "2%" },
-            { label: "Total Amount", value: `${nftDetail[0].totalAmount} TON` },
+            { label: "Total Amount", value: `${limitDecimals(nftDetail[0].totalAmount,3)} TON` },
           ],
         },
       ]);
@@ -140,7 +137,7 @@ const BorrowDetails = () => {
   //     state: { borrowAmount: data.borrowAmount },
   //   })
   // };
-  const borrowAmount = 1; //for the test
+  const borrowAmount =1 //nftDetail[0].principal*tokenRate.tonToNextonRate; //for the test
 
   const handleSubmit = () => {
     console.log(`borrow amount:${borrowAmount}`);
@@ -176,10 +173,11 @@ const BorrowDetails = () => {
           <BorrowRateBox>
             <BorrowRateBoxHeader>
               <BorrowRateBoxHeaderLeft>Borrow</BorrowRateBoxHeaderLeft>
-              <BorrowRateBoxHeaderRight>1NXT ={data[0].nxtonToTonRate}TON</BorrowRateBoxHeaderRight>
+              <BorrowRateBoxHeaderRight>1NXT ={limitDecimals(tokenRate?.nxtonToTonRate,3)}TON</BorrowRateBoxHeaderRight>
             </BorrowRateBoxHeader>
             <BorrowRateBoxDivider />
-            <BorrowRateBoxBottom>{nftDetail[0].principal*data[0].tonToNextonRate} nxTON</BorrowRateBoxBottom>
+            <BorrowRateBoxBottom>{limitDecimals(tokenRate?.tonToNextonRate,3)} nxTON</BorrowRateBoxBottom>
+            {/* <BorrowRateBoxBottom>{nftDetail[0].principal} nxTON</BorrowRateBoxBottom> */}
           </BorrowRateBox>
 
           {/* @deprecated */}
