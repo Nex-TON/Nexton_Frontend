@@ -98,8 +98,7 @@ const NFTDetail = () => {
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
             $disabled={!checkLendingAvailable?.succes}
-            
-            onClick={() => {checkLendingAvailable? navigate(`/loan/${id}/borrow/details`):""}}
+            onClick={() => {checkLendingAvailable?.succes? navigate(`/loan/${id}/borrow/details`):""}}
           >
             Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
           </NFTDetailCardButton>
