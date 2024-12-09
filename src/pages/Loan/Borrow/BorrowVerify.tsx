@@ -41,6 +41,7 @@ const BorrowVerify = () => {
   const { nftDetail } = useNFTDetail(Number(id));
   const setError = useSetRecoilState(globalError);
   const [isLoading, setIsLoading] = useState(false);
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   const stakingInfoItems = [
     {
@@ -93,6 +94,7 @@ const BorrowVerify = () => {
       };
 
       await sendWithData(data(), toNano("0.05"));
+      await delay(50000);
       //TODO: send server message
       await postLendingInfo({
         telegramId: Number(telegramId),
