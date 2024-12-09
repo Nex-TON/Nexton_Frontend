@@ -133,7 +133,7 @@ const BorrowVerify = () => {
         )}
       </BorrowWrapper>
 
-      {false && <TransactionConfirmModal />}
+      {isLoading && <TransactionConfirmModal />}
       {modal.type === "confirmBorrow" && modal.toggled && (
         <ConfirmBorrowModal toggleModal={toggleModal} onConfirm={handleBorrowConfirm} />
       )}
