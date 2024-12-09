@@ -27,6 +27,7 @@ import {
   NFTDetailWrapper,
 } from "./NFTDetail.styled";
 import useTonConnect from "@/hooks/contract/useTonConnect";
+import { address } from "@ton/core";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -97,8 +98,8 @@ const NFTDetail = () => {
 
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
-            $disabled={!checkLendingAvailable?.succes}
-            onClick={() => {checkLendingAvailable?.succes? navigate(`/loan/${id}/borrow/details`):""}}
+            $disabled={!checkLendingAvailable?.success}
+            onClick={() => {checkLendingAvailable?.success? navigate(`/loan/${id}/borrow/details`):""}}
           >
             Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
           </NFTDetailCardButton>

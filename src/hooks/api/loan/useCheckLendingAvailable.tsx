@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { boolean } from "zod";
 
 interface ICheckLendingAvailable{
-    succes:boolean;
+    success:boolean;
     message:string;
 }
 
