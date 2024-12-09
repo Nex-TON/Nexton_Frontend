@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 
 import IcAlert from "@/assets/icons/Loan/ic_alert.svg";
 import RisksList from "@/components/loan/common/RisksList";
+import Header from "@/components/common/Header";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -26,9 +27,9 @@ const RiskDisclosure = () => {
 
   return (
     <RiskDisclosureWrapper>
-      <RiskDisclosureTitleBox>
-        <h1>Loan Protocol Risk Disclosure</h1>
-      </RiskDisclosureTitleBox>
+        <RiskDisclosureHeaderTitle>
+          <h1>Loan Protocol Risk Disclosure</h1>
+        </RiskDisclosureHeaderTitle>
       <RisksList />
     </RiskDisclosureWrapper>
   );
@@ -36,21 +37,14 @@ const RiskDisclosure = () => {
 
 export default RiskDisclosure;
 
-const RiskDisclosureWrapper = styled.div`
-  position: relative;
+const RiskDisclosureHeaderTitle = styled.div`
   display: flex;
-  flex-direction: column;
-
-  width: 100%;
-  height: auto;
-
-  padding: 1.3rem 1.5rem 19.4rem 1.5rem;
-`;
-
-const RiskDisclosureTitleBox = styled.div`
-  width: 100%;
   display: flex;
-  align-items: start;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  padding: 1.2rem 0;
+
   h1 {
     color: var(--Neutral-Neutural-30, #46494a);
     font-family: Montserrat;
@@ -61,4 +55,14 @@ const RiskDisclosureTitleBox = styled.div`
     letter-spacing: -0.44px;
   }
   margin-bottom: 2.7rem;
+
+`;
+const RiskDisclosureWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 2.5rem 1.5rem;
 `;

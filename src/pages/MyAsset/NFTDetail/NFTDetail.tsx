@@ -97,7 +97,7 @@ const NFTDetail = () => {
 
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
-            $disabled={checkLendingAvailable?.succes}
+            $disabled={!checkLendingAvailable?.succes}
 
             onClick={() => navigate(`/loan/${id}/borrow/details`)}
           >

@@ -2,7 +2,7 @@ import { nextonFetcher } from "@/api/axios";
 import { borrowNftInfo } from "@/types/ReapyNftList";
 import useSWR from "swr";
 
-const useRepayNftDetail=(nftId:number)=>{
+export const useRepayNftDetail=(nftId:number)=>{
     const {data,isLoading,error}=useSWR<borrowNftInfo[]>(
         `/data/getLendingInfoByNftId?nftId=${nftId}`,
         nextonFetcher,

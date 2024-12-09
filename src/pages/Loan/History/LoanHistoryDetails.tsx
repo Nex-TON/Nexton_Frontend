@@ -1,11 +1,8 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { styled } from "styled-components";
-
 import StakingInfo from "@/components/loan/common/StakingInfo";
-
 import { LoanHeaderBox, LoanHeaderBoxTitle, LoanWrapper } from "../Loan.styled";
-
 const tele = (window as any).Telegram.WebApp;
 
 const alwaysVisibleItems = [
@@ -40,6 +37,7 @@ const stakingInfoItems = [
 // ! Data is currently mocked
 const LoanHistoryDetails = () => {
   const navigate = useNavigate();
+  const id=useParams();
 
   useEffect(() => {
     if (tele) {
@@ -67,7 +65,7 @@ const LoanHistoryDetails = () => {
         <StakingInfo
           isExpandable={true}
           theme="white"
-          title="Loan 01"
+          title={String(id)}
           titleButton={<StakingInfoTitleButton $theme="paid">Paid off</StakingInfoTitleButton>}
           alwaysVisibleItems={alwaysVisibleItems}
           stakingInfoItems={stakingInfoItems}
