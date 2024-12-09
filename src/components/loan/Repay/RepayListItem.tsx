@@ -18,18 +18,18 @@ import {
   RepayListTopLeftText,
 } from "./RepayListItem.styled";
 
-const RepayListItem = () => {
+const RepayListItem = ({nftId,principal,interestRate,ltv}) => {
   const navigate = useNavigate();
 
   return (
     <RepayListItemWrapper onClick={() => navigate("/loan/1/repay/details")}>
       <RepayListTop>
         <RepayListTopLeft>
-          <RepayListTopLeftIcon>1</RepayListTopLeftIcon>
+          <RepayListTopLeftIcon>{nftId}</RepayListTopLeftIcon>
           <RepayListTopLeftText>
             <Caption3>Borrowed</Caption3>
             <p>
-              <span>000.00 </span>nxTON
+              <span>{principal} </span>nxTON
             </p>
           </RepayListTopLeftText>
         </RepayListTopLeft>
@@ -39,17 +39,17 @@ const RepayListItem = () => {
       <RepayListBottom>
         <RepayListBottomTextBottom>
           <RepayListBottomTextBottomLeft>Principal</RepayListBottomTextBottomLeft>
-          <RepayListBottomTextBottomRight>{numberCutter(123.42)} nxTON</RepayListBottomTextBottomRight>
+          <RepayListBottomTextBottomRight>{numberCutter(principal)} nxTON</RepayListBottomTextBottomRight>
         </RepayListBottomTextBottom>
       <RepayListItemDivider />
         <RepayListBottomTextBottom>
           <RepayListBottomTextBottomLeft>Interest rate</RepayListBottomTextBottomLeft>
-          <RepayListBottomTextBottomRight>2%</RepayListBottomTextBottomRight>
+          <RepayListBottomTextBottomRight>{interestRate}%</RepayListBottomTextBottomRight>
         </RepayListBottomTextBottom>
       <RepayListItemDivider />
         <RepayListBottomTextBottom>
           <RepayListBottomTextBottomLeft>LTV</RepayListBottomTextBottomLeft>
-          <RepayListBottomTextBottomRight>95.0%</RepayListBottomTextBottomRight>
+          <RepayListBottomTextBottomRight>{ltv}%</RepayListBottomTextBottomRight>
         </RepayListBottomTextBottom>
       </RepayListBottom>
     </RepayListItemWrapper>

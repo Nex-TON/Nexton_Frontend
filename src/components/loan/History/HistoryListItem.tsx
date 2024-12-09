@@ -1,13 +1,11 @@
 import styled from "styled-components";
-
 import { useNavigate } from "react-router-dom";
-
 import { numberCutter } from "@/utils/numberCutter";
-
 import { Caption3 } from "../Borrow/BorrowListItem.styled";
-
 import IcPaid from "@/assets/icons/Loan/ic_paid_off.svg";
 import IcUnpaid from "@/assets/icons/Loan/ic_unpaid.svg";
+import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 import {
   RepayListBottomTextBottomRight,
@@ -17,15 +15,16 @@ import {
   RepayListItemDivider,
   RepayListItemWrapper,
   RepayListTop,
-  RepayListTopButton,
   RepayListTopLeft,
   RepayListTopLeftIcon,
   RepayListTopLeftText,
 } from "../Repay/RepayListItem.styled";
 
-const HistoryListItem = () => {
+const HistoryListItem = status => {
   const navigate = useNavigate();
+  const { address } = useTonConnect();
   const paid = true;
+  const { borrowList } = useRepayNftList(address);
 
   return (
     <HistoryListItemWrapper onClick={() => navigate("/loan/1/repay/details")}>
@@ -40,15 +39,17 @@ const HistoryListItem = () => {
           </HistoryListTopLeftText>
         </HistoryListTopLeft>
 
-        <HistoryListTopStatus onClick={() => navigate("")} paid={paid}>
-          <img src={paid? IcPaid : IcUnpaid}/>
+        <HistoryListTopStatus onClick={() => navigate("")} paid={status}>
+          <img src={paid ? IcPaid : IcUnpaid} />
           <p>{paid ? "Paid off" : "Unpaid"}</p>
         </HistoryListTopStatus>
       </HistoryListTop>
       <HistoryListBottom>
         <HistoryListBottomTextBottom>
           <HistoryListBottomTextBottomLeft>Principal</HistoryListBottomTextBottomLeft>
-          <HistoryListBottomTextBottomRight>{numberCutter(123.42)} nxTON</HistoryListBottomTextBottomRight>
+          <HistoryListBottomTextBottomRight>
+            {numberCutter(borrowList[0]?.principal)} nxTON
+          </HistoryListBottomTextBottomRight>
         </HistoryListBottomTextBottom>
         <HistoryListItemDivider />
         <HistoryListBottomTextBottom>

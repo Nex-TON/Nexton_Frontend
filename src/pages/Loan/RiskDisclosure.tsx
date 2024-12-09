@@ -27,12 +27,8 @@ const RiskDisclosure = () => {
   return (
     <RiskDisclosureWrapper>
       <RiskDisclosureTitleBox>
-        <span>
-          <img src={IcAlert} alt="alert_icon" />
-        </span>
         <h1>Loan Protocol Risk Disclosure</h1>
       </RiskDisclosureTitleBox>
-
       <RisksList />
     </RiskDisclosureWrapper>
   );
@@ -48,26 +44,21 @@ const RiskDisclosureWrapper = styled.div`
   width: 100%;
   height: auto;
 
-  padding: 2.9rem 1.5rem;
+  padding: 1.3rem 1.5rem 19.4rem 1.5rem;
 `;
 
 const RiskDisclosureTitleBox = styled.div`
-  width: 65%;
+  width: 100%;
   display: flex;
   align-items: start;
-
-  gap: 1.1rem;
-
   h1 {
-    color: #0f0f0f;
+    color: var(--Neutral-Neutural-30, #46494a);
     font-family: Montserrat;
-    font-size: 20px;
+    font-size: 22px;
     font-style: normal;
     font-weight: 600;
-    line-height: 34px;
+    line-height: 150%; /* 33px */
+    letter-spacing: -0.44px;
   }
-
-  span {
-    margin-top: 0.65rem;
-  }
+  margin-bottom: 2.7rem;
 `;

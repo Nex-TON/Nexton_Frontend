@@ -12,6 +12,7 @@ import { nftInfo } from "@/types/Nft";
 import { DDayChange } from "@/utils/dateChanger";
 import { getDDayText, getNftState } from "@/utils/getNftState";
 import { numberCutter } from "@/utils/numberCutter";
+import { useCheckLendingAvailable } from "@/hooks/api/loan/useCheckLendingAvailable";
 
 import {
   NFTDetailCard,
@@ -25,6 +26,7 @@ import {
   NFTDetailItemText,
   NFTDetailWrapper,
 } from "./NFTDetail.styled";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -38,7 +40,9 @@ const NFTDetail = () => {
   const [stakingInfo, setStakingInfo] = useState<any>([{ items: [] }]);
   const [isNftExpired, setIsNftExpired] = useState(false);
   const { id } = useParams();
+  const {address}=useTonConnect();
   const { nftDetail, isLoading } = useNFTDetail(Number(id));
+  const {data:checkLendingAvailable}=useCheckLendingAvailable(address,Number(id));
 
   useEffect(() => {
     if (tele) {
@@ -93,7 +97,8 @@ const NFTDetail = () => {
 
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
-            $disabled={false}
+            $disabled={checkLendingAvailable?.succes}
+
             onClick={() => navigate(`/loan/${id}/borrow/details`)}
           >
             Borrow nxTON <img src={IcTrendUp} alt="trend_up" />

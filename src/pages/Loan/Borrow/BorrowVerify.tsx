@@ -46,8 +46,8 @@ const BorrowVerify = () => {
     {
       items: [
         { label: "Borrowed nxTON", value: `${limitDecimals(loanInfo?.nxTonAmount, 3)} nxTON` },
-        { label: "Principal", value: `${limitDecimals(nftDetail[0].principal, 3)} TON` },
-        { label: "LTV", value: "95.0%" },
+        { label: "Principal", value: `${limitDecimals(loanInfo?.principal, 3)} TON` },
+        { label: "LTV", value: `${loanInfo?.loanToValue}%` },
       ],
     },
   ];

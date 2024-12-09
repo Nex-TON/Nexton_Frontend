@@ -9,6 +9,7 @@ import { ConfirmRepaymentModal } from "@/components/loan/Repay/ConfirmRepaymentM
 import { isDevMode } from "@/utils/isDevMode.ts";
 import * as Contract from "@/hooks/contract/repay";
 import { toNano } from "@ton/core";
+import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 
 import {
   RepaymentContentBox,
@@ -20,13 +21,7 @@ import {
   RepayRateBoxDivider,
   RepayRateBoxHeader,
 } from "./RepaymentDetails.styled";
-
-const alwaysVisibleItems = [
-  { label: "Borrowed nxTON", value: "000.00 nxTON" },
-  { label: "Principal", value: "00000 TON" },
-  { label: "LTV", value: "95.0%" },
-  { label: "Interest rate", value: "2.00%" },
-];
+import { limitDecimals } from "@/utils/limitDecimals";
 
 const stakingInfoItems = [
   {
@@ -64,6 +59,14 @@ const RepaymentDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { sendMessage, refresh, isLoading: contractLoading } = Contract.repay(id);
+  const {borrowList}=useRepayNftList(id);
+
+  const alwaysVisibleItems = [
+    { label: "Borrowed nxTON", value: `${limitDecimals(borrowList[0].repayAmount,3)} nxTON`},
+    { label: "Principal", value: `${borrowList[0].principal} TON` },
+    { label: "LTV", value: `${borrowList[0].loanToValue}%` },
+    { label: "Interest rate", value: `${borrowList[0].interestRate}%` },
+  ];
 
   const [modal, setModal] = useState<ModalState>({
     type: "confirmRepay",
@@ -146,7 +149,7 @@ const RepaymentDetails = () => {
           <RepayRateBox>
             <RepayRateBoxHeader>Amount to be repaid</RepayRateBoxHeader>
             <RepayRateBoxDivider />
-            <RepayRateBoxBottom>000.00 nxTON</RepayRateBoxBottom>
+            <RepayRateBoxBottom>{borrowList[0].repayAmount} nxTON</RepayRateBoxBottom>
           </RepayRateBox>
         </RepaymentContentBox>
 

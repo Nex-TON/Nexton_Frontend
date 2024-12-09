@@ -48,10 +48,8 @@ const BorrowRiskDisclosure = () => {
 
       <ProgressBar currentStep={2} />
 
-      <BorrowContentBox>
         <BorrowContentBoxTitle>Loan Protocol Risk Disclosure</BorrowContentBoxTitle>
         <RisksList />
-      </BorrowContentBox>
 
       {!isDevMode ? (
         <MainButton text="Next" onClick={handleNext} />
@@ -80,11 +78,12 @@ const BorrowContentBox = styled.div`
 `;
 
 const BorrowContentBoxTitle = styled.h2`
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Large};
   color: #303234;
 
   display: flex;
   width: 100%;
   justify-content: start;
   align-items: center;
+  margin-bottom: 1.7rem;
 `;

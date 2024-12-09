@@ -6,37 +6,24 @@ const RisksList = () => {
       <RiskDisclosureItem>
         <RiskDisclosureNumberBox>
           <RiskDisclosureNumber>1</RiskDisclosureNumber>
-          <RiskDisclosureNumberDivider />
         </RiskDisclosureNumberBox>
-
         <RiskDisclosureContent>
           <RiskDisclosureSubtitle>No Liquidation Risk Due to Collateral Ratio Changes</RiskDisclosureSubtitle>
           <RiskDisclosureText $lead>NFT Collateral</RiskDisclosureText>
-          <RiskDisclosureText>
-            Since $nxTON is issued using NFTs obtained by staking $TON as collateral, there is no risk of liquidation
-            due to changes in the value of the collateral.
-          </RiskDisclosureText>
+          <RiskDisclosureText>$nxTON is issued using NFTs obtained by staking $TON as collateral.</RiskDisclosureText>
         </RiskDisclosureContent>
       </RiskDisclosureItem>
 
       <RiskDisclosureItem>
         <RiskDisclosureNumberBox>
           <RiskDisclosureNumber>2</RiskDisclosureNumber>
-          <RiskDisclosureNumberDivider />
         </RiskDisclosureNumberBox>
 
         <RiskDisclosureContent>
-          <RiskDisclosureSubtitle>Automatic Liquidation in Case of Default</RiskDisclosureSubtitle>
-          <RiskDisclosureText $lead>Default</RiskDisclosureText>
+          <RiskDisclosureSubtitle>Actions in Case of Default Default</RiskDisclosureSubtitle>
           <RiskDisclosureText>
-            If the loan repayment schedule is not followed, the automatic liquidation process will start.
-          </RiskDisclosureText>
-          <br />
-          <RiskDisclosureText $lead $marginTop>
-            Additional Fees
-          </RiskDisclosureText>
-          <RiskDisclosureText>
-            Additional fees may be incurred during liquidation, which can increase the user's losses.
+            Although there is no specific repayment date, the loan must be repaid. Failure to do so may result in
+            additional actions being taken. However, automatic liquidation will not occur.
           </RiskDisclosureText>
         </RiskDisclosureContent>
       </RiskDisclosureItem>
@@ -44,15 +31,13 @@ const RisksList = () => {
       <RiskDisclosureItem>
         <RiskDisclosureNumberBox>
           <RiskDisclosureNumber>3</RiskDisclosureNumber>
-          <RiskDisclosureNumberDivider />
         </RiskDisclosureNumberBox>
 
         <RiskDisclosureContent>
           <RiskDisclosureSubtitle>Interest Rate Information</RiskDisclosureSubtitle>
           <RiskDisclosureText $lead>Interest Rate</RiskDisclosureText>
           <RiskDisclosureText>
-            An annual interest rate of 2% applies. In addition to the loan principal, interest costs must also be
-            repaid.
+            The current annual interest rate is 0%, but this may change in the future.
           </RiskDisclosureText>
         </RiskDisclosureContent>
       </RiskDisclosureItem>
@@ -93,20 +78,24 @@ const RiskDisclosureItemBox = styled.div`
   align-items: center;
 
   width: 100%;
-  margin-top: 3.9rem;
 `;
 
 const RiskDisclosureItem = styled.div`
   display: flex;
   margin-bottom: 1rem;
 
-  padding: 0 1.9rem 0 0.8rem;
+  padding: 2rem 3.1rem 2.4rem 2rem;
+  border-radius: 20px;
+  background: var(--Neutral-Neutural-100, #fff);
+
+  /* drop shadow_type 4 */
+  box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
 `;
 
 const RiskDisclosureNumberBox = styled.div<{ $last?: boolean }>`
   display: flex;
   flex-direction: column;
-  justify-content: ${({ $last }) => ($last ? "start" : "center")};
+  justify-content: start;
   align-items: center;
 
   margin-right: 0.8rem;
@@ -129,18 +118,8 @@ const RiskDisclosureNumber = styled.div`
   color: #fff;
 `;
 
-const RiskDisclosureNumberDivider = styled.div`
-  width: 1px;
-  height: 100%;
-
-  margin-top: 0.2rem;
-
-  border: 1px dashed #f1f4f4;
-`;
-
 const RiskDisclosureContent = styled.div`
   flex: 1;
-  margin-bottom: 4rem;
 `;
 
 const RiskDisclosureSubtitle = styled.h2`

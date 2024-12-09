@@ -9,6 +9,7 @@ import {
 
 import RepayListItem from "./RepayListItem";
 import { borrowNftInfo } from "@/types/ReapyNftList";
+import useBorrowNftListFilter from "@/pages/Loan/hook/useBorrowNftListFilter";
 
 // const _RepaysMock = [
 //   {
@@ -30,14 +31,15 @@ import { borrowNftInfo } from "@/types/ReapyNftList";
 
 // ! Data is currently mocked
 const RepayList = ({borrowList}:{borrowList:borrowNftInfo[]}) => {
+  const {handlePrintBorrowListFilter}=useBorrowNftListFilter();
   return (
     <BorrowListWrapper>
-      {borrowList && borrowList.length > 0 ? (
+      {handlePrintBorrowListFilter()?.filter(item=>item.status==1).length>0? (
         <BorrowListItemBox>
-          {borrowList
+          {handlePrintBorrowListFilter()
             .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
             .map(item => (
-              <RepayListItem />
+              <RepayListItem nftId={item.nftId} principal={item.principal} interestRate={item.interestRate} ltv={item.loanToValue} />
             ))}
         </BorrowListItemBox>
       ) : (

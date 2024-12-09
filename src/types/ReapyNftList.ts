@@ -8,4 +8,5 @@ export interface borrowNftInfo{
     interestRate:number;// 이자율
     loanToValue:number;// LTV
     timeStamp:string;// 대출 날짜
+    status:number;// 대출 상태, 0은 unpaid 1은 paid off
 }
