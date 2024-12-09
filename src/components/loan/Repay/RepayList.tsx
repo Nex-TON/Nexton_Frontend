@@ -39,7 +39,7 @@ const RepayList = ({borrowList}:{borrowList:borrowNftInfo[]}) => {
           {handlePrintBorrowListFilter()
             .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
             .map(item => (
-              <RepayListItem nftId={Number(item.nftId)} principal={item.principal} interestRate={item.interestRate} ltv={item.loanToValue} />
+              <RepayListItem loanId={item.loanId} nftId={Number(item.nftId)} principal={item.principal} interestRate={item.interestRate} ltv={item.loanToValue} />
             ))}
         </BorrowListItemBox>
       ) : (

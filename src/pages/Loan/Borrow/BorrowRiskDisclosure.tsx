@@ -29,7 +29,7 @@ const BorrowRiskDisclosure = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/loan/1/borrow/details");
+        navigate(`/loan/${id}/borrow/details`);
       });
     }
 

@@ -36,7 +36,7 @@ const BorrowVerify = () => {
   const { sendWithData } = Contract.transferNft(id);
   const { address } = useTonConnect();
   const { borrowAmount } = location.state || {};
-  const { data: loanInfo } = useLoanDetail(Number(id));
+  const { data: loanInfo } = useLoanDetail(Number(id),address,"pre");
   const telegramId = useRecoilValue(telegramAtom);
   const { nftDetail } = useNFTDetail(Number(id));
   const setError = useSetRecoilState(globalError);
@@ -69,7 +69,7 @@ const BorrowVerify = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/loan/1/borrow/risk-disclosure");
+        navigate(`/loan/${id}/borrow/risk-disclosure`);
       });
     }
 
@@ -121,7 +121,7 @@ const BorrowVerify = () => {
         <ProgressBar currentStep={3} />
 
         <div style={{ marginTop: "2rem" }}>
-          <StakingInfo isExpandable={false} theme="white" title="Loan 01" stakingInfoItems={stakingInfoItems} />
+          <StakingInfo isExpandable={false} theme="white" title={`Loan ${loanInfo?.loanId}`} stakingInfoItems={stakingInfoItems} />
         </div>
 
         {!isDevMode ? (

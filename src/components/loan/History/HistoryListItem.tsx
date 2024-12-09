@@ -19,47 +19,53 @@ import {
   RepayListTopLeftIcon,
   RepayListTopLeftText,
 } from "../Repay/RepayListItem.styled";
+import { limitDecimals } from "@/utils/limitDecimals";
 
-const HistoryListItem = status => {
+interface HistoryListItemProps {
+  status: number;
+  principal: number;
+  interestRate: number;
+  ltv: number;
+  loanId: number;
+  nftId: number;
+}
+
+const HistoryListItem: React.FC<HistoryListItemProps> = ({ status, principal, interestRate, ltv, loanId, nftId }) => {
   const navigate = useNavigate();
   const { address } = useTonConnect();
-  const paid = true;
-  const { borrowList } = useRepayNftList(address);
 
   return (
-    <HistoryListItemWrapper onClick={() => navigate("/loan/1/repay/details")}>
+    <HistoryListItemWrapper onClick={() => navigate(`/loan/${nftId}/repay/details`)}>
       <HistoryListTop>
         <HistoryListTopLeft>
-          <HistoryListTopLeftIcon>1</HistoryListTopLeftIcon>
+          <HistoryListTopLeftIcon>{loanId}</HistoryListTopLeftIcon>
           <HistoryListTopLeftText>
             <Caption3>Borrowed</Caption3>
             <p>
-              <span>000.00 </span>nxTON
+              <span>{limitDecimals(principal, 3)} </span>nxTON
             </p>
           </HistoryListTopLeftText>
         </HistoryListTopLeft>
-
-        <HistoryListTopStatus onClick={() => navigate("")} paid={status}>
-          <img src={paid ? IcPaid : IcUnpaid} />
-          <p>{paid ? "Paid off" : "Unpaid"}</p>
+        {/* paid==0 unpaid 1은 paid off */}
+        <HistoryListTopStatus onClick={() => navigate("")} paid={status == 1 ? true : false}>
+          <img src={status == 1 ? IcPaid : IcUnpaid} />
+          <p>{status == 1 ? "Paid off" : "Unpaid"}</p>
         </HistoryListTopStatus>
       </HistoryListTop>
       <HistoryListBottom>
         <HistoryListBottomTextBottom>
           <HistoryListBottomTextBottomLeft>Principal</HistoryListBottomTextBottomLeft>
-          <HistoryListBottomTextBottomRight>
-            {numberCutter(borrowList[0]?.principal)} nxTON
-          </HistoryListBottomTextBottomRight>
+          <HistoryListBottomTextBottomRight>{numberCutter(principal)} nxTON</HistoryListBottomTextBottomRight>
         </HistoryListBottomTextBottom>
         <HistoryListItemDivider />
         <HistoryListBottomTextBottom>
           <HistoryListBottomTextBottomLeft>Interest rate</HistoryListBottomTextBottomLeft>
-          <HistoryListBottomTextBottomRight>2%</HistoryListBottomTextBottomRight>
+          <HistoryListBottomTextBottomRight>{interestRate}%</HistoryListBottomTextBottomRight>
         </HistoryListBottomTextBottom>
         <HistoryListItemDivider />
         <HistoryListBottomTextBottom>
           <HistoryListBottomTextBottomLeft>LTV</HistoryListBottomTextBottomLeft>
-          <HistoryListBottomTextBottomRight>95.0%</HistoryListBottomTextBottomRight>
+          <HistoryListBottomTextBottomRight>{ltv}%</HistoryListBottomTextBottomRight>
         </HistoryListBottomTextBottom>
       </HistoryListBottom>
     </HistoryListItemWrapper>

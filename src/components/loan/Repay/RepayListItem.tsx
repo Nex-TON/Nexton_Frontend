@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
 import { numberCutter } from "@/utils/numberCutter";
-
 import { Caption3 } from "../Borrow/BorrowListItem.styled";
 
 import {
@@ -18,14 +16,14 @@ import {
   RepayListTopLeftText,
 } from "./RepayListItem.styled";
 
-const RepayListItem = ({nftId,principal,interestRate,ltv}) => {
+const RepayListItem = ({loanId,nftId,principal,interestRate,ltv}) => {
   const navigate = useNavigate();
 
   return (
-    <RepayListItemWrapper onClick={() => navigate("/loan/1/repay/details")}>
+    <RepayListItemWrapper onClick={() => navigate(`/loan/${nftId}/repay/details`)}>
       <RepayListTop>
         <RepayListTopLeft>
-          <RepayListTopLeftIcon>{nftId}</RepayListTopLeftIcon>
+          <RepayListTopLeftIcon>{loanId}</RepayListTopLeftIcon>
           <RepayListTopLeftText>
             <Caption3>Borrowed</Caption3>
             <p>
@@ -34,7 +32,7 @@ const RepayListItem = ({nftId,principal,interestRate,ltv}) => {
           </RepayListTopLeftText>
         </RepayListTopLeft>
 
-        <RepayListTopButton onClick={() => navigate("/loan/1/repay/details")}>Repayment</RepayListTopButton>
+        <RepayListTopButton onClick={() => navigate(`/loan/${nftId}/repay/details`)}>Repayment</RepayListTopButton>
       </RepayListTop>
       <RepayListBottom>
         <RepayListBottomTextBottom>

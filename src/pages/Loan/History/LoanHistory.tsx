@@ -68,7 +68,7 @@ const LoanHistory = () => {
             {borrowList
               .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))
               .map(item => (
-                <HistoryListItem status={item.status}/>
+                <HistoryListItem status={item.status} principal={item.principal} interestRate={item.interestRate} ltv={item.loanToValue} loanId={item.loanId} nftId={item.nftId}/>
               ))}
           </BorrowListItemBox>
         ) : (

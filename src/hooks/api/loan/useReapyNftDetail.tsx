@@ -3,7 +3,7 @@ import { borrowNftInfo } from "@/types/ReapyNftList";
 import useSWR from "swr";
 
 export const useRepayNftDetail=(nftId:number)=>{
-    const {data,isLoading,error}=useSWR<borrowNftInfo[]>(
+    const {data,isLoading,error}=useSWR<borrowNftInfo>(
         `/data/getLendingInfoByNftId?nftId=${nftId}`,
         nextonFetcher,
         {

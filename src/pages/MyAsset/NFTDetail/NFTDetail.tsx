@@ -98,8 +98,8 @@ const NFTDetail = () => {
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
             $disabled={!checkLendingAvailable?.succes}
-
-            onClick={() => navigate(`/loan/${id}/borrow/details`)}
+            
+            onClick={() => {checkLendingAvailable? navigate(`/loan/${id}/borrow/details`):""}}
           >
             Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
           </NFTDetailCardButton>
@@ -129,8 +129,8 @@ const NFTDetail = () => {
               <NFTDetailItemText>95%</NFTDetailItemText>
             </NFTDetailItem>
           </NFTDetailItemBox>
-
-          <StakingInfo isExpandable={true} theme="white" title="Staking info" stakingInfoItems={stakingInfo} />
+          {/* status로 임의의 값 넣어줌 */}
+          <StakingInfo isExpandable={true} theme="white" title="Staking info" stakingInfoItems={stakingInfo}/> 
         </NFTDetailContentBox>
       </NFTDetailWrapper>
     </>

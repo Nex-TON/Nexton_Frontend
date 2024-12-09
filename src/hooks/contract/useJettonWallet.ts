@@ -71,7 +71,7 @@ export { useJettonWallet };
 
 function mapTokenMasterAddress(token) {
   switch (token) {
-    case "NXTON":
+    case "nxTON":
       return Address.parse(import.meta.env.VITE_NXTON_MASTER);
   }
   return null;
