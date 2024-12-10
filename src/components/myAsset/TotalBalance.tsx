@@ -13,10 +13,22 @@ export const TotalBalance = () => {
   const { address, balance, refreshTonData } = useTonConnect();
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const { nftList, isLoading} = useStakeInfo(address);
-
+  const { nftList, isLoading } = useStakeInfo(address);
 
   const totalStaked = useMemo(() => {
+    return tokenSort => {
+      return (
+        nftList?.reduce((acc, nft) => {
+          if (nft.tokenSort === `${tokenSort}`) {
+            return acc + nft.principal;
+          }
+          return acc;
+        }, 0) || 0
+      );
+    };
+  }, [nftList]);
+
+  const totalStakedNxTon = useMemo(() => {
     return nftList?.reduce((acc, nft) => acc + nft.principal, 0) || 0;
   }, [nftList]);
 
@@ -67,12 +79,12 @@ export const TotalBalance = () => {
         <ValueWrapper>
           <SideText>Staked</SideText>
           <Balance>
-          {isLoading ? (
+            {isLoading ? (
               <Balance>-.---</Balance>
             ) : (
               <>
                 <Balance>
-                  <p>{totalStaked === 0 || totalStaked ? totalStaked?.toFixed(3) : "0.000"}</p>
+                  <p>{totalStaked("TON") === 0 || totalStaked("TON") ? totalStaked("TON")?.toFixed(3) : "0.000"}</p>
                   <p>TON</p>
                 </Balance>
               </>
@@ -93,7 +105,9 @@ export const TotalBalance = () => {
             ) : (
               <>
                 <Balance>
-                  <p>{Number(nxTonBalance) === 0 || Number(nxTonBalance) ? Number(nxTonBalance)?.toFixed(3) : "0.000"}</p>
+                  <p>
+                    {Number(nxTonBalance) === 0 || Number(nxTonBalance) ? Number(nxTonBalance)?.toFixed(3) : "0.000"}
+                  </p>
                   <p>nxTON</p>
                 </Balance>
               </>
@@ -104,9 +118,10 @@ export const TotalBalance = () => {
         <ValueWrapper>
           <SideText>Staked</SideText>
           <Balance>
-                <Balance>
-                  <p>nxTON</p>
-                </Balance>
+            <Balance>
+              <p>{totalStaked("nxTON") === 0 || totalStaked("nxTON") ? totalStaked("nxTON")?.toFixed(3) : "0.000"}</p>
+              <p>nxTON</p>
+            </Balance>
           </Balance>
         </ValueWrapper>
       </TotalBalanceBoxWrapper>
@@ -143,10 +158,10 @@ const DivideLine = styled.div`
 `;
 
 const Balance = styled.div`
-justify-content: row;
-display: flex;
-gap: 0.7rem;
-align-items: center;
+  justify-content: row;
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
   p {
     color: #303234;
     ${({ theme }) => theme.fonts.Nexton_Body_Text_Large};

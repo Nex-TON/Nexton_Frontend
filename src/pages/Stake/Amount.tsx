@@ -20,6 +20,7 @@ import { numberCutter } from "@/utils/numberCutter";
 import TokenFilter from "@/components/stake/Filter/TokenFilter";
 import { TokenFilterModal } from "@/components/stake/Filter/TokenFilterModal";
 import NXTPointImg from "@/assets/image/NXTPoint.png";
+import useJettonWallet from "@/hooks/contract/useJettonWallet";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -30,6 +31,7 @@ const Amount = () => {
   const { data: coinPrice } = useCoinPrice("TON", "USD");
   const [modal, setModal] = useState(false);
   const [tokenSort, setTokenSort] = useState("TON");
+  const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
 
   const handleTokenSelect = selectedToken => {
     setTokenSort(selectedToken); // Update token selection
@@ -64,10 +66,11 @@ const Amount = () => {
   useEffect(() => {
     async function handleRefreshTonData() {
       await refreshTonData();
+      await refreshNxtonData();
     }
 
     handleRefreshTonData();
-  }, [refreshTonData]);
+  }, [refreshTonData,tokenSort,refreshNxtonData]);
 
   useEffect(() => {
     if (tele) {
@@ -118,7 +121,10 @@ const Amount = () => {
         <Step title="Step 1" />
         <Title title="Put stake amount" />
         <BalanceWrapper>
-          <BalanceText>Balance : {balance ? numberCutter(balance) : `-.--`}</BalanceText>
+          {tokenSort==="TON"?
+                    <BalanceText>Balance : {balance ? numberCutter(balance) : `-.--`}</BalanceText>:
+                    <BalanceText>Balance : {nxTonBalance ? numberCutter(Number(nxTonBalance)) : `-.--`}</BalanceText>
+          }
         </BalanceWrapper>
 
         <form style={{ width: "100%" }}>

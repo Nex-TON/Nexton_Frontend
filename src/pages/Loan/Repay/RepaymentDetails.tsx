@@ -121,7 +121,7 @@ const RepaymentDetails = () => {
       const data = () => {
         return {
           query_id: BigInt(Date.now()),
-          amount: 111, //Mock data. Replace with real data later.
+          amount:toNano(borrowDetail?.repayAmount),
           value: toNano("0.06"),
           forward_ton_amount: toNano("0.01"),
         };

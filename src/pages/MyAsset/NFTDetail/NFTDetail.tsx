@@ -67,13 +67,13 @@ const NFTDetail = () => {
       setStakingInfo([
         {
           items: [
-            { label: "Principal", value: `${nftDetail[0].principal} TON` },
+            { label: "Principal", value: `${nftDetail[0].principal} ${nftDetail[0].tokenSort}` },
             { label: "Nominator Pool", value: nftDetail[0].nominator },
             { label: "Leveraged", value: `${nftDetail[0].leverage}x` },
             { label: "Lock-up Period", value: `${nftDetail[0].lockPeriod} days remaining` },
             { label: "Unstakable date", value: new Date(nftDetail[0].unstakableDate).toLocaleDateString() },
             { label: "Protocol Fees", value: "2%" },
-            { label: "Total Amount", value: `${numberCutter(nftDetail[0].totalAmount)} TON` },
+            { label: "Total Amount", value: `${numberCutter(nftDetail[0].totalAmount)} ${nftDetail[0].tokenSort}` },
           ],
         },
       ]);
@@ -121,8 +121,8 @@ const NFTDetail = () => {
 
           <NFTDetailItemBox>
             <NFTDetailItem>
-              <NFTDetailItemCaption>Network</NFTDetailItemCaption>
-              <NFTDetailItemText>TON</NFTDetailItemText>
+              <NFTDetailItemCaption>Token</NFTDetailItemCaption>
+              <NFTDetailItemText>{nftInfo?.tokenSort}</NFTDetailItemText>
             </NFTDetailItem>
             <NFTDetailItem>
               <NFTDetailItemCaption>LTV</NFTDetailItemCaption>
