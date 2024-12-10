@@ -105,8 +105,10 @@ const BorrowVerify = () => {
       setModal({ type: "confirmBorrow", toggled: true });
     } catch (error) {
       setError(error);
+      setModal({ type: "borrow", toggled: false });
     } finally {
       setIsLoading(false);
+      setModal({ type: "borrow", toggled: false });
     }
   }, [sendWithData, setError]);
 
