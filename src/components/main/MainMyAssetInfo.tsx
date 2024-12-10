@@ -54,8 +54,6 @@ const MainMyAssetInfo = ({
   totalStaked,
   isLoading,
   isError,
-  toggleModal,
-  tokenSort,
 }: {
   tonConnectUI: any;
   connected: boolean;
@@ -65,8 +63,6 @@ const MainMyAssetInfo = ({
   totalStaked: number;
   isLoading: boolean;
   isError: boolean;
-  toggleModal: any; //임시
-  tokenSort: string;
 }) => {
   const navigate = useNavigate();
 
@@ -214,7 +210,7 @@ const MainMyAssetInfo = ({
             </DashboardBottomLeft>
           </DashboardBottomBox>
         ) : (
-          <AssetBottomBox onClick={connected?toggleModal:""}>
+          <AssetBottomBox onClick={() => {connected?navigate("/myasset/nftlist#specific-element-total-balance"):""}}>
             {!connected ? (
               <AssetBottomNotConnected onClick={() => tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
                 <AssetBottomNotConnectedImg>
@@ -235,14 +231,8 @@ const MainMyAssetInfo = ({
                         <Loader />
                       ) : (
                         <RightItemWrapper>
-                          {tokenSort === "TON" ? (
-                            <h4> {balance === 0 || balance ? balance?.toFixed(3) : "-.--"} TON</h4>
-                          ) : (
-                            <TooltipExist>
-                              <TooltipImage src={NxtPointTooltip} alt="main page tooltip" />
-                              <h4>0.000 nxTON</h4>
-                            </TooltipExist>
-                          )}
+                          <h4> {balance === 0 || balance ? balance?.toFixed(3) : "-.--"}</h4>
+                          <span>TON</span>
                           <img src={IcArrowRightGrey} />
                         </RightItemWrapper>
                       )}
@@ -257,19 +247,9 @@ const MainMyAssetInfo = ({
                       ) : (
                         <RightItemWrapper>
                           <h4>
-                            {tokenSort === "TON" ? (
-                              isError ? (
-                                "-.-- "
-                              ) : isLoading || isRefreshing ? (
-                                <Loader />
-                              ) : (
-                                totalStaked?.toFixed(3)
-                              )
-                            ) : (
-                              "0.000"
-                            )}{" "}
-                            {tokenSort === "TON" ? "TON" : "nxTON"}
+                            {isError ? "-.-- " : isLoading || isRefreshing ? <Loader /> : totalStaked?.toFixed(3)}
                           </h4>
+                          <span>TON</span>
                           <img src={IcArrowRightGrey} />
                         </RightItemWrapper>
                       )}
@@ -286,19 +266,15 @@ const MainMyAssetInfo = ({
                       ) : (
                         <RightItemWrapper>
                           <h4>
-                            {tokenSort === "TON" ? (
-                              isError || earningsError ? (
-                                "0.000"
-                              ) : isLoading || earningsLoading ? (
-                                <Loader />
-                              ) : (
-                                earningsData?.totalRewards.toFixed(3)
-                              )
-                            ) : (
+                            {isError || earningsError ? (
                               "0.000"
-                            )}{" "}
-                            {tokenSort === "TON" ? "TON" : "nxTON"}
+                            ) : isLoading || earningsLoading ? (
+                              <Loader />
+                            ) : (
+                              earningsData?.totalRewards.toFixed(3)
+                            )}
                           </h4>
+                          <span>TON</span>
                           <img src={IcArrowRightGrey} />
                         </RightItemWrapper>
                       )}
@@ -321,20 +297,5 @@ export default MainMyAssetInfo;
 const RightItemWrapper = styled.div`
   display: flex;
   flex-direction: row;
-`;
 
-const TooltipImage = styled.img`
-  position: absolute; /* 절대 위치 설정 */
-  right:0; /* TokenName 시작 위치에 정렬 */
-  bottom: 100%; /* TokenName 위에 위치 */
-  margin-bottom: 5px; /* TokenName과의 간격 조정 */
-  z-index: 1; /* 다른 요소 위에 표시 */
-  width: 90px;
-  height: 31px;
-`;
-
-const TooltipExist = styled.div`
-  position: relative; /* Tooltip의 기준 위치 설정 */
-  display: flex;
-  align-items:start;
 `;

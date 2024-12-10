@@ -12,6 +12,7 @@ import { nftInfo } from "@/types/Nft";
 import { DDayChange } from "@/utils/dateChanger";
 import { getDDayText, getNftState } from "@/utils/getNftState";
 import { numberCutter } from "@/utils/numberCutter";
+import { useCheckLendingAvailable } from "@/hooks/api/loan/useCheckLendingAvailable";
 
 import {
   NFTDetailCard,
@@ -25,7 +26,8 @@ import {
   NFTDetailItemText,
   NFTDetailWrapper,
 } from "./NFTDetail.styled";
-import { ComingSoonModal } from "@/components/loan/ComingSoonModal";
+import useTonConnect from "@/hooks/contract/useTonConnect";
+import { address } from "@ton/core";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -39,17 +41,16 @@ const NFTDetail = () => {
   const [stakingInfo, setStakingInfo] = useState<any>([{ items: [] }]);
   const [isNftExpired, setIsNftExpired] = useState(false);
   const { id } = useParams();
+  const {address}=useTonConnect();
   const { nftDetail, isLoading } = useNFTDetail(Number(id));
-  const [modal, setModal] = useState<ModalState>({
-    toggled: false,
-  });
+  const {data:checkLendingAvailable}=useCheckLendingAvailable(address,Number(id));
 
   useEffect(() => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/myasset/nftlist");
+        navigate(-1);
       });
     }
 
@@ -72,22 +73,12 @@ const NFTDetail = () => {
             { label: "Lock-up Period", value: `${nftDetail[0].lockPeriod} days remaining` },
             { label: "Unstakable date", value: new Date(nftDetail[0].unstakableDate).toLocaleDateString() },
             { label: "Protocol Fees", value: "2%" },
-            { label: "Staking APR", value: "5%" },
             { label: "Total Amount", value: `${numberCutter(nftDetail[0].totalAmount)} TON` },
           ],
         },
       ]);
     }
   }, [nftDetail]);
-
-  const toggleModal = () => {
-    setModal(prev => ({
-      toggled: !prev.toggled,
-    }));
-  };
-  const handleOkayButton = () => {
-    toggleModal();
-  };
 
   return (
     <>
@@ -97,9 +88,7 @@ const NFTDetail = () => {
             <NFTDetailCardImageBox>
               {getNftState(nftInfo.unstakableDate) === "ongoing" ? (
                 <img src={OngoingNFTLarge} alt="ongoing_nft" />
-              ) : getNftState(nftInfo.unstakableDate) === "forthcoming" ? (
-                <img src={ForthComingNFTLarge} alt="forthcoming_nft" />
-              ) : (
+              ): (
                 <img src={ExpiredNFTLarge} alt="expired_nft" />
               )}
 
@@ -109,8 +98,8 @@ const NFTDetail = () => {
 
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
-            $disabled={false}
-            onClick={() => setModal({ toggled: true })} /* onClick={() => navigate(`/loan/${id}/borrow/details`)} */
+            $disabled={!checkLendingAvailable?.success}
+            onClick={() => {checkLendingAvailable?.success? navigate(`/loan/${id}/borrow/details`):""}}
           >
             Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
           </NFTDetailCardButton>
@@ -140,11 +129,10 @@ const NFTDetail = () => {
               <NFTDetailItemText>95%</NFTDetailItemText>
             </NFTDetailItem>
           </NFTDetailItemBox>
-
-          <StakingInfo isExpandable={true} theme="white" title="Staking info" stakingInfoItems={stakingInfo} />
+          {/* status로 임의의 값 넣어줌 */}
+          <StakingInfo isExpandable={true} theme="white" title="Staking info" stakingInfoItems={stakingInfo}/> 
         </NFTDetailContentBox>
       </NFTDetailWrapper>
-      {modal.toggled && <ComingSoonModal toggleModal={toggleModal} onConfirm={handleOkayButton} />}
     </>
   );
 };

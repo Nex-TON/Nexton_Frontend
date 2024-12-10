@@ -1,14 +1,14 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import Dashboard from "@/pages/Dashboard/Dashboard";
-// import BorrowDetails from "@/pages/Loan/Borrow/BorrowDetails";
-// import BorrowRiskDisclosure from "@/pages/Loan/Borrow/BorrowRiskDisclosure";
-// import BorrowVerify from "@/pages/Loan/Borrow/BorrowVerify";
-// import LoanHistory from "@/pages/Loan/History/LoanHistory";
-// import LoanHistoryDetails from "@/pages/Loan/History/LoanHistoryDetails";
-// import Loan from "@/pages/Loan/Loan";
-// import RepaymentDetails from "@/pages/Loan/Repay/RepaymentDetails";
-// import RiskDisclosure from "@/pages/Loan/RiskDisclosure";
+import BorrowDetails from "@/pages/Loan/Borrow/BorrowDetails";
+import BorrowRiskDisclosure from "@/pages/Loan/Borrow/BorrowRiskDisclosure";
+import BorrowVerify from "@/pages/Loan/Borrow/BorrowVerify";
+import LoanHistory from "@/pages/Loan/History/LoanHistory";
+import LoanHistoryDetails from "@/pages/Loan/History/LoanHistoryDetails";
+import Loan from "@/pages/Loan/Loan";
+import RepaymentDetails from "@/pages/Loan/Repay/RepaymentDetails";
+import RiskDisclosure from "@/pages/Loan/RiskDisclosure";
 import Main from "@/pages/Main/Main";
 import Menu from "@/pages/Menu/Menu";
 import MyAsset from "@/pages/MyAsset/MyAsset";
@@ -48,7 +48,7 @@ const Router = () => {
           <Route path="success" element={<StakeSuccess />} />
         </Route>
         {/* // ! Paths under /loan are disabled until contract & API are ready */}
-        {/* <Route path="/loan">
+        <Route path="/loan">
           <Route path="" element={<Loan />} />
           <Route path="risk-disclosure" element={<RiskDisclosure />} />
           <Route path=":id/borrow/details" element={<BorrowDetails />} />
@@ -57,7 +57,7 @@ const Router = () => {
           <Route path=":id/repay/details" element={<RepaymentDetails />} />
           <Route path="history" element={<LoanHistory />} />
           <Route path=":id/history/details" element={<LoanHistoryDetails />} />
-        </Route> */}
+        </Route>
         <Route path="/myasset" element={<MyAsset />}>
           <Route path="nftlist" element={<NftList />} />
           <Route path="unstaked" element={<UnstakedList />} />

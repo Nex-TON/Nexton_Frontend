@@ -137,10 +137,10 @@ const NftListHeader = styled.div`
 const NFTItemWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(14.2rem, 1fr));
-  gap: 1.6rem;
+  gap: 1rem;
 
   width: 100%;
-  padding: 2.5rem 2.5rem 15.4rem 2.5rem;
+  padding: 0.9rem 1rem 15.4rem 1rem;
 
   background-color: #fff;
 
