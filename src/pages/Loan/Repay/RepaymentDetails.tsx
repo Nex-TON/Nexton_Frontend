@@ -15,7 +15,6 @@ import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { nftInfo } from "@/types/Nft";
 import { globalError } from "@/lib/atom/globalError";
 
-
 import {
   RepaymentContentBox,
   RepaymentHeaderBox,
@@ -44,9 +43,10 @@ const RepaymentDetails = () => {
   const { sendMessage, refresh, isLoading: contractLoading } = Contract.repay(id);
   const { data: borrowDetail } = useRepayNftDetail(Number(id));
   const { nftDetail } = useNFTDetail(Number(id));
-  const {address}=useTonConnect();
+  const { address } = useTonConnect();
   const [isLoading, setIsLoading] = useState(false);
   const setError = useSetRecoilState(globalError);
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
   const alwaysVisibleItems = [
     { label: "Borrowed nxTON", value: `${limitDecimals(borrowDetail?.repayAmount, 3)} nxTON` },
@@ -54,7 +54,7 @@ const RepaymentDetails = () => {
     { label: "LTV", value: `${borrowDetail?.loanToValue}%` },
     { label: "Interest rate", value: `${borrowDetail?.interestRate}%` },
   ];
-  const stakingInfoItems = nftDetail&& [
+  const stakingInfoItems = nftDetail && [
     {
       header: "Collateralizing NFT info",
       items: [
@@ -128,14 +128,15 @@ const RepaymentDetails = () => {
       };
 
       await sendMessage(data());
+      await delay(50000);
       await postRepayInfo({
-        nftId:Number(id),
-        address:address,
+        nftId: Number(id),
+        address: address,
       });
       toggleModal();
 
       setModal({ type: "repay", toggled: true });
-    }catch (error) {
+    } catch (error) {
       console.error("Error during borrow confirmation:", error); // 에러 로그
       setError(error);
     } finally {
@@ -176,10 +177,11 @@ const RepaymentDetails = () => {
         )}
       </RepaymentWrapper>
 
-      {false && <TransactionConfirmModal />}
+      {isLoading && <TransactionConfirmModal />}
       {modal.type === "confirmRepay" && modal.toggled && (
         <ConfirmRepaymentModal toggleModal={toggleModal} onConfirm={handleRepayConfirm} />
       )}
+
       {modal.type === "repay" && modal.toggled && (
         <BasicModal isDark type="repay" toggleModal={toggleModal} onClose={() => console.log("Repayed!")} />
       )}
