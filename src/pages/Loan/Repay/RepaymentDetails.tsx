@@ -133,6 +133,7 @@ const RepaymentDetails = () => {
         nftId: Number(id),
         address: address,
       });
+      toggleModal();
 
       setModal({ type: "repay", toggled: true });
     } catch (error) {

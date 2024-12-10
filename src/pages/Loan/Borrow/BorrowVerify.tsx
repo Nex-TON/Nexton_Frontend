@@ -102,6 +102,9 @@ const BorrowVerify = () => {
         amount: borrowAmount,
         nftId: Number(id),
       });
+
+      toggleModal();
+
       setModal({ type: "borrow", toggled: true });
     } catch (error) {
       setError(error);
