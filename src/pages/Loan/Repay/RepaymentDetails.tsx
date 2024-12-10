@@ -133,14 +133,15 @@ const RepaymentDetails = () => {
         nftId: Number(id),
         address: address,
       });
-      toggleModal();
 
       setModal({ type: "repay", toggled: true });
     } catch (error) {
       console.error("Error during borrow confirmation:", error); // 에러 로그
+      setModal({type:"confirmRepay",toggled:false});
       setError(error);
     } finally {
       setIsLoading(false);
+      setModal({type:"confirmRepay",toggled:false});
     }
   }, [contractLoading]);
 
