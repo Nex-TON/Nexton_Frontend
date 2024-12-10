@@ -4,15 +4,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import IcTrendRight from "@/assets/icons/Loan/ic_trend_right.svg";
 import IcTrendUp from "@/assets/icons/Loan/ic_trend_up.svg";
 import ExpiredNFTLarge from "@/assets/image/NftExpired.png";
-import ForthComingNFTLarge from "@/assets/image/NftForthComing.png";
 import OngoingNFTLarge from "@/assets/image/NftOngoing.png";
 import StakingInfo from "@components/loan/common/StakingInfo";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { nftInfo } from "@/types/Nft";
-import { DDayChange } from "@/utils/dateChanger";
 import { getDDayText, getNftState } from "@/utils/getNftState";
 import { numberCutter } from "@/utils/numberCutter";
 import { useCheckLendingAvailable } from "@/hooks/api/loan/useCheckLendingAvailable";
+import IcTonSymbol from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
+import IcNxTonSymbol from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
+
 
 import {
   NFTDetailCard,
@@ -27,7 +28,6 @@ import {
   NFTDetailWrapper,
 } from "./NFTDetail.styled";
 import useTonConnect from "@/hooks/contract/useTonConnect";
-import { address } from "@ton/core";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -122,7 +122,8 @@ const NFTDetail = () => {
           <NFTDetailItemBox>
             <NFTDetailItem>
               <NFTDetailItemCaption>Token</NFTDetailItemCaption>
-              <NFTDetailItemText>{nftInfo?.tokenSort}</NFTDetailItemText>
+              <NFTDetailItemText>                <img src={nftInfo?.tokenSort==="TON"?IcTonSymbol:IcNxTonSymbol} alt="tonSymbol" />
+              {nftInfo?.tokenSort}</NFTDetailItemText>
             </NFTDetailItem>
             <NFTDetailItem>
               <NFTDetailItemCaption>LTV</NFTDetailItemCaption>
