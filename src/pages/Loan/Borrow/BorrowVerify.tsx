@@ -104,12 +104,11 @@ const BorrowVerify = () => {
       });
       setModal({ type: "confirmBorrow", toggled: true });
     } catch (error) {
-      console.error("Error during borrow confirmation:", error); // 에러 로그
       setError(error);
     } finally {
       setIsLoading(false);
     }
-  }, [address, id, navigate]);
+  }, [sendWithData, setError]);
 
   const handleBorrowConfirm = () => {
     toggleModal();
@@ -137,9 +136,9 @@ const BorrowVerify = () => {
         </div>
 
         {!isDevMode ? (
-          <MainButton text="Confirm loan" onClick={toggleModal} />
+          <MainButton text="Confirm loan" onClick={()=>setModal({ type: "confirmBorrow", toggled: true })} />
         ) : (
-          <button onClick={toggleModal}>Confirm loan</button>
+          <button onClick={()=>setModal({ type: "confirmBorrow", toggled: true })}>Confirm loan</button>
         )}
       </BorrowWrapper>
 
@@ -148,10 +147,15 @@ const BorrowVerify = () => {
         <ConfirmBorrowModal toggleModal={toggleModal} onConfirm={handleBorrowConfirm} />
       )}
       {modal.type === "borrow" && modal.toggled && (
-        <BasicModal isDark type="borrow" toggleModal={toggleModal} onClose={() => {console.log("Borrowed!");
-        navigate("/loan");
-        }
-        }  />
+        <BasicModal
+          isDark
+          type="borrow"
+          toggleModal={toggleModal}
+          onClose={() => {
+            console.log("Borrowed!");
+            navigate("/loan");
+          }}
+        />
         // <ConfirmBorrowModal toggleModal={toggleModal} onConfirm={handleBorrowConfirm} />
       )}
     </>
