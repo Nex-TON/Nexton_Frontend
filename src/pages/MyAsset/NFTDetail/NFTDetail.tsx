@@ -14,7 +14,6 @@ import { useCheckLendingAvailable } from "@/hooks/api/loan/useCheckLendingAvaila
 import IcTonSymbol from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import IcNxTonSymbol from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
 
-
 import {
   NFTDetailCard,
   NFTDetailCardButton,
@@ -41,9 +40,9 @@ const NFTDetail = () => {
   const [stakingInfo, setStakingInfo] = useState<any>([{ items: [] }]);
   const [isNftExpired, setIsNftExpired] = useState(false);
   const { id } = useParams();
-  const {address}=useTonConnect();
+  const { address } = useTonConnect();
   const { nftDetail, isLoading } = useNFTDetail(Number(id));
-  const {data:checkLendingAvailable}=useCheckLendingAvailable(address,Number(id));
+  const { data: checkLendingAvailable } = useCheckLendingAvailable(address, Number(id));
 
   useEffect(() => {
     if (tele) {
@@ -88,7 +87,7 @@ const NFTDetail = () => {
             <NFTDetailCardImageBox>
               {getNftState(nftInfo.unstakableDate) === "ongoing" ? (
                 <img src={OngoingNFTLarge} alt="ongoing_nft" />
-              ): (
+              ) : (
                 <img src={ExpiredNFTLarge} alt="expired_nft" />
               )}
 
@@ -99,7 +98,9 @@ const NFTDetail = () => {
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
             $disabled={!checkLendingAvailable?.success}
-            onClick={() => {checkLendingAvailable?.success? navigate(`/loan/${id}/borrow/details`):""}}
+            onClick={() => {
+              checkLendingAvailable?.success ? navigate(`/loan/${id}/borrow/details`) : "";
+            }}
           >
             Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
           </NFTDetailCardButton>
@@ -122,8 +123,10 @@ const NFTDetail = () => {
           <NFTDetailItemBox>
             <NFTDetailItem>
               <NFTDetailItemCaption>Token</NFTDetailItemCaption>
-              <NFTDetailItemText>                <img src={nftInfo?.tokenSort==="TON"?IcTonSymbol:IcNxTonSymbol} alt="tonSymbol" />
-              {nftInfo?.tokenSort}</NFTDetailItemText>
+              <NFTDetailItemText>
+                <img src={nftInfo?.tokenSort === "TON" ? IcTonSymbol : IcNxTonSymbol} alt="tonSymbol" />
+                {nftInfo?.tokenSort}
+              </NFTDetailItemText>
             </NFTDetailItem>
             <NFTDetailItem>
               <NFTDetailItemCaption>LTV</NFTDetailItemCaption>
@@ -131,7 +134,7 @@ const NFTDetail = () => {
             </NFTDetailItem>
           </NFTDetailItemBox>
           {/* status로 임의의 값 넣어줌 */}
-          <StakingInfo isExpandable={true} theme="white" title="Staking info" stakingInfoItems={stakingInfo}/> 
+          <StakingInfo isExpandable={true} theme="white" title="Staking info" stakingInfoItems={stakingInfo} />
         </NFTDetailContentBox>
       </NFTDetailWrapper>
     </>

@@ -65,4 +65,5 @@ const RiskDisclosureWrapper = styled.div`
   height: 100%;
 
   padding: 2.5rem 1.5rem;
+  margin-bottom:16.9rem;
 `;
