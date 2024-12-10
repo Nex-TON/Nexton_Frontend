@@ -89,7 +89,7 @@ const Loan = () => {
           <LoanNFTBoxHeaderLeft>
             <span>You have</span>
             {view === "borrow" && <h4>{nftList?.length || 0} NFTs</h4>}
-            {view === "repay" && <h4>{handlePrintBorrowListFilter()?.filter(item=>item.status==1).length||0} Loans</h4>}
+            {view === "repay" && <h4>{handlePrintBorrowListFilter()?.filter(item=>item.status==0).length||0} Loans</h4>}
           </LoanNFTBoxHeaderLeft>
           <LoanNFTBoxHeaderRight
             onClick={() => {

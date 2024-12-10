@@ -158,7 +158,6 @@ const BorrowVerify = () => {
             navigate("/loan");
           }}
         />
-        // <ConfirmBorrowModal toggleModal={toggleModal} onConfirm={handleBorrowConfirm} />
       )}
     </>
   );
