@@ -19,6 +19,7 @@ import { postLendingInfo } from "@/api/postLendingInfo.ts";
 import { telegramAtom } from "@/lib/atom/telegram.ts";
 import { limitDecimals } from "@/utils/limitDecimals.ts";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
+import BasicModal from "@/components/common/Modal/BasicModal.tsx";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -147,8 +148,11 @@ const BorrowVerify = () => {
         <ConfirmBorrowModal toggleModal={toggleModal} onConfirm={handleBorrowConfirm} />
       )}
       {modal.type === "borrow" && modal.toggled && (
-        // <BasicModal isDark type="borrow" toggleModal={toggleModal} onClose={() => console.log("Borrowed!")}  />
-        <ConfirmBorrowModal toggleModal={toggleModal} onConfirm={handleBorrowConfirm} />
+        <BasicModal isDark type="borrow" toggleModal={toggleModal} onClose={() => {console.log("Borrowed!");
+        navigate("/loan");
+        }
+        }  />
+        // <ConfirmBorrowModal toggleModal={toggleModal} onConfirm={handleBorrowConfirm} />
       )}
     </>
   );
