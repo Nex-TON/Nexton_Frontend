@@ -93,7 +93,6 @@ const NFTPreview = () => {
 
   const handleStakeConfirm = () => {
     toggleModal();
-
     handleMinting();
   };
 

@@ -10,7 +10,7 @@ const useBorrowNftListFilter=()=>{
         return borrowList?.filter(item=>{
             const nftState=item.status;
             return(
-                nftState
+                nftState==0&&item
             );
         })
     };

@@ -38,7 +38,6 @@ const BorrowVerify = () => {
   const { borrowAmount } = location.state || {};
   const { data: loanInfo } = useLoanDetail(Number(id), address, "pre");
   const telegramId = useRecoilValue(telegramAtom);
-  const { nftDetail } = useNFTDetail(Number(id));
   const setError = useSetRecoilState(globalError);
   const [isLoading, setIsLoading] = useState(false);
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -96,16 +95,18 @@ const BorrowVerify = () => {
       await sendWithData(data(), toNano("0.05"));
       await delay(50000);
       //TODO: send server message
-      await postLendingInfo({
+      const response = await postLendingInfo({
         telegramId: Number(telegramId),
         address: address,
         amount: borrowAmount,
         nftId: Number(id),
       });
 
-      toggleModal();
-
-      setModal({ type: "borrow", toggled: true });
+      if (response===200){
+        setModal({ type: "borrow", toggled: true });
+      }else{
+        throw new Error("response");
+      }
     } catch (error) {
       setError(error);
     } finally {
@@ -139,9 +140,9 @@ const BorrowVerify = () => {
         </div>
 
         {!isDevMode ? (
-          <MainButton text="Confirm loan" onClick={()=>setModal({ type: "confirmBorrow", toggled: true })} />
+          <MainButton text="Confirm loan" onClick={() => setModal({ type: "confirmBorrow", toggled: true })} />
         ) : (
-          <button onClick={()=>setModal({ type: "confirmBorrow", toggled: true })}>Confirm loan</button>
+          <button onClick={() => setModal({ type: "confirmBorrow", toggled: true })}>Confirm loan</button>
         )}
       </BorrowWrapper>
 
@@ -150,14 +151,7 @@ const BorrowVerify = () => {
         <ConfirmBorrowModal toggleModal={toggleModal} onConfirm={handleBorrowConfirm} />
       )}
       {modal.type === "borrow" && modal.toggled && (
-        <BasicModal
-          isDark
-          type="borrow"
-          toggleModal={toggleModal}
-          onClose={() => {
-            navigate("/loan");
-          }}
-        />
+        <BasicModal isDark type="loan" toggleModal={toggleModal} navigateOnClose="/loan" />
       )}
     </>
   );

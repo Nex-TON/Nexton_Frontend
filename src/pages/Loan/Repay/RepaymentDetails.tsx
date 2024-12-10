@@ -115,7 +115,7 @@ const RepaymentDetails = () => {
     initializeData();
   }, [refresh, id]);
 
-  const handleRepayConfirm = useCallback(async () => {
+  const handleRepay = useCallback(async () => {
     setIsLoading(true);
     try {
       const data = () => {
@@ -129,22 +129,27 @@ const RepaymentDetails = () => {
 
       await sendMessage(data());
       await delay(50000);
-      await postRepayInfo({
+      const response=await postRepayInfo({
         nftId: Number(id),
         address: address,
       });
-      toggleModal();
-
-      setModal({ type: "repay", toggled: true });
+      if (response===200){
+        setModal({ type: "repay", toggled: true });
+      }else{
+        throw new Error("response");
+      }
     } catch (error) {
       console.error("Error during borrow confirmation:", error); // 에러 로그
-      setModal({type:"confirmRepay",toggled:false});
       setError(error);
     } finally {
       setIsLoading(false);
-      setModal({type:"confirmRepay",toggled:false});
     }
-  }, [contractLoading]);
+  }, [contractLoading,sendMessage,setError]);
+
+  const handleRepayConfirm=()=>{
+    toggleModal();
+    handleRepay();
+  }
 
   return (
     <div>
@@ -184,7 +189,7 @@ const RepaymentDetails = () => {
         <ConfirmRepaymentModal toggleModal={toggleModal} onConfirm={handleRepayConfirm} />
       )}
       {modal.type === "repay" && modal.toggled && (
-        <BasicModal isDark type="repay" toggleModal={toggleModal} onClose={() => {navigate("/loan");}} />
+        <BasicModal isDark type="repay" toggleModal={toggleModal} navigateOnClose="/loan" />
       )}
     </div>
   );

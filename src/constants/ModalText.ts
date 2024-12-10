@@ -10,6 +10,12 @@ export const MODAL_TEXT = {
     descBr: "in your wallet, and transaction",
     descBr2: "history by tapping below button",
   },
+  repay: {
+    title: "Repayment was successful!",
+    desc: "You can view the repayment history",
+    descBr: "in the History section and also in the",
+    descBr2: "TON viewer at the bottom.",
+  },
   unstaking: {
     title: "Successfully",
     titleBr: "Unstaking Requested",
