@@ -181,9 +181,8 @@ const RepaymentDetails = () => {
       {modal.type === "confirmRepay" && modal.toggled && (
         <ConfirmRepaymentModal toggleModal={toggleModal} onConfirm={handleRepayConfirm} />
       )}
-
       {modal.type === "repay" && modal.toggled && (
-        <BasicModal isDark type="repay" toggleModal={toggleModal} onClose={() => console.log("Repayed!")} />
+        <BasicModal isDark type="repay" toggleModal={toggleModal} onClose={() => {navigate("/loan");}} />
       )}
     </div>
   );

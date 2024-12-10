@@ -34,7 +34,7 @@ const RepayList = ({borrowList}:{borrowList:borrowNftInfo[]}) => {
   const {handlePrintBorrowListFilter}=useBorrowNftListFilter();
   return (
     <BorrowListWrapper>
-      {handlePrintBorrowListFilter()?.filter(item=>item.status==1).length>0? (
+      {handlePrintBorrowListFilter()?.filter(item=>item.status==0).length>0? (
         <BorrowListItemBox>
           {handlePrintBorrowListFilter()
             .sort((a, b) => Number(b.timeStamp) - Number(a.timeStamp))

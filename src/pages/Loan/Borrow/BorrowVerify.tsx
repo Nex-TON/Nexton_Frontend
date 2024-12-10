@@ -102,15 +102,13 @@ const BorrowVerify = () => {
         amount: borrowAmount,
         nftId: Number(id),
       });
-      setModal({ type: "confirmBorrow", toggled: true });
+      setModal({ type: "borrow", toggled: true });
     } catch (error) {
       setError(error);
-      setModal({ type: "borrow", toggled: false });
     } finally {
       setIsLoading(false);
-      setModal({ type: "borrow", toggled: false });
     }
-  }, [sendWithData, setError]);
+  }, [sendWithData, setError, borrowAmount, telegramId, address, id]);
 
   const handleBorrowConfirm = () => {
     toggleModal();
@@ -154,7 +152,6 @@ const BorrowVerify = () => {
           type="borrow"
           toggleModal={toggleModal}
           onClose={() => {
-            console.log("Borrowed!");
             navigate("/loan");
           }}
         />
