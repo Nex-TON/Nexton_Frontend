@@ -3,7 +3,6 @@ import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 
-import BasicModal from "@/components/common/Modal/BasicModal.tsx";
 import TransactionConfirmModal from "@/components/common/Modal/TransactionConfirmModal.tsx";
 import { ConfirmBorrowModal } from "@/components/loan/Borrow/ConfirmBorrowModal.tsx";
 import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
@@ -36,12 +35,12 @@ const BorrowVerify = () => {
   const { sendWithData } = Contract.transferNft(id);
   const { address } = useTonConnect();
   const { borrowAmount } = location.state || {};
-  const { data: loanInfo } = useLoanDetail(Number(id),address,"pre");
+  const { data: loanInfo } = useLoanDetail(Number(id), address, "pre");
   const telegramId = useRecoilValue(telegramAtom);
   const { nftDetail } = useNFTDetail(Number(id));
   const setError = useSetRecoilState(globalError);
   const [isLoading, setIsLoading] = useState(false);
-  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
   const stakingInfoItems = [
     {
@@ -79,17 +78,17 @@ const BorrowVerify = () => {
     };
   }, [navigate]);
 
-  const handleBorrowConfirm = useCallback(async () => {
+  const handleBorrow = useCallback(async () => {
     setIsLoading(true);
 
     try {
       const data = () => {
         return {
           queryId: BigInt(Date.now()),
-          value: toNano("0.06"),
+          value: toNano("0.062"),
           newOwner: Address.parse(import.meta.env.VITE_LEND_CONTRACT),
           responseAddress: Address.parse(address),
-          fwdAmount: toNano("0.01"),
+          fwdAmount: toNano("0.012"),
         };
       };
 
@@ -111,6 +110,11 @@ const BorrowVerify = () => {
     }
   }, [address, id, navigate]);
 
+  const handleBorrowConfirm = () => {
+    toggleModal();
+    handleBorrow();
+  };
+
   return (
     <>
       <BorrowWrapper>
@@ -123,7 +127,12 @@ const BorrowVerify = () => {
         <ProgressBar currentStep={3} />
 
         <div style={{ marginTop: "2rem" }}>
-          <StakingInfo isExpandable={false} theme="white" title={`Loan ${loanInfo?.loanId}`} stakingInfoItems={stakingInfoItems} />
+          <StakingInfo
+            isExpandable={false}
+            theme="white"
+            title={`Loan ${loanInfo?.loanId}`}
+            stakingInfoItems={stakingInfoItems}
+          />
         </div>
 
         {!isDevMode ? (
