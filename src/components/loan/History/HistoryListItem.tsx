@@ -32,10 +32,9 @@ interface HistoryListItemProps {
 
 const HistoryListItem: React.FC<HistoryListItemProps> = ({ status, principal, interestRate, ltv, loanId, nftId }) => {
   const navigate = useNavigate();
-  const { address } = useTonConnect();
 
   return (
-    <HistoryListItemWrapper onClick={() => navigate(`/loan/${nftId}/repay/details`)}>
+    <HistoryListItemWrapper onClick={() => navigate(`/loan/${nftId}/repay/details`,{state:{loanId}})}>
       <HistoryListTop>
         <HistoryListTopLeft>
           <HistoryListTopLeftIcon>{loanId}</HistoryListTopLeftIcon>

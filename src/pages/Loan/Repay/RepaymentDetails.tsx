@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 
 import BasicModal from "@/components/common/Modal/BasicModal";
@@ -12,7 +12,6 @@ import { useRepayNftDetail } from "@/hooks/api/loan/useReapyNftDetail";
 import { toNano } from "@ton/core";
 import { limitDecimals } from "@/utils/limitDecimals";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
-import { nftInfo } from "@/types/Nft";
 import { globalError } from "@/lib/atom/globalError";
 
 import {
@@ -28,6 +27,7 @@ import {
 import { postRepayInfo } from "@/api/postRepayInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import { useSetRecoilState } from "recoil";
+import { useValidateRepaying } from "@/hooks/api/loan/useValidateRepaying";
 
 interface ModalState {
   type: "repay" | "confirmRepay";
@@ -41,12 +41,14 @@ const RepaymentDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { sendMessage, refresh, isLoading: contractLoading } = Contract.repay(id);
-  const { data: borrowDetail } = useRepayNftDetail(Number(id));
   const { nftDetail } = useNFTDetail(Number(id));
   const { address } = useTonConnect();
   const [isLoading, setIsLoading] = useState(false);
   const setError = useSetRecoilState(globalError);
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const location = useLocation();
+  const { loanId } = location.state || {};
+  const { data: borrowDetail } = useRepayNftDetail(loanId, address);
 
   const alwaysVisibleItems = [
     { label: "Borrowed nxTON", value: `${limitDecimals(borrowDetail?.repayAmount, 3)} nxTON` },
@@ -121,21 +123,28 @@ const RepaymentDetails = () => {
       const data = () => {
         return {
           query_id: BigInt(Date.now()),
-          amount:toNano(borrowDetail?.repayAmount),
+          amount: toNano(borrowDetail?.repayAmount),
           value: toNano("0.06"),
           forward_ton_amount: toNano("0.01"),
         };
       };
 
       await sendMessage(data());
+      // let isValid = false;
+      //   while (!isValid) {
+      //       isValid = await useValidateRepaying(Number(id),address)?.data.valid
+      //       if (!isValid) {
+      //           await new Promise(resolve => setTimeout(resolve, 2000)); // 2초 대기
+      //       }
+      //   }
       await delay(50000);
-      const response=await postRepayInfo({
+      const response = await postRepayInfo({
         nftId: Number(id),
         address: address,
       });
-      if (response===200){
+      if (response === 200) {
         setModal({ type: "repay", toggled: true });
-      }else{
+      } else {
         throw new Error("response");
       }
     } catch (error) {
@@ -144,12 +153,12 @@ const RepaymentDetails = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [contractLoading,sendMessage,setError]);
+  }, [contractLoading, sendMessage, setError]);
 
-  const handleRepayConfirm=()=>{
+  const handleRepayConfirm = () => {
     toggleModal();
     handleRepay();
-  }
+  };
 
   return (
     <div>
@@ -176,9 +185,9 @@ const RepaymentDetails = () => {
             <RepayRateBoxBottom>{borrowDetail?.repayAmount} nxTON</RepayRateBoxBottom>
           </RepayRateBox>
         </RepaymentContentBox>
-        
+
         {!isDevMode ? (
-          borrowDetail?.status==0&&<MainButton text="Pay now" onClick={toggleModal} />
+          borrowDetail?.status == 0 && <MainButton text="Pay now" onClick={toggleModal} />
         ) : (
           <button onClick={toggleModal}>Pay now</button>
         )}

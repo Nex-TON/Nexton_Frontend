@@ -137,7 +137,7 @@ const BorrowDetails = () => {
   //     state: { borrowAmount: data.borrowAmount },
   //   })
   // };
-  const borrowAmount =1 //nftDetail[0].principal*tokenRate.tonToNextonRate; //for the test
+  const borrowAmount =nftDetail&&nftDetail[0].principal*tokenRate.tonToNextonRate; //for the test
 
   const handleSubmit = () => {
     console.log(`borrow amount:${borrowAmount}`);

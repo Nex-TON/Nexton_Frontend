@@ -18,8 +18,8 @@ import { BorrowHeaderBox, BorrowHeaderBoxTitle, BorrowWrapper } from "./BorrowDe
 import { postLendingInfo } from "@/api/postLendingInfo.ts";
 import { telegramAtom } from "@/lib/atom/telegram.ts";
 import { limitDecimals } from "@/utils/limitDecimals.ts";
-import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import BasicModal from "@/components/common/Modal/BasicModal.tsx";
+import { useValidateLending } from "@/hooks/api/loan/useValidateLending.tsx";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -93,6 +93,13 @@ const BorrowVerify = () => {
       };
 
       await sendWithData(data(), toNano("0.05"));
+      // while(true){
+      //   const valid= await useValidateLending(Number(id)).data;
+      //   if(valid.valid==true){
+      //     break;
+      //   }
+      //   await delay(1000);
+      // }
       await delay(50000);
       //TODO: send server message
       const response = await postLendingInfo({

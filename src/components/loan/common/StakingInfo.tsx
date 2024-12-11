@@ -144,6 +144,7 @@ const StakingInfoHeaderRight = styled.div<{status}>`
 `;
 const StakingInfoHeaderLeft = styled.div<{ $theme; $textCenter? }>`
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+  font-size: 1.4rem;
   color: ${({ $theme }) => ($theme === "black" ? "#fff" : "#303234")};
 
   white-space: nowrap;
@@ -175,6 +176,7 @@ const StakingInfoHeader = styled.div<{ $theme: Theme; $textCenter?: boolean; $ma
   align-items: center;
   margin-bottom: 1rem;
   margin-top: ${({ $marginTop }) => ($marginTop ? "1.6rem" : "0")};
+  ${({theme})=>theme.fonts.Nexton_Body_Text_Medium_2};
 `;
 
 const StakingInfoItem = styled.div<{ $theme: Theme }>`

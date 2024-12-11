@@ -20,7 +20,7 @@ const RepayListItem = ({loanId,nftId,principal,interestRate,ltv}) => {
   const navigate = useNavigate();
 
   return (
-    <RepayListItemWrapper onClick={() => navigate(`/loan/${nftId}/repay/details`)}>
+    <RepayListItemWrapper onClick={() => {navigate(`/loan/${nftId}/repay/details`,{state:{loanId}})}}>
       <RepayListTop>
         <RepayListTopLeft>
           <RepayListTopLeftIcon>{loanId}</RepayListTopLeftIcon>
