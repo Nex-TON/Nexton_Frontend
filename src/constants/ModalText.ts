@@ -41,4 +41,11 @@ export const MODAL_TEXT = {
     descBr: "15 days after staking.",
     descBr2: "Thank you for your patience!",
   },
+  blockborrow100: {
+    title: "🎉 Congratulations!",
+    desc: "OG NFT holders! 🔥",
+    descBr: "Bonus rewards are coming your way.",
+    descBr2: "Updates on nxTON and extra points",
+    descBr3: "coming soon—stay tuned!",
+  },
 };
