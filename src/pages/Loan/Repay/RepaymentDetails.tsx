@@ -102,7 +102,7 @@ const RepaymentDetails = () => {
         tele.offEvent("backButtonClicked");
       }
     };
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     const initializeData = async () => {

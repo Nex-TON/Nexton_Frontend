@@ -13,6 +13,7 @@ import { numberCutter } from "@/utils/numberCutter";
 import { useCheckLendingAvailable } from "@/hooks/api/loan/useCheckLendingAvailable";
 import IcTonSymbol from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import IcNxTonSymbol from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
+import BasicModal from "@/components/common/Modal/BasicModal";
 
 import {
   NFTDetailCard,
@@ -31,6 +32,7 @@ import useTonConnect from "@/hooks/contract/useTonConnect";
 const tele = (window as any).Telegram.WebApp;
 
 interface ModalState {
+  type: "blockborrow" | "blockunstake";
   toggled: boolean;
 }
 
@@ -43,6 +45,10 @@ const NFTDetail = () => {
   const { address } = useTonConnect();
   const { nftDetail, isLoading } = useNFTDetail(Number(id));
   const { data: checkLendingAvailable } = useCheckLendingAvailable(address, Number(id));
+  const [modal, setModal] = useState<ModalState>({
+    type: "blockborrow",
+    toggled: false,
+  });
 
   useEffect(() => {
     if (tele) {
@@ -57,6 +63,13 @@ const NFTDetail = () => {
       tele.offEvent("backButtonClicked");
     };
   }, []);
+
+  const toggleModal = () => {
+    setModal(prev => ({
+      type: prev.type,
+      toggled: !prev.toggled,
+    }));
+  };
 
   useEffect(() => {
     if (nftDetail) {
@@ -97,17 +110,19 @@ const NFTDetail = () => {
 
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
-            $disabled={!checkLendingAvailable?.success}
             onClick={() => {
-              checkLendingAvailable?.success ? navigate(`/loan/${id}/borrow/details`) : "";
+              checkLendingAvailable?.success
+                ? navigate(`/loan/${id}/borrow/details`)
+                : setModal({ type: "blockborrow", toggled: true });
             }}
           >
             Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
           </NFTDetailCardButton>
 
           <NFTDetailCardButton
-            $disabled={!isNftExpired}
-            onClick={() => isNftExpired && navigate(`/unstaking/${id}`)}
+            onClick={() => {
+              isNftExpired ? navigate(`/unstaking/${id}`) : setModal({ type: "blockunstake", toggled: true });
+            }}
             id="nft detail page unstake now button"
           >
             Unstake Now <img src={IcTrendRight} alt="trend_right" id="nft detail page unstake now button" />
@@ -137,6 +152,8 @@ const NFTDetail = () => {
           <StakingInfo isExpandable={true} theme="white" title="Staking info" stakingInfoItems={stakingInfo} />
         </NFTDetailContentBox>
       </NFTDetailWrapper>
+      {modal.type === "blockborrow" && modal.toggled && <BasicModal isDark type="blockborrow" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
+      {modal.type === "blockunstake" && modal.toggled && <BasicModal isDark type="blockunstake" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
     </>
   );
 };

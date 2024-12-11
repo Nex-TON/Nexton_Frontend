@@ -51,7 +51,7 @@ const LoanHistoryDetails = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, [navigate]);
+  }, []);
 
   return (
     <LoanWrapper>

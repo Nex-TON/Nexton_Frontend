@@ -76,7 +76,7 @@ const BorrowVerify = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, [navigate]);
+  }, []);
 
   const handleBorrow = useCallback(async () => {
     setIsLoading(true);

@@ -89,6 +89,28 @@ function BasicModal(props: BasicModalProps) {
             </SubTitleBox>
           </>
         );
+      case "blockborrow":
+        return (
+          <>
+            <Title $isDark={isDark}>{MODAL_TEXT[type].title}</Title>
+            <SubTitleBox>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].desc}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr2}</SubTitle>
+            </SubTitleBox>
+          </>
+        );
+      case "blockunstake":
+        return (
+          <>
+            <Title $isDark={isDark}>{MODAL_TEXT[type].title}</Title>
+            <SubTitleBox>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].desc}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr2}</SubTitle>
+            </SubTitleBox>
+          </>
+        );
       default:
         break;
     }
@@ -98,31 +120,33 @@ function BasicModal(props: BasicModalProps) {
     <ModalWrapper>
       <Container $disablePaddingTop $isDark={isDark}>
         <ModalHeader>
-          <img
-            src={IcClose}
-            alt="close"
-            onClick={() => {
-              if (onClose) {
-                onClose();
-              }
-              navigate("/main");
-            }}
-          />
+          {type != "blockborrow" && type != "blockunstake" && (
+            <img
+              src={IcClose}
+              alt="close"
+              onClick={() => {
+                if (onClose) {
+                  onClose();
+                }
+                navigate("/main");
+              }}
+            />
+          )}
         </ModalHeader>
 
         {handleModalText(type, isDark)}
-
         <OpenTonViewerBox>
-          <OpenTonViewer
-            onClick={() => {
-              window.location.href = `https://testnet.tonviewer.com/${address}`;
-            }}
-          >
-            Open ton viewer
-            <img src={IcModalArrow} alt="modalArrow" />
-          </OpenTonViewer>
+          {type != "blockborrow" && type != "blockunstake" && (
+            <OpenTonViewer
+              onClick={() => {
+                window.location.href = `https://testnet.tonviewer.com/${address}`;
+              }}
+            >
+              Open ton viewer
+              <img src={IcModalArrow} alt="modalArrow" />
+            </OpenTonViewer>
+          )}
         </OpenTonViewerBox>
-
         <Button
           onClick={() => {
             if (onClose) {
@@ -130,7 +154,8 @@ function BasicModal(props: BasicModalProps) {
             }
 
             if (navigateOnClose) {
-              navigate(navigateOnClose);
+                toggleModal();
+                navigate(navigateOnClose);
             } else {
               navigate("/main");
             }

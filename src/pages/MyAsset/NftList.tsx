@@ -32,7 +32,7 @@ const NftList = () => {
         tele.offEvent("backButtonClicked");
       }
     };
-  }, [navigate]);
+  }, []);
 
   return (
     <NFtListWrapper>

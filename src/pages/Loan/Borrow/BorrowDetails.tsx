@@ -84,7 +84,7 @@ const BorrowDetails = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, [navigate]);
+  }, []);
 
   // useEffect(() => {
   //   if (!connected) {

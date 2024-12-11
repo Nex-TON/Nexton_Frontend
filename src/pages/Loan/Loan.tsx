@@ -53,7 +53,7 @@ const Loan = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, [navigate]);
+  }, []);
 
   const handleViewChange = (view: LoanView) => {
     setView(view);
