@@ -6,16 +6,17 @@ import ModalWrapper from "@/components/common/Modal/ModalWrapper";
 interface ConfirmRepaymentModalProps {
   toggleModal: () => void;
   onConfirm: () => void;
+  loanId:number;
 }
 
 export const ConfirmRepaymentModal = (props: ConfirmRepaymentModalProps) => {
-  const { onConfirm, toggleModal } = props;
+  const { onConfirm, toggleModal,loanId} = props;
 
   return (
     <ModalWrapper>
       <Container $isDark>
         <Title $isDark $textCenter>
-          Would you like to repay Loan 01?
+          Would you like to repay Loan {loanId}?
         </Title>
         <SubTitleBox $marginBottom>
           <SubTitle $isDark>Please verify the information of the</SubTitle>

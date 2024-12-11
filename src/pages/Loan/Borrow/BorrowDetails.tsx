@@ -28,6 +28,7 @@ import {
   BorrowWrapper,
   ExcludeBox,
 } from "./BorrowDetails.styled.tsx";
+import { Label } from "recharts";
 
 const tele = (window as any).Telegram.WebApp;
 

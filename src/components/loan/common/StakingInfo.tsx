@@ -172,11 +172,18 @@ const StakingInfoWrapper = styled.div<{ $theme: Theme; $marginTop?: boolean; $it
 const StakingInfoHeader = styled.div<{ $theme: Theme; $textCenter?: boolean; $marginTop?: boolean }>`
   width: 100%;
   display: flex;
+  flex-direction: row;
   justify-content: ${({ $textCenter }) => ($textCenter ? "center" : "space-between")};
   align-items: center;
   margin-bottom: 1rem;
   margin-top: ${({ $marginTop }) => ($marginTop ? "1.6rem" : "0")};
+  font-size:2.24rem;
   ${({theme})=>theme.fonts.Nexton_Body_Text_Medium_2};
+  font-size:2.24rem;
+  p{
+    color: ${({ $theme }) => ($theme === "black" ? "#fffff" : "#303234")};
+  }
+
 `;
 
 const StakingInfoItem = styled.div<{ $theme: Theme }>`

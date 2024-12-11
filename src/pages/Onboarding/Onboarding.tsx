@@ -38,9 +38,9 @@ const Onboarding = () => {
     {
       image: OnboardingIllust3,
       circle: BackgroundCircle3,
-      title1: "Unlock NFT in 60 Days,",
+      title1: "Unlock NFT in 15 Days,",
       title2: "Start Earning!",
-      description1: "Unlock your NFT after 60 days",
+      description1: "Unlock your NFT after 15 days",
       description2: "and start earning profits!",
     },
   ];

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { numberCutter } from "@/utils/numberCutter";
 import { Caption3 } from "../Borrow/BorrowListItem.styled";
+import { limitDecimals } from "@/utils/limitDecimals";
 
 import {
   RepayListBottomTextBottomRight,
@@ -27,7 +28,7 @@ const RepayListItem = ({loanId,nftId,principal,interestRate,ltv}) => {
           <RepayListTopLeftText>
             <Caption3>Borrowed</Caption3>
             <p>
-              <span>{principal} </span>nxTON
+              <span>{limitDecimals(principal,3)} </span>nxTON
             </p>
           </RepayListTopLeftText>
         </RepayListTopLeft>
@@ -47,7 +48,7 @@ const RepayListItem = ({loanId,nftId,principal,interestRate,ltv}) => {
       <RepayListItemDivider />
         <RepayListBottomTextBottom>
           <RepayListBottomTextBottomLeft>LTV</RepayListBottomTextBottomLeft>
-          <RepayListBottomTextBottomRight>{ltv}%</RepayListBottomTextBottomRight>
+          <RepayListBottomTextBottomRight>{limitDecimals(ltv*100,2)}%</RepayListBottomTextBottomRight>
         </RepayListBottomTextBottom>
       </RepayListBottom>
     </RepayListItemWrapper>
