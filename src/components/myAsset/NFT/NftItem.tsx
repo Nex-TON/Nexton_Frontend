@@ -21,7 +21,6 @@ const NftItem = (props: NftItemProps) => {
   const [, setImageSize] = useRecoilState(imageSizeAtom);
   const { data: coinPrice } = useCoinPrice("TON", "USD");
   const navigate = useNavigate();
-  const {pathname}=useLocation();
 
   const convertAmount = useMemo(() => {
     return (amount: string | number) => {
@@ -35,7 +34,7 @@ const NftItem = (props: NftItemProps) => {
   const handleMouseMove = (event: React.MouseEvent<HTMLImageElement>) => {
     const rect = (event.target as HTMLImageElement).getBoundingClientRect();
     setImageSize({ width: rect?.width, height: rect?.height });
-    navigate(`/myasset/${nftId}`,{state:pathname});
+    navigate(`/myasset/${nftId}`);
   };
 
   const SwitchDDayNftImage = () => {

@@ -117,7 +117,7 @@ const NominatorList = () => {
                 {nominatorListData.some(item => item.type === "bot") && (
                   <BotTitleWrapper>
                     <TitleH3>Bot</TitleH3>
-                    <DashboardLink onClick={() => navigate("/dashboard",{state:"/stake/amount"})} id="nominator list dashboard button">
+                    <DashboardLink onClick={() => navigate("/dashboard")} id="nominator list dashboard button">
                       Go to Dashboard <img src={IcArrorRight} alt="arrow_right" />
                     </DashboardLink>
                   </BotTitleWrapper>

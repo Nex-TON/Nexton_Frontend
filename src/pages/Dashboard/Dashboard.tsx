@@ -81,14 +81,13 @@ const Dashboard = () => {
   } = useBotPerformanceChart(chartTimeFrameOptions[timeFrame]);
 
   const { data: tonPriceData, isLoading: tonPriceLoading, error: tonPriceError } = useCoinPrice("ton", "usd");
-  const { backRoute } = location.state || {};
   
   useEffect(() => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate(backRoute);
+        navigate("/main");
       });
     }
 

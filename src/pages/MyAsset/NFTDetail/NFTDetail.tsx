@@ -50,14 +50,13 @@ const NFTDetail = () => {
     type: "blockborrow",
     toggled: false,
   });
-  const {backRoute}=location.state||{}
 
   useEffect(() => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate(backRoute);
+        navigate("/myasset/nftlist");
       });
     }
 

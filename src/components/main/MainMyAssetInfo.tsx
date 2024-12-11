@@ -149,7 +149,7 @@ const MainMyAssetInfo = ({
         </MainTopBox>
 
         {view === "dashboard" ? (
-          <DashboardBottomBox onClick={() => navigate("/dashboard",{state:"/main"})} id="mainmyassetinfodashboard">
+          <DashboardBottomBox onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
             <DashboardBottomLeft id="mainmyassetinfodashboard">
               <DashboardBottomLeftTitleBox id="mainmyassetinfodashboard">
                 <DashboardBottomLeftTitle id="mainmyassetinfodashboard">Arbitrage Bot</DashboardBottomLeftTitle>
@@ -201,7 +201,7 @@ const MainMyAssetInfo = ({
                       </h4>
                     </DashboardBottomLeftDataItem>
 
-                    <DashboardBottomLeftDataItem onClick={() => navigate("/dashboard",{state:"/main"})} id="mainmyassetinfodashboard">
+                    <DashboardBottomLeftDataItem onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
                       <img src={IcSmallArrowRight} alt="small_arrow_right" />
                     </DashboardBottomLeftDataItem>
                   </>
