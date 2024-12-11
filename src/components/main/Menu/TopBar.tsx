@@ -15,7 +15,7 @@ const TopBar = () => {
         <img src={IcMenuStake} alt="stake" id="menu page stake button" />
         Stake
       </TopBarButton>
-      <TopBarButton onClick={() => navigate("/dashboard")} id="menu page dashboard button">
+      <TopBarButton onClick={() => navigate("/dashboard",{state:"/menu"})} id="menu page dashboard button">
         <img src={IcMenuDashboard} alt="asset" id="menu page dashboard button" />
         Dashboard
       </TopBarButton>

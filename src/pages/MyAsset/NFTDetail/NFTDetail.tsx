@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import IcTrendRight from "@/assets/icons/Loan/ic_trend_right.svg";
 import IcTrendUp from "@/assets/icons/Loan/ic_trend_up.svg";
@@ -38,6 +38,7 @@ interface ModalState {
 
 const NFTDetail = () => {
   const navigate = useNavigate();
+  const location=useLocation();
   const [nftInfo, setNftInfo] = useState<nftInfo>();
   const [stakingInfo, setStakingInfo] = useState<any>([{ items: [] }]);
   const [isNftExpired, setIsNftExpired] = useState(false);
@@ -49,13 +50,14 @@ const NFTDetail = () => {
     type: "blockborrow",
     toggled: false,
   });
+  const {backRoute}=location.state||{}
 
   useEffect(() => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate(-1);
+        navigate(backRoute);
       });
     }
 
