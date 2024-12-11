@@ -56,7 +56,7 @@ const NFTDetail = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     if (nftDetail) {

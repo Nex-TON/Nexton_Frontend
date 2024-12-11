@@ -176,9 +176,9 @@ const RepaymentDetails = () => {
             <RepayRateBoxBottom>{borrowDetail?.repayAmount} nxTON</RepayRateBoxBottom>
           </RepayRateBox>
         </RepaymentContentBox>
-
+        
         {!isDevMode ? (
-          <MainButton text="Pay now" onClick={toggleModal} />
+          borrowDetail?.status==0&&<MainButton text="Pay now" onClick={toggleModal} />
         ) : (
           <button onClick={toggleModal}>Pay now</button>
         )}
