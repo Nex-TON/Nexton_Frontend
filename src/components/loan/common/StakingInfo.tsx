@@ -181,7 +181,7 @@ const StakingInfoHeader = styled.div<{ $theme: Theme; $textCenter?: boolean; $ma
   ${({theme})=>theme.fonts.Nexton_Body_Text_Medium_2};
   font-size:2.24rem;
   p{
-    color: ${({ $theme }) => ($theme === "black" ? "#fffff" : "#303234")};
+    color: ${({ $theme }) => ($theme === "black" ? "white" : "#303234")};
   }
 
 `;
