@@ -87,14 +87,14 @@ const Dashboard = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/main");
+        navigate("-1");
       });
     }
 
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, [location.state]);
+  }, []);
 
   // Set global error state if there is an error
   useEffect(() => {
