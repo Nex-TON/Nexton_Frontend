@@ -6,6 +6,7 @@ export interface StakingProps {
   lockup: number;
   nominator: string;
   asset:string;
+  tokenSort:string;
 }
 
 export interface UnstakingProps {

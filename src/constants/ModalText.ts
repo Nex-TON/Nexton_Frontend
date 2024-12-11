@@ -10,6 +10,12 @@ export const MODAL_TEXT = {
     descBr: "in your wallet, and transaction",
     descBr2: "history by tapping below button",
   },
+  repay: {
+    title: "Repayment was successful!",
+    desc: "You can view the repayment history",
+    descBr: "in the History section and also in the",
+    descBr2: "TON viewer at the bottom.",
+  },
   unstaking: {
     title: "Successfully",
     titleBr: "Unstaking Requested",
@@ -22,5 +28,17 @@ export const MODAL_TEXT = {
     desc: "Unstaked amount is claimed",
     descBr: "and will be deposited into your wallet",
     descBr2: "It could take a few minutes. Check it!",
+  },
+  blockborrow: {
+    title: "Lending Unavailable",
+    desc: "Lending is not available for the",
+    descBr: "first hour after NFT issuance.",
+    descBr2: "Please wait a little longer",
+  },
+  blockunstake: {
+    title: "Unstaking Unavailable",
+    desc: "NFTs can be unstaked",
+    descBr: "15 days after staking.",
+    descBr2: "Thank you for your patience!",
   },
 };

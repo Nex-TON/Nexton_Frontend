@@ -42,7 +42,7 @@ export const calculateRemainingDays = (unstakableDate: string): number => {
 };
 
 /**
- * getDDayText - Generates a D-Day text based on the unstakable date.
+ * getText - Generates a D-Day text based on the unstakable date.
  *
  * @param {string} unstakableDate - The unstakable date of the NFT in Date format.
  * @returns {string} - The D-Day text ("D-<days>", "D-Day", "D+<days>").

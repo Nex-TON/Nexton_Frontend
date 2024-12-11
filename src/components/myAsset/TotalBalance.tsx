@@ -1,14 +1,36 @@
 import styled from "styled-components";
 import { mutate } from "swr";
+import { useMemo } from "react";
 
 import useTonConnect from "@/hooks/contract/useTonConnect";
+import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
-import { numberCutter } from "@/utils/numberCutter";
+import IcnxTon from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
 import { useEffect, useState } from "react";
+import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 
 export const TotalBalance = () => {
-  const { address, balance, connected, refreshTonData } = useTonConnect();
+  const { address, balance, refreshTonData } = useTonConnect();
+  const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const { nftList, isLoading } = useStakeInfo(address);
+
+  const totalStaked = useMemo(() => {
+    return tokenSort => {
+      return (
+        nftList?.reduce((acc, nft) => {
+          if (nft.tokenSort === `${tokenSort}`) {
+            return acc + nft.principal;
+          }
+          return acc;
+        }, 0) || 0
+      );
+    };
+  }, [nftList]);
+
+  const totalStakedNxTon = useMemo(() => {
+    return nftList?.reduce((acc, nft) => acc + nft.principal, 0) || 0;
+  }, [nftList]);
 
   useEffect(() => {
     const initializeData = async () => {
@@ -16,6 +38,7 @@ export const TotalBalance = () => {
       try {
         await Promise.all([
           refreshTonData(),
+          refreshNxtonData(),
           mutate(`/data/getAllStakeInfoByAddress?address=${address}`),
           mutate(`/data/getEarningsbyAddress/${address}`),
         ]);
@@ -27,33 +50,122 @@ export const TotalBalance = () => {
     };
 
     initializeData();
-  }, [address, refreshTonData]);
+  }, [address, refreshTonData, refreshNxtonData]);
 
   return (
-    <TotalBalanceWrapper>
-      <TotalBalanceHeader>Total Balance</TotalBalanceHeader>
+    <TotalBalanceWrapper id="specific-element-total-balance">
+      <TotalBalanceHeader>My asset</TotalBalanceHeader>
       <TotalBalanceBoxWrapper>
-        <img src={IcTon} alt="my asset page ton logo" />
-        <TotalBalanceText>
+        <TokenTitle>
+          <img src={IcTon} alt="my asset page ton logo" />
+          <h2>TON</h2>{" "}
+        </TokenTitle>
+        <ValueWrapper>
           <SideText>Balance</SideText>
           <Balance>
             {isRefreshing ? (
               <Balance>-.---</Balance>
             ) : (
               <>
-                <Balance>{balance === 0 || balance ? balance?.toFixed(3) : "0.000"}TON</Balance>
+                <Balance>
+                  <p>{balance === 0 || balance ? balance?.toFixed(3) : "0.000"}</p>
+                  <p>TON</p>
+                </Balance>
               </>
             )}
           </Balance>
-        </TotalBalanceText>
+        </ValueWrapper>
+        <DivideLine />
+        <ValueWrapper>
+          <SideText>Staked</SideText>
+          <Balance>
+            {isLoading ? (
+              <Balance>-.---</Balance>
+            ) : (
+              <>
+                <Balance>
+                  <p>{totalStaked("TON") === 0 || totalStaked("TON") ? totalStaked("TON")?.toFixed(3) : "0.000"}</p>
+                  <p>TON</p>
+                </Balance>
+              </>
+            )}
+          </Balance>
+        </ValueWrapper>
+      </TotalBalanceBoxWrapper>
+      <TotalBalanceBoxWrapper>
+        <TokenTitle>
+          <img src={IcnxTon} alt="my asset page ton logo" />
+          <h2>nxTON</h2>
+        </TokenTitle>
+        <ValueWrapper>
+          <SideText>Balance</SideText>
+          <Balance>
+            {isRefreshing ? (
+              <Balance>-.---</Balance>
+            ) : (
+              <>
+                <Balance>
+                  <p>
+                    {Number(nxTonBalance) === 0 || Number(nxTonBalance) ? Number(nxTonBalance)?.toFixed(3) : "0.000"}
+                  </p>
+                  <p>nxTON</p>
+                </Balance>
+              </>
+            )}
+          </Balance>
+        </ValueWrapper>
+        <DivideLine />
+        <ValueWrapper>
+          <SideText>Staked</SideText>
+          <Balance>
+            <Balance>
+              <p>{totalStaked("nxTON") === 0 || totalStaked("nxTON") ? totalStaked("nxTON")?.toFixed(3) : "0.000"}</p>
+              <p>nxTON</p>
+            </Balance>
+          </Balance>
+        </ValueWrapper>
       </TotalBalanceBoxWrapper>
     </TotalBalanceWrapper>
   );
 };
 
+const ValueWrapper = styled.div`
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+`;
+
+const TokenTitle = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.1rem;
+  h2 {
+    color: black;
+    ${({ theme }) => theme.fonts.Telegram_Title_3_1}
+  }
+  img {
+    width: 33px;
+    height: 33px;
+  }
+  margin-bottom: 0.2rem;
+`;
+
+const DivideLine = styled.div`
+  width: 100%;
+  height: 1px;
+  background: #e5e5ea;
+`;
+
 const Balance = styled.div`
-  color: #303234;
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Large};
+  justify-content: row;
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+  p {
+    color: #303234;
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Large};
+  }
 `;
 
 const SideText = styled.div`
@@ -61,28 +173,17 @@ const SideText = styled.div`
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
 `;
 
-const TotalBalanceText = styled.div`
-  gap: 0.6rem;
-  display: flex;
-  flex-direction: column;
-`;
-
 const TotalBalanceBoxWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 1.7rem;
-  align-items: center;
+  flex-direction: column;
+  gap: 1.8rem;
+  margin-bottom: 1rem;
 
-  margin-bottom: 5.5rem;
   width: 100%;
-  height: 8.5rem;
+  height: auto;
   box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
   border-radius: 15px;
-  padding: 2rem;
-  img {
-    width: 43px;
-    height: 43px;
-  }
+  padding: 1.8rem 3.4rem 2.2rem 1.9rem;
 `;
 
 const TotalBalanceHeader = styled.div`
@@ -93,4 +194,5 @@ const TotalBalanceHeader = styled.div`
 const TotalBalanceWrapper = styled.div`
   display: felx;
   flex-direction: column;
+  margin-bottom: 3.2rem;
 `;

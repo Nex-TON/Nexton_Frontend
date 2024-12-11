@@ -9,6 +9,7 @@ export interface IUnstakingDetailData {
   unstakingPeriod: number;
   unstakableDate: string;
   unstakeState:number;
+  tokenSort:string;
 }
 
 export function useUnstakingDetail(nftId: number | string) {

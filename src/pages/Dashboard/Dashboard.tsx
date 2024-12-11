@@ -81,7 +81,7 @@ const Dashboard = () => {
   } = useBotPerformanceChart(chartTimeFrameOptions[timeFrame]);
 
   const { data: tonPriceData, isLoading: tonPriceLoading, error: tonPriceError } = useCoinPrice("ton", "usd");
-
+  
   useEffect(() => {
     if (tele) {
       tele.ready();
@@ -94,7 +94,7 @@ const Dashboard = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, [navigate, location.state]);
+  }, []);
 
   // Set global error state if there is an error
   useEffect(() => {

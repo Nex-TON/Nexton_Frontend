@@ -2,12 +2,6 @@ import styled from "styled-components";
 import IcTon from "@/assets/icons/Stake/Staking_TON.png";
 import IcNxTon from "@/assets/icons/Stake/Staking_nxTON.png";
 import IcArrowRight from "@/assets/icons/Stake/ic_chevron_right.svg";
-import { useState } from "react";
-import { ComingSoonModal } from "@/components/loan/ComingSoonModal";
-
-interface ModalState {
-  toggled: boolean;
-}
 
 export const TokenFilterModal = ({ toggleModal, onSelected }) => {
   const handleSelection = token => {

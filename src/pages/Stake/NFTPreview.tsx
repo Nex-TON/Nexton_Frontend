@@ -4,6 +4,7 @@ import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 import { mutate } from "swr";
+import { Address, beginCell, toNano } from "@ton/core";
 
 import { postStakingInfo } from "@/api/postStakingInfo";
 import IcAlertBlue from "@/assets/icons/Stake/ic_alert_blue.svg";
@@ -17,10 +18,10 @@ import NFTPreviewInfo from "@/components/stake/NFTPreview/NFTPreviewInfo";
 import * as Contract from "@/hooks/contract/depositTon";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import { TonDeposit } from "@/hooks/contract/wrappers/tact_NexTon";
+import { useJettonWallet } from "@/hooks/contract/useJettonWallet";
 import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom, stakingInputAtom } from "@/lib/atom/staking";
 import { isDevMode } from "@/utils/isDevMode";
-import { toNano } from "@ton/core";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -36,7 +37,8 @@ const NFTPreview = () => {
   const setError = useSetRecoilState(globalError);
 
   const [, setInput] = useRecoilState(stakingInputAtom);
-  const { sendMessage } = Contract.depositTon();
+  const { sendMessage: sendDepositTon } = Contract.depositTon();
+  const { tokenTransfer } = useJettonWallet(stakingInfo.asset);
   const [isLoading, setIsLoading] = useState(false);
 
   const [modal, setModal] = useState<ModalState>({
@@ -54,7 +56,7 @@ const NFTPreview = () => {
   };
 
   //minting 된 nft 서버 호출
-  const handleMinting = useCallback(async () => {
+  const handleTonStake = useCallback(async () => {
     setIsLoading(true);
 
     try {
@@ -63,14 +65,14 @@ const NFTPreview = () => {
         return {
           $$type: "TonDeposit",
           query_id: BigInt(Date.now()),
-          amount: toNano(stakingInfo.principal) - PROTOCOL_FEE,          // ❗NOTE❗: Not used in the current contract version
+          amount: toNano(stakingInfo.principal) - PROTOCOL_FEE, // ❗NOTE❗: Not used in the current contract version
           // lockPeriod: BigInt(stakingInfo.lockup),
           // leverage: BigInt(stakingInfo.leverage),
         };
       };
 
       // First, attempt to send the message to the contract
-      await sendMessage(data(), stakingInfo.principal);
+      await sendDepositTon(data(), stakingInfo.principal);
 
       // If sendMessage is successful, then call postStakingInfo
       await postStakingInfo({
@@ -80,7 +82,7 @@ const NFTPreview = () => {
         amount: stakingInfo.principal,
         lockPeriod: stakingInfo.lockup.toString(),
         nominator: stakingInfo.nominator,
-        tokenSort:stakingInfo.asset,
+        tokenSort: stakingInfo.asset,
       });
 
       setModal({ type: "stake", toggled: true });
@@ -89,13 +91,52 @@ const NFTPreview = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [stakingInfo, sendMessage, setError]);
+  }, [stakingInfo, sendDepositTon, setError]);
 
   const handleStakeConfirm = () => {
     toggleModal();
-
-    handleMinting();
+    if (stakingInfo.asset === "TON") {
+      handleTonStake();
+    } else {
+      handleJettonStake();
+    }
   };
+
+  const handleJettonStake = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const data = amount => {
+        const PROTOCOL_FEE = toNano(0.1);
+        return {
+          value: PROTOCOL_FEE + toNano("0.05"),
+          amount: amount,
+          fwdAmount: PROTOCOL_FEE,
+          fwdPayload: beginCell().storeUint(0, 4).endCell().asSlice(),
+        };
+      };
+
+      // First, attempt to send the message to the contract
+      const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS;
+      await tokenTransfer(Address.parse(contractAddress), data(toNano(stakingInfo.principal)));
+
+      // If sendMessage is successful, then call postStakingInfo
+      await postStakingInfo({
+        telegramId: stakingInfo.telegramId,
+        leverage: stakingInfo.leverage,
+        address: stakingInfo.address,
+        amount: stakingInfo.principal,
+        lockPeriod: stakingInfo.lockup.toString(),
+        nominator: stakingInfo.nominator,
+        tokenSort: stakingInfo.asset,
+      });
+
+      setModal({ type: "stake", toggled: true });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [stakingInfo, tokenTransfer, setError]);
 
   useEffect(() => {
     if (tele) {
@@ -164,7 +205,9 @@ const NFTPreview = () => {
             mutate(`/data/getAllStakeInfoByAddress?address=${stakingInfo.address}`);
             await refreshTonData();
 
-            navigate("/stake/success", { state: { isStakeSuccess: true, lockPeriod: stakingInfo.lockup, stakingInfo:stakingInfo } });
+            navigate("/stake/success", {
+              state: { isStakeSuccess: true, lockPeriod: stakingInfo.lockup, stakingInfo: stakingInfo },
+            });
           }}
         />
       )}

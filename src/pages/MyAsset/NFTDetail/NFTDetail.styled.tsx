@@ -103,16 +103,23 @@ export const NFTDetailItemCaption = styled.span`
   color: #aaaeaf;
 `;
 
-export const NFTDetailItemText = styled.p<{ $textCenter?: boolean}>`
+export const NFTDetailItemText = styled.p<{ $textCenter?: boolean }>`
   width: 100%;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
-  color:#303234;
+  color: #303234;
 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
 
   text-align: ${({ $textCenter }) => ($textCenter ? "center" : "left")};
+  img {
+    width: 18px;
+    height: 18px;
+    margin-right: 0.6rem;
+  }
 `;
 
 export const NFTDetailItemBox = styled.div`

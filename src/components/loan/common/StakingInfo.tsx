@@ -5,6 +5,8 @@ import { styled } from "styled-components";
 import IcTonLogo from "@/assets/icons/Loan/ic_ton_logo.svg";
 
 import { DoubleArrows } from "./DoubleArrows";
+import IcPaid from "@/assets/icons/Loan/ic_paid_off.svg";
+import IcUnpaid from "@/assets/icons/Loan/ic_unpaid.svg";
 
 type Theme = "black" | "white";
 
@@ -25,6 +27,7 @@ interface StakingInfoProps {
   titleButton?: JSX.Element;
   alwaysVisibleItems?: SectionItem[];
   stakingInfoItems: Section[];
+  status?: number;
 }
 
 const StakingInfo = ({
@@ -34,6 +37,7 @@ const StakingInfo = ({
   titleButton,
   stakingInfoItems,
   alwaysVisibleItems,
+  status,
 }: StakingInfoProps) => {
   const [isExpanded, setExpanded] = useState(false);
   const arrowsTheme = theme === "black" ? "white" : "black";
@@ -49,8 +53,15 @@ const StakingInfo = ({
       onClick={isExpandable && !isExpanded ? handleExpandInfo : undefined}
     >
       <StakingInfoHeader $theme={theme} $textCenter={isExpandable && !alwaysVisibleItems}>
-        <p>{title}</p>
-
+        <StakingInfoHeaderLeft $theme={theme} $textCenter={isExpandable && !alwaysVisibleItems}>
+          {title}
+        </StakingInfoHeaderLeft>
+        {(status==0 ||status==1) && (
+          <StakingInfoHeaderRight status={status}>
+            <img src={status == 1 ? IcPaid : IcUnpaid} />
+            <p>{status == 1 ? "Paid off" : "Unpaid"}</p>
+          </StakingInfoHeaderRight>
+        )}
         {titleButton && titleButton}
       </StakingInfoHeader>
       {alwaysVisibleItems &&
@@ -117,6 +128,32 @@ const StakingInfo = ({
 
 export default StakingInfo;
 
+const StakingInfoHeaderRight = styled.div<{status}>`
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  img {
+    width: 24px;
+    height: 24px;
+    margin-right: 0.9rem;
+  }
+  p {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+    color: ${({status})=>status==1?"#34C759":"#0C0F5E"};
+  }
+`;
+const StakingInfoHeaderLeft = styled.div<{ $theme; $textCenter? }>`
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+  font-size: 1.4rem;
+  color: ${({ $theme }) => ($theme === "black" ? "#fff" : "#303234")};
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  text-align: ${({ $textCenter }) => ($textCenter ? "center" : "left")};
+`;
+
 const StakingInfoWrapper = styled.div<{ $theme: Theme; $marginTop?: boolean; $itemsCenter?: boolean }>`
   width: 100%;
   display: inline-flex;
@@ -135,21 +172,18 @@ const StakingInfoWrapper = styled.div<{ $theme: Theme; $marginTop?: boolean; $it
 const StakingInfoHeader = styled.div<{ $theme: Theme; $textCenter?: boolean; $marginTop?: boolean }>`
   width: 100%;
   display: flex;
+  flex-direction: row;
   justify-content: ${({ $textCenter }) => ($textCenter ? "center" : "space-between")};
   align-items: center;
   margin-bottom: 1rem;
   margin-top: ${({ $marginTop }) => ($marginTop ? "1.6rem" : "0")};
-
-  p {
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
-    color: ${({ $theme }) => ($theme === "black" ? "#fff" : "#303234")};
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-    text-align: ${({ $textCenter }) => ($textCenter ? "center" : "left")};
+  font-size:2.24rem;
+  ${({theme})=>theme.fonts.Nexton_Body_Text_Medium_2};
+  font-size:2.24rem;
+  p{
+    color: ${({ $theme }) => ($theme === "black" ? "white" : "#303234")};
   }
+
 `;
 
 const StakingInfoItem = styled.div<{ $theme: Theme }>`

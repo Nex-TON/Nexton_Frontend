@@ -6,7 +6,7 @@ import { IUnstakedListData } from "@/hooks/api/unstaking/useUnstakedList";
 import { limitDecimals } from "@/utils/limitDecimals";
 
 const UnstakedDetailItem = ({ item }: { item: IUnstakedListData }) => {
-  const { nftId, unstakedAt, unstakedAmount,unstakeState } = item;
+  const { nftId, unstakedAt, unstakedAmount,unstakeState,tokenSort } = item;
   const navigate = useNavigate();
 
   return (
