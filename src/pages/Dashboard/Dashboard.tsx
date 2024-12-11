@@ -94,7 +94,7 @@ const Dashboard = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, [navigate, location.state]);
+  }, [location.state]);
 
   // Set global error state if there is an error
   useEffect(() => {

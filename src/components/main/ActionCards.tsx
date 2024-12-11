@@ -49,7 +49,7 @@ const ActionCards = () => {
       </Card> */}
       <ActionCardsTitle>My Activity</ActionCardsTitle>
       <ActionCardsInnerBox>
-        <Card $large onClick={() => setModal({toggled: true })}>
+        <Card $large onClick={() =>navigate("/loan")}>
           <CardHeader >Borrow nxTON using<br/>
           your NFT as collateral</CardHeader>
           <CardBody >

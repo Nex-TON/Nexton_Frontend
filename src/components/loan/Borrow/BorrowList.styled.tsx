@@ -1,5 +1,25 @@
 import { styled } from "styled-components";
 
+export const NFTItemWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(14.2rem, 1fr));
+  gap: 1rem;
+
+  width: 100%;
+  padding: 0.9rem 1rem 15.4rem 1rem;
+
+  background-color: #fff;
+
+  overflow-y: scroll;
+
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+
+  &::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
+`;
+
 export const BorrowListWrapper = styled.div`
   width: 100%;
   display: flex;

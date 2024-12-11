@@ -4,14 +4,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import IcTrendRight from "@/assets/icons/Loan/ic_trend_right.svg";
 import IcTrendUp from "@/assets/icons/Loan/ic_trend_up.svg";
 import ExpiredNFTLarge from "@/assets/image/NftExpired.png";
-import ForthComingNFTLarge from "@/assets/image/NftForthComing.png";
 import OngoingNFTLarge from "@/assets/image/NftOngoing.png";
 import StakingInfo from "@components/loan/common/StakingInfo";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { nftInfo } from "@/types/Nft";
-import { DDayChange } from "@/utils/dateChanger";
 import { getDDayText, getNftState } from "@/utils/getNftState";
 import { numberCutter } from "@/utils/numberCutter";
+import { useCheckLendingAvailable } from "@/hooks/api/loan/useCheckLendingAvailable";
+import IcTonSymbol from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
+import IcNxTonSymbol from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
+import BasicModal from "@/components/common/Modal/BasicModal";
 
 import {
   NFTDetailCard,
@@ -25,11 +27,12 @@ import {
   NFTDetailItemText,
   NFTDetailWrapper,
 } from "./NFTDetail.styled";
-import { ComingSoonModal } from "@/components/loan/ComingSoonModal";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
 
 interface ModalState {
+  type: "blockborrow" | "blockunstake";
   toggled: boolean;
 }
 
@@ -39,8 +42,11 @@ const NFTDetail = () => {
   const [stakingInfo, setStakingInfo] = useState<any>([{ items: [] }]);
   const [isNftExpired, setIsNftExpired] = useState(false);
   const { id } = useParams();
+  const { address } = useTonConnect();
   const { nftDetail, isLoading } = useNFTDetail(Number(id));
+  const { data: checkLendingAvailable } = useCheckLendingAvailable(address, Number(id));
   const [modal, setModal] = useState<ModalState>({
+    type: "blockborrow",
     toggled: false,
   });
 
@@ -49,14 +55,21 @@ const NFTDetail = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/myasset/nftlist");
+        navigate(-1);
       });
     }
 
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, [navigate]);
+  }, []);
+
+  const toggleModal = () => {
+    setModal(prev => ({
+      type: prev.type,
+      toggled: !prev.toggled,
+    }));
+  };
 
   useEffect(() => {
     if (nftDetail) {
@@ -66,28 +79,18 @@ const NFTDetail = () => {
       setStakingInfo([
         {
           items: [
-            { label: "Principal", value: `${nftDetail[0].principal} TON` },
+            { label: "Principal", value: `${nftDetail[0].principal} ${nftDetail[0].tokenSort}` },
             { label: "Nominator Pool", value: nftDetail[0].nominator },
             { label: "Leveraged", value: `${nftDetail[0].leverage}x` },
             { label: "Lock-up Period", value: `${nftDetail[0].lockPeriod} days remaining` },
             { label: "Unstakable date", value: new Date(nftDetail[0].unstakableDate).toLocaleDateString() },
             { label: "Protocol Fees", value: "2%" },
-            { label: "Staking APR", value: "5%" },
-            { label: "Total Amount", value: `${numberCutter(nftDetail[0].totalAmount)} TON` },
+            { label: "Total Amount", value: `${numberCutter(nftDetail[0].totalAmount)} ${nftDetail[0].tokenSort}` },
           ],
         },
       ]);
     }
   }, [nftDetail]);
-
-  const toggleModal = () => {
-    setModal(prev => ({
-      toggled: !prev.toggled,
-    }));
-  };
-  const handleOkayButton = () => {
-    toggleModal();
-  };
 
   return (
     <>
@@ -97,8 +100,6 @@ const NFTDetail = () => {
             <NFTDetailCardImageBox>
               {getNftState(nftInfo.unstakableDate) === "ongoing" ? (
                 <img src={OngoingNFTLarge} alt="ongoing_nft" />
-              ) : getNftState(nftInfo.unstakableDate) === "forthcoming" ? (
-                <img src={ForthComingNFTLarge} alt="forthcoming_nft" />
               ) : (
                 <img src={ExpiredNFTLarge} alt="expired_nft" />
               )}
@@ -109,15 +110,19 @@ const NFTDetail = () => {
 
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
-            $disabled={false}
-            onClick={() => setModal({ toggled: true })} /* onClick={() => navigate(`/loan/${id}/borrow/details`)} */
+            onClick={() => {
+              checkLendingAvailable?.success
+                ? navigate(`/loan/${id}/borrow/details`)
+                : setModal({ type: "blockborrow", toggled: true });
+            }}
           >
             Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
           </NFTDetailCardButton>
 
           <NFTDetailCardButton
-            $disabled={!isNftExpired}
-            onClick={() => isNftExpired && navigate(`/unstaking/${id}`)}
+            onClick={() => {
+              isNftExpired ? navigate(`/unstaking/${id}`) : setModal({ type: "blockunstake", toggled: true });
+            }}
             id="nft detail page unstake now button"
           >
             Unstake Now <img src={IcTrendRight} alt="trend_right" id="nft detail page unstake now button" />
@@ -132,19 +137,23 @@ const NFTDetail = () => {
 
           <NFTDetailItemBox>
             <NFTDetailItem>
-              <NFTDetailItemCaption>Network</NFTDetailItemCaption>
-              <NFTDetailItemText>TON</NFTDetailItemText>
+              <NFTDetailItemCaption>Token</NFTDetailItemCaption>
+              <NFTDetailItemText>
+                <img src={nftInfo?.tokenSort === "TON" ? IcTonSymbol : IcNxTonSymbol} alt="tonSymbol" />
+                {nftInfo?.tokenSort}
+              </NFTDetailItemText>
             </NFTDetailItem>
             <NFTDetailItem>
               <NFTDetailItemCaption>LTV</NFTDetailItemCaption>
               <NFTDetailItemText>95%</NFTDetailItemText>
             </NFTDetailItem>
           </NFTDetailItemBox>
-
+          {/* status로 임의의 값 넣어줌 */}
           <StakingInfo isExpandable={true} theme="white" title="Staking info" stakingInfoItems={stakingInfo} />
         </NFTDetailContentBox>
       </NFTDetailWrapper>
-      {modal.toggled && <ComingSoonModal toggleModal={toggleModal} onConfirm={handleOkayButton} />}
+      {modal.type === "blockborrow" && modal.toggled && <BasicModal isDark type="blockborrow" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
+      {modal.type === "blockunstake" && modal.toggled && <BasicModal isDark type="blockunstake" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
     </>
   );
 };
