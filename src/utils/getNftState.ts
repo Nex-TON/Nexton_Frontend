@@ -9,6 +9,7 @@
  * - If the remaining days are between 1 and 15, it returns "forthcoming".
  * - If the remaining days are 0 or less, it returns "expired".
  */
+import { limitDecimals } from "./limitDecimals";
 export const getNftState = (unstakableDate?: string): string => {
   if (!unstakableDate) {
     return "unknown";
@@ -16,11 +17,9 @@ export const getNftState = (unstakableDate?: string): string => {
 
   const remainingDays = calculateRemainingDays(unstakableDate);
 
-  if (remainingDays > 15) {
+  if (remainingDays >0) {
     return "ongoing";
-  } else if (remainingDays > 0) {
-    return "forthcoming";
-  } else {
+  }else {
     return "expired";
   }
 };
@@ -58,7 +57,7 @@ export const getDDayText = (unstakableDate?: string): string => {
     return "unknown";
   }
 
-  const remainingDays = calculateRemainingDays(unstakableDate);
+  const remainingDays = limitDecimals(calculateRemainingDays(unstakableDate),0);
 
   if (remainingDays > 0) {
     return `D-${remainingDays}`;
