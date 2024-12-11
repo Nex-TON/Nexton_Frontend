@@ -111,6 +111,18 @@ function BasicModal(props: BasicModalProps) {
             </SubTitleBox>
           </>
         );
+        case "blockborrow100":
+        return (
+          <>
+            <Title $isDark={isDark}>{MODAL_TEXT[type].title}</Title>
+            <SubTitleBox>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].desc}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr2}</SubTitle>
+              <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr3}</SubTitle>
+            </SubTitleBox>
+          </>
+        );
       default:
         break;
     }
@@ -136,7 +148,7 @@ function BasicModal(props: BasicModalProps) {
 
         {handleModalText(type, isDark)}
         <OpenTonViewerBox>
-          {type != "blockborrow" && type != "blockunstake" && (
+          {type != "blockborrow" && type != "blockunstake"&&type != "blockborrow100"  && (
             <OpenTonViewer
               onClick={() => {
                 window.location.href = `https://testnet.tonviewer.com/${address}`;

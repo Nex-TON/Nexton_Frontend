@@ -32,7 +32,7 @@ import useTonConnect from "@/hooks/contract/useTonConnect";
 const tele = (window as any).Telegram.WebApp;
 
 interface ModalState {
-  type: "blockborrow" | "blockunstake";
+  type: "blockborrow" | "blockunstake"|"blockborrow100";
   toggled: boolean;
 }
 
@@ -111,10 +111,14 @@ const NFTDetail = () => {
 
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
-            onClick={() => {
-              checkLendingAvailable?.success
+            onClick={() =>{
+              if(Number(id)<=100){
+                setModal({type:"blockborrow100",toggled:true});
+              }else{
+                checkLendingAvailable?.success
                 ? navigate(`/loan/${id}/borrow/details`)
                 : setModal({ type: "blockborrow", toggled: true });
+              }
             }}
           >
             Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
@@ -153,6 +157,7 @@ const NFTDetail = () => {
           <StakingInfo isExpandable={true} theme="white" title="Staking info" stakingInfoItems={stakingInfo} />
         </NFTDetailContentBox>
       </NFTDetailWrapper>
+      {modal.type==="blockborrow100"&&modal.toggled&&<BasicModal isDark type="blockborrow100" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
       {modal.type === "blockborrow" && modal.toggled && <BasicModal isDark type="blockborrow" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
       {modal.type === "blockunstake" && modal.toggled && <BasicModal isDark type="blockunstake" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
     </>
