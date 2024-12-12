@@ -130,13 +130,6 @@ const RepaymentDetails = () => {
       };
 
       await sendMessage(data());
-      // let isValid = false;
-      //   while (!isValid) {
-      //       isValid = await useValidateRepaying(Number(id),address)?.data.valid
-      //       if (!isValid) {
-      //           await new Promise(resolve => setTimeout(resolve, 2000)); // 2초 대기
-      //       }
-      //   }
       await delay(50000);
       const response = await postRepayInfo({
         nftId: Number(id),

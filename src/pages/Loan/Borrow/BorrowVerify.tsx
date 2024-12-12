@@ -41,7 +41,7 @@ const BorrowVerify = () => {
   const setError = useSetRecoilState(globalError);
   const [isLoading, setIsLoading] = useState(false);
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-  const {data}=useValidateLending(Number(id));
+  const { data } = useValidateLending(Number(id));
 
   const stakingInfoItems = [
     {
@@ -86,22 +86,14 @@ const BorrowVerify = () => {
       const data = () => {
         return {
           queryId: BigInt(Date.now()),
-          value: toNano("0.072"),
+          value: toNano("0.102"),
           newOwner: Address.parse(import.meta.env.VITE_LEND_CONTRACT),
           responseAddress: Address.parse(address),
-          fwdAmount: toNano("0.022"),
+          fwdAmount: toNano("0.052"),
         };
       };
 
       await sendWithData(data(), toNano("0.05"));
-      // while(true){
-      //   const valid= await useValidateLending(Number(id)).data;
-      //   if(valid.valid==true){
-      //     break;
-      //   }
-      //   await delay(1000);
-      // }
-      
       await delay(50000);
       //TODO: send server message
       const response = await postLendingInfo({

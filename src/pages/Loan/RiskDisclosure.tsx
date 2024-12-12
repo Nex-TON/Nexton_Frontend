@@ -2,9 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
-import IcAlert from "@/assets/icons/Loan/ic_alert.svg";
 import RisksList from "@/components/loan/common/RisksList";
-import Header from "@/components/common/Header";
 
 const tele = (window as any).Telegram.WebApp;
 
