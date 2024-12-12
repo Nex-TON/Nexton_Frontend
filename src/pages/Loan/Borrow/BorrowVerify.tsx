@@ -101,7 +101,10 @@ const BorrowVerify = () => {
           if (validation.valid == "true") {
             break;
           }
-        }else{
+        }else if(validation && validation == 202 && timeRotate <= 24){
+          continue;
+        }
+        else{
           break;
         };
         timeRotate += 1;
