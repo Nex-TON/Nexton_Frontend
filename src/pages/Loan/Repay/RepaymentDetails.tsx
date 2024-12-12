@@ -27,7 +27,7 @@ import {
 import { postRepayInfo } from "@/api/postRepayInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import { useSetRecoilState } from "recoil";
-import { useValidateRepaying } from "@/hooks/api/loan/useValidateRepaying";
+import { nextonFetcher } from "@/api/axios";
 
 interface ModalState {
   type: "repay" | "confirmRepay";
@@ -130,14 +130,19 @@ const RepaymentDetails = () => {
       };
 
       await sendMessage(data());
-      // let isValid = false;
-      //   while (!isValid) {
-      //       isValid = await useValidateRepaying(Number(id),address)?.data.valid
-      //       if (!isValid) {
-      //           await new Promise(resolve => setTimeout(resolve, 2000)); // 2초 대기
-      //       }
-      //   }
-      await delay(50000);
+      let timeRotate=0;
+      while(true){
+        const validation = await nextonFetcher(`/data/validate-lending?nftId=${Number(id)}&address=${address}`);
+        if (validation&&validation==200&&timeRotate<=24){
+          if(validation.valid==true){
+            break;
+          }
+        }else{
+          throw new Error(`${validation}`);
+        }
+        timeRotate+=1;
+        await delay(5000);
+      }
       const response = await postRepayInfo({
         nftId: Number(id),
         address: address,
