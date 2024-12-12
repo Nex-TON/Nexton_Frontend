@@ -14,8 +14,7 @@ import { nftInfo } from "../../../types/Nft";
 import { DDayChange, expiredDateChanger } from "../../../utils/dateChanger";
 import { getProtocolFee } from "../../../utils/getProtocolFee";
 import { numberCutter } from "../../../utils/numberCutter";
-import BasicModal from "../../common/Modal/BasicModal";
-
+import BasicModal from "@/components/common/Modal/BasicModal";
 import DetailNFTInfoHeader from "./DetailNFTInfoHeader";
 
 interface DetailNftInfoProps {

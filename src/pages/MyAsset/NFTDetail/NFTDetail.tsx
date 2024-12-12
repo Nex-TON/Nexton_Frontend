@@ -13,8 +13,7 @@ import { numberCutter } from "@/utils/numberCutter";
 import { useCheckLendingAvailable } from "@/hooks/api/loan/useCheckLendingAvailable";
 import IcTonSymbol from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import IcNxTonSymbol from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
-import BasicModal from "@/components/common/Modal/BasicModal";
-
+import NftDetailModal from "@/components/common/Modal/NftDetailModal";
 import {
   NFTDetailCard,
   NFTDetailCardButton,
@@ -157,9 +156,9 @@ const NFTDetail = () => {
           <StakingInfo isExpandable={true} theme="white" title="Staking info" stakingInfoItems={stakingInfo} />
         </NFTDetailContentBox>
       </NFTDetailWrapper>
-      {modal.type==="blockborrow100"&&modal.toggled&&<BasicModal isDark type="blockborrow100" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
-      {modal.type === "blockborrow" && modal.toggled && <BasicModal isDark type="blockborrow" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
-      {modal.type === "blockunstake" && modal.toggled && <BasicModal isDark type="blockunstake" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
+      {modal.type==="blockborrow100"&&modal.toggled&&<NftDetailModal isDark type="blockborrow100" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
+      {modal.type === "blockborrow" && modal.toggled && <NftDetailModal isDark type="blockborrow" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
+      {modal.type === "blockunstake" && modal.toggled && <NftDetailModal isDark type="blockunstake" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
     </>
   );
 };
