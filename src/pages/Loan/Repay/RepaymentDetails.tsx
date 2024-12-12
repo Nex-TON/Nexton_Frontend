@@ -52,9 +52,9 @@ const RepaymentDetails = () => {
 
   const alwaysVisibleItems = [
     { label: "Borrowed nxTON", value: `${limitDecimals(borrowDetail?.repayAmount, 3)} nxTON` },
-    { label: "Principal", value: `${limitDecimals(borrowDetail?.principal,3)} TON` },
-    { label: "LTV", value: `${limitDecimals(borrowDetail?.loanToValue*100,2)}%` },
-    { label: "Interest rate", value: `${limitDecimals(borrowDetail?.interestRate*100,2)}%` },
+    { label: "Principal", value: `${limitDecimals(borrowDetail?.principal, 3)} TON` },
+    { label: "LTV", value: `${limitDecimals(borrowDetail?.loanToValue * 100, 2)}%` },
+    { label: "Interest rate", value: `${limitDecimals(borrowDetail?.interestRate * 100, 2)}%` },
   ];
   const stakingInfoItems = nftDetail && [
     {
@@ -67,7 +67,7 @@ const RepaymentDetails = () => {
     {
       header: "Staking info",
       items: [
-        { label: "Principal", value: `${limitDecimals(nftDetail[0]?.principal,3)} TON` },
+        { label: "Principal", value: `${limitDecimals(nftDetail[0]?.principal, 3)} TON` },
         { label: "Nominator Pool", value: `${nftDetail[0]?.nominator}` },
         { label: "Leveraged", value: `${nftDetail[0]?.leverage}X` },
         { label: "Lockup period", value: `${nftDetail[0]?.lockPeriod}` },
@@ -124,8 +124,8 @@ const RepaymentDetails = () => {
         return {
           query_id: BigInt(Date.now()),
           amount: toNano(borrowDetail?.repayAmount),
-          value: toNano("0.06"),
-          forward_ton_amount: toNano("0.01"),
+          value: toNano("0.07"),
+          forward_ton_amount: toNano("0.05"),
         };
       };
 
@@ -182,7 +182,7 @@ const RepaymentDetails = () => {
           <RepayRateBox>
             <RepayRateBoxHeader>Amount to be repaid</RepayRateBoxHeader>
             <RepayRateBoxDivider />
-            <RepayRateBoxBottom>{limitDecimals(borrowDetail?.repayAmount,3)} nxTON</RepayRateBoxBottom>
+            <RepayRateBoxBottom>{limitDecimals(borrowDetail?.repayAmount, 3)} nxTON</RepayRateBoxBottom>
           </RepayRateBox>
         </RepaymentContentBox>
 
@@ -195,7 +195,7 @@ const RepaymentDetails = () => {
 
       {isLoading && <TransactionConfirmModal />}
       {modal.type === "confirmRepay" && modal.toggled && (
-        <ConfirmRepaymentModal toggleModal={toggleModal} onConfirm={handleRepayConfirm} loanId={loanId}/>
+        <ConfirmRepaymentModal toggleModal={toggleModal} onConfirm={handleRepayConfirm} loanId={loanId} />
       )}
       {modal.type === "repay" && modal.toggled && (
         <BasicModal isDark type="repay" toggleModal={toggleModal} navigateOnClose="/loan" />

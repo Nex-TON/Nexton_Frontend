@@ -47,7 +47,7 @@ const BorrowVerify = () => {
       items: [
         { label: "Borrowed nxTON", value: `${limitDecimals(loanInfo?.nxTonAmount, 3)} nxTON` },
         { label: "Principal", value: `${limitDecimals(loanInfo?.principal, 3)} TON` },
-        { label: "LTV", value: `${limitDecimals(loanInfo?.loanToValue*100,2)}%` },
+        { label: "LTV", value: `${limitDecimals(loanInfo?.loanToValue * 100, 2)}%` },
       ],
     },
   ];
@@ -85,10 +85,10 @@ const BorrowVerify = () => {
       const data = () => {
         return {
           queryId: BigInt(Date.now()),
-          value: toNano("0.062"),
+          value: toNano("0.072"),
           newOwner: Address.parse(import.meta.env.VITE_LEND_CONTRACT),
           responseAddress: Address.parse(address),
-          fwdAmount: toNano("0.012"),
+          fwdAmount: toNano("0.022"),
         };
       };
 
@@ -109,9 +109,9 @@ const BorrowVerify = () => {
         nftId: Number(id),
       });
 
-      if (response===200){
+      if (response === 200) {
         setModal({ type: "borrow", toggled: true });
-      }else{
+      } else {
         throw new Error("response");
       }
     } catch (error) {
