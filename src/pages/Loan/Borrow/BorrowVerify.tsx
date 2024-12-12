@@ -47,7 +47,7 @@ const BorrowVerify = () => {
       items: [
         { label: "Borrowed nxTON", value: `${limitDecimals(loanInfo?.nxTonAmount, 3)} nxTON` },
         { label: "Principal", value: `${limitDecimals(loanInfo?.principal, 3)} TON` },
-        { label: "LTV", value: `${limitDecimals(loanInfo?.loanToValue*100,2)}%` },
+        { label: "LTV", value: `${limitDecimals(loanInfo?.loanToValue * 100, 2)}%` },
       ],
     },
   ];
@@ -93,17 +93,18 @@ const BorrowVerify = () => {
       };
 
       await sendWithData(data(), toNano("0.05"));
-      let timeRotate=0;
+      let timeRotate = 0;
       while (true) {
         const validation = await nextonFetcher(`/data/validate-lending?nftId=${Number(id)}`);
-        if (validation && validation == 200&&timeRotate<=24) {
-          if (validation.valid == true) {
+        console.log("test:", validation?.valid);
+        if (validation && validation == 200 && timeRotate <= 24) {
+          if (validation.valid == "true") {
             break;
-          } else {
-            throw new Error(`${validation}`);
           }
-        }
-        timeRotate+=1;
+        }else{
+          break;
+        };
+        timeRotate += 1;
         await delay(5000);
       }
       const response = await postLendingInfo({
@@ -113,7 +114,7 @@ const BorrowVerify = () => {
         nftId: Number(id),
       });
 
-      if (response===200){
+      if (response === 200) {
         setModal({ type: "borrow", toggled: true });
       } else {
         throw new Error(`${response}`);

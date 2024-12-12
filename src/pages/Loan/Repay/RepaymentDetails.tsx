@@ -131,16 +131,17 @@ const RepaymentDetails = () => {
 
       await sendMessage(data());
       let timeRotate=0;
-      while(true){
-        const validation = await nextonFetcher(`/data/validate-lending?nftId=${Number(id)}&address=${address}`);
-        if (validation&&validation==200&&timeRotate<=24){
-          if(validation.valid==true){
+      while (true) {
+        const validation = await nextonFetcher(`/data/validate-repaying?nftId=${Number(id)}&address=${address}`);
+        console.log("test:", validation?.valid);
+        if (validation && validation == 200 && timeRotate <= 24) {
+          if (validation.valid == "true") {
             break;
           }
         }else{
-          throw new Error(`${validation}`);
-        }
-        timeRotate+=1;
+          break;
+        };
+        timeRotate += 1;
         await delay(5000);
       }
       const response = await postRepayInfo({
