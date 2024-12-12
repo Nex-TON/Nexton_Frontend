@@ -5,7 +5,6 @@ export interface StakingProps {
   leverage: number;
   lockup: number;
   nominator: string;
-  asset:string;
   tokenSort:string;
 }
 

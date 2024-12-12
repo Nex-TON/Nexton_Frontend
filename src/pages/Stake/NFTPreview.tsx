@@ -38,7 +38,7 @@ const NFTPreview = () => {
 
   const [, setInput] = useRecoilState(stakingInputAtom);
   const { sendMessage: sendDepositTon } = Contract.depositTon();
-  const { tokenTransfer } = useJettonWallet(stakingInfo.asset);
+  const { tokenTransfer } = useJettonWallet(stakingInfo.tokenSort);
   const [isLoading, setIsLoading] = useState(false);
 
   const [modal, setModal] = useState<ModalState>({
@@ -82,7 +82,7 @@ const NFTPreview = () => {
         amount: stakingInfo.principal,
         lockPeriod: stakingInfo.lockup.toString(),
         nominator: stakingInfo.nominator,
-        tokenSort: stakingInfo.asset,
+        tokenSort: stakingInfo.tokenSort,
       });
 
       setModal({ type: "stake", toggled: true });
@@ -95,7 +95,7 @@ const NFTPreview = () => {
 
   const handleStakeConfirm = () => {
     toggleModal();
-    if (stakingInfo.asset === "TON") {
+    if (stakingInfo.tokenSort === "TON") {
       handleTonStake();
     } else {
       handleJettonStake();
@@ -127,7 +127,7 @@ const NFTPreview = () => {
         amount: stakingInfo.principal,
         lockPeriod: stakingInfo.lockup.toString(),
         nominator: stakingInfo.nominator,
-        tokenSort: stakingInfo.asset,
+        tokenSort: stakingInfo.tokenSort,
       });
 
       setModal({ type: "stake", toggled: true });

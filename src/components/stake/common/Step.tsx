@@ -1,7 +1,6 @@
 import { useRecoilValue } from "recoil";
 import styled, { css } from "styled-components";
 
-import useTonConnect from "../../../hooks/contract/useTonConnect";
 import { stakingAtom } from "../../../lib/atom/staking";
 import { numberCutter } from "../../../utils/numberCutter";
 

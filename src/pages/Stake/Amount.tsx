@@ -109,7 +109,7 @@ const Amount = () => {
       ...prev,
       address: address,
       principal: data.amount,
-      asset: tokenSort,
+      tokenSort: tokenSort,
     }));
     navigate("/stake/nominator");
   };
