@@ -124,7 +124,7 @@ const RepaymentDetails = () => {
         return {
           query_id: BigInt(Date.now()),
           amount: toNano(borrowDetail?.repayAmount),
-          value: toNano("0.08"),
+          value: toNano("0.1"),
           forward_ton_amount: toNano("0.05"),
         };
       };
