@@ -41,7 +41,6 @@ const BorrowVerify = () => {
   const setError = useSetRecoilState(globalError);
   const [isLoading, setIsLoading] = useState(false);
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-  const { data } = useValidateLending(Number(id));
 
   const stakingInfoItems = [
     {
