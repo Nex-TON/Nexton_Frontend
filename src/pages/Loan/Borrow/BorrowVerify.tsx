@@ -19,7 +19,7 @@ import { postLendingInfo } from "@/api/postLendingInfo.ts";
 import { telegramAtom } from "@/lib/atom/telegram.ts";
 import { limitDecimals } from "@/utils/limitDecimals.ts";
 import BasicModal from "@/components/common/Modal/BasicModal.tsx";
-import { useValidateLending } from "@/hooks/api/loan/useValidateLending.tsx";
+import { nextonFetcher } from "@/api/axios.ts";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -94,8 +94,20 @@ const BorrowVerify = () => {
       };
 
       await sendWithData(data(), toNano("0.05"));
-      await delay(50000);
-      //TODO: send server message
+      let timeRotate = 0;
+      while (true) {
+        const validation = await nextonFetcher(`/data/validate-lending?nftId=${Number(id)}`);
+        console.log("test:", validation?.valid);
+        if (validation && validation == 200 && timeRotate <= 24) {
+          if (validation.valid == "true") {
+            break;
+          }
+        }else{
+          break;
+        };
+        timeRotate += 1;
+        await delay(5000);
+      }
       const response = await postLendingInfo({
         telegramId: Number(telegramId),
         address: address,
@@ -106,7 +118,7 @@ const BorrowVerify = () => {
       if (response === 200) {
         setModal({ type: "borrow", toggled: true });
       } else {
-        throw new Error("response");
+        throw new Error(`${response}`);
       }
     } catch (error) {
       setError(error);
