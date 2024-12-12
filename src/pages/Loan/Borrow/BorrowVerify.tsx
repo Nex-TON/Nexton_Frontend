@@ -93,23 +93,24 @@ const BorrowVerify = () => {
       };
 
       await sendWithData(data(), toNano("0.05"));
-      let timeRotate = 0;
-      while (true) {
-        const validation = await nextonFetcher(`/data/validate-lending?nftId=${Number(id)}`);
-        console.log("test:", validation?.valid);
-        if (validation && validation == 200 && timeRotate <= 24) {
-          if (validation.valid == "true") {
-            break;
-          }
-        }else if(validation && validation == 202 && timeRotate <= 24){
-          continue;
-        }
-        else{
-          break;
-        };
-        timeRotate += 1;
-        await delay(5000);
-      }
+      await delay(50000);
+      // let timeRotate = 0;
+      // while (true) {
+      //   const validation = await nextonFetcher(`/data/validate-lending?nftId=${Number(id)}`);
+      //   console.log("test:", validation?.valid);
+      //   if (validation && validation == 200 && timeRotate <= 24) {
+      //     if (validation.valid == "true") {
+      //       break;
+      //     }
+      //   }else if(validation && validation == 202 && timeRotate <= 24){
+      //     continue;
+      //   }
+      //   else{
+      //     break;
+      //   };
+      //   timeRotate += 1;
+      //   await delay(5000);
+      // }
       const response = await postLendingInfo({
         telegramId: Number(telegramId),
         address: address,

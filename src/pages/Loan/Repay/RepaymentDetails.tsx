@@ -130,22 +130,23 @@ const RepaymentDetails = () => {
       };
 
       await sendMessage(data());
-      let timeRotate = 0;
-      while (true) {
-        const validation = await nextonFetcher(`/data/validate-repaying?nftId=${Number(id)}&address=${address}`);
-        console.log("test:", validation?.valid);
-        if (validation && validation == 200 && timeRotate <= 24) {
-          if (validation.valid == "true") {
-            break;
-          }
-        } else if (validation && validation == 202 && timeRotate <= 24) {
-          continue;
-        } else {
-          break;
-        }
-        timeRotate += 1;
-        await delay(5000);
-      }
+      await delay(50000);
+      // let timeRotate = 0;
+      // while (true) {
+      //   const validation = await nextonFetcher(`/data/validate-repaying?nftId=${Number(id)}&address=${address}`);
+      //   console.log("test:", validation?.valid);
+      //   if (validation && validation == 200 && timeRotate <= 24) {
+      //     if (validation.valid == "true") {
+      //       break;
+      //     }
+      //   } else if (validation && validation == 202 && timeRotate <= 24) {
+      //     continue;
+      //   } else {
+      //     break;
+      //   }
+      //   timeRotate += 1;
+      //   await delay(5000);
+      // }
       const response = await postRepayInfo({
         nftId: Number(id),
         address: address,
