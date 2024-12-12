@@ -41,6 +41,7 @@ const BorrowVerify = () => {
   const setError = useSetRecoilState(globalError);
   const [isLoading, setIsLoading] = useState(false);
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const {data}=useValidateLending(Number(id));
 
   const stakingInfoItems = [
     {
@@ -100,6 +101,7 @@ const BorrowVerify = () => {
       //   }
       //   await delay(1000);
       // }
+      
       await delay(50000);
       //TODO: send server message
       const response = await postLendingInfo({

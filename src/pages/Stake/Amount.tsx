@@ -45,7 +45,7 @@ const Amount = () => {
       .transform(Number)
       .refine(val => !isNaN(val), "Please enter a valid number")
       .refine(val => val >= 1, "Please stake more than 1 TON")
-      .refine(val => val <= balance, "The amount exceeds the balance"),
+      .refine(val => val <= (tokenSort==="TON"?balance:Number(nxTonBalance)), "The amount exceeds the balance"),
   });
 
   const {
