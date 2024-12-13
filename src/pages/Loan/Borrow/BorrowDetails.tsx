@@ -114,7 +114,6 @@ const BorrowDetails = () => {
             { label: "Lockup period", value: `${nftDetail[0].lockPeriod} days` },
             { label: "Unstakable date", value: new Date(nftDetail[0].unstakableDate).toLocaleDateString() },
             { label: "Protocol Fees", value: "2%" },
-            { label: "Total Amount", value: `${limitDecimals(nftDetail[0].totalAmount,3)} ${nftDetail[0].tokenSort=="nxTON"?"NxTON":nftDetail[0].tokenSort}` },
           ],
         },
       ]);
@@ -138,7 +137,7 @@ const BorrowDetails = () => {
   //     state: { borrowAmount: data.borrowAmount },
   //   })
   // };
-  const borrowAmount =nftDetail&&(nftDetail[0].tokenSort=="TON"?nftDetail[0].totalAmount*tokenRate?.tonToNextonRate:nftDetail[0].totalAmount); //for the test
+  const borrowAmount =nftDetail&&(nftDetail[0].principal*tokenRate?.tonToNextonRate); //for the test
 
   const handleSubmit = () => {
     console.log(`borrow amount:${borrowAmount}`);

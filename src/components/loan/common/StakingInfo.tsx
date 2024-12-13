@@ -3,6 +3,7 @@ import React from "react";
 import { styled } from "styled-components";
 
 import IcTonLogo from "@/assets/icons/Loan/ic_ton_logo.svg";
+import IcNxTonLogo from "@/assets/icons/Dashboard/ic_nxTON_logo.svg";
 
 import { DoubleArrows } from "./DoubleArrows";
 import IcPaid from "@/assets/icons/Loan/ic_paid_off.svg";
@@ -56,7 +57,7 @@ const StakingInfo = ({
         <StakingInfoHeaderLeft $theme={theme} $textCenter={isExpandable && !alwaysVisibleItems}>
           {title}
         </StakingInfoHeaderLeft>
-        {(status==0 ||status==1) && (
+        {(status == 0 || status == 1) && (
           <StakingInfoHeaderRight status={status}>
             <img src={status == 1 ? IcPaid : IcUnpaid} />
             <p>{status == 1 ? "Paid off" : "Unpaid"}</p>
@@ -70,11 +71,18 @@ const StakingInfo = ({
           <>
             <StakingInfoItem $theme={theme} key={index}>
               <span>{item.label}</span>
-              {item.label === "Network" ? (
-                <NetworkValueBox>
-                  <img src={IcTonLogo} alt="TON_logo" />
-                  <p>{item.value}</p>
-                </NetworkValueBox>
+              {item.label == "Token" ? (
+                item.value == "TON" ? (
+                  <NetworkValueBox>
+                    <img src={IcTonLogo} alt="TON_logo" />
+                    <p>{item.value}</p>
+                  </NetworkValueBox>
+                ) : (
+                  <NetworkValueBox>
+                    <img src={IcNxTonLogo} alt="TON_logo" />
+                    <p>{item.value}</p>
+                  </NetworkValueBox>
+                )
               ) : (
                 <p>{item.value}</p>
               )}
@@ -128,7 +136,7 @@ const StakingInfo = ({
 
 export default StakingInfo;
 
-const StakingInfoHeaderRight = styled.div<{status}>`
+const StakingInfoHeaderRight = styled.div<{ status }>`
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -139,7 +147,7 @@ const StakingInfoHeaderRight = styled.div<{status}>`
   }
   p {
     ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
-    color: ${({status})=>status==1?"#34C759":"#0C0F5E"};
+    color: ${({ status }) => (status == 1 ? "#34C759" : "#0C0F5E")};
   }
 `;
 const StakingInfoHeaderLeft = styled.div<{ $theme; $textCenter? }>`
@@ -177,13 +185,12 @@ const StakingInfoHeader = styled.div<{ $theme: Theme; $textCenter?: boolean; $ma
   align-items: center;
   margin-bottom: 1rem;
   margin-top: ${({ $marginTop }) => ($marginTop ? "1.6rem" : "0")};
-  font-size:2.24rem;
-  ${({theme})=>theme.fonts.Nexton_Body_Text_Medium_2};
-  font-size:2.24rem;
-  p{
+  font-size: 2.24rem;
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
+  font-size: 2.24rem;
+  p {
     color: ${({ $theme }) => ($theme === "black" ? "white" : "#303234")};
   }
-
 `;
 
 const StakingInfoItem = styled.div<{ $theme: Theme }>`
