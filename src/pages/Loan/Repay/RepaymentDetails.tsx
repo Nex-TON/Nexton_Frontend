@@ -53,7 +53,7 @@ const RepaymentDetails = () => {
 
   const alwaysVisibleItems = [
     { label: "Borrowed NxTON", value: `${limitDecimals(borrowDetail?.repayAmount, 3)} NxTON` },
-    { label: "Principal", value: `${limitDecimals(borrowDetail?.principal, 3)} ${nftDetail[0]?.tokenSort=="nxTON"?"NxTON":nftDetail[0]?.tokenSort}` },
+    { label: "Principal", value: `${limitDecimals(borrowDetail?.principal, 3)} ${nftDetail&&nftDetail[0]?.tokenSort=="nxTON"?"NxTON":nftDetail&&nftDetail[0]?.tokenSort}` },
     { label: "LTV", value: `${limitDecimals(borrowDetail?.loanToValue * 100, 2)}%` },
     { label: "Interest rate", value: `${limitDecimals(borrowDetail?.interestRate * 100, 2)}%` },
   ];
