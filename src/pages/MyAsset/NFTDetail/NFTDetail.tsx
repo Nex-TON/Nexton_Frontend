@@ -114,8 +114,11 @@ const NFTDetail = () => {
             onClick={() =>{
               if(Number(id)<=100){
                 setModal({type:"blockborrow100",toggled:true});
-              }else{
-                checkLendingAvailable?.success
+              }else if(!id||!address){
+                setModal({type:"blockborrow100",toggled:true}); 
+              }
+              else{
+              checkLendingAvailable?.success
                 ? navigate(`/loan/${id}/borrow/details`)
                 : setModal({ type: "blockborrow", toggled: true });
               }
