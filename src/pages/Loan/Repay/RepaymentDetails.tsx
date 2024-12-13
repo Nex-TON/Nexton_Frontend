@@ -28,6 +28,7 @@ import { postRepayInfo } from "@/api/postRepayInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import { useSetRecoilState } from "recoil";
 import { nextonFetcher } from "@/api/axios";
+import axios from "axios";
 
 interface ModalState {
   type: "repay" | "confirmRepay";
@@ -130,23 +131,23 @@ const RepaymentDetails = () => {
       };
 
       await sendMessage(data());
-      await delay(50000);
-      // let timeRotate = 0;
-      // while (true) {
-      //   const validation = await nextonFetcher(`/data/validate-repaying?nftId=${Number(id)}&address=${address}`);
-      //   console.log("test:", validation?.valid);
-      //   if (validation && validation == 200 && timeRotate <= 24) {
-      //     if (validation.valid == "true") {
-      //       break;
-      //     }
-      //   } else if (validation && validation == 202 && timeRotate <= 24) {
-      //     continue;
-      //   } else {
-      //     break;
-      //   }
-      //   timeRotate += 1;
-      //   await delay(5000);
-      // }
+      let timeRotate = 0;
+      while (true) {
+        const response = await axios.get(`/data/validate-repaying?nftId=${Number(id)}&address=${address}`, {
+          baseURL: `${import.meta.env.VITE_BASE_URL}`,
+        });
+        const validation = response.status;
+        console.log("test:", validation);
+        if (validation && validation == 200 && timeRotate <= 24) {
+            break;
+        }else if (validation && validation == 202 && timeRotate <= 24){
+        } 
+        else{
+          break;
+        };
+        timeRotate += 1;
+        await delay(5000);
+      }
       const response = await postRepayInfo({
         nftId: Number(id),
         address: address,

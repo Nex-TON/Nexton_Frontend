@@ -20,6 +20,7 @@ import { telegramAtom } from "@/lib/atom/telegram.ts";
 import { limitDecimals } from "@/utils/limitDecimals.ts";
 import BasicModal from "@/components/common/Modal/BasicModal.tsx";
 import { nextonFetcher } from "@/api/axios.ts";
+import axios from "axios";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -93,24 +94,22 @@ const BorrowVerify = () => {
       };
 
       await sendWithData(data(), toNano("0.05"));
-      await delay(50000);
-      // let timeRotate = 0;
-      // while (true) {
-      //   const validation = await nextonFetcher(`/data/validate-lending?nftId=${Number(id)}`);
-      //   console.log("test:", validation?.valid);
-      //   if (validation && validation == 200 && timeRotate <= 24) {
-      //     if (validation.valid == "true") {
-      //       break;
-      //     }
-      //   }else if(validation && validation == 202 && timeRotate <= 24){
-      //     continue;
-      //   }
-      //   else{
-      //     break;
-      //   };
-      //   timeRotate += 1;
-      //   await delay(5000);
-      // }
+      let timeRotate = 0;
+      while (true) {
+        const response = await axios.get(`/data/validate-lending?nftId=${Number(id)}`, {
+          baseURL: `${import.meta.env.VITE_BASE_URL}`,
+        });
+        const validation = response.status;
+          if (validation && validation == 200 && timeRotate <= 24) {
+            break;
+        }else if (validation && validation == 202 && timeRotate <= 24){
+        }
+        else{
+          break;
+        };
+        timeRotate += 1;
+        await delay(5000);
+      }
       const response = await postLendingInfo({
         telegramId: Number(telegramId),
         address: address,
