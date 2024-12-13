@@ -100,7 +100,7 @@ const BorrowDetails = () => {
     if (nftDetail) {
       setAlwaysVisibleInfo([
         { label: "NFT ID", value: `${nftDetail[0].nftId}` },
-        { label: "Network", value: "TON" },
+        { label: "Token", value: `${nftDetail[0].tokenSort=="nxTON"?"NxTON":nftDetail[0].tokenSort}`},
         { label: "LTV", value: "95%" },
       ]);
 
@@ -108,13 +108,13 @@ const BorrowDetails = () => {
         {
           header: "Staking info",
           items: [
-            { label: "Principal", value: `${nftDetail[0].principal} TON` },
+            { label: "Principal", value: `${nftDetail[0].principal} ${nftDetail[0].tokenSort=="nxTON"?"NxTON":nftDetail[0].tokenSort}` },
             { label: "Nominator Pool", value: nftDetail[0].nominator },
             { label: "Leveraged", value: `${nftDetail[0].leverage}x` },
             { label: "Lockup period", value: `${nftDetail[0].lockPeriod} days` },
             { label: "Unstakable date", value: new Date(nftDetail[0].unstakableDate).toLocaleDateString() },
             { label: "Protocol Fees", value: "2%" },
-            { label: "Total Amount", value: `${limitDecimals(nftDetail[0].totalAmount,3)} TON` },
+            { label: "Total Amount", value: `${limitDecimals(nftDetail[0].totalAmount,3)} ${nftDetail[0].tokenSort=="nxTON"?"NxTON":nftDetail[0].tokenSort}` },
           ],
         },
       ]);
@@ -138,7 +138,7 @@ const BorrowDetails = () => {
   //     state: { borrowAmount: data.borrowAmount },
   //   })
   // };
-  const borrowAmount =nftDetail&&nftDetail[0].principal*tokenRate?.tonToNextonRate; //for the test
+  const borrowAmount =nftDetail&&(nftDetail[0].tokenSort=="TON"?nftDetail[0].totalAmount*tokenRate?.tonToNextonRate:nftDetail[0].totalAmount); //for the test
 
   const handleSubmit = () => {
     console.log(`borrow amount:${borrowAmount}`);
@@ -177,7 +177,7 @@ const BorrowDetails = () => {
               <BorrowRateBoxHeaderRight>1NXT ={limitDecimals(tokenRate?.nxtonToTonRate,3)}TON</BorrowRateBoxHeaderRight>
             </BorrowRateBoxHeader>
             <BorrowRateBoxDivider />
-            <BorrowRateBoxBottom>{limitDecimals(tokenRate?.tonToNextonRate,3)} NxTON</BorrowRateBoxBottom>
+            <BorrowRateBoxBottom>{limitDecimals(borrowAmount,3)} NxTON</BorrowRateBoxBottom>
             {/* <BorrowRateBoxBottom>{nftDetail[0].principal} nxTON</BorrowRateBoxBottom> */}
           </BorrowRateBox>
 

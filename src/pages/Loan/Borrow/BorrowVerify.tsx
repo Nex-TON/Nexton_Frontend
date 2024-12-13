@@ -21,6 +21,7 @@ import { limitDecimals } from "@/utils/limitDecimals.ts";
 import BasicModal from "@/components/common/Modal/BasicModal.tsx";
 import { nextonFetcher } from "@/api/axios.ts";
 import axios from "axios";
+import { useNFTDetail } from "@/hooks/api/useNFTDetail.tsx";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -42,12 +43,13 @@ const BorrowVerify = () => {
   const setError = useSetRecoilState(globalError);
   const [isLoading, setIsLoading] = useState(false);
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const { nftDetail } = useNFTDetail(Number(id));
 
   const stakingInfoItems = [
     {
       items: [
         { label: "Borrowed NxTON", value: `${limitDecimals(loanInfo?.nxTonAmount, 3)} NxTON` },
-        { label: "Principal", value: `${limitDecimals(loanInfo?.principal, 3)} TON` },
+        { label: "Principal", value: `${limitDecimals(loanInfo?.principal, 3)} ${nftDetail&&nftDetail[0].tokenSort=="nxTON"?"NxTON":nftDetail&&nftDetail[0].tokenSort}` },
         { label: "LTV", value: `${limitDecimals(loanInfo?.loanToValue * 100, 2)}%` },
       ],
     },
