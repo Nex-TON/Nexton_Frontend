@@ -52,8 +52,8 @@ const RepaymentDetails = () => {
   const { data: borrowDetail } = useRepayNftDetail(loanId, address);
 
   const alwaysVisibleItems = [
-    { label: "Borrowed nxTON", value: `${limitDecimals(borrowDetail?.repayAmount, 3)} nxTON` },
-    { label: "Principal", value: `${limitDecimals(borrowDetail?.principal, 3)} TON` },
+    { label: "Borrowed NxTON", value: `${limitDecimals(borrowDetail?.repayAmount, 3)} NxTON` },
+    { label: "Principal", value: `${limitDecimals(borrowDetail?.principal, 3)} ${nftDetail[0]?.tokenSort=="nxTON"?"NxTON":nftDetail[0]?.tokenSort}` },
     { label: "LTV", value: `${limitDecimals(borrowDetail?.loanToValue * 100, 2)}%` },
     { label: "Interest rate", value: `${limitDecimals(borrowDetail?.interestRate * 100, 2)}%` },
   ];
@@ -192,7 +192,7 @@ const RepaymentDetails = () => {
           <RepayRateBox>
             <RepayRateBoxHeader>Amount to be repaid</RepayRateBoxHeader>
             <RepayRateBoxDivider />
-            <RepayRateBoxBottom>{limitDecimals(borrowDetail?.repayAmount, 3)} nxTON</RepayRateBoxBottom>
+            <RepayRateBoxBottom>{limitDecimals(borrowDetail?.repayAmount, 3)} NxTON</RepayRateBoxBottom>
           </RepayRateBox>
         </RepaymentContentBox>
 

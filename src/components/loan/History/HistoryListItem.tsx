@@ -41,7 +41,7 @@ const HistoryListItem: React.FC<HistoryListItemProps> = ({ status, principal, in
           <HistoryListTopLeftText>
             <Caption3>Borrowed</Caption3>
             <p>
-              <span>{limitDecimals(principal, 3)} </span>nxTON
+              <span>{limitDecimals(principal, 3)} </span>NxTON
             </p>
           </HistoryListTopLeftText>
         </HistoryListTopLeft>
@@ -54,7 +54,7 @@ const HistoryListItem: React.FC<HistoryListItemProps> = ({ status, principal, in
       <HistoryListBottom>
         <HistoryListBottomTextBottom>
           <HistoryListBottomTextBottomLeft>Principal</HistoryListBottomTextBottomLeft>
-          <HistoryListBottomTextBottomRight>{numberCutter(principal)} nxTON</HistoryListBottomTextBottomRight>
+          <HistoryListBottomTextBottomRight>{numberCutter(principal)} NxTON</HistoryListBottomTextBottomRight>
         </HistoryListBottomTextBottom>
         <HistoryListItemDivider />
         <HistoryListBottomTextBottom>

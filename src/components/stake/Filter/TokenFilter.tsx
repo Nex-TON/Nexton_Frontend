@@ -15,7 +15,7 @@ const TokenFilter = ({ toggleModal, tokenSort }) => {
         {tokenSort === "nxTON" ? (
           <TooltipExist>
             <TooltipImage src={NewTooltip} alt="New Tooltip" />
-            <TokenName>nxTON</TokenName>
+            <TokenName>NxTON</TokenName>
           </TooltipExist>
         ) : (
           <TokenName>TON</TokenName>

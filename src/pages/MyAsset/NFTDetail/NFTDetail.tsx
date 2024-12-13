@@ -121,7 +121,7 @@ const NFTDetail = () => {
               }
             }}
           >
-            Borrow nxTON <img src={IcTrendUp} alt="trend_up" />
+            Borrow NxTON <img src={IcTrendUp} alt="trend_up" />
           </NFTDetailCardButton>
 
           <NFTDetailCardButton
@@ -145,7 +145,7 @@ const NFTDetail = () => {
               <NFTDetailItemCaption>Token</NFTDetailItemCaption>
               <NFTDetailItemText>
                 <img src={nftInfo?.tokenSort === "TON" ? IcTonSymbol : IcNxTonSymbol} alt="tonSymbol" />
-                {nftInfo?.tokenSort}
+                {nftInfo?.tokenSort=="nxTON"?"NxTON":`${nftInfo?.tokenSort}`}
               </NFTDetailItemText>
             </NFTDetailItem>
             <NFTDetailItem>

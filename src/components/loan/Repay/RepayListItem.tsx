@@ -28,7 +28,7 @@ const RepayListItem = ({loanId,nftId,principal,interestRate,ltv}) => {
           <RepayListTopLeftText>
             <Caption3>Borrowed</Caption3>
             <p>
-              <span>{limitDecimals(principal,3)} </span>nxTON
+              <span>{limitDecimals(principal,3)} </span>NxTON
             </p>
           </RepayListTopLeftText>
         </RepayListTopLeft>
@@ -38,7 +38,7 @@ const RepayListItem = ({loanId,nftId,principal,interestRate,ltv}) => {
       <RepayListBottom>
         <RepayListBottomTextBottom>
           <RepayListBottomTextBottomLeft>Principal</RepayListBottomTextBottomLeft>
-          <RepayListBottomTextBottomRight>{numberCutter(principal)} nxTON</RepayListBottomTextBottomRight>
+          <RepayListBottomTextBottomRight>{numberCutter(principal)} NxTON</RepayListBottomTextBottomRight>
         </RepayListBottomTextBottom>
       <RepayListItemDivider />
         <RepayListBottomTextBottom>

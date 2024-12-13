@@ -14,7 +14,7 @@ const NextonNews = () => {
         >
           <TextWrapper>
             <p>
-              $nxTON is now
+              $NxTON is now
               <br /> listed on <StonfiImg src={StonfiLogo} alt="stonfi logo" />
               <br />
             </p>

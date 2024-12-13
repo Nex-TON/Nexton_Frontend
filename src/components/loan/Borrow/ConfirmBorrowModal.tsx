@@ -15,7 +15,7 @@ export const ConfirmBorrowModal = (props: ConfirmBorrowModalProps) => {
     <ModalWrapper>
       <Container $isDark>
         <Title $isDark $textCenter>
-          Would you like to borrow $nxTON?
+          Would you like to borrow $NxTON?
         </Title>
         <SubTitleBox $marginBottom>
           <SubTitle $isDark>Please verify the loan</SubTitle>

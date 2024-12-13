@@ -6,7 +6,7 @@ import { LoanHeaderBox, LoanHeaderBoxTitle, LoanWrapper } from "../Loan.styled";
 const tele = (window as any).Telegram.WebApp;
 
 const alwaysVisibleItems = [
-  { label: "Borrowed nxTON", value: "000.00 nxTON" },
+  { label: "Borrowed NxTON", value: "000.00 NxTON" },
   { label: "Principal", value: "00000 TON" },
   { label: "LTV", value: "95.0%" },
 ];

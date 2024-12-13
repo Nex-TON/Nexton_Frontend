@@ -142,7 +142,7 @@ const Amount = () => {
                 tokenSort={tokenSort} // Pass selection handler
               />
             }
-            placeholder={tokenSort === "TON" ? "min 1TON" : "min 1nxTON"}
+            placeholder={tokenSort === "TON" ? "min 1TON" : "min 1NxTON"}
             balance={balance}
             convertAmount={convertAmount}
           />
@@ -162,7 +162,7 @@ const Amount = () => {
                 <p>
                   Earn bonus NXT points by staking!
                   <br />
-                  Try the newly listed <span>$nxTON</span> now!
+                  Try the newly listed <span>$NxTON</span> now!
                 </p>
               </TextWrapper>
             </BonusPointWrapper>

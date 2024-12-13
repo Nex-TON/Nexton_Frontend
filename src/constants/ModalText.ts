@@ -45,7 +45,7 @@ export const MODAL_TEXT = {
     title: "🎉 Congratulations!",
     desc: "OG NFT holders! 🔥",
     descBr: "Bonus rewards are coming your way.",
-    descBr2: "Updates on nxTON and extra points",
+    descBr2: "Updates on NxTON and extra points",
     descBr3: "coming soon—stay tuned!",
   },
 };

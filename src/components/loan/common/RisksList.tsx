@@ -10,7 +10,7 @@ const RisksList = () => {
         <RiskDisclosureContent>
           <RiskDisclosureSubtitle>No Liquidation Risk Due to Collateral Ratio Changes</RiskDisclosureSubtitle>
           <RiskDisclosureText $lead>NFT Collateral</RiskDisclosureText>
-          <RiskDisclosureText>$nxTON is issued using NFTs obtained by staking $TON as collateral.</RiskDisclosureText>
+          <RiskDisclosureText>$NxTON is issued using NFTs obtained by staking $TON as collateral.</RiskDisclosureText>
         </RiskDisclosureContent>
       </RiskDisclosureItem>
 

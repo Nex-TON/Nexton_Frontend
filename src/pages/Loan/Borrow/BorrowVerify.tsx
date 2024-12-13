@@ -46,7 +46,7 @@ const BorrowVerify = () => {
   const stakingInfoItems = [
     {
       items: [
-        { label: "Borrowed nxTON", value: `${limitDecimals(loanInfo?.nxTonAmount, 3)} nxTON` },
+        { label: "Borrowed NxTON", value: `${limitDecimals(loanInfo?.nxTonAmount, 3)} NxTON` },
         { label: "Principal", value: `${limitDecimals(loanInfo?.principal, 3)} TON` },
         { label: "LTV", value: `${limitDecimals(loanInfo?.loanToValue * 100, 2)}%` },
       ],

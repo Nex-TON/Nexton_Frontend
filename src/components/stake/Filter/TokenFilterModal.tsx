@@ -35,7 +35,7 @@ export const TokenFilterModal = ({ toggleModal, onSelected }) => {
           >
             <TokenIcon>
               <img src={IcNxTon} alt="ton icon" />
-              <TokenName>nxTON</TokenName>
+              <TokenName>NxTON</TokenName>
               <NewIon>NEW</NewIon>
             </TokenIcon>
             <RightArrowWrapper>
@@ -45,7 +45,7 @@ export const TokenFilterModal = ({ toggleModal, onSelected }) => {
           <NxtPointIntro>
             <h2>Bonus NXT Point!</h2>
             <p>
-              Earn bonus NXT points by staking!Try the newly listed <span>$nxTON</span> now!
+              Earn bonus NXT points by staking!Try the newly listed <span>$NxTON</span> now!
             </p>
           </NxtPointIntro>
         </TokenSelectWrapper>

@@ -25,7 +25,7 @@ const Onboarding = () => {
       title1: "Stake your TON",
       title2: "with NEXTON!",
       description1: "Stake your TON.",
-      description2: "And get the nxTON with the NFT.",
+      description2: "And get the NxTON with the NFT.",
     },
     {
       image: OnboardingIllust2,

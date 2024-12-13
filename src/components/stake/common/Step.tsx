@@ -19,12 +19,12 @@ const Step = (props: StepProps) => {
       <StepNumber>{title}</StepNumber>
       {type === "nominator" ? (
         <StepNumber>
-          Stake amount {numberCutter(Number(principal))} {tokenSort==="TON"?"TON":"nxTON"}
+          Stake amount {numberCutter(Number(principal))} {tokenSort==="TON"?"TON":"NxTON"}
         </StepNumber>
       ) : (
         type === "leverage" && (
           <StepNumber>
-            {numberCutter(Number(principal))} {tokenSort==="TON"?"TON":"nxTON"} / {nominator}
+            {numberCutter(Number(principal))} {tokenSort==="TON"?"TON":"NxTON"} / {nominator}
           </StepNumber>
         )
       )}

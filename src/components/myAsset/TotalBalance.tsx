@@ -14,7 +14,7 @@ export const TotalBalance = () => {
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { nftList, isLoading } = useStakeInfo(address);
-
+  //nft list 에서 TON, NxTON staked된거 총량 가져옴
   const totalStaked = useMemo(() => {
     return tokenSort => {
       return (
@@ -27,11 +27,6 @@ export const TotalBalance = () => {
       );
     };
   }, [nftList]);
-
-  const totalStakedNxTon = useMemo(() => {
-    return nftList?.reduce((acc, nft) => acc + nft.principal, 0) || 0;
-  }, [nftList]);
-
   useEffect(() => {
     const initializeData = async () => {
       setIsRefreshing(true);
@@ -95,7 +90,7 @@ export const TotalBalance = () => {
       <TotalBalanceBoxWrapper>
         <TokenTitle>
           <img src={IcnxTon} alt="my asset page ton logo" />
-          <h2>nxTON</h2>
+          <h2>NxTON</h2>
         </TokenTitle>
         <ValueWrapper>
           <SideText>Balance</SideText>
@@ -108,7 +103,7 @@ export const TotalBalance = () => {
                   <p>
                     {Number(nxTonBalance) === 0 || Number(nxTonBalance) ? Number(nxTonBalance)?.toFixed(3) : "0.000"}
                   </p>
-                  <p>nxTON</p>
+                  <p>NxTON</p>
                 </Balance>
               </>
             )}
@@ -120,7 +115,7 @@ export const TotalBalance = () => {
           <Balance>
             <Balance>
               <p>{totalStaked("nxTON") === 0 || totalStaked("nxTON") ? totalStaked("nxTON")?.toFixed(3) : "0.000"}</p>
-              <p>nxTON</p>
+              <p>NxTON</p>
             </Balance>
           </Balance>
         </ValueWrapper>

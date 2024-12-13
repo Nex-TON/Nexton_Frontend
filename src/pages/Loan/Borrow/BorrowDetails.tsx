@@ -177,7 +177,7 @@ const BorrowDetails = () => {
               <BorrowRateBoxHeaderRight>1NXT ={limitDecimals(tokenRate?.nxtonToTonRate,3)}TON</BorrowRateBoxHeaderRight>
             </BorrowRateBoxHeader>
             <BorrowRateBoxDivider />
-            <BorrowRateBoxBottom>{limitDecimals(tokenRate?.tonToNextonRate,3)} nxTON</BorrowRateBoxBottom>
+            <BorrowRateBoxBottom>{limitDecimals(tokenRate?.tonToNextonRate,3)} NxTON</BorrowRateBoxBottom>
             {/* <BorrowRateBoxBottom>{nftDetail[0].principal} nxTON</BorrowRateBoxBottom> */}
           </BorrowRateBox>
 

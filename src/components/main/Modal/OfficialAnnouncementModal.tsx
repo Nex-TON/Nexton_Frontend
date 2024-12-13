@@ -18,7 +18,7 @@ export const OfficialAnouncementModal = (props: OfficialAnouncementProps) => {
           <Title $isDark>🚀 Official Announcement!</Title>
           <SubTitleBox>
             <SubTitle $isDark>
-              $nxTON is now officially listed on
+              $NxTON is now officially listed on
               <br />
               STON.fi DEX!
               <br />
