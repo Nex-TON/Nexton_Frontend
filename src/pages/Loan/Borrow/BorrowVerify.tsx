@@ -20,6 +20,7 @@ import { telegramAtom } from "@/lib/atom/telegram.ts";
 import { limitDecimals } from "@/utils/limitDecimals.ts";
 import BasicModal from "@/components/common/Modal/BasicModal.tsx";
 import { nextonFetcher } from "@/api/axios.ts";
+import axios from "axios";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -95,13 +96,17 @@ const BorrowVerify = () => {
       await sendWithData(data(), toNano("0.05"));
       let timeRotate = 0;
       while (true) {
-        const validation = await nextonFetcher(`/data/validate-lending?nftId=${Number(id)}`);
-        console.log("test:", validation?.valid);
+        const response = await axios.get(`/data/validate-lending?nftId=${Number(id)}`, {
+          baseURL: `${import.meta.env.VITE_BASE_URL}`,
+        });
+        const validation = response.status;  // 응답 코드 저장
+  
+        console.log("test:", validation);
         if (validation && validation == 200 && timeRotate <= 24) {
-          if (validation.valid == "true") {
             break;
-          }
-        }else{
+        }else if (validation && validation == 202 && timeRotate <= 24){
+        }
+        else{
           break;
         };
         timeRotate += 1;

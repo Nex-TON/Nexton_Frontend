@@ -28,6 +28,7 @@ import { postRepayInfo } from "@/api/postRepayInfo";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import { useSetRecoilState } from "recoil";
 import { nextonFetcher } from "@/api/axios";
+import axios from "axios";
 
 interface ModalState {
   type: "repay" | "confirmRepay";
@@ -52,9 +53,9 @@ const RepaymentDetails = () => {
 
   const alwaysVisibleItems = [
     { label: "Borrowed nxTON", value: `${limitDecimals(borrowDetail?.repayAmount, 3)} nxTON` },
-    { label: "Principal", value: `${limitDecimals(borrowDetail?.principal,3)} TON` },
-    { label: "LTV", value: `${limitDecimals(borrowDetail?.loanToValue*100,2)}%` },
-    { label: "Interest rate", value: `${limitDecimals(borrowDetail?.interestRate*100,2)}%` },
+    { label: "Principal", value: `${limitDecimals(borrowDetail?.principal, 3)} TON` },
+    { label: "LTV", value: `${limitDecimals(borrowDetail?.loanToValue * 100, 2)}%` },
+    { label: "Interest rate", value: `${limitDecimals(borrowDetail?.interestRate * 100, 2)}%` },
   ];
   const stakingInfoItems = nftDetail && [
     {
@@ -67,7 +68,7 @@ const RepaymentDetails = () => {
     {
       header: "Staking info",
       items: [
-        { label: "Principal", value: `${limitDecimals(nftDetail[0]?.principal,3)} TON` },
+        { label: "Principal", value: `${limitDecimals(nftDetail[0]?.principal, 3)} TON` },
         { label: "Nominator Pool", value: `${nftDetail[0]?.nominator}` },
         { label: "Leveraged", value: `${nftDetail[0]?.leverage}X` },
         { label: "Lockup period", value: `${nftDetail[0]?.lockPeriod}` },
@@ -130,15 +131,18 @@ const RepaymentDetails = () => {
       };
 
       await sendMessage(data());
-      let timeRotate=0;
+      let timeRotate = 0;
       while (true) {
-        const validation = await nextonFetcher(`/data/validate-repaying?nftId=${Number(id)}&address=${address}`);
-        console.log("test:", validation?.valid);
+        const response = await axios.get(`/data/validate-repaying?nftId=${Number(id)}&address=${address}`, {
+          baseURL: `${import.meta.env.VITE_BASE_URL}`,
+        });
+        const validation = response.status;
+        console.log("test:", validation);
         if (validation && validation == 200 && timeRotate <= 24) {
-          if (validation.valid == "true") {
             break;
-          }
-        }else{
+        }else if (validation && validation == 202 && timeRotate <= 24){
+        } 
+        else{
           break;
         };
         timeRotate += 1;
@@ -188,7 +192,7 @@ const RepaymentDetails = () => {
           <RepayRateBox>
             <RepayRateBoxHeader>Amount to be repaid</RepayRateBoxHeader>
             <RepayRateBoxDivider />
-            <RepayRateBoxBottom>{limitDecimals(borrowDetail?.repayAmount,3)} nxTON</RepayRateBoxBottom>
+            <RepayRateBoxBottom>{limitDecimals(borrowDetail?.repayAmount, 3)} nxTON</RepayRateBoxBottom>
           </RepayRateBox>
         </RepaymentContentBox>
 
@@ -201,7 +205,7 @@ const RepaymentDetails = () => {
 
       {isLoading && <TransactionConfirmModal />}
       {modal.type === "confirmRepay" && modal.toggled && (
-        <ConfirmRepaymentModal toggleModal={toggleModal} onConfirm={handleRepayConfirm} loanId={loanId}/>
+        <ConfirmRepaymentModal toggleModal={toggleModal} onConfirm={handleRepayConfirm} loanId={loanId} />
       )}
       {modal.type === "repay" && modal.toggled && (
         <BasicModal isDark type="repay" toggleModal={toggleModal} navigateOnClose="/loan" />

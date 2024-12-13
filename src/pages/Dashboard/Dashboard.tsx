@@ -197,7 +197,7 @@ const Dashboard = () => {
 
                 <TonPriceItemRight>
                   <p>${tonPriceData?.rates?.TON?.prices?.USD.toFixed(2)}</p>
-                  <TonPriceItemRightPercentage $positive={Number(tonPriceData?.rates?.TON?.diff_24h?.USD) > 0}>
+                  <TonPriceItemRightPercentage $positive={(tonPriceData?.rates?.TON?.diff_24h?.USD[0])=="+"?true:false}>
                     {tonPriceData?.rates?.TON?.diff_24h?.USD}
                   </TonPriceItemRightPercentage>
                 </TonPriceItemRight>

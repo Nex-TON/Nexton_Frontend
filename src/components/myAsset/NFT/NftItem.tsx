@@ -17,7 +17,7 @@ interface NftItemProps {
 
 const NftItem = (props: NftItemProps) => {
   const { item } = props;
-  const { nftId, unstakableDate, principal } = item;
+  const { nftId, unstakableDate, principal,tokenSort } = item;
   const [, setImageSize] = useRecoilState(imageSizeAtom);
   const { data: coinPrice } = useCoinPrice("TON", "USD");
   const navigate = useNavigate();
@@ -75,7 +75,7 @@ const NftItem = (props: NftItemProps) => {
       {SwitchDDayNftImage()}
       <NFTBottomINfoWrapper>
         <TopInfo>
-          <p>{getDDayText(unstakableDate)}</p> <p>{principal} TON</p>
+          <p>{getDDayText(unstakableDate)}</p> <p>{principal} {tokenSort==="TON"?"TON":"NxTON"}</p>
         </TopInfo>
         <BottomInfo>
           <p>{new Date(unstakableDate).toLocaleDateString()}</p>
