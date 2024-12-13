@@ -168,7 +168,14 @@ const Main: React.FC = () => {
 
   // Calculate the total amount staked
   const totalStaked = useMemo(() => {
-    return nftList?.reduce((acc, nft) => acc + nft.principal, 0) || 0;
+    return (
+      nftList?.reduce((acc, nft) => {
+        if (nft.tokenSort === "TON") {
+          return acc + nft.principal;
+        }
+        return acc;
+      }, 0) || 0
+    );
   }, [nftList]);
 
   // Toggle welcome modal
