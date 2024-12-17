@@ -49,6 +49,7 @@ function transferNft(id) {
             newOwner: data.newOwner,
             responseAddress: data.responseAddress,
             forwardAmount: data.fwdAmount,
+            forwardPayload: data.fwdPayload,
           });
           await sender.send({
             to: nftAddress,
@@ -58,7 +59,7 @@ function transferNft(id) {
         } else {
           throw new Error("NftAddress not set");
         }
-      } catch {
+      } catch (error) {
         throw new Error("Error while sending nft");
       }
     },
