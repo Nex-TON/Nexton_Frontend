@@ -49,10 +49,10 @@ const ActionCards = () => {
       </Card> */}
       <ActionCardsTitle>My Activity</ActionCardsTitle>
       <ActionCardsInnerBox>
-        <Card $large onClick={() =>navigate("/loan")}>
-          <CardHeader >Borrow NxTON using<br/>
+        <Card $large onClick={() =>navigate("/loan")} id="main page Loan">
+          <CardHeader id="main page Loan">Borrow NxTON using<br/>
           your NFT as collateral</CardHeader>
-          <CardBody >
+          <CardBody id="main page Loan">
             Loan
             <ArrowIcon />
           </CardBody>

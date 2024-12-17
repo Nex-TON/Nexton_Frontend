@@ -21,7 +21,7 @@ const RepayListItem = ({loanId,nftId,principal,interestRate,ltv}) => {
   const navigate = useNavigate();
 
   return (
-    <RepayListItemWrapper onClick={() => {navigate(`/loan/${nftId}/repay/details`,{state:{loanId}})}}>
+    <RepayListItemWrapper onClick={() => {navigate(`/loan/${nftId}/repay/details`,{state:{loanId}})}} id="repay page repayment box">
       <RepayListTop>
         <RepayListTopLeft>
           <RepayListTopLeftIcon>{loanId}</RepayListTopLeftIcon>
@@ -33,7 +33,7 @@ const RepayListItem = ({loanId,nftId,principal,interestRate,ltv}) => {
           </RepayListTopLeftText>
         </RepayListTopLeft>
 
-        <RepayListTopButton onClick={() => navigate(`/loan/${nftId}/repay/details`)}>Repayment</RepayListTopButton>
+        <RepayListTopButton onClick={() => navigate(`/loan/${nftId}/repay/details`)} id="repay page repayment button">Repayment</RepayListTopButton>
       </RepayListTop>
       <RepayListBottom>
         <RepayListBottomTextBottom>

@@ -34,7 +34,7 @@ const HistoryListItem: React.FC<HistoryListItemProps> = ({ status, principal, in
   const navigate = useNavigate();
 
   return (
-    <HistoryListItemWrapper onClick={() => navigate(`/loan/${nftId}/repay/details`,{state:{loanId}})}>
+    <HistoryListItemWrapper onClick={() => navigate(`/loan/${nftId}/repay/details`,{state:{loanId}})} id="loan history page borrowed box">
       <HistoryListTop>
         <HistoryListTopLeft>
           <HistoryListTopLeftIcon>{loanId}</HistoryListTopLeftIcon>

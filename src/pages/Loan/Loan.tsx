@@ -70,16 +70,16 @@ const Loan = () => {
           <h1>Loan</h1>
         </LoanHeaderBoxTitle>
 
-        <LoanHeaderBoxButton onClick={() => navigate("/loan/risk-disclosure")}>
-          <img src={IcAlert} alt="alert_icon" />
+        <LoanHeaderBoxButton onClick={() => navigate("/loan/risk-disclosure")} id="loan page risk icon button">
+          <img src={IcAlert} alt="alert_icon" id="loan page risk icon button"/>
         </LoanHeaderBoxButton>
       </LoanHeaderBox>
 
       <LoanSwitcherBox>
-        <LoanSwitcherBoxItem $isActive={view === "borrow"} onClick={() => handleViewChange("borrow")}>
+        <LoanSwitcherBoxItem $isActive={view === "borrow"} onClick={() => handleViewChange("borrow")} id="loan page borrow button">
           Borrow
         </LoanSwitcherBoxItem>
-        <LoanSwitcherBoxItem $isActive={view === "repay"} onClick={() => handleViewChange("repay")}>
+        <LoanSwitcherBoxItem $isActive={view === "repay"} onClick={() => handleViewChange("repay")} id="loan page reapy button">
           Repay
         </LoanSwitcherBoxItem>
       </LoanSwitcherBox>
@@ -95,11 +95,12 @@ const Loan = () => {
             onClick={() => {
               navigate("/loan/history");
             }}
+            id="go to loan history"
           >
-            <h4>
+            <h4 id="go to loan history">
               <span>Go to </span>Loan History
             </h4>
-            <img src={IcArrowRight} alt="arrow right to loan history" />
+            <img src={IcArrowRight} alt="arrow right to loan history" id="go to loan history"/>
             {/* <DropdownMenu options={filters} defaultValue={filter} onOptionSelect={handleSortOptionChange} /> */}
           </LoanNFTBoxHeaderRight>
         </LoanNFTBoxHeader>
