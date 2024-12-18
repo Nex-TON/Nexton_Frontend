@@ -11,7 +11,7 @@ import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceC
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import { useEarningsbyAddress } from "@/hooks/api/dashboard/useEarningsbyAddress";
 import IcArrowRightGrey from "@/assets/icons/Stake/ic_arrow_right.svg";
-import NxtPointTooltip from "@/assets/image/nxt_point_tooltip.png";
+
 import {
   // TvlNotice,
   APYBox,
@@ -47,6 +47,7 @@ type AssetsView = "dashboard" | "asset";
 
 const MainMyAssetInfo = ({
   tonConnectUI,
+  openConnectModal,
   connected,
   address,
   balance,
@@ -56,6 +57,7 @@ const MainMyAssetInfo = ({
   isError,
 }: {
   tonConnectUI: any;
+  openConnectModal:any;
   connected: boolean;
   address: string;
   balance: number;
@@ -286,8 +288,7 @@ const MainMyAssetInfo = ({
           </AssetBottomBox>
         )}
       </MainInnerBox>
-
-      <MainButton />
+      <MainButton openConnectModal={openConnectModal}/>
     </MainWrapper>
   );
 };
