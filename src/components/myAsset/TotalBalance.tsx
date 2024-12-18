@@ -8,25 +8,31 @@ import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import IcnxTon from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
 import { useEffect, useState } from "react";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
+import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 
 export const TotalBalance = () => {
   const { address, balance, refreshTonData } = useTonConnect();
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { nftList, isLoading } = useStakeInfo(address);
+  const {borrowList}=useRepayNftList(address);
   //nft list 에서 TON, NxTON staked된거 총량 가져옴
   const totalStaked = useMemo(() => {
     return tokenSort => {
-      return (
-        nftList?.reduce((acc, nft) => {
-          if (nft.tokenSort === `${tokenSort}`) {
-            return acc + nft.principal;
+      const nftTotal = nftList?.reduce((acc, nft) => {
+        if (nft.tokenSort === `${tokenSort}`) {
+          return acc + nft.principal;
+        }
+        return acc;
+      }, 0) || 0;
+        const borrowTotal = borrowList?.reduce((acc, borrow) => {
+          if (borrow.tokenSort === `${tokenSort}`) {
+            return acc + borrow.principal;
           }
           return acc;
-        }, 0) || 0
-      );
-    };
-  }, [nftList]);
+        }, 0) || 0;
+        return nftTotal+borrowTotal;
+  }}, [nftList]);
   useEffect(() => {
     const initializeData = async () => {
       setIsRefreshing(true);

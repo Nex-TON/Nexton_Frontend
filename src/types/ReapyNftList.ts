@@ -10,4 +10,5 @@ export interface borrowNftInfo{
     timeStamp:string;// 대출 날짜
     status:number;// 대출 상태, 0은 unpaid 1은 paid off
     loanId:number;// 대출 Id
+    tokenSort: string;
 }
