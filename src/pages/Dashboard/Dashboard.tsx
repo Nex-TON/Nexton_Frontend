@@ -16,8 +16,8 @@ import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanc
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { globalError } from "@/lib/atom/globalError";
 import { limitDecimals } from "@/utils/limitDecimals";
-import IcnxTONLogo from "@/assets/icons/Dashboard/ic_nxTON_logo.svg";
 import "@/components/common/Header";
+import {useTomo } from "@tomo-inc/tomo-telegram-sdk";
 
 import {
   DashboardHeader,
@@ -73,6 +73,8 @@ const Dashboard = () => {
   const [timeFrame, setTimeFrame] = useState<TimeFrame>("1D");
 
   const { data: performanceData, isLoading: performanceLoading, error: performanceError } = useBotPerformanceSummary();
+
+  const {openConnectModal,closeConnectModal}=useTomo();
 
   const {
     data: chartData,
@@ -184,7 +186,7 @@ const Dashboard = () => {
                 <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
               </PerformanceItem>
           </PerformanceItemWrapper>
-          <MainButton style={{ margin: "1.5rem 0 6.1rem 0" }} />
+          <MainButton style={{ margin: "1.5rem 0 6.1rem 0" }} openConnectModal={openConnectModal}/>
 
           {!tonPriceError && (
             <TonPriceWrapper>

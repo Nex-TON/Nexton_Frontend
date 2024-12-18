@@ -47,7 +47,9 @@ type AssetsView = "dashboard" | "asset";
 
 const MainMyAssetInfo = ({
   tonConnectUI,
+  openConnectModal,
   connected,
+  tomo_conneted,
   address,
   balance,
   refreshTonData,
@@ -56,7 +58,9 @@ const MainMyAssetInfo = ({
   isError,
 }: {
   tonConnectUI: any;
+  openConnectModal:any;
   connected: boolean;
+  tomo_conneted:boolean;
   address: string;
   balance: number;
   refreshTonData: () => Promise<void>;
@@ -121,7 +125,7 @@ const MainMyAssetInfo = ({
       onTouchStart={handleTouchStart}
       >
       <MainInnerBox>
-        <MainTopBox $marginBottom={connected || view === "dashboard"}>
+        <MainTopBox $marginBottom={connected||tomo_conneted || view === "dashboard"}>
           <MainTopLeft>
             <MainLeftItem
               $isActive={view === "dashboard"}
@@ -210,8 +214,8 @@ const MainMyAssetInfo = ({
             </DashboardBottomLeft>
           </DashboardBottomBox>
         ) : (
-          <AssetBottomBox onClick={() => {connected?navigate("/myasset/nftlist#specific-element-total-balance"):""}}>
-            {!connected ? (
+          <AssetBottomBox onClick={() => {connected||tomo_conneted?navigate("/myasset/nftlist#specific-element-total-balance"):""}}>
+            {!connected||tomo_conneted ? (
               <AssetBottomNotConnected onClick={() => tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
                 <AssetBottomNotConnectedImg>
                   <img src={MyAssetNotConnected} alt="my asset not connected image" />
@@ -286,8 +290,7 @@ const MainMyAssetInfo = ({
           </AssetBottomBox>
         )}
       </MainInnerBox>
-
-      <MainButton />
+      <MainButton openConnectModal={openConnectModal} tomo_conneted={tomo_conneted} style={{ margin: "1.5rem 0 2.7rem 0" }}/>
     </MainWrapper>
   );
 };

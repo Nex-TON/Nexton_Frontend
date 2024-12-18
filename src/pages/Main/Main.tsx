@@ -24,6 +24,12 @@ import { OfficialAnouncementModal } from "@/components/main/Modal/OfficialAnnoun
 import "react-toastify/dist/ReactToastify.css";
 import NextonNews from "@/components/main/NextonNews";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
+import {useTomo} from "@tomo-inc/tomo-telegram-sdk";
+import { TonProvider } from '@tomo-inc/tomo-telegram-sdk/dist';
+import { TonClient } from '@ton/ton';
+import { beginCell, toNano, Address } from '@ton/core';
+import { BASE_URL_DEV } from '@tomo-inc/tomo-telegram-sdk/example/baseUrlDev';
+import { useThemeParams } from '@vkruglikov/react-telegram-web-app';
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -48,8 +54,195 @@ const Main: React.FC = () => {
   const [modal, setModal] = useState(false);
   const [officialModal, setOfficialModal] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-
   const userId = tele?.initDataUnsafe?.user?.id;
+
+  const [addr, setAddr] = useState('');
+  const [toAddr1, setToAddr1] = useState('');
+  const [toValue1, setToValue1] = useState('0.1');
+  const [sendRes, setSendRes] = useState('');
+  const [tonProof, setTonProof] = useState('');
+
+  const [contractAddr, setContractAddr] = useState(
+    'EQAvlWFDxGF2lXm67y4yzC17wYKD9A0guwPkMs1gOsM__NOT'
+    // 'EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs'
+  );
+  const [toAddr2, setToAddr2] = useState('');
+  const [toValue2, setToValue2] = useState('0.1');
+  const [sendRes2, setSendRes2] = useState('');
+  const [tomo_ton, setTomo_ton] = useState<TonProvider>();
+  const [userTokenAddress, setUserTokenAddress] = useState('');
+
+  const [tomoBalance, setTomoBalance] = useState('');
+  const [balanceAddr, setBalanceAddr] = useState('');
+
+  const { openConnectModal, providers, connectResult } = useTomo();
+
+  useEffect(() => {
+    const tomo_ton = providers.tomo_ton;
+    tomo_ton && setTomo_ton(tomo_ton);
+    if (tomo_ton?.connected && tomo_ton?.account) {
+      walletAddressReq(tomo_ton);
+    } else {
+      setAddr('');
+      setBalanceAddr('');
+    }
+  }, [
+    providers.tomo_ton,
+    providers.tomo_ton?.connected,
+    providers.tomo_ton?.account,
+  ]);
+  useEffect(() => {
+    if (addr && contractAddr) {
+      initUserTokenAddress();
+    }
+    async function initUserTokenAddress() {
+      const tokenAddr = await getUserTokenWalletAddress(addr, contractAddr);
+      setUserTokenAddress(tokenAddr?.toString());
+    }
+  }, [addr, contractAddr]);
+
+  const walletAddressReq = async tomo_ton => {
+    const address = tomo_ton?.account?.address;
+    setAddr(address);
+    setBalanceAddr(address);
+  };
+
+  const connectWallet = async () => {
+    if (addr) {
+      tomo_ton?.disconnect && tomo_ton?.disconnect();
+      setAddr('');
+      setBalanceAddr('');
+      return;
+    }
+    openConnectModal();
+  };
+
+  const connectWalletWithTonProof = async () => {
+    if (addr) {
+      await tomo_ton?.disconnect();
+      setAddr('');
+      setBalanceAddr('');
+      return;
+    }
+    // the tonProof mast be a hex string
+    openConnectModal({
+      tonProof: Buffer.from('1234', 'utf8').toString('hex'),
+    });
+  };
+
+  // UQCp3k_JcqLVbC0vMdiXCuDqPUWOlSXwrtI3aAZ1F3Ze9V8t
+  const sendTonTransaction = async () => {
+    if (!canSend) return;
+    const txParams = {
+      messages: [
+        {
+          address: toAddr1,
+          amount: toNano(toValue1).toString(),
+        },
+      ],
+      validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec
+      from: addr,
+    };
+    const res = await (tomo_ton as TonProvider).sendTransaction(txParams);
+    setSendRes(JSON.stringify(res));
+  };
+  const sendTonTx = async () => {
+    if (!canSend) return;
+    const txParams = {
+      messages: [
+        {
+          address: toAddr1,
+          amount: toNano(toValue1).toString(),
+        },
+      ],
+      validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec
+      from: addr,
+    };
+    const res = await (tomo_ton as any).sendTransaction(txParams);
+    setSendRes(JSON.stringify(res));
+  };
+
+  const canSend = useMemo(() => toAddr1 && toValue1 && addr, [
+    toAddr1,
+    toValue1,
+    addr,
+  ]);
+
+  async function getUserTokenWalletAddress(userAddress, jettonMasterAddress) {
+    const client = new TonClient({
+      endpoint: 'https://toncenter.com/api/v2/jsonRPC',
+    });
+    const userAddressCell = beginCell()
+      .storeAddress(Address.parse(userAddress))
+      .endCell();
+    const response = await client.runMethod(
+      Address.parse(jettonMasterAddress),
+      'get_wallet_address',
+      [{ type: 'slice', cell: userAddressCell as any }]
+    );
+    return response.stack.readAddress();
+  }
+
+  const createJettonPayload = () => {
+    const destinationAddress = Address.parse(toAddr2);
+
+    const body = beginCell()
+      .storeUint(0xf8a7ea5, 32) // jetton 转账操作码
+      .storeUint(0, 64) // query_id:uint64
+      .storeCoins(toNano(toValue2)) // amount:(VarUInteger 16) -  转账的 Jetton 金额（小数位 = 6 - jUSDT, 9 - 默认）
+      .storeAddress(destinationAddress) // destination:MsgAddress
+      .storeAddress(destinationAddress) // response_destination:MsgAddress
+      .storeMaybeRef(null)
+      .storeCoins(toNano('0.000001'))
+      .storeMaybeRef(null)
+      .endCell();
+
+    return body.toBoc().toString('base64');
+  };
+
+  const sendTonDataTx = async () => {
+    const payload = createJettonPayload();
+    const txParams = {
+      messages: [
+        {
+          address: userTokenAddress,
+          amount: 0.1 * 10 ** 9,
+          payload,
+        },
+      ],
+      validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec
+    };
+    const res = await tomo_ton?.sendTransaction(txParams as any);
+    setSendRes2(JSON.stringify(res));
+  };
+
+  const sendTonDataTxForTomo = async () => {
+    const txParams = {
+      messages: [
+        {
+          address: toAddr2, // [legacy] this will be the recipient address
+          amount: toValue2, // [legacy] this would be the amount of jetton to transfer
+          payload: JSON.stringify({
+            contractAddr,
+            precision: 9,
+            forwardAmount: toNano('0.0001').toString(),
+            memo: '',
+          }),
+        },
+      ],
+      validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec
+    };
+    const res = await tomo_ton?.sendTransaction(txParams);
+    setSendRes2(JSON.stringify(res));
+  };
+
+  const getBalance = async () => {
+    if (!balanceAddr) return;
+    const res = await tomo_ton?.getBalance(balanceAddr);
+    setTomoBalance(res.formatted);
+  };
+
+  
 
   // Refresh TON data
   useEffect(() => {
@@ -206,7 +399,9 @@ const Main: React.FC = () => {
         <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} tonConnectUI={tonConnectUI} />
         <MainMyAssetInfo
           tonConnectUI={tonConnectUI}
+          openConnectModal={connectWallet}
           connected={connected}
+          tomo_conneted={tomo_ton?.connected}
           address={address}
           balance={balance}
           refreshTonData={refreshTonData}

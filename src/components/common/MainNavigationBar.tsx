@@ -134,6 +134,7 @@ const Nav = styled.div`
 
   position: fixed;
   bottom: 0px;
+  z-index: 40;
 
   width: 100%;
   height: 56px;
