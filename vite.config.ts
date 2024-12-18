@@ -32,14 +32,8 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            // node_modules 의존성을 vendor 청크로 분리
-            return 'vendor';
-          }
-        },
-      },
+      plugins: [rollupNodePolyFill()],
+      external: ['crypto'],
     },
   },
 });
