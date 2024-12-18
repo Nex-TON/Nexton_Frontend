@@ -9,45 +9,11 @@ import IcArrowDown from "@/assets/icons/Main/arrow_down.svg";
 import IcArrowUp from "@/assets/icons/Main/arrow_up.svg";
 import IcTon from "@/assets/icons/Main/ton_icon.svg";
 import IcTomo from "@/assets/icons/Main/tomo_icon.svg";
-import { TonProvider } from "@tomo-inc/tomo-telegram-sdk/dist/";
-import { BASE_URL_DEV } from "@tomo-inc/tomo-telegram-sdk/example/baseUrlDev";
-import { CONNECT_MAP, TomoProvider, useTomo } from "@tomo-inc/tomo-telegram-sdk";
 
-const MainButton = ({ style ,openConnectModal}: { style?: React.CSSProperties,openConnectModal:any }) => {
+const MainButton = ({ style ,openConnectModal}: { style?: React.CSSProperties,openConnectModal?:any }) => {
   const { connected, tonConnectUI } = useTonConnect();
   const navigate = useNavigate();
   const [toggled, setToggled] = useState(false);
-  const [addr, setAddr] = useState("");
-  const [tomo_ton, setTomo_ton] = useState<TonProvider>();
-  const [balanceAddr, setBalanceAddr] = useState("");
-  // const { openConnectModal, providers } = useTomo();
-
-  // useEffect(() => {
-  //   const tomo_ton = providers.tomo_ton;
-  //   tomo_ton && setTomo_ton(tomo_ton);
-  //   if (tomo_ton?.connected && tomo_ton?.account) {
-  //     walletAddressReq(tomo_ton);
-  //   } else {
-  //     setAddr("");
-  //     setBalanceAddr("");
-  //   }
-  // }, [providers.tomo_ton, providers.tomo_ton?.connected, providers.tomo_ton?.account]);
-
-  // const walletAddressReq = async (tomo_ton) => {
-  //   const address = tomo_ton?.account?.address;
-  //   setAddr(address);
-  //   setBalanceAddr(address);
-  // };
-
-  // const connectWallet = async () => {
-  //   if (addr) {
-  //     tomo_ton?.disconnect && tomo_ton?.disconnect();
-  //     setAddr("");
-  //     setBalanceAddr("");
-  //     return;
-  //   }
-  //   openConnectModal();
-  // };
 
   const handleToggled = () => {
     setToggled(!toggled);
@@ -64,16 +30,7 @@ const MainButton = ({ style ,openConnectModal}: { style?: React.CSSProperties,op
 
   return (
     <>
-      {/* <TomoProvider
-        theme="light"
-        supportedProviders={["TON"]}
-        supportedConnects={[CONNECT_MAP.TOMO_MINI_APP, CONNECT_MAP.OKX_CONNECT, CONNECT_MAP.TON_CONNECT]}
-        manifestUrl={"https://d8o5s6z018yzr.cloudfront.net/manifestUrl.json"}
-        tomoOptions={{
-          injected: true,
-          ...BASE_URL_DEV,
-        }}
-      > */}
+        {toggled && <Overlay onClick={handleToggled} />}
         {connected ? (
           <TonWalletWrapper
             onClick={handleSwitchWalletFunction}
@@ -113,12 +70,21 @@ const MainButton = ({ style ,openConnectModal}: { style?: React.CSSProperties,op
             )}
           </WalletConnectWrapper>
         )}
-      {/* </TomoProvider> */}
     </>
   );
 };
 
 export default MainButton;
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+`;
 
 const DivideLine = styled.div`
   color: #f8f8f8;
@@ -139,7 +105,9 @@ const WalletCollection = styled.div`
 
 const WalletConnectWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   position: relative;
+  z-index: 30;
 `;
 
 const CollectWalletToggleWrapper = styled.div`
@@ -148,7 +116,7 @@ const CollectWalletToggleWrapper = styled.div`
   display: flex;
   position: absolute;
   background-color: white;
-  top: 7rem;
+  top: 8.5rem;
   border-radius: 1.5rem;
   flex-direction: column;
 `;
@@ -160,7 +128,6 @@ const TonWalletWrapper = styled.div<{ $connected: boolean }>`
 
   width: 100%;
   height: 6rem;
-  margin-bottom: 3.7rem;
   padding: 0.5rem 0;
 
   border-radius: 15px;
@@ -182,6 +149,8 @@ const TonConnectCenterBox = styled.div`
   font-style: normal;
   font-weight: 600;
   line-height: 26px;
+  z-index: 30;
+
 
   img {
     height: 24px;

@@ -3,10 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useSetRecoilState } from "recoil";
 
-import { ClickAwayListener } from "@mui/material";
-//tooltip name이 겹쳐서 변수명 설정해줌
-import { Tooltip as MuiTooltip, tooltipClasses } from "@mui/material";
-import { VscInfo } from "react-icons/vsc";
 import IcNextonLogo from "@/assets/icons/Dashboard/ic_nexton_logo.svg";
 import IcTonLogo from "@/assets/icons/Dashboard/ic_ton_logo.svg";
 import Loader from "@/components/common/Loader";
@@ -16,8 +12,8 @@ import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanc
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { globalError } from "@/lib/atom/globalError";
 import { limitDecimals } from "@/utils/limitDecimals";
-import IcnxTONLogo from "@/assets/icons/Dashboard/ic_nxTON_logo.svg";
 import "@/components/common/Header";
+import {useTomo } from "@tomo-inc/tomo-telegram-sdk";
 
 import {
   DashboardHeader,
@@ -57,16 +53,6 @@ const chartTimeFrameOptions: Record<TimeFrame | "All", number> = {
 
 const Dashboard = () => {
   const { connected, tonConnectUI } = useTonConnect();
-  const [open, setOpen] = useState(false);
-
-  const handleTooltip = () => {
-    setOpen(!open);
-  };
-  const handleTooltipClose = () => {
-    setOpen(false);
-  };
-
-  const location = useLocation();
   const navigate = useNavigate();
   const setError = useSetRecoilState(globalError);
 
@@ -81,6 +67,7 @@ const Dashboard = () => {
   } = useBotPerformanceChart(chartTimeFrameOptions[timeFrame]);
 
   const { data: tonPriceData, isLoading: tonPriceLoading, error: tonPriceError } = useCoinPrice("ton", "usd");
+  const {openConnectModal}=useTomo();
   
   useEffect(() => {
     if (tele) {
@@ -184,7 +171,7 @@ const Dashboard = () => {
                 <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
               </PerformanceItem>
           </PerformanceItemWrapper>
-          <MainButton style={{ margin: "1.5rem 0 6.1rem 0" }} />
+          <MainButton style={{ margin: "1.5rem 0 6.1rem 0" }} openConnectModal={openConnectModal}/>
 
           {!tonPriceError && (
             <TonPriceWrapper>

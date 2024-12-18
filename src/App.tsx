@@ -8,7 +8,7 @@ import { network } from "@/hooks/contract/useTonClient";
 import GlobalStyle from "@/styles/globalStyles";
 import theme from "@/styles/theme";
 import TagManager from "react-gtm-module";
-import { TomoProvider, CONNECT_MAP, useTomo } from "@tomo-inc/tomo-telegram-sdk";
+import { TomoProvider, CONNECT_MAP } from "@tomo-inc/tomo-telegram-sdk";
 import '@tomo-inc/tomo-telegram-sdk/dist/styles.css'
 import { BASE_URL_DEV } from "@tomo-inc/tomo-telegram-sdk/example/baseUrlDev";
 
@@ -29,7 +29,7 @@ const App = () => {
       supportedConnects={[CONNECT_MAP.TOMO_MINI_APP]}
       manifestUrl={"https://d8o5s6z018yzr.cloudfront.net/manifestUrl.json"}
       tomoOptions={{
-        injected: true,
+        injected: false,
         ...BASE_URL_DEV,
       }}
     >

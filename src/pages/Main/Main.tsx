@@ -25,7 +25,7 @@ import { OfficialAnouncementModal } from "@/components/main/Modal/OfficialAnnoun
 import "react-toastify/dist/ReactToastify.css";
 import NextonNews from "@/components/main/NextonNews";
 
-import { TomoProvider, CONNECT_MAP, useTomo } from "@tomo-inc/tomo-telegram-sdk";
+import {useTomo } from "@tomo-inc/tomo-telegram-sdk";
 import { TomoWalletTgSdkV2 } from '@tomo-inc/tomo-telegram-sdk';
 new TomoWalletTgSdkV2();
 
