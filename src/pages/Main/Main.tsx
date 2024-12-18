@@ -53,10 +53,6 @@ const Main: React.FC = () => {
   const [officialModal, setOfficialModal] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const [tomoModal, setTomoModal] = useState(false);
-  // const{openConnectModal, providers}=useTomo();
-  
-
   const userId = tele?.initDataUnsafe?.user?.id;
 
   // Refresh TON data
@@ -196,19 +192,6 @@ const Main: React.FC = () => {
     <>
       {modal && <WelcomeModal toggleModal={toggleModal} />}
       {officialModal && <OfficialAnouncementModal toggleModal={toggleOfficialModal} />}
-      {/* <TomoProvider
-        theme="light"
-        supportedProviders={["TON"]}
-        manifestUrl={"https://d8o5s6z018yzr.cloudfront.net/manifestUrl.json"}
-        tomoOptions={{
-          injected: false,
-          metaData: {
-            icon: "your app icon",
-            name: "NEXTON",
-            url: location.origin + "/testing",
-          },
-        }}
-      > */}
         <MainWrapper>
           <Header
             isOpen={false}
@@ -351,8 +334,6 @@ const Main: React.FC = () => {
           </Fab>
           <MainNavigationBar />
         </MainWrapper>
-      {/* </TomoProvider> */}
-
       <ToastContainer
         position="top-center"
         autoClose={4000}
