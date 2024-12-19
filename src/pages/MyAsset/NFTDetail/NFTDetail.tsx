@@ -32,13 +32,13 @@ import useTonConnect from "@/hooks/contract/useTonConnect";
 const tele = (window as any).Telegram.WebApp;
 
 interface ModalState {
-  type: "blockborrow" | "blockunstake"|"blockborrow100";
+  type: "blockborrow" | "blockunstake" | "blockborrow100";
   toggled: boolean;
 }
 
 const NFTDetail = () => {
   const navigate = useNavigate();
-  const location=useLocation();
+  const location = useLocation();
   const [nftInfo, setNftInfo] = useState<nftInfo>();
   const [stakingInfo, setStakingInfo] = useState<any>([{ items: [] }]);
   const [isNftExpired, setIsNftExpired] = useState(false);
@@ -111,17 +111,10 @@ const NFTDetail = () => {
 
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
-            onClick={() =>{
-              if(Number(id)<=100){
-                setModal({type:"blockborrow100",toggled:true});
-              }else if(!id||!address){
-                setModal({type:"blockborrow100",toggled:true}); 
-              }
-              else{
+            onClick={() => {
               checkLendingAvailable?.success
                 ? navigate(`/loan/${id}/borrow/details`)
                 : setModal({ type: "blockborrow", toggled: true });
-              }
             }}
           >
             Borrow NxTON <img src={IcTrendUp} alt="trend_up" />
@@ -148,7 +141,7 @@ const NFTDetail = () => {
               <NFTDetailItemCaption>Token</NFTDetailItemCaption>
               <NFTDetailItemText>
                 <img src={nftInfo?.tokenSort === "TON" ? IcTonSymbol : IcNxTonSymbol} alt="tonSymbol" />
-                {nftInfo?.tokenSort=="nxTON"?"NxTON":`${nftInfo?.tokenSort}`}
+                {nftInfo?.tokenSort == "nxTON" ? "NxTON" : `${nftInfo?.tokenSort}`}
               </NFTDetailItemText>
             </NFTDetailItem>
             <NFTDetailItem>
@@ -160,9 +153,15 @@ const NFTDetail = () => {
           <StakingInfo isExpandable={true} theme="white" title="Staking info" stakingInfoItems={stakingInfo} />
         </NFTDetailContentBox>
       </NFTDetailWrapper>
-      {modal.type==="blockborrow100"&&modal.toggled&&<BasicModal isDark type="blockborrow100" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
-      {modal.type === "blockborrow" && modal.toggled && <BasicModal isDark type="blockborrow" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
-      {modal.type === "blockunstake" && modal.toggled && <BasicModal isDark type="blockunstake" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`}/>}
+      {modal.type === "blockborrow100" && modal.toggled && (
+        <BasicModal isDark type="blockborrow100" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`} />
+      )}
+      {modal.type === "blockborrow" && modal.toggled && (
+        <BasicModal isDark type="blockborrow" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`} />
+      )}
+      {modal.type === "blockunstake" && modal.toggled && (
+        <BasicModal isDark type="blockunstake" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`} />
+      )}
     </>
   );
 };

@@ -180,10 +180,10 @@ export class NftItem implements Contract {
     params: {
       value: bigint;
       queryId: bigint;
-      newOwner: Address;
-      responseAddress: Address;
+      newOwnerAddress: Address;
+      responseDestination: Address;
       forwardAmount: bigint;
-      forwardPayload: Builder;
+      forwardPayload: Builder | null;
     },
   ) {
     await provider.internal(via, {
@@ -191,32 +191,32 @@ export class NftItem implements Contract {
       body: beginCell()
         .storeUint(0x5fcc3d14, 32) //operation code
         .storeUint(params.queryId ?? 0, 64)
-        .storeAddress(params.newOwner)
-        .storeAddress(params.responseAddress)
+        .storeAddress(params.newOwnerAddress)
+        .storeAddress(params.responseDestination)
         .storeInt(BigInt(0), 1) //custom payload
         .storeCoins(params.forwardAmount)
-        .storeUint(123, 8)
+        .storeBuilder(params.forwardPayload ?? beginCell().storeUint(1, 4))
         .endCell(),
     });
   }
 
   static storeTransferWithData(params: {
     value: bigint;
-      queryId: bigint;
-      newOwnerAddress: Address;
-      responseDestination: Address;
-      forwardAmount: bigint;
-      forwardPayload: Builder;
-  }){
+    queryId: bigint;
+    newOwnerAddress: Address;
+    responseDestination: Address;
+    forwardAmount: bigint;
+    forwardPayload: Builder;
+  }) {
     return beginCell()
-    .storeUint(0x10241a2b, 32) //operation code
-    .storeUint(params.queryId ?? 0, 64)
-    .storeAddress(params.newOwnerAddress)
-    .storeAddress(params.responseDestination)
-    .storeInt(BigInt(0), 1) //custom payload
-    .storeCoins(params.forwardAmount)
-    .storeUint(12, 8)
-    .endCell()
+      .storeUint(0x10241a2b, 32) //operation code
+      .storeUint(params.queryId ?? 0, 64)
+      .storeAddress(params.newOwnerAddress)
+      .storeAddress(params.responseDestination)
+      .storeInt(BigInt(0), 1) //custom payload
+      .storeCoins(params.forwardAmount)
+      .storeUint(12, 8)
+      .endCell();
   }
 
   static storeTransfer(params: {
@@ -226,15 +226,15 @@ export class NftItem implements Contract {
     responseAddress: Address;
     forwardAmount: bigint;
     forwardPayload: Builder;
-  }){
+  }) {
     return beginCell()
-        .storeUint(0x5fcc3d14, 32) //operation code
-        .storeUint(params.queryId ?? 0, 64)
-        .storeAddress(params.newOwner)
-        .storeAddress(params.responseAddress)
-        .storeInt(BigInt(0), 1) //custom payload
-        .storeCoins(params.forwardAmount)
-        .storeUint(123, 8)
-        .endCell()
+      .storeUint(0x5fcc3d14, 32) //operation code
+      .storeUint(params.queryId ?? 0, 64)
+      .storeAddress(params.newOwner)
+      .storeAddress(params.responseAddress)
+      .storeInt(BigInt(0), 1) //custom payload
+      .storeCoins(params.forwardAmount)
+      .storeBuilder(params.forwardPayload ?? beginCell().storeUint(1, 4))
+      .endCell();
   }
 }
