@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useSetRecoilState } from "recoil";
+import styled from "styled-components";
 
 import { ClickAwayListener } from "@mui/material";
 //tooltip name이 겹쳐서 변수명 설정해줌
@@ -81,7 +82,7 @@ const Dashboard = () => {
   } = useBotPerformanceChart(chartTimeFrameOptions[timeFrame]);
 
   const { data: tonPriceData, isLoading: tonPriceLoading, error: tonPriceError } = useCoinPrice("ton", "usd");
-  
+
   useEffect(() => {
     if (tele) {
       tele.ready();
@@ -177,12 +178,69 @@ const Dashboard = () => {
               <h3>Stakers Win Rate</h3>
               <p>{performanceData?.pnlWinRate?.toFixed(2)}%</p>
             </PerformanceItem>
-              <PerformanceItem>
+            <ClickAwayListener onClickAway={handleTooltipClose}>
+              <PerformanceItem onClick={handleTooltip}>
                 <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                   TVL
+                  <MuiTooltip
+                    PopperProps={{
+                      disablePortal: true,
+                    }}
+                    onClose={handleTooltip}
+                    open={open}
+                    disableTouchListener
+                    disableHoverListener // 추가
+                    title={
+                      <TooltipText>
+                        <img src={IcTonLogo} /> TON+
+                        <img src={IcnxTONLogo} />
+                        nxTON
+                      </TooltipText>
+                    }
+                    placement="top"
+                    slotProps={{
+                      popper: {
+                        sx: {
+                          [`&.${tooltipClasses.popper}[data-popper-placement*="top"] .${tooltipClasses.tooltip}`]: {
+                            marginBottom: "5px",
+                          },
+                        },
+                      },
+                    }}
+                    componentsProps={{
+                      tooltip: {
+                        sx: {
+                          padding: "7px 15px",
+                          bgcolor: "#000",
+                          alignContent: "center",
+                          textAlign: "center",
+                          width: "152px",
+                          height: "42px",
+                          transform: "center bottom",
+                          border: "none",
+                        },
+                      },
+                      arrow: { sx: { color: "black", border: "none" } },
+                    }}
+                    arrow
+                  >
+                    <div>
+                      <VscInfo
+                        style={{
+                          width: "16px",
+                          height: "16px",
+                          color: "#C6CACA",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          display: "flex",
+                        }}
+                      />
+                    </div>
+                  </MuiTooltip>
                 </h3>
                 <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
               </PerformanceItem>
+            </ClickAwayListener>
           </PerformanceItemWrapper>
           <MainButton style={{ margin: "1.5rem 0 6.1rem 0" }} />
 
@@ -197,7 +255,9 @@ const Dashboard = () => {
 
                 <TonPriceItemRight>
                   <p>${tonPriceData?.rates?.TON?.prices?.USD.toFixed(2)}</p>
-                  <TonPriceItemRightPercentage $positive={(tonPriceData?.rates?.TON?.diff_24h?.USD[0])=="+"?true:false}>
+                  <TonPriceItemRightPercentage
+                    $positive={tonPriceData?.rates?.TON?.diff_24h?.USD[0] == "+" ? true : false}
+                  >
                     {tonPriceData?.rates?.TON?.diff_24h?.USD}
                   </TonPriceItemRightPercentage>
                 </TonPriceItemRight>
@@ -212,3 +272,24 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+const TooltipText = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--Neutral-Neutural-100, #fff);
+  text-align: right;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px; /* 138.462% */
+
+  img {
+    width: 22px;
+    height: 22px;
+    margin-right: 0.2rem;
+  }
+`;
