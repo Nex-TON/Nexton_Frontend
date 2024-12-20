@@ -123,6 +123,7 @@ const NFTDetail = () => {
                 : setModal({ type: "blockborrow", toggled: true });
               }
             }}
+            id="nft detail page borrow nxton button"
           >
             Borrow NxTON <img src={IcTrendUp} alt="trend_up" />
           </NFTDetailCardButton>
