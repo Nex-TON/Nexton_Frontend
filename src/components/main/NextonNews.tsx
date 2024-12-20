@@ -14,7 +14,7 @@ const NextonNews = () => {
           id="main page carousel"
         >
           <TextWrapper id="main page carousel">
-            <p>
+            <p id="main page carousel">
               $NxTON is now
               <br /> listed on <StonfiImg src={StonfiLogo} alt="stonfi logo" />
               <br />
