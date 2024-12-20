@@ -35,36 +35,36 @@ const HistoryListItem: React.FC<HistoryListItemProps> = ({ status, principal, in
 
   return (
     <HistoryListItemWrapper onClick={() => navigate(`/loan/${nftId}/repay/details`,{state:{loanId}})} id="loan history page borrowed box">
-      <HistoryListTop>
-        <HistoryListTopLeft>
-          <HistoryListTopLeftIcon>{loanId}</HistoryListTopLeftIcon>
-          <HistoryListTopLeftText>
-            <Caption3>Borrowed</Caption3>
-            <p>
-              <span>{limitDecimals(principal, 3)} </span>NxTON
+      <HistoryListTop id="loan history page borrowed box">
+        <HistoryListTopLeft id="loan history page borrowed box">
+          <HistoryListTopLeftIcon id="loan history page borrowed box">{loanId}</HistoryListTopLeftIcon>
+          <HistoryListTopLeftText id="loan history page borrowed box">
+            <Caption3 id="loan history page borrowed box">Borrowed</Caption3>
+            <p id="loan history page borrowed box">
+              <span id="loan history page borrowed box">{limitDecimals(principal, 3)} </span>NxTON
             </p>
           </HistoryListTopLeftText>
         </HistoryListTopLeft>
         {/* paid==0 unpaid 1은 paid off */}
-        <HistoryListTopStatus onClick={() => navigate("")} paid={status == 1 ? true : false}>
-          <img src={status == 1 ? IcPaid : IcUnpaid} />
-          <p>{status == 1 ? "Paid off" : "Unpaid"}</p>
+        <HistoryListTopStatus id="loan history page borrowed box" onClick={() => navigate("")} paid={status == 1 ? true : false}>
+          <img id="loan history page borrowed box" src={status == 1 ? IcPaid : IcUnpaid} />
+          <p id="loan history page borrowed box">{status == 1 ? "Paid off" : "Unpaid"}</p>
         </HistoryListTopStatus>
       </HistoryListTop>
-      <HistoryListBottom>
-        <HistoryListBottomTextBottom>
-          <HistoryListBottomTextBottomLeft>Principal</HistoryListBottomTextBottomLeft>
-          <HistoryListBottomTextBottomRight>{numberCutter(principal)} NxTON</HistoryListBottomTextBottomRight>
+      <HistoryListBottom id="loan history page borrowed box">
+        <HistoryListBottomTextBottom id="loan history page borrowed box">
+          <HistoryListBottomTextBottomLeft id="loan history page borrowed box">Principal</HistoryListBottomTextBottomLeft>
+          <HistoryListBottomTextBottomRight id="loan history page borrowed box">{numberCutter(principal)} NxTON</HistoryListBottomTextBottomRight>
         </HistoryListBottomTextBottom>
         <HistoryListItemDivider />
-        <HistoryListBottomTextBottom>
-          <HistoryListBottomTextBottomLeft>Interest rate</HistoryListBottomTextBottomLeft>
-          <HistoryListBottomTextBottomRight>{interestRate}%</HistoryListBottomTextBottomRight>
+        <HistoryListBottomTextBottom id="loan history page borrowed box">
+          <HistoryListBottomTextBottomLeft id="loan history page borrowed box">Interest rate</HistoryListBottomTextBottomLeft>
+          <HistoryListBottomTextBottomRight id="loan history page borrowed box">{interestRate}%</HistoryListBottomTextBottomRight>
         </HistoryListBottomTextBottom>
         <HistoryListItemDivider />
-        <HistoryListBottomTextBottom>
-          <HistoryListBottomTextBottomLeft>LTV</HistoryListBottomTextBottomLeft>
-          <HistoryListBottomTextBottomRight>{ltv}%</HistoryListBottomTextBottomRight>
+        <HistoryListBottomTextBottom id="loan history page borrowed box">
+          <HistoryListBottomTextBottomLeft id="loan history page borrowed box">LTV</HistoryListBottomTextBottomLeft>
+          <HistoryListBottomTextBottomRight id="loan history page borrowed box">{ltv}%</HistoryListBottomTextBottomRight>
         </HistoryListBottomTextBottom>
       </HistoryListBottom>
     </HistoryListItemWrapper>
