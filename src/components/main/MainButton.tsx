@@ -10,14 +10,19 @@ import IcArrowUp from "@/assets/icons/Main/arrow_up.svg";
 import IcTon from "@/assets/icons/Main/ton_icon.svg";
 import IcTomo from "@/assets/icons/Main/tomo_icon.svg";
 
-const MainButton = ({ style ,openConnectModal}: { style?: React.CSSProperties,openConnectModal?:any }) => {
+const MainButton = ({
+  style,
+  toggled,
+  handleToggle,
+  openConnectModal,
+}: {
+  style?: React.CSSProperties;
+  toggled: boolean;
+  handleToggle: () => void;
+  openConnectModal?: any;
+}) => {
   const { connected, tonConnectUI } = useTonConnect();
   const navigate = useNavigate();
-  const [toggled, setToggled] = useState(false);
-
-  const handleToggled = () => {
-    setToggled(!toggled);
-  };
 
   const handleSwitchWalletFunction = () => {
     if (connected) {
@@ -27,49 +32,53 @@ const MainButton = ({ style ,openConnectModal}: { style?: React.CSSProperties,op
     }
   };
 
-
   return (
     <>
-        {toggled && <Overlay onClick={handleToggled} />}
-        {connected ? (
-          <TonWalletWrapper
-            onClick={handleSwitchWalletFunction}
-            style={style}
-            id="main button stake"
-            $connected={connected}
-          >
-            <TonConnectCenterBox id="main button stake">
-              <img src={IcWalletStake} alt="stake" id="main button stake" /> Let's stake TON
+      {toggled && <Overlay onClick={handleToggle} />}
+      {connected ? (
+        <TonWalletWrapper
+          onClick={handleSwitchWalletFunction}
+          style={style}
+          id="main button stake"
+          $connected={connected}
+        >
+          <TonConnectCenterBox id="main button stake">
+            <img src={IcWalletStake} alt="stake" id="main button stake" /> Let's stake TON
+          </TonConnectCenterBox>
+        </TonWalletWrapper>
+      ) : (
+        <WalletConnectWrapper>
+          <TonWalletWrapper onClick={handleToggle} style={style} id="main button connect wallet" $connected={connected}>
+            <TonConnectCenterBox id="main button connect wallet">
+              <img src={IcTonLogo} alt="connect" id="main button connect wallet" /> Connect wallet{" "}
+              <img src={toggled ? IcArrowUp : IcArrowDown} alt="" />
             </TonConnectCenterBox>
           </TonWalletWrapper>
-        ) : (
-          <WalletConnectWrapper>
-            <TonWalletWrapper
-              onClick={handleToggled}
-              style={style}
-              id="main button connect wallet"
-              $connected={connected}
-            >
-              <TonConnectCenterBox id="main button connect wallet">
-                <img src={IcTonLogo} alt="connect" id="main button connect wallet" /> Connect wallet{" "}
-                <img src={toggled ? IcArrowUp : IcArrowDown} alt="" />
-              </TonConnectCenterBox>
-            </TonWalletWrapper>
-            {toggled && (
-              <CollectWalletToggleWrapper>
-                <WalletCollection onClick={() => { handleSwitchWalletFunction(); handleToggled(); }}>
-                  Connect TON Wallet
-                  <img src={IcTon} alt="main page ton icon" />
-                </WalletCollection>
-                <DivideLine />
-                <WalletCollection onClick={()=>{openConnectModal();handleToggled();}}>
-                  Connect TOMO Wallet
-                  <img src={IcTomo} alt="main page tomo icon" />
-                </WalletCollection>
-              </CollectWalletToggleWrapper>
-            )}
-          </WalletConnectWrapper>
-        )}
+          {toggled && (
+            <CollectWalletToggleWrapper>
+              <WalletCollection
+                onClick={() => {
+                  handleSwitchWalletFunction();
+                  handleToggle();
+                }}
+              >
+                Connect TON Wallet
+                <img src={IcTon} alt="main page ton icon" />
+              </WalletCollection>
+              <DivideLine />
+              <WalletCollection
+                onClick={() => {
+                  openConnectModal();
+                  handleToggle();
+                }}
+              >
+                Connect TOMO Wallet
+                <img src={IcTomo} alt="main page tomo icon" />
+              </WalletCollection>
+            </CollectWalletToggleWrapper>
+          )}
+        </WalletConnectWrapper>
+      )}
     </>
   );
 };
@@ -150,7 +159,6 @@ const TonConnectCenterBox = styled.div`
   font-weight: 600;
   line-height: 26px;
   z-index: 30;
-
 
   img {
     height: 24px;
