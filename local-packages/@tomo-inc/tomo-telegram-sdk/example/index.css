@@ -1,0 +1,14 @@
+.item-value {
+  word-break: break-all;
+}
+.config-row {
+  display: flex;
+  gap: 8px;
+}
+.config-row .item-title {
+  width: 100px;
+}
+.module-title {
+  font-weight: bold;
+  margin-top: 10px;
+}
