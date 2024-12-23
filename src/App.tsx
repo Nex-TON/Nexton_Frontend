@@ -9,10 +9,9 @@ import GlobalStyle from "@/styles/globalStyles";
 import theme from "@/styles/theme";
 import TagManager from "react-gtm-module";
 import { TomoProvider, CONNECT_MAP } from "@tomo-inc/tomo-telegram-sdk";
-import '@tomo-inc/tomo-telegram-sdk/dist/styles.css'
+import "@tomo-inc/tomo-telegram-sdk/dist/styles.css";
 import { BASE_URL_DEV } from "@tomo-inc/tomo-telegram-sdk/example/baseUrlDev";
-
-
+import { WalletProvider } from "./context/WalletConnectionProvider";
 
 const tagManagerArgs = {
   gtmId: "GTM-N6BZZ8CX",
@@ -33,14 +32,16 @@ const App = () => {
         ...BASE_URL_DEV,
       }}
     >
-    <ThemeProvider theme={theme}>
-      <RecoilRoot>
-        <GlobalStyle />
-        <ErrorModal />
-        <Analytics />
-        <Router />
-      </RecoilRoot>
-    </ThemeProvider>
+      <WalletProvider>
+        <ThemeProvider theme={theme}>
+          <RecoilRoot>
+            <GlobalStyle />
+            <ErrorModal />
+            <Analytics />
+            <Router />
+          </RecoilRoot>
+        </ThemeProvider>
+      </WalletProvider>
     </TomoProvider>
   );
 };
