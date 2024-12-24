@@ -8,9 +8,9 @@ import { network } from "@/hooks/contract/useTonClient";
 import GlobalStyle from "@/styles/globalStyles";
 import theme from "@/styles/theme";
 import TagManager from "react-gtm-module";
-import { TomoProvider, CONNECT_MAP } from "@tomo-inc/tomo-telegram-sdk";
+import { TomoProvider, CONNECT_MAP, TomoWalletTgSdkV2 } from "@tomo-inc/tomo-telegram-sdk";
 import "@tomo-inc/tomo-telegram-sdk/dist/styles.css";
-import { BASE_URL_DEV } from "@tomo-inc/tomo-telegram-sdk/example/baseUrlDev";
+// import { BASE_URL_DEV } from "@tomo-inc/tomo-telegram-sdk/example/baseUrlDev";
 import { WalletProvider } from "./context/WalletConnectionProvider";
 
 const tagManagerArgs = {
@@ -21,6 +21,8 @@ TagManager.initialize(tagManagerArgs);
 console.log(`You're connected to the ${network} network!`);
 
 const App = () => {
+  new TomoWalletTgSdkV2();
+
   return (
     <TomoProvider
       theme="light"
@@ -28,8 +30,13 @@ const App = () => {
       supportedConnects={[CONNECT_MAP.TOMO_MINI_APP]}
       manifestUrl={"https://d8o5s6z018yzr.cloudfront.net/manifestUrl.json"}
       tomoOptions={{
+        //TODO : ADD METADATA
         injected: false,
-        ...BASE_URL_DEV,
+        metaData: {
+          icon: "",
+          name: "Nexton",
+        },
+        // ...BASE_URL_DEV,
       }}
     >
       <WalletProvider>

@@ -27,8 +27,15 @@ interface WalletContextType {
   refresh: () => Promise<void>;
   activeWalletType: WalletTypes | null;
   setActiveWalletType: React.Dispatch<React.SetStateAction<WalletTypes | null>>;
+  connect: (walletType: WalletTypes) => void;
 }
 
+///TODO :
+// 1. auto connect (set active wallet type)
+//    when  first opened app.
+// 2. _WalletAlreadyConnectedError
+// 3. Uncaught TypeError: balance?.toFixed is not a function
+//    at MainMyAssetInfo
 // Context 생성
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
 
@@ -40,7 +47,9 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const tomoWallet = useTomoWallet();
 
   // activeWalletType 변경에 따라 activeWallet 업데이트
+
   useEffect(() => {
+    console.log(`activeWalletType : ${activeWalletType}, tomoWallet.connected: ${tomoWallet.connected}`);
     if (activeWalletType === "TonConnect") {
       if (!tonConnect.connected) {
         console.error("Tomo Ton provider is not set. Check connection");
@@ -62,19 +71,28 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     } else {
       setActiveWallet(null);
     }
-  }, [activeWalletType, tonConnect, tomoWallet]);
+  }, [activeWalletType, tomoWallet.connected, tonConnect.connected]);
 
   const disconnect = useCallback(() => {
     //disconnect
-  }, [tonConnect, tomoWallet]);
+  }, [tonConnect, tomoWallet.address]);
 
   //TODO : connect function?
+
+  const connect = (walletType: WalletTypes) => {
+    if (walletType == "TonConnect") {
+      tonConnect.tonConnectUI.connectWallet();
+    } else if (walletType == "Tomo") {
+      tomoWallet.openConnectModal();
+    }
+  };
 
   const value = {
     ...activeWallet,
     connected: activeWallet ? activeWallet.connected : false,
     activeWalletType,
     setActiveWalletType,
+    connect,
     disconnect,
   };
 

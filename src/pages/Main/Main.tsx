@@ -26,7 +26,7 @@ import NextonNews from "@/components/main/NextonNews";
 
 import { useTomo } from "@tomo-inc/tomo-telegram-sdk";
 import { TomoWalletTgSdkV2 } from "@tomo-inc/tomo-telegram-sdk";
-new TomoWalletTgSdkV2();
+import { useWallet } from "@/context/WalletConnectionProvider";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -41,9 +41,10 @@ const Main: React.FC = () => {
     setIsFbOpen(false);
   };
 
-  const { address, balance, refreshTonData, connected, tonConnectUI } = useTonConnect();
+  const { tonConnectUI } = useTonConnect();
+  const { address, balance, refresh: refreshTonData, connected } = useWallet();
+
   const { nftList, isLoading, isError } = useStakeInfo(address);
-  const { openConnectModal } = useTomo();
 
   const { trigger: triggerManageReferral } = useManageReferral();
   const { trigger } = useTrackReferral();
@@ -60,7 +61,12 @@ const Main: React.FC = () => {
       setIsRefreshing(true);
 
       try {
-        await Promise.all([refreshTonData(), mutate(`/data/getAllStakeInfoByAddress?address=${address}`)]);
+        if (!address) {
+          mutate(`/data/getAllStakeInfoByAddress?address=${address}`);
+        }
+        if (connected) {
+          await refreshTonData();
+        }
       } catch (error) {
         console.error("An error occurred during the refresh operation:", error);
       } finally {
@@ -195,7 +201,6 @@ const Main: React.FC = () => {
         <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} tonConnectUI={tonConnectUI} />
         <MainMyAssetInfo
           tonConnectUI={tonConnectUI}
-          openConnectModal={openConnectModal}
           connected={connected}
           address={address}
           balance={balance}

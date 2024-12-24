@@ -2,15 +2,24 @@ import { useTomo } from "@tomo-inc/tomo-telegram-sdk";
 import { useCallback, useEffect, useState } from "react";
 
 export default function useTomoWallet() {
-  const tomoTon = useTomo().providers.tomo_ton;
+  const tomo = useTomo();
+  const tomoTon = tomo.providers.tomo_ton;
 
   const [balance, setBalance] = useState<number>(0);
   const [address, setAddress] = useState("");
 
   const refresh = useCallback(async () => {
+    console.log("Refresing Tomo");
     setAddress(tomoTon.getBalance());
     setBalance(await tomoTon.getBalance());
   }, [tomoTon]);
+
+  useEffect(() => {
+    if (tomoTon && tomoTon.account) {
+      setAddress(tomoTon.account.address);
+      setBalance(tomoTon.getBalance());
+    }
+  }, [tomo]);
 
   return {
     address,
@@ -22,5 +31,6 @@ export default function useTomoWallet() {
       },
     },
     refresh,
+    openConnectModal: tomo.openConnectModal,
   };
 }

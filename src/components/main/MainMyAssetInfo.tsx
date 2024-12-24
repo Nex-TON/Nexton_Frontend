@@ -42,12 +42,11 @@ import { limitDecimals } from "@/utils/limitDecimals";
 import Loader from "../common/Loader";
 
 import MainButton from "./MainButton";
+import { useWallet } from "@/context/WalletConnectionProvider";
 
 type AssetsView = "dashboard" | "asset";
 
 const MainMyAssetInfo = ({
-  tonConnectUI,
-  openConnectModal,
   connected,
   address,
   balance,
@@ -57,7 +56,6 @@ const MainMyAssetInfo = ({
   isError,
 }: {
   tonConnectUI: any;
-  openConnectModal: any;
   connected: boolean;
   address: string;
   balance: number;
@@ -71,6 +69,7 @@ const MainMyAssetInfo = ({
   const [view, setView] = useState<AssetsView>("dashboard");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [walletSelectModalOpen, setWalletSelectModalOpen] = useState(false);
+  const { refresh } = useWallet();
 
   const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary();
   const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
@@ -106,10 +105,12 @@ const MainMyAssetInfo = ({
   };
 
   const handleRefresh = async () => {
+    console.log("REFRESH");
     setIsRefreshing(true);
 
     try {
       await Promise.all([
+        refresh(),
         refreshTonData(),
         mutate(`/data/getAllStakeInfoByAddress?address=${address}`),
         mutate(`/data/getEarningsbyAddress/${address}`),
@@ -296,7 +297,6 @@ const MainMyAssetInfo = ({
       <MainButton
         toggled={walletSelectModalOpen}
         handleToggle={toggleSelectModal}
-        openConnectModal={openConnectModal}
         style={{ margin: "1.5rem 0 2.7rem 0" }}
       />
     </MainWrapper>

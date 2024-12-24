@@ -9,26 +9,25 @@ import IcArrowDown from "@/assets/icons/Main/arrow_down.svg";
 import IcArrowUp from "@/assets/icons/Main/arrow_up.svg";
 import IcTon from "@/assets/icons/Main/ton_icon.svg";
 import IcTomo from "@/assets/icons/Main/tomo_icon.svg";
+import { useTomo } from "@tomo-inc/tomo-telegram-sdk";
+import { useWallet } from "@/context/WalletConnectionProvider";
 
 const MainButton = ({
   style,
   toggled,
   handleToggle,
-  openConnectModal,
 }: {
   style?: React.CSSProperties;
   toggled: boolean;
   handleToggle: () => void;
-  openConnectModal?: any;
 }) => {
-  const { connected, tonConnectUI } = useTonConnect();
+  const { tonConnectUI } = useTonConnect();
+  const { connected, setActiveWalletType, activeWalletType, connect } = useWallet();
   const navigate = useNavigate();
 
   const handleSwitchWalletFunction = () => {
     if (connected) {
       navigate("/stake/amount");
-    } else {
-      tonConnectUI.connectWallet();
     }
   };
 
@@ -58,7 +57,8 @@ const MainButton = ({
             <CollectWalletToggleWrapper>
               <WalletCollection
                 onClick={() => {
-                  handleSwitchWalletFunction();
+                  setActiveWalletType("TonConnect");
+                  connect("TonConnect");
                   handleToggle();
                 }}
               >
@@ -68,7 +68,8 @@ const MainButton = ({
               <DivideLine />
               <WalletCollection
                 onClick={() => {
-                  openConnectModal();
+                  setActiveWalletType("Tomo");
+                  connect("Tomo");
                   handleToggle();
                 }}
               >
