@@ -24,8 +24,6 @@ import { OfficialAnouncementModal } from "@/components/main/Modal/OfficialAnnoun
 import "react-toastify/dist/ReactToastify.css";
 import NextonNews from "@/components/main/NextonNews";
 
-import { useTomo } from "@tomo-inc/tomo-telegram-sdk";
-import { TomoWalletTgSdkV2 } from "@tomo-inc/tomo-telegram-sdk";
 import { useWallet } from "@/context/WalletConnectionProvider";
 
 const tele = (window as any).Telegram.WebApp;
@@ -42,7 +40,12 @@ const Main: React.FC = () => {
   };
 
   const { tonConnectUI } = useTonConnect();
-  const { address, balance, refresh: refreshTonData, connected } = useWallet();
+  const { getActiveWallet } = useWallet();
+  const activeWallet = getActiveWallet();
+  const address = activeWallet?.address || null;
+  const connected = activeWallet?.connected || false;
+  const balance = activeWallet?.balance || 0;
+  const refreshTonData = activeWallet?.refreshTonData;
 
   const { nftList, isLoading, isError } = useStakeInfo(address);
 
@@ -198,7 +201,7 @@ const Main: React.FC = () => {
       {modal && <WelcomeModal toggleModal={toggleModal} />}
       {officialModal && <OfficialAnouncementModal toggleModal={toggleOfficialModal} />}
       <MainWrapper>
-        <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} tonConnectUI={tonConnectUI} />
+        <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} />
         <MainMyAssetInfo
           tonConnectUI={tonConnectUI}
           connected={connected}

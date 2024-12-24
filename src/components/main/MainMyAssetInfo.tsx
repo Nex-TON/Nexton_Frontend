@@ -42,7 +42,6 @@ import { limitDecimals } from "@/utils/limitDecimals";
 import Loader from "../common/Loader";
 
 import MainButton from "./MainButton";
-import { useWallet } from "@/context/WalletConnectionProvider";
 
 type AssetsView = "dashboard" | "asset";
 
@@ -64,13 +63,10 @@ const MainMyAssetInfo = ({
   isLoading: boolean;
   isError: boolean;
 }) => {
-  console.log(balance, typeof balance);
   const navigate = useNavigate();
-
   const [view, setView] = useState<AssetsView>("dashboard");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [walletSelectModalOpen, setWalletSelectModalOpen] = useState(false);
-  const { refresh } = useWallet();
 
   const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary();
   const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
@@ -106,12 +102,10 @@ const MainMyAssetInfo = ({
   };
 
   const handleRefresh = async () => {
-    console.log("REFRESH");
     setIsRefreshing(true);
 
     try {
       await Promise.all([
-        refresh(),
         refreshTonData(),
         mutate(`/data/getAllStakeInfoByAddress?address=${address}`),
         mutate(`/data/getEarningsbyAddress/${address}`),

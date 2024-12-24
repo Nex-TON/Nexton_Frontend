@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -9,12 +9,20 @@ import { UserInfoCard } from "@/components/myAsset/UserInfoCard";
 import MainButton from "@/components/main/MainButton";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
 import { TotalBalance } from "@/components/myAsset/TotalBalance";
+import { useWallet } from "@/context/WalletConnectionProvider";
 
 const tele = (window as any).Telegram.WebApp;
 
 const MyAsset = () => {
-  const { connected, tonConnectUI } = useTonConnect();
+  const { getActiveWallet } = useWallet();
+  const activeWallet = getActiveWallet();
+  const address = activeWallet?.address || null;
+  const connected = activeWallet?.connected || false;
+  const balance = activeWallet?.balance || 0;
+  const refreshTonData = activeWallet?.refreshTonData;
+
   const { pathname } = useLocation();
+  const [toggled, setToggled] = useState<boolean>(false);
   const navigate = useNavigate();
 
   //main page my NFTs 버튼 누르면 my activity로 가게
@@ -44,10 +52,14 @@ const MyAsset = () => {
 
   return (
     <MyAssetWrapper $type={pathname.includes("myasset") ? true : false}>
-      <Header isOpen={false} backgroundType={false} text="My page" connected={connected} tonConnectUI={tonConnectUI} />
+      <Header isOpen={false} backgroundType={false} text="My page" connected={connected} />
       <MyAssetContentWrapper>
         <UserInfoCard />
-        <MainButton />
+        <MainButton
+          toggled={toggled}
+          handleToggle={() => setToggled(!toggled)}
+          style={{ margin: "1.5rem 0 6.1rem 0" }}
+        />
         <TotalBalance />
         <NftHeader />
       </MyAssetContentWrapper>

@@ -13,7 +13,7 @@ import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { globalError } from "@/lib/atom/globalError";
 import { limitDecimals } from "@/utils/limitDecimals";
 import "@/components/common/Header";
-import {useTomo } from "@tomo-inc/tomo-telegram-sdk";
+import { useTomo } from "@tomo-inc/tomo-telegram-sdk";
 
 import {
   DashboardHeader,
@@ -57,6 +57,7 @@ const Dashboard = () => {
   const setError = useSetRecoilState(globalError);
 
   const [timeFrame, setTimeFrame] = useState<TimeFrame>("1D");
+  const [toggled, setToggled] = useState<boolean>(false);
 
   const { data: performanceData, isLoading: performanceLoading, error: performanceError } = useBotPerformanceSummary();
 
@@ -67,8 +68,7 @@ const Dashboard = () => {
   } = useBotPerformanceChart(chartTimeFrameOptions[timeFrame]);
 
   const { data: tonPriceData, isLoading: tonPriceLoading, error: tonPriceError } = useCoinPrice("ton", "usd");
-  const {openConnectModal}=useTomo();
-  
+
   useEffect(() => {
     if (tele) {
       tele.ready();
@@ -104,13 +104,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Header
-        isOpen={false}
-        backgroundType={false}
-        text="Dashboard"
-        connected={connected}
-        tonConnectUI={tonConnectUI}
-      />
+      <Header isOpen={false} backgroundType={false} text="Dashboard" connected={connected} />
       <DashboardWrapper>
         <ChartWrapper>
           <ChartHeader>
@@ -164,14 +158,16 @@ const Dashboard = () => {
               <h3>Stakers Win Rate</h3>
               <p>{performanceData?.pnlWinRate?.toFixed(2)}%</p>
             </PerformanceItem>
-              <PerformanceItem>
-                <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  TVL
-                </h3>
-                <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
-              </PerformanceItem>
+            <PerformanceItem>
+              <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>TVL</h3>
+              <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
+            </PerformanceItem>
           </PerformanceItemWrapper>
-          <MainButton style={{ margin: "1.5rem 0 6.1rem 0" }} openConnectModal={openConnectModal}/>
+          <MainButton
+            toggled={toggled}
+            handleToggle={() => setToggled(!toggled)}
+            style={{ margin: "1.5rem 0 6.1rem 0" }}
+          />
 
           {!tonPriceError && (
             <TonPriceWrapper>
@@ -184,7 +180,9 @@ const Dashboard = () => {
 
                 <TonPriceItemRight>
                   <p>${tonPriceData?.rates?.TON?.prices?.USD.toFixed(2)}</p>
-                  <TonPriceItemRightPercentage $positive={(tonPriceData?.rates?.TON?.diff_24h?.USD[0])=="+"?true:false}>
+                  <TonPriceItemRightPercentage
+                    $positive={tonPriceData?.rates?.TON?.diff_24h?.USD[0] == "+" ? true : false}
+                  >
                     {tonPriceData?.rates?.TON?.diff_24h?.USD}
                   </TonPriceItemRightPercentage>
                 </TonPriceItemRight>
