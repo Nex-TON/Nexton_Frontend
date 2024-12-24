@@ -64,6 +64,7 @@ const MainMyAssetInfo = ({
   isLoading: boolean;
   isError: boolean;
 }) => {
+  console.log(balance, typeof balance);
   const navigate = useNavigate();
 
   const [view, setView] = useState<AssetsView>("dashboard");

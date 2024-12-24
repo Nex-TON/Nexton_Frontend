@@ -71,13 +71,11 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     } else {
       setActiveWallet(null);
     }
-  }, [activeWalletType, tomoWallet.connected, tonConnect.connected]);
+  }, [activeWalletType, tomoWallet.connected, tomoWallet.balance, tonConnect.connected, tonConnect.balance]);
 
   const disconnect = useCallback(() => {
     //disconnect
   }, [tonConnect, tomoWallet.address]);
-
-  //TODO : connect function?
 
   const connect = (walletType: WalletTypes) => {
     if (walletType == "TonConnect") {

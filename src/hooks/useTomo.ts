@@ -11,20 +11,13 @@ export default function useTomoWallet() {
   const refresh = useCallback(async () => {
     console.log("Refresing Tomo");
     setAddress(tomoTon.getBalance());
-    setBalance(await tomoTon.getBalance());
+    setBalance(Number(tomoTon.getBalance().formatted));
   }, [tomoTon]);
-
-  useEffect(() => {
-    if (tomoTon && tomoTon.account) {
-      setAddress(tomoTon.account.address);
-      setBalance(tomoTon.getBalance());
-    }
-  }, [tomo]);
 
   return {
     address,
     connected: address ? true : false,
-    balance,
+    balance: balance,
     sender: {
       send: async param => {
         tomoTon.sendTransaction(param.payload);
