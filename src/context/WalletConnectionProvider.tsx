@@ -48,3 +48,14 @@ export const useWallet = (): WalletContextType => {
   }
   return context;
 };
+
+export const useWalletData = () => {
+  const { getActiveWallet } = useWallet();
+  const activeWallet = getActiveWallet();
+  return {
+    connected: activeWallet?.connected || false,
+    address: activeWallet?.address || null,
+    balance: activeWallet?.balance || 0,
+    refreshTonData: activeWallet?.refreshTonData,
+  };
+};

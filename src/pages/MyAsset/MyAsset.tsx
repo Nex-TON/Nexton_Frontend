@@ -9,17 +9,13 @@ import { UserInfoCard } from "@/components/myAsset/UserInfoCard";
 import MainButton from "@/components/main/MainButton";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
 import { TotalBalance } from "@/components/myAsset/TotalBalance";
-import { useWallet } from "@/context/WalletConnectionProvider";
+import { useWallet, useWalletData } from "@/context/WalletConnectionProvider";
 
 const tele = (window as any).Telegram.WebApp;
 
 const MyAsset = () => {
   const { getActiveWallet } = useWallet();
-  const activeWallet = getActiveWallet();
-  const address = activeWallet?.address || null;
-  const connected = activeWallet?.connected || false;
-  const balance = activeWallet?.balance || 0;
-  const refreshTonData = activeWallet?.refreshTonData;
+  const { connected } = useWalletData();
 
   const { pathname } = useLocation();
   const [toggled, setToggled] = useState<boolean>(false);

@@ -8,19 +8,14 @@ import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import IcnxTon from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
 import { useEffect, useState } from "react";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
-import { useWallet } from "@/context/WalletConnectionProvider";
+import { useWallet, useWalletData } from "@/context/WalletConnectionProvider";
 
 export const TotalBalance = () => {
-  const { getActiveWallet } = useWallet();
-  const activeWallet = getActiveWallet();
-  const address = activeWallet?.address || null;
-  const balance = activeWallet?.balance || 0;
-  const refreshTonData = activeWallet?.refreshTonData;
-
-  // const { address, balance, refreshTonData } = useTonConnect();
+  const { address, balance, refreshTonData } = useWalletData();
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { nftList, isLoading } = useStakeInfo(address);
+
   //nft list 에서 TON, NxTON staked된거 총량 가져옴
   const totalStaked = useMemo(() => {
     return tokenSort => {

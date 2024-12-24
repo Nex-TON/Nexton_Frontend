@@ -22,13 +22,9 @@ const MainButton = ({
   handleToggle: () => void;
 }) => {
   const { getActiveWallet, setActiveWalletType, connect } = useWallet();
-  // const { address, connected, balance, refreshTonData } = getActiveWallet();
   const activeWallet = getActiveWallet();
-  const address = activeWallet?.address || null;
   const connected = activeWallet?.connected || false;
-  const balance = activeWallet?.balance || 0;
-  const refreshTonData = activeWallet?.refreshTonData;
-  // const { connected, setActiveWalletType, activeWalletType, connect } = useWallet();
+
   const navigate = useNavigate();
 
   const handleSwitchWalletFunction = () => {

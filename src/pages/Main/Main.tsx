@@ -24,7 +24,7 @@ import { OfficialAnouncementModal } from "@/components/main/Modal/OfficialAnnoun
 import "react-toastify/dist/ReactToastify.css";
 import NextonNews from "@/components/main/NextonNews";
 
-import { useWallet } from "@/context/WalletConnectionProvider";
+import { useWallet, useWalletData } from "@/context/WalletConnectionProvider";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -40,12 +40,7 @@ const Main: React.FC = () => {
   };
 
   const { tonConnectUI } = useTonConnect();
-  const { getActiveWallet } = useWallet();
-  const activeWallet = getActiveWallet();
-  const address = activeWallet?.address || null;
-  const connected = activeWallet?.connected || false;
-  const balance = activeWallet?.balance || 0;
-  const refreshTonData = activeWallet?.refreshTonData;
+  const { address, balance, refreshTonData, connected } = useWalletData();
 
   const { nftList, isLoading, isError } = useStakeInfo(address);
 
