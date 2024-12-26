@@ -17,6 +17,7 @@ import { UnstakingProps } from "@/types/staking";
 import { isDevMode } from "@/utils/isDevMode";
 import { limitDecimals } from "@/utils/limitDecimals";
 import * as Contract from "@/hooks/contract/transferNFT";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 import {
   NFTDetailContentBox,
@@ -33,7 +34,7 @@ interface ModalState {
 }
 
 const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
-  const { address } = useTonConnect();
+  const { address } = useWalletData();
   const { id } = useParams();
   const { data: unstakingDetail, isLoading: isLoadingUnstakingDetail, error } = useUnstakingDetail(Number(id));
   const { sendMessage } = Contract.transferNft(id); // ! pass nftAddress instead of id
@@ -153,7 +154,11 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
               <NFTDetailItem>
                 <NFTDetailItemCaption>State</NFTDetailItemCaption>
                 <NFTDetailItemStatus $unstakeState={unstakingDetail?.unstakeState}>
-                  {unstakingDetail?.unstakeState == 1 ? "In Progress" : unstakingDetail?.unstakeState == 2?"Completed":"Before Request"}
+                  {unstakingDetail?.unstakeState == 1
+                    ? "In Progress"
+                    : unstakingDetail?.unstakeState == 2
+                      ? "Completed"
+                      : "Before Request"}
                 </NFTDetailItemStatus>
               </NFTDetailItem>
               <NFTDetailItem>
@@ -205,25 +210,25 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
 
 export default UnstakingNftDetail;
 
-const NFTDetailItem= styled.div<{ $marginTop?: boolean; $itemsCenter?: boolean }>`
-width: 100%;
-display: inline-flex;
-padding: 1.3rem 5.6rem 3rem 2.4rem;
-flex-direction: column;
-align-items: ${({ $itemsCenter }) => ($itemsCenter ? "center" : "flex-start")};
-gap: 0.3rem;
+const NFTDetailItem = styled.div<{ $marginTop?: boolean; $itemsCenter?: boolean }>`
+  width: 100%;
+  display: inline-flex;
+  padding: 1.3rem 5.6rem 3rem 2.4rem;
+  flex-direction: column;
+  align-items: ${({ $itemsCenter }) => ($itemsCenter ? "center" : "flex-start")};
+  gap: 0.3rem;
 
-border-radius: 1.5rem;
-background: #fff;
+  border-radius: 1.5rem;
+  background: #fff;
 
-/* drop shadow_type 4 */
-box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
+  /* drop shadow_type 4 */
+  box-shadow: 0px 0px 12px 0px rgba(206, 216, 225, 0.5);
 
-margin-top: ${({ $marginTop }) => ($marginTop ? "3.7rem" : "0")};
+  margin-top: ${({ $marginTop }) => ($marginTop ? "3.7rem" : "0")};
 `;
 
 const NFTDetailItemStatus = styled.div<{ $unstakeState: number }>`
-  color: ${({ $unstakeState }) => ($unstakeState == 2 ?  "#34C759":$unstakeState == 1?"#1F53FF":"#76797A")};
+  color: ${({ $unstakeState }) => ($unstakeState == 2 ? "#34C759" : $unstakeState == 1 ? "#1F53FF" : "#76797A")};
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
 `;
 

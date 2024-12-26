@@ -6,9 +6,10 @@ import { useAsyncInitialize } from "./useAsyncInitialize";
 import { useTonClient } from "./useTonClient";
 import useTonConnect from "./useTonConnect";
 import { useEffect, useState } from "react";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 function transferNft(id) {
-  const { sender, address } = useTonConnect();
+  const { sender } = useWalletData();
   const [nftAddress, setNftAddress] = useState(null);
 
   useEffect(() => {
