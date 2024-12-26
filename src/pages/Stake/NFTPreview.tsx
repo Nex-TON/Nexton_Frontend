@@ -22,6 +22,7 @@ import { useJettonWallet } from "@/hooks/contract/useJettonWallet";
 import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom, stakingInputAtom } from "@/lib/atom/staking";
 import { isDevMode } from "@/utils/isDevMode";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -30,7 +31,8 @@ interface ModalState {
   toggled: boolean;
 }
 const NFTPreview = () => {
-  const { refreshTonData } = useTonConnect();
+  // const { refreshTonData } = useTonConnect();
+  const { refreshTonData } = useWalletData();
 
   const stakingInfo = useRecoilValue(stakingAtom);
   const stakeInfoReset = useResetRecoilState(stakingAtom);
@@ -75,18 +77,19 @@ const NFTPreview = () => {
       await sendDepositTon(data(), stakingInfo.principal);
 
       // If sendMessage is successful, then call postStakingInfo
-      await postStakingInfo({
-        telegramId: stakingInfo.telegramId,
-        leverage: stakingInfo.leverage,
-        address: stakingInfo.address,
-        amount: stakingInfo.principal,
-        lockPeriod: stakingInfo.lockup.toString(),
-        nominator: stakingInfo.nominator,
-        tokenSort: stakingInfo.tokenSort,
-      });
+      // await postStakingInfo({
+      //   telegramId: stakingInfo.telegramId,
+      //   leverage: stakingInfo.leverage,
+      //   address: stakingInfo.address,
+      //   amount: stakingInfo.principal,
+      //   lockPeriod: stakingInfo.lockup.toString(),
+      //   nominator: stakingInfo.nominator,
+      //   tokenSort: stakingInfo.tokenSort,
+      // });
 
-      setModal({ type: "stake", toggled: true });
+      // setModal({ type: "stake", toggled: true });
     } catch (error) {
+      console.log(error);
       setError(error);
     } finally {
       setIsLoading(false);

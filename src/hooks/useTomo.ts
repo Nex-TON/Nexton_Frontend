@@ -1,5 +1,15 @@
-import { useTomo } from "@tomo-inc/tomo-telegram-sdk";
+import { TonTxParams, useTomo } from "@tomo-inc/tomo-telegram-sdk";
 import { useCallback, useEffect, useState } from "react";
+import { loadTonDeposit, storeTonDeposit } from "./contract/wrappers/tact_NexTon";
+import { Address, Cell, beginCell, toNano } from "@ton/core";
+
+export type TransactionParam = {
+  to: Address;
+  value: bigint;
+  body: Cell;
+  bounce?: boolean;
+  init?: boolean;
+};
 
 export default function useTomoWallet() {
   const tomo = useTomo();
@@ -50,8 +60,20 @@ export default function useTomoWallet() {
     connected: connected,
     balance: balance,
     sender: {
-      send: async param => {
-        tomoTon.sendTransaction(param.payload);
+      send: async (param: TransactionParam) => {
+        console.log(param);
+        const txParam: TonTxParams = {
+          from: address,
+          network: "TON",
+          messages: [
+            {
+              address: param.to.toString(),
+              amount: param.value.toString(),
+              payload: param.body.toBoc().toString("base64"),
+            },
+          ],
+        };
+        await tomoTon.sendTransaction(txParam);
       },
     },
     refreshTonData,

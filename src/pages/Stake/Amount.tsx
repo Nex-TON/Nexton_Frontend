@@ -21,11 +21,12 @@ import TokenFilter from "@/components/stake/Filter/TokenFilter";
 import { TokenFilterModal } from "@/components/stake/Filter/TokenFilterModal";
 import NXTPointImg from "@/assets/image/NXTPoint.png";
 import useJettonWallet from "@/hooks/contract/useJettonWallet";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 const tele = (window as any).Telegram.WebApp;
 
 const Amount = () => {
-  const { address, balance, connected, refreshTonData } = useTonConnect();
+  const { address, balance, connected, refreshTonData } = useWalletData();
   const navigate = useNavigate();
   const [, setStakingInfo] = useRecoilState(stakingAtom);
   const { data: coinPrice } = useCoinPrice("TON", "USD");
@@ -45,7 +46,7 @@ const Amount = () => {
       .transform(Number)
       .refine(val => !isNaN(val), "Please enter a valid number")
       .refine(val => val >= 1, "Please stake more than 1 TON")
-      .refine(val => val <= (tokenSort==="TON"?balance:Number(nxTonBalance)), "The amount exceeds the balance"),
+      .refine(val => val <= (tokenSort === "TON" ? balance : Number(nxTonBalance)), "The amount exceeds the balance"),
   });
 
   const {
@@ -70,7 +71,7 @@ const Amount = () => {
     }
 
     handleRefreshTonData();
-  }, [refreshTonData,tokenSort,refreshNxtonData]);
+  }, [refreshTonData, tokenSort, refreshNxtonData]);
 
   useEffect(() => {
     if (tele) {
@@ -121,10 +122,11 @@ const Amount = () => {
         <Step title="Step 1" />
         <Title title="Put stake amount" />
         <BalanceWrapper>
-          {tokenSort==="TON"?
-                    <BalanceText>Balance : {balance ? numberCutter(balance) : `-.--`}</BalanceText>:
-                    <BalanceText>Balance : {nxTonBalance ? numberCutter(Number(nxTonBalance)) : `-.--`}</BalanceText>
-          }
+          {tokenSort === "TON" ? (
+            <BalanceText>Balance : {balance ? numberCutter(balance) : `-.--`}</BalanceText>
+          ) : (
+            <BalanceText>Balance : {nxTonBalance ? numberCutter(Number(nxTonBalance)) : `-.--`}</BalanceText>
+          )}
         </BalanceWrapper>
 
         <form style={{ width: "100%" }}>
