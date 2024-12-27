@@ -37,7 +37,7 @@ import {
 import "./styles/Dashboard.css";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
 import Header from "@/components/common/Header";
-import useTonConnect from "@/hooks/contract/useTonConnect";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -52,7 +52,7 @@ const chartTimeFrameOptions: Record<TimeFrame | "All", number> = {
 };
 
 const Dashboard = () => {
-  const { connected, tonConnectUI } = useTonConnect();
+  const { connected } = useWalletData();
   const navigate = useNavigate();
   const setError = useSetRecoilState(globalError);
 

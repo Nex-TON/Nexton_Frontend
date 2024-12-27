@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import IcClose from "@/assets/icons/Modal/ic_close.svg";
 import IcModalArrow from "@/assets/icons/Modal/ic_modal_arrow.svg";
 import { MODAL_TEXT } from "@/constants/ModalText";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 
 import {
   Button,
@@ -16,6 +15,7 @@ import {
   Title,
 } from "./Modal.styled";
 import ModalWrapper from "./ModalWrapper";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 interface BasicModalProps {
   type: string;
@@ -30,7 +30,7 @@ function BasicModal(props: BasicModalProps) {
   const { type, toggleModal, onClose, isDark, navigateOnClose } = props;
 
   const navigate = useNavigate();
-  const { address } = useTonConnect();
+  const { address } = useWalletData();
 
   const handleModalText = (type: string, isDark?: boolean) => {
     switch (type) {
@@ -111,7 +111,7 @@ function BasicModal(props: BasicModalProps) {
             </SubTitleBox>
           </>
         );
-        case "blockborrow100":
+      case "blockborrow100":
         return (
           <>
             <Title $isDark={isDark}>{MODAL_TEXT[type].title}</Title>
@@ -148,7 +148,7 @@ function BasicModal(props: BasicModalProps) {
 
         {handleModalText(type, isDark)}
         <OpenTonViewerBox>
-          {type != "blockborrow" && type != "blockunstake"&&type != "blockborrow100"  && (
+          {type != "blockborrow" && type != "blockunstake" && type != "blockborrow100" && (
             <OpenTonViewer
               onClick={() => {
                 window.location.href = `https://testnet.tonviewer.com/${address}`;
@@ -166,8 +166,8 @@ function BasicModal(props: BasicModalProps) {
             }
 
             if (navigateOnClose) {
-                toggleModal();
-                navigate(navigateOnClose);
+              toggleModal();
+              navigate(navigateOnClose);
             } else {
               navigate("/main");
             }

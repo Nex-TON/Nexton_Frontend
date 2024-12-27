@@ -1,10 +1,4 @@
-import { Address, Cell, beginCell, toNano } from "@ton/core";
-
 import { NftItem } from "./wrappers/NftItem";
-import { contractAddress, TupleBuilder } from "@ton/core";
-import { useAsyncInitialize } from "./useAsyncInitialize";
-import { useTonClient } from "./useTonClient";
-import useTonConnect from "./useTonConnect";
 import { useEffect, useState } from "react";
 import { useWalletData } from "@/context/WalletConnectionProvider";
 

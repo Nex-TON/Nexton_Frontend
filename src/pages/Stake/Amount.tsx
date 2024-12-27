@@ -12,7 +12,6 @@ import Step from "@/components/stake/common/Step";
 import Title from "@/components/stake/common/Title";
 import TokenInput from "@/components/stake/common/TokensInput";
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 import { stakingAtom } from "@/lib/atom/staking";
 import { isDevMode } from "@/utils/isDevMode";
 import { limitDecimals } from "@/utils/limitDecimals";

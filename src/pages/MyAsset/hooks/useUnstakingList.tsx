@@ -1,8 +1,8 @@
+import { useWalletData } from "@/context/WalletConnectionProvider";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 
 export const useUnstakingList = () => {
-  const { address } = useTonConnect();
+  const { address } = useWalletData();
   const { nftList } = useStakeInfo(address);
 
   return {

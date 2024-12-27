@@ -1,6 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import axios from "axios";
+import { useSetRecoilState } from "recoil";
 
 import BasicModal from "@/components/common/Modal/BasicModal";
 import TransactionConfirmModal from "@/components/common/Modal/TransactionConfirmModal";
@@ -13,6 +15,8 @@ import { toNano } from "@ton/core";
 import { limitDecimals } from "@/utils/limitDecimals";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { globalError } from "@/lib/atom/globalError";
+import { useWalletData } from "@/context/WalletConnectionProvider";
+import { postRepayInfo } from "@/api/postRepayInfo";
 
 import {
   RepaymentContentBox,
@@ -24,11 +28,6 @@ import {
   RepayRateBoxDivider,
   RepayRateBoxHeader,
 } from "./RepaymentDetails.styled";
-import { postRepayInfo } from "@/api/postRepayInfo";
-import useTonConnect from "@/hooks/contract/useTonConnect";
-import { useSetRecoilState } from "recoil";
-import { nextonFetcher } from "@/api/axios";
-import axios from "axios";
 
 interface ModalState {
   type: "repay" | "confirmRepay";
@@ -43,7 +42,7 @@ const RepaymentDetails = () => {
   const { id } = useParams();
   const { sendMessage, refresh, isLoading: contractLoading } = Contract.repay(id);
   const { nftDetail } = useNFTDetail(Number(id));
-  const { address } = useTonConnect();
+  const { address } = useWalletData();
   const [isLoading, setIsLoading] = useState(false);
   const setError = useSetRecoilState(globalError);
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -53,7 +52,10 @@ const RepaymentDetails = () => {
 
   const alwaysVisibleItems = [
     { label: "Borrowed NxTON", value: `${limitDecimals(borrowDetail?.repayAmount, 3)} NxTON` },
-    { label: "Principal", value: `${limitDecimals(borrowDetail?.principal, 3)} ${nftDetail&&nftDetail[0]?.tokenSort=="nxTON"?"NxTON":nftDetail&&nftDetail[0]?.tokenSort}` },
+    {
+      label: "Principal",
+      value: `${limitDecimals(borrowDetail?.principal, 3)} ${nftDetail && nftDetail[0]?.tokenSort == "nxTON" ? "NxTON" : nftDetail && nftDetail[0]?.tokenSort}`,
+    },
     { label: "LTV", value: `${limitDecimals(borrowDetail?.loanToValue * 100, 2)}%` },
     { label: "Interest rate", value: `${limitDecimals(borrowDetail?.interestRate * 100, 2)}%` },
   ];
@@ -139,12 +141,11 @@ const RepaymentDetails = () => {
         const validation = response.status;
         console.log("test:", validation);
         if (validation && validation == 200 && timeRotate <= 24) {
-            break;
-        }else if (validation && validation == 202 && timeRotate <= 24){
-        } 
-        else{
           break;
-        };
+        } else if (validation && validation == 202 && timeRotate <= 24) {
+        } else {
+          break;
+        }
         timeRotate += 1;
         await delay(5000);
       }

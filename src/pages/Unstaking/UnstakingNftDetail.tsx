@@ -10,7 +10,6 @@ import Loader from "@/components/common/Loader";
 import { ConfirmUnstakingModal } from "@/components/unstaking/ConfirmUnstakingModal";
 import UnstakingPreview from "@/components/unstaking/UnstakingPreview";
 import { useUnstakingDetail } from "@/hooks/api/unstaking/useUnstakingDetail";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 import { globalError } from "@/lib/atom/globalError";
 import { telegramAtom } from "@/lib/atom/telegram";
 import { UnstakingProps } from "@/types/staking";

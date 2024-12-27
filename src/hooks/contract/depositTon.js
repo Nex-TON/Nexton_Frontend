@@ -3,7 +3,6 @@ import { Address, toNano } from "@ton/core";
 import { NexTon } from "./wrappers/tact_NexTon";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { useTonClient } from "./useTonClient";
-import useTonConnect from "./useTonConnect";
 import { useWalletData } from "@/context/WalletConnectionProvider";
 
 function depositTon() {

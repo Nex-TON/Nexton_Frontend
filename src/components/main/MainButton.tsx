@@ -4,12 +4,10 @@ import styled from "styled-components";
 
 import IcTonLogo from "@/assets/icons/Main/mainbutton_ton_logo.svg";
 import IcWalletStake from "@/assets/icons/Landing/ic_wallet_stake.svg";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 import IcArrowDown from "@/assets/icons/Main/arrow_down.svg";
 import IcArrowUp from "@/assets/icons/Main/arrow_up.svg";
 import IcTon from "@/assets/icons/Main/ton_icon.svg";
 import IcTomo from "@/assets/icons/Main/tomo_icon.svg";
-import { useTomo } from "@tomo-inc/tomo-telegram-sdk";
 import { useWallet } from "@/context/WalletConnectionProvider";
 
 const MainButton = ({

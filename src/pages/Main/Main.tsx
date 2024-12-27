@@ -24,7 +24,7 @@ import { OfficialAnouncementModal } from "@/components/main/Modal/OfficialAnnoun
 import "react-toastify/dist/ReactToastify.css";
 import NextonNews from "@/components/main/NextonNews";
 
-import { useWallet, useWalletData } from "@/context/WalletConnectionProvider";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 const tele = (window as any).Telegram.WebApp;
 

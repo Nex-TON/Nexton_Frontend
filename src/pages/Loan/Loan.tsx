@@ -6,7 +6,7 @@ import IcAlert from "@/assets/icons/Loan/ic_alert.svg";
 import BorrowList from "@/components/loan/Borrow/BorrowList";
 import RepayList from "@/components/loan/Repay/RepayList";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
-import useTonConnect from "@/hooks/contract/useTonConnect";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 import IcArrowRight from "@/assets/icons/Loan/ic_arrow_right_black.svg";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 import useBorrowNftListFilter from "./hook/useBorrowNftListFilter";
@@ -33,13 +33,13 @@ const tele = (window as any).Telegram.WebApp;
 const filters: FilterNFTs[] = ["Ongoing", "Forthcoming", "Expired", "All"];
 
 const Loan = () => {
-  const { address } = useTonConnect();
+  const { address } = useWalletData();
   const navigate = useNavigate();
   const [filter, setFilter] = useState<FilterNFTs>("All");
   const [view, setView] = useState<LoanView>("borrow");
   const { nftList } = useStakeInfo(address);
-  const {borrowList}=useRepayNftList(address);
-  const {handlePrintBorrowListFilter}=useBorrowNftListFilter();
+  const { borrowList } = useRepayNftList(address);
+  const { handlePrintBorrowListFilter } = useBorrowNftListFilter();
 
   useEffect(() => {
     if (tele) {
@@ -89,7 +89,9 @@ const Loan = () => {
           <LoanNFTBoxHeaderLeft>
             <span>You have</span>
             {view === "borrow" && <h4>{nftList?.length || 0} NFTs</h4>}
-            {view === "repay" && <h4>{handlePrintBorrowListFilter()?.filter(item=>item.status==0).length||0} Loans</h4>}
+            {view === "repay" && (
+              <h4>{handlePrintBorrowListFilter()?.filter(item => item.status == 0).length || 0} Loans</h4>
+            )}
           </LoanNFTBoxHeaderLeft>
           <LoanNFTBoxHeaderRight
             onClick={() => {

@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { mutate } from "swr";
 import { useMemo } from "react";
 
-import useTonConnect from "@/hooks/contract/useTonConnect";
 import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import IcnxTon from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";

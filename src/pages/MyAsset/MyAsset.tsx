@@ -4,17 +4,15 @@ import styled from "styled-components";
 
 import Header from "@/components/common/Header";
 import NftHeader from "@/components/myAsset/NftHeader";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 import { UserInfoCard } from "@/components/myAsset/UserInfoCard";
 import MainButton from "@/components/main/MainButton";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
 import { TotalBalance } from "@/components/myAsset/TotalBalance";
-import { useWallet, useWalletData } from "@/context/WalletConnectionProvider";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 const tele = (window as any).Telegram.WebApp;
 
 const MyAsset = () => {
-  const { getActiveWallet } = useWallet();
   const { connected } = useWalletData();
 
   const { pathname } = useLocation();
