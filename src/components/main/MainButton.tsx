@@ -62,8 +62,8 @@ const MainButton = ({
                   handleToggle();
                 }}
               >
-                Connect TON Wallet
                 <img src={IcTon} alt="main page ton icon" />
+                Connect TON Wallet
               </WalletCollection>
               <DivideLine />
               <WalletCollection
@@ -73,8 +73,8 @@ const MainButton = ({
                   handleToggle();
                 }}
               >
-                Connect TOMO Wallet
                 <img src={IcTomo} alt="main page tomo icon" />
+                Connect TOMO Wallet
               </WalletCollection>
             </CollectWalletToggleWrapper>
           )}
@@ -104,13 +104,14 @@ const DivideLine = styled.div`
 const WalletCollection = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: start;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2};
   padding: 1.7rem 2.4rem 1.7rem 2.2rem;
   img {
     width: 24px;
     height: 24px;
   }
+  gap: 1.5rem;
 `;
 
 const WalletConnectWrapper = styled.div`
