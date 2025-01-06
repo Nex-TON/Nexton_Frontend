@@ -26,7 +26,7 @@ export const TotalBalance = () => {
         return acc;
       }, 0) || 0;
         const borrowTotal = borrowList?.reduce((acc, borrow) => {
-          if (borrow.tokenSort === `${tokenSort}`) {
+          if (borrow.tokenSort === `${tokenSort}`&& borrow.status === 0) {
             return acc + borrow.principal;
           }
           return acc;
