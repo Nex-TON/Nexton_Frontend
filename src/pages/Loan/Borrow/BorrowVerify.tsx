@@ -9,6 +9,7 @@ import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
 import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
 import { isDevMode } from "@/utils/isDevMode.ts";
 import * as Contract from "@/hooks/contract/transferNFT";
+import lend from "@/hooks/contract/lend.ts";
 import useTonConnect from "@/hooks/contract/useTonConnect.ts";
 import { toNano, Address } from "@ton/core";
 import { useLoanDetail } from "@/hooks/api/loan/useLoanDetail.tsx";
@@ -35,7 +36,7 @@ const BorrowVerify = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
-  const { sendWithData } = Contract.transferNft(id);
+  const contract = Contract.transferNft(id);
   const { address } = useTonConnect();
   const { borrowAmount } = location.state || {};
   const { data: loanInfo } = useLoanDetail(Number(id), address, "pre");
@@ -49,7 +50,10 @@ const BorrowVerify = () => {
     {
       items: [
         { label: "Borrowed NxTON", value: `${limitDecimals(loanInfo?.nxTonAmount, 3)} NxTON` },
-        { label: "Principal", value: `${limitDecimals(loanInfo?.principal, 3)} ${nftDetail&&nftDetail[0].tokenSort=="nxTON"?"NxTON":nftDetail&&nftDetail[0].tokenSort}` },
+        {
+          label: "Principal",
+          value: `${limitDecimals(loanInfo?.principal, 3)} ${nftDetail && nftDetail[0].tokenSort == "nxTON" ? "NxTON" : nftDetail && nftDetail[0].tokenSort}`,
+        },
         { label: "LTV", value: `${limitDecimals(loanInfo?.loanToValue * 100, 2)}%` },
       ],
     },
@@ -85,30 +89,20 @@ const BorrowVerify = () => {
     setIsLoading(true);
 
     try {
-      const data = () => {
-        return {
-          queryId: BigInt(Date.now()),
-          value: toNano("0.102"),
-          newOwner: Address.parse(import.meta.env.VITE_LEND_CONTRACT),
-          responseAddress: Address.parse(address),
-          fwdAmount: toNano("0.052"),
-        };
-      };
+      await lend(Number(id), contract, Address.parse(address));
 
-      await sendWithData(data(), toNano("0.05"));
       let timeRotate = 0;
       while (true) {
         const response = await axios.get(`/data/validate-lending?nftId=${Number(id)}`, {
           baseURL: `${import.meta.env.VITE_BASE_URL}`,
         });
         const validation = response.status;
-          if (validation && validation == 200 && timeRotate <= 24) {
-            break;
-        }else if (validation && validation == 202 && timeRotate <= 24){
-        }
-        else{
+        if (validation && validation == 200 && timeRotate <= 24) {
           break;
-        };
+        } else if (validation && validation == 202 && timeRotate <= 24) {
+        } else {
+          break;
+        }
         timeRotate += 1;
         await delay(5000);
       }
@@ -129,7 +123,7 @@ const BorrowVerify = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [sendWithData, setError, borrowAmount, telegramId, address, id]);
+  }, [contract, setError, borrowAmount, telegramId, address, id]);
 
   const handleBorrowConfirm = () => {
     toggleModal();

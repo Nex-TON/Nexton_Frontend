@@ -37,7 +37,10 @@ function repay(id) {
     isLoading,
     sendMessage: async param => {
       if (nftAddress && jettonWallet) {
-        const lendContractAddress = Address.parse(import.meta.env.VITE_LEND_CONTRACT);
+        const lendContractAddress =
+          id >= 100
+            ? Address.parse(import.meta.env.VITE_LEND_CONTRACT)
+            : Address.parse(import.meta.env.VITE_LEND_CONTRACT_OG);
         await jettonWallet.tokenTransfer(lendContractAddress, {
           amount: param.amount,
           fwdAmount: param.forward_ton_amount,
