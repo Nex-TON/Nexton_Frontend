@@ -13,6 +13,7 @@ import { toNano } from "@ton/core";
 import { limitDecimals } from "@/utils/limitDecimals";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { globalError } from "@/lib/atom/globalError";
+import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 
 import {
   RepaymentContentBox,
@@ -50,10 +51,15 @@ const RepaymentDetails = () => {
   const location = useLocation();
   const { loanId } = location.state || {};
   const { data: borrowDetail } = useRepayNftDetail(loanId, address);
+  const { data: tokenRate } = useTokenRate();
 
   const alwaysVisibleItems = [
-    { label: "Borrowed NxTON", value: `${limitDecimals(borrowDetail?.repayAmount, 3)} NxTON` },
-    { label: "Principal", value: `${limitDecimals(borrowDetail?.principal, 3)} ${nftDetail&&nftDetail[0]?.tokenSort=="nxTON"?"NxTON":nftDetail&&nftDetail[0]?.tokenSort}` },
+    { label: "Borrowed NxTON", value: `${limitDecimals(borrowDetail?.principal, 3)} NxTON` },
+    {
+      label: "Principal",
+      value: `${limitDecimals(borrowDetail?.repayAmount * tokenRate?.tonToNextonRate, 3)} ${nftDetail && nftDetail[0]?.tokenSort == "nxTON" ? "NxTON" : nftDetail && nftDetail[0]?.tokenSort}`,
+    },
+
     { label: "LTV", value: `${limitDecimals(borrowDetail?.loanToValue * 100, 2)}%` },
     { label: "Interest rate", value: `${limitDecimals(borrowDetail?.interestRate * 100, 2)}%` },
   ];
@@ -139,12 +145,11 @@ const RepaymentDetails = () => {
         const validation = response.status;
         console.log("test:", validation);
         if (validation && validation == 200 && timeRotate <= 24) {
-            break;
-        }else if (validation && validation == 202 && timeRotate <= 24){
-        } 
-        else{
           break;
-        };
+        } else if (validation && validation == 202 && timeRotate <= 24) {
+        } else {
+          break;
+        }
         timeRotate += 1;
         await delay(5000);
       }
