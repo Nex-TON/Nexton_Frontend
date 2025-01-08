@@ -15,24 +15,27 @@ export const TotalBalance = () => {
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { nftList, isLoading } = useStakeInfo(address);
-  const {borrowList}=useRepayNftList(address);
+  const { borrowList } = useRepayNftList(address);
   //nft list 에서 TON, NxTON staked된거 총량 가져옴
   const totalStaked = useMemo(() => {
     return tokenSort => {
-      const nftTotal = nftList?.reduce((acc, nft) => {
-        if (nft.tokenSort === `${tokenSort}`) {
-          return acc + nft.principal;
-        }
-        return acc;
-      }, 0) || 0;
-        const borrowTotal = borrowList?.reduce((acc, borrow) => {
-          if (borrow.tokenSort === `${tokenSort}`) {
+      const nftTotal =
+        nftList?.reduce((acc, nft) => {
+          if (nft.tokenSort === `${tokenSort}`) {
+            return acc + nft.principal;
+          }
+          return acc;
+        }, 0) || 0;
+      const borrowTotal =
+        borrowList?.reduce((acc, borrow) => {
+          if (borrow.tokenSort === `${tokenSort}` && borrow.status === 0) {
             return acc + borrow.principal;
           }
           return acc;
         }, 0) || 0;
-        return nftTotal+borrowTotal;
-  }}, [nftList]);
+      return nftTotal + borrowTotal;
+    };
+  }, [nftList]);
   useEffect(() => {
     const initializeData = async () => {
       setIsRefreshing(true);

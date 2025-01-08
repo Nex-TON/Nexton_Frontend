@@ -40,7 +40,7 @@ const Main: React.FC = () => {
 
   const { address, balance, refreshTonData, connected, tonConnectUI } = useTonConnect();
   const { nftList, isLoading, isError } = useStakeInfo(address);
-  const {borrowList}=useRepayNftList(address);
+  const { borrowList } = useRepayNftList(address);
 
   const { trigger: triggerManageReferral } = useManageReferral();
   const { trigger } = useTrackReferral();
@@ -170,20 +170,22 @@ const Main: React.FC = () => {
 
   // Calculate the total amount staked
   const totalStaked = useMemo(() => {
-    const nftTotal = nftList?.reduce((acc, nft) => {
-      if (nft.tokenSort === "TON") {
-        return acc + nft.principal;
-      }
-      return acc;
-    }, 0) || 0;
-  
-    const borrowTotal = borrowList?.reduce((acc, borrow) => {
-      if (borrow.tokenSort === "TON") {
-        return acc + borrow.principal;
-      }
-      return acc;
-    }, 0) || 0;
-  
+    const nftTotal =
+      nftList?.reduce((acc, nft) => {
+        if (nft.tokenSort === "TON") {
+          return acc + nft.principal;
+        }
+        return acc;
+      }, 0) || 0;
+
+    const borrowTotal =
+      borrowList?.reduce((acc, borrow) => {
+        if (borrow.tokenSort === "TON" && borrow.status === 0) {
+          return acc + borrow.principal;
+        }
+        return acc;
+      }, 0) || 0;
+
     return nftTotal + borrowTotal;
   }, [nftList, borrowList]);
 
