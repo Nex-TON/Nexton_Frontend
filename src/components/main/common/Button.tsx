@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 import IcMenuCoin from "../../../assets/icons/Landing/ic_menuCoin.svg";
