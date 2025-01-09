@@ -75,17 +75,17 @@ const NFTPreview = () => {
       await sendDepositTon(data(), stakingInfo.principal);
 
       // If sendMessage is successful, then call postStakingInfo
-      // await postStakingInfo({
-      //   telegramId: stakingInfo.telegramId,
-      //   leverage: stakingInfo.leverage,
-      //   address: stakingInfo.address,
-      //   amount: stakingInfo.principal,
-      //   lockPeriod: stakingInfo.lockup.toString(),
-      //   nominator: stakingInfo.nominator,
-      //   tokenSort: stakingInfo.tokenSort,
-      // });
+      await postStakingInfo({
+        telegramId: stakingInfo.telegramId,
+        leverage: stakingInfo.leverage,
+        address: stakingInfo.address,
+        amount: stakingInfo.principal,
+        lockPeriod: stakingInfo.lockup.toString(),
+        nominator: stakingInfo.nominator,
+        tokenSort: stakingInfo.tokenSort,
+      });
 
-      // setModal({ type: "stake", toggled: true });
+      setModal({ type: "stake", toggled: true });
     } catch (error) {
       console.log(error);
       setError(error);
