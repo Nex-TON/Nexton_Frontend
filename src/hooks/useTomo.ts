@@ -1,4 +1,4 @@
-import { TonTxParams, useTomo } from "@tomo-inc/tomo-telegram-sdk";
+import { TomoWalletTgSdkV2, TonTxParams, useTomo } from "@tomo-inc/tomo-telegram-sdk";
 import { useCallback, useEffect, useState } from "react";
 import { loadTonDeposit, storeTonDeposit } from "./contract/wrappers/tact_NexTon";
 import { Address, Cell, beginCell, toNano } from "@ton/core";
@@ -13,13 +13,14 @@ export type TransactionParam = {
 
 export default function useTomoWallet() {
   const tomo = useTomo();
-  const tomoTon = tomo.providers.tomo_ton;
-
+  const tgTomoSdk = new TomoWalletTgSdkV2();
+  const tomoTon = import.meta.env.VITE_TON_NETWORK === "mainnet" ? tomo.providers.tomo_ton : tgTomoSdk.tomo_ton;
   const [address, setAddress] = useState("");
   const [balance, setBalance] = useState<number>();
   const [connected, setConnected] = useState(false);
 
   const getAddress = useCallback(() => {
+    console.log(tomoTon);
     if (tomoTon && tomoTon.account) {
       const addr = tomoTon.account?.address;
       if (addr) {
@@ -61,19 +62,25 @@ export default function useTomoWallet() {
     balance: balance,
     sender: {
       send: async (param: TransactionParam) => {
-        console.log(param);
-        const txParam: TonTxParams = {
-          from: address,
-          network: "TON",
-          messages: [
-            {
-              address: param.to.toString(),
-              amount: param.value.toString(),
-              payload: param.body.toBoc().toString("base64"),
-            },
-          ],
-        };
-        await tomoTon.sendTransaction(txParam);
+        try {
+          console.log(param);
+          const txParam: TonTxParams = {
+            from: address,
+            network: "TON",
+            messages: [
+              {
+                address: param.to.toString(),
+                amount: param.value.toString(),
+                payload: param.body.toBoc().toString("base64"),
+              },
+            ],
+          };
+          await tomoTon.sendTransaction(txParam);
+        } catch (error) {
+          console.log("Tomo Tx Error");
+          console.log(param);
+          console.log(error);
+        }
       },
     },
     refreshTonData,

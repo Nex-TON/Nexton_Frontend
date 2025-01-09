@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import useTomoWallet from "@/hooks/useTomo";
+import { TomoWalletTgSdkV2 } from "@tomo-inc/tomo-telegram-sdk";
 
 // 지갑 상태의 타입 정의
 type WalletTypes = "Tomo" | "TonConnect";
@@ -34,13 +35,24 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   // activeWalletType에 따라 해당 훅 반환
   const getActiveWallet = () => {
     if (activeWalletType === "TonConnect") return tonConnect;
-    if (activeWalletType === "Tomo") return tomoWallet;
+    if (activeWalletType === "Tomo") {
+      return tomoWallet;
+    }
     return null;
   };
 
   const connect = (type: WalletTypes) => {
-    if (type === "TonConnect") tonConnect.tonConnectUI.openModal();
-    if (type === "Tomo") tomoWallet.openConnectModal();
+    if (type === "TonConnect") {
+      if (process.env.VITE_TON_NETWORK == "mainnet") tonConnect.tonConnectUI.openModal();
+    }
+    if (type === "Tomo") {
+      if (import.meta.env.VITE_TON_NETWORK == "mainnet") tomoWallet.openConnectModal();
+      else if (import.meta.env.VITE_TON_NETWORK == "testnet") {
+        const t = new TomoWalletTgSdkV2();
+        console.log("Connecting testnet through tomo");
+        t.tomo_ton.connect({ network: "testnet" });
+      }
+    }
     localStorage.setItem("walletType", type);
   };
 
@@ -52,11 +64,12 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 };
 
 const isConnectionValid = (type: WalletTypes): boolean => {
+  console.log(type);
   if (type === "Tomo") {
     if (!localStorage.getItem("tomo-tg-wallet-sdk-lastTime_")) return false;
     if (!localStorage.getItem("tomo-tg-wallet-sdk-account_")) return false;
     if (!localStorage.getItem("tomo-tg-wallet-sdk-accounts_")) return false;
-    if (!localStorage.getItem("tomo-tg-wallet-sdk-connect_type_")) return false;
+    // if (!localStorage.getItem("tomo-tg-wallet-sdk-connect_type_")) return false;
     return true;
   } else if (type === "TonConnect") {
     if (!localStorage.getItem("ton-connect-ui_last-selected-wallet-info")) return false;
