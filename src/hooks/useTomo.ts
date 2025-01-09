@@ -20,7 +20,6 @@ export default function useTomoWallet() {
   const [connected, setConnected] = useState(false);
 
   const getAddress = useCallback(() => {
-    console.log(tomoTon);
     if (tomoTon && tomoTon.account) {
       const addr = tomoTon.account?.address;
       if (addr) {
@@ -63,7 +62,6 @@ export default function useTomoWallet() {
     sender: {
       send: async (param: TransactionParam) => {
         try {
-          console.log(param);
           const txParam: TonTxParams = {
             from: address,
             network: "TON",
@@ -77,9 +75,7 @@ export default function useTomoWallet() {
           };
           await tomoTon.sendTransaction(txParam);
         } catch (error) {
-          console.log("Tomo Tx Error");
-          console.log(param);
-          console.log(error);
+          throw new Error("Tomo Tx Error");
         }
       },
     },

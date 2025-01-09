@@ -43,11 +43,11 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 
   const connect = (type: WalletTypes) => {
     if (type === "TonConnect") {
-      if (process.env.VITE_TON_NETWORK == "mainnet") tonConnect.tonConnectUI.openModal();
+      if (process.env.VITE_TON_NETWORK === "mainnet") tonConnect.tonConnectUI.openModal();
     }
     if (type === "Tomo") {
-      if (import.meta.env.VITE_TON_NETWORK == "mainnet") tomoWallet.openConnectModal();
-      else if (import.meta.env.VITE_TON_NETWORK == "testnet") {
+      if (import.meta.env.VITE_TON_NETWORK === "mainnet") tomoWallet.openConnectModal();
+      else if (import.meta.env.VITE_TON_NETWORK === "testnet") {
         const t = new TomoWalletTgSdkV2();
         console.log("Connecting testnet through tomo");
         t.tomo_ton.connect({ network: "testnet" });

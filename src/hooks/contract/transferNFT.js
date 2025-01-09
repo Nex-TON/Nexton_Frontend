@@ -4,12 +4,7 @@ import { useWalletData } from "@/context/WalletConnectionProvider";
 
 function transferNft(id) {
   const { sender } = useWalletData();
-  const [nftAddress, setNftAddress] = useState(null);
-
-  useEffect(() => {
-    const address = NftItem.idxToAddress(id);
-    if (address) setNftAddress(address);
-  }, [id]);
+  const nftAddress = NftItem.idxToAddress(id);
 
   return {
     sendWithData: async (data, value) => {
@@ -31,7 +26,8 @@ function transferNft(id) {
         } else {
           throw new Error("NftAddress not set");
         }
-      } catch {
+      } catch (error) {
+        console.log(error);
         throw new Error("Error while sending nft");
       }
     },
@@ -53,7 +49,8 @@ function transferNft(id) {
         } else {
           throw new Error("NftAddress not set");
         }
-      } catch {
+      } catch (error) {
+        console.log(error);
         throw new Error("Error while sending nft");
       }
     },
