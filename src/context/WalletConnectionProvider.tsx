@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import useTonConnect from "@/hooks/contract/useTonConnect";
-import useTomoWallet from "@/hooks/useTomo";
+import useTomoWallet from "@/hooks/contract/useTomo";
 import { TomoWalletTgSdkV2 } from "@tomo-inc/tomo-telegram-sdk";
 
 // 지갑 상태의 타입 정의
@@ -41,7 +41,7 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     return null;
   };
 
-  const connect = (type: WalletTypes) => {
+  const connect = async (type: WalletTypes) => {
     if (type === "TonConnect") {
       if (process.env.VITE_TON_NETWORK === "mainnet") tonConnect.tonConnectUI.openModal();
     }
@@ -50,7 +50,8 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       else if (import.meta.env.VITE_TON_NETWORK === "testnet") {
         const t = new TomoWalletTgSdkV2();
         console.log("Connecting testnet through tomo");
-        t.tomo_ton.connect({ network: "testnet" });
+        await t.tomo_ton.connect({ network: "testnet" });
+        tomoWallet.setTomoTon(t.tomo_ton);
       }
     }
     localStorage.setItem("walletType", type);

@@ -13,7 +13,6 @@ import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { globalError } from "@/lib/atom/globalError";
 import { limitDecimals } from "@/utils/limitDecimals";
 import "@/components/common/Header";
-import { useTomo } from "@tomo-inc/tomo-telegram-sdk";
 
 import {
   DashboardHeader,

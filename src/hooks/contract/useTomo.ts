@@ -1,6 +1,6 @@
 import { TomoWalletTgSdkV2, TonTxParams, useTomo } from "@tomo-inc/tomo-telegram-sdk";
 import { useCallback, useEffect, useState } from "react";
-import { loadTonDeposit, storeTonDeposit } from "./contract/wrappers/tact_NexTon";
+import { loadTonDeposit, storeTonDeposit } from "./wrappers/tact_NexTon";
 import { Address, Cell, beginCell, toNano } from "@ton/core";
 
 export type TransactionParam = {
@@ -14,7 +14,9 @@ export type TransactionParam = {
 export default function useTomoWallet() {
   const tomo = useTomo();
   const tgTomoSdk = new TomoWalletTgSdkV2();
-  const tomoTon = import.meta.env.VITE_TON_NETWORK === "mainnet" ? tomo.providers.tomo_ton : tgTomoSdk.tomo_ton;
+  const [tomoTon, setTomoTon] = useState(
+    import.meta.env.VITE_TON_NETWORK === "mainnet" ? tomo.providers.tomo_ton : tgTomoSdk.tomo_ton,
+  );
   const [address, setAddress] = useState("");
   const [balance, setBalance] = useState<number>();
   const [connected, setConnected] = useState(false);
@@ -80,6 +82,7 @@ export default function useTomoWallet() {
       },
     },
     refreshTonData,
+    setTomoTon,
     openConnectModal: tomo.openConnectModal,
   };
 }
