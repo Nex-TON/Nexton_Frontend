@@ -43,7 +43,7 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 
   const connect = async (type: WalletTypes) => {
     if (type === "TonConnect") {
-      if (process.env.VITE_TON_NETWORK === "mainnet") tonConnect.tonConnectUI.openModal();
+      tonConnect.tonConnectUI.openModal();
     }
     if (type === "Tomo") {
       if (import.meta.env.VITE_TON_NETWORK === "mainnet") tomoWallet.openConnectModal();
