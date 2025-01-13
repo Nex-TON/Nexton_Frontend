@@ -1,6 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import axios from "axios";
+import { useSetRecoilState } from "recoil";
 
 import BasicModal from "@/components/common/Modal/BasicModal";
 import TransactionConfirmModal from "@/components/common/Modal/TransactionConfirmModal";
@@ -13,6 +15,8 @@ import { toNano } from "@ton/core";
 import { limitDecimals } from "@/utils/limitDecimals";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { globalError } from "@/lib/atom/globalError";
+import { useWalletData } from "@/context/WalletConnectionProvider";
+import { postRepayInfo } from "@/api/postRepayInfo";
 import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 
 import {
@@ -25,11 +29,6 @@ import {
   RepayRateBoxDivider,
   RepayRateBoxHeader,
 } from "./RepaymentDetails.styled";
-import { postRepayInfo } from "@/api/postRepayInfo";
-import useTonConnect from "@/hooks/contract/useTonConnect";
-import { useSetRecoilState } from "recoil";
-import { nextonFetcher } from "@/api/axios";
-import axios from "axios";
 
 interface ModalState {
   type: "repay" | "confirmRepay";
@@ -44,7 +43,7 @@ const RepaymentDetails = () => {
   const { id } = useParams();
   const { sendMessage, refresh, isLoading: contractLoading } = Contract.repay(id);
   const { nftDetail } = useNFTDetail(Number(id));
-  const { address } = useTonConnect();
+  const { address } = useWalletData();
   const [isLoading, setIsLoading] = useState(false);
   const setError = useSetRecoilState(globalError);
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));

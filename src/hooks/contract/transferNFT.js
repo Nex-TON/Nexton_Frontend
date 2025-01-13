@@ -1,20 +1,10 @@
-import { Address, Cell, beginCell, toNano } from "@ton/core";
-
 import { NftItem } from "./wrappers/NftItem";
-import { contractAddress, TupleBuilder } from "@ton/core";
-import { useAsyncInitialize } from "./useAsyncInitialize";
-import { useTonClient } from "./useTonClient";
-import useTonConnect from "./useTonConnect";
 import { useEffect, useState } from "react";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 function transferNft(id) {
-  const { sender, address } = useTonConnect();
-  const [nftAddress, setNftAddress] = useState(null);
-
-  useEffect(() => {
-    const address = NftItem.idxToAddress(id);
-    if (address) setNftAddress(address);
-  }, [id]);
+  const { sender } = useWalletData();
+  const nftAddress = NftItem.idxToAddress(id);
 
   return {
     sendWithData: async (data, value) => {
@@ -36,7 +26,8 @@ function transferNft(id) {
         } else {
           throw new Error("NftAddress not set");
         }
-      } catch {
+      } catch (error) {
+        console.log(error);
         throw new Error("Error while sending nft");
       }
     },
@@ -58,7 +49,8 @@ function transferNft(id) {
         } else {
           throw new Error("NftAddress not set");
         }
-      } catch {
+      } catch (error) {
+        console.log(error);
         throw new Error("Error while sending nft");
       }
     },

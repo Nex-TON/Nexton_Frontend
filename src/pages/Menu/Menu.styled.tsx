@@ -16,7 +16,6 @@ export const MainInnerBox = styled.div`
   flex-direction: column;
 
   padding: 2.3rem 2.1rem 2.7rem 2.3rem;
-  margin-bottom: 1.2rem;
   border-radius: 15px;
   background: linear-gradient(270deg, #002639 0%, #001b29 28.13%, #000 100%);
   overflow: hidden; /* 자식 요소가 부모 요소를 넘지 않도록 설정 */

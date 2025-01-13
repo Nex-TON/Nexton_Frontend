@@ -8,14 +8,12 @@ import UnstakedDetailList from "@/components/unstaking/UnstakedDetailList";
 import { useUnstakedList } from "@/hooks/api/unstaking/useUnstakedList";
 import { telegramAtom } from "@/lib/atom/telegram";
 import UnstakedDetailHeader from "@/components/unstaking/UnstakedDetailHeader";
-import { address } from "@ton/core";
-import useTonConnect from "@/hooks/contract/useTonConnect";
-
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 const tele = (window as any).Telegram.WebApp;
 
 const UnstakedList = () => {
-  const { address, balance, refreshTonData, connected, tonConnectUI } = useTonConnect();
+  const { address } = useWalletData();
   const navigate = useNavigate();
   const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
 
@@ -47,7 +45,7 @@ const UnstakedList = () => {
 
   return (
     <UnstakedListWrapper id="specific-element">
-      <UnstakedDetailHeader unstakedListLength={data?.length}/>
+      <UnstakedDetailHeader unstakedListLength={data?.length} />
       {isLoading ? (
         <LoaderWrapper>
           <Loader height={100} width={100} />

@@ -3,10 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useSetRecoilState } from "recoil";
 
-import { ClickAwayListener } from "@mui/material";
-//tooltip name이 겹쳐서 변수명 설정해줌
-import { Tooltip as MuiTooltip, tooltipClasses } from "@mui/material";
-import { VscInfo } from "react-icons/vsc";
 import IcNextonLogo from "@/assets/icons/Dashboard/ic_nexton_logo.svg";
 import IcTonLogo from "@/assets/icons/Dashboard/ic_ton_logo.svg";
 import Loader from "@/components/common/Loader";
@@ -16,7 +12,6 @@ import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanc
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { globalError } from "@/lib/atom/globalError";
 import { limitDecimals } from "@/utils/limitDecimals";
-import IcnxTONLogo from "@/assets/icons/Dashboard/ic_nxTON_logo.svg";
 import "@/components/common/Header";
 
 import {
@@ -41,7 +36,7 @@ import {
 import "./styles/Dashboard.css";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
 import Header from "@/components/common/Header";
-import useTonConnect from "@/hooks/contract/useTonConnect";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -56,21 +51,12 @@ const chartTimeFrameOptions: Record<TimeFrame | "All", number> = {
 };
 
 const Dashboard = () => {
-  const { connected, tonConnectUI } = useTonConnect();
-  const [open, setOpen] = useState(false);
-
-  const handleTooltip = () => {
-    setOpen(!open);
-  };
-  const handleTooltipClose = () => {
-    setOpen(false);
-  };
-
-  const location = useLocation();
+  const { connected } = useWalletData();
   const navigate = useNavigate();
   const setError = useSetRecoilState(globalError);
 
   const [timeFrame, setTimeFrame] = useState<TimeFrame>("1D");
+  const [toggled, setToggled] = useState<boolean>(false);
 
   const { data: performanceData, isLoading: performanceLoading, error: performanceError } = useBotPerformanceSummary();
 
@@ -81,7 +67,7 @@ const Dashboard = () => {
   } = useBotPerformanceChart(chartTimeFrameOptions[timeFrame]);
 
   const { data: tonPriceData, isLoading: tonPriceLoading, error: tonPriceError } = useCoinPrice("ton", "usd");
-  
+
   useEffect(() => {
     if (tele) {
       tele.ready();
@@ -117,13 +103,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Header
-        isOpen={false}
-        backgroundType={false}
-        text="Dashboard"
-        connected={connected}
-        tonConnectUI={tonConnectUI}
-      />
+      <Header isOpen={false} backgroundType={false} text="Dashboard" connected={connected} />
       <DashboardWrapper>
         <ChartWrapper>
           <ChartHeader>
@@ -177,14 +157,16 @@ const Dashboard = () => {
               <h3>Stakers Win Rate</h3>
               <p>{performanceData?.pnlWinRate?.toFixed(2)}%</p>
             </PerformanceItem>
-              <PerformanceItem>
-                <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  TVL
-                </h3>
-                <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
-              </PerformanceItem>
+            <PerformanceItem>
+              <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>TVL</h3>
+              <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
+            </PerformanceItem>
           </PerformanceItemWrapper>
-          <MainButton style={{ margin: "1.5rem 0 6.1rem 0" }} />
+          <MainButton
+            toggled={toggled}
+            handleToggle={() => setToggled(!toggled)}
+            style={{ margin: "1.5rem 0 6.1rem 0" }}
+          />
 
           {!tonPriceError && (
             <TonPriceWrapper>
@@ -197,7 +179,9 @@ const Dashboard = () => {
 
                 <TonPriceItemRight>
                   <p>${tonPriceData?.rates?.TON?.prices?.USD.toFixed(2)}</p>
-                  <TonPriceItemRightPercentage $positive={(tonPriceData?.rates?.TON?.diff_24h?.USD[0])=="+"?true:false}>
+                  <TonPriceItemRightPercentage
+                    $positive={tonPriceData?.rates?.TON?.diff_24h?.USD[0] == "+" ? true : false}
+                  >
                     {tonPriceData?.rates?.TON?.diff_24h?.USD}
                   </TonPriceItemRightPercentage>
                 </TonPriceItemRight>

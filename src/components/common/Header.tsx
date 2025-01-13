@@ -12,11 +12,10 @@ interface HeaderProps {
   text: string;
   backgroundType: boolean;
   connected: boolean;
-  tonConnectUI: any;
 }
 
 const Header = (props: HeaderProps) => {
-  const { isOpen, text, backgroundType, connected, tonConnectUI } = props;
+  const { isOpen, text, backgroundType, connected } = props;
   const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -43,11 +42,15 @@ const Header = (props: HeaderProps) => {
         <HeaderRightBox>
           {pathname === "/main" && (
             <DisconnectButton $connect={connected}>
-              {connected ? <img src={IcWalletDisconnect} onClick={handleModalState} id="header disconnect wallet"/> : <></>}
+              {connected ? (
+                <img src={IcWalletDisconnect} onClick={handleModalState} id="header disconnect wallet" />
+              ) : (
+                <></>
+              )}
             </DisconnectButton>
           )}
           <MenuButton onClick={handleRouter} $isOpen={isOpen} id="header menu button">
-            <img src={IcMenuButton} id="header menu button"/>
+            <img src={IcMenuButton} id="header menu button" />
           </MenuButton>
         </HeaderRightBox>
       </HeaderWrapper>
@@ -78,7 +81,7 @@ const HeaderRightBox = styled.div`
 `;
 
 const DisconnectButton = styled.button<{ $connect: boolean }>`
-  display: ${({ $connect }) => ($connect ? 'flex' : 'none')};
+  display: ${({ $connect }) => ($connect ? "flex" : "none")};
   justify-content: center;
   align-items: center;
 
