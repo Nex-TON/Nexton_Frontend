@@ -18,18 +18,41 @@ const WalletContext = createContext<WalletContextType | undefined>(undefined);
 
 export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [activeWalletType, setActiveWalletType] = useState<WalletTypes | null>(null);
+  const [retryCount, setRetryCount] = useState(0);
 
   const tonConnect = useTonConnect();
   const tomoWallet = useTomoWallet();
 
   useEffect(() => {
-    if (!activeWalletType) {
-      const savedWalletType = localStorage.getItem("walletType") as WalletTypes | null;
-      if (savedWalletType) {
-        if (isConnectionValid(savedWalletType)) setActiveWalletType(savedWalletType);
-        else localStorage.clear();
+    // if (!activeWalletType) {
+    //   const savedWalletType = localStorage.getItem("walletType") as WalletTypes | null;
+    //   if (savedWalletType) {
+    //     if (isConnectionValid(savedWalletType)) setActiveWalletType(savedWalletType);
+    //     else localStorage.clear();
+    //   }
+    // }
+
+    const checkWallet = () => {
+      if (!activeWalletType) {
+        const savedWalletType = localStorage.getItem("walletType") as WalletTypes | null;
+        if (savedWalletType) {
+          if (isConnectionValid(savedWalletType)) {
+            setActiveWalletType(savedWalletType);
+          } else {
+            if (retryCount < 2) {
+              console.log(`Retry attempt ${retryCount + 1}...`);
+              setRetryCount(retryCount + 1);
+              setTimeout(checkWallet, 300); // 0.3초 후 다시 시도
+            } else {
+              console.log("Maximum retry attempts reached. Clearing local storage.");
+              localStorage.clear();
+              setRetryCount(0); // 초기화
+            }
+          }
+        }
       }
-    }
+    };
+    checkWallet();
   }, [activeWalletType]);
 
   // activeWalletType에 따라 해당 훅 반환
@@ -73,9 +96,6 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 const isConnectionValid = (type: WalletTypes): boolean => {
   console.log(type);
   if (type === "Tomo") {
-    console.log("lastTime: ", localStorage.getItem("tomo-tg-wallet-sdk-lastTime_"));
-    console.log("account: ", localStorage.getItem("tomo-tg-wallet-sdk-account_"));
-    console.log("accounts: ", localStorage.getItem("tomo-tg-wallet-sdk-accounts_"));
     if (!localStorage.getItem("tomo-tg-wallet-sdk-lastTime_")) return false;
     if (!localStorage.getItem("tomo-tg-wallet-sdk-account_")) return false;
     if (!localStorage.getItem("tomo-tg-wallet-sdk-accounts_")) return false;
