@@ -86,9 +86,17 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 const isConnectionValid = (type: WalletTypes): boolean => {
   console.log(type);
   if (type === "Tomo") {
-    if (!localStorage.getItem("tomo-tg-wallet-sdk-lastTime_")) return false;
-    if (!localStorage.getItem("tomo-tg-wallet-sdk-account_")) return false;
-    if (!localStorage.getItem("tomo-tg-wallet-sdk-accounts_")) return false;
+    // In telegram-mini-app env, local storage keys are stored in <NAME><SOME_NUMBER> form.
+    const requiredKeys = [
+      "tomo-tg-wallet-sdk-lastTime_",
+      "tomo-tg-wallet-sdk-account_",
+      "tomo-tg-wallet-sdk-accounts_",
+    ];
+
+    for (const key of requiredKeys) {
+      const hasKey = Object.keys(localStorage).some(storedKey => storedKey.startsWith(key));
+      if (!hasKey) return false;
+    }
     return true;
   } else if (type === "TonConnect") {
     if (!localStorage.getItem("ton-connect-ui_last-selected-wallet-info")) return false;
