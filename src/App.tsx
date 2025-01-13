@@ -28,6 +28,7 @@ const App = () => {
       theme="light"
       supportedProviders={["TON"]}
       supportedConnects={[CONNECT_MAP.TOMO_MINI_APP]}
+      manifestUrl={"https://nextonserver.s3.eu-north-1.amazonaws.com/config.json"}
       tomoOptions={{
         injected: false,
         metaData: {
