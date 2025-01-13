@@ -73,10 +73,12 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 const isConnectionValid = (type: WalletTypes): boolean => {
   console.log(type);
   if (type === "Tomo") {
+    console.log("lastTime: ", localStorage.getItem("tomo-tg-wallet-sdk-lastTime_"));
+    console.log("account: ", localStorage.getItem("tomo-tg-wallet-sdk-account_"));
+    console.log("accounts: ", localStorage.getItem("tomo-tg-wallet-sdk-accounts_"));
     if (!localStorage.getItem("tomo-tg-wallet-sdk-lastTime_")) return false;
     if (!localStorage.getItem("tomo-tg-wallet-sdk-account_")) return false;
     if (!localStorage.getItem("tomo-tg-wallet-sdk-accounts_")) return false;
-    // if (!localStorage.getItem("tomo-tg-wallet-sdk-connect_type_")) return false;
     return true;
   } else if (type === "TonConnect") {
     if (!localStorage.getItem("ton-connect-ui_last-selected-wallet-info")) return false;
