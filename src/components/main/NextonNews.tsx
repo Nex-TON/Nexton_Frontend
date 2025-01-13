@@ -11,18 +11,19 @@ const NextonNews = () => {
         <Title>Latest Update </Title>
         <ContainerWrapper
           onClick={() => window.open("https://app.ston.fi/pools/EQDp1Wo856blEgAxh8SGrkN4MVaK1p-h6Ih4ydMT2n3sJucq")}
+          id="main page carousel"
         >
-          <TextWrapper>
-            <p>
+          <TextWrapper id="main page carousel">
+            <p id="main page carousel">
               $NxTON is now
               <br /> listed on <StonfiImg src={StonfiLogo} alt="stonfi logo" />
               <br />
             </p>
-            <LinkToWebsite>
+            <LinkToWebsite id="main page carousel">
               Let’s Check It Out! <img src={LinkIcon} />
             </LinkToWebsite>
           </TextWrapper>
-          <IllustImg src={BannerIllust} alt="banner illust" />
+          <IllustImg src={BannerIllust} alt="banner illust"  id="main page carousel"/>
         </ContainerWrapper>
       </LayoutWrapper>
     </>
