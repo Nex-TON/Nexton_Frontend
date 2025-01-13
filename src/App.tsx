@@ -32,7 +32,7 @@ const App = () => {
       tomoOptions={{
         injected: false,
         metaData: {
-          icon: "https://nextonserver.s3.eu-north-1.amazonaws.com/ic_nexton_logo.svg",
+          icon: "https://nextonserver.s3.eu-north-1.amazonaws.com/nexton-tomo.svg",
           name: "Nexton",
         },
       }}

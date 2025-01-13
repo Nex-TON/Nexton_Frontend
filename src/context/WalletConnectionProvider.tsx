@@ -49,7 +49,10 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       if (import.meta.env.VITE_TON_NETWORK === "mainnet") tomoWallet.openConnectModal();
       else if (import.meta.env.VITE_TON_NETWORK === "testnet") {
         const t = new TomoWalletTgSdkV2({
-          metaData: { name: "Nexton", icon: "https://nextonserver.s3.eu-north-1.amazonaws.com/ic_nexton_logo.svg" },
+          metaData: {
+            name: "Nexton",
+            icon: "https://nextonserver.s3.eu-north-1.amazonaws.com/nexton-tomo.svg",
+          },
           injected: true,
         });
         console.log("Connecting testnet through tomo");
