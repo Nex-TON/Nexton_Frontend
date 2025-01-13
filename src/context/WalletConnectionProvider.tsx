@@ -23,12 +23,25 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const tomoWallet = useTomoWallet();
 
   useEffect(() => {
-    if (!activeWalletType) {
-      const savedWalletType = localStorage.getItem("walletType") as WalletTypes | null;
-      if (savedWalletType) {
-        if (isConnectionValid(savedWalletType)) setActiveWalletType(savedWalletType);
-        else localStorage.clear();
+    const retryConnection = (type: WalletTypes, retries: number) => {
+      if (isConnectionValid(type)) {
+        console.log("Connection valid. Setting active wallet type.");
+        setActiveWalletType(type);
+        return; // 유효한 연결일 경우 종료
       }
+
+      if (retries > 0) {
+        console.log(`Retrying connection (${3 - retries + 1}/3)...`);
+        setTimeout(() => retryConnection(type, retries - 1), 300); // 0.3초 후 재시도
+      } else {
+        console.log("Maximum retry attempts reached. Clearing local storage.");
+        localStorage.clear(); // 최대 시도에 도달하면 로컬 스토리지를 초기화
+      }
+    };
+
+    const savedWalletType = localStorage.getItem("walletType") as WalletTypes | null;
+    if (savedWalletType && !activeWalletType) {
+      retryConnection(savedWalletType, 3); // 최대 3회 재시도
     }
   }, [activeWalletType]);
 
@@ -73,10 +86,17 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 const isConnectionValid = (type: WalletTypes): boolean => {
   console.log(type);
   if (type === "Tomo") {
-    if (!localStorage.getItem("tomo-tg-wallet-sdk-lastTime_")) return false;
-    if (!localStorage.getItem("tomo-tg-wallet-sdk-account_")) return false;
-    if (!localStorage.getItem("tomo-tg-wallet-sdk-accounts_")) return false;
-    // if (!localStorage.getItem("tomo-tg-wallet-sdk-connect_type_")) return false;
+    // In telegram-mini-app env, local storage keys are stored in <NAME><SOME_NUMBER> form.
+    const requiredKeys = [
+      "tomo-tg-wallet-sdk-lastTime_",
+      "tomo-tg-wallet-sdk-account_",
+      "tomo-tg-wallet-sdk-accounts_",
+    ];
+
+    for (const key of requiredKeys) {
+      const hasKey = Object.keys(localStorage).some(storedKey => storedKey.startsWith(key));
+      if (!hasKey) return false;
+    }
     return true;
   } else if (type === "TonConnect") {
     if (!localStorage.getItem("ton-connect-ui_last-selected-wallet-info")) return false;
