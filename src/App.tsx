@@ -28,15 +28,12 @@ const App = () => {
       theme="light"
       supportedProviders={["TON"]}
       supportedConnects={[CONNECT_MAP.TOMO_MINI_APP]}
-      manifestUrl={"https://d8o5s6z018yzr.cloudfront.net/manifestUrl.json"}
       tomoOptions={{
-        //TODO : ADD METADATA
         injected: false,
         metaData: {
-          icon: "",
+          icon: "https://nextonserver.s3.eu-north-1.amazonaws.com/ic_nexton_logo.svg",
           name: "Nexton",
         },
-        // ...BASE_URL_DEV,
       }}
     >
       <WalletProvider>
