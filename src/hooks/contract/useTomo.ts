@@ -20,6 +20,7 @@ export default function useTomoWallet() {
   const [address, setAddress] = useState("");
   const [balance, setBalance] = useState<number>();
   const [connected, setConnected] = useState(false);
+  const network = import.meta.env.VITE_TON_NETWORK;
 
   const getAddress = useCallback(() => {
     if (tomoTon && tomoTon.account) {
@@ -57,6 +58,24 @@ export default function useTomoWallet() {
     if (tomoTon && tomoTon.account) setConnected(tomoTon.account?.address ? true : false);
   }, [tomoTon, getAddress]);
 
+  const openConnection = async () => {
+    const t = new TomoWalletTgSdkV2({
+      metaData: {
+        name: "Nexton",
+        icon: "https://nextonserver.s3.eu-north-1.amazonaws.com/nexton-tomo.svg",
+      },
+      injected: true,
+    });
+    if (network === "mainnet") {
+      await t.tomo_ton.connect({ network: "mainnet" });
+      setTomoTon(t.tomo_ton);
+    } else if (network === "testnet") {
+      console.log("Connecting testnet through tomo");
+      await t.tomo_ton.connect({ network: "testnet" });
+      setTomoTon(t.tomo_ton);
+    }
+  };
+
   return {
     address,
     connected: connected,
@@ -82,7 +101,7 @@ export default function useTomoWallet() {
       },
     },
     refreshTonData,
-    setTomoTon,
+    openConnection,
     openConnectModal: tomo.openConnectModal,
   };
 }
