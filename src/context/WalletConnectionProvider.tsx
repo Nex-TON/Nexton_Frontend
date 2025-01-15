@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import useTomoWallet from "@/hooks/contract/useTomo";
-import { TomoWalletTgSdkV2 } from "@tomo-inc/tomo-telegram-sdk";
+import { TomoWalletTgSdkV2, useTomo } from "@tomo-inc/tomo-telegram-sdk";
 
 // 지갑 상태의 타입 정의
 type WalletTypes = "Tomo" | "TonConnect";
@@ -40,17 +40,19 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     };
 
     const savedWalletType = localStorage.getItem("walletType") as WalletTypes | null;
-    if (savedWalletType && !activeWalletType) {
-      retryConnection(savedWalletType, 3); // 최대 3회 재시도
+    if (savedWalletType) {
+      if (isConnectionValid(savedWalletType)) {
+        console.log("Connection valid. Setting active wallet type.");
+        setActiveWalletType(savedWalletType);
+      }
     }
   }, [activeWalletType]);
 
   // activeWalletType에 따라 해당 훅 반환
   const getActiveWallet = () => {
     if (activeWalletType === "TonConnect") return tonConnect;
-    if (activeWalletType === "Tomo") {
-      return tomoWallet;
-    }
+    if (activeWalletType === "Tomo") return tomoWallet;
+
     return null;
   };
 
@@ -59,19 +61,7 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       tonConnect.tonConnectUI.openModal();
     }
     if (type === "Tomo") {
-      if (import.meta.env.VITE_TON_NETWORK === "mainnet") tomoWallet.openConnectModal();
-      else if (import.meta.env.VITE_TON_NETWORK === "testnet") {
-        const t = new TomoWalletTgSdkV2({
-          metaData: {
-            name: "Nexton",
-            icon: "https://nextonserver.s3.eu-north-1.amazonaws.com/nexton-tomo.svg",
-          },
-          injected: true,
-        });
-        console.log("Connecting testnet through tomo");
-        await t.tomo_ton.connect({ network: "testnet" });
-        tomoWallet.setTomoTon(t.tomo_ton);
-      }
+      tomoWallet.openConnection();
     }
     localStorage.setItem("walletType", type);
   };
