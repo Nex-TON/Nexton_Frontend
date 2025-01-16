@@ -14,12 +14,11 @@ export type TransactionParam = {
 export default function useTomoWallet() {
   const tomo = useTomo();
   const tgTomoSdk = new TomoWalletTgSdkV2();
-  const [tomoTon, setTomoTon] = useState(
-    import.meta.env.VITE_TON_NETWORK === "mainnet" ? tomo.providers.tomo_ton : tgTomoSdk.tomo_ton,
-  );
+  const [tomoTon, setTomoTon] = useState(tgTomoSdk.tomo_ton);
   const [address, setAddress] = useState("");
   const [balance, setBalance] = useState<number>();
   const [connected, setConnected] = useState(false);
+  const [active, setActive] = useState(false);
   const network = import.meta.env.VITE_TON_NETWORK;
 
   const getAddress = useCallback(() => {
@@ -56,7 +55,7 @@ export default function useTomoWallet() {
   useEffect(() => {
     getAddress();
     if (tomoTon && tomoTon.account) setConnected(tomoTon.account?.address ? true : false);
-  }, [tomoTon, getAddress]);
+  }, [tomoTon, getAddress, active]);
 
   const openConnection = async () => {
     const t = new TomoWalletTgSdkV2({
@@ -103,5 +102,6 @@ export default function useTomoWallet() {
     refreshTonData,
     openConnection,
     openConnectModal: tomo.openConnectModal,
+    setActive,
   };
 }
