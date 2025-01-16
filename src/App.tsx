@@ -8,7 +8,10 @@ import { network } from "@/hooks/contract/useTonClient";
 import GlobalStyle from "@/styles/globalStyles";
 import theme from "@/styles/theme";
 import TagManager from "react-gtm-module";
-import ScrollToTop from "./components/common/ScrollTo";
+import { TomoProvider, CONNECT_MAP, TomoWalletTgSdkV2 } from "@tomo-inc/tomo-telegram-sdk";
+import "@tomo-inc/tomo-telegram-sdk/dist/styles.css";
+// import { BASE_URL_DEV } from "@tomo-inc/tomo-telegram-sdk/example/baseUrlDev";
+import { WalletProvider } from "./context/WalletConnectionProvider";
 
 const tagManagerArgs = {
   gtmId: "GTM-N6BZZ8CX",
@@ -18,15 +21,33 @@ TagManager.initialize(tagManagerArgs);
 console.log(`You're connected to the ${network} network!`);
 
 const App = () => {
+  new TomoWalletTgSdkV2();
+
   return (
-    <ThemeProvider theme={theme}>
-      <RecoilRoot>
-        <GlobalStyle />
-        <ErrorModal />
-        <Analytics />
-        <Router />
-      </RecoilRoot>
-    </ThemeProvider>
+    <TomoProvider
+      theme="light"
+      supportedProviders={["TON"]}
+      supportedConnects={[CONNECT_MAP.TOMO_MINI_APP]}
+      manifestUrl={"https://nextonserver.s3.eu-north-1.amazonaws.com/config.json"}
+      tomoOptions={{
+        injected: false,
+        metaData: {
+          icon: "https://nextonserver.s3.eu-north-1.amazonaws.com/nexton-tomo.svg",
+          name: "Nexton",
+        },
+      }}
+    >
+      <WalletProvider>
+        <ThemeProvider theme={theme}>
+          <RecoilRoot>
+            <GlobalStyle />
+            <ErrorModal />
+            <Analytics />
+            <Router />
+          </RecoilRoot>
+        </ThemeProvider>
+      </WalletProvider>
+    </TomoProvider>
   );
 };
 export default App;

@@ -2,16 +2,16 @@ import styled from "styled-components";
 import { mutate } from "swr";
 import { useMemo } from "react";
 
-import useTonConnect from "@/hooks/contract/useTonConnect";
 import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import IcnxTon from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
 import { useEffect, useState } from "react";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
+import { useWallet, useWalletData } from "@/context/WalletConnectionProvider";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 
 export const TotalBalance = () => {
-  const { address, balance, refreshTonData } = useTonConnect();
+  const { address, balance, refreshTonData } = useWalletData();
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { nftList, isLoading } = useStakeInfo(address);

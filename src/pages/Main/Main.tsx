@@ -25,6 +25,8 @@ import "react-toastify/dist/ReactToastify.css";
 import NextonNews from "@/components/main/NextonNews";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 
+import { useWalletData } from "@/context/WalletConnectionProvider";
+
 const tele = (window as any).Telegram.WebApp;
 
 const Main: React.FC = () => {
@@ -38,7 +40,9 @@ const Main: React.FC = () => {
     setIsFbOpen(false);
   };
 
-  const { address, balance, refreshTonData, connected, tonConnectUI } = useTonConnect();
+  const { tonConnectUI } = useTonConnect();
+  const { address, balance, refreshTonData, connected } = useWalletData();
+
   const { nftList, isLoading, isError } = useStakeInfo(address);
   const { borrowList } = useRepayNftList(address);
 
@@ -57,7 +61,12 @@ const Main: React.FC = () => {
       setIsRefreshing(true);
 
       try {
-        await Promise.all([refreshTonData(), mutate(`/data/getAllStakeInfoByAddress?address=${address}`)]);
+        if (!address) {
+          mutate(`/data/getAllStakeInfoByAddress?address=${address}`);
+        }
+        if (connected) {
+          await refreshTonData();
+        }
       } catch (error) {
         console.error("An error occurred during the refresh operation:", error);
       } finally {
@@ -170,6 +179,7 @@ const Main: React.FC = () => {
 
   // Calculate the total amount staked
   const totalStaked = useMemo(() => {
+
     const nftTotal =
       nftList?.reduce((acc, nft) => {
         if (nft.tokenSort === "TON") {
@@ -205,7 +215,7 @@ const Main: React.FC = () => {
       {modal && <WelcomeModal toggleModal={toggleModal} />}
       {officialModal && <OfficialAnouncementModal toggleModal={toggleOfficialModal} />}
       <MainWrapper>
-        <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} tonConnectUI={tonConnectUI} />
+        <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} />
         <MainMyAssetInfo
           tonConnectUI={tonConnectUI}
           connected={connected}

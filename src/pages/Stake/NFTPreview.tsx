@@ -16,12 +16,12 @@ import { ConfirmStakeModal } from "@/components/stake/NFTPreview/ConfirmStakeMod
 import NftPreviewImage from "@/components/stake/NFTPreview/NftPreviewImage";
 import NFTPreviewInfo from "@/components/stake/NFTPreview/NFTPreviewInfo";
 import * as Contract from "@/hooks/contract/depositTon";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 import { TonDeposit } from "@/hooks/contract/wrappers/tact_NexTon";
 import { useJettonWallet } from "@/hooks/contract/useJettonWallet";
 import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom, stakingInputAtom } from "@/lib/atom/staking";
 import { isDevMode } from "@/utils/isDevMode";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -30,7 +30,7 @@ interface ModalState {
   toggled: boolean;
 }
 const NFTPreview = () => {
-  const { refreshTonData } = useTonConnect();
+  const { refreshTonData } = useWalletData();
 
   const stakingInfo = useRecoilValue(stakingAtom);
   const stakeInfoReset = useResetRecoilState(stakingAtom);
@@ -87,6 +87,7 @@ const NFTPreview = () => {
 
       setModal({ type: "stake", toggled: true });
     } catch (error) {
+      console.log(error);
       setError(error);
     } finally {
       setIsLoading(false);

@@ -141,4 +141,5 @@ const Nav = styled.div`
 
   background: #1a1b23;
   border-radius: 10px 10px 0px 0px;
+  z-index:40;
 `;

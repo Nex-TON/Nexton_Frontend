@@ -3,12 +3,12 @@ import { Address, toNano } from "@ton/core";
 import { NexTon } from "./wrappers/tact_NexTon";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { useTonClient } from "./useTonClient";
-import useTonConnect from "./useTonConnect";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 function depositTon() {
   const contractAddress = `${import.meta.env.VITE_CONTRACT_ADDRESS}`;
   const client = useTonClient();
-  const { sender, address } = useTonConnect();
+  const { sender, address } = useWalletData();
 
   let nextonContract = useAsyncInitialize(async () => {
     if (!client) return;

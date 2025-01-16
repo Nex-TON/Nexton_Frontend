@@ -9,7 +9,6 @@ import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
 import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
 import { isDevMode } from "@/utils/isDevMode.ts";
 import * as Contract from "@/hooks/contract/transferNFT";
-import useTonConnect from "@/hooks/contract/useTonConnect.ts";
 import { toNano, Address } from "@ton/core";
 import { useLoanDetail } from "@/hooks/api/loan/useLoanDetail.tsx";
 import { globalError } from "@/lib/atom/globalError";
@@ -19,9 +18,9 @@ import { postLendingInfo } from "@/api/postLendingInfo.ts";
 import { telegramAtom } from "@/lib/atom/telegram.ts";
 import { limitDecimals } from "@/utils/limitDecimals.ts";
 import BasicModal from "@/components/common/Modal/BasicModal.tsx";
-import { nextonFetcher } from "@/api/axios.ts";
 import axios from "axios";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail.tsx";
+import { useWalletData } from "@/context/WalletConnectionProvider.tsx";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -36,7 +35,7 @@ const BorrowVerify = () => {
   const { id } = useParams();
   const location = useLocation();
   const { sendWithData } = Contract.transferNft(id);
-  const { address } = useTonConnect();
+  const { address } = useWalletData();
   const { borrowAmount } = location.state || {};
   const { data: loanInfo } = useLoanDetail(Number(id), address, "pre");
   const telegramId = useRecoilValue(telegramAtom);
@@ -49,7 +48,10 @@ const BorrowVerify = () => {
     {
       items: [
         { label: "Borrowed NxTON", value: `${limitDecimals(loanInfo?.nxTonAmount, 3)} NxTON` },
-        { label: "Principal", value: `${limitDecimals(loanInfo?.principal, 3)} ${nftDetail&&nftDetail[0].tokenSort=="nxTON"?"NxTON":nftDetail&&nftDetail[0].tokenSort}` },
+        {
+          label: "Principal",
+          value: `${limitDecimals(loanInfo?.principal, 3)} ${nftDetail && nftDetail[0].tokenSort == "nxTON" ? "NxTON" : nftDetail && nftDetail[0].tokenSort}`,
+        },
         { label: "LTV", value: `${limitDecimals(loanInfo?.loanToValue * 100, 2)}%` },
       ],
     },
@@ -102,13 +104,12 @@ const BorrowVerify = () => {
           baseURL: `${import.meta.env.VITE_BASE_URL}`,
         });
         const validation = response.status;
-          if (validation && validation == 200 && timeRotate <= 24) {
-            break;
-        }else if (validation && validation == 202 && timeRotate <= 24){
-        }
-        else{
+        if (validation && validation == 200 && timeRotate <= 24) {
           break;
-        };
+        } else if (validation && validation == 202 && timeRotate <= 24) {
+        } else {
+          break;
+        }
         timeRotate += 1;
         await delay(5000);
       }

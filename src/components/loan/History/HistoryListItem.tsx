@@ -4,8 +4,6 @@ import { numberCutter } from "@/utils/numberCutter";
 import { Caption3 } from "../Borrow/BorrowListItem.styled";
 import IcPaid from "@/assets/icons/Loan/ic_paid_off.svg";
 import IcUnpaid from "@/assets/icons/Loan/ic_unpaid.svg";
-import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 
 import {
   RepayListBottomTextBottomRight,
