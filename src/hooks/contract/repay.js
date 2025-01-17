@@ -1,15 +1,12 @@
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Address, beginCell } from "@ton/core";
 
-import { initAddress, JettonDefaultWallet } from "@/hooks/contract/wrappers/tact_JettonDefaultWallet";
 import { NftItem } from "./wrappers/NftItem";
 import { useTonClient } from "./useTonClient";
-import useTonConnect from "./useTonConnect";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { useJettonWallet } from "./useJettonWallet";
 
 function repay(id) {
-  const { sender, address } = useTonConnect();
   const [nftAddress, setNftAddress] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const jettonWallet = useJettonWallet("nxTON");

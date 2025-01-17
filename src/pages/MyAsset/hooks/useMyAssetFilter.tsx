@@ -1,11 +1,11 @@
-import {useState } from "react";
+import { useState } from "react";
 
 import { useStakeInfo } from "../../../hooks/api/useStakeInfo";
-import useTonConnect from "../../../hooks/contract/useTonConnect";
 import { getNftState } from "@/utils/getNftState";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 const useMyAssetFilter = () => {
-  const { address } = useTonConnect();
+  const { address } = useWalletData();
   const [checkPeriod, setCheckPeriod] = useState([false, false, false, true]);
   const { nftList } = useStakeInfo(address);
 
@@ -36,7 +36,7 @@ const useMyAssetFilter = () => {
   const handlePrintMyAssetFilter = () => {
     return nftList?.filter(item => {
       const nftState = getNftState(item.unstakableDate); // NFT 상태 계산 ("ongoing", "forthcoming", "expired")
-  
+
       return (
         (checkPeriod[0] && nftState === "ongoing") ||
         (checkPeriod[1] && nftState === "forthcoming") ||

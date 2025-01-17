@@ -1,0 +1,116 @@
+{
+  "version": "1.0.16",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "@tomo-inc/tomo-telegram-sdk",
+  "author": "BadmintonCode",
+  "module": "dist/tomo-telegram-sdk.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/tomo-telegram-sdk.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/tomo-telegram-sdk.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@eslint/compat": "^1.2.3",
+    "@eslint/js": "^9.15.0",
+    "@size-limit/preset-small-lib": "^11.1.4",
+    "@svgr/rollup": "^8.1.0",
+    "@types/node": "^20.4.5",
+    "@types/node-fetch": "^2.6.4",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "crypto-browserify": "^3.12.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "globals": "^15.12.0",
+    "husky": "^9.1.4",
+    "parcel": "^2.12.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "rollup-plugin-analyzer": "^4.0.0",
+    "rollup-plugin-copy-assets": "^2.0.3",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-svg": "^2.0.0",
+    "size-limit": "^11.1.4",
+    "stream-browserify": "^3.0.0",
+    "tailwindcss": "^3.4.13",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.16.0"
+  },
+  "dependencies": {
+    "@bitget-wallet/omni-connect": "2.0.2-beta",
+    "@mysten/sui": "^1.14.4",
+    "@okxconnect/core": "^1.4.2",
+    "@okxconnect/ui": "^1.4.3",
+    "@orbs-network/ton-access": "^2.3.3",
+    "@ramp-network/ramp-instant-sdk": "^4.0.5",
+    "@solana/spl-token": "^0.4.8",
+    "@solana/web3.js": "^1.95.2",
+    "@tanstack/react-query": "^5.51.24",
+    "@telegram-apps/sdk-react": "^2.0.12",
+    "@ton/core": "^0.57.0",
+    "@ton/ton": "^15.1.0",
+    "@tonconnect/ui": "^2.0.9",
+    "@tonconnect/ui-react": "^2.0.9",
+    "@uxuycom/web3-tg-sdk": "^0.1.6",
+    "@vkruglikov/react-telegram-web-app": "^2.1.9",
+    "@wagmi/core": "^2.13.4",
+    "animate.css": "^4.1.1",
+    "axios": "^1.7.4",
+    "bitcoinjs-lib": "^6.1.6",
+    "body-scroll-lock": "^4.0.0-beta.0",
+    "bs58": "^6.0.0",
+    "buffer": "^6.0.3",
+    "clsx": "^2.1.1",
+    "eventemitter3": "^5.0.1",
+    "jotai": "^2.9.3",
+    "okxconnect": "^1.2.1",
+    "qrcode.react": "^4.0.1",
+    "qs": "^6.13.0",
+    "shamirs-secret-sharing-ts": "^1.0.2",
+    "tailwind-merge": "^2.5.3",
+    "tonweb": "^0.0.66",
+    "uuid": "^9.0.1",
+    "viem": "^2.19.7",
+    "wagmi": "^2.12.6",
+    "zustand": "^4.5.5"
+  }
+}

@@ -9,7 +9,7 @@ import IcMenuAsset from "../../../assets/icons/Landing/ic_menuMyAsset.svg";
 import IcMenuNxt from "../../../assets/icons/Landing/ic_menuNxt.svg";
 import IcMenuNxtDisable from "../../../assets/icons/Landing/ic_menuNxt_Disable.svg";
 import IcMenuSwap from "../../../assets/icons/Landing/ic_menuSwap.svg";
-import useTonConnect from "../../../hooks/contract/useTonConnect";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 interface ButtonProps {
   top?: string;
@@ -19,7 +19,7 @@ interface ButtonProps {
   type: string;
 }
 const Button = (props: ButtonProps) => {
-  const { connected } = useTonConnect();
+  const { connected } = useWalletData();
   const navigate = useNavigate();
   const { title, page, type } = props;
 

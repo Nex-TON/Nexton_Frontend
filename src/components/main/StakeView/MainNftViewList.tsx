@@ -1,5 +1,5 @@
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
-import useTonConnect from "@/hooks/contract/useTonConnect";
+import { useWalletData } from "@/context/WalletConnectionProvider";
 
 import { MainNftViewListType } from "./StakeView";
 import StakeViewNFTs from "./StakeViewNFTs";
@@ -7,7 +7,7 @@ import StakeViewPoints from "./StakeViewPoints";
 import StakeViewPools from "./StakeViewPools";
 
 const MainNftViewList = ({ state }: { state: MainNftViewListType }) => {
-  const { address, connected } = useTonConnect();
+  const { address, connected } = useWalletData();
   const { nftList, isLoading } = useStakeInfo(address);
 
   switch (state) {

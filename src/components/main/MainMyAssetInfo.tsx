@@ -1,4 +1,4 @@
-import { useState,useRef } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { mutate } from "swr";
 import styled from "styled-components";
@@ -11,7 +11,7 @@ import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceC
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import { useEarningsbyAddress } from "@/hooks/api/dashboard/useEarningsbyAddress";
 import IcArrowRightGrey from "@/assets/icons/Stake/ic_arrow_right.svg";
-import NxtPointTooltip from "@/assets/image/nxt_point_tooltip.png";
+
 import {
   // TvlNotice,
   APYBox,
@@ -46,7 +46,6 @@ import MainButton from "./MainButton";
 type AssetsView = "dashboard" | "asset";
 
 const MainMyAssetInfo = ({
-  tonConnectUI,
   connected,
   address,
   balance,
@@ -65,9 +64,9 @@ const MainMyAssetInfo = ({
   isError: boolean;
 }) => {
   const navigate = useNavigate();
-
   const [view, setView] = useState<AssetsView>("dashboard");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [walletSelectModalOpen, setWalletSelectModalOpen] = useState(false);
 
   const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary();
   const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
@@ -76,7 +75,7 @@ const MainMyAssetInfo = ({
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
   const handleTouchEnd = () => {
-    const deltaX = touchStartX.current - touchEndX.current; 
+    const deltaX = touchStartX.current - touchEndX.current;
     if (Math.abs(deltaX) > 50) {
       if (deltaX > 0) {
         setView("asset");
@@ -86,13 +85,17 @@ const MainMyAssetInfo = ({
     }
   };
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.touches[0].clientX; 
+  const toggleSelectModal = () => {
+    setWalletSelectModalOpen(!walletSelectModalOpen);
   };
-  const handleTouchStart=(e:React.TouchEvent)=>{
-    touchStartX.current=e.touches[0].clientX;
-    touchEndX.current=e.touches[0].clientX;
-  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = e.touches[0].clientX;
+  };
 
   const handleViewChange = (view: AssetsView) => {
     setView(view);
@@ -115,11 +118,7 @@ const MainMyAssetInfo = ({
   };
 
   return (
-    <MainWrapper
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      onTouchStart={handleTouchStart}
-      >
+    <MainWrapper onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd} onTouchStart={handleTouchStart}>
       <MainInnerBox>
         <MainTopBox $marginBottom={connected || view === "dashboard"}>
           <MainTopLeft>
@@ -210,9 +209,13 @@ const MainMyAssetInfo = ({
             </DashboardBottomLeft>
           </DashboardBottomBox>
         ) : (
-          <AssetBottomBox onClick={() => {connected?navigate("/myasset/nftlist#specific-element-total-balance"):""}}>
+          <AssetBottomBox
+            onClick={() => {
+              connected ? navigate("/myasset/nftlist#specific-element-total-balance") : "";
+            }}
+          >
             {!connected ? (
-              <AssetBottomNotConnected onClick={() => tonConnectUI.connectWallet()} id="mainmyassetinfoconnectwallet">
+              <AssetBottomNotConnected onClick={() => toggleSelectModal()} id="mainmyassetinfoconnectwallet">
                 <AssetBottomNotConnectedImg>
                   <img src={MyAssetNotConnected} alt="my asset not connected image" />
                   <AssetBottomNotConnectedText>
@@ -286,8 +289,11 @@ const MainMyAssetInfo = ({
           </AssetBottomBox>
         )}
       </MainInnerBox>
-
-      <MainButton />
+      <MainButton
+        toggled={walletSelectModalOpen}
+        handleToggle={toggleSelectModal}
+        style={{ margin: "1.5rem 0 2.7rem 0" }}
+      />
     </MainWrapper>
   );
 };
@@ -297,5 +303,4 @@ export default MainMyAssetInfo;
 const RightItemWrapper = styled.div`
   display: flex;
   flex-direction: row;
-
 `;

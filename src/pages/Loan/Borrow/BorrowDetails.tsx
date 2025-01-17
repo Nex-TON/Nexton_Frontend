@@ -10,7 +10,6 @@ import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
 import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
 // import TokenInput from "@/components/stake/common/TokensInput.tsx";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
-import useTonConnect from "@/hooks/contract/useTonConnect.ts";
 import { isDevMode } from "@/utils/isDevMode.ts";
 import { limitDecimals } from "@/utils/limitDecimals.ts";
 import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
@@ -38,7 +37,7 @@ const BorrowDetails = () => {
   const [stakingInfo, setStakingInfo] = useState<any>([{ items: [] }]);
   const { id } = useParams();
   const { nftDetail } = useNFTDetail(Number(id));
-  const {data:tokenRate,isLoading,error } = useTokenRate();
+  const { data: tokenRate, isLoading, error } = useTokenRate();
   // const { data: coinPrice } = useCoinPrice("TON", "USD");
 
   // const schema = z.object({
@@ -100,7 +99,7 @@ const BorrowDetails = () => {
     if (nftDetail) {
       setAlwaysVisibleInfo([
         { label: "NFT ID", value: `${nftDetail[0].nftId}` },
-        { label: "Token", value: `${nftDetail[0].tokenSort=="nxTON"?"NxTON":nftDetail[0].tokenSort}`},
+        { label: "Token", value: `${nftDetail[0].tokenSort == "nxTON" ? "NxTON" : nftDetail[0].tokenSort}` },
         { label: "LTV", value: "95%" },
       ]);
 
@@ -108,7 +107,10 @@ const BorrowDetails = () => {
         {
           header: "Staking info",
           items: [
-            { label: "Principal", value: `${nftDetail[0].principal} ${nftDetail[0].tokenSort=="nxTON"?"NxTON":nftDetail[0].tokenSort}` },
+            {
+              label: "Principal",
+              value: `${nftDetail[0].principal} ${nftDetail[0].tokenSort == "nxTON" ? "NxTON" : nftDetail[0].tokenSort}`,
+            },
             { label: "Nominator Pool", value: nftDetail[0].nominator },
             { label: "Leveraged", value: `${nftDetail[0].leverage}x` },
             { label: "Lockup period", value: `${nftDetail[0].lockPeriod} days` },
@@ -137,7 +139,7 @@ const BorrowDetails = () => {
   //     state: { borrowAmount: data.borrowAmount },
   //   })
   // };
-  const borrowAmount =nftDetail&&(nftDetail[0].principal*tokenRate?.tonToNextonRate); //for the test
+  const borrowAmount = nftDetail && nftDetail[0].principal * tokenRate?.tonToNextonRate; //for the test
 
   const handleSubmit = () => {
     console.log(`borrow amount:${borrowAmount}`);
@@ -173,10 +175,12 @@ const BorrowDetails = () => {
           <BorrowRateBox>
             <BorrowRateBoxHeader>
               <BorrowRateBoxHeaderLeft>Borrow</BorrowRateBoxHeaderLeft>
-              <BorrowRateBoxHeaderRight>1NXT ={limitDecimals(tokenRate?.nxtonToTonRate,3)}TON</BorrowRateBoxHeaderRight>
+              <BorrowRateBoxHeaderRight>
+                1NXT ={limitDecimals(tokenRate?.nxtonToTonRate, 3)}TON
+              </BorrowRateBoxHeaderRight>
             </BorrowRateBoxHeader>
             <BorrowRateBoxDivider />
-            <BorrowRateBoxBottom>{limitDecimals(borrowAmount,3)} NxTON</BorrowRateBoxBottom>
+            <BorrowRateBoxBottom>{limitDecimals(borrowAmount, 3)} NxTON</BorrowRateBoxBottom>
             {/* <BorrowRateBoxBottom>{nftDetail[0].principal} nxTON</BorrowRateBoxBottom> */}
           </BorrowRateBox>
 

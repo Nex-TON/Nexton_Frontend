@@ -24,6 +24,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      crypto: "crypto-browserify",
       "@": path.resolve(__dirname, "./src"),
       "@components": path.resolve(__dirname, "./src/components"),
       buffer: "rollup-plugin-node-polyfills/polyfills/buffer-es6",
