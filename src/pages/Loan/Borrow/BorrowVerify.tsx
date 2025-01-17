@@ -49,7 +49,10 @@ const BorrowVerify = () => {
     {
       items: [
         { label: "Borrowed NxTON", value: `${limitDecimals(loanInfo?.nxTonAmount, 3)} NxTON` },
-        { label: "Principal", value: `${limitDecimals(loanInfo?.principal, 3)} ${nftDetail&&nftDetail[0].tokenSort=="nxTON"?"NxTON":nftDetail&&nftDetail[0].tokenSort}` },
+        {
+          label: "Principal",
+          value: `${limitDecimals(loanInfo?.principal, 3)} ${nftDetail && nftDetail[0].tokenSort == "nxTON" ? "NxTON" : nftDetail && nftDetail[0].tokenSort}`,
+        },
         { label: "LTV", value: `${limitDecimals(loanInfo?.loanToValue * 100, 2)}%` },
       ],
     },
@@ -102,13 +105,12 @@ const BorrowVerify = () => {
           baseURL: `${import.meta.env.VITE_BASE_URL}`,
         });
         const validation = response.status;
-          if (validation && validation == 200 && timeRotate <= 24) {
-            break;
-        }else if (validation && validation == 202 && timeRotate <= 24){
-        }
-        else{
+        if (validation && validation == 200 && timeRotate <= 24) {
           break;
-        };
+        } else if (validation && validation == 202 && timeRotate <= 24) {
+        } else {
+          break;
+        }
         timeRotate += 1;
         await delay(5000);
       }
@@ -144,9 +146,7 @@ const BorrowVerify = () => {
             <h1>Loan</h1>
           </BorrowHeaderBoxTitle>
         </BorrowHeaderBox>
-
         <ProgressBar currentStep={3} />
-
         <div style={{ marginTop: "2rem" }}>
           <StakingInfo
             isExpandable={false}
@@ -155,11 +155,14 @@ const BorrowVerify = () => {
             stakingInfoItems={stakingInfoItems}
           />
         </div>
-
         {!isDevMode ? (
           <MainButton text="Confirm loan" onClick={() => setModal({ type: "confirmBorrow", toggled: true })} />
         ) : (
-          <button onClick={() => setModal({ type: "confirmBorrow", toggled: true })}>Confirm loan</button>
+          <>
+            {!(modal.type === "confirmBorrow" && modal.toggled) && (
+              <button onClick={() => setModal({ type: "confirmBorrow", toggled: true })}>Confirm loan</button>
+            )}
+          </>
         )}
       </BorrowWrapper>
 
