@@ -44,6 +44,7 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       if (isConnectionValid(savedWalletType)) {
         console.log("Connection valid. Setting active wallet type.");
         setActiveWalletType(savedWalletType);
+        tomoWallet.setActive(true);
       }
     }
   }, [activeWalletType]);
