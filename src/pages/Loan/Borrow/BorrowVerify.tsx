@@ -160,7 +160,11 @@ const BorrowVerify = () => {
         {!isDevMode ? (
           <MainButton text="Confirm loan" onClick={() => setModal({ type: "confirmBorrow", toggled: true })} />
         ) : (
-          <button onClick={() => setModal({ type: "confirmBorrow", toggled: true })}>Confirm loan</button>
+          <>
+          {!(modal.type === "confirmBorrow" && modal.toggled) && (
+            <button onClick={() => setModal({ type: "confirmBorrow", toggled: true })}>Confirm loan</button>
+          )}
+        </>
         )}
       </BorrowWrapper>
 
