@@ -7,21 +7,20 @@ import NewsTomo from "./NewsTomo";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-//import Slider from "react-slick";
 import Slider from "react-slick";
-import NewsBackground from "../../assets/image/news_tomo.svg";
 
 const NextonNews = () => {
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    arrows: true,
+    arrows: false,
     autoplay: true, // 자동 재생
-    autoplaySpeed: 3000, // 자동재생속도
+    autoplaySpeed: 5000, // 자동재생속도
     slidesToShow: 1,
     slidesToScroll: 1,
-    centerPadding: "0",
+    centerMode: true,
+    centerPadding: "3%", // 양옆에 보일 부분 설정 (픽셀 또는 % 사용 가능)
   };
   return (
     <>
@@ -107,6 +106,7 @@ const ContainerWrapper = styled.div`
 
 const Title = styled.div`
   color: #2f3038;
+  padding: 2.7rem 1rem 0 1rem;
   ${({ theme }) => theme.fonts.Nexton_Title_Medium_1};
 `;
 
@@ -118,7 +118,6 @@ const TextLine = styled.div`
 
 const LayoutWrapper = styled.div`
   gap: 1.5rem;
-  padding: 2.7rem 1rem;
   width: 100%;
   height: 224px;
   background-color: white;
@@ -127,7 +126,7 @@ const LayoutWrapper = styled.div`
 `;
 
 const SliderWrapper = styled.div`
-  width: 100%;
+  padding-left: 1rem;
   .slick-slider {
     width: 100%;
   }
@@ -136,14 +135,12 @@ const SliderWrapper = styled.div`
     display: flex;
   }
   .slick-slide {
-    margin: 0;
-    padding: 0;
     width: 100%;
-  }
+    transform: translateX(-3.6%); 
 `;
 
 const SliderItem = styled.div`
   width: 100%;
   height: 125px;
-  padding: 0 2%;
+  padding: 0 0.8%;
 `;
