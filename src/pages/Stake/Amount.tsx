@@ -32,7 +32,6 @@ const Amount = () => {
   const [modal, setModal] = useState(false);
   const [tokenSort, setTokenSort] = useState("TON");
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
-
   const handleTokenSelect = selectedToken => {
     setTokenSort(selectedToken); // Update token selection
     setModal(false); // Close modal
@@ -93,16 +92,16 @@ const Amount = () => {
       });
     }
   }, [connected, setError]);
-
   // Conversion function
   const convertAmount = useMemo(() => {
     return (amount: string | number) => {
       if (coinPrice && amount) {
-        return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
+        if (tokenSort === "TON") return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`
+        else return `$${limitDecimals((coinPrice?.rates?.TON?.prices?.USD * Number(amount)/0.95), 2)}`;
       }
       return "$0.00";
     };
-  }, [coinPrice]);
+  }, [coinPrice,tokenSort]);
 
   const onSubmit = data => {
     setStakingInfo(prev => ({
@@ -122,9 +121,11 @@ const Amount = () => {
         <Title title="Put stake amount" />
         <BalanceWrapper>
           {tokenSort === "TON" ? (
-            <BalanceText>Balance : {balance ? numberCutter(balance) : `-.--`}</BalanceText>
+            <BalanceText>Balance : {balance ? numberCutter(balance) : balance == 0 ? "0.00" : `-.--`}</BalanceText>
           ) : (
-            <BalanceText>Balance : {nxTonBalance ? numberCutter(Number(nxTonBalance)) : `-.--`}</BalanceText>
+            <BalanceText>
+              Balance : {nxTonBalance ? (balance == 0 ? "0.00" : numberCutter(Number(nxTonBalance))) : `-.--`}
+            </BalanceText>
           )}
         </BalanceWrapper>
 

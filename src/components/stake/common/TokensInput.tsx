@@ -3,7 +3,6 @@ import { Controller } from "react-hook-form";
 import { NumericFormat, NumericFormatProps } from "react-number-format";
 import styled from "styled-components";
 import IcError from "@/assets/icons/Stake/ic_error.svg";
-import { numberCutter } from "@/utils/numberCutter";
 
 interface TokenInputProps extends NumericFormatProps {
   name: string;
