@@ -100,7 +100,7 @@ const BorrowDetails = () => {
       setAlwaysVisibleInfo([
         { label: "NFT ID", value: `${nftDetail[0].nftId}` },
         { label: "Token", value: `${nftDetail[0].tokenSort == "nxTON" ? "NxTON" : nftDetail[0].tokenSort}` },
-        { label: "LTV", value: "95%" },
+        { label: "LTV", value: `${nftDetail[0].loanToValue}` },
       ]);
 
       setStakingInfo([
@@ -139,7 +139,8 @@ const BorrowDetails = () => {
   //     state: { borrowAmount: data.borrowAmount },
   //   })
   // };
-  const borrowAmount = nftDetail && nftDetail[0].principal * tokenRate?.tonToNextonRate; //for the test
+  //const borrowAmount = nftDetail && nftDetail[0].principal * 0.95; //for the test
+  const borrowAmount = nftDetail && nftDetail[0].principal * (nftDetail[0].tokenSort == "nxTON" ? 0.9 : 0.95);
 
   const handleSubmit = () => {
     console.log(`borrow amount:${borrowAmount}`);
