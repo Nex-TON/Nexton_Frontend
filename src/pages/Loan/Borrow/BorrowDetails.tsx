@@ -100,7 +100,7 @@ const BorrowDetails = () => {
       setAlwaysVisibleInfo([
         { label: "NFT ID", value: `${nftDetail[0].nftId}` },
         { label: "Token", value: `${nftDetail[0].tokenSort == "nxTON" ? "NxTON" : nftDetail[0].tokenSort}` },
-        { label: "LTV", value: `${nftDetail[0].loanToValue}` },
+        { label: "LTV", value: `${nftDetail[0].loanToValue * 100}` },
       ]);
 
       setStakingInfo([
