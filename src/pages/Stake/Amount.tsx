@@ -32,7 +32,7 @@ const Amount = () => {
   const [modal, setModal] = useState(false);
   const [tokenSort, setTokenSort] = useState("TON");
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
-
+  console.log(balance);
   const handleTokenSelect = selectedToken => {
     setTokenSort(selectedToken); // Update token selection
     setModal(false); // Close modal
@@ -122,9 +122,11 @@ const Amount = () => {
         <Title title="Put stake amount" />
         <BalanceWrapper>
           {tokenSort === "TON" ? (
-            <BalanceText>Balance : {balance ? numberCutter(balance) : `-.--`}</BalanceText>
+            <BalanceText>Balance : {balance ? numberCutter(balance) : balance == 0 ? "0.00" : `-.--`}</BalanceText>
           ) : (
-            <BalanceText>Balance : {nxTonBalance ? numberCutter(Number(nxTonBalance)) : `-.--`}</BalanceText>
+            <BalanceText>
+              Balance : {nxTonBalance ? (balance == 0 ? "0.00" : numberCutter(Number(nxTonBalance))) : `-.--`}
+            </BalanceText>
           )}
         </BalanceWrapper>
 
