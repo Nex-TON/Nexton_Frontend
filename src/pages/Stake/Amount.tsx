@@ -21,11 +21,13 @@ import { TokenFilterModal } from "@/components/stake/Filter/TokenFilterModal";
 import NXTPointImg from "@/assets/image/NXTPoint.png";
 import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import { useWalletData } from "@/context/WalletConnectionProvider";
+import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 
 const tele = (window as any).Telegram.WebApp;
 
 const Amount = () => {
   const { address, balance, connected, refreshTonData } = useWalletData();
+  const { data: tokenRate } = useTokenRate();
   const navigate = useNavigate();
   const [, setStakingInfo] = useRecoilState(stakingAtom);
   const { data: coinPrice } = useCoinPrice("TON", "USD");
@@ -95,9 +97,11 @@ const Amount = () => {
   // Conversion function
   const convertAmount = useMemo(() => {
     return (amount: string | number) => {
+      //
       if (coinPrice && amount) {
         if (tokenSort === "TON") return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
-        else return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * 0.95, 2)}`;
+        else
+          return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * (Number(amount) / tokenRate?.tonToNextonRate), 2)}`;
       }
       return "$0.00";
     };
