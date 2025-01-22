@@ -10,6 +10,7 @@ import { nftInfo } from "../../../types/Nft";
 import { getDDayText, getNftState } from "@/utils/getNftState";
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { limitDecimals } from "@/utils/limitDecimals";
+import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 
 interface NftItemProps {
   item: nftInfo;
@@ -17,9 +18,10 @@ interface NftItemProps {
 
 const NftItem = (props: NftItemProps) => {
   const { item } = props;
-  const { nftId, unstakableDate, principal,tokenSort } = item;
+  const { nftId, unstakableDate, principal, tokenSort } = item;
   const [, setImageSize] = useRecoilState(imageSizeAtom);
   const { data: coinPrice } = useCoinPrice("TON", "USD");
+  const { data: tokenRate } = useTokenRate();
   const navigate = useNavigate();
 
   const convertAmount = useMemo(() => {
@@ -75,11 +77,17 @@ const NftItem = (props: NftItemProps) => {
       {SwitchDDayNftImage()}
       <NFTBottomINfoWrapper>
         <TopInfo>
-          <p>{getDDayText(unstakableDate)}</p> <p>{principal} {tokenSort==="TON"?"TON":"NxTON"}</p>
+          <p>{getDDayText(unstakableDate)}</p>
+          <p>
+            {principal}
+            {tokenSort === "TON" ? "TON" : "NxTON"}
+          </p>
         </TopInfo>
         <BottomInfo>
           <p>{new Date(unstakableDate).toLocaleDateString()}</p>
-          <p>{convertAmount(principal)}</p>
+          <p>
+            {tokenSort === "TON" ? convertAmount(principal) : convertAmount(principal / tokenRate?.tonToNextonRate)}
+          </p>
         </BottomInfo>
       </NFTBottomINfoWrapper>
     </NFTItemWrapper>
@@ -92,7 +100,7 @@ const NftIdTag = styled.div`
   position: absolute;
   top: 1.4rem;
   border-radius: 0px 5px 5px 0px;
-  background: rgba(0, 0, 0, 0.10);
+  background: rgba(0, 0, 0, 0.1);
 
   gap: 0.5rem;
   padding: 0.2rem 0.6rem 0.2rem 1.2rem;
