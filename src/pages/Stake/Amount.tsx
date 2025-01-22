@@ -96,12 +96,12 @@ const Amount = () => {
   const convertAmount = useMemo(() => {
     return (amount: string | number) => {
       if (coinPrice && amount) {
-        if (tokenSort === "TON") return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`
-        else return `$${limitDecimals((coinPrice?.rates?.TON?.prices?.USD * Number(amount)/0.95), 2)}`;
+        if (tokenSort === "TON") return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
+        else return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * 0.95, 2)}`;
       }
       return "$0.00";
     };
-  }, [coinPrice,tokenSort]);
+  }, [coinPrice, tokenSort]);
 
   const onSubmit = data => {
     setStakingInfo(prev => ({
