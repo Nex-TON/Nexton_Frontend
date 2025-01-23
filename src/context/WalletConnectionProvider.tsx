@@ -91,7 +91,6 @@ const isConnectionValid = (type: WalletTypes): boolean => {
     return true;
   } else if (type === "TonConnect") {
     if (!localStorage.getItem("ton-connect-ui_last-selected-wallet-info")) return false;
-    if (!localStorage.getItem("ton-connect-storage_http-bridge-gateway::https://bridge.tonapi.io/bridge")) return false;
     if (!localStorage.getItem("ton-connect-ui_wallet-info")) return false;
     if (!localStorage.getItem("ton-connect-ui_preferred-wallet")) return false;
     return true;
