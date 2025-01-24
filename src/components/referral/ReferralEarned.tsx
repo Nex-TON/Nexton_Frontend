@@ -25,7 +25,7 @@ export const ReferralEarned = ({ nxtPoints, referPoints }: ReferralEarnedProps) 
           <EarnedPointWrapper>
             <img src={IcRefersPoint} alt="earned refers point icon" />
             <EarnedPoint>
-              {limitDecimals(referPoints, 0)}
+              {limitDecimals(referPoints, 1)}
               <EarnedPointUnit>Refer Points</EarnedPointUnit>
             </EarnedPoint>
           </EarnedPointWrapper>
