@@ -4,11 +4,11 @@ import IcNXTPoint from "@/assets/icons/Referral/ic_nxt_points.png";
 import IcRefersPoint from "@/assets/icons/Referral/ic_refer_points.png";
 import { limitDecimals } from "@/utils/limitDecimals";
 
-interface ReferralEarnedProps{
-    nxtPoints:number;
-    referPoints:number;
+interface ReferralEarnedProps {
+  nxtPoints: number;
+  referPoints: number;
 }
-export const ReferralEarned = ({nxtPoints,referPoints}:ReferralEarnedProps) => {
+export const ReferralEarned = ({ nxtPoints, referPoints }: ReferralEarnedProps) => {
   return (
     <>
       <EarnedWrapper>
@@ -17,7 +17,7 @@ export const ReferralEarned = ({nxtPoints,referPoints}:ReferralEarnedProps) => {
           <EarnedPointWrapper>
             <img src={IcNXTPoint} alt="earned nxt point icon" />
             <EarnedPoint>
-              {limitDecimals(nxtPoints,0)}
+              {limitDecimals(nxtPoints, 1)}
               <EarnedPointUnit>NXT Points</EarnedPointUnit>
             </EarnedPoint>
           </EarnedPointWrapper>
@@ -25,7 +25,7 @@ export const ReferralEarned = ({nxtPoints,referPoints}:ReferralEarnedProps) => {
           <EarnedPointWrapper>
             <img src={IcRefersPoint} alt="earned refers point icon" />
             <EarnedPoint>
-              {limitDecimals(referPoints,0)}
+              {limitDecimals(referPoints, 0)}
               <EarnedPointUnit>Refer Points</EarnedPointUnit>
             </EarnedPoint>
           </EarnedPointWrapper>
