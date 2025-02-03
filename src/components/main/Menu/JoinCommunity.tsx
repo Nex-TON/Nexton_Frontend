@@ -7,6 +7,7 @@ import IcMenuGithub from "@/assets/icons/Menu/ic_menu_github.svg";
 import IcMenuTwitter from "@/assets/icons/Menu/ic_menu_twitter.svg";
 import IcMenuTelegram from "@/assets/icons/Menu/ic_menu_telegram.svg";
 import IcMenuSupport from "@/assets/icons/Menu/ic_menu_support.svg";
+import IcMenuGitbook from "@/assets/icons/Menu/ic_menu_gitbook.svg";
 
 const JoinCommunity = () => {
   const handleNewTap = (url: string) => {
@@ -46,6 +47,16 @@ const JoinCommunity = () => {
             Github
           </div>
           <img src={IcNftMoreArrow} alt="moreArrow" width={10} id="menu page github button" />
+        </JoinCommunityButton>
+        <JoinCommunityButton
+          onClick={() => handleNewTap("https://blockwavelabs-1.gitbook.io/nexton")}
+          id="menu page github button"
+        >
+          <div id="menu page github button">
+            <img src={IcMenuGitbook} alt="gitbook" id="menu page gitbook button" />
+            Gitbook
+          </div>
+          <img src={IcNftMoreArrow} alt="moreArrow" width={10} id="menu page gitbook button" />
         </JoinCommunityButton>
         <JoinCommunityButton $inactive>
           <div>
@@ -98,7 +109,7 @@ const JoinCommunityButton = styled.button<{ $inactive?: boolean }>`
   border: none;
   border-radius: 15px;
   background-color: ${({ $inactive }) => ($inactive ? "#E1E4E6" : "#FFF")};
-  box-shadow:${({ $inactive }) => ($inactive ? "none" : "0px 0px 12px 0px rgba(206, 216, 225, 0.50)")};
+  box-shadow: ${({ $inactive }) => ($inactive ? "none" : "0px 0px 12px 0px rgba(206, 216, 225, 0.50)")};
 
   cursor: ${({ $inactive }) => ($inactive ? "default" : "pointer")};
 
