@@ -234,8 +234,8 @@ const Main: React.FC = () => {
   return (
     <>
       {modal && <WelcomeModal toggleModal={toggleModal} />}
-      {officialModal && <OfficialAnouncementModal toggleModal={toggleOfficialModal} />}
       {agreementModal && <AgreementModal toggleModal={toggleAgreementModal} onAccept={onAcceptAgreementModal} />}
+      {officialModal && <OfficialAnouncementModal toggleModal={toggleOfficialModal} />}
       <MainWrapper>
         <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} />
         <MainMyAssetInfo
