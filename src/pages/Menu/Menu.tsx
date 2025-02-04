@@ -5,6 +5,7 @@ import { styled } from "styled-components";
 import JoinCommunity from "@/components/main/Menu/JoinCommunity";
 import TopBar from "@/components/main/Menu/TopBar";
 import UpcomingMenu from "@/components/main/Menu/UpcomingMenu";
+import Agreement from "@/components/main/Menu/Agreement";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -29,6 +30,7 @@ const Menu = () => {
     <MenuWrapper>
       <MenuPageHeader>Menu</MenuPageHeader>
       <TopBar />
+      <Agreement />
       <JoinCommunity />
       <UpcomingMenu />
     </MenuWrapper>
