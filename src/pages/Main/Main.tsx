@@ -26,6 +26,7 @@ import NextonNews from "@/components/main/NextonNews";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 
 import { useWalletData } from "@/context/WalletConnectionProvider";
+import { AgreementModal } from "@/components/main/Modal/AgreementModal";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -51,6 +52,8 @@ const Main: React.FC = () => {
 
   const [modal, setModal] = useState(false);
   const [officialModal, setOfficialModal] = useState(false);
+  const [agreementModal, setAgreementModal] = useState(false);
+
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const userId = tele?.initDataUnsafe?.user?.id;
@@ -99,11 +102,22 @@ const Main: React.FC = () => {
     }
   }, []);
 
-  //사용자가 들어오자 마자 nxTON이 상장되었다는 소식 팝업으로 알림
+  // 사용자가 들어오자 마자 nxTON이 상장되었다는 소식 팝업으로 알림
   useEffect(() => {
     const hasSeenOfficialNotice = localStorage.getItem("hasSeenOfficialNotice");
     if (!hasSeenOfficialNotice) {
       setOfficialModal(true);
+    }
+  }, []);
+
+  // 개인 정보 수집에 동의하지 않은 사용자에게 팝업으로 알림
+  useEffect(() => {
+    const agreePrivacyPolicy = localStorage.getItem("agreePrivacyPolicy");
+    const agreeTermsOfUse = localStorage.getItem("agreeTermsOfUse");
+    if (!agreePrivacyPolicy || !agreeTermsOfUse) {
+      setAgreementModal(true);
+    } else {
+      setAgreementModal(false);
     }
   }, []);
 
@@ -179,7 +193,6 @@ const Main: React.FC = () => {
 
   // Calculate the total amount staked
   const totalStaked = useMemo(() => {
-
     const nftTotal =
       nftList?.reduce((acc, nft) => {
         if (nft.tokenSort === "TON") {
@@ -210,9 +223,20 @@ const Main: React.FC = () => {
     localStorage.setItem("hasSeenOfficialNotice", "true");
   }, []);
 
+  // agreement modal
+  const toggleAgreementModal = useCallback(() => {
+    setAgreementModal(prev => !prev);
+  }, []);
+
+  const onAcceptAgreementModal = useCallback(() => {
+    localStorage.setItem("agreePrivacyPolicy", "true");
+    localStorage.setItem("agreeTermsOfUse", "true");
+  }, []);
+
   return (
     <>
       {modal && <WelcomeModal toggleModal={toggleModal} />}
+      {agreementModal && <AgreementModal toggleModal={toggleAgreementModal} onAccept={onAcceptAgreementModal} />}
       {officialModal && <OfficialAnouncementModal toggleModal={toggleOfficialModal} />}
       <MainWrapper>
         <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} />
