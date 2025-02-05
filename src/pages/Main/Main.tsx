@@ -52,7 +52,7 @@ const Main: React.FC = () => {
 
   const [modal, setModal] = useState(false);
   const [officialModal, setOfficialModal] = useState(false);
-  const [agreementModal, setAgreementModal] = useState(true);
+  const [agreementModal, setAgreementModal] = useState(false);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -116,6 +116,8 @@ const Main: React.FC = () => {
     const agreeTermsOfUse = localStorage.getItem("agreeTermsOfUse");
     if (!agreePrivacyPolicy || !agreeTermsOfUse) {
       setAgreementModal(true);
+    } else {
+      setAgreementModal(false);
     }
   }, []);
 
