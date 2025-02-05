@@ -47,15 +47,6 @@ const AgreementToggle = (props: ToggleProps) => {
       </ToggleContainer>
       {/* Desc 컴포넌트를 활용*/}
       {/* Toggle Switch가 ON인 상태일 경우에 Desc 컴포넌트 내부의 텍스트를 'Toggle Switch ON'으로, 그렇지 않은 경우 'Toggle Switch OFF'. 조건부 렌더링을 활용. */}
-      {isOn === false ? (
-        <Desc>
-          <div className="OFF"></div>
-        </Desc>
-      ) : (
-        <Desc>
-          <div className="ON"></div>
-        </Desc>
-      )}
     </>
   );
 };
@@ -92,10 +83,4 @@ const ToggleContainer = styled.div`
     left: 16.5px;
     transition: 0.3s;
   }
-`;
-
-const Desc = styled.div`
-  //설명 부분의 CSS를 구현
-  text-align: center;
-  margin: 20px;
 `;
