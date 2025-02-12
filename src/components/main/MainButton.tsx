@@ -1,14 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 
 import IcTonLogo from "@/assets/icons/Main/mainbutton_ton_logo.svg";
 import IcWalletStake from "@/assets/icons/Landing/ic_wallet_stake.svg";
-import IcArrowDown from "@/assets/icons/Main/arrow_down.svg";
-import IcArrowUp from "@/assets/icons/Main/arrow_up.svg";
-import IcTon from "@/assets/icons/Main/ton_icon.svg";
-import IcTomo from "@/assets/icons/Main/tomo_icon.svg";
-import { useWallet } from "@/context/WalletConnectionProvider";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const MainButton = ({
   style,
@@ -17,11 +12,10 @@ const MainButton = ({
 }: {
   style?: React.CSSProperties;
   toggled: boolean;
+  connected: boolean;
   handleToggle: () => void;
 }) => {
-  const { getActiveWallet, setActiveWalletType, connect } = useWallet();
-  const activeWallet = getActiveWallet();
-  const connected = activeWallet?.connected || false;
+  const { connected } = useTonConnect();
 
   const navigate = useNavigate();
 
@@ -33,7 +27,6 @@ const MainButton = ({
 
   return (
     <>
-      {toggled && <Overlay onClick={handleToggle} />}
       {connected ? (
         <TonWalletWrapper
           onClick={handleSwitchWalletFunction}
@@ -50,10 +43,10 @@ const MainButton = ({
           <TonWalletWrapper onClick={handleToggle} style={style} id="main button connect wallet" $connected={connected}>
             <TonConnectCenterBox id="main button connect wallet">
               <img src={IcTonLogo} alt="connect" id="main button connect wallet" /> Connect wallet{" "}
-              <img src={toggled ? IcArrowUp : IcArrowDown} alt="" />
+              {/* <img src={toggled ? IcArrowUp : IcArrowDown} alt="" /> */}
             </TonConnectCenterBox>
           </TonWalletWrapper>
-          {toggled && (
+          {/* {toggled && (
             <CollectWalletToggleWrapper>
               <WalletCollection
                 onClick={() => {
@@ -77,7 +70,7 @@ const MainButton = ({
                 Connect TOMO Wallet
               </WalletCollection>
             </CollectWalletToggleWrapper>
-          )}
+          )} */}
         </WalletConnectWrapper>
       )}
     </>

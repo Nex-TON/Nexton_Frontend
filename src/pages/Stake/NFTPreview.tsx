@@ -21,7 +21,7 @@ import { useJettonWallet } from "@/hooks/contract/useJettonWallet";
 import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom, stakingInputAtom } from "@/lib/atom/staking";
 import { isDevMode } from "@/utils/isDevMode";
-import { useWalletData } from "@/context/WalletConnectionProvider";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -30,7 +30,7 @@ interface ModalState {
   toggled: boolean;
 }
 const NFTPreview = () => {
-  const { refreshTonData } = useWalletData();
+  const { refreshTonData } = useTonConnect();
 
   const stakingInfo = useRecoilValue(stakingAtom);
   const stakeInfoReset = useResetRecoilState(stakingAtom);

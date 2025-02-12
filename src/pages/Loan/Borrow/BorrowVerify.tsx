@@ -20,7 +20,7 @@ import { limitDecimals } from "@/utils/limitDecimals.ts";
 import BasicModal from "@/components/common/Modal/BasicModal.tsx";
 import axios from "axios";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail.tsx";
-import { useWalletData } from "@/context/WalletConnectionProvider.tsx";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -35,7 +35,7 @@ const BorrowVerify = () => {
   const { id } = useParams();
   const location = useLocation();
   const { sendWithData } = Contract.transferNft(id);
-  const { address } = useWalletData();
+  const { address } = useTonConnect();
   const { borrowAmount } = location.state || {};
   const { data: loanInfo } = useLoanDetail(Number(id), address, "pre");
   const telegramId = useRecoilValue(telegramAtom);
@@ -161,10 +161,10 @@ const BorrowVerify = () => {
           <MainButton text="Confirm loan" onClick={() => setModal({ type: "confirmBorrow", toggled: true })} />
         ) : (
           <>
-          {!(modal.type === "confirmBorrow" && modal.toggled) && (
-            <button onClick={() => setModal({ type: "confirmBorrow", toggled: true })}>Confirm loan</button>
-          )}
-        </>
+            {!(modal.type === "confirmBorrow" && modal.toggled) && (
+              <button onClick={() => setModal({ type: "confirmBorrow", toggled: true })}>Confirm loan</button>
+            )}
+          </>
         )}
       </BorrowWrapper>
 

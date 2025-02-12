@@ -14,12 +14,12 @@ import { WelcomeModal } from "@/components/main/Modal/WelcomeModal";
 import { useManageReferral } from "@/hooks/api/referral/useManageReferral";
 import { useTrackReferral } from "@/hooks/api/referral/useTrackReferral";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 import FloatCommunityIc from "@/assets/icons/Main/floating_community.svg";
 import FloatSupportIc from "@/assets/icons/Main/floating_support.svg";
 import FloatCloseIc from "@/assets/icons/Main/floating_close.svg";
 import FloatCsIc from "@/assets/icons/Main/floating_cs.svg";
 import { OfficialAnouncementModal } from "@/components/main/Modal/OfficialAnnouncementModal";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 import "react-toastify/dist/ReactToastify.css";
 import NextonNews from "@/components/main/NextonNews";
@@ -41,8 +41,7 @@ const Main: React.FC = () => {
     setIsFbOpen(false);
   };
 
-  const { tonConnectUI } = useTonConnect();
-  const { address, balance, refreshTonData, connected } = useWalletData();
+  const { address, balance, refreshTonData, connected, tonConnectUI } = useTonConnect();
 
   const { nftList, isLoading, isError } = useStakeInfo(address);
   const { borrowList } = useRepayNftList(address);

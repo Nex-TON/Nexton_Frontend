@@ -1,8 +1,8 @@
-import { useWalletData } from "@/context/WalletConnectionProvider";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 
 const useBorrowNftListFilter = () => {
-  const { address } = useWalletData();
+  const { address } = useTonConnect();
   const { borrowList } = useRepayNftList(address);
 
   const handlePrintBorrowListFilter = () => {

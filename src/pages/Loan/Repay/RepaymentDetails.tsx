@@ -15,7 +15,7 @@ import { toNano } from "@ton/core";
 import { limitDecimals } from "@/utils/limitDecimals";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { globalError } from "@/lib/atom/globalError";
-import { useWalletData } from "@/context/WalletConnectionProvider";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 import { postRepayInfo } from "@/api/postRepayInfo";
 import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 
@@ -43,7 +43,7 @@ const RepaymentDetails = () => {
   const { id } = useParams();
   const { sendMessage, refresh, isLoading: contractLoading } = Contract.repay(id);
   const { nftDetail } = useNFTDetail(Number(id));
-  const { address } = useWalletData();
+  const { address } = useTonConnect();
   const [isLoading, setIsLoading] = useState(false);
   const setError = useSetRecoilState(globalError);
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));

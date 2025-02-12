@@ -8,12 +8,12 @@ import { UserInfoCard } from "@/components/myAsset/UserInfoCard";
 import MainButton from "@/components/main/MainButton";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
 import { TotalBalance } from "@/components/myAsset/TotalBalance";
-import { useWalletData } from "@/context/WalletConnectionProvider";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
 
 const MyAsset = () => {
-  const { connected } = useWalletData();
+  const { connected } = useTonConnect();
 
   const { pathname } = useLocation();
   const [toggled, setToggled] = useState<boolean>(false);
@@ -50,6 +50,7 @@ const MyAsset = () => {
       <MyAssetContentWrapper>
         <UserInfoCard />
         <MainButton
+          connected={connected}
           toggled={toggled}
           handleToggle={() => setToggled(!toggled)}
           style={{ margin: "1.5rem 0 6.1rem 0" }}
