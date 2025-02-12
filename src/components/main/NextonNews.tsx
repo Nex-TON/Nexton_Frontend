@@ -137,7 +137,7 @@ const SliderWrapper = styled.div`
   .slick-slide {
     width: 100%;
     transform: translateX(-3.6%); 
-`;
+  }`;
 
 const SliderItem = styled.div`
   width: 100%;
