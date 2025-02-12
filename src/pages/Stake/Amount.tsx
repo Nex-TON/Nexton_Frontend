@@ -20,13 +20,13 @@ import TokenFilter from "@/components/stake/Filter/TokenFilter";
 import { TokenFilterModal } from "@/components/stake/Filter/TokenFilterModal";
 import NXTPointImg from "@/assets/image/NXTPoint.png";
 import useJettonWallet from "@/hooks/contract/useJettonWallet";
-import { useWalletData } from "@/context/WalletConnectionProvider";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 
 const tele = (window as any).Telegram.WebApp;
 
 const Amount = () => {
-  const { address, balance, connected, refreshTonData } = useWalletData();
+  const { address, balance, connected, refreshTonData } = useTonConnect();
   const { data: tokenRate } = useTokenRate();
   const navigate = useNavigate();
   const [, setStakingInfo] = useRecoilState(stakingAtom);

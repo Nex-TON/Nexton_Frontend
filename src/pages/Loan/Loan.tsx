@@ -6,7 +6,7 @@ import IcAlert from "@/assets/icons/Loan/ic_alert.svg";
 import BorrowList from "@/components/loan/Borrow/BorrowList";
 import RepayList from "@/components/loan/Repay/RepayList";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
-import { useWalletData } from "@/context/WalletConnectionProvider";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 import IcArrowRight from "@/assets/icons/Loan/ic_arrow_right_black.svg";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 import useBorrowNftListFilter from "./hook/useBorrowNftListFilter";
@@ -33,7 +33,7 @@ const tele = (window as any).Telegram.WebApp;
 const filters: FilterNFTs[] = ["Ongoing", "Forthcoming", "Expired", "All"];
 
 const Loan = () => {
-  const { address } = useWalletData();
+  const { address } = useTonConnect();
   const navigate = useNavigate();
   const [filter, setFilter] = useState<FilterNFTs>("All");
   const [view, setView] = useState<LoanView>("borrow");
@@ -71,15 +71,23 @@ const Loan = () => {
         </LoanHeaderBoxTitle>
 
         <LoanHeaderBoxButton onClick={() => navigate("/loan/risk-disclosure")} id="loan page risk icon button">
-          <img src={IcAlert} alt="alert_icon" id="loan page risk icon button"/>
+          <img src={IcAlert} alt="alert_icon" id="loan page risk icon button" />
         </LoanHeaderBoxButton>
       </LoanHeaderBox>
 
       <LoanSwitcherBox>
-        <LoanSwitcherBoxItem $isActive={view === "borrow"} onClick={() => handleViewChange("borrow")} id="loan page borrow button">
+        <LoanSwitcherBoxItem
+          $isActive={view === "borrow"}
+          onClick={() => handleViewChange("borrow")}
+          id="loan page borrow button"
+        >
           Borrow
         </LoanSwitcherBoxItem>
-        <LoanSwitcherBoxItem $isActive={view === "repay"} onClick={() => handleViewChange("repay")} id="loan page reapy button">
+        <LoanSwitcherBoxItem
+          $isActive={view === "repay"}
+          onClick={() => handleViewChange("repay")}
+          id="loan page reapy button"
+        >
           Repay
         </LoanSwitcherBoxItem>
       </LoanSwitcherBox>
@@ -102,7 +110,7 @@ const Loan = () => {
             <h4 id="go to loan history">
               <span>Go to </span>Loan History
             </h4>
-            <img src={IcArrowRight} alt="arrow right to loan history" id="go to loan history"/>
+            <img src={IcArrowRight} alt="arrow right to loan history" id="go to loan history" />
             {/* <DropdownMenu options={filters} defaultValue={filter} onOptionSelect={handleSortOptionChange} /> */}
           </LoanNFTBoxHeaderRight>
         </LoanNFTBoxHeader>

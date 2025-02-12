@@ -15,7 +15,7 @@ import {
   Title,
 } from "./Modal.styled";
 import ModalWrapper from "./ModalWrapper";
-import { useWalletData } from "@/context/WalletConnectionProvider";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 interface BasicModalProps {
   type: string;
@@ -30,7 +30,7 @@ function BasicModal(props: BasicModalProps) {
   const { type, toggleModal, onClose, isDark, navigateOnClose } = props;
 
   const navigate = useNavigate();
-  const { address } = useWalletData();
+  const { address } = useTonConnect();
 
   const handleModalText = (type: string, isDark?: boolean) => {
     switch (type) {

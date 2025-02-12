@@ -2,10 +2,10 @@ import { useState } from "react";
 
 import { useStakeInfo } from "../../../hooks/api/useStakeInfo";
 import { getNftState } from "@/utils/getNftState";
-import { useWalletData } from "@/context/WalletConnectionProvider";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const useMyAssetFilter = () => {
-  const { address } = useWalletData();
+  const { address } = useTonConnect();
   const [checkPeriod, setCheckPeriod] = useState([false, false, false, true]);
   const { nftList } = useStakeInfo(address);
 

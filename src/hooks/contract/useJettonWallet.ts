@@ -4,11 +4,11 @@ import { useTonClient } from "./useTonClient";
 import { JettonDefaultWallet } from "./wrappers/tact_JettonDefaultWallet";
 import { Address, OpenedContract, fromNano } from "@ton/core";
 import { useAsyncInitialize } from "./useAsyncInitialize";
-import { useWalletData } from "@/context/WalletConnectionProvider";
+import useTonConnect from "./useTonConnect";
 
 export default function useJettonWallet(token = "nxTON") {
   const client = useTonClient();
-  const { sender, address } = useWalletData();
+  const { sender, address } = useTonConnect();
   const [balance, setBalance] = useState(BigInt(0));
 
   const jettonWallet: OpenedContract<JettonDefaultWallet> = useAsyncInitialize(async () => {

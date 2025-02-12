@@ -36,7 +36,7 @@ import {
 import "./styles/Dashboard.css";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
 import Header from "@/components/common/Header";
-import { useWalletData } from "@/context/WalletConnectionProvider";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -51,7 +51,7 @@ const chartTimeFrameOptions: Record<TimeFrame | "All", number> = {
 };
 
 const Dashboard = () => {
-  const { connected } = useWalletData();
+  const { connected } = useTonConnect();
   const navigate = useNavigate();
   const setError = useSetRecoilState(globalError);
 
@@ -163,6 +163,7 @@ const Dashboard = () => {
             </PerformanceItem>
           </PerformanceItemWrapper>
           <MainButton
+            connected={connected}
             toggled={toggled}
             handleToggle={() => setToggled(!toggled)}
             style={{ margin: "1.5rem 0 6.1rem 0" }}

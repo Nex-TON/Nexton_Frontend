@@ -7,11 +7,11 @@ import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import IcnxTon from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
 import { useEffect, useState } from "react";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
-import { useWallet, useWalletData } from "@/context/WalletConnectionProvider";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 export const TotalBalance = () => {
-  const { address, balance, refreshTonData } = useWalletData();
+  const { address, balance, refreshTonData } = useTonConnect();
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { nftList, isLoading } = useStakeInfo(address);

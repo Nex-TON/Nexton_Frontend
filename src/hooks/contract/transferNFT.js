@@ -1,9 +1,8 @@
 import { NftItem } from "./wrappers/NftItem";
-import { useEffect, useState } from "react";
-import { useWalletData } from "@/context/WalletConnectionProvider";
+import useTonConnect from "./useTonConnect";
 
 function transferNft(id) {
-  const { sender } = useWalletData();
+  const { sender } = useTonConnect();
   const nftAddress = NftItem.idxToAddress(id);
 
   return {
