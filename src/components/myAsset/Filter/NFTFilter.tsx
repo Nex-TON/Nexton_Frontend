@@ -7,11 +7,9 @@ const NFTFilter = ({ checkPeriod, handleCheckPeriod }) => {
         All
       </NftFilterButton>
       <NftFilterButton $selected={checkPeriod[0]} onClick={() => handleCheckPeriod("Ongoing")} id="nft filter ongoing">
-        <NFTStatus type="Ongoing" />
         Lending Available
       </NftFilterButton>
       <NftFilterButton $selected={checkPeriod[2]} onClick={() => handleCheckPeriod("Expired")} id="nft filter expired">
-        <NFTStatus type="Expired" />
         Unstaking Available
       </NftFilterButton>
     </NftFilterWrapper>
