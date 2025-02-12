@@ -27,7 +27,6 @@ const MainButton = ({
 
   return (
     <>
-      {toggled && <Overlay onClick={handleToggle} />}
       {connected ? (
         <TonWalletWrapper
           onClick={handleSwitchWalletFunction}
