@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { mutate } from "swr";
 import styled from "styled-components";
@@ -46,6 +46,7 @@ import MainButton from "./MainButton";
 type AssetsView = "dashboard" | "asset";
 
 const MainMyAssetInfo = ({
+  tonConnectUI,
   connected,
   address,
   balance,
@@ -65,8 +66,8 @@ const MainMyAssetInfo = ({
 }) => {
   const navigate = useNavigate();
   const [view, setView] = useState<AssetsView>("dashboard");
+  const [connectToggled, setConnectToggled] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [walletSelectModalOpen, setWalletSelectModalOpen] = useState(false);
 
   const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary();
   const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
@@ -74,6 +75,12 @@ const MainMyAssetInfo = ({
 
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+
+  const handleConnect = useCallback(async () => {
+    await tonConnectUI.openModal();
+    setConnectToggled(!connectToggled);
+  }, [tonConnectUI]);
+
   const handleTouchEnd = () => {
     const deltaX = touchStartX.current - touchEndX.current;
     if (Math.abs(deltaX) > 50) {
@@ -83,10 +90,6 @@ const MainMyAssetInfo = ({
         setView("dashboard");
       }
     }
-  };
-
-  const toggleSelectModal = () => {
-    setWalletSelectModalOpen(!walletSelectModalOpen);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -215,7 +218,7 @@ const MainMyAssetInfo = ({
             }}
           >
             {!connected ? (
-              <AssetBottomNotConnected onClick={() => toggleSelectModal()} id="mainmyassetinfoconnectwallet">
+              <AssetBottomNotConnected onClick={() => handleConnect()} id="mainmyassetinfoconnectwallet">
                 <AssetBottomNotConnectedImg>
                   <img src={MyAssetNotConnected} alt="my asset not connected image" />
                   <AssetBottomNotConnectedText>
@@ -290,8 +293,9 @@ const MainMyAssetInfo = ({
         )}
       </MainInnerBox>
       <MainButton
-        toggled={walletSelectModalOpen}
-        handleToggle={toggleSelectModal}
+        toggled={connectToggled}
+        connected={connected}
+        handleToggle={handleConnect}
         style={{ margin: "1.5rem 0 2.7rem 0" }}
       />
     </MainWrapper>

@@ -40,8 +40,7 @@ const Main: React.FC = () => {
     setIsFbOpen(false);
   };
 
-  const { tonConnectUI } = useTonConnect();
-  const { address, balance, refreshTonData, connected } = useWalletData();
+  const { address, balance, refreshTonData, connected, tonConnectUI } = useTonConnect();
 
   const { nftList, isLoading, isError } = useStakeInfo(address);
   const { borrowList } = useRepayNftList(address);
@@ -179,7 +178,6 @@ const Main: React.FC = () => {
 
   // Calculate the total amount staked
   const totalStaked = useMemo(() => {
-
     const nftTotal =
       nftList?.reduce((acc, nft) => {
         if (nft.tokenSort === "TON") {
