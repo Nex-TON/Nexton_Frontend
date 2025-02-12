@@ -3,40 +3,50 @@ import { styled } from "styled-components";
 import { Container, SubTitle, SubTitleBox, Title } from "@/components/common/Modal/Modal.styled";
 import ModalWrapper from "@/components/common/Modal/ModalWrapper";
 
-interface OfficialAnouncementProps {
+interface AgreementProps {
   toggleModal: () => void;
   onClose?: () => void;
+  onAccept?: () => void;
 }
 
-export const OfficialAnouncementModal = (props: OfficialAnouncementProps) => {
-  const { onClose, toggleModal } = props;
+export const AgreementModal = (props: AgreementProps) => {
+  const { onClose, toggleModal, onAccept } = props;
 
   return (
     <ModalWrapper>
       <Container $isDark>
         <WelcomeModalContent>
-          <Title $isDark>🚀 Official Announcement!</Title>
+          <Title $isDark>Terms of Use Agreement</Title>
           <SubTitleBox>
             <SubTitle $isDark>
-              $NxTON is now officially listed on
+              Please review and accept
               <br />
-              STON.fi DEX!
+              the{" "}
+              <span onClick={() => window.open("https://blockwavelabs.notion.site/nexton-terms-of-use", "_blank")}>
+                Terms of Use
+              </span>{" "}
+              and{" "}
+              <span onClick={() => window.open("https://blockwavelabs.notion.site/nexton-privacy-policy", "_blank")}>
+                Privacy Policy
+              </span>
               <br />
-              Start trading now!
+              to continue.
             </SubTitle>
           </SubTitleBox>
         </WelcomeModalContent>
 
         <WelcomeButtonWrapper>
           <ButtonWrapper>
-            <StonfiLinkButton
+            <AcceptButton
               onClick={() => {
-                window.open("https://app.ston.fi/pools/EQDp1Wo856blEgAxh8SGrkN4MVaK1p-h6Ih4ydMT2n3sJucq");
                 toggleModal();
+                if (onAccept) {
+                  onAccept();
+                }
               }}
             >
-              Go to STON.fi DEX
-            </StonfiLinkButton>
+              accept
+            </AcceptButton>
             <CloseButton
               onClick={() => {
                 if (onClose) {
@@ -55,42 +65,35 @@ export const OfficialAnouncementModal = (props: OfficialAnouncementProps) => {
 };
 
 const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
+  width: 100%;
 `;
 
-const StonfiLinkButton = styled.div`
+const AcceptButton = styled.div`
   border-radius: 15px;
   background: #007aff;
   display: flex;
-
-  width: 300px;
   height: 42px;
-  padding: 12px;
+  padding: 12px 0;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-
   color: #fff;
   text-align: center;
-
   ${({ theme }) => theme.fonts.Telegram_Medium_2};
 `;
 
 const CloseButton = styled.div`
   display: flex;
-  width: 300px;
-  padding: 12px 139px;
+  padding: 12px 0;
   justify-content: center;
   align-items: center;
-
   border-radius: 15px;
   background: rgba(0, 122, 255, 0.2);
-
   color: #fff;
   text-align: center;
-
   ${({ theme }) => theme.fonts.Telegram_Medium_2};
 `;
 
