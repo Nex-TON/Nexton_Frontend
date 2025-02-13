@@ -6,7 +6,7 @@ import telegramAnalytics from '@telegram-apps/analytics';
 
 telegramAnalytics.init({
     token: `${import.meta.env.VITE_TELE_ANALYTICS_TOKEN}`,
-    appName: 'NexTON',
+    appName: 'NexTon',
 });
 
 const manifestUrl = "https://nextonserver.s3.eu-north-1.amazonaws.com/config.json";
