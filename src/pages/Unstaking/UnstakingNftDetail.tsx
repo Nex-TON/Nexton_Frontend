@@ -16,7 +16,7 @@ import { UnstakingProps } from "@/types/staking";
 import { isDevMode } from "@/utils/isDevMode";
 import { limitDecimals } from "@/utils/limitDecimals";
 import * as Contract from "@/hooks/contract/transferNFT";
-import { useWalletData } from "@/context/WalletConnectionProvider";
+//import { useWalletData } from "@/context/WalletConnectionProvider";
 
 import {
   NFTDetailContentBox,
@@ -24,6 +24,7 @@ import {
   NFTDetailItemCaption,
   NFTDetailItemText,
 } from "../MyAsset/NFTDetail/NFTDetail.styled";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -33,7 +34,7 @@ interface ModalState {
 }
 
 const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
-  const { address } = useWalletData();
+  const { address } = useTonConnect();
   const { id } = useParams();
   const { data: unstakingDetail, isLoading: isLoadingUnstakingDetail, error } = useUnstakingDetail(Number(id));
   const { sendMessage } = Contract.transferNft(id); // ! pass nftAddress instead of id
