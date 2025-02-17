@@ -182,7 +182,6 @@ const RepaymentDetails = () => {
             <h1>Repayment</h1>
           </RepaymentHeaderBoxTitle>
         </RepaymentHeaderBox>
-
         <RepaymentContentBox>
           <StakingInfo
             isExpandable={true}
@@ -192,7 +191,6 @@ const RepaymentDetails = () => {
             stakingInfoItems={stakingInfoItems}
             status={borrowDetail?.status}
           />
-
           <RepayRateBox>
             <RepayRateBoxHeader>Amount to be repaid</RepayRateBoxHeader>
             <RepayRateBoxDivider />
@@ -200,17 +198,15 @@ const RepaymentDetails = () => {
           </RepayRateBox>
         </RepaymentContentBox>
 
-        {!isDevMode ? (
-          borrowDetail?.status == 0 && <MainButton text="Pay now" onClick={toggleModal} />
-        ) : (
-          <button onClick={toggleModal}>Pay now</button>
+        {modal.type === "confirmRepay" && modal.toggled && (
+          <ConfirmRepaymentModal toggleModal={toggleModal} onConfirm={handleRepayConfirm} loanId={loanId} />
         )}
+
+        {!isDevMode
+          ? borrowDetail?.status == 0 && modal.type !== "repay" && <MainButton text="Pay now" onClick={toggleModal} />
+          : modal.type !== "repay" && <button onClick={toggleModal}>Pay now</button>}
       </RepaymentWrapper>
 
-      {isLoading && <TransactionConfirmModal />}
-      {modal.type === "confirmRepay" && modal.toggled && (
-        <ConfirmRepaymentModal toggleModal={toggleModal} onConfirm={handleRepayConfirm} loanId={loanId} />
-      )}
       {modal.type === "repay" && modal.toggled && (
         <BasicModal isDark type="repay" toggleModal={toggleModal} navigateOnClose="/loan" />
       )}
