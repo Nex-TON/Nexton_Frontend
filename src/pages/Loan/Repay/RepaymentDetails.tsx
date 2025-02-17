@@ -197,11 +197,10 @@ const RepaymentDetails = () => {
             <RepayRateBoxBottom>{limitDecimals(borrowDetail?.repayAmount, 3)} NxTON</RepayRateBoxBottom>
           </RepayRateBox>
         </RepaymentContentBox>
-
+        {isLoading && <TransactionConfirmModal />}
         {modal.type === "confirmRepay" && modal.toggled && (
           <ConfirmRepaymentModal toggleModal={toggleModal} onConfirm={handleRepayConfirm} loanId={loanId} />
         )}
-
         {!isDevMode
           ? borrowDetail?.status == 0 && modal.type !== "repay" && <MainButton text="Pay now" onClick={toggleModal} />
           : modal.type !== "repay" && <button onClick={toggleModal}>Pay now</button>}
