@@ -28,6 +28,7 @@ import {
   NFTDetailItemText,
   NFTDetailWrapper,
 } from "./NFTDetail.styled";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -43,7 +44,7 @@ const NFTDetail = () => {
   const [stakingInfo, setStakingInfo] = useState<any>([{ items: [] }]);
   const [isNftExpired, setIsNftExpired] = useState(false);
   const { id } = useParams();
-  const { address } = useWalletData();
+  const { address } = useTonConnect();
   const { nftDetail, isLoading } = useNFTDetail(Number(id));
   const { data: checkLendingAvailable } = useCheckLendingAvailable(address, Number(id));
   const [modal, setModal] = useState<ModalState>({
