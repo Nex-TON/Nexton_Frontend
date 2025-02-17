@@ -112,15 +112,17 @@ const NFTDetail = () => {
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
             onClick={() => {
+              checkLendingAvailable?.success
+                ? navigate(`/loan/${id}/borrow/details`)
+                : setModal({ type: "blockborrow", toggled: true });
+              /*
               if (Number(id) <= 100) {
                 setModal({ type: "blockborrow100", toggled: true });
               } else if (!id || !address) {
                 setModal({ type: "blockborrow100", toggled: true });
               } else {
-                checkLendingAvailable?.success
-                  ? navigate(`/loan/${id}/borrow/details`)
-                  : setModal({ type: "blockborrow", toggled: true });
-              }
+                
+              }*/
             }}
             id="nft detail page borrow nxton button"
           >
