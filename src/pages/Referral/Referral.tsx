@@ -69,7 +69,7 @@ const Referral = () => {
       });
 
       const tgUser = tele.initDataUnsafe?.user;
-      if (tgUser && connected) {
+      if (tgUser && walletAddress !== "") {
         setUserInfo({ userId: tgUser.id, address: walletAddress, username: tgUser?.username });
       } else {
         console.warn("You should launch the app inside the Telegram Mini App.");
@@ -82,7 +82,7 @@ const Referral = () => {
 
   useEffect(() => {
     function generateReferralLink() {
-      if (userInfo && connected) {
+      if (userInfo && walletAddress !== "") {
         trigger({ ...userInfo, returnCode: true })
           .then(res => {
             setReferralLink(`${TMA_URL}?startapp=${res.data.code}`);
@@ -146,9 +146,6 @@ const Referral = () => {
       </ShareToFriendButton>
     );
   };
-
-  if (!connected) {
-  }
 
   return (
     <>
