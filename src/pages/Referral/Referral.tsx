@@ -80,7 +80,7 @@ const Referral = () => {
 
   useEffect(() => {
     function generateReferralLink() {
-      if (userInfo) {
+      if (userInfo && connected) {
         trigger({ ...userInfo, returnCode: true })
           .then(res => {
             setReferralLink(`${TMA_URL}?startapp=${res.data.code}`);
@@ -91,7 +91,7 @@ const Referral = () => {
       }
     }
     generateReferralLink();
-  }, [userInfo, trigger, setError]);
+  }, [userInfo, trigger, setError, walletAddress]);
 
   useEffect(() => {
     if (referralLink) {
