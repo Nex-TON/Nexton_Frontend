@@ -7,8 +7,8 @@ interface ReferralPoints {
   referralPoints: number;
 }
 
-export function useReferralPoints(userId: number) {
-  const swrKey = userId ? `api/referral/points?userId=${userId}` : null;
+export function useReferralPoints(userId: number, address: string) {
+  const swrKey = userId && address ? `api/referral/points?userId=${userId}&address=${address}` : null;
 
   return useSWR<ReferralPoints>(swrKey, nextonFetcher);
 }

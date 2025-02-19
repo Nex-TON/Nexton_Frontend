@@ -153,7 +153,7 @@ const Main: React.FC = () => {
         try {
           // Send referral data to the server if the user hasn't visited Referral page
           if (userId) {
-            await triggerManageReferral({ userId, username });
+            await triggerManageReferral({ userId, address, username });
           }
 
           // If user has not been referred yet, track the referral

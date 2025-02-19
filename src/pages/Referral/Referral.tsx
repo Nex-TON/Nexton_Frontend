@@ -18,6 +18,7 @@ import MainNavigationBar from "@/components/common/MainNavigationBar";
 import { ReferralPointsExplain } from "@/components/referral/ReferralPointsExplain";
 import { ReferralStatistic } from "@/components/referral/ReferralStatistic";
 import { ReferralEarned } from "@/components/referral/ReferralEarned";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -25,6 +26,7 @@ const TMA_URL = "https://t.me/Nexton_tele_bot/nexton";
 
 export interface IUserInfo {
   userId: number;
+  address: string;
   username?: string;
 }
 
@@ -42,10 +44,19 @@ const Referral = () => {
   const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [addLink, setAddLink] = useState<string>("?start");
+  const { address: walletAddress } = useTonConnect();
 
-  const { data: referralStatus, isLoading: statusLoading, error: errorLoading } = useReferralStatus(userInfo?.userId);
+  const {
+    data: referralStatus,
+    isLoading: statusLoading,
+    error: errorLoading,
+  } = useReferralStatus(userInfo?.userId, walletAddress);
 
-  const { data: pointsData, isLoading: pointsLoading, error: pointsError } = useReferralPoints(userInfo?.userId);
+  const {
+    data: pointsData,
+    isLoading: pointsLoading,
+    error: pointsError,
+  } = useReferralPoints(userInfo?.userId, walletAddress);
 
   useEffect(() => {
     if (tele) {
@@ -57,7 +68,7 @@ const Referral = () => {
 
       const tgUser = tele.initDataUnsafe?.user;
       if (tgUser) {
-        setUserInfo({ userId: tgUser.id, username: tgUser?.username });
+        setUserInfo({ userId: tgUser.id, address: walletAddress, username: tgUser?.username });
       } else {
         console.warn("You should launch the app inside the Telegram Mini App.");
       }
