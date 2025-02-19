@@ -204,7 +204,7 @@ const Main: React.FC = () => {
     const borrowTotal =
       borrowList?.reduce((acc, borrow) => {
         if (borrow.tokenSort === "TON" && borrow.status === 0) {
-          return acc + borrow.principal;
+          return acc + borrow.principal / borrow.loanToValue;
         }
         return acc;
       }, 0) || 0;
