@@ -62,23 +62,25 @@ const Referral = () => {
         console.warn("You should launch the app inside the Telegram Mini App.");
       }
     }
-    generateReferralLink();
     return () => {
       tele.offEvent("backButtonClicked");
     };
   }, []);
 
-  function generateReferralLink() {
-    if (userInfo) {
-      trigger({ ...userInfo, returnCode: true })
-        .then(res => {
-          setReferralLink(`${TMA_URL}?startapp=${res.data.code}`);
-        })
-        .catch(err => {
-          setError(err);
-        });
+  useEffect(() => {
+    function generateReferralLink() {
+      if (userInfo) {
+        trigger({ ...userInfo, returnCode: true })
+          .then(res => {
+            setReferralLink(`${TMA_URL}?startapp=${res.data.code}`);
+          })
+          .catch(err => {
+            setError(err);
+          });
+      }
     }
-  }
+    generateReferralLink();
+  }, [userInfo, trigger, setError]);
 
   useEffect(() => {
     if (referralLink) {
