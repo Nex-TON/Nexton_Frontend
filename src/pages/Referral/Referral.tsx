@@ -152,7 +152,7 @@ const Referral = () => {
 
   return (
     <>
-      {!connected ? (
+      {walletAddress === "" ? (
         <LoaderWrapper>
           <Loader height={50} width={50} />
         </LoaderWrapper>
