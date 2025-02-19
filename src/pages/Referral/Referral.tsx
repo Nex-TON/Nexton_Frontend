@@ -41,7 +41,7 @@ const Referral = () => {
   const [referralLink, setReferralLink] = useState<string>("");
   const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [isCopied, setIsCopied] = useState<boolean>(false);
-  const [addLink, setAddLink] = useState<string>("/start");
+  const [addLink, setAddLink] = useState<string>("?start");
 
   const { data: referralStatus, isLoading: statusLoading, error: errorLoading } = useReferralStatus(userInfo?.userId);
 
@@ -73,13 +73,17 @@ const Referral = () => {
       trigger({ ...userInfo, returnCode: true })
         .then(res => {
           setReferralLink(`${TMA_URL}?startapp=${res.data.code}`);
-          setAddLink(`?startapp=${res.data.code}`);
         })
         .catch(err => {
           setError(err);
         });
     }
   }
+  useEffect(() => {
+    if (referralLink) {
+      setAddLink(new URL(referralLink).search);
+    }
+  }, [referralLink]);
 
   useEffect(() => {
     generateReferralLink();
