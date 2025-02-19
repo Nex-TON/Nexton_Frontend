@@ -158,7 +158,12 @@ const Main: React.FC = () => {
 
           // If user has not been referred yet, track the referral
           if (referralId && userId && !isReferred) {
-            const res = await trigger({ newUserId: userId, referralLink: referralId, username });
+            const res = await trigger({
+              newUserId: userId,
+              newUserAddress: address,
+              referralLink: referralId,
+              username,
+            });
             const { data } = res;
 
             if (data.success) {

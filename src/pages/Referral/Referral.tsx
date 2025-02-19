@@ -33,19 +33,6 @@ interface ModalState {
   toggled: boolean;
 }
 
-const ShareToFriend = ({ link, text }) => {
-  const shareToTelegram = () => {
-    const telegramLink = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
-    window.open(telegramLink, "_blank");
-  };
-
-  return (
-    <ShareToFriendButton id="referral page share button">
-      <button onClick={shareToTelegram} id="referral page share button">Invite a friend</button>
-    </ShareToFriendButton>
-  );
-};
-
 const Referral = () => {
   const navigate = useNavigate();
   const setError = useSetRecoilState(globalError);
@@ -54,6 +41,7 @@ const Referral = () => {
   const [referralLink, setReferralLink] = useState<string>("");
   const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [isCopied, setIsCopied] = useState<boolean>(false);
+  const [addLink, setAddLink] = useState("");
 
   const { data: referralStatus, isLoading: statusLoading, error: errorLoading } = useReferralStatus(userInfo?.userId);
 
@@ -86,6 +74,7 @@ const Referral = () => {
         trigger({ ...userInfo, returnCode: true })
           .then(res => {
             setReferralLink(`${TMA_URL}?startapp=${res.data.code}`);
+            setAddLink(`?startapp=${res.data.code}`);
           })
           .catch(err => {
             setError(err);
@@ -94,7 +83,12 @@ const Referral = () => {
     }
     generateReferralLink();
   }, [userInfo, trigger, setError]);
-
+  /*
+  useEffect(() => {
+    //setReferralLink(`${TMA_URL}` + addLink);
+    generateReferralLink();
+  }, [userInfo, trigger, setError]);
+*/
   const handleCopyClick = async () => {
     copyText(referralLink);
 
@@ -112,21 +106,46 @@ const Referral = () => {
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 1000); // reset the state after the animation duration
   };
-  const texts=[
+  const texts = [
     "🔥 NEXTON: High Yields, High Returns, Extra Rewards!",
     "🚀 Unlock High Returns with NEXTON’s Enhanced Strategies!",
     "😄 Stake Smarter with NEXTON – More Yields, More Rewards!",
     "🪙 Boost Your TON with NEXTON: High Yields, Extra Gains!",
     "📤 NEXTON: Superior Returns, Enhanced Rewards, Unmatched Yields!",
-  ]
+  ];
   const randomText = texts[Math.floor(Math.random() * texts.length)];
+
+  const ShareToFriend = ({ link, text }) => {
+    const shareToTelegram = () => {
+      const telegramLink = `https://t.me/share/url?url=${encodeURIComponent(link)}${addLink}&text=${encodeURIComponent(text)}`;
+      window.open(telegramLink, "_blank");
+    };
+
+    return (
+      <ShareToFriendButton id="referral page share button">
+        <button
+          onClick={() => {
+            shareToTelegram();
+          }}
+          id="referral page share button"
+        >
+          Invite a friend
+        </button>
+      </ShareToFriendButton>
+    );
+  };
 
   return (
     <MainWrapper>
       <ReferralWrapper>
         <ReferralHeader>
           <ReferralHeaderText>Earn your Point</ReferralHeaderText>
-          <img src={IcMenuIcon} alt="referral header menu icon" onClick={() => navigate("/menu")} id="friends page header menu button" />
+          <img
+            src={IcMenuIcon}
+            alt="referral header menu icon"
+            onClick={() => navigate("/menu")}
+            id="friends page header menu button"
+          />
         </ReferralHeader>
         <FriendsIllustWrapper>
           <img src={FriendsIllust} alt="Friends illust" />
@@ -136,10 +155,7 @@ const Referral = () => {
         <ReferralPointsExplain />
         <InviteFriendWrapper>
           <InviteThroughTelegram>
-            <ShareToFriend
-              link={`${TMA_URL}`}
-              text={randomText}
-            />
+            <ShareToFriend link={`${TMA_URL}`} text={randomText} />
           </InviteThroughTelegram>
           <InviteClipboard>
             <CopyIcon
