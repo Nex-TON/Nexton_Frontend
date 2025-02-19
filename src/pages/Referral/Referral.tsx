@@ -43,8 +43,8 @@ const Referral = () => {
   const [referralLink, setReferralLink] = useState<string>("");
   const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [isCopied, setIsCopied] = useState<boolean>(false);
-  const [addLink, setAddLink] = useState<string>("?start");
-  const { address: walletAddress } = useTonConnect();
+  const [addLink, setAddLink] = useState<string>("");
+  const { address: walletAddress, connected } = useTonConnect();
 
   const {
     data: referralStatus,
@@ -67,7 +67,7 @@ const Referral = () => {
       });
 
       const tgUser = tele.initDataUnsafe?.user;
-      if (tgUser) {
+      if (tgUser && connected) {
         setUserInfo({ userId: tgUser.id, address: walletAddress, username: tgUser?.username });
       } else {
         console.warn("You should launch the app inside the Telegram Mini App.");
@@ -76,7 +76,7 @@ const Referral = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, []);
+  }, [walletAddress]);
 
   useEffect(() => {
     function generateReferralLink() {
