@@ -52,13 +52,13 @@ const Referral = () => {
     data: referralStatus,
     isLoading: statusLoading,
     error: errorLoading,
-  } = useReferralStatus(userInfo?.userId, walletAddress);
+  } = useReferralStatus(userInfo?.userId, walletAddress || "");
 
   const {
     data: pointsData,
     isLoading: pointsLoading,
     error: pointsError,
-  } = useReferralPoints(userInfo?.userId, walletAddress);
+  } = useReferralPoints(userInfo?.userId, walletAddress || "");
 
   useEffect(() => {
     if (tele) {
@@ -102,7 +102,11 @@ const Referral = () => {
   }, [referralLink]);
 
   const handleCopyClick = async () => {
-    copyText(referralLink);
+    if (referralLink) {
+      copyText(referralLink);
+    } else {
+      copyText(TMA_URL);
+    }
 
     toast("🚀 Referral link copied!", {
       position: "top-center",
@@ -146,67 +150,60 @@ const Referral = () => {
       </ShareToFriendButton>
     );
   };
-
   return (
     <>
-      {walletAddress === "" ? (
-        <LoaderWrapper>
-          <Loader height={50} width={50} />
-        </LoaderWrapper>
-      ) : (
-        <MainWrapper>
-          <ReferralWrapper>
-            <ReferralHeader>
-              <ReferralHeaderText>Earn your Point</ReferralHeaderText>
-              <img
-                src={IcMenuIcon}
-                alt="referral header menu icon"
-                onClick={() => navigate("/menu")}
-                id="friends page header menu button"
-              />
-            </ReferralHeader>
-            <FriendsIllustWrapper>
-              <img src={FriendsIllust} alt="Friends illust" />
-            </FriendsIllustWrapper>
-          </ReferralWrapper>
-          <ReferralContainer>
-            <ReferralPointsExplain />
-            <InviteFriendWrapper>
-              <InviteThroughTelegram>
-                <ShareToFriend link={`${TMA_URL}`} text={randomText} />
-              </InviteThroughTelegram>
-              <InviteClipboard>
-                <CopyIcon
-                  $isCopied={isCopied}
-                  src={IcCopy}
-                  alt="copy"
-                  onClick={handleCopyClick}
-                  id="referral page link copy"
-                />
-              </InviteClipboard>
-            </InviteFriendWrapper>
-            <ReferralStatistic referralNum={referralStatus ? referralStatus.referralDetails.length : 0} />
-            <ReferralEarned
-              nxtPoints={pointsData ? pointsData?.loyaltyPoints : 0}
-              referPoints={pointsData ? pointsData?.referralPoints : 0}
+      <MainWrapper>
+        <ReferralWrapper>
+          <ReferralHeader>
+            <ReferralHeaderText>Earn your Point</ReferralHeaderText>
+            <img
+              src={IcMenuIcon}
+              alt="referral header menu icon"
+              onClick={() => navigate("/menu")}
+              id="friends page header menu button"
             />
-          </ReferralContainer>
-          <MainNavigationBar />
-          <ToastContainer
-            position="top-center"
-            autoClose={4000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover={false}
-            theme="light"
-            style={{ fontSize: "7rem" }}
+          </ReferralHeader>
+          <FriendsIllustWrapper>
+            <img src={FriendsIllust} alt="Friends illust" />
+          </FriendsIllustWrapper>
+        </ReferralWrapper>
+        <ReferralContainer>
+          <ReferralPointsExplain />
+          <InviteFriendWrapper>
+            <InviteThroughTelegram>
+              <ShareToFriend link={`${TMA_URL}`} text={randomText} />
+            </InviteThroughTelegram>
+            <InviteClipboard>
+              <CopyIcon
+                $isCopied={isCopied}
+                src={IcCopy}
+                alt="copy"
+                onClick={handleCopyClick}
+                id="referral page link copy"
+              />
+            </InviteClipboard>
+          </InviteFriendWrapper>
+          <ReferralStatistic referralNum={referralStatus ? referralStatus.referralDetails.length : 0} />
+          <ReferralEarned
+            nxtPoints={pointsData ? pointsData?.loyaltyPoints : 0}
+            referPoints={pointsData ? pointsData?.referralPoints : 0}
           />
-        </MainWrapper>
-      )}
+        </ReferralContainer>
+        <MainNavigationBar />
+        <ToastContainer
+          position="top-center"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover={false}
+          theme="light"
+          style={{ fontSize: "7rem" }}
+        />
+      </MainWrapper>
     </>
   );
 };
