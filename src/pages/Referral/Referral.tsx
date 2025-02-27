@@ -18,6 +18,9 @@ import MainNavigationBar from "@/components/common/MainNavigationBar";
 import { ReferralPointsExplain } from "@/components/referral/ReferralPointsExplain";
 import { ReferralStatistic } from "@/components/referral/ReferralStatistic";
 import { ReferralEarned } from "@/components/referral/ReferralEarned";
+import useTonConnect from "@/hooks/contract/useTonConnect";
+import { LoaderWrapper } from "../Dashboard/Dashboard.styled";
+import Loader from "@/components/common/Loader";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -25,6 +28,7 @@ const TMA_URL = "https://t.me/Nexton_tele_bot/nexton";
 
 export interface IUserInfo {
   userId: number;
+  address: string;
   username?: string;
 }
 
@@ -32,19 +36,6 @@ interface ModalState {
   type: "nxt" | "refer";
   toggled: boolean;
 }
-
-const ShareToFriend = ({ link, text }) => {
-  const shareToTelegram = () => {
-    const telegramLink = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
-    window.open(telegramLink, "_blank");
-  };
-
-  return (
-    <ShareToFriendButton id="referral page share button">
-      <button onClick={shareToTelegram} id="referral page share button">Invite a friend</button>
-    </ShareToFriendButton>
-  );
-};
 
 const Referral = () => {
   const navigate = useNavigate();
@@ -54,10 +45,20 @@ const Referral = () => {
   const [referralLink, setReferralLink] = useState<string>("");
   const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [isCopied, setIsCopied] = useState<boolean>(false);
+  const [addLink, setAddLink] = useState<string>("");
+  const { address: walletAddress, connected } = useTonConnect();
 
-  const { data: referralStatus, isLoading: statusLoading, error: errorLoading } = useReferralStatus(userInfo?.userId);
+  const {
+    data: referralStatus,
+    isLoading: statusLoading,
+    error: errorLoading,
+  } = useReferralStatus(userInfo?.userId, walletAddress);
 
-  const { data: pointsData, isLoading: pointsLoading, error: pointsError } = useReferralPoints(userInfo?.userId);
+  const {
+    data: pointsData,
+    isLoading: pointsLoading,
+    error: pointsError,
+  } = useReferralPoints(userInfo?.userId, walletAddress);
 
   useEffect(() => {
     if (tele) {
@@ -68,21 +69,20 @@ const Referral = () => {
       });
 
       const tgUser = tele.initDataUnsafe?.user;
-      if (tgUser) {
-        setUserInfo({ userId: tgUser.id, username: tgUser?.username });
+      if (tgUser && walletAddress !== "") {
+        setUserInfo({ userId: tgUser.id, address: walletAddress, username: tgUser?.username });
       } else {
         console.warn("You should launch the app inside the Telegram Mini App.");
       }
     }
-
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, []);
+  }, [walletAddress]);
 
   useEffect(() => {
     function generateReferralLink() {
-      if (userInfo) {
+      if (userInfo && walletAddress !== "") {
         trigger({ ...userInfo, returnCode: true })
           .then(res => {
             setReferralLink(`${TMA_URL}?startapp=${res.data.code}`);
@@ -93,7 +93,13 @@ const Referral = () => {
       }
     }
     generateReferralLink();
-  }, [userInfo, trigger, setError]);
+  }, [userInfo, trigger, setError, walletAddress]);
+
+  useEffect(() => {
+    if (referralLink) {
+      setAddLink(new URL(referralLink).search);
+    }
+  }, [referralLink]);
 
   const handleCopyClick = async () => {
     copyText(referralLink);
@@ -112,66 +118,96 @@ const Referral = () => {
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 1000); // reset the state after the animation duration
   };
-  const texts=[
+  const texts = [
     "🔥 NEXTON: High Yields, High Returns, Extra Rewards!",
     "🚀 Unlock High Returns with NEXTON’s Enhanced Strategies!",
     "😄 Stake Smarter with NEXTON – More Yields, More Rewards!",
     "🪙 Boost Your TON with NEXTON: High Yields, Extra Gains!",
     "📤 NEXTON: Superior Returns, Enhanced Rewards, Unmatched Yields!",
-  ]
+  ];
   const randomText = texts[Math.floor(Math.random() * texts.length)];
 
+  const ShareToFriend = ({ link, text }) => {
+    const shareToTelegram = () => {
+      const telegramLink = `https://t.me/share/url?url=${encodeURIComponent(link)}${addLink}&text=${encodeURIComponent(text)}`;
+      window.open(telegramLink, "_blank");
+    };
+
+    return (
+      <ShareToFriendButton id="referral page share button">
+        <button
+          onClick={() => {
+            shareToTelegram();
+          }}
+          id="referral page share button"
+        >
+          Invite a friend
+        </button>
+      </ShareToFriendButton>
+    );
+  };
+
   return (
-    <MainWrapper>
-      <ReferralWrapper>
-        <ReferralHeader>
-          <ReferralHeaderText>Earn your Point</ReferralHeaderText>
-          <img src={IcMenuIcon} alt="referral header menu icon" onClick={() => navigate("/menu")} id="friends page header menu button" />
-        </ReferralHeader>
-        <FriendsIllustWrapper>
-          <img src={FriendsIllust} alt="Friends illust" />
-        </FriendsIllustWrapper>
-      </ReferralWrapper>
-      <ReferralContainer>
-        <ReferralPointsExplain />
-        <InviteFriendWrapper>
-          <InviteThroughTelegram>
-            <ShareToFriend
-              link={`${TMA_URL}`}
-              text={randomText}
+    <>
+      {walletAddress === "" ? (
+        <LoaderWrapper>
+          <Loader height={50} width={50} />
+        </LoaderWrapper>
+      ) : (
+        <MainWrapper>
+          <ReferralWrapper>
+            <ReferralHeader>
+              <ReferralHeaderText>Earn your Point</ReferralHeaderText>
+              <img
+                src={IcMenuIcon}
+                alt="referral header menu icon"
+                onClick={() => navigate("/menu")}
+                id="friends page header menu button"
+              />
+            </ReferralHeader>
+            <FriendsIllustWrapper>
+              <img src={FriendsIllust} alt="Friends illust" />
+            </FriendsIllustWrapper>
+          </ReferralWrapper>
+          <ReferralContainer>
+            <ReferralPointsExplain />
+            <InviteFriendWrapper>
+              <InviteThroughTelegram>
+                <ShareToFriend link={`${TMA_URL}`} text={randomText} />
+              </InviteThroughTelegram>
+              <InviteClipboard>
+                <CopyIcon
+                  $isCopied={isCopied}
+                  src={IcCopy}
+                  alt="copy"
+                  onClick={handleCopyClick}
+                  id="referral page link copy"
+                />
+              </InviteClipboard>
+            </InviteFriendWrapper>
+            <ReferralStatistic referralNum={referralStatus ? referralStatus.referralDetails.length : 0} />
+            <ReferralEarned
+              nxtPoints={pointsData ? pointsData?.loyaltyPoints : 0}
+              referPoints={pointsData ? pointsData?.referralPoints : 0}
             />
-          </InviteThroughTelegram>
-          <InviteClipboard>
-            <CopyIcon
-              $isCopied={isCopied}
-              src={IcCopy}
-              alt="copy"
-              onClick={handleCopyClick}
-              id="referral page link copy"
-            />
-          </InviteClipboard>
-        </InviteFriendWrapper>
-        <ReferralStatistic referralNum={referralStatus ? referralStatus.referralDetails.length : 0} />
-        <ReferralEarned
-          nxtPoints={pointsData ? pointsData?.loyaltyPoints : 0}
-          referPoints={pointsData ? pointsData?.referralPoints : 0}
-        />
-      </ReferralContainer>
-      <MainNavigationBar />
-      <ToastContainer
-        position="top-center"
-        autoClose={4000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover={false}
-        theme="light"
-        style={{ fontSize: "7rem" }}
-      />
-    </MainWrapper>
+          </ReferralContainer>
+          <MainNavigationBar />
+          <ToastContainer
+            position="top-center"
+            autoClose={4000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover={false}
+            theme="light"
+            style={{ fontSize: "7rem" }}
+          />
+        </MainWrapper>
+      )}
+    </>
   );
 };
 

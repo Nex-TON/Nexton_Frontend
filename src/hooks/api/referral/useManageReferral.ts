@@ -5,6 +5,7 @@ import { client } from "@/api/axios";
 
 interface GenerateReferral {
   userId: number;
+  address: string;
   username?: string;
   returnCode?: boolean;
 }

@@ -152,12 +152,17 @@ const Main: React.FC = () => {
         try {
           // Send referral data to the server if the user hasn't visited Referral page
           if (userId) {
-            await triggerManageReferral({ userId, username });
+            await triggerManageReferral({ userId, address, username });
           }
 
           // If user has not been referred yet, track the referral
           if (referralId && userId && !isReferred) {
-            const res = await trigger({ newUserId: userId, referralLink: referralId, username });
+            const res = await trigger({
+              newUserId: userId,
+              newUserAddress: address,
+              referralLink: referralId,
+              username,
+            });
             const { data } = res;
 
             if (data.success) {
@@ -203,7 +208,7 @@ const Main: React.FC = () => {
     const borrowTotal =
       borrowList?.reduce((acc, borrow) => {
         if (borrow.tokenSort === "TON" && borrow.status === 0) {
-          return acc + borrow.principal;
+          return acc + borrow.principal / borrow.loanToValue;
         }
         return acc;
       }, 0) || 0;
