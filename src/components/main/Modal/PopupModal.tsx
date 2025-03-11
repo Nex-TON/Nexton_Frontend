@@ -14,6 +14,7 @@ export const PopupModal = (props: PopupProps) => {
   useEffect(() => {
     if (window.Telegram && window.Telegram.Webapp) {
       window.Telegram.Webapp.ready();
+      window.Telegram.Webapp.enableClosingConfirmation();
     }
   }, []);
 
@@ -43,7 +44,7 @@ export const PopupModal = (props: PopupProps) => {
                   console.log(window.Telegram.Webapp);
                 } else {
                   console.log('error');
-                  // toggleModal();
+                  toggleModal();
                 }
               }}
             >
