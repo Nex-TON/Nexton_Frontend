@@ -252,7 +252,7 @@ const Main: React.FC = () => {
       {modal && <WelcomeModal toggleModal={toggleModal} />}
       {agreementModal && <AgreementModal toggleModal={toggleAgreementModal} onAccept={onAcceptAgreementModal} />}
       {officialModal && <OfficialAnouncementModal toggleModal={toggleOfficialModal} />}
-      {popupModal && <PopupModal toggleModal={togglePopupModal} />}
+      {/* {popupModal && <PopupModal toggleModal={togglePopupModal} />} */}
       <MainWrapper>
         <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} />
         <MainMyAssetInfo
