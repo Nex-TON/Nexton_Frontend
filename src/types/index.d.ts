@@ -5,6 +5,7 @@ export declare namespace TelegramWebApps {
 }
 
 interface WebApp {
+  close(): void;
   ready(): void;
   MainButton: MainButton;
   BackButton: BackButton;
