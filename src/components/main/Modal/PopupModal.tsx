@@ -14,7 +14,6 @@ export const PopupModal = (props: PopupProps) => {
   useEffect(() => {
     if (window.Telegram && window.Telegram.Webapp) {
       window.Telegram.Webapp.ready();
-      window.Telegram.Webapp.enableClosingConfirmation();
     }
   }, []);
 
@@ -38,14 +37,7 @@ export const PopupModal = (props: PopupProps) => {
           <ButtonWrapper>
             <StonfiLinkButton
               onClick={() => {
-                if (window.Telegram && window.Telegram.Webapp) {
-                  console.log("Closing WebApp...");
-                  window.Telegram.Webapp.close();
-                  console.log(window.Telegram.Webapp);
-                } else {
-                  console.log('error');
-                  toggleModal();
-                }
+                window.Telegram.Webapp.close();
               }}
             >
               Got it
