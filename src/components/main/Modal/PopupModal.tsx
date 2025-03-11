@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { Container, SubTitle, SubTitleBox, Title } from "@/components/common/Modal/Modal.styled";
+import { Container, Content, ContentBox, SubTitle, SubTitleBox, Title } from "@/components/common/Modal/Modal.styled";
 import ModalWrapper from "@/components/common/Modal/ModalWrapper";
 import { useEffect } from "react";
 
@@ -24,13 +24,19 @@ export const PopupModal = (props: PopupProps) => {
           <Title $isDark>We are currently updating!</Title>
           <SubTitleBox>
             <SubTitle $isDark>
-              We will provide an
+              We are undergoing security
               <br />
-              official announcement soon.
+              maintenance.
               <br />
-              Thank you for your patience.
+              Sorry for any inconvenience.
             </SubTitle>
           </SubTitleBox>
+          <ContentBox>
+            <hr />
+            <Content $isDark>
+              Maintenance Period: <p>March 12 - March 17</p>
+            </Content>
+          </ContentBox>
         </WelcomeModalContent>
 
         <WelcomeButtonWrapper>

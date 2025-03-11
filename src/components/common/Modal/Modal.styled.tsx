@@ -96,6 +96,35 @@ export const SubTitle = styled.p<{ $isDark?: boolean }>`
   }
 `;
 
+export const ContentBox = styled.div<{ $isDark?: boolean }>`
+  justify-content: center;
+  align-items: center;
+  hr {
+    margin: 2rem 0;
+    border: 0.1rem solid #333333;
+    width: 23.6rem;
+  }
+`;
+
+export const Content = styled.p<{ $isDark?: boolean }>`
+  display: flex;
+  gap: 0.4rem;
+  font-family: "pretendard";
+  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2rem; /* 138.462% */
+  color: ${({ $isDark }) => $isDark && "#C6C5D0"};
+  p {
+    color: #ffffff;
+    font-family: "pretendard";
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 2rem; /* 138.462% */
+  }
+`;
+
 export const Button = styled.button`
   display: flex;
   justify-content: center;
