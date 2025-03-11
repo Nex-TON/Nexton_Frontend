@@ -12,8 +12,8 @@ export const PopupModal = (props: PopupProps) => {
   const { onClose, toggleModal } = props;
 
   useEffect(() => {
-    if (window.Telegram && window.Telegram.Webapp) {
-      window.Telegram.Webapp.ready();
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
     }
   }, []);
 
@@ -37,7 +37,11 @@ export const PopupModal = (props: PopupProps) => {
           <ButtonWrapper>
             <StonfiLinkButton
               onClick={() => {
-                window.Telegram.Webapp.close();
+                if (window.Telegram && window.Telegram.WebApp) {                
+                  window.Telegram.WebApp.close();
+                } else {
+                  toggleModal();
+                }
               }}
             >
               Got it

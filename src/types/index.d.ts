@@ -1,6 +1,6 @@
 export declare namespace TelegramWebApps {
   interface SDK {
-    Webapp: WebApp;
+    WebApp: WebApp;
   }
 }
 
