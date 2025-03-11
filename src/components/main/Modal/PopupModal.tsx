@@ -43,7 +43,7 @@ export const PopupModal = (props: PopupProps) => {
                   console.log(window.Telegram.Webapp);
                 } else {
                   console.log('error');
-                  toggleModal();
+                  // toggleModal();
                 }
               }}
             >
