@@ -1,6 +1,6 @@
 export declare namespace TelegramWebApps {
   interface SDK {
-    Webapp: WebApp;
+    WebApp: WebApp;
   }
 }
 
@@ -9,6 +9,7 @@ interface WebApp {
   MainButton: MainButton;
   BackButton: BackButton;
   enableClosingConfirmation(): void;
+  close(): void;
 }
 
 interface MainButton {

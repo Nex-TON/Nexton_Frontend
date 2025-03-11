@@ -27,6 +27,7 @@ import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 
 import { useWalletData } from "@/context/WalletConnectionProvider";
 import { AgreementModal } from "@/components/main/Modal/AgreementModal";
+import { PopupModal } from "@/components/main/Modal/PopupModal";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -52,6 +53,7 @@ const Main: React.FC = () => {
   const [modal, setModal] = useState(false);
   const [officialModal, setOfficialModal] = useState(false);
   const [agreementModal, setAgreementModal] = useState(false);
+  const [popupModal, setPopupModal] = useState(false);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -107,6 +109,10 @@ const Main: React.FC = () => {
     if (!hasSeenOfficialNotice) {
       setOfficialModal(true);
     }
+  }, []);
+
+  useEffect(() => {
+    setPopupModal(true);
   }, []);
 
   // 개인 정보 수집에 동의하지 않은 사용자에게 팝업으로 알림
@@ -237,11 +243,16 @@ const Main: React.FC = () => {
     localStorage.setItem("agreeTermsOfUse", "true");
   }, []);
 
+  const togglePopupModal = useCallback(() => {
+    setPopupModal(prev => !prev);
+  }, []);
+
   return (
     <>
       {modal && <WelcomeModal toggleModal={toggleModal} />}
       {agreementModal && <AgreementModal toggleModal={toggleAgreementModal} onAccept={onAcceptAgreementModal} />}
       {officialModal && <OfficialAnouncementModal toggleModal={toggleOfficialModal} />}
+      {popupModal && <PopupModal toggleModal={togglePopupModal} />}
       <MainWrapper>
         <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} />
         <MainMyAssetInfo
