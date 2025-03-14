@@ -54,7 +54,7 @@
     "react-tiny-fab": "^4.0.4",
     "react-toastify": "^10.0.5",
     "react-tooltip": "^5.28.0",
-    "recharts": "^2.12.7",
+    "recharts": "^2.15.0",
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
     "rollup-plugin-node-polyfills": "^0.2.1",

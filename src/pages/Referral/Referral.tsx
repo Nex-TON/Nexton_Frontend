@@ -19,8 +19,6 @@ import { ReferralPointsExplain } from "@/components/referral/ReferralPointsExpla
 import { ReferralStatistic } from "@/components/referral/ReferralStatistic";
 import { ReferralEarned } from "@/components/referral/ReferralEarned";
 import useTonConnect from "@/hooks/contract/useTonConnect";
-import { LoaderWrapper } from "../Dashboard/Dashboard.styled";
-import Loader from "@/components/common/Loader";
 
 const tele = (window as any).Telegram.WebApp;
 

@@ -27,7 +27,6 @@ import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 
 import { useWalletData } from "@/context/WalletConnectionProvider";
 import { AgreementModal } from "@/components/main/Modal/AgreementModal";
-import { PopupModal } from "@/components/main/Modal/PopupModal";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -243,16 +242,11 @@ const Main: React.FC = () => {
     localStorage.setItem("agreeTermsOfUse", "true");
   }, []);
 
-  const togglePopupModal = useCallback(() => {
-    setPopupModal(prev => !prev);
-  }, []);
-
   return (
     <>
       {modal && <WelcomeModal toggleModal={toggleModal} />}
       {agreementModal && <AgreementModal toggleModal={toggleAgreementModal} onAccept={onAcceptAgreementModal} />}
       {officialModal && <OfficialAnouncementModal toggleModal={toggleOfficialModal} />}
-      {popupModal && <PopupModal toggleModal={togglePopupModal} />}
       <MainWrapper>
         <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} />
         <MainMyAssetInfo

@@ -296,9 +296,21 @@ const fonts = {
     font-weight: 800;
     line-height: 1.6rem;
   `,
+  Nexton_Dashboard_text_0: css`
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22px; /* 137.5% */
+  `,
+  Nexton_Dashboard_text_1: css`
+  `,
 };
+
+export type FontsTypes = typeof fonts;
 
 const theme: DefaultTheme = {
   fonts,
 };
-export default theme;
+
+export { theme };
