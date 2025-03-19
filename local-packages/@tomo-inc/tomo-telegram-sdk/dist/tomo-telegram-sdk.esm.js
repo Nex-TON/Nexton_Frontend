@@ -4,7 +4,7 @@ import {
   useInitData,
   useThemeParams,
 } from '@vkruglikov/react-telegram-web-app';
-import create from 'zustand';
+// import create from 'zustand';
 import {
   _ as _asyncToGenerator,
   a as _regeneratorRuntime,
