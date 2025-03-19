@@ -19,7 +19,7 @@ import {
   TupleBuilder,
   DictionaryValue,
 } from "@ton/core";
-import { b } from "vitest/dist/suite-IbNSsUWN.js";
+// import { b } from "vitest/dist/suite-IbNSsUWN.js";
 
 export type StateInit = {
   $$type: "StateInit";
