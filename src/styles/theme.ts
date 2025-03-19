@@ -304,6 +304,20 @@ const fonts = {
     line-height: 22px; /* 137.5% */
   `,
   Nexton_Dashboard_text_1: css`
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 16px */
+    letter-spacing: -0.46px;
+  `,
+  Nexton_Dashboard_text_2: css`
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 18px */
+    letter-spacing: -0.4px;
   `,
 };
 

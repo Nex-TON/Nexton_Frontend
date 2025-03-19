@@ -1,11 +1,29 @@
 import styled from "styled-components";
-import { LineChart, Line } from "recharts";
+import { LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
 import IcStonfi from "@/assets/icons/Dashboard/ic_stonfi_letter.svg";
 import IcBinance from "@/assets/icons/Dashboard/ic_binance_letter.svg";
-import { MOCK_RANKING } from "@/constants/MOCK/MOCK_ranking";
+import { useBotPerformanceRank } from "@/hooks/api/dashboard/useBotPerformaceRank";
 
-const TrendingStrategyChart = () => {
-  const chartData = MOCK_RANKING?.chartData;
+const formatXAxis = (dateString: string, index: number): string => {
+  // X-axis 순서대로 시간 설정 (24h, 18h, 12h, 6h, Now)
+  const totalHours = 24;
+  const hoursRemaining = totalHours - index;  // X축 왼쪽에서부터 시간 설정
+
+  if (index === 0) {
+    return "24h";
+  } else if (hoursRemaining === 6) {
+    return "6h";
+  } else if (hoursRemaining === 12) {
+    return "12h";
+  } else if (hoursRemaining === 18) {
+    return "18h";
+  } else {
+    return ""; // 나머지 시간은 빈 값으로 처리
+  }
+};
+
+const TrendingStrategyChart = ({chartData}) => {
+  // const chartData = MOCK_RANKING?.chartData;
   return (
     <>
       <ChartWrapper>
@@ -18,15 +36,32 @@ const TrendingStrategyChart = () => {
           <img src={IcStonfi} alt="stonfi letter logo" />
         </Strategy.wrapper>
         <ChartContainer.wrapper>
-            <LineChart data={chartData} height={220} >
-                <Line type="monotone" dataKey="value" />
+          <ResponsiveContainer width="100%" height={220}>
+            <LineChart data={chartData} height={220} width={500}>
+              <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" dot={false} />
+              <CartesianGrid strokeDasharray="3 2" vertical={false} />
+              <XAxis dataKey="createdAt"  tickFormatter={(value, index) => formatXAxis(value, index)}  allowDataOverflow={true}  tickCount={24}/>
+              <YAxis  orientation="right" unit="%"/>
             </LineChart>
+          </ResponsiveContainer>
         </ChartContainer.wrapper>
+        <InformationBox>
+          * This graph is updated in real-time, <br />
+          ranking returns in descending order on a daily basis.
+        </InformationBox>
       </ChartWrapper>
     </>
   );
 };
 export default TrendingStrategyChart;
+
+const InformationBox = styled.div`
+  width: 100%;
+  height: auto;
+  text-align: start;
+  color: #767680;
+  ${({ theme }) => theme.fonts.Nexton_Dashboard_text_2};
+`;
 
 const ChartContainer = {
   wrapper: styled.div`
@@ -54,6 +89,7 @@ const Strategy = {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin: 15px 0 21.92px 0;
   `,
 };
 

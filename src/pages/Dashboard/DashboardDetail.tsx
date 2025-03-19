@@ -99,7 +99,7 @@ const DashboardDetail = () => {
               <XAxis hide />
               <YAxis orientation="right" width={50} unit="%" />
               <Tooltip formatter={(value, name, props) => [`${Number(value).toFixed(2)}%`, "PNL"]} />
-              <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" strokeWidth={2} dot={false} />
+              <Line type="monotone" dataKey="value" stroke="#007AFF" strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </ChartWrapper>
@@ -138,8 +138,8 @@ const DashboardDetail = () => {
             style={{ margin: "1.5rem 0 6.1rem 0" }}
           />
         </PerformanceWrapper>
-        <MainNavigationBar />
       </DashboardWrapper>
+      <MainNavigationBar />
     </>
   );
 };

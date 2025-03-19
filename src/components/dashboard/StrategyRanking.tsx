@@ -1,10 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { MOCK_RANKING } from "@/constants/MOCK/MOCK_ranking";
+// import { MOCK_RANKING } from "@/constants/MOCK/MOCK_ranking";
 import stonfi from "@/assets/icons/Dashboard/ic_stonfi_logo.svg";
 import binance from "@/assets/icons/Dashboard/ic_binance_logo.svg";
 import hyperliquid from "@/assets/icons/Dashboard/ic_hyperliquid_logo.svg";
 import stonfi_box from "@/assets/icons/Dashboard/ic_stonfibox_logo.svg";
+import IcTooltip from "@/assets/icons/Dashboard/ic_tooltip.svg";
+import { limitDecimals } from "@/utils/limitDecimals";
+import { useNavigate } from "react-router-dom";
+import DashboardDetail from "@/pages/Dashboard/DashboardDetail";
 
 const ICON = {
   stonfi,
@@ -12,10 +16,10 @@ const ICON = {
   hyperliquid,
 };
 
-const StrategyRanking = () => {
-  const [option, setOption] = useState("Yield");
+const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal }) => {
   //   mock
-  const rankingData = MOCK_RANKING;
+  // const rankingData = MOCK_RANKING;
+  const navigate = useNavigate();
 
   return (
     <>
@@ -23,88 +27,98 @@ const StrategyRanking = () => {
         <RankingTab.wrapper>
           <RankingTab.button
             $option={option}
-            $tabName="Yield"
+            $tabName="pnlRate"
             onClick={() => {
-              setOption("Yield");
+              handleOption("pnlRate");
             }}
           >
             Yield
           </RankingTab.button>
           <RankingTab.button
             $option={option}
-            $tabName="Transparency"
+            $tabName="transparency"
             onClick={() => {
-              setOption("Transparency");
+              handleOption("transparency");
             }}
           >
             Transparency
           </RankingTab.button>
         </RankingTab.wrapper>
-        <RankingContainer.title>
-          <p>No.</p>
-          <p>Strategy</p>
-          <p>APY</p>
-          <p>TVL</p>
-          <p>Detail</p>
-        </RankingContainer.title>
-        <RankingContainer.status $active>Running bot</RankingContainer.status>
+        <RankingContainer.status>
+          Running bot <img src={IcTooltip} alt="dashboard tooltip" />
+        </RankingContainer.status>
         <RankingContainer.wrapper $active>
-          {rankingData?.rankingList?.map((item, idx) => {
-            const strategy1 = item?.strategy1?.[1];
-            const strategy2 = item?.strategy2?.[1];
+          <RankingContainer.title $active>
+            <p>No.</p>
+            <p>Strategy</p>
+            <p>APY</p>
+            <p>TVL</p>
+            <p>Detail</p>
+          </RankingContainer.title>
+          {rankingList?.map((item, idx) => {
+            const strategy1 = item?.strategyDetails?.strategy1?.strategy;
+            const strategy2 = item?.strategyDetails?.strategy2?.strategy;
             console.log("test", strategy1, strategy2);
             return (
-              <RankingContainer.box $active>
-                <RankingContainer.text>{idx + 1}</RankingContainer.text>
-                <RankingContainer.strategy>
-                  <img src={ICON[strategy1]} alt={strategy1} />
-                  <img src={ICON[strategy2]} alt={ICON[strategy2]} />
-                </RankingContainer.strategy>
-                <RankingContainer.text>{item?.apy}%</RankingContainer.text>
-                <RankingContainer.text>{item?.tvl}TON</RankingContainer.text>
-                <RankingContainer.button>view</RankingContainer.button>
-              </RankingContainer.box>
+              <>
+                <RankingContainer.box $active>
+                  <RankingContainer.text>{idx + 1}</RankingContainer.text>
+                  <RankingContainer.strategy>
+                    <img src={ICON[strategy1]} alt={strategy1} />
+                    <img src={ICON[strategy2]} alt={ICON[strategy2]} />
+                  </RankingContainer.strategy>
+                  <RankingContainer.text>{item?.apy}%</RankingContainer.text>
+                  <RankingContainer.text>{limitDecimals(item?.tvl, 0)}TON</RankingContainer.text>
+                  <RankingContainer.button onClick={() => navigate("/dashboard/detail")}>view</RankingContainer.button>
+                </RankingContainer.box>
+                {idx + 1 < rankingTotal && <DivideLine />}
+              </>
             );
           })}
         </RankingContainer.wrapper>
         <RankingContainer.status>Upcoming bot</RankingContainer.status>
         <RankingContainer.wrapper>
-            <RankingContainer.box>
-                <RankingContainer.strategy>
-                    <img src={stonfi_box} alt="stonfi box icon"/>
-                    <img src={binance} alt="binance icon"/>
-                </RankingContainer.strategy>
-                <RankingContainer.text>
-                    --.--%
-                </RankingContainer.text>
-                <RankingContainer.text>
-                    ---TON
-                </RankingContainer.text>
-                <RankingContainer.text>
-                    -
-                </RankingContainer.text>
-            </RankingContainer.box>
-            <RankingContainer.box>
-                <RankingContainer.strategy>
-                    <img src={stonfi_box} alt="stonfi box icon"/>
-                    <img src={hyperliquid} alt="hyperliquid icon"/>
-                </RankingContainer.strategy>
-                <RankingContainer.text>
-                    --.--%
-                </RankingContainer.text>
-                <RankingContainer.text>
-                    ---TON
-                </RankingContainer.text>
-                <RankingContainer.text>
-                    -
-                </RankingContainer.text>
-            </RankingContainer.box>
+          <RankingContainer.title>
+            <p>No.</p>
+            <p>Strategy</p>
+            <p>APY</p>
+            <p>TVL</p>
+            <p>Detail</p>
+          </RankingContainer.title>
+          <RankingContainer.box>
+            <RankingContainer.text>1</RankingContainer.text>
+            <RankingContainer.strategy>
+              <img src={stonfi_box} alt="stonfi box icon" />
+              <img src={binance} alt="binance icon" />
+            </RankingContainer.strategy>
+            <RankingContainer.text>--.--%</RankingContainer.text>
+            <RankingContainer.text>---TON</RankingContainer.text>
+            <RankingContainer.text>-</RankingContainer.text>
+          </RankingContainer.box>
+          <DivideLine />
+          <RankingContainer.box>
+            <RankingContainer.text>2</RankingContainer.text>
+            <RankingContainer.strategy>
+              <img src={stonfi_box} alt="stonfi box icon" />
+              <img src={hyperliquid} alt="hyperliquid icon" />
+            </RankingContainer.strategy>
+            <RankingContainer.text>--.--%</RankingContainer.text>
+            <RankingContainer.text>---TON</RankingContainer.text>
+            <RankingContainer.text>-</RankingContainer.text>
+          </RankingContainer.box>
         </RankingContainer.wrapper>
       </RankingWrapper>
     </>
   );
 };
 export default StrategyRanking;
+
+const DivideLine = styled.div`
+  width: 100%;
+  height: 1px;
+  background: #f1f4f4;
+  margin: 14px 0;
+`;
 
 const RankingContainer = {
   button: styled.div`
@@ -128,44 +142,51 @@ const RankingContainer = {
   box: styled.div<{ $active? }>`
     display: flex;
     flex-direction: row;
-    justify-content: ${({$active})=>$active?"space-between":"space-evenly"};
+    justify-content: space-between;
     align-items: center;
+    padding: ${({ $active }) => ($active ? "0 20.5px" : "0 21px")};
 
     width: 100%;
     height: fit-content;
-    padding: 1.9rem 1.65rem 1.9rem 1.2rem;
-    background: ${({ $active }) => ($active ? "#FFF" : "#EFEFEF")};
+    background: transparent;
     border-radius: 1rem;
-    margin-bottom: 1rem;
   `,
   wrapper: styled.div<{ $active? }>`
     width: 100%;
     gap: 1rem;
+    background-color: ${({ $active }) => ($active ? "white" : "#EFEFEF")};
+    border-radius: 1rem;
     margin-bottom: ${({ $active }) => ($active ? "1.4rem" : "4rem")};
+    padding-bottom: ${({ $active }) => ($active ? "26.75px" : "27px")};
   `,
-  status: styled.div<{ $active? }>`
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Large};
+  status: styled.div`
+    ${({ theme }) => theme.fonts.Nexton_Dashboard_text_1};
+    gap: 6px;
+    color: #333;
     display: flex;
-    padding: 4px 18px;
     width: fit-content;
     height: fit-content;
     justify-content: center;
     align-items: center;
     border-radius: 100px;
-    color: ${({ $active }) => ($active ? "#FFFFFF" : "#2C3542")};
-    background: ${({ $active }) => ($active ? "#1F53FF" : "#E1E4E6")};
     margin-bottom: 1rem;
+    img {
+      width: 16px;
+      height: 16px;
+    }
   `,
-  title: styled.div`
+  title: styled.div<{ $active? }>`
     width: 100%;
-    padding: 4px 10px 4px 8px;
     display: flex;
     flex-direction: row;
     gap: 1rem;
     justify-content: space-between;
     margin-bottom: 10.5px;
+    padding: ${({ $active }) => ($active ? "27.25px 19px 26.75px 19px" : "20px 20px 17px 20px")};
+    border-bottom: ${({ $active }) => ($active ? "1px solid #F1F4F4" : "")};
     p {
-      ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2}
+      ${({ theme }) => theme.fonts.Nexton_Label_Small};
+      color: #c6c5d0;
     }
   `,
 };

@@ -42,6 +42,7 @@ const Router = () => {
         <Route path="/referral" element={<Referral />} />
         <Route path="/dashboard">
           <Route path="" element={<Dashboard/>}/>
+          <Route path="detail" element={<DashboardDetail/>}/>
         </Route>
         <Route path="/stake">
           <Route path="amount" element={<Amount />} />
