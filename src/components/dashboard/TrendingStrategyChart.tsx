@@ -17,6 +17,8 @@ const formatXAxis = (dateString: string, index: number): string => {
     return "12h";
   } else if (hoursRemaining === 18) {
     return "18h";
+  }else if (index==24){
+    return "Now";
   } else {
     return ""; // 나머지 시간은 빈 값으로 처리
   }
@@ -37,11 +39,11 @@ const TrendingStrategyChart = ({chartData}) => {
         </Strategy.wrapper>
         <ChartContainer.wrapper>
           <ResponsiveContainer width="100%" height={220}>
-            <LineChart data={chartData} height={220} width={500}>
+            <LineChart data={chartData} height={220} width={900}>
               <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" dot={false} />
               <CartesianGrid strokeDasharray="3 2" vertical={false} />
-              <XAxis dataKey="createdAt"  tickFormatter={(value, index) => formatXAxis(value, index)}  allowDataOverflow={true}  tickCount={24}/>
-              <YAxis  orientation="right" unit="%"/>
+              <XAxis tickLine={false}  stroke="#303234" strokeDasharray="1 0" dataKey="createdAt"  tickFormatter={(value, index) => formatXAxis(value, index)}  allowDataOverflow={false}  tickCount={24} />
+              <YAxis  orientation="right" unit="%" axisLine={false} margin-left={6} stroke="0"/>
             </LineChart>
           </ResponsiveContainer>
         </ChartContainer.wrapper>
@@ -66,6 +68,9 @@ const InformationBox = styled.div`
 const ChartContainer = {
   wrapper: styled.div`
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   `,
 };
 
