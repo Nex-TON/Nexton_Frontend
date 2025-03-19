@@ -6,7 +6,7 @@ import { useSetRecoilState } from "recoil";
 
 import BasicModal from "@/components/common/Modal/BasicModal";
 import TransactionConfirmModal from "@/components/common/Modal/TransactionConfirmModal";
-import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
+import StakingInfo from "@/components/loan/common/StakingInfo";
 import { ConfirmRepaymentModal } from "@/components/loan/Repay/ConfirmRepaymentModal";
 import { isDevMode } from "@/utils/isDevMode.ts";
 import * as Contract from "@/hooks/contract/repay";

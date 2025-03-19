@@ -6,8 +6,8 @@ import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { z } from "zod";
 
 import IcExclude from "@/assets/icons/Loan/ic_exclude.svg";
-import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
-import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
+import ProgressBar from "@/components/loan/common/ProgressBar";
+import StakingInfo from "@/components/loan/common/StakingInfo";
 // import TokenInput from "@/components/stake/common/TokensInput.tsx";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { isDevMode } from "@/utils/isDevMode.ts";
@@ -26,7 +26,7 @@ import {
   BorrowHeaderBoxTitle,
   BorrowWrapper,
   ExcludeBox,
-} from "./BorrowDetails.styled.tsx";
+} from "./BorrowDetails.styled";
 import { Label } from "recharts";
 
 const tele = (window as any).Telegram.WebApp;

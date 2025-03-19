@@ -3,23 +3,23 @@ import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from "recoil";
 
-import TransactionConfirmModal from "@/components/common/Modal/TransactionConfirmModal.tsx";
-import { ConfirmBorrowModal } from "@/components/loan/Borrow/ConfirmBorrowModal.tsx";
-import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
-import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
+import TransactionConfirmModal from "@/components/common/Modal/TransactionConfirmModal";
+import { ConfirmBorrowModal } from "@/components/loan/Borrow/ConfirmBorrowModal";
+import ProgressBar from "@/components/loan/common/ProgressBar";
+import StakingInfo from "@/components/loan/common/StakingInfo";
 import { isDevMode } from "@/utils/isDevMode.ts";
 import * as Contract from "@/hooks/contract/transferNFT";
 import { toNano, Address } from "@ton/core";
-import { useLoanDetail } from "@/hooks/api/loan/useLoanDetail.tsx";
+import { useLoanDetail } from "@/hooks/api/loan/useLoanDetail";
 import { globalError } from "@/lib/atom/globalError";
 
-import { BorrowHeaderBox, BorrowHeaderBoxTitle, BorrowWrapper } from "./BorrowDetails.styled.tsx";
+import { BorrowHeaderBox, BorrowHeaderBoxTitle, BorrowWrapper } from "./BorrowDetails.styled";
 import { postLendingInfo } from "@/api/postLendingInfo.ts";
 import { telegramAtom } from "@/lib/atom/telegram.ts";
 import { limitDecimals } from "@/utils/limitDecimals.ts";
-import BasicModal from "@/components/common/Modal/BasicModal.tsx";
+import BasicModal from "@/components/common/Modal/BasicModal";
 import axios from "axios";
-import { useNFTDetail } from "@/hooks/api/useNFTDetail.tsx";
+import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
