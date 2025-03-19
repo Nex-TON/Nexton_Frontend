@@ -106,6 +106,17 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal }) =>
             <RankingContainer.text>---TON</RankingContainer.text>
             <RankingContainer.text>-</RankingContainer.text>
           </RankingContainer.box>
+          <DivideLine/>
+          <RankingContainer.box>
+            <RankingContainer.text>3</RankingContainer.text>
+            <RankingContainer.strategy>
+              <img src={binance} alt="binance icon" />
+              <img src={hyperliquid} alt="hyperliquid icon" />
+            </RankingContainer.strategy>
+            <RankingContainer.text>--.--%</RankingContainer.text>
+            <RankingContainer.text>---TON</RankingContainer.text>
+            <RankingContainer.text>-</RankingContainer.text>
+          </RankingContainer.box>
         </RankingContainer.wrapper>
       </RankingWrapper>
     </>
