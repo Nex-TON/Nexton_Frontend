@@ -4,7 +4,7 @@ import {
   useInitData,
   useThemeParams,
 } from '@vkruglikov/react-telegram-web-app';
-// import create from 'zustand';
+import create from 'zustand';
 import {
   _ as _asyncToGenerator,
   a as _regeneratorRuntime,
@@ -88,7 +88,7 @@ export {
   u as useLocalStore,
 } from './EthereumProvider-0d47aac9.js';
 import axios from 'axios';
-// import 'zustand/middleware';
+import 'zustand/middleware';
 import { twMerge } from 'tailwind-merge';
 import { clsx } from 'clsx';
 import 'tonweb';
