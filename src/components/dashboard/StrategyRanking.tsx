@@ -49,7 +49,7 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal }) =>
           Running bot
           <RankingContainer.tooltipwrapper onClick={() => setShowTooltip(prev => !prev)}>
             <img src={IcTooltip} alt="dashboard tooltip" />
-            {showTooltip&&<DashboaardRunningBotTooltip/>}
+            {showTooltip && <DashboaardRunningBotTooltip />}
           </RankingContainer.tooltipwrapper>
         </RankingContainer.status>
         <RankingContainer.wrapper $active>
@@ -157,6 +157,7 @@ const RankingContainer = {
   strategy: styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
     img {
       width: 32px;
@@ -164,17 +165,20 @@ const RankingContainer = {
     }
   `,
   box: styled.div<{ $active? }>`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: ${({ $active }) => ($active ? "0 20.5px" : "0 21px")};
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%; /* ✅ title과 동일한 컬럼 */
+  align-items: center;
+  text-align: center;
+  padding: ${({ $active }) => ($active ? "15px 19px" : "10px 20px")}; /* ✅ 간격 조정 */
+  background: ${({ $active }) => ($active ? "#fff" : "transparent")};
+  border-radius: 1rem;
 
-    width: 100%;
-    height: fit-content;
-    background: transparent;
-    border-radius: 1rem;
-  `,
+  img {
+    width: 32px;
+    height: 32px;
+  }
+`,
   wrapper: styled.div<{ $active? }>`
     width: 100%;
     gap: 1rem;
@@ -201,13 +205,13 @@ const RankingContainer = {
   `,
   title: styled.div<{ $active? }>`
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    justify-content: space-between;
-    margin-bottom: 10.5px;
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%; /* ✅ 컬럼 너비 통일 */
+    align-items: center;
+    text-align: center;
     padding: ${({ $active }) => ($active ? "27.25px 19px 26.75px 19px" : "20px 20px 17px 20px")};
     border-bottom: ${({ $active }) => ($active ? "1px solid #F1F4F4" : "")};
+
     p {
       ${({ theme }) => theme.fonts.Nexton_Label_Small};
       color: #c6c5d0;
