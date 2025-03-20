@@ -10,7 +10,7 @@ export const MainWrapper = styled.div`
 
 export const MainInnerBox = styled.div`
   position: relative;
-  height: 222px;
+  height: auto;
   width: 100%;
   display: flex;
   flex-direction: column;
