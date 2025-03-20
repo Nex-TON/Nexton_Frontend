@@ -135,7 +135,7 @@ const DivideLine = styled.div`
   width: 100%;
   height: 1px;
   background: #f1f4f4;
-  margin: 14px 0;
+  /* margin: 14px 0; */
 `;
 
 const RankingContainer = {
@@ -167,10 +167,10 @@ const RankingContainer = {
   box: styled.div<{ $active? }>`
   width: 100%;
   display: grid;
-  grid-template-columns: 20% 20% 20% 20% 20%; /* ✅ title과 동일한 컬럼 */
+  grid-template-columns: 10% 20% 20% 30% 20%; /* ✅ title과 동일한 컬럼 */
   align-items: center;
   text-align: center;
-  padding: ${({ $active }) => ($active ? "15px 19px" : "10px 20px")}; /* ✅ 간격 조정 */
+  padding: ${({ $active }) => ($active ? "15px 19px" : "14px 20px")}; /* ✅ 간격 조정 */
   background: ${({ $active }) => ($active ? "#fff" : "transparent")};
   border-radius: 1rem;
 
@@ -185,7 +185,7 @@ const RankingContainer = {
     background-color: ${({ $active }) => ($active ? "white" : "#EFEFEF")};
     border-radius: 1rem;
     margin-bottom: ${({ $active }) => ($active ? "1.4rem" : "4rem")};
-    padding-bottom: ${({ $active }) => ($active ? "26.75px" : "27px")};
+    padding-bottom: ${({ $active }) => ($active ? "11.75px" : "27px")};
   `,
   status: styled.div`
     ${({ theme }) => theme.fonts.Nexton_Dashboard_text_1};
@@ -206,10 +206,10 @@ const RankingContainer = {
   title: styled.div<{ $active? }>`
     width: 100%;
     display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%; /* ✅ 컬럼 너비 통일 */
+    grid-template-columns: 10% 20% 20% 30% 20%; /* ✅ 컬럼 너비 통일 */
     align-items: center;
     text-align: center;
-    padding: ${({ $active }) => ($active ? "27.25px 19px 26.75px 19px" : "20px 20px 17px 20px")};
+    padding: ${({ $active }) => ($active ? "27.25px 19px 16px 19px" : "20px 20px 17px 20px")};
     border-bottom: ${({ $active }) => ($active ? "1px solid #F1F4F4" : "")};
 
     p {
