@@ -30,10 +30,20 @@ export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
         </Title>
 
         <SubTitleBox $marginBottom>
-          <SubTitle $isDark>By selecting this card,</SubTitle>
+          (name !== "Bemo Pool" ? (
           <SubTitle $isDark style={{ width: "75%", textAlign: "center" }}>
             {description}
           </SubTitle>
+          ) : (
+          <>
+            <SubTitle $isDark style={{ width: "75%", textAlign: "center", marginBottom: "2rem" }}>
+              Currently, staking in the Bemo Pool issues LST, but the process of entering the vault may be delayed.
+            </SubTitle>
+            <SubTitle $isDark style={{ width: "75%", textAlign: "center" }}>
+              Currently, staking in the Bemo Pool issues LST, but the process of entering the vault may be delayed.
+            </SubTitle>
+          </>
+          ))
         </SubTitleBox>
 
         <Button onClick={onConfirm}>Okay</Button>

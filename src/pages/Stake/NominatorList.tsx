@@ -16,6 +16,7 @@ import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom } from "@/lib/atom/staking";
 import { telegramAtom } from "@/lib/atom/telegram";
 import { isDevMode } from "@/utils/isDevMode";
+import IcWarning from "@/assets/icons/Stake/ic_warning_black.svg";
 
 import { useSelectNominator } from "./hooks/useSelectNominator";
 
@@ -84,9 +85,9 @@ const NominatorList = () => {
     selectedNominator?.name === "Bemo pool"
       ? "you will receive an NFT through the Arbitrage Bot."
       : selectedNominator?.name === "Arbitrage Bot"
-        ? "you can directly invest in the Arbitrage Bot."
-        : selectedNominator?.name === "Nominator Pool"
-          ? "you will receive an NFT through the Arbitrage Bot."
+        ? "Centralized exchanges may have security and operational risks."
+        : selectedNominator?.name === "Arbitrage Bot 1"
+          ? "Arbitrage trading may result in losses due to execution delays, price slippage, fees, and market volatility."
           : null;
 
   return (
@@ -160,6 +161,16 @@ const NominatorList = () => {
             )}
           </>
         )}
+        <WarningWrapper>
+          <WarningHeader>
+            <img src={IcWarning} />
+            Please be cautious before investing!
+          </WarningHeader>
+          <WarningLetter>
+            Centralized exchanges may have security and operational risks. Additionally, due to the nature of arbitrage
+            trading, there is a possibility of negative returns depending on market conditions and execution delays.
+          </WarningLetter>
+        </WarningWrapper>
       </NominatorItemList>
 
       {!isDevMode ? (
@@ -173,6 +184,40 @@ const NominatorList = () => {
 };
 
 export default NominatorList;
+const WarningLetter = styled.div`
+  color: var(--Neutral-Neutural-50, #76797a);
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 19.5px */
+  letter-spacing: -0.46px;
+`;
+
+const WarningHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  img {
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
+  }
+  color: var(--Neutral-Neutural-0, #000);
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 130%; /* 16.9px */
+  letter-spacing: -0.46px;
+`;
+
+const WarningWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  margin: 32.5px 0 46px 0;
+`;
 
 const NominatorListWrapper = styled.div`
   display: flex;

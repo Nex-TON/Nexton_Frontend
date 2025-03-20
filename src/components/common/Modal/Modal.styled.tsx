@@ -81,6 +81,14 @@ export const SubTitle = styled.p<{ $isDark?: boolean }>`
   font-weight: 400;
   line-height: 2rem; /* 138.462% */
   color: ${({ $isDark }) => $isDark && "#C6C5D0"};
+  p {
+    font-family: "pretendard";
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2rem; /* 138.462% */
+    color: ${({ $isDark }) => $isDark && "#C6C5D0"};
+  }
   span {
     color: #1f53ff;
     font-family: "pretendard";
