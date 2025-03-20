@@ -265,6 +265,7 @@ export const DashboardBottomLeftTitle = styled.h3`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 14px;
 `;
 
 export const APYBox = styled.div`
