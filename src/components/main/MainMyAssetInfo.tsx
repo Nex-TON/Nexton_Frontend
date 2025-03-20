@@ -12,9 +12,9 @@ import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanc
 import { useEarningsbyAddress } from "@/hooks/api/dashboard/useEarningsbyAddress";
 import IcArrowRightGrey from "@/assets/icons/Stake/ic_arrow_right.svg";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import stonfi from "@/assets/icons/main/ic_stonfi_logo.svg";
-import binance from "@/assets/icons/main/ic_binance_logo.svg";
-import hyperliquid from "@/assets/icons/main/ic_hyperliquid_logo.svg";
+import stonfi from "@/assets/icons/Main/ic_stonfi_logo.svg";
+import binance from "@/assets/icons/Main/ic_binance_logo.svg";
+import hyperliquid from "@/assets/icons/Main/ic_hyperliquid_logo.svg";
 
 import {
   // TvlNotice,
