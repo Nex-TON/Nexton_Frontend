@@ -200,7 +200,7 @@ const MainMyAssetInfo = ({
                 <APYBox onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
                   <span id="mainmyassetinfodashboard">APY</span>
                   <h4 id="mainmyassetinfodashboard">
-                    {performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}
+                    {performanceData?.summaryData[strategy]?.apy ? `${performanceData?.summaryData[strategy]?.apy.toFixed(2)}%` : "-"}
                   </h4>
                 </APYBox>
               </DashboardBottomLeftTitleBox>
