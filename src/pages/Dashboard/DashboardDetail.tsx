@@ -67,7 +67,7 @@ const DashboardDetail = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/main");
+        navigate("/dashboard");
       });
     }
 
