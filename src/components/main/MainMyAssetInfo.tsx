@@ -5,12 +5,11 @@ import styled from "styled-components";
 
 import IcArrowRight from "@/assets/icons/MyAsset/chevron-right.svg";
 import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
-import IcSmallArrowRight from "@/assets/icons/MyAsset/ic_small_arrow_right.svg";
 import MyAssetNotConnected from "@/assets/image/MyAssetNotConnected.svg";
-import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceChart";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import { useEarningsbyAddress } from "@/hooks/api/dashboard/useEarningsbyAddress";
 import IcArrowRightGrey from "@/assets/icons/Stake/ic_arrow_right.svg";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 import {
   // TvlNotice,
@@ -70,12 +69,26 @@ const MainMyAssetInfo = ({
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary();
-  const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
   const { data: earningsData, isLoading: earningsLoading, error: earningsError } = useEarningsbyAddress(address);
 
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
+  
+const DashboardStrategyNavigator = ({ strategyData }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const totalStrategies = strategyData.strategyList.length;
+  const currentStrategy = strategyData.strategyList[currentIndex];
+
+  const handlePrev = () => {
+    if (currentIndex > 0) setCurrentIndex(prev => prev - 1);
+  };
+
+  const handleNext = () => {
+    if (currentIndex < totalStrategies - 1) setCurrentIndex(prev => prev + 1);
+  };
+  
   const handleConnect = useCallback(async () => {
     await tonConnectUI.openModal();
     setConnectToggled(!connectToggled);
@@ -154,9 +167,15 @@ const MainMyAssetInfo = ({
           <DashboardBottomBox onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
             <DashboardBottomLeft id="mainmyassetinfodashboard">
               <DashboardBottomLeftTitleBox id="mainmyassetinfodashboard">
-                <DashboardBottomLeftTitle id="mainmyassetinfodashboard">Arbitrage Bot</DashboardBottomLeftTitle>
-
-                <APYBox id="mainmyassetinfodashboard">
+                <DashboardBottomLeftTitle id="mainmyassetinfodashboard">
+                  Arbitrage Bot
+                  <DashboardBottomStrategyBox.wrapper>
+                    <FaChevronLeft size={14} color={currentIndex===0?"#C6C5D0":"#C6CACA"} />
+                      <p></p>
+                    <FaChevronRight size={14} color="white" />
+                  </DashboardBottomStrategyBox.wrapper>
+                </DashboardBottomLeftTitle>
+                <APYBox onClick={()=>navigate("/dashboard")} id="mainmyassetinfodashboard">
                   <span id="mainmyassetinfodashboard">APY</span>
                   <h4 id="mainmyassetinfodashboard">
                     {performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}
@@ -164,8 +183,8 @@ const MainMyAssetInfo = ({
                 </APYBox>
               </DashboardBottomLeftTitleBox>
 
-              <DashboardBottomLeftData id="mainmyassetinfodashboard">
-                {performanceLoading || chartLoading ? (
+              <DashboardBottomLeftData id="mainmyassetinfodashboard" onClick={()=>navigate("/dashboard")}>
+                {performanceLoading ? (
                   <Loader />
                 ) : (
                   <>
@@ -178,9 +197,7 @@ const MainMyAssetInfo = ({
                     <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
                       <span id="mainmyassetinfodashboard">Daily PNL</span>
                       <h4 id="mainmyassetinfodashboard">
-                        {chartData
-                          ? `${chartData?.dailyPnlRate > 0 ? "+" : ""}${limitDecimals(chartData?.dailyPnlRate, 2)}%`
-                          : "-"}
+                        
                       </h4>
                     </DashboardBottomLeftDataItem>
                     <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
@@ -201,10 +218,6 @@ const MainMyAssetInfo = ({
                       <h4 id="mainmyassetinfodashboard">
                         {performanceData?.tvl ? `${limitDecimals(performanceData?.tvl, 3)} TON` : "-"}
                       </h4>
-                    </DashboardBottomLeftDataItem>
-
-                    <DashboardBottomLeftDataItem onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
-                      <img src={IcSmallArrowRight} alt="small_arrow_right" />
                     </DashboardBottomLeftDataItem>
                   </>
                 )}
@@ -300,9 +313,13 @@ const MainMyAssetInfo = ({
       />
     </MainWrapper>
   );
-};
+};};
 
 export default MainMyAssetInfo;
+
+const DashboardBottomStrategyBox = {
+  wrapper: styled.div``,
+};
 
 const RightItemWrapper = styled.div`
   display: flex;

@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
 import IcStonfi from "@/assets/icons/Dashboard/ic_stonfi_letter.svg";
 import IcBinance from "@/assets/icons/Dashboard/ic_binance_letter.svg";
-import { useBotPerformanceRank } from "@/hooks/api/dashboard/useBotPerformaceRank";
 
 const formatXAxis = (dateString: string, index: number): string => {
   // X-axis 순서대로 시간 설정 (24h, 18h, 12h, 6h, Now)
@@ -38,12 +37,12 @@ const TrendingStrategyChart = ({chartData}) => {
           <img src={IcStonfi} alt="stonfi letter logo" />
         </Strategy.wrapper>
         <ChartContainer.wrapper>
-          <ResponsiveContainer width="100%" height={220}>
-            <LineChart data={chartData} height={220} width={900}>
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={chartData} height={220} width={500}>
               <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" dot={false} />
-              <CartesianGrid strokeDasharray="3 2" vertical={false} />
+              <CartesianGrid strokeDasharray="3 2" vertical={false}  />
               <XAxis tickLine={false}  stroke="#303234" strokeDasharray="1 0" dataKey="createdAt"  tickFormatter={(value, index) => formatXAxis(value, index)}  allowDataOverflow={false}  tickCount={24} />
-              <YAxis  orientation="right" unit="%" axisLine={false} margin-left={6} stroke="0"/>
+              <YAxis  orientation="right" unit="%" axisLine={false} margin-left={6} stroke="0" width={50}/>
             </LineChart>
           </ResponsiveContainer>
         </ChartContainer.wrapper>
@@ -68,6 +67,7 @@ const InformationBox = styled.div`
 const ChartContainer = {
   wrapper: styled.div`
     width: 100%;
+    height: 220px;
     display: flex;
     justify-content: center;
     align-items: center;

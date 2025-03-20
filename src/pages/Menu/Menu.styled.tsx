@@ -262,6 +262,9 @@ export const DashboardBottomLeftTitleBox = styled.div`
 export const DashboardBottomLeftTitle = styled.h3`
   ${({ theme }) => theme.fonts.Nexton_Title_Large_2};
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export const APYBox = styled.div`

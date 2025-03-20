@@ -8,7 +8,6 @@ import stonfi_box from "@/assets/icons/Dashboard/ic_stonfibox_logo.svg";
 import IcTooltip from "@/assets/icons/Dashboard/ic_tooltip.svg";
 import { limitDecimals } from "@/utils/limitDecimals";
 import { useNavigate } from "react-router-dom";
-import DashboardDetail from "@/pages/Dashboard/DashboardDetail";
 
 const ICON = {
   stonfi,
@@ -69,7 +68,7 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal }) =>
                   </RankingContainer.strategy>
                   <RankingContainer.text>{item?.apy}%</RankingContainer.text>
                   <RankingContainer.text>{limitDecimals(item?.tvl, 0)}TON</RankingContainer.text>
-                  <RankingContainer.button onClick={() => navigate("/dashboard/detail")}>view</RankingContainer.button>
+                  <RankingContainer.button onClick={() => navigate(`/dashboard/detail/${item?.strategy}`)}>view</RankingContainer.button>
                 </RankingContainer.box>
                 {idx + 1 < rankingTotal && <DivideLine />}
               </>

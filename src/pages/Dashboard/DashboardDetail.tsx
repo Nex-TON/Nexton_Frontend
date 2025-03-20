@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -15,6 +15,13 @@ import "@/components/common/Header";
 import "./styles/Dashboard.css";
 import MainNavigationBar from "@/components/common/MainNavigationBar";
 import useTonConnect from "@/hooks/contract/useTonConnect";
+//asset
+import stonfi from "@/assets/icons/Dashboard/ic_stonfi_letter.svg";
+import binance from "@/assets/icons/Dashboard/ic_binance_letter.svg";
+import hyperliquid from "@/assets/icons/Dashboard/ic_hyperliquid_letter.svg";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import IcTooltip from "@/assets/icons/Dashboard/ic_tooltip.svg";
+import DashboardTvlTooltip from "@/components/dashboard/DashboardTvlTooltip";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -32,9 +39,11 @@ const DashboardDetail = () => {
   const { connected } = useTonConnect();
   const navigate = useNavigate();
   const setError = useSetRecoilState(globalError);
+  const { strategy } = useParams();
 
   const [timeFrame, setTimeFrame] = useState<TimeFrame>("1D");
   const [toggled, setToggled] = useState<boolean>(false);
+  const [showTvlTooltip, setShowTvlTooltip] = useState(false);
 
   const { data: performanceData, isLoading: performanceLoading, error: performanceError } = useBotPerformanceSummary();
 
@@ -42,7 +51,16 @@ const DashboardDetail = () => {
     data: chartData,
     isLoading: chartLoading,
     error: chartError,
-  } = useBotPerformanceChart(chartTimeFrameOptions[timeFrame]);
+  } = useBotPerformanceChart(chartTimeFrameOptions[timeFrame], strategy);
+
+  const strategyIcons = {
+    stonfi: stonfi,
+    binance: binance,
+    hyperliquid: hyperliquid, // 추가적인 거래소 여기 추가해줘야됨
+  };
+
+  const img1 = strategyIcons[chartData?.strategyDetails?.strategy1?.strategy] || "";
+  const img2 = strategyIcons[chartData?.strategyDetails?.strategy2?.strategy] || "";
 
   useEffect(() => {
     if (tele) {
@@ -80,6 +98,37 @@ const DashboardDetail = () => {
   return (
     <>
       <DashboardWrapper>
+        <Title>Strategy {chartData?.strategyDetails?.dexCnt}</Title>
+        <ChartNavigator.wrapper>
+          <FaChevronLeft
+            size={14}
+            style={{ margin: "5px" }}
+            color={chartData?.strategyDetails?.dexCnt == 1 ? "#E1E4E6" : "#2F3038"}
+            onClick={() => {
+              if (chartData?.strategyDetails?.dexCnt === 2) {
+                navigate("/dashboard/detail/stonfi-binance");
+              }
+            }}
+          />
+          <ChartNavigator.strategywrapper>
+            <ChartNavigator.exchange>{chartData?.strategyDetails?.strategy1?.exchange}</ChartNavigator.exchange>
+            <DivideLine />
+            <img src={img1} alt="binance letter logo" style={{ marginRight: "2rem" }} />
+            <ChartNavigator.exchange>{chartData?.strategyDetails?.strategy2?.exchange}</ChartNavigator.exchange>
+            <DivideLine />
+            <img src={img2} alt="stonfi letter logo" />
+          </ChartNavigator.strategywrapper>
+          <FaChevronRight
+            size={14}
+            style={{ margin: "5px" }}
+            color={chartData?.strategyDetails?.dexCnt === 1 ? "#2F3038" : "#E1E4E6"}
+            onClick={() => {
+              if (chartData?.strategyDetails?.dexCnt === 1) {
+                navigate("/dashboard/detail/stonfi-hyperliquid");
+              }
+            }}
+          />
+        </ChartNavigator.wrapper>
         <ChartWrapper>
           <ChartTimeFrame>
             {Object.keys(chartTimeFrameOptions).map(key => (
@@ -94,12 +143,12 @@ const DashboardDetail = () => {
           </ChartTimeFrame>
 
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart width={500} height={300} data={chartData?.data} margin={{ top: 15, bottom: 15 }}>
-              <CartesianGrid strokeDasharray="3 0" vertical={false} />
+            <LineChart width={500} height={220} data={chartData?.data} margin={{ top: 15, bottom: 15 }}>
+              <CartesianGrid strokeDasharray="3 2" vertical={false} />
               <XAxis hide />
-              <YAxis orientation="right" width={50} unit="%" />
+              <YAxis orientation="right" width={50} unit="%" stroke="0" />
               <Tooltip formatter={(value, name, props) => [`${Number(value).toFixed(2)}%`, "PNL"]} />
-              <Line type="monotone" dataKey="value" stroke="#007AFF" strokeWidth={2} dot={false} />
+              <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </ChartWrapper>
@@ -110,7 +159,7 @@ const DashboardDetail = () => {
           <PerformanceItemWrapper>
             <PerformanceItem>
               <h3>APY</h3>
-              <p>{performanceData?.apy?.toFixed(2)}%</p>
+              <p>{chartData?.apy?.toFixed(2)}%</p>
             </PerformanceItem>
 
             <PerformanceItem>
@@ -124,18 +173,24 @@ const DashboardDetail = () => {
           <PerformanceItemWrapper>
             <PerformanceItem>
               <h3>Stakers Win Rate</h3>
-              <p>{performanceData?.pnlWinRate?.toFixed(2)}%</p>
+              <p>{chartData?.pnlWinRate?.toFixed(2)}%</p>
             </PerformanceItem>
             <PerformanceItem>
-              <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>TVL</h3>
-              <p>{limitDecimals(performanceData?.tvl, 3)} TON</p>
+              <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                TVL
+                <StTooltipContainer onClick={() => setShowTvlTooltip(prev => !prev)}>
+                  {showTvlTooltip && <DashboardTvlTooltip />}
+                  <img src={IcTooltip} alt="tooltip icon" />
+                </StTooltipContainer>
+              </h3>
+              <p>{limitDecimals(chartData?.tvl, 3)} TON</p>
             </PerformanceItem>
           </PerformanceItemWrapper>
           <MainButton
             connected={connected}
             toggled={toggled}
             handleToggle={() => setToggled(!toggled)}
-            style={{ margin: "1.5rem 0 6.1rem 0" }}
+            style={{ margin: "6.5rem 0 6.1rem 0" }}
           />
         </PerformanceWrapper>
       </DashboardWrapper>
@@ -145,6 +200,50 @@ const DashboardDetail = () => {
 };
 
 export default DashboardDetail;
+
+const StTooltipContainer = styled.div`
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+`;
+
+const DivideLine = styled.div`
+  background: #aaaeaf;
+  width: 1.005px;
+  height: 9.043px;
+  margin: 0 8.04px;
+`;
+
+const ChartNavigator = {
+  exchange: styled.div`
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+    color: #aaaeaf;
+  `,
+  strategywrapper: styled.div`
+    img {
+      height: 16px;
+      margin-right: 1rem;
+    }
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  `,
+  wrapper: styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem 0 0 0;
+  `,
+};
+
+const Title = styled.div`
+  ${({ theme }) => theme.fonts.Nexton_Title_Medium_1};
+  color: #2c3542;
+`;
 
 export const ChartTimeFrame = styled.div`
   display: flex;
@@ -184,7 +283,7 @@ export const ChartWrapper = styled.div`
   gap: 1rem;
 `;
 
-export const LoaderWrapper = styled.div`
+const LoaderWrapper = styled.div`
   width: 100%;
   height: 100%;
 
@@ -192,7 +291,7 @@ export const LoaderWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
-export const DashboardWrapper = styled.div`
+const DashboardWrapper = styled.div`
   width: 100%;
   height: auto;
   min-height: 100%;
@@ -209,7 +308,7 @@ export const DashboardWrapper = styled.div`
   }
 `;
 
-export const PerformanceWrapper = styled.div`
+const PerformanceWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -253,6 +352,16 @@ export const PerformanceItem = styled.div<{ $fullWidth?: boolean }>`
     font-style: normal;
     font-weight: 500;
     line-height: 150%; /* 21px */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-
+    img {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   p {

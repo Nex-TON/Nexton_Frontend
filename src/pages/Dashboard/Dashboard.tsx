@@ -8,7 +8,6 @@ import styled from "styled-components";
 const Dashboard = () => {
   const [option, setOption] = useState("pnlRate");
   const {data,isLoading}=useBotPerformanceRank(option);
-  console.log(option)
   return (
     <>
       <DashboardWrapper>

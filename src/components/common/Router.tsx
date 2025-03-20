@@ -42,7 +42,7 @@ const Router = () => {
         <Route path="/referral" element={<Referral />} />
         <Route path="/dashboard">
           <Route path="" element={<Dashboard/>}/>
-          <Route path="detail" element={<DashboardDetail/>}/>
+          <Route path="detail/:strategy" element={<DashboardDetail/>}/>
         </Route>
         <Route path="/stake">
           <Route path="amount" element={<Amount />} />
@@ -70,7 +70,6 @@ const Router = () => {
         <Route path="/unstaking">
           <Route path=":id" element={<UnstakingNftDetail />} />
           <Route path=":id/view" element={<UnstakingNftDetail view />} />
-          <Route path="beta" element={<UnstakingBetaInfo />} />
         </Route>
         <Route path="/swap" element={<Swap />} />
         <Route path="/nlp" element={<Nlp />} />
