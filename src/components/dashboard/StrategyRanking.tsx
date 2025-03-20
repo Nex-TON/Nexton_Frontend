@@ -8,6 +8,7 @@ import stonfi_box from "@/assets/icons/Dashboard/ic_stonfibox_logo.svg";
 import IcTooltip from "@/assets/icons/Dashboard/ic_tooltip.svg";
 import { limitDecimals } from "@/utils/limitDecimals";
 import { useNavigate } from "react-router-dom";
+import DashboaardRunningBotTooltip from "./DahsboardRunningBotTooltip";
 
 const ICON = {
   stonfi,
@@ -19,6 +20,7 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal }) =>
   //   mock
   // const rankingData = MOCK_RANKING;
   const navigate = useNavigate();
+  const [showTooltip, setShowTooltip] = useState(false);
 
   return (
     <>
@@ -44,7 +46,11 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal }) =>
           </RankingTab.button>
         </RankingTab.wrapper>
         <RankingContainer.status>
-          Running bot <img src={IcTooltip} alt="dashboard tooltip" />
+          Running bot
+          <RankingContainer.tooltipwrapper onClick={() => setShowTooltip(prev => !prev)}>
+            <img src={IcTooltip} alt="dashboard tooltip" />
+            {showTooltip&&<DashboaardRunningBotTooltip/>}
+          </RankingContainer.tooltipwrapper>
         </RankingContainer.status>
         <RankingContainer.wrapper $active>
           <RankingContainer.title $active>
@@ -68,7 +74,9 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal }) =>
                   </RankingContainer.strategy>
                   <RankingContainer.text>{item?.apy}%</RankingContainer.text>
                   <RankingContainer.text>{limitDecimals(item?.tvl, 0)}TON</RankingContainer.text>
-                  <RankingContainer.button onClick={() => navigate(`/dashboard/detail/${item?.strategy}`)}>view</RankingContainer.button>
+                  <RankingContainer.button onClick={() => navigate(`/dashboard/detail/${item?.strategy}`)}>
+                    view
+                  </RankingContainer.button>
                 </RankingContainer.box>
                 {idx + 1 < rankingTotal && <DivideLine />}
               </>
@@ -105,7 +113,7 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal }) =>
             <RankingContainer.text>---TON</RankingContainer.text>
             <RankingContainer.text>-</RankingContainer.text>
           </RankingContainer.box>
-          <DivideLine/>
+          <DivideLine />
           <RankingContainer.box>
             <RankingContainer.text>3</RankingContainer.text>
             <RankingContainer.strategy>
@@ -131,6 +139,12 @@ const DivideLine = styled.div`
 `;
 
 const RankingContainer = {
+  tooltipwrapper: styled.div`
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+  `,
   button: styled.div`
     ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
     color: #1f53ff;

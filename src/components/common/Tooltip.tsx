@@ -24,8 +24,8 @@ const TooltipContainer=styled.div`
         content: ' ';
         position: absolute;
         top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
+        left: 30%;
+        /* transform: translateX(-50%); */
 
         border-color: black transparent transparent transparent;
         border-style: solid;

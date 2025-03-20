@@ -1,23 +1,18 @@
 import styled from "styled-components";
 import Tooltip from "../common/Tooltip";
-import IcTon from "@/assets/icons/Dashboard/ic_ton_logo.svg";
-import IcNextonLogo from "@/assets/icons/Dashboard/ic_nxTON_logo.svg";
 
-const DashboardTvlTooltip = () => {
+const DashboaardRunningBotTooltip = () => {
   return (
     <StContainer>
       <Tooltip>
         <StTooltipContainer>
-          <img src={IcTon} />
-          TON + 
-          <img src={IcNextonLogo} style={{marginLeft:"5px"}}/>
-          nxTON
+        The yield rankings are displayed in<br/> descending order based on the bots' yield.
         </StTooltipContainer>
       </Tooltip>
     </StContainer>
   );
 };
-export default DashboardTvlTooltip;
+export default DashboaardRunningBotTooltip;
 
 const StTooltipContainer = styled.div`
   img {
@@ -37,11 +32,13 @@ const StTooltipContainer = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 138.462% */
+  text-align: start;
   white-space: nowrap;
+  margin: 7px;
 `;
 const StContainer = styled.div`
   position: absolute;
   bottom: 4rem;
   left: 0;
-  transform: translateX(calc(-37% + 1.2rem));
+  transform: translateX(calc(-35% + 1.2rem));
 `;
