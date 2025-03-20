@@ -8,6 +8,8 @@ import IcMenuTwitter from "@/assets/icons/Menu/ic_menu_twitter.svg";
 import IcMenuTelegram from "@/assets/icons/Menu/ic_menu_telegram.svg";
 import IcMenuSupport from "@/assets/icons/Menu/ic_menu_support.svg";
 import IcMenuGitbook from "@/assets/icons/Menu/ic_menu_gitbook.svg";
+import IcAudit from "@/assets/icons/Menu/ic_menu_audit.svg";
+
 
 const JoinCommunity = () => {
   const handleNewTap = (url: string) => {
@@ -57,6 +59,16 @@ const JoinCommunity = () => {
             Gitbook
           </div>
           <img src={IcNftMoreArrow} alt="moreArrow" width={10} id="menu page gitbook button" />
+        </JoinCommunityButton>
+        <JoinCommunityButton
+          onClick={() => handleNewTap("https://drive.google.com/file/d/1P93KsSuna2Lgx-dMD4Naeyt0rtHos6w4/view?usp=sharing")}
+          id="menu page audit of nexton"
+        >
+          <div id="menu page audit button">
+            <img src={IcAudit} alt="audit" id="menu page audit button" />
+            Audit of NEXTON
+          </div>
+          <img src={IcNftMoreArrow} alt="moreArrow" width={10} id="menu page audit button" />
         </JoinCommunityButton>
         <JoinCommunityButton $inactive>
           <div>
