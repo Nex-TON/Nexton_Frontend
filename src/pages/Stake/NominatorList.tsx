@@ -103,7 +103,7 @@ const NominatorList = () => {
       <NominatorListWrapper>
         <ProgressBar />
         <Step title="Step 2" type="nominator" />
-        <Title title="Select Your Pool or Bot" />
+        <Title title="Select Your Strategy" />
       </NominatorListWrapper>
       <NominatorItemList>
         {isLoading ? (
@@ -116,7 +116,7 @@ const NominatorList = () => {
               <>
                 {nominatorListData.some(item => item.type === "bot") && (
                   <BotTitleWrapper>
-                    <TitleH3>Bot</TitleH3>
+                    <TitleH3>Strategy</TitleH3>
                     <DashboardLink onClick={() => navigate("/dashboard")} id="nominator list dashboard button">
                       Go to Dashboard <img src={IcArrorRight} alt="arrow_right" />
                     </DashboardLink>
