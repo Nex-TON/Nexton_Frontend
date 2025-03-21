@@ -18,7 +18,7 @@ const TooltipContainer=styled.div`
 
     background-color: black;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
 
     &::after{
         content: ' ';

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useSetRecoilState } from "recoil";
@@ -44,6 +44,7 @@ const DashboardDetail = () => {
   const [timeFrame, setTimeFrame] = useState<TimeFrame>("1D");
   const [toggled, setToggled] = useState<boolean>(false);
   const [showTvlTooltip, setShowTvlTooltip] = useState(false);
+  const tooltipRef = useRef<HTMLDivElement>(null);
 
   const { data: performanceData, isLoading: performanceLoading, error: performanceError } = useBotPerformanceSummary();
 
@@ -61,6 +62,23 @@ const DashboardDetail = () => {
 
   const img1 = strategyIcons[chartData?.strategyDetails?.strategy1?.strategy] || "";
   const img2 = strategyIcons[chartData?.strategyDetails?.strategy2?.strategy] || "";
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
+        setShowTvlTooltip(false);
+      }
+    };
+
+    if (showTvlTooltip) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showTvlTooltip]);
+
 
   useEffect(() => {
     if (tele) {
@@ -97,7 +115,7 @@ const DashboardDetail = () => {
 
   return (
     <>
-      <DashboardWrapper>
+      <DashboardWrapper ref={tooltipRef}>
         <Title>Strategy {chartData?.strategyDetails?.dexCnt}</Title>
         <ChartNavigator.wrapper>
           <FaChevronLeft
@@ -178,7 +196,7 @@ const DashboardDetail = () => {
             <PerformanceItem>
               <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                 TVL
-                <StTooltipContainer onClick={() => setShowTvlTooltip(prev => !prev)}>
+                <StTooltipContainer onClick={(e) => {e.stopPropagation();setShowTvlTooltip(prev => !prev)}} onMouseEnter={()=>setShowTvlTooltip(true)} onMouseLeave={()=>setShowTvlTooltip(false)}>
                   {showTvlTooltip && <DashboardTvlTooltip />}
                   <img src={IcTooltip} alt="tooltip icon" />
                 </StTooltipContainer>

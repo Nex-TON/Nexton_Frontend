@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 // import { MOCK_RANKING } from "@/constants/MOCK/MOCK_ranking";
 import stonfi from "@/assets/icons/Dashboard/ic_stonfi_logo.svg";
@@ -21,10 +21,27 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
   // const rankingData = MOCK_RANKING;
   const navigate = useNavigate();
   const [showTooltip, setShowTooltip] = useState(false);
+  const tooltipRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
+        setShowTooltip(false);
+      }
+    };
+
+    if (showTooltip) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showTooltip]);
+  
   return (
     <>
-      <RankingWrapper>
+      <RankingWrapper ref={tooltipRef}>
         <RankingTab.wrapper>
           <RankingTab.button
             $option={option}
@@ -47,7 +64,7 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
         </RankingTab.wrapper>
         <RankingContainer.status>
           Running bot
-          <RankingContainer.tooltipwrapper onClick={() => setShowTooltip(prev => !prev)}>
+          <RankingContainer.tooltipwrapper onClick={() => setShowTooltip(prev => !prev)} onMouseEnter={()=>setShowTooltip(true)} onMouseLeave={()=>setShowTooltip(false)}>
             <img src={IcTooltip} alt="dashboard tooltip" />
             {showTooltip && <DashboaardRunningBotTooltip />}
           </RankingContainer.tooltipwrapper>

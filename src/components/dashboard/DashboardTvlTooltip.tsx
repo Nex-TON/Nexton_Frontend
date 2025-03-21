@@ -41,7 +41,7 @@ const StTooltipContainer = styled.div`
 `;
 const StContainer = styled.div`
   position: absolute;
-  bottom: 4rem;
+  bottom: 2.6rem;
   left: 0;
-  transform: translateX(calc(-37% + 1.2rem));
+  transform: translateX(calc(-37% + 1.1rem));
 `;
