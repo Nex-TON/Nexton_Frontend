@@ -16,7 +16,7 @@ const ICON = {
   hyperliquid,
 };
 
-const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal }) => {
+const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLoading }) => {
   //   mock
   // const rankingData = MOCK_RANKING;
   const navigate = useNavigate();

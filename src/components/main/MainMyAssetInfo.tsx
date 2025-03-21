@@ -169,6 +169,7 @@ const MainMyAssetInfo = ({
               <DashboardBottomLeftTitleBox id="mainmyassetinfodashboard">
                 <DashboardBottomLeftTitle id="mainmyassetinfodashboard">
                   Arbitrage Bot
+                  {performanceLoading?(<Loader/>):(
                   <StrategyOption.wrapper>
                     <FaChevronLeft
                       size={14}
@@ -195,6 +196,7 @@ const MainMyAssetInfo = ({
                       }}
                     />
                   </StrategyOption.wrapper>
+                )}
                 </DashboardBottomLeftTitle>
 
                 <APYBox onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">

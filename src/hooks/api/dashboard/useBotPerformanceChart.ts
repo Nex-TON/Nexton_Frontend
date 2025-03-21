@@ -19,7 +19,7 @@ interface IBotPerformanceChart {
 }
 
 export function useBotPerformanceChart(timeframe: number,strategy:string) {
-  const swrKey = `/data/botPerformanceChart${timeframe ? `?timeframe=${timeframe}` : ""}&strategy=${strategy}`;
+  const swrKey = `/data/botPerformanceChart?${timeframe ? `timeframe=${timeframe}` : ""}&strategy=${strategy}`;
 
   return useSWR<IBotPerformanceChart>(swrKey, nextonFetcher);
 }

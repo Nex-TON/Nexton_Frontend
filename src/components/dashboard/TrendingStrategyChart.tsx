@@ -40,7 +40,8 @@ const TrendingStrategyChart = ({ chartData }) => {
         <ChartContainer.wrapper>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData} height={220} width={500}>
-              <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" dot={false} />
+              <Line type="monotone" dataKey="pnlRate" stroke="#007AFF" strokeWidth={2} dot={false} />
+              <Tooltip formatter={(value,name,props)=>[`${Number(value).toFixed(2)}% PNL`]}/>
               <CartesianGrid strokeDasharray="3 2" vertical={false} />
               <XAxis
                 tickLine={false}
