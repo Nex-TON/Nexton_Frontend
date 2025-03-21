@@ -90,13 +90,14 @@ const NominatorList = () => {
           ? "Arbitrage trading may result in losses due to execution delays, price slippage, fees, and market volatility."
           : null;
 
+  const name = selectedNominator?.name === "Arbitrage Bot" ? "CEX-DEX" : selectedNominator?.name === "Arbitrage Bot 1" ? "DEX-DEX" : selectedNominator?.name;
   return (
     <>
       {confirmModal && (
         <ConfirmNominatorModal
           toggleModal={toggleModal}
           onConfirm={handleConfirmNominator}
-          name={selectedNominator.name}
+          name={name}
           description={description}
         />
       )}
@@ -241,14 +242,14 @@ const LoaderWrapper = styled.div`
 const NominatorItemList = styled.div`
   width: 100%;
   margin-top: 3.3rem;
-  padding: 0 2rem 1.4rem 2rem;
+  padding: 2rem 2rem 1.4rem 2rem;
+  gap: 4rem;
 
   background-color: #f2f2f7;
 `;
 
 const TitleH3 = styled.h3`
-  padding: 1.4rem 0;
-
+  padding: 4rem 0 1.4rem 0;
   color: #333;
   font-family: Montserrat;
   font-size: 20px;

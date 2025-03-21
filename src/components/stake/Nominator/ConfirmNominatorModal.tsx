@@ -11,6 +11,7 @@ interface ConfirmNominatorModalProps {
 
 export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
   const { onConfirm, toggleModal, name, description } = props;
+  const comment = name === "Bemo Pool" ? `in the ${name}?` : `in a ${name} strategy?`;
 
   return (
     <ModalWrapper>
@@ -25,25 +26,26 @@ export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
           />
         </ModalHeader>
 
-        <Title $isDark style={{ width: "75%", textAlign: "center" }}>
-          You have selected the {name}!
+        <Title $isDark style={{ width: "90%", textAlign: "center" }}>
+          Would you like to invest<br/> 
+          {comment}
         </Title>
 
         <SubTitleBox $marginBottom>
-          (name !== "Bemo Pool" ? (
-          <SubTitle $isDark style={{ width: "75%", textAlign: "center" }}>
+          {name !== "Bemo Pool" ? (
+          <SubTitle $isDark style={{ width: "90%", textAlign: "center" }}>
             {description}
           </SubTitle>
           ) : (
           <>
-            <SubTitle $isDark style={{ width: "75%", textAlign: "center", marginBottom: "2rem" }}>
-              Currently, staking in the Bemo Pool issues LST, but the process of entering the vault may be delayed.
+            <SubTitle $isDark style={{ width: "100%", textAlign: "center", marginBottom: "2rem" }}>
+              Currently, staking in the Bemo Pool<br/> issues LST, but the process of entering<br/> the vault may be delayed.
             </SubTitle>
-            <SubTitle $isDark style={{ width: "75%", textAlign: "center" }}>
-              Currently, staking in the Bemo Pool issues LST, but the process of entering the vault may be delayed.
+            <SubTitle $isDark style={{ width: "100%", textAlign: "center" }}>
+              Additionally, Arbitrage trading may<br/> result in losses due to execution delays,<br/> price slippage, fees, and market volatility.
             </SubTitle>
           </>
-          ))
+          )}
         </SubTitleBox>
 
         <Button onClick={onConfirm}>Okay</Button>
