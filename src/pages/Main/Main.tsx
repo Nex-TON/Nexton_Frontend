@@ -57,8 +57,7 @@ const Main: React.FC = () => {
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // const userId = tele?.initDataUnsafe?.user?.id; //number
-  const userId = 8087654960;
+  const userId = tele?.initDataUnsafe?.user?.id; //number
 
   const { data: userAgreement } = useAgreement(String(userId));
 
