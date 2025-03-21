@@ -25,8 +25,9 @@ import "react-toastify/dist/ReactToastify.css";
 import NextonNews from "@/components/main/NextonNews";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 
-import { useWalletData } from "@/context/WalletConnectionProvider";
 import { AgreementModal } from "@/components/main/Modal/AgreementModal";
+import { postAgreement } from "@/api/postAgreement";
+import { useAgreement } from "@/hooks/api/main/useAgreement";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -56,7 +57,10 @@ const Main: React.FC = () => {
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const userId = tele?.initDataUnsafe?.user?.id;
+  // const userId = tele?.initDataUnsafe?.user?.id; //number
+  const userId = 8087654960;
+
+  const { data: userAgreement } = useAgreement(String(userId));
 
   // Refresh TON data
   useEffect(() => {
@@ -116,14 +120,13 @@ const Main: React.FC = () => {
 
   // 개인 정보 수집에 동의하지 않은 사용자에게 팝업으로 알림
   useEffect(() => {
-    const agreePrivacyPolicy = localStorage.getItem("agreePrivacyPolicy");
-    const agreeTermsOfUse = localStorage.getItem("agreeTermsOfUse");
-    if (!agreePrivacyPolicy || !agreeTermsOfUse) {
-      setAgreementModal(true);
-    } else {
+    if(userAgreement){
+    if (userAgreement?.agreement) {
       setAgreementModal(false);
-    }
-  }, []);
+    } else {
+      setAgreementModal(true);
+    }};
+  }, [userAgreement]);
 
   //사용자 지갑 주소 전송
   useEffect(() => {
@@ -237,9 +240,17 @@ const Main: React.FC = () => {
     setAgreementModal(prev => !prev);
   }, []);
 
-  const onAcceptAgreementModal = useCallback(() => {
-    localStorage.setItem("agreePrivacyPolicy", "true");
-    localStorage.setItem("agreeTermsOfUse", "true");
+  const onAcceptAgreementModal = useCallback(async () => {
+    // localStorage.setItem("agreePrivacyPolicy", "true");
+    // localStorage.setItem("agreeTermsOfUse", "true");
+    try {
+      const response = await postAgreement({
+        userId:userId.toString(),
+      });
+      console.log("이용약관 동의모달", response);
+    } catch (error) {
+      console.log("error", error);
+    }
   }, []);
 
   return (
