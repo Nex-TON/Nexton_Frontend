@@ -85,9 +85,9 @@ const NominatorList = () => {
     selectedNominator?.name === "Bemo pool"
       ? "you will receive an NFT through the Arbitrage Bot."
       : selectedNominator?.name === "Arbitrage Bot 1"
-        ? "Centralized exchanges may have security and operational risks."
+        ? "Arbitrage trading may result in losses due to execution delays, price slippage, fees, and market volatility."
         : selectedNominator?.name === "Arbitrage Bot"
-          ? "Arbitrage trading may result in losses due to execution delays, price slippage, fees, and market volatility."
+          ? "Centralized exchanges may have security and operational risks."
           : null;
 
   const name = selectedNominator?.name === "Arbitrage Bot" ? "DEX-DEX" : selectedNominator?.name === "Arbitrage Bot 1" ? "CEX-DEX" : selectedNominator?.name;
