@@ -203,7 +203,7 @@ const Main: React.FC = () => {
   // Calculate the total amount staked
   const totalStaked = useMemo(() => {
     const nftTotal =
-      nftList?.reduce((acc, nft) => {
+      (nftList||[])?.reduce((acc, nft) => {
         if (nft.tokenSort === "TON") {
           return acc + nft.principal;
         }
@@ -211,7 +211,7 @@ const Main: React.FC = () => {
       }, 0) || 0;
 
     const borrowTotal =
-      borrowList?.reduce((acc, borrow) => {
+      (borrowList||[])?.reduce((acc, borrow) => {
         if (borrow.tokenSort === "TON" && borrow.status === 0) {
           return acc + borrow.principal / borrow.loanToValue;
         }
