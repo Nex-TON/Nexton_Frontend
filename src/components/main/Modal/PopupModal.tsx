@@ -34,7 +34,7 @@ export const PopupModal = (props: PopupProps) => {
           <ContentBox>
             <hr />
             <Content $isDark>
-              Maintenance Period: <p>March 12 - March 17</p>
+              Maintenance Period: <p>March 12 - March 20</p>
             </Content>
           </ContentBox>
         </WelcomeModalContent>
