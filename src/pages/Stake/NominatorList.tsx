@@ -84,13 +84,13 @@ const NominatorList = () => {
   const description =
     selectedNominator?.name === "Bemo pool"
       ? "you will receive an NFT through the Arbitrage Bot."
-      : selectedNominator?.name === "Arbitrage Bot"
+      : selectedNominator?.name === "Arbitrage Bot 1"
         ? "Centralized exchanges may have security and operational risks."
-        : selectedNominator?.name === "Arbitrage Bot 1"
+        : selectedNominator?.name === "Arbitrage Bot"
           ? "Arbitrage trading may result in losses due to execution delays, price slippage, fees, and market volatility."
           : null;
 
-  const name = selectedNominator?.name === "Arbitrage Bot" ? "CEX-DEX" : selectedNominator?.name === "Arbitrage Bot 1" ? "DEX-DEX" : selectedNominator?.name;
+  const name = selectedNominator?.name === "Arbitrage Bot" ? "DEX-DEX" : selectedNominator?.name === "Arbitrage Bot 1" ? "CEX-DEX" : selectedNominator?.name;
   return (
     <>
       {confirmModal && (
@@ -242,7 +242,7 @@ const LoaderWrapper = styled.div`
 const NominatorItemList = styled.div`
   width: 100%;
   margin-top: 3.3rem;
-  padding: 2rem 2rem 1.4rem 2rem; 
+  padding: 2rem 2rem 1.4rem 2rem;
 
   background-color: #f2f2f7;
 `;

@@ -15,6 +15,7 @@ export const AnnouncementModal = (props: AnnouncementProps) => {
     <ModalWrapper>
       <Container $isDark>
         <AnnouncementModalContent>
+        <AlertCircle src="/public/alert-circle.png" alt="My Image" />
           <Title $isDark>Announcement!</Title>
           <SubTitleBox>
             <SubTitle $isDark>
@@ -95,4 +96,11 @@ const AnnouncementButtonWrapper = styled.div`
 
   width: 100%;
   margin-top: 3.4rem;
+`;
+
+const AlertCircle = styled.img`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
 `;
