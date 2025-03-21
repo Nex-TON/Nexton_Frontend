@@ -14,7 +14,7 @@ const Dashboard = () => {
         <DashboardContainer.title style={{ marginBottom: "1.9rem" }}>Dashboard</DashboardContainer.title>
         <DashboardContainer.title>Strategy Ranking</DashboardContainer.title>
         <DashboardContainer.section>
-          <StrategyRanking isLoading={isLoading} option={option} handleOption={setOption} rankingList={data?.rankingList} rankingTotal={data?.rankingTotal} />
+          <StrategyRanking isLoading={isLoading} option={option} handleOption={setOption} rankingList={data?.rankingList} rankingTotal={data?.rankingTotal} sort={option} />
         </DashboardContainer.section>
         <DashboardContainer.subtitle>Real-Time Trending Strategy</DashboardContainer.subtitle>
         <DashboardContainer.section>

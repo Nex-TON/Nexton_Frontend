@@ -44,7 +44,6 @@ const DashboardDetail = () => {
   const [timeFrame, setTimeFrame] = useState<TimeFrame>("1D");
   const [toggled, setToggled] = useState<boolean>(false);
   const [showTvlTooltip, setShowTvlTooltip] = useState(false);
-  const tooltipRef = useRef<HTMLDivElement>(null);
 
   const { data: performanceData, isLoading: performanceLoading, error: performanceError } = useBotPerformanceSummary();
 
@@ -62,23 +61,6 @@ const DashboardDetail = () => {
 
   const img1 = strategyIcons[chartData?.strategyDetails?.strategy1?.strategy] || "";
   const img2 = strategyIcons[chartData?.strategyDetails?.strategy2?.strategy] || "";
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
-        setShowTvlTooltip(false);
-      }
-    };
-
-    if (showTvlTooltip) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [showTvlTooltip]);
-
 
   useEffect(() => {
     if (tele) {
@@ -115,7 +97,7 @@ const DashboardDetail = () => {
 
   return (
     <>
-      <DashboardWrapper ref={tooltipRef}>
+      <DashboardWrapper>
         <Title>Strategy {chartData?.strategyDetails?.dexCnt}</Title>
         <ChartNavigator.wrapper>
           <FaChevronLeft
@@ -196,7 +178,11 @@ const DashboardDetail = () => {
             <PerformanceItem>
               <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                 TVL
-                <StTooltipContainer onClick={(e) => {e.stopPropagation();setShowTvlTooltip(prev => !prev)}} onMouseEnter={()=>setShowTvlTooltip(true)} onMouseLeave={()=>setShowTvlTooltip(false)}>
+                <StTooltipContainer
+                  onClick={()=>setShowTvlTooltip(true)}
+                  onMouseEnter={() => setShowTvlTooltip(true)}
+                  onMouseLeave={() => setShowTvlTooltip(false)}
+                >
                   {showTvlTooltip && <DashboardTvlTooltip />}
                   <img src={IcTooltip} alt="tooltip icon" />
                 </StTooltipContainer>
@@ -375,8 +361,7 @@ export const PerformanceItem = styled.div<{ $fullWidth?: boolean }>`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    flex-
-    img {
+    flex- img {
       width: 16px;
       height: 16px;
     }

@@ -1,13 +1,21 @@
 import styled from "styled-components";
 import Tooltip from "../common/Tooltip";
 
-const DashboaardRunningBotTooltip = () => {
+const DashboaardRunningBotTooltip = ({ sort }) => {
   return (
     <StContainer>
       <Tooltip>
+        {sort==="pnlRate"?(
         <StTooltipContainer>
-        The yield rankings are displayed in<br/> descending order based on the bots' yield.
+          The yield rankings are displayed in
+          <br /> descending order based on the bots' yield.
         </StTooltipContainer>
+        ):(
+        <StTooltipContainer>
+          The transparency rankings
+          <br /> prioritize the Dex*Dex strategy.
+        </StTooltipContainer>
+        ) }
       </Tooltip>
     </StContainer>
   );

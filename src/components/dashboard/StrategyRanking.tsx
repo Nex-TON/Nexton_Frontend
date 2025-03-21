@@ -16,28 +16,12 @@ const ICON = {
   hyperliquid,
 };
 
-const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLoading }) => {
+const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLoading,sort }) => {
   //   mock
   // const rankingData = MOCK_RANKING;
   const navigate = useNavigate();
   const [showTooltip, setShowTooltip] = useState(false);
   const tooltipRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
-        setShowTooltip(false);
-      }
-    };
-
-    if (showTooltip) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [showTooltip]);
   
   return (
     <>
@@ -66,7 +50,7 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
           Running bot
           <RankingContainer.tooltipwrapper onClick={() => setShowTooltip(prev => !prev)} onMouseEnter={()=>setShowTooltip(true)} onMouseLeave={()=>setShowTooltip(false)}>
             <img src={IcTooltip} alt="dashboard tooltip" />
-            {showTooltip && <DashboaardRunningBotTooltip />}
+            {showTooltip && <DashboaardRunningBotTooltip sort={sort}/>}
           </RankingContainer.tooltipwrapper>
         </RankingContainer.status>
         <RankingContainer.wrapper $active>
