@@ -28,6 +28,7 @@ import {
   ExcludeBox,
 } from "./BorrowDetails.styled";
 import { Label } from "recharts";
+import { transformNominatorName } from "@/utils/nominator";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -111,7 +112,7 @@ const BorrowDetails = () => {
               label: "Principal",
               value: `${nftDetail[0].principal} ${nftDetail[0].tokenSort == "nxTON" ? "NxTON" : nftDetail[0].tokenSort}`,
             },
-            { label: "Nominator Pool", value: nftDetail[0].nominator },
+            { label: "Nominator Pool", value: transformNominatorName(nftDetail[0].nominator) },
             { label: "Leveraged", value: `${nftDetail[0].leverage}x` },
             { label: "Lockup period", value: `${nftDetail[0].lockPeriod} days` },
             { label: "Unstakable date", value: new Date(nftDetail[0].unstakableDate).toLocaleDateString() },

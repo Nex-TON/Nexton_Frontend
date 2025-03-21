@@ -17,6 +17,7 @@ import { numberCutter } from "../../../utils/numberCutter";
 import BasicModal from "../../common/Modal/BasicModal";
 
 import DetailNFTInfoHeader from "./DetailNFTInfoHeader";
+import { transformNominatorName } from "@/utils/nominator";
 
 interface DetailNftInfoProps {
   item: nftInfo;
@@ -98,7 +99,7 @@ const DetailNftInfo = (props: DetailNftInfoProps) => {
           </DetailInfoItem>
           <DetailInfoItem>
             <DetailInfoItemText>Nominator Pool</DetailInfoItemText>
-            <DetailInfoItemText>{nominator}</DetailInfoItemText>
+            <DetailInfoItemText>{transformNominatorName(nominator)}</DetailInfoItemText>
           </DetailInfoItem>
           <DetailInfoItem>
             <DetailInfoItemText>Leveraged</DetailInfoItemText>
