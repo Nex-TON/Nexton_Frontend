@@ -92,7 +92,7 @@ const LendingUnavailableButtonWrapper = styled.div`
 `;
 
 const AlertCircle = styled.img`
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
   margin-bottom: 0.5rem;
