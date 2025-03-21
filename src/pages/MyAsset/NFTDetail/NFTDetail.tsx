@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import IcTrendRight from "@/assets/icons/Loan/ic_trend_right.svg";
@@ -15,6 +15,7 @@ import IcTonSymbol from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import IcNxTonSymbol from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
 import BasicModal from "@/components/common/Modal/BasicModal";
 import { useWalletData } from "@/context/WalletConnectionProvider";
+import { LendingUnavailableModal } from "@/components/loan/Modal/LendingUnavailable";
 
 import {
   NFTDetailCard,
@@ -52,6 +53,15 @@ const NFTDetail = () => {
     type: "blockborrow",
     toggled: false,
   });
+  const [unavailableModal, setUnavailableModal] = useState(false);
+
+  const openModal = useCallback(() => {
+    setUnavailableModal(true);
+  }, []);
+
+  const toggleUnavailableModal = useCallback(() => {
+      setUnavailableModal(prev => !prev);
+    }, []);
 
   useEffect(() => {
     if (tele) {
@@ -114,9 +124,11 @@ const NFTDetail = () => {
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
             onClick={() => {
-              checkLendingAvailable?.success
-                ? navigate(`/loan/${id}/borrow/details`)
-                : setModal({ type: "blockborrow", toggled: true });
+              openModal();
+              // checkLendingAvailable?.success
+              //   ? navigate(`/loan/${id}/borrow/details`)
+              //   : setModal({ type: "blockborrow", toggled: true });
+
               /*
               if (Number(id) <= 100) {
                 setModal({ type: "blockborrow100", toggled: true });
@@ -173,6 +185,7 @@ const NFTDetail = () => {
       {modal.type === "blockunstake" && modal.toggled && (
         <BasicModal isDark type="blockunstake" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`} />
       )}
+      {unavailableModal && <LendingUnavailableModal toggleModal={toggleUnavailableModal} />}
     </>
   );
 };

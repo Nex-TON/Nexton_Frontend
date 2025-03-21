@@ -29,7 +29,6 @@ import {
 } from "./BorrowDetails.styled";
 import { Label } from "recharts";
 import { transformNominatorName } from "@/utils/nominator";
-import { LendingUnavailableModal } from "@/components/loan/Modal/LendingUnavailable";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -40,15 +39,6 @@ const BorrowDetails = () => {
   const { id } = useParams();
   const { nftDetail } = useNFTDetail(Number(id));
   const { data: tokenRate, isLoading, error } = useTokenRate();
-  const [unavailableModal, setUnavailableModal] = useState(false);
-
-  const openModal = useCallback(() => {
-    setUnavailableModal(true);
-  }, []);
-
-  const toggleUnavailableModal = useCallback(() => {
-      setUnavailableModal(prev => !prev);
-    }, []);
 
   // const { data: coinPrice } = useCoinPrice("TON", "USD");
 
@@ -154,12 +144,12 @@ const BorrowDetails = () => {
   //const borrowAmount = nftDetail && nftDetail[0].principal * 0.95; //for the test
   const borrowAmount = nftDetail && nftDetail[0].principal * (nftDetail[0].tokenSort == "nxTON" ? 0.9 : 0.95);
 
-  // const handleSubmit = () => {
-  //   console.log(`borrow amount:${borrowAmount}`);
-  //   navigate(`/loan/${id}/borrow/risk-disclosure`, {
-  //     state: { borrowAmount }, // 값을 그대로 다음 페이지로 전달
-  //   });
-  // };
+  const handleSubmit = () => {
+    console.log(`borrow amount:${borrowAmount}`);
+    navigate(`/loan/${id}/borrow/risk-disclosure`, {
+      state: { borrowAmount }, // 값을 그대로 다음 페이지로 전달
+    });
+  };
 
   return (
     <BorrowWrapper>
@@ -214,11 +204,8 @@ const BorrowDetails = () => {
           /> */}
         </BorrowContentBox>
 
-        {!isDevMode ? <MainButton text="Next" onClick={openModal} /> : <button onClick={openModal}>next</button>}
+        {!isDevMode ? <MainButton text="Next" onClick={handleSubmit} /> : <button onClick={handleSubmit}>next</button>}
       </form>
-      {unavailableModal && (
-      <LendingUnavailableModal toggleModal={toggleUnavailableModal} />
-    )}
     </BorrowWrapper>
   );
 };
