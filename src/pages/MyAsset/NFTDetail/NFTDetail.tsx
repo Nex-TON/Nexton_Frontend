@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import IcTrendRight from "@/assets/icons/Loan/ic_trend_right.svg";
@@ -15,6 +15,7 @@ import IcTonSymbol from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import IcNxTonSymbol from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
 import BasicModal from "@/components/common/Modal/BasicModal";
 import { useWalletData } from "@/context/WalletConnectionProvider";
+import { LendingUnavailableModal } from "@/components/loan/Modal/LendingUnavailable";
 
 import {
   NFTDetailCard,
@@ -29,6 +30,7 @@ import {
   NFTDetailWrapper,
 } from "./NFTDetail.styled";
 import useTonConnect from "@/hooks/contract/useTonConnect";
+import { transformNominatorName } from "@/utils/nominator";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -51,6 +53,15 @@ const NFTDetail = () => {
     type: "blockborrow",
     toggled: false,
   });
+  const [unavailableModal, setUnavailableModal] = useState(false);
+
+  const openModal = useCallback(() => {
+    setUnavailableModal(true);
+  }, []);
+
+  const toggleUnavailableModal = useCallback(() => {
+      setUnavailableModal(prev => !prev);
+    }, []);
 
   useEffect(() => {
     if (tele) {
@@ -82,7 +93,7 @@ const NFTDetail = () => {
         {
           items: [
             { label: "Principal", value: `${nftDetail[0].principal} ${nftDetail[0].tokenSort}` },
-            { label: "Nominator Pool", value: nftDetail[0].nominator },
+            { label: "Nominator Pool", value: transformNominatorName(nftDetail[0].nominator) },
             { label: "Leveraged", value: `${nftDetail[0].leverage}x` },
             { label: "Lock-up Period", value: `${nftDetail[0].lockPeriod} days remaining` },
             { label: "Unstakable date", value: new Date(nftDetail[0].unstakableDate).toLocaleDateString() },
@@ -113,9 +124,11 @@ const NFTDetail = () => {
           <NFTDetailCardTitle>Staking NFT</NFTDetailCardTitle>
           <NFTDetailCardButton
             onClick={() => {
-              checkLendingAvailable?.success
-                ? navigate(`/loan/${id}/borrow/details`)
-                : setModal({ type: "blockborrow", toggled: true });
+              openModal();
+              // checkLendingAvailable?.success
+              //   ? navigate(`/loan/${id}/borrow/details`)
+              //   : setModal({ type: "blockborrow", toggled: true });
+
               /*
               if (Number(id) <= 100) {
                 setModal({ type: "blockborrow100", toggled: true });
@@ -172,6 +185,7 @@ const NFTDetail = () => {
       {modal.type === "blockunstake" && modal.toggled && (
         <BasicModal isDark type="blockunstake" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`} />
       )}
+      {unavailableModal && <LendingUnavailableModal toggleModal={toggleUnavailableModal} />}
     </>
   );
 };

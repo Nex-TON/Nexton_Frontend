@@ -10,12 +10,12 @@ export const MainWrapper = styled.div`
 
 export const MainInnerBox = styled.div`
   position: relative;
-  height: 222px;
+  height: auto;
   width: 100%;
   display: flex;
   flex-direction: column;
 
-  padding: 2.3rem 2.1rem 2.7rem 2.3rem;
+  padding: 2.3rem 2.1rem 2.9rem 2.3rem;
   border-radius: 15px;
   background: linear-gradient(270deg, #002639 0%, #001b29 28.13%, #000 100%);
   overflow: hidden; /* 자식 요소가 부모 요소를 넘지 않도록 설정 */
@@ -262,6 +262,10 @@ export const DashboardBottomLeftTitleBox = styled.div`
 export const DashboardBottomLeftTitle = styled.h3`
   ${({ theme }) => theme.fonts.Nexton_Title_Large_2};
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
 `;
 
 export const APYBox = styled.div`

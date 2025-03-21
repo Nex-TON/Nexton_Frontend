@@ -16,6 +16,7 @@ import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom } from "@/lib/atom/staking";
 import { telegramAtom } from "@/lib/atom/telegram";
 import { isDevMode } from "@/utils/isDevMode";
+import IcWarning from "@/assets/icons/Stake/ic_warning_black.svg";
 
 import { useSelectNominator } from "./hooks/useSelectNominator";
 
@@ -83,19 +84,20 @@ const NominatorList = () => {
   const description =
     selectedNominator?.name === "Bemo pool"
       ? "you will receive an NFT through the Arbitrage Bot."
-      : selectedNominator?.name === "Arbitrage Bot"
-        ? "you can directly invest in the Arbitrage Bot."
-        : selectedNominator?.name === "Nominator Pool"
-          ? "you will receive an NFT through the Arbitrage Bot."
+      : selectedNominator?.name === "Arbitrage Bot 1"
+        ? "Arbitrage trading may result in losses due to execution delays, price slippage, fees, and market volatility."
+        : selectedNominator?.name === "Arbitrage Bot"
+          ? "Centralized exchanges may have security and operational risks."
           : null;
 
+  const name = selectedNominator?.name === "Arbitrage Bot" ? "DEX-DEX" : selectedNominator?.name === "Arbitrage Bot 1" ? "CEX-DEX" : selectedNominator?.name;
   return (
     <>
       {confirmModal && (
         <ConfirmNominatorModal
           toggleModal={toggleModal}
           onConfirm={handleConfirmNominator}
-          name={selectedNominator.name}
+          name={name}
           description={description}
         />
       )}
@@ -103,7 +105,7 @@ const NominatorList = () => {
       <NominatorListWrapper>
         <ProgressBar />
         <Step title="Step 2" type="nominator" />
-        <Title title="Select Your Pool or Bot" />
+        <Title title="Select Your Strategy" />
       </NominatorListWrapper>
       <NominatorItemList>
         {isLoading ? (
@@ -116,7 +118,7 @@ const NominatorList = () => {
               <>
                 {nominatorListData.some(item => item.type === "bot") && (
                   <BotTitleWrapper>
-                    <TitleH3>Bot</TitleH3>
+                    <TitleH3>Strategy</TitleH3>
                     <DashboardLink onClick={() => navigate("/dashboard")} id="nominator list dashboard button">
                       Go to Dashboard <img src={IcArrorRight} alt="arrow_right" />
                     </DashboardLink>
@@ -139,7 +141,7 @@ const NominatorList = () => {
                     </Fragment>
                   ))}
 
-                {nominatorListData.some(item => item.type === "pool") && <TitleH3>Pool</TitleH3>}
+                {nominatorListData.some(item => item.type === "pool") && <PoolTitle>Pool</PoolTitle>}
                 {nominatorListData
                   .filter(item => item.type === "pool")
                   .map(item => (
@@ -160,6 +162,16 @@ const NominatorList = () => {
             )}
           </>
         )}
+        <WarningWrapper>
+          <WarningHeader>
+            <img src={IcWarning} />
+            Please be cautious before investing!
+          </WarningHeader>
+          <WarningLetter>
+            Centralized exchanges may have security and operational risks. Additionally, due to the nature of arbitrage
+            trading, there is a possibility of negative returns depending on market conditions and execution delays.
+          </WarningLetter>
+        </WarningWrapper>
       </NominatorItemList>
 
       {!isDevMode ? (
@@ -173,6 +185,40 @@ const NominatorList = () => {
 };
 
 export default NominatorList;
+const WarningLetter = styled.div`
+  color: var(--Neutral-Neutural-50, #76797a);
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 19.5px */
+  letter-spacing: -0.46px;
+`;
+
+const WarningHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  img {
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
+  }
+  color: var(--Neutral-Neutural-0, #000);
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 130%; /* 16.9px */
+  letter-spacing: -0.46px;
+`;
+
+const WarningWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  margin: 32.5px 0 46px 0;
+`;
 
 const NominatorListWrapper = styled.div`
   display: flex;
@@ -196,14 +242,13 @@ const LoaderWrapper = styled.div`
 const NominatorItemList = styled.div`
   width: 100%;
   margin-top: 3.3rem;
-  padding: 0 2rem 1.4rem 2rem;
+  padding: 2rem 2rem 1.4rem 2rem;
 
   background-color: #f2f2f7;
 `;
 
 const TitleH3 = styled.h3`
   padding: 1.4rem 0;
-
   color: #333;
   font-family: Montserrat;
   font-size: 20px;
@@ -211,6 +256,10 @@ const TitleH3 = styled.h3`
   font-weight: 400;
   line-height: 24px; /* 120% */
   letter-spacing: -0.46px;
+`;
+
+const PoolTitle = styled(TitleH3)`
+  margin-top: 4rem;
 `;
 
 const BotTitleWrapper = styled.div`

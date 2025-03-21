@@ -3,11 +3,11 @@ import { useNavigate, useParams,useLocation } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { styled } from "styled-components";
 
-import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
-import RisksList from "@/components/loan/common/RisksList.tsx";
-import { isDevMode } from "@/utils/isDevMode.ts";
+import ProgressBar from "@/components/loan/common/ProgressBar";
+import RisksList from "@/components/loan/common/RisksList";
+import { isDevMode } from "@/utils/isDevMode";
 
-import { BorrowHeaderBox, BorrowHeaderBoxTitle, BorrowWrapper } from "./BorrowDetails.styled.tsx";
+import { BorrowHeaderBox, BorrowHeaderBoxTitle, BorrowWrapper } from "./BorrowDetails.styled";
 
 const tele = (window as any).Telegram.WebApp;
 

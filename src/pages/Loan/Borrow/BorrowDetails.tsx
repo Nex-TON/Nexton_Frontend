@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -6,8 +6,8 @@ import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { z } from "zod";
 
 import IcExclude from "@/assets/icons/Loan/ic_exclude.svg";
-import ProgressBar from "@/components/loan/common/ProgressBar.tsx";
-import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
+import ProgressBar from "@/components/loan/common/ProgressBar";
+import StakingInfo from "@/components/loan/common/StakingInfo";
 // import TokenInput from "@/components/stake/common/TokensInput.tsx";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { isDevMode } from "@/utils/isDevMode.ts";
@@ -26,8 +26,9 @@ import {
   BorrowHeaderBoxTitle,
   BorrowWrapper,
   ExcludeBox,
-} from "./BorrowDetails.styled.tsx";
+} from "./BorrowDetails.styled";
 import { Label } from "recharts";
+import { transformNominatorName } from "@/utils/nominator";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -38,6 +39,7 @@ const BorrowDetails = () => {
   const { id } = useParams();
   const { nftDetail } = useNFTDetail(Number(id));
   const { data: tokenRate, isLoading, error } = useTokenRate();
+
   // const { data: coinPrice } = useCoinPrice("TON", "USD");
 
   // const schema = z.object({
@@ -111,7 +113,7 @@ const BorrowDetails = () => {
               label: "Principal",
               value: `${nftDetail[0].principal} ${nftDetail[0].tokenSort == "nxTON" ? "NxTON" : nftDetail[0].tokenSort}`,
             },
-            { label: "Nominator Pool", value: nftDetail[0].nominator },
+            { label: "Nominator Pool", value: transformNominatorName(nftDetail[0].nominator) },
             { label: "Leveraged", value: `${nftDetail[0].leverage}x` },
             { label: "Lockup period", value: `${nftDetail[0].lockPeriod} days` },
             { label: "Unstakable date", value: new Date(nftDetail[0].unstakableDate).toLocaleDateString() },

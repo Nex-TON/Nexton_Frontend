@@ -6,7 +6,7 @@ import { useSetRecoilState } from "recoil";
 
 import BasicModal from "@/components/common/Modal/BasicModal";
 import TransactionConfirmModal from "@/components/common/Modal/TransactionConfirmModal";
-import StakingInfo from "@/components/loan/common/StakingInfo.tsx";
+import StakingInfo from "@/components/loan/common/StakingInfo";
 import { ConfirmRepaymentModal } from "@/components/loan/Repay/ConfirmRepaymentModal";
 import { isDevMode } from "@/utils/isDevMode.ts";
 import * as Contract from "@/hooks/contract/repay";
@@ -29,6 +29,7 @@ import {
   RepayRateBoxDivider,
   RepayRateBoxHeader,
 } from "./RepaymentDetails.styled";
+import { transformNominatorName } from "@/utils/nominator";
 
 interface ModalState {
   type: "repay" | "confirmRepay";
@@ -74,7 +75,7 @@ const RepaymentDetails = () => {
       header: "Staking info",
       items: [
         { label: "Principal", value: `${limitDecimals(nftDetail[0]?.principal, 3)} TON` },
-        { label: "Nominator Pool", value: `${nftDetail[0]?.nominator}` },
+        { label: "Nominator Pool", value: `${transformNominatorName(nftDetail[0]?.nominator)}` },
         { label: "Leveraged", value: `${nftDetail[0]?.leverage}X` },
         { label: "Lockup period", value: `${nftDetail[0]?.lockPeriod}` },
         { label: "Unstakable date", value: new Date(nftDetail[0].unstakableDate).toLocaleDateString() },

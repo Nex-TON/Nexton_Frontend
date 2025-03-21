@@ -6,7 +6,7 @@ import { ErrorModal } from "@/components/common/Modal/ErrorModal";
 import Router from "@/components/common/Router";
 import { network } from "@/hooks/contract/useTonClient";
 import GlobalStyle from "@/styles/globalStyles";
-import theme from "@/styles/theme";
+import {theme} from "@/styles/theme";
 import TagManager from "react-gtm-module";
 import { TomoProvider, CONNECT_MAP, TomoWalletTgSdkV2 } from "@tomo-inc/tomo-telegram-sdk";
 import "@tomo-inc/tomo-telegram-sdk/dist/styles.css";

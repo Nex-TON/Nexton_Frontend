@@ -11,6 +11,10 @@ import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceC
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import { useEarningsbyAddress } from "@/hooks/api/dashboard/useEarningsbyAddress";
 import IcArrowRightGrey from "@/assets/icons/Stake/ic_arrow_right.svg";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import stonfi from "@/assets/icons/Main/ic_stonfi_logo.svg";
+import binance from "@/assets/icons/Main/ic_binance_logo.svg";
+import hyperliquid from "@/assets/icons/Main/ic_hyperliquid_logo.svg";
 
 import {
   // TvlNotice,
@@ -68,13 +72,22 @@ const MainMyAssetInfo = ({
   const [view, setView] = useState<AssetsView>("dashboard");
   const [connectToggled, setConnectToggled] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [strategy, setStrategy] = useState(0);
 
   const { data: performanceData, isLoading: performanceLoading } = useBotPerformanceSummary();
-  const { data: chartData, isLoading: chartLoading } = useBotPerformanceChart(0);
   const { data: earningsData, isLoading: earningsLoading, error: earningsError } = useEarningsbyAddress(address);
 
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+
+  const strategyIcons = {
+    stonfi: stonfi,
+    binance: binance,
+    hyperliquid: hyperliquid, // 추가적인 거래소 여기 추가해줘야됨
+  };
+
+  const img1 = strategyIcons[performanceData?.summaryData[strategy]?.strategyDetails?.strategy1?.strategy] || "";
+  const img2 = strategyIcons[performanceData?.summaryData[strategy]?.strategyDetails?.strategy2?.strategy] || "";
 
   const handleConnect = useCallback(async () => {
     await tonConnectUI.openModal();
@@ -151,35 +164,67 @@ const MainMyAssetInfo = ({
         </MainTopBox>
 
         {view === "dashboard" ? (
-          <DashboardBottomBox onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
+          <DashboardBottomBox id="mainmyassetinfodashboard">
             <DashboardBottomLeft id="mainmyassetinfodashboard">
               <DashboardBottomLeftTitleBox id="mainmyassetinfodashboard">
-                <DashboardBottomLeftTitle id="mainmyassetinfodashboard">Arbitrage Bot</DashboardBottomLeftTitle>
+                <DashboardBottomLeftTitle id="mainmyassetinfodashboard">
+                  Arbitrage Bot
+                  {performanceLoading?(<Loader/>):(
+                  <StrategyOption.wrapper>
+                    <FaChevronLeft
+                      size={14}
+                      color={strategy == 0 ? "#46494A" : "#C6CACA"}
+                      onClick={() => {
+                        if (strategy === 1) {
+                          setStrategy(0);
+                        }
+                      }}
+                    />
+                    <p>
+                      {performanceData?.summaryData[strategy]?.strategyDetails?.strategy1?.exchange} -{" "}
+                      {performanceData?.summaryData[strategy]?.strategyDetails?.strategy2?.exchange} bot
+                    </p>
+                    <img src={img1} style={{marginRight:"3px"}}/>
+                    <img src={img2} />
+                    <FaChevronRight
+                      size={14}
+                      color={strategy === 1 ? "#46494A" : "#C6CACA"}
+                      onClick={() => {
+                        if (strategy == 0) {
+                          setStrategy(1);
+                        }
+                      }}
+                    />
+                  </StrategyOption.wrapper>
+                )}
+                </DashboardBottomLeftTitle>
 
-                <APYBox id="mainmyassetinfodashboard">
+                <APYBox onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
                   <span id="mainmyassetinfodashboard">APY</span>
                   <h4 id="mainmyassetinfodashboard">
-                    {performanceData?.apy ? `${performanceData?.apy.toFixed(2)}%` : "-"}
+                    {performanceData?.summaryData[strategy]?.apy ? `${performanceData?.summaryData[strategy]?.apy.toFixed(2)}%` : "-"}
                   </h4>
                 </APYBox>
               </DashboardBottomLeftTitleBox>
 
-              <DashboardBottomLeftData id="mainmyassetinfodashboard">
-                {performanceLoading || chartLoading ? (
+              <DashboardBottomLeftData onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
+                {performanceLoading ? (
                   <Loader />
                 ) : (
                   <>
                     <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
                       <span id="mainmyassetinfodashboard">bot PNL</span>
                       <h4 id="mainmyassetinfodashboard">
-                        {performanceData?.pnlRate ? `${limitDecimals(performanceData?.pnlRate, 2)}%` : "-"}
+                        {performanceData?.summaryData[strategy]?.pnlRate
+                          ? `${limitDecimals(performanceData?.summaryData[strategy]?.pnlRate, 2)}%`
+                          : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
                     <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
                       <span id="mainmyassetinfodashboard">Daily PNL</span>
                       <h4 id="mainmyassetinfodashboard">
-                        {chartData
-                          ? `${chartData?.dailyPnlRate > 0 ? "+" : ""}${limitDecimals(chartData?.dailyPnlRate, 2)}%`
+                        {performanceData
+                          ? `${performanceData?.summaryData[strategy]?.pnlRate > 0 ? "+" : ""}${limitDecimals(performanceData?.summaryData[strategy]?.pnlRate, 2)}%`
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
@@ -199,12 +244,10 @@ const MainMyAssetInfo = ({
                           </Tooltip> */}
                       </span>
                       <h4 id="mainmyassetinfodashboard">
-                        {performanceData?.tvl ? `${limitDecimals(performanceData?.tvl, 3)} TON` : "-"}
+                        {performanceData?.summaryData[strategy]?.tvl
+                          ? `${limitDecimals(performanceData?.summaryData[strategy]?.tvl, 3)} TON`
+                          : "-"}
                       </h4>
-                    </DashboardBottomLeftDataItem>
-
-                    <DashboardBottomLeftDataItem onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
-                      <img src={IcSmallArrowRight} alt="small_arrow_right" />
                     </DashboardBottomLeftDataItem>
                   </>
                 )}
@@ -303,6 +346,27 @@ const MainMyAssetInfo = ({
 };
 
 export default MainMyAssetInfo;
+
+const StrategyOption = {
+  wrapper: styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    p {
+      color: var(--Neutral-variant-Neutral-variant-80, #c6c5d0);
+      font-family: Montserrat;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 18px; /* 138.462% */
+    };
+    img {
+      width: 20px;
+      height: 20px;
+    };
+  `,
+};
 
 const RightItemWrapper = styled.div`
   display: flex;

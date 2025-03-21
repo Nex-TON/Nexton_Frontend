@@ -25,9 +25,10 @@ import "react-toastify/dist/ReactToastify.css";
 import NextonNews from "@/components/main/NextonNews";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 
-import { useWalletData } from "@/context/WalletConnectionProvider";
 import { AgreementModal } from "@/components/main/Modal/AgreementModal";
-import { PopupModal } from "@/components/main/Modal/PopupModal";
+import { postAgreement } from "@/api/postAgreement";
+import { useAgreement } from "@/hooks/api/main/useAgreement";
+import { AnnouncementModal } from "@/components/main/Modal/AnnouncementModal";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -54,10 +55,13 @@ const Main: React.FC = () => {
   const [officialModal, setOfficialModal] = useState(false);
   const [agreementModal, setAgreementModal] = useState(false);
   const [popupModal, setPopupModal] = useState(false);
+  const [announcementModal, setAnnouncementModal] = useState(false);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const userId = tele?.initDataUnsafe?.user?.id;
+  const userId = tele?.initDataUnsafe?.user?.id; //number
+
+  const { data: userAgreement } = useAgreement(String(userId));
 
   // Refresh TON data
   useEffect(() => {
@@ -117,13 +121,16 @@ const Main: React.FC = () => {
 
   // 개인 정보 수집에 동의하지 않은 사용자에게 팝업으로 알림
   useEffect(() => {
-    const agreePrivacyPolicy = localStorage.getItem("agreePrivacyPolicy");
-    const agreeTermsOfUse = localStorage.getItem("agreeTermsOfUse");
-    if (!agreePrivacyPolicy || !agreeTermsOfUse) {
-      setAgreementModal(true);
-    } else {
+    if(userAgreement){
+    if (userAgreement?.agreement) {
       setAgreementModal(false);
-    }
+    } else {
+      setAgreementModal(true);
+    }};
+  }, [userAgreement]);
+
+  useEffect(() => {
+    setAnnouncementModal(true);
   }, []);
 
   //사용자 지갑 주소 전송
@@ -204,7 +211,7 @@ const Main: React.FC = () => {
   // Calculate the total amount staked
   const totalStaked = useMemo(() => {
     const nftTotal =
-      nftList?.reduce((acc, nft) => {
+      (nftList||[])?.reduce((acc, nft) => {
         if (nft.tokenSort === "TON") {
           return acc + nft.principal;
         }
@@ -212,7 +219,7 @@ const Main: React.FC = () => {
       }, 0) || 0;
 
     const borrowTotal =
-      borrowList?.reduce((acc, borrow) => {
+      (borrowList||[])?.reduce((acc, borrow) => {
         if (borrow.tokenSort === "TON" && borrow.status === 0) {
           return acc + borrow.principal / borrow.loanToValue;
         }
@@ -238,21 +245,29 @@ const Main: React.FC = () => {
     setAgreementModal(prev => !prev);
   }, []);
 
-  const onAcceptAgreementModal = useCallback(() => {
-    localStorage.setItem("agreePrivacyPolicy", "true");
-    localStorage.setItem("agreeTermsOfUse", "true");
+  const toggleAnnouncementModal = useCallback(() => {
+    setAnnouncementModal(prev => !prev);
   }, []);
 
-  const togglePopupModal = useCallback(() => {
-    setPopupModal(prev => !prev);
+  const onAcceptAgreementModal = useCallback(async () => {
+    // localStorage.setItem("agreePrivacyPolicy", "true");
+    // localStorage.setItem("agreeTermsOfUse", "true");
+    try {
+      const response = await postAgreement({
+        userId:userId.toString(),
+      });
+      console.log("이용약관 동의모달", response);
+    } catch (error) {
+      console.log("error", error);
+    }
   }, []);
 
   return (
     <>
       {modal && <WelcomeModal toggleModal={toggleModal} />}
-      {agreementModal && <AgreementModal toggleModal={toggleAgreementModal} onAccept={onAcceptAgreementModal} />}
       {officialModal && <OfficialAnouncementModal toggleModal={toggleOfficialModal} />}
-      {popupModal && <PopupModal toggleModal={togglePopupModal} />}
+      {announcementModal && <AnnouncementModal toggleModal={toggleAnnouncementModal} />}
+      {agreementModal && <AgreementModal toggleModal={toggleAgreementModal} onAccept={onAcceptAgreementModal} />}
       <MainWrapper>
         <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} />
         <MainMyAssetInfo

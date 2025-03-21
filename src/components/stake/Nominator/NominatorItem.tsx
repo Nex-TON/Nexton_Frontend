@@ -1,10 +1,13 @@
 import { styled } from "styled-components";
 
-import IcArbitrageBot from "@/assets/icons/Stake/ic_arbitrage_bot.svg";
-import IcArbitrageBotLight from "@/assets/icons/Stake/ic_arbitrage_bot_light.svg";
 import IcBemoPool from "@/assets/icons/Stake/ic_bemo_pool.svg";
 import { INominatorList } from "@/hooks/api/useNominatorList";
 import { limitDecimals } from "@/utils/limitDecimals";
+import hyperliquid from "@/assets/icons/Dashboard/ic_hyperliquid_letter.svg";
+import stonfi from "@/assets/icons/Dashboard/ic_stonfi_letter.svg";
+import binance from "@/assets/icons/Dashboard/ic_binance_letter.svg";
+import binance_small from "@/assets/icons/Main/ic_binance_logo.svg";
+import stonfi_small from "@/assets/icons/Main/ic_stonfi_logo.svg";
 
 export type PoolType = "bemo" | "arbitrage" | "nominator";
 
@@ -31,40 +34,42 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
 }) => {
   const isSelected = selectedNominator?.id === id;
 
-  // * temp hardcoded
-  const tag = title === "Arbitrage Bot" ? "+ NXT Points" : null;
-  const icon =
-    title === "Bemo pool"
-      ? IcBemoPool
-      : title === "Arbitrage Bot"
-        ? isSelected
-          ? IcArbitrageBotLight
-          : IcArbitrageBot
-        : null;
+  const icon = title === "Bemo Pool" ? IcBemoPool : null;
 
   const handleClick = () => {
     handleSelectNominator(id);
   };
 
   return (
-    <NominatorItemWrapper id={`${title}`} $disabled={disabled} $active={isSelected} onClick={() => (!disabled ? handleClick() : null)}>
-      <NominatorItemTop>
+    <NominatorItemWrapper
+      id={`${title}`}
+      $disabled={disabled}
+      $active={isSelected}
+      onClick={() => (!disabled ? handleClick() : null)}
+    >
+      <NominatorItemTop $active={isSelected} $disabled={disabled}>
         <NominatorItemTopLeft>
           <NominatorItemTitle $inactive={disabled} $selected={isSelected}>
-            {icon && <img src={icon} alt="icon" />} {title}
+            {icon && <img src={icon} alt="icon" />}{" "}
+            {title === "Bemo Pool" ? "Bemo pool" : title === "Arbitrage Bot" ? "DEX-DEX bot" : "CEX-DEX bot"}
           </NominatorItemTitle>
-        </NominatorItemTopLeft>
-
-        <NominatorItemTopRight>
-          {tag && (
-            <NominatorItemTopTag $active={isSelected}>
-              <p>{tag}</p>
-            </NominatorItemTopTag>
+          {title != "Bemo Pool" ? (
+            <NominatorExchange>
+              <img style={{ height: "17.43px" }} src={title === "Arbitrage Bot" ? hyperliquid : binance} />
+              <VerticalLine />
+              <img style={{ height: "17.43px" }} src={stonfi} />
+            </NominatorExchange>
+          ) : (
+            <NominatorExchange>
+              <p> CEX-DEX bot</p>
+              <img src={binance_small} style={{ width: "17.552px", marginRight: "7px" }} />
+              <img src={stonfi_small} style={{ width: "17.552px" }} />
+            </NominatorExchange>
           )}
-        </NominatorItemTopRight>
+        </NominatorItemTopLeft>
+        <DivideLine />
       </NominatorItemTop>
-
-      <NominatorItemBottom>
+      <NominatorItemBottom $active={isSelected} $disabled={disabled}>
         {!disabled ? (
           <>
             <NominatorItemBottomItem $selected={isSelected}>
@@ -101,6 +106,38 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
 
 export default NominatorItem;
 
+const DivideLine = styled.div`
+  width: 100%;
+  padding: 0 2rem;
+  height: 1px;
+  background: #f1f4f4;
+`;
+
+const VerticalLine = styled.div`
+  width: 1px;
+  height: 9.828px;
+  background: #f1f4f4;
+  margin: 0 11px;
+`;
+
+const NominatorExchange = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 7px;
+  width: 100%;
+  height: auto;
+  p {
+    color: var(--Neutral-Neutural-20, #303234);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+    margin-right: 2.5rem;
+  }
+`;
+
 const NominatorItemWrapper = styled.div<{ $active: boolean; $disabled?: boolean }>`
   display: flex;
   flex-direction: column;
@@ -108,16 +145,16 @@ const NominatorItemWrapper = styled.div<{ $active: boolean; $disabled?: boolean 
   align-items: center;
 
   width: 100%;
-  height: 200px;
+  height: auto;
 
-  padding: 2rem 2.4rem;
+  /* padding: 2rem 2.4rem; */
   border-radius: 1.5rem;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.14);
   & + & {
     margin-top: 1rem;
   }
 
-  background: ${({ $active, $disabled }) => {
+  /* background: ${({ $active, $disabled }) => {
     let background: string;
     if ($active) {
       background = "#1A1B23";
@@ -128,7 +165,23 @@ const NominatorItemWrapper = styled.div<{ $active: boolean; $disabled?: boolean 
     }
 
     return background;
-  }};
+  }}; */
+
+  cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "default")};
+`;
+
+const NominatorItemTop = styled.div<{ $active; $disabled }>`
+  /* border-bottom: 1px solid #f1f4f4; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  gap: 2.6rem;
+
+  width: 100%;
+  padding: 1.8rem 2.3rem 0rem 2.3rem;
+  border-radius: 1.5rem 1.5rem 0 0;
+
   color: ${({ $disabled, $active }) => {
     let color: string;
     if ($active) {
@@ -142,38 +195,18 @@ const NominatorItemWrapper = styled.div<{ $active: boolean; $disabled?: boolean 
     return color;
   }};
 
-  cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "default")};
-`;
+  background: ${({ $active, $disabled }) => {
+    let background: string;
+    if ($active) {
+      background = "#E1E4E6";
+    } else if ($disabled) {
+      background = "#E1E4E6";
+    } else {
+      background = "#fff";
+    }
 
-const NominatorItemTop = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2.6rem;
-
-  width: 100%;
-
-  border-radius: 2rem 2rem 0 0;
-`;
-
-const NominatorItemTopTag = styled.div<{ $active: boolean }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.4rem 1.15rem;
-
-  border-radius: 4rem;
-  background: linear-gradient(90deg, #8468bf -1.21%, #6060ff 100%);
-
-  p {
-    text-align: center;
-    color: #fff;
-    font-family: Montserrat;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 22px; /* 183.333% */
-  }
+    return background;
+  }};
 `;
 
 const NominatorItemTopLeft = styled.div`
@@ -205,7 +238,7 @@ const NominatorComingSoon = styled.div`
   line-height: 18px; /* 138.462% */
 `;
 
-const NominatorItemBottom = styled.div`
+const NominatorItemBottom = styled.div<{ $active; $disabled }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -214,7 +247,21 @@ const NominatorItemBottom = styled.div`
   gap: 1.7rem;
 
   width: 100%;
-  margin-top: 2.3rem;
+  padding: 1.5rem 2.7rem;
+  border-radius: 0 0 15px 15px;
+
+  background: ${({ $active, $disabled }) => {
+    let background: string;
+    if ($active) {
+      background = "#1A1B23";
+    } else if ($disabled) {
+      background = "#E1E4E6";
+    } else {
+      background = "#fff";
+    }
+
+    return background;
+  }};
 `;
 
 const NominatorItemBottomItem = styled.div<{ $selected?: boolean }>`
@@ -260,19 +307,7 @@ const NominatorItemTitle = styled.h1<{ $inactive?: boolean; $selected?: boolean 
   align-items: center;
   text-align: center;
   gap: 0.7rem;
-
-  color: ${({ $inactive, $selected }) => {
-    let color: string;
-    if ($inactive) {
-      color = "#B9B9BA";
-    } else if ($selected) {
-      color = "#fff";
-    } else {
-      color = "#303234";
-    }
-
-    return color;
-  }};
+  color: #303234;
 
   font-family: Montserrat;
   font-size: 20px;

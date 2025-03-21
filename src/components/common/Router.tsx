@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import Dashboard from "@/pages/Dashboard/Dashboard";
+import DashboardDetail from "@/pages/Dashboard/DashboardDetail";
 import BorrowDetails from "@/pages/Loan/Borrow/BorrowDetails";
 import BorrowRiskDisclosure from "@/pages/Loan/Borrow/BorrowRiskDisclosure";
 import BorrowVerify from "@/pages/Loan/Borrow/BorrowVerify";
@@ -39,7 +40,10 @@ const Router = () => {
         <Route path="/main" element={<Main />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/referral" element={<Referral />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard">
+          <Route path="" element={<Dashboard/>}/>
+          <Route path="detail/:strategy" element={<DashboardDetail/>}/>
+        </Route>
         <Route path="/stake">
           <Route path="amount" element={<Amount />} />
           <Route path="leverage" element={<Leverage />} />
@@ -66,7 +70,6 @@ const Router = () => {
         <Route path="/unstaking">
           <Route path=":id" element={<UnstakingNftDetail />} />
           <Route path=":id/view" element={<UnstakingNftDetail view />} />
-          <Route path="beta" element={<UnstakingBetaInfo />} />
         </Route>
         <Route path="/swap" element={<Swap />} />
         <Route path="/nlp" element={<Nlp />} />
