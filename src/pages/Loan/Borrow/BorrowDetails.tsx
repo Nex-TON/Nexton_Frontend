@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -39,6 +39,20 @@ const BorrowDetails = () => {
   const { id } = useParams();
   const { nftDetail } = useNFTDetail(Number(id));
   const { data: tokenRate, isLoading, error } = useTokenRate();
+  const [unavailableModal, setUnavailableModal] = useState(true);
+
+  const openModal = useCallback(() => {
+    setUnavailableModal(true);
+  }, []);
+
+  const toggleUnavailableModal = useCallback(() => {
+      setUnavailableModal(prev => !prev);
+    }, []);
+
+  useEffect(() => {
+    setUnavailableModal(false);
+  }, []);
+
   // const { data: coinPrice } = useCoinPrice("TON", "USD");
 
   // const schema = z.object({
@@ -203,7 +217,7 @@ const BorrowDetails = () => {
           /> */}
         </BorrowContentBox>
 
-        {!isDevMode ? <MainButton text="Next" onClick={handleSubmit} /> : <button onClick={handleSubmit}>next</button>}
+        {!isDevMode ? <MainButton text="Next" onClick={openModal} /> : <button onClick={openModal}>next</button>}
       </form>
     </BorrowWrapper>
   );
