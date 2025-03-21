@@ -242,7 +242,7 @@ const LoaderWrapper = styled.div`
 const NominatorItemList = styled.div`
   width: 100%;
   margin-top: 3.3rem;
-  padding: 2rem 2rem 1.4rem 2rem;
+  padding: 2rem 2rem 1.4rem 2rem; 
 
   background-color: #f2f2f7;
 `;
