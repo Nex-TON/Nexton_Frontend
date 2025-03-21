@@ -15,7 +15,7 @@ export const Container = styled.div<{ $isDark?: boolean; $disablePaddingTop?: bo
   height: max-content;
 
   background-color: ${({ $isDark }) => ($isDark ? "#1A1B23" : "#fff")};
-  border-radius: 1.5rem;
+  border-radius: 2rem;
   box-sizing: border-box;
   padding: 3.4rem 1rem 1rem 1rem;
   padding-top: ${({ $disablePaddingTop }) => $disablePaddingTop && "1.2rem"};
@@ -27,7 +27,7 @@ export const ModalHeader = styled.div`
   align-items: center;
 
   width: 100%;
-  margin-bottom: 3.8rem;
+  // margin-bottom: 3.8rem;
 `;
 
 export const OpenTonViewerBox = styled.div`
