@@ -29,6 +29,7 @@ import {
 } from "./BorrowDetails.styled";
 import { Label } from "recharts";
 import { transformNominatorName } from "@/utils/nominator";
+import { LendingUnavailableModal } from "@/components/loan/Modal/LendingUnavailable";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -219,6 +220,9 @@ const BorrowDetails = () => {
 
         {!isDevMode ? <MainButton text="Next" onClick={openModal} /> : <button onClick={openModal}>next</button>}
       </form>
+      {unavailableModal && (
+      <LendingUnavailableModal toggleModal={toggleUnavailableModal} />
+    )}
     </BorrowWrapper>
   );
 };

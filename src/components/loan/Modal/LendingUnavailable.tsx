@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-
+import imageUrl from "@/assets/image/red-alert-circle.png";
 import { Container, SubTitle, SubTitleBox, Title } from "@/components/common/Modal/Modal.styled";
 import ModalWrapper from "@/components/common/Modal/ModalWrapper";
 
@@ -10,13 +10,12 @@ interface LendingUnavailableProps {
 
 export const LendingUnavailableModal = (props: LendingUnavailableProps) => {
   const { onClose, toggleModal } = props;
-  const imageUrl = "https://nextonserver.s3.eu-north-1.amazonaws.com/red-alert-circle.png"
 
   return (
     <ModalWrapper>
       <Container $isDark>
         <LendingUnavailableModalContent>
-        {/* <AlertCircle src={imageUrl} alt="My Image" /> */}
+        <AlertCircle src={imageUrl} alt="My Image" />
           <Title $isDark>Lending Unavailable</Title>
           <SubTitleBox>
             <SubTitle $isDark>
@@ -96,4 +95,7 @@ const AlertCircle = styled.img`
   justify-content: center;
   align-items: center;
   margin-bottom: 0.5rem;
+
+  width: 2.4rem;
+  height: 2.4rem;
 `;
