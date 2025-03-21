@@ -37,7 +37,7 @@ const NFTPreview = () => {
   const setError = useSetRecoilState(globalError);
 
   const [, setInput] = useRecoilState(stakingInputAtom);
-  const { sendMessage: sendDepositTon } = Contract.depositTon();
+  const { sendMessage: sendDepositTon, strategyDeposit } = Contract.depositTon();
   const { tokenTransfer } = useJettonWallet(stakingInfo.tokenSort);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,6 +47,7 @@ const NFTPreview = () => {
   });
 
   const navigate = useNavigate();
+  console.log(stakingInfo);
 
   const toggleModal = () => {
     setModal(prev => ({
@@ -60,19 +61,27 @@ const NFTPreview = () => {
     setIsLoading(true);
 
     try {
-      const data = (): TonDeposit => {
-        const PROTOCOL_FEE = toNano(0.1);
-        return {
-          $$type: "TonDeposit",
-          query_id: BigInt(Date.now()),
-          amount: toNano(stakingInfo.principal) - PROTOCOL_FEE, // ❗NOTE❗: Not used in the current contract version
-          // lockPeriod: BigInt(stakingInfo.lockup),
-          // leverage: BigInt(stakingInfo.leverage),
+      if (stakingInfo.nominator === "Arbitrage Bot") {
+        const data = (): TonDeposit => {
+          const PROTOCOL_FEE = toNano(0.1);
+          return {
+            $$type: "TonDeposit",
+            query_id: BigInt(Date.now()),
+            amount: toNano(stakingInfo.principal) - PROTOCOL_FEE, // ❗NOTE❗: Not used in the current contract version
+            // lockPeriod: BigInt(stakingInfo.lockup),
+            // leverage: BigInt(stakingInfo.leverage),
+          };
         };
-      };
 
-      // First, attempt to send the message to the contract
-      await sendDepositTon(data(), stakingInfo.principal);
+        // First, attempt to send the message to the contract
+        await sendDepositTon(data(), stakingInfo.principal);
+      } else {
+        const data = {
+          amount: toNano(stakingInfo.principal),
+          strategy: stakingInfo.nominator,
+        };
+        await strategyDeposit(data, toNano(stakingInfo.principal) + toNano(0.3));
+      }
 
       // If sendMessage is successful, then call postStakingInfo
       await postStakingInfo({
