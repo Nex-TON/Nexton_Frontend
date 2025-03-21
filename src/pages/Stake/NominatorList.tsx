@@ -259,7 +259,7 @@ const TitleH3 = styled.h3`
 `;
 
 const PoolTitle = styled(TitleH3)`
-  margin-top: 20px;
+  margin-top: 4rem;
 `;
 
 const BotTitleWrapper = styled.div`
