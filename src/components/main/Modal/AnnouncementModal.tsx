@@ -10,12 +10,13 @@ interface AnnouncementProps {
 
 export const AnnouncementModal = (props: AnnouncementProps) => {
   const { onClose, toggleModal } = props;
+  const imageUrl = "https://nextonserver.s3.eu-north-1.amazonaws.com/alert-circle.png"
 
   return (
     <ModalWrapper>
       <Container $isDark>
         <AnnouncementModalContent>
-        <AlertCircle src="/public/alert-circle.png" alt="My Image" />
+        <AlertCircle src={imageUrl} alt="My Image" />
           <Title $isDark>Announcement!</Title>
           <SubTitleBox>
             <SubTitle $isDark>
