@@ -16,7 +16,7 @@ export const LendingUnavailableModal = (props: LendingUnavailableProps) => {
     <ModalWrapper>
       <Container $isDark>
         <LendingUnavailableModalContent>
-        <AlertCircle src={imageUrl} alt="My Image" />
+        {/* <AlertCircle src={imageUrl} alt="My Image" /> */}
           <Title $isDark>Lending Unavailable</Title>
           <SubTitleBox>
             <SubTitle $isDark>
