@@ -224,7 +224,7 @@ const MainMyAssetInfo = ({
                       <span id="mainmyassetinfodashboard">Daily PNL</span>
                       <h4 id="mainmyassetinfodashboard">
                         {performanceData
-                          ? `${performanceData?.summaryData[strategy]?.pnlRate > 0 ? "+" : ""}${limitDecimals(performanceData?.summaryData[strategy]?.pnlRate, 2)}%`
+                          ? `${performanceData?.summaryData[strategy]?.dailyPnlRate > 0 ? "+" : ""}${limitDecimals(performanceData?.summaryData[strategy]?.pnlRate, 2)}%`
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
