@@ -78,16 +78,16 @@ const DashboardDetail = () => {
 
   // Set global error state if there is an error
   useEffect(() => {
-    if (performanceError || chartError) {
-      setError(performanceError || chartError);
+    if (chartError) {
+      setError(chartError);
     }
-  }, [performanceError, chartError, setError]);
+  }, [chartError, setError]);
 
   const handleTimeFrameChange = (timeFrame: TimeFrame) => {
     setTimeFrame(timeFrame);
   };
 
-  if (performanceLoading || chartLoading) {
+  if (chartLoading) {
     return (
       <LoaderWrapper>
         <Loader height={50} width={50} />
