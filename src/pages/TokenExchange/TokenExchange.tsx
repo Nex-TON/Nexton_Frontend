@@ -193,10 +193,13 @@ const BottomContainer = {
 };
 
 const ExchangeButton = styled.div`
+display: flex;
+justify-content: center;
   cursor: pointer;
   width: 100%;
+  height: 6rem;
   height: auto;
-  padding: 17px 87px;
+  padding: 17px 0;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2};
   color: white;
   background: #1f53ff;
