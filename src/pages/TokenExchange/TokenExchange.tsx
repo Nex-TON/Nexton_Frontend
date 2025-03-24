@@ -7,14 +7,22 @@ import { NumericFormat } from "react-number-format";
 import IcOldNxton from "@/assets/icons/Main/ic_old_nxTon.svg";
 import IcNewNxton from "@/assets/icons/Main/ic_new_nxTon.svg";
 import { FaArrowRight } from "react-icons/fa6";
+import IcArrowDown from "@/assets/icons/Exchange/IcArrowDown.svg";
 import useJettonWallet from "@/hooks/contract/useJettonWallet";
+import ExchangeConfirmModal from "@/components/exchange/ExchangeConfirmModal";
+import ExchangeSuccessModal from "@/components/exchange/ExchangeSuccessModal";
 
 const tele = (window as any).Telegram.WebApp;
 
 const TokenExchange = () => {
   const navigate = useNavigate();
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet("oldNxton");
-  const [amount,setAmount]=useState(0);
+  const [amount, setAmount] = useState("");
+  const [modal,toggleModal]=useState(false);
+
+  const onChange = e => {
+    setAmount(e.target.value);
+  };
 
   useEffect(() => {
     if (tele) {
@@ -45,73 +53,112 @@ const TokenExchange = () => {
           </BottomContainer.text>
           <BottomContainer.amount>
             <BottomContainer.balance>{`Balance:${nxTonBalance ? nxTonBalance : "-.---"} NxTON`}</BottomContainer.balance>
-            <BottomContainer.maxbutton onClick={()=>{setAmount(Number(nxTonBalance))}}>MAX</BottomContainer.maxbutton>
+            <BottomContainer.maxbutton
+              onClick={() => {
+                setAmount(nxTonBalance);
+              }}
+            >
+              MAX
+            </BottomContainer.maxbutton>
           </BottomContainer.amount>
           <TokenInput.wrapper>
             <TokenInput.token>
-                <img src={IcOldNxton} alt="old nxton icon"/> nxTON
+              <img src={IcOldNxton} alt="old nxton icon" /> nxTON
             </TokenInput.token>
             <TokenInput.rightitem>
-            <TokenInput.input placeholder="0.00" value={amount}/>
-            <TokenInput.convert>"test"</TokenInput.convert>
+              <TokenInput.input placeholder="0.00" value={amount} onChange={onChange} />
+              <TokenInput.convert>"test"</TokenInput.convert>
             </TokenInput.rightitem>
           </TokenInput.wrapper>
-          <ExchangeButton>Get the New NxTON!</ExchangeButton>
+          <ArrowWrapper>
+            <img src={IcArrowDown} alt="icon arrow down" />
+          </ArrowWrapper>
+          <TokenInput.wrapper>
+            <TokenInput.token>
+              <img src={IcNewNxton} alt="new nxton icon" /> nxTON
+            </TokenInput.token>
+            <TokenInput.rightitem>
+              <TokenInput.calculate $isactive={amount}>{amount || "0.00"}</TokenInput.calculate>
+              <TokenInput.convert>"test"</TokenInput.convert>
+            </TokenInput.rightitem>
+          </TokenInput.wrapper>
+          <ExchangeButton onClick={()=>amount?toggleModal(true):""}>Get the New NxTON!</ExchangeButton>
         </BottomContainer.wrapper>
+        {modal&&<ExchangeConfirmModal amount={amount} toggleModal={toggleModal}/>}
+        {/* <ExchangeSuccessModal/> */}
       </PageWrapper>
     </>
   );
 };
 export default TokenExchange;
 
-const TokenInput={
-    convert:styled.div`
+const ArrowWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0px;
+  width: 100%;
+  img {
+    width: 6rem;
+    height: 6rem;
+  }
+`;
+
+const TokenInput = {
+  calculate: styled.div<{ $isactive? }>`
+    ${({ theme }) => theme.fonts.Nexton_Title_Medium};
+    width: 100px;
     text-align: end;
-    color: #E5E5EA;
-    ${({theme})=>theme.fonts.Nexton_Body_Text_Medium_3};
-    width:100px;
-    position:absolute;
+    color: ${({ $isactive }) => ($isactive ? "#000" : "#e5e5ea")};
+  `,
+  convert: styled.div`
+    text-align: end;
+    color: #e5e5ea;
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+    width: 100px;
+    position: absolute;
     top: 2.5rem;
-    `,
-    rightitem:styled.div`
+  `,
+  rightitem: styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    `,
-    input:styled(NumericFormat)`
-        background: transparent;
-        outline: none;
-        border: none;
-        ${({theme})=>theme.fonts.Nexton_Title_Medium};
-        color:black;
-        width: 100px;
-        text-align: end;
-        &::placeholder{
-            color: #E5E5EA;
-            ${({theme})=>theme.fonts.Nexton_Title_Medium};
-        }
-    `,
-    token:styled.div`
+  `,
+  input: styled(NumericFormat)`
+    background: transparent;
+    outline: none;
+    border: none;
+    ${({ theme }) => theme.fonts.Nexton_Title_Medium};
+    color: black;
+    width: 100px;
+    text-align: end;
+    &::placeholder {
+      color: #e5e5ea;
+      ${({ theme }) => theme.fonts.Nexton_Title_Medium};
+    }
+  `,
+  token: styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 6px;
-    color:black;
-    ${({theme})=>theme.fonts.Nexton_Title_Medium_1};
-    `,
-    wrapper:styled.div`
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.7rem 2.8rem 0.9rem 1.4rem;
-        
-        background: #F9F9FF;
-        border-radius: 1.5rem;
-        height: 8.2rem;
-        width: 100%;
-    `,
-}
+    color: black;
+    ${({ theme }) => theme.fonts.Nexton_Title_Medium_1};
+  `,
+  wrapper: styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.7rem 2.8rem 0.9rem 1.4rem;
+
+    background: #f9f9ff;
+    border-radius: 1.5rem;
+    height: 8.2rem;
+    width: 100%;
+  `,
+};
 
 const BottomContainer = {
   maxbutton: styled.div`
@@ -154,6 +201,7 @@ const ExchangeButton = styled.div`
   color: white;
   background: #1f53ff;
   border-radius: 1.5rem;
+  margin-top: 122px;
 `;
 
 const TopContainer = {
