@@ -58,7 +58,7 @@ function depositTon() {
 
 function mapStrategyHandler(handler) {
   if (import.meta.env.VITE_TON_NETWORK === "mainnet")
-    if (handler === "Bemo Pool") return Address.parse("EQBiZ8Y9lUxTG-I_bPE0Z2AmeFk8H_UBjIJSFzTmrKIiAHX5");
+    if (handler === "Bemo Pool") return Address.parse("EQDH13TaSeQVHHf9YOeG4y3A0VrkYn8y24WESaJIui3BujDc");
   if (import.meta.env.VITE_TON_NETWORK === "testnet")
     if (handler === "Bemo Pool") return Address.parse("kQDyV2q5-epazG6SffES6v9QPlNzeFC19uy71TPjXwXd0bLg");
 }
