@@ -84,13 +84,14 @@ const NominatorList = () => {
   const description =
     selectedNominator?.name === "Bemo pool"
       ? "you will receive an NFT through the Arbitrage Bot."
-      : selectedNominator?.name === "Arbitrage Bot"
-        ? "Centralized exchanges may have security and operational risks."
-        : selectedNominator?.name === "Arbitrage Bot 1"
-          ? "Arbitrage trading may result in losses due to execution delays, price slippage, fees, and market volatility."
+      : selectedNominator?.name === "Arbitrage Bot 1"
+        ? "Arbitrage trading may result in losses due to execution delays, price slippage, fees, and market volatility."
+        : selectedNominator?.name === "Arbitrage Bot"
+          ? "Centralized exchanges may have security and operational risks."
           : null;
 
-  const name = selectedNominator?.name === "Arbitrage Bot" ? "CEX-DEX" : selectedNominator?.name === "Arbitrage Bot 1" ? "DEX-DEX" : selectedNominator?.name;
+
+  const name = selectedNominator?.name === "Arbitrage Bot" ? "DEX-DEX" : selectedNominator?.name === "Arbitrage Bot 1" ? "CEX-DEX" : selectedNominator?.name;
   return (
     <>
       {confirmModal && (
@@ -141,7 +142,7 @@ const NominatorList = () => {
                     </Fragment>
                   ))}
 
-                {nominatorListData.some(item => item.type === "pool") && <TitleH3>Pool</TitleH3>}
+                {nominatorListData.some(item => item.type === "pool") && <PoolTitle>Pool</PoolTitle>}
                 {nominatorListData
                   .filter(item => item.type === "pool")
                   .map(item => (
@@ -243,13 +244,12 @@ const NominatorItemList = styled.div`
   width: 100%;
   margin-top: 3.3rem;
   padding: 2rem 2rem 1.4rem 2rem;
-  gap: 4rem;
 
   background-color: #f2f2f7;
 `;
 
 const TitleH3 = styled.h3`
-  padding: 4rem 0 1.4rem 0;
+  padding: 1.4rem 0;
   color: #333;
   font-family: Montserrat;
   font-size: 20px;
@@ -257,6 +257,10 @@ const TitleH3 = styled.h3`
   font-weight: 400;
   line-height: 24px; /* 120% */
   letter-spacing: -0.46px;
+`;
+
+const PoolTitle = styled(TitleH3)`
+  margin-top: 4rem;
 `;
 
 const BotTitleWrapper = styled.div`

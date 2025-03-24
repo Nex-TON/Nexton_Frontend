@@ -28,6 +28,7 @@ import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 import { AgreementModal } from "@/components/main/Modal/AgreementModal";
 import { postAgreement } from "@/api/postAgreement";
 import { useAgreement } from "@/hooks/api/main/useAgreement";
+import { AnnouncementModal } from "@/components/main/Modal/AnnouncementModal";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -54,6 +55,7 @@ const Main: React.FC = () => {
   const [officialModal, setOfficialModal] = useState(false);
   const [agreementModal, setAgreementModal] = useState(false);
   const [popupModal, setPopupModal] = useState(false);
+  const [announcementModal, setAnnouncementModal] = useState(false);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -126,6 +128,10 @@ const Main: React.FC = () => {
       setAgreementModal(true);
     }};
   }, [userAgreement]);
+
+  useEffect(() => {
+    setAnnouncementModal(true);
+  }, []);
 
   //사용자 지갑 주소 전송
   useEffect(() => {
@@ -239,6 +245,10 @@ const Main: React.FC = () => {
     setAgreementModal(prev => !prev);
   }, []);
 
+  const toggleAnnouncementModal = useCallback(() => {
+    setAnnouncementModal(prev => !prev);
+  }, []);
+
   const onAcceptAgreementModal = useCallback(async () => {
     // localStorage.setItem("agreePrivacyPolicy", "true");
     // localStorage.setItem("agreeTermsOfUse", "true");
@@ -255,8 +265,9 @@ const Main: React.FC = () => {
   return (
     <>
       {modal && <WelcomeModal toggleModal={toggleModal} />}
-      {agreementModal && <AgreementModal toggleModal={toggleAgreementModal} onAccept={onAcceptAgreementModal} />}
       {officialModal && <OfficialAnouncementModal toggleModal={toggleOfficialModal} />}
+      {announcementModal && <AnnouncementModal toggleModal={toggleAnnouncementModal} />}
+      {agreementModal && <AgreementModal toggleModal={toggleAgreementModal} onAccept={onAcceptAgreementModal} />}
       <MainWrapper>
         <Header isOpen={false} text="NEXTON" backgroundType={false} connected={connected} />
         <MainMyAssetInfo
