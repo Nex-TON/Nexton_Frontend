@@ -90,6 +90,7 @@ const NominatorList = () => {
           ? "Centralized exchanges may have security and operational risks."
           : null;
 
+
   const name = selectedNominator?.name === "Arbitrage Bot" ? "DEX-DEX" : selectedNominator?.name === "Arbitrage Bot 1" ? "CEX-DEX" : selectedNominator?.name;
   return (
     <>
