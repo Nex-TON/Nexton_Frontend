@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import { NumericFormat } from "react-number-format";
+
 import IcOldNxton from "@/assets/icons/Main/ic_old_nxTon.svg";
 import IcNewNxton from "@/assets/icons/Main/ic_new_nxTon.svg";
 import { FaArrowRight } from "react-icons/fa6";
@@ -43,8 +45,17 @@ const TokenExchange = () => {
           </BottomContainer.text>
           <BottomContainer.amount>
             <BottomContainer.balance>{`Balance:${nxTonBalance ? nxTonBalance : "-.---"} NxTON`}</BottomContainer.balance>
-            <BottomContainer.maxbutton onClick={()=>{}}>MAX</BottomContainer.maxbutton>
+            <BottomContainer.maxbutton onClick={()=>{setAmount(Number(nxTonBalance))}}>MAX</BottomContainer.maxbutton>
           </BottomContainer.amount>
+          <TokenInput.wrapper>
+            <TokenInput.token>
+                <img src={IcOldNxton} alt="old nxton icon"/> nxTON
+            </TokenInput.token>
+            <TokenInput.rightitem>
+            <TokenInput.input placeholder="0.00" value={amount}/>
+            <TokenInput.convert>"test"</TokenInput.convert>
+            </TokenInput.rightitem>
+          </TokenInput.wrapper>
           <ExchangeButton>Get the New NxTON!</ExchangeButton>
         </BottomContainer.wrapper>
       </PageWrapper>
@@ -52,6 +63,55 @@ const TokenExchange = () => {
   );
 };
 export default TokenExchange;
+
+const TokenInput={
+    convert:styled.div`
+    text-align: end;
+    color: #E5E5EA;
+    ${({theme})=>theme.fonts.Nexton_Body_Text_Medium_3};
+    width:100px;
+    position:absolute;
+    top: 2.5rem;
+    `,
+    rightitem:styled.div`
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    `,
+    input:styled(NumericFormat)`
+        background: transparent;
+        outline: none;
+        border: none;
+        ${({theme})=>theme.fonts.Nexton_Title_Medium};
+        color:black;
+        width: 100px;
+        text-align: end;
+        &::placeholder{
+            color: #E5E5EA;
+            ${({theme})=>theme.fonts.Nexton_Title_Medium};
+        }
+    `,
+    token:styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    color:black;
+    ${({theme})=>theme.fonts.Nexton_Title_Medium_1};
+    `,
+    wrapper:styled.div`
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.7rem 2.8rem 0.9rem 1.4rem;
+        
+        background: #F9F9FF;
+        border-radius: 1.5rem;
+        height: 8.2rem;
+        width: 100%;
+    `,
+}
 
 const BottomContainer = {
   maxbutton: styled.div`
@@ -81,6 +141,7 @@ const BottomContainer = {
     display: flex;
     flex-direction: column;
     padding: 3rem 2rem 6.7rem 2rem;
+    width: 100%;
   `,
 };
 
