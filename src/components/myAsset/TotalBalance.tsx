@@ -10,7 +10,7 @@ import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 
-import arrow from "@/assets/icons/MyAsset/ic_arrow_icon.png"; 
+import arrow from "@/assets/icons/MyAsset/ic_arrow_Icon.png"; 
 import { useNavigate } from "react-router-dom";
 import nxtIcon from "@/assets/icons/Stake/Staking_nxTON.png";
 
