@@ -64,6 +64,19 @@ export default function useJettonWallet(token = "nxTON") {
         },
       );
     },
+    tokenBrun: async (data)=> {
+      await jettonWallet.send(
+        sender,
+        { value: data.value },
+        {
+          $$type: "TokenBurn",
+          query_id: BigInt(Date.now()),
+          amount: data.amount,
+          response_destination: data.response_destination,
+          custom_payload: null,
+        },
+      );
+    }
   };
 }
 
@@ -71,8 +84,10 @@ export { useJettonWallet };
 
 function mapTokenMasterAddress(token) {
   switch (token) {
-    case "nxTON":
-      return Address.parse(import.meta.env.VITE_NXTON_MASTER);
+  case "nxTON":
+  return Address.parse(import.meta.env.VITE_NXTON_MASTER);
+  case "oldNxTON":
+  return Address.parse("EQCdEj1dEh76-Qacc38ZRH2eGtqyp-50fO3_0wBKF8HKT9zh");
   }
   return null;
-}
+ }

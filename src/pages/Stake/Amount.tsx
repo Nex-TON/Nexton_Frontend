@@ -18,7 +18,7 @@ import { limitDecimals } from "@/utils/limitDecimals";
 import { numberCutter } from "@/utils/numberCutter";
 import TokenFilter from "@/components/stake/Filter/TokenFilter";
 import { TokenFilterModal } from "@/components/stake/Filter/TokenFilterModal";
-import NXTPointImg from "@/assets/image/NXTPoint.png";
+import NXTPointImg from "@/assets/image/button.png";
 import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import { useTokenRate } from "@/hooks/api/loan/useTokenRate";

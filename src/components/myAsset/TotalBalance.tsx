@@ -10,12 +10,31 @@ import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 
+import arrow from "@/assets/icons/MyAsset/ic_arrow_Icon.png"; 
+import { useNavigate } from "react-router-dom";
+import nxtIcon from "@/assets/icons/Stake/Staking_nxTON.png";
+
 export const TotalBalance = () => {
   const { address, balance, refreshTonData } = useTonConnect();
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { nftList, isLoading } = useStakeInfo(address);
   const { borrowList } = useRepayNftList(address);
+  const navigate = useNavigate();
+
+  const totalExchanged = useMemo(() => {
+    return tokenSort => {
+      const nftTotal =
+        nftList?.reduce((acc, nft) => {
+          if (nft.tokenSort === `${tokenSort}` && nft.tokenExchange === true) {
+            return acc + nft.principal;
+          }
+          return acc;
+        }, 0) || 0;
+      return nftTotal;
+    };
+  }, []);
+
   //nft list 에서 TON, NxTON staked된거 총량 가져옴
   const totalStaked = useMemo(() => {
     return tokenSort => {
@@ -128,10 +147,54 @@ export const TotalBalance = () => {
             </Balance>
           </Balance>
         </ValueWrapper>
+        <DivideLine />
+        <ValueWrapper>
+          <SideText>
+            <img src={nxtIcon}></img>
+            Exchanged NxTON
+          </SideText>
+          <Balance>
+            <Balance>
+              <p>{totalExchanged("nxTON") === 0 || totalExchanged("nxTON") ? totalExchanged("nxTON")?.toFixed(3) : "0.000"}</p>
+              <p>NxTON</p>
+            </Balance>
+          </Balance>
+        </ValueWrapper>
+        <GoExchange>
+          <div onClick={() => navigate('/exchange')}>
+            <p>Go to Exchange</p>
+            <img src={arrow}></img>
+          </div>
+        </GoExchange>
       </TotalBalanceBoxWrapper>
     </TotalBalanceWrapper>
   );
 };
+
+const GoExchange = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.7rem;
+
+  p {
+    color: #1F53FF;
+    line-height: 1.8rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+  }
+
+  img {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  div {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+  }
+`;
 
 const ValueWrapper = styled.div`
   justify-content: space-between;
@@ -173,6 +236,14 @@ const Balance = styled.div`
 `;
 
 const SideText = styled.div`
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+
+  img {
+    width: 2rem;
+    height: 2rem;
+  }
   color: #c6caca;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
 `;

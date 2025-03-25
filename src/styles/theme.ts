@@ -319,6 +319,30 @@ const fonts = {
     line-height: 150%; /* 18px */
     letter-spacing: -0.4px;
   `,
+  Nexton_Exchange_text_0: css`
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+    letter-spacing: -0.32px;
+  `,
+  Nexton_Exchange_text_1: css`
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+    letter-spacing: -0.32px;
+  `,
+  Nexton_Exchange_text_2: css`
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 21px; /* 161.538% */
+    letter-spacing: -0.052px;
+  `,
 };
 
 export type FontsTypes = typeof fonts;

@@ -8,6 +8,7 @@ import NewsTomo from "./NewsTomo";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import NewsTokenExchange from "./NewsTokenExchange";
 
 const NextonNews = () => {
   const settings = {
@@ -28,6 +29,9 @@ const NextonNews = () => {
         <Title>Latest News</Title>
         <SliderWrapper>
           <Slider {...settings}>
+            <SliderItem>
+              <NewsTokenExchange/>
+            </SliderItem>
             <SliderItem>
               <NewsTomo />
             </SliderItem>
