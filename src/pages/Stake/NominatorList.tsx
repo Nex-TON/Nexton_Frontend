@@ -91,6 +91,7 @@ const NominatorList = () => {
           : null;
 
   const name = selectedNominator?.name === "Arbitrage Bot" ? "CEX-DEX" : selectedNominator?.name === "Arbitrage Bot 1" ? "DEX-DEX" : selectedNominator?.name;
+
   return (
     <>
       {confirmModal && (
