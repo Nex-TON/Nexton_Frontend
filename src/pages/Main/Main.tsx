@@ -29,7 +29,7 @@ import { AgreementModal } from "@/components/main/Modal/AgreementModal";
 import { postAgreement } from "@/api/postAgreement";
 import { useAgreement } from "@/hooks/api/main/useAgreement";
 import { AnnouncementModal } from "@/components/main/Modal/AnnouncementModal";
-import { PopupModal } from "@/components/main/Modal/PopupModal";
+// import { PopupModal } from "@/components/main/Modal/PopupModal";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -417,7 +417,7 @@ const Main: React.FC = () => {
         theme="light"
         style={{ fontSize: "7rem" }}
       />
-      <PopupModal/>
+      {/* <PopupModal/> */}
     </>
   );
 };
