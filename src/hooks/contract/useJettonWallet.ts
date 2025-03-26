@@ -10,17 +10,19 @@ export default function useJettonWallet(token = "nxTON") {
   const client = useTonClient();
   const { sender, address } = useTonConnect();
   const [balance, setBalance] = useState(BigInt(0));
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const jettonWallet: OpenedContract<JettonDefaultWallet> = useAsyncInitialize(async () => {
     const masterAddress = mapTokenMasterAddress(token);
     if (address && client && masterAddress) {
-      const jettonWallet = client.open(await JettonDefaultWallet.fromInit(Address.parse(address), masterAddress));
-      return jettonWallet;
+      const wallet = client.open(await JettonDefaultWallet.fromInit(Address.parse(address), masterAddress));
+      setIsInitialized(true); // Set wallet as initialized
+      return wallet;
     }
   }, [client, address, token]);
 
   const getBalance = useCallback(async () => {
-    if (jettonWallet) {
+    if (jettonWallet && isInitialized) {
       try {
         const result = await jettonWallet.getGetWalletData();
         setBalance(result.balance);
@@ -42,6 +44,12 @@ export default function useJettonWallet(token = "nxTON") {
   const refreshData = useCallback(async () => {
     await getBalance();
   }, [jettonWallet, getBalance]);
+
+  useEffect(() => {
+    if (isInitialized) {
+      getBalance(); // Refresh balance once wallet is initialized
+    }
+  }, [isInitialized, getBalance]);
 
   return {
     address: jettonWallet ? jettonWallet.address : null,

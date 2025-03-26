@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
-import { z } from "zod";
+import { boolean, z } from "zod";
 
 import ProgressBar from "@/components/stake/common/ProgressBar";
 import Step from "@/components/stake/common/Step";
@@ -22,6 +22,7 @@ import NXTPointImg from "@/assets/image/button.png";
 import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
+import ExchangePopup from "@/components/stake/common/ExchangePopup";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -33,7 +34,10 @@ const Amount = () => {
   const { data: coinPrice } = useCoinPrice("TON", "USD");
   const [modal, setModal] = useState(false);
   const [tokenSort, setTokenSort] = useState("TON");
+  const { balance: oldNxTonBalance,refreshData:refreshOldData } = useJettonWallet("oldNxTON");
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
+  const [exchangeModal,setExchangeModal]=useState(false);
+
   const handleTokenSelect = selectedToken => {
     setTokenSort(selectedToken); // Update token selection
     setModal(false); // Close modal
@@ -134,7 +138,7 @@ const Amount = () => {
           <MaxButton
             onClick={() => {
               const maxAmount = tokenSort === "TON" ? balance : nxTonBalance;
-              setValue("amount", maxAmount ? limitDecimals(maxAmount,3) : "0");
+              setValue("amount", maxAmount ? limitDecimals(maxAmount, 3) : "0");
             }}
           >
             MAX
@@ -187,10 +191,11 @@ const Amount = () => {
         <>
           <Overlay onClick={() => setModal(false)} />
           <ModalWrapper>
-            <TokenFilterModal toggleModal={() => setModal(false)} onSelected={handleTokenSelect} />
+            <TokenFilterModal toggleModal={() => setModal(false)} onSelected={handleTokenSelect} setExchangeModal={setExchangeModal} hasOldNxTon={oldNxTonBalance}/>
           </ModalWrapper>
         </>
       )}
+      {exchangeModal&&<ExchangePopup toggleModal={setExchangeModal}/>}
     </>
   );
 };
