@@ -13,7 +13,7 @@ const ExchangeSuccessModal = transaction => {
           completed!
         </ModalContainer.title>
         <ModalContainer.subtitle>
-          The former nxTON will be burned. The
+          The former NxTON will be burned. The
           <br /> exchange process may take more <br />
           than 24 hours. Please wait patiently.
         </ModalContainer.subtitle>

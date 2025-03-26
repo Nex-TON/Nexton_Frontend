@@ -129,8 +129,8 @@ const TokenExchange = () => {
             </TokenInput.container>
           </TokenInput.wrapper>
           <InfoWrapper>
-            * The former nxTON will be burned, and the exchange
-            <br /> for the new nxTON may take approximately 24 hours
+            * The former NxTON will be burned, and the exchange
+            <br /> for the new NxTON may take approximately 24 hours
           </InfoWrapper>
           <ExchangeButton $unactive={oldNxTonBalance==="0"} $status={statusData?.status} onClick={() => (oldNxTonBalance && !inputError ? toggleModal(true) : "")}>
             Request new NxTON
