@@ -36,7 +36,8 @@ const TokenExchange = () => {
   const [usdc, setUsdc] = useState(0);
   const setError = useSetRecoilState(globalError);
   const [inputError, setInputError] = useState(null);
-  const telegramId = useRecoilValue(telegramAtom);
+  const userId = tele?.initDataUnsafe?.user?.id; //number
+  const telegramId =String(userId);
 
   const onChange = e => {
     setAmount(e.target.value);
@@ -117,25 +118,29 @@ const TokenExchange = () => {
             Please exchange your <br /> existing NxTON for a <span>new one!</span>
           </BottomContainer.text>
           <TokenInput.wrapper>
-            <TokenInput.token>
-              <img src={IcOldNxton} alt="old nxton icon" /> NxTON
-            </TokenInput.token>
-            <TokenInput.rightitem>
-              <TokenInput.input placeholder="0.00" value={amount} onChange={onChange} />
-              <TokenInput.convert>${limitDecimals(usdc, 2)}</TokenInput.convert>
-            </TokenInput.rightitem>
+            <TokenInput.container>
+              <TokenInput.token>
+                <img src={IcOldNxton} alt="old nxton icon" /> NxTON
+              </TokenInput.token>
+              <TokenInput.rightitem>
+                <TokenInput.input placeholder="0.00" value={amount} onChange={onChange} />
+                <TokenInput.convert>${limitDecimals(usdc, 2)}</TokenInput.convert>
+              </TokenInput.rightitem>
+            </TokenInput.container>
           </TokenInput.wrapper>
           <ArrowWrapper>
             <img src={IcArrowDown} alt="icon arrow down" />
           </ArrowWrapper>
           <TokenInput.wrapper $new>
-            <TokenInput.token>
-              <img src={IcNewNxton} alt="new nxton icon" /> NxTON
-            </TokenInput.token>
-            <TokenInput.rightitem>
-              <TokenInput.calculate $isactive={amount}>{amount || "0.00"}</TokenInput.calculate>
-              <TokenInput.convert>${limitDecimals(usdc, 2)}</TokenInput.convert>
-            </TokenInput.rightitem>
+            <TokenInput.container>
+              <TokenInput.token>
+                <img src={IcNewNxton} alt="new nxton icon" /> NxTON
+              </TokenInput.token>
+              <TokenInput.rightitem>
+                <TokenInput.calculate $isactive={amount}>{amount || "0.00"}</TokenInput.calculate>
+                <TokenInput.convert>${limitDecimals(usdc, 2)}</TokenInput.convert>
+              </TokenInput.rightitem>
+            </TokenInput.container>
           </TokenInput.wrapper>
           {inputError && (
             <TokenInput.error>
@@ -222,16 +227,25 @@ const TokenInput = {
     gap: 6px;
     color: black;
     ${({ theme }) => theme.fonts.Nexton_Title_Medium_1};
+    img {
+      width: 31px;
+      height: 31px;
+    }
   `,
-  wrapper: styled.div<{$new?}>`
+  container: styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
     padding: 1.7rem 2.8rem 1.7rem 1.4rem;
-
-    border:${({$new})=>$new?"1px solid #1F53FF":"1px solid #E5E5EA"} ;
-
+    align-items: center;
+    width: 100%;
+  `,
+  wrapper: styled.div<{ $new? }>`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: ${({ $new }) => ($new ? "1px solid #1F53FF" : "1px solid #E5E5EA")};
 
     background: white;
     border-radius: 1.5rem;
