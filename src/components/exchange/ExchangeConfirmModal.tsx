@@ -1,7 +1,7 @@
 import ModalWrapper from "../common/Modal/ModalWrapper";
 import styled from "styled-components";
 
-const ExchangeConfirmModal = ({ amount, toggleModal }) => {
+const ExchangeConfirmModal = ({ amount, toggleModal, handleSubmit }) => {
   return (
     <ModalWrapper>
       <ModalContainer.wrapper>
@@ -15,13 +15,19 @@ const ExchangeConfirmModal = ({ amount, toggleModal }) => {
         </ModalContainer.subtitle>
         <ModalContainer.buttonwrapper>
           <ModalContainer.cancel
-            onClick={() => {
+            onClick={async () => {
               toggleModal(false);
             }}
           >
             Now now
           </ModalContainer.cancel>
-          <ModalContainer.submit>Yes</ModalContainer.submit>
+          <ModalContainer.submit
+            onClick={() => {
+              handleSubmit();
+            }}
+          >
+            Yes
+          </ModalContainer.submit>
         </ModalContainer.buttonwrapper>
       </ModalContainer.wrapper>
     </ModalWrapper>

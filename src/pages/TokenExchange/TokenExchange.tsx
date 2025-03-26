@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -11,18 +11,40 @@ import IcArrowDown from "@/assets/icons/Exchange/IcArrowDown.svg";
 import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import ExchangeConfirmModal from "@/components/exchange/ExchangeConfirmModal";
 import ExchangeSuccessModal from "@/components/exchange/ExchangeSuccessModal";
+import { Address, toNano } from "@ton/core";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
 
 const TokenExchange = () => {
   const navigate = useNavigate();
-  const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet("oldNxton");
+  const { balance: nxTonBalance, refreshData: refreshNxtonData, tokenBurn } = useJettonWallet("oldNxTON");
+  const { address } = useTonConnect();
   const [amount, setAmount] = useState("");
-  const [modal,toggleModal]=useState(false);
+  const [modal, toggleModal] = useState(false);
 
   const onChange = e => {
     setAmount(e.target.value);
   };
+
+  const sendSubmit = useCallback(async () => {
+    const data = () => {
+      return {
+        value: 0.03,
+        amount: amount,
+        response_destination: address,
+      };
+    };
+
+    await tokenBurn(data());
+  }, [tokenBurn, amount]);
+
+  useEffect(() => {
+    const refresh = async () => {
+      await refreshNxtonData();
+    };
+    refresh();
+  }, [refreshNxtonData]);
 
   useEffect(() => {
     if (tele) {
@@ -35,7 +57,8 @@ const TokenExchange = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, []);
+  }, [nxTonBalance]);
+
   return (
     <>
       <PageWrapper>
@@ -82,9 +105,9 @@ const TokenExchange = () => {
               <TokenInput.convert>"test"</TokenInput.convert>
             </TokenInput.rightitem>
           </TokenInput.wrapper>
-          <ExchangeButton onClick={()=>amount?toggleModal(true):""}>Get the New NxTON!</ExchangeButton>
+          <ExchangeButton onClick={() => (amount ? toggleModal(true) : "")}>Get the New NxTON!</ExchangeButton>
         </BottomContainer.wrapper>
-        {modal&&<ExchangeConfirmModal amount={amount} toggleModal={toggleModal}/>}
+        {modal && <ExchangeConfirmModal handleSubmit={sendSubmit} amount={amount} toggleModal={toggleModal} />}
         {/* <ExchangeSuccessModal/> */}
       </PageWrapper>
     </>
@@ -193,8 +216,8 @@ const BottomContainer = {
 };
 
 const ExchangeButton = styled.div`
-display: flex;
-justify-content: center;
+  display: flex;
+  justify-content: center;
   cursor: pointer;
   width: 100%;
   height: 6rem;

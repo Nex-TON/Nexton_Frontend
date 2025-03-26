@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { useTonClient } from "./useTonClient";
 import { JettonDefaultWallet } from "./wrappers/tact_JettonDefaultWallet";
-import { Address, OpenedContract, fromNano } from "@ton/core";
+import { Address, OpenedContract, fromNano, toNano } from "@ton/core";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import useTonConnect from "./useTonConnect";
 
@@ -64,19 +64,19 @@ export default function useJettonWallet(token = "nxTON") {
         },
       );
     },
-    tokenBrun: async (data)=> {
+    tokenBurn: async data => {
       await jettonWallet.send(
         sender,
-        { value: data.value },
+        { value: toNano(data.value) },
         {
           $$type: "TokenBurn",
           query_id: BigInt(Date.now()),
-          amount: data.amount,
-          response_destination: data.response_destination,
+          amount: toNano(data.amount),
+          response_destination: Address.parse(data.response_destination),
           custom_payload: null,
         },
       );
-    }
+    },
   };
 }
 
@@ -84,10 +84,13 @@ export { useJettonWallet };
 
 function mapTokenMasterAddress(token) {
   switch (token) {
-  case "nxTON":
-  return Address.parse(import.meta.env.VITE_NXTON_MASTER);
-  case "oldNxTON":
-  return Address.parse("EQCdEj1dEh76-Qacc38ZRH2eGtqyp-50fO3_0wBKF8HKT9zh");
+    case "nxTON":
+      return Address.parse(import.meta.env.VITE_NXTON_MASTER);
+    case "oldNxTON":
+      if (import.meta.env.VITE_TON_NETWORK == "mainnet")
+        return Address.parse("EQCdEj1dEh76-Qacc38ZRH2eGtqyp-50fO3_0wBKF8HKT9zh");
+      else if (import.meta.env.VITE_TON_NETWORK == "testnet")
+        return Address.parse("kQAUupHzEYK1B9yvg9qhaGFJqF-EcAgW58HjDs438pSex9Gu");
   }
   return null;
- }
+}
