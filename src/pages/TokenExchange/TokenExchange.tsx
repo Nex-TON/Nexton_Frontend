@@ -208,8 +208,10 @@ const TokenInput = {
     ${({ theme }) => theme.fonts.Nexton_Title_Medium};
     color: black;
     width: 100px;
+    padding: 0;
     text-align: end;
     &::placeholder {
+      padding: 0;
       color: #e5e5ea;
       ${({ theme }) => theme.fonts.Nexton_Title_Medium};
     }
