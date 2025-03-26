@@ -133,7 +133,7 @@ const TokenExchange = () => {
             <br /> for the new NxTON may take approximately 24 hours
           </InfoWrapper>
           <ExchangeButton $unactive={oldNxTonBalance==="0"} $status={statusData?.status} onClick={() => (oldNxTonBalance && !inputError ? toggleModal(true) : "")}>
-            {statusData?.status===1?"In progress...":statusData?.status===2?"nxTON exchange completed":"Request new NxTON"}
+            {statusData?.status===1?"In progress...":statusData?.status===2?"NxTON exchange completed":"Request new NxTON"}
           </ExchangeButton>
         </BottomContainer.wrapper>
         {modal && <ExchangeConfirmModal amount={oldNxTonBalance} toggleModal={toggleModal} handleSubmit={sendSubmit} />}
