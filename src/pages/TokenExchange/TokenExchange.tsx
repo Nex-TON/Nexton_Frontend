@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { NumericFormat } from "react-number-format";
 
+import IcError from "@/assets/icons/Stake/ic_error.svg";
 import IcOldNxton from "@/assets/icons/Main/ic_old_nxTon.svg";
 import IcNewNxton from "@/assets/icons/Main/ic_new_nxTon.svg";
 import { FaArrowRight } from "react-icons/fa6";
@@ -11,8 +12,13 @@ import IcArrowDown from "@/assets/icons/Exchange/IcArrowDown.svg";
 import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import ExchangeConfirmModal from "@/components/exchange/ExchangeConfirmModal";
 import ExchangeSuccessModal from "@/components/exchange/ExchangeSuccessModal";
-import { Address, toNano } from "@ton/core";
+
+import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
+import { useCoinPrice } from "@/hooks/api/useCoinPrice";
+import { limitDecimals } from "@/utils/limitDecimals";
 import useTonConnect from "@/hooks/contract/useTonConnect";
+import { useSetRecoilState } from "recoil";
+import { globalError } from "@/lib/atom/globalError";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -22,21 +28,34 @@ const TokenExchange = () => {
   const { address } = useTonConnect();
   const [amount, setAmount] = useState("");
   const [modal, toggleModal] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const { data: tonPriceData, isLoading: tonPriceLoading, error: tonPriceError } = useCoinPrice("ton", "usd");
+  const { data: tokenRate, isLoading, error } = useTokenRate();
+  const [usdc, setUsdc] = useState(0);
+  const setError = useSetRecoilState(globalError);
+  const [inputError, setInputError] = useState("");
 
   const onChange = e => {
     setAmount(e.target.value);
   };
 
   const sendSubmit = useCallback(async () => {
-    const data = () => {
-      return {
-        value: 0.03,
-        amount: amount,
-        response_destination: address,
+    toggleModal(false);
+    try {
+      const data = () => {
+        return {
+          value: 0.03,
+          amount: amount,
+          response_destination: address,
+        };
       };
-    };
 
-    await tokenBurn(data());
+      await tokenBurn(data());
+      setSuccess(true);
+    } catch (error) {
+      console.log("token exchange failed", error);
+      setError(error);
+    }
   }, [tokenBurn, amount]);
 
   useEffect(() => {
@@ -45,6 +64,13 @@ const TokenExchange = () => {
     };
     refresh();
   }, [refreshNxtonData]);
+
+  useEffect(() => {
+    if (tokenRate && tonPriceData) {
+      const numericAmount = amount ? Number(amount) : 0;
+      setUsdc(numericAmount * tokenRate.nxtonToTonRate * tonPriceData.rates.TON.prices.USD);
+    }
+  }, [amount, tokenRate, tonPriceData]);
 
   useEffect(() => {
     if (tele) {
@@ -58,6 +84,13 @@ const TokenExchange = () => {
       tele.offEvent("backButtonClicked");
     };
   }, [nxTonBalance]);
+  useEffect(() => {
+    if (amount == "0") {
+      setInputError("please enter amount");
+    } else if (Number(amount) > Number(nxTonBalance)) {
+      setInputError("The amount exceeds the balance");
+    }
+  }, [amount]);
 
   return (
     <>
@@ -89,8 +122,8 @@ const TokenExchange = () => {
               <img src={IcOldNxton} alt="old nxton icon" /> nxTON
             </TokenInput.token>
             <TokenInput.rightitem>
-              <TokenInput.input placeholder="0.00" value={amount} onChange={onChange} />
-              <TokenInput.convert>"test"</TokenInput.convert>
+              <TokenInput.input placeholder="0.00" value={amount} onChange={onChange} $error={inputError} />
+              <TokenInput.convert>${limitDecimals(usdc, 2)}</TokenInput.convert>
             </TokenInput.rightitem>
           </TokenInput.wrapper>
           <ArrowWrapper>
@@ -102,13 +135,21 @@ const TokenExchange = () => {
             </TokenInput.token>
             <TokenInput.rightitem>
               <TokenInput.calculate $isactive={amount}>{amount || "0.00"}</TokenInput.calculate>
-              <TokenInput.convert>"test"</TokenInput.convert>
+              <TokenInput.convert>${limitDecimals(usdc, 2)}</TokenInput.convert>
             </TokenInput.rightitem>
           </TokenInput.wrapper>
-          <ExchangeButton onClick={() => (amount ? toggleModal(true) : "")}>Get the New NxTON!</ExchangeButton>
+          {inputError && (
+            <TokenInput.error>
+              <img src={IcError} alt="error" />
+              {inputError}
+            </TokenInput.error>
+          )}
+          <ExchangeButton onClick={() => (amount && !inputError ? toggleModal(true) : "")}>
+            Get the New NxTON!
+          </ExchangeButton>
         </BottomContainer.wrapper>
-        {modal && <ExchangeConfirmModal handleSubmit={sendSubmit} amount={amount} toggleModal={toggleModal} />}
-        {/* <ExchangeSuccessModal/> */}
+        {modal && <ExchangeConfirmModal amount={amount} toggleModal={toggleModal} handleSubmit={sendSubmit} />}
+        {success && <ExchangeSuccessModal transaction={""} />}
       </PageWrapper>
     </>
   );
@@ -120,7 +161,7 @@ const ArrowWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 1rem 0px;
+  margin: 1rem 0;
   width: 100%;
   img {
     width: 6rem;
@@ -129,6 +170,18 @@ const ArrowWrapper = styled.div`
 `;
 
 const TokenInput = {
+  error: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    width: 85%;
+    padding-left: 2.3rem;
+    margin-top: 1rem;
+
+    color: #ff7979;
+    ${({ theme }) => theme.fonts.Telegram_Caption_1};
+  `,
   calculate: styled.div<{ $isactive? }>`
     ${({ theme }) => theme.fonts.Nexton_Title_Medium};
     width: 100px;
@@ -148,7 +201,7 @@ const TokenInput = {
     flex-direction: column;
     position: relative;
   `,
-  input: styled(NumericFormat)`
+  input: styled(NumericFormat)<{ $error }>`
     background: transparent;
     outline: none;
     border: none;

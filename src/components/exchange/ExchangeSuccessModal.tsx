@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import IcArrowRight from "@/assets/icons/Exchange/IcArrowRight_blue.svg";
 
-const ExchangeSuccessModal = () => {
+const ExchangeSuccessModal = transaction => {
   const navigate = useNavigate();
   return (
     <ModalWrapper>
@@ -13,7 +13,7 @@ const ExchangeSuccessModal = () => {
           You can view the exchanged
           <br /> nxTON in your wallet.
         </ModalContainer.subtitle>
-        <ModalContainer.transaction>
+        <ModalContainer.transaction onClick={() => (window.location.href = `https://testnet.tonviewer.com/${transaction}`)}>
           Open ton viewer <img src={IcArrowRight} alt="right arrow blue" />
         </ModalContainer.transaction>
         <ModalContainer.buttonwrapper onClick={() => navigate("/stake/amount")}>Yes</ModalContainer.buttonwrapper>
@@ -25,10 +25,21 @@ export default ExchangeSuccessModal;
 
 const ModalContainer = {
   transaction: styled.div`
-    color: #007aff;
-    ${({ theme }) => theme.fonts.Nexton_Label_Small};
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+
+    padding: 0;
+    padding-bottom: 0.4rem;
+
+    border: none;
+    border-bottom: 0.1rem solid #007aff;
+    background: transparent;
+    color: #008aff;
+    ${({ theme }) => theme.fonts.Nexton_Label_Small};
+
+    cursor: pointer;
     margin-bottom: 2.9rem;
   `,
   buttonwrapper: styled.div`

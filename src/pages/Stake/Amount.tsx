@@ -122,7 +122,7 @@ const Amount = () => {
       <AmountWrapper>
         <ProgressBar />
         <Step title="Step 1" />
-        <Title title="Put stake amount" />
+        <Title title="Stake tokens" />
         <BalanceWrapper>
           {tokenSort === "TON" ? (
             <BalanceText>Balance : {balance ? numberCutter(balance) : balance == 0 ? "0.00" : `-.--`}</BalanceText>
@@ -131,6 +131,14 @@ const Amount = () => {
               Balance : {nxTonBalance ? (balance == 0 ? "0.00" : numberCutter(Number(nxTonBalance))) : `-.--`}
             </BalanceText>
           )}
+          <MaxButton
+            onClick={() => {
+              const maxAmount = tokenSort === "TON" ? balance : nxTonBalance;
+              setValue("amount", maxAmount ? limitDecimals(maxAmount,3) : "0");
+            }}
+          >
+            MAX
+          </MaxButton>
         </BalanceWrapper>
 
         <form style={{ width: "100%" }}>
@@ -188,6 +196,20 @@ const Amount = () => {
 };
 
 export default Amount;
+
+const MaxButton = styled.div`
+  width: fit-content;
+  height: fit-content;
+  text-align: end;
+  color: var(--blue, #1f53ff);
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 21px; /* 161.538% */
+  letter-spacing: -0.052px;
+`;
 
 const TextWrapper = styled.div`
   h2 {
@@ -258,8 +280,9 @@ const BalanceWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  width: 85%;
+  width: 100%;
   margin-top: 2.6rem;
+  padding: 0 2.8rem 0 1.4rem;
 `;
 
 const BalanceText = styled.span`
