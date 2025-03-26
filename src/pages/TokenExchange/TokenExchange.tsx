@@ -33,7 +33,7 @@ const TokenExchange = () => {
   const { data: tokenRate, isLoading, error } = useTokenRate();
   const [usdc, setUsdc] = useState(0);
   const setError = useSetRecoilState(globalError);
-  const [inputError, setInputError] = useState("");
+  const [inputError, setInputError] = useState(null);
 
   const onChange = e => {
     setAmount(e.target.value);
@@ -85,12 +85,12 @@ const TokenExchange = () => {
     };
   }, [nxTonBalance]);
   useEffect(() => {
-    if (amount == "0") {
-      setInputError("please enter amount");
-    } else if (Number(amount) > Number(nxTonBalance)) {
+    if (Number(amount) > Number(nxTonBalance)) {
       setInputError("The amount exceeds the balance");
+    } else {
+      setInputError(null);
     }
-  }, [amount]);
+  }, [amount, nxTonBalance]);
 
   return (
     <>
@@ -108,10 +108,10 @@ const TokenExchange = () => {
             Please exchange your <br /> existing nxTON for a <span>new one!</span>
           </BottomContainer.text>
           <BottomContainer.amount>
-            <BottomContainer.balance>{`Balance:${nxTonBalance ? nxTonBalance : "-.---"} NxTON`}</BottomContainer.balance>
+            <BottomContainer.balance>{`Balance:${nxTonBalance ? limitDecimals(nxTonBalance,3) : "-.---"} NxTON`}</BottomContainer.balance>
             <BottomContainer.maxbutton
               onClick={() => {
-                setAmount(nxTonBalance);
+                setAmount(limitDecimals(nxTonBalance,3));
               }}
             >
               MAX
@@ -122,7 +122,7 @@ const TokenExchange = () => {
               <img src={IcOldNxton} alt="old nxton icon" /> nxTON
             </TokenInput.token>
             <TokenInput.rightitem>
-              <TokenInput.input placeholder="0.00" value={amount} onChange={onChange} $error={inputError} />
+              <TokenInput.input placeholder="0.00" value={amount} onChange={onChange}/>
               <TokenInput.convert>${limitDecimals(usdc, 2)}</TokenInput.convert>
             </TokenInput.rightitem>
           </TokenInput.wrapper>
@@ -201,7 +201,7 @@ const TokenInput = {
     flex-direction: column;
     position: relative;
   `,
-  input: styled(NumericFormat)<{ $error }>`
+  input: styled(NumericFormat)`
     background: transparent;
     outline: none;
     border: none;
