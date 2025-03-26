@@ -131,7 +131,10 @@ const Main: React.FC = () => {
   }, [userAgreement]);
 
   useEffect(() => {
-    setAnnouncementModal(true);
+    const hasSeenAnnouncement = localStorage.getItem("hasSeenAnnouncement");
+    if (!hasSeenAnnouncement) {
+      setAnnouncementModal(true);
+    }
   }, []);
 
   //사용자 지갑 주소 전송
@@ -248,6 +251,7 @@ const Main: React.FC = () => {
 
   const toggleAnnouncementModal = useCallback(() => {
     setAnnouncementModal(prev => !prev);
+    localStorage.setItem("hasSeenAnnouncement", "true");
   }, []);
 
   const onAcceptAgreementModal = useCallback(async () => {

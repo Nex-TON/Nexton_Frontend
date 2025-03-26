@@ -5,9 +5,7 @@ import styled from "styled-components";
 
 import IcArrowRight from "@/assets/icons/MyAsset/chevron-right.svg";
 import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
-import IcSmallArrowRight from "@/assets/icons/MyAsset/ic_small_arrow_right.svg";
 import MyAssetNotConnected from "@/assets/image/MyAssetNotConnected.svg";
-import { useBotPerformanceChart } from "@/hooks/api/dashboard/useBotPerformanceChart";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import { useEarningsbyAddress } from "@/hooks/api/dashboard/useEarningsbyAddress";
 import IcArrowRightGrey from "@/assets/icons/Stake/ic_arrow_right.svg";

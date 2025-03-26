@@ -10,12 +10,19 @@ import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 
+import arrow from "@/assets/icons/MyAsset/ic_arrow_Icon.png";
+import { useNavigate } from "react-router-dom";
+import nxtIcon from "@/assets/icons/Stake/Staking_nxTON.png";
+
 export const TotalBalance = () => {
   const { address, balance, refreshTonData } = useTonConnect();
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
+  const { balance: oldNxTonBalance, refreshData: refreshOldNxtonData } = useJettonWallet("oldNxTON");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { nftList, isLoading } = useStakeInfo(address);
   const { borrowList } = useRepayNftList(address);
+  const navigate = useNavigate();
+
   //nft list 에서 TON, NxTON staked된거 총량 가져옴
   const totalStaked = useMemo(() => {
     return tokenSort => {
@@ -98,7 +105,7 @@ export const TotalBalance = () => {
       </TotalBalanceBoxWrapper>
       <TotalBalanceBoxWrapper>
         <TokenTitle>
-          <img src={IcnxTon} alt="my asset page ton logo" />
+          <img src={nxtIcon} alt="new nxton icon"></img>
           <h2>NxTON</h2>
         </TokenTitle>
         <ValueWrapper>
@@ -110,7 +117,7 @@ export const TotalBalance = () => {
               <>
                 <Balance>
                   <p>
-                    {Number(nxTonBalance) === 0 || Number(nxTonBalance) ? Number(nxTonBalance)?.toFixed(3) : "0.000"}
+                    {Number(nxTonBalance) === 0 || Number(nxTonBalance) ? Number(nxTonBalance)?.toFixed(3) : "0.000"}{" "}
                   </p>
                   <p>NxTON</p>
                 </Balance>
@@ -128,10 +135,58 @@ export const TotalBalance = () => {
             </Balance>
           </Balance>
         </ValueWrapper>
+        <DivideLine />
+        <ValueWrapper>
+          <SideText>
+            <img src={IcnxTon} alt="my asset page ton logo" />
+            Former NxTON
+          </SideText>
+          <Balance>
+            <Balance>
+              <p>
+                {Number(oldNxTonBalance) === 0 || Number(oldNxTonBalance)
+                  ? Number(oldNxTonBalance)?.toFixed(3)
+                  : "0.000"}
+              </p>
+              <p>NxTON</p>
+            </Balance>
+          </Balance>
+        </ValueWrapper>
+        <GoExchange>
+          <div onClick={() => navigate("/exchange")}>
+            <p>Go to Exchange</p>
+            <img src={arrow}></img>
+          </div>
+        </GoExchange>
       </TotalBalanceBoxWrapper>
     </TotalBalanceWrapper>
   );
 };
+
+const GoExchange = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.7rem;
+
+  p {
+    color: #1f53ff;
+    line-height: 1.8rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+  }
+
+  img {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  div {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+  }
+`;
 
 const ValueWrapper = styled.div`
   justify-content: space-between;
@@ -173,6 +228,14 @@ const Balance = styled.div`
 `;
 
 const SideText = styled.div`
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+
+  img {
+    width: 2rem;
+    height: 2rem;
+  }
   color: #c6caca;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
 `;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import IcArrowRight from "@/assets/icons/Stake/ic_chevron_right.svg";
 import IcTon from "@/assets/icons/Stake/Staking_TON.png";
-import IcNxTon from "@/assets/icons/Stake/Staking_nxTON.png";
+import IcNxTon from "@/assets/icons/Main/ic_new_nxTon.svg";
 import NewTooltip from "@/assets/image/NewTooltip.svg";
 
 const TokenFilter = ({ toggleModal, tokenSort }) => {

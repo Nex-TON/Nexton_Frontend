@@ -23,26 +23,27 @@ import Leverage from "@/pages/Stake/Leverage";
 import NFTPreview from "@/pages/Stake/NFTPreview";
 import NominatorList from "@/pages/Stake/NominatorList";
 import Swap from "@/pages/Swap/Swap";
-import UnstakingBetaInfo from "@/pages/Unstaking/UnstakingBetaInfo";
 import UnstakingNftDetail from "@/pages/Unstaking/UnstakingNftDetail";
 import StakeSuccess from "@/pages/Stake/StakeSuccess";
 import SplashScreen from "@/pages/Splash/splash";
 import ScrollToTop from "./ScrollTo";
 import Onboarding from "@/pages/Onboarding/Onboarding";
+import TokenExchange from "@/pages/TokenExchange/TokenExchange";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+        <Route path="/exchange" element={<TokenExchange />} />
         <Route path="/" element={<SplashScreen />} />
-        <Route path="/onboarding" element={<Onboarding />}/>
+        <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/main" element={<Main />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/referral" element={<Referral />} />
         <Route path="/dashboard">
-          <Route path="" element={<Dashboard/>}/>
-          <Route path="detail/:strategy" element={<DashboardDetail/>}/>
+          <Route path="" element={<Dashboard />} />
+          <Route path="detail/:strategy" element={<DashboardDetail />} />
         </Route>
         <Route path="/stake">
           <Route path="amount" element={<Amount />} />
