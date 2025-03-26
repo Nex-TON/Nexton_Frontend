@@ -13,5 +13,4 @@ export interface nftInfo {
   status: number;
   unstakableDate: string;
   tokenSort:string;
-  tokenExchange?: boolean;
 }

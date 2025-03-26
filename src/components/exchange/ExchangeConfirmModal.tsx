@@ -1,16 +1,17 @@
 import ModalWrapper from "../common/Modal/ModalWrapper";
 import styled from "styled-components";
+import { limitDecimals } from "@/utils/limitDecimals";
 
 const ExchangeConfirmModal = ({ amount, toggleModal, handleSubmit }) => {
   return (
     <ModalWrapper>
       <ModalContainer.wrapper>
         <ModalContainer.title>
-          Would you like to exchange
-          <br /> your {amount}nxTON?
+          Would you like to request an <br />
+          NxTON exchange?
         </ModalContainer.title>
         <ModalContainer.subtitle>
-          This nxTON will be exchanged <br />
+          This NxTON will be exchanged <br />
           for the new one.
         </ModalContainer.subtitle>
         <ModalContainer.buttonwrapper>

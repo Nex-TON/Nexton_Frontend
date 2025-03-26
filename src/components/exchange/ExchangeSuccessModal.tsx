@@ -3,19 +3,20 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import IcArrowRight from "@/assets/icons/Exchange/IcArrowRight_blue.svg";
 
-const ExchangeSuccessModal = transaction => {
+const ExchangeSuccessModal = () => {
   const navigate = useNavigate();
   return (
     <ModalWrapper>
       <ModalContainer.wrapper>
-        <ModalContainer.title>Exchange complete!</ModalContainer.title>
+        <ModalContainer.title>
+          Your request has been <br />
+          completed!
+        </ModalContainer.title>
         <ModalContainer.subtitle>
-          You can view the exchanged
-          <br /> nxTON in your wallet.
+          The former NxTON will be burned. The
+          <br /> exchange process may take more <br />
+          than 24 hours. Please wait patiently.
         </ModalContainer.subtitle>
-        <ModalContainer.transaction onClick={() => (window.location.href = `https://testnet.tonviewer.com/${transaction}`)}>
-          Open ton viewer <img src={IcArrowRight} alt="right arrow blue" />
-        </ModalContainer.transaction>
         <ModalContainer.buttonwrapper onClick={() => navigate("/stake/amount")}>Yes</ModalContainer.buttonwrapper>
       </ModalContainer.wrapper>
     </ModalWrapper>
@@ -60,7 +61,7 @@ const ModalContainer = {
     ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
     color: #c6c5d0;
     text-align: center;
-    margin-bottom: 2.3rem;
+    margin-bottom: 5.4rem;
   `,
   title: styled.div`
     ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2};

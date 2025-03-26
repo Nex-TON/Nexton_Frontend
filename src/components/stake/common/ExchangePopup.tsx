@@ -11,10 +11,10 @@ const ExchangeConfirmModal = ({ toggleModal }) => {
         <img src={IcWarning} alt="warning icon" />
         <ModalContainer.title>
           You don't have enough
-          <br /> unexchanged nxTON!
+          <br /> unexchanged NxTON!
         </ModalContainer.title>
         <ModalContainer.subtitle>
-          Apologies, please exchange your <br /> existing nxTON for the new one first.
+          Apologies, please exchange your <br /> existing NxTON for the new one first.
         </ModalContainer.subtitle>
         <ModalContainer.buttonwrapper>
           <ModalContainer.cancel
