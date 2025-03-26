@@ -77,7 +77,7 @@ const TokenExchange = () => {
       tele.ready();
       tele.BackButton.show();
       tele.onEvent("backButtonClicked", () => {
-        navigate("-1");
+        navigate("/main");
       });
     }
     return () => {
