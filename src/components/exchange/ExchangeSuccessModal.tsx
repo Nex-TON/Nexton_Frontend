@@ -11,7 +11,7 @@ const ExchangeSuccessModal = transaction => {
         <ModalContainer.title>Exchange complete!</ModalContainer.title>
         <ModalContainer.subtitle>
           You can view the exchanged
-          <br /> nxTON in your wallet.
+          <br /> NxTON in your wallet.
         </ModalContainer.subtitle>
         <ModalContainer.transaction onClick={() => (window.location.href = `https://testnet.tonviewer.com/${transaction}`)}>
           Open ton viewer <img src={IcArrowRight} alt="right arrow blue" />

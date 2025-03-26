@@ -17,8 +17,10 @@ import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { limitDecimals } from "@/utils/limitDecimals";
 import useTonConnect from "@/hooks/contract/useTonConnect";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { globalError } from "@/lib/atom/globalError";
+import { postExchangeAmount } from "@/api/postExchangeAmount";
+import { telegramAtom } from "@/lib/atom/telegram";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -34,7 +36,8 @@ const TokenExchange = () => {
   const [usdc, setUsdc] = useState(0);
   const setError = useSetRecoilState(globalError);
   const [inputError, setInputError] = useState(null);
-
+  const telegramId = useRecoilValue(telegramAtom);
+  
   const onChange = e => {
     setAmount(e.target.value);
   };
@@ -51,12 +54,17 @@ const TokenExchange = () => {
       };
 
       await tokenBurn(data());
+      await postExchangeAmount({
+        telegramId,
+        address,
+        amount,
+      })
       setSuccess(true);
     } catch (error) {
       console.log("token exchange failed", error);
       setError(error);
     }
-  }, [amount,tokenBurn]);
+  }, [amount, tokenBurn]);
 
   useEffect(() => {
     const refresh = async () => {
@@ -76,6 +84,7 @@ const TokenExchange = () => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
+      tele.enableClosingConfirmation();
       tele.onEvent("backButtonClicked", () => {
         navigate("/main");
       });
@@ -83,7 +92,7 @@ const TokenExchange = () => {
     return () => {
       tele.offEvent("backButtonClicked");
     };
-  }, [nxTonBalance]);
+  }, []);
   useEffect(() => {
     if (Number(amount) > Number(nxTonBalance)) {
       setInputError("The amount exceeds the balance");
@@ -105,13 +114,13 @@ const TokenExchange = () => {
         </TopContainer.wrapper>
         <BottomContainer.wrapper>
           <BottomContainer.text>
-            Please exchange your <br /> existing nxTON for a <span>new one!</span>
+            Please exchange your <br /> existing NxTON for a <span>new one!</span>
           </BottomContainer.text>
           <BottomContainer.amount>
-            <BottomContainer.balance>{`Balance:${nxTonBalance ? limitDecimals(nxTonBalance,3) : "-.---"} NxTON`}</BottomContainer.balance>
+            <BottomContainer.balance>{`Balance:${nxTonBalance ? limitDecimals(nxTonBalance, 3) : "-.---"} NxTON`}</BottomContainer.balance>
             <BottomContainer.maxbutton
               onClick={() => {
-                setAmount(limitDecimals(nxTonBalance,3));
+                setAmount(limitDecimals(nxTonBalance, 3));
               }}
             >
               MAX
@@ -119,10 +128,10 @@ const TokenExchange = () => {
           </BottomContainer.amount>
           <TokenInput.wrapper>
             <TokenInput.token>
-              <img src={IcOldNxton} alt="old nxton icon" /> nxTON
+              <img src={IcOldNxton} alt="old nxton icon" /> NxTON
             </TokenInput.token>
             <TokenInput.rightitem>
-              <TokenInput.input placeholder="0.00" value={amount} onChange={onChange}/>
+              <TokenInput.input placeholder="0.00" value={amount} onChange={onChange} />
               <TokenInput.convert>${limitDecimals(usdc, 2)}</TokenInput.convert>
             </TokenInput.rightitem>
           </TokenInput.wrapper>
@@ -131,7 +140,7 @@ const TokenExchange = () => {
           </ArrowWrapper>
           <TokenInput.wrapper>
             <TokenInput.token>
-              <img src={IcNewNxton} alt="new nxton icon" /> nxTON
+              <img src={IcNewNxton} alt="new nxton icon" /> NxTON
             </TokenInput.token>
             <TokenInput.rightitem>
               <TokenInput.calculate $isactive={amount}>{amount || "0.00"}</TokenInput.calculate>
@@ -229,7 +238,7 @@ const TokenInput = {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 1.7rem 2.8rem 0.9rem 1.4rem;
+    padding: 1.7rem 2.8rem 1.7rem 1.4rem;
 
     background: #f9f9ff;
     border-radius: 1.5rem;

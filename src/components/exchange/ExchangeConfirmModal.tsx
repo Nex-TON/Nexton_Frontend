@@ -7,7 +7,7 @@ const ExchangeConfirmModal = ({ amount, toggleModal, handleSubmit }) => {
       <ModalContainer.wrapper>
         <ModalContainer.title>
           Would you like to exchange
-          <br /> your {amount}nxTON?
+          <br /> your {amount}NxTON?
         </ModalContainer.title>
         <ModalContainer.subtitle>
           This nxTON will be exchanged <br />

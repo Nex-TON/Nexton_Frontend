@@ -10,30 +10,18 @@ import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 
-import arrow from "@/assets/icons/MyAsset/ic_arrow_Icon.png"; 
+import arrow from "@/assets/icons/MyAsset/ic_arrow_Icon.png";
 import { useNavigate } from "react-router-dom";
 import nxtIcon from "@/assets/icons/Stake/Staking_nxTON.png";
 
 export const TotalBalance = () => {
   const { address, balance, refreshTonData } = useTonConnect();
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
+  const { balance: oldNxTonBalance, refreshData: refreshOldNxtonData } = useJettonWallet("oldNxTON");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { nftList, isLoading } = useStakeInfo(address);
   const { borrowList } = useRepayNftList(address);
   const navigate = useNavigate();
-
-  const totalExchanged = useMemo(() => {
-    return tokenSort => {
-      const nftTotal =
-        nftList?.reduce((acc, nft) => {
-          if (nft.tokenSort === `${tokenSort}` && nft.tokenExchange === true) {
-            return acc + nft.principal;
-          }
-          return acc;
-        }, 0) || 0;
-      return nftTotal;
-    };
-  }, []);
 
   //nft list 에서 TON, NxTON staked된거 총량 가져옴
   const totalStaked = useMemo(() => {
@@ -117,7 +105,7 @@ export const TotalBalance = () => {
       </TotalBalanceBoxWrapper>
       <TotalBalanceBoxWrapper>
         <TokenTitle>
-          <img src={IcnxTon} alt="my asset page ton logo" />
+          <img src={nxtIcon} alt="new nxton icon"></img>
           <h2>NxTON</h2>
         </TokenTitle>
         <ValueWrapper>
@@ -129,7 +117,7 @@ export const TotalBalance = () => {
               <>
                 <Balance>
                   <p>
-                    {Number(nxTonBalance) === 0 || Number(nxTonBalance) ? Number(nxTonBalance)?.toFixed(3) : "0.000"}
+                    {Number(nxTonBalance) === 0 || Number(nxTonBalance) ? Number(nxTonBalance)?.toFixed(3) : "0.000"}{" "}
                   </p>
                   <p>NxTON</p>
                 </Balance>
@@ -150,18 +138,22 @@ export const TotalBalance = () => {
         <DivideLine />
         <ValueWrapper>
           <SideText>
-            <img src={nxtIcon}></img>
-            Exchanged NxTON
+            <img src={IcnxTon} alt="my asset page ton logo" />
+            Former NxTON
           </SideText>
           <Balance>
             <Balance>
-              <p>{totalExchanged("nxTON") === 0 || totalExchanged("nxTON") ? totalExchanged("nxTON")?.toFixed(3) : "0.000"}</p>
+              <p>
+                {Number(oldNxTonBalance) === 0 || Number(oldNxTonBalance)
+                  ? Number(oldNxTonBalance)?.toFixed(3)
+                  : "0.000"}
+              </p>
               <p>NxTON</p>
             </Balance>
           </Balance>
         </ValueWrapper>
         <GoExchange>
-          <div onClick={() => navigate('/exchange')}>
+          <div onClick={() => navigate("/exchange")}>
             <p>Go to Exchange</p>
             <img src={arrow}></img>
           </div>
@@ -177,7 +169,7 @@ const GoExchange = styled.div`
   gap: 0.7rem;
 
   p {
-    color: #1F53FF;
+    color: #1f53ff;
     line-height: 1.8rem;
     font-size: 1.2rem;
     font-weight: 600;
