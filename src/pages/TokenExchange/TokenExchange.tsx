@@ -137,7 +137,7 @@ const TokenExchange = () => {
           </ExchangeButton>
         </BottomContainer.wrapper>
         {modal && <ExchangeConfirmModal amount={oldNxTonBalance} toggleModal={toggleModal} handleSubmit={sendSubmit} />}
-        {success && <ExchangeSuccessModal transaction={""} />}
+        {success && <ExchangeSuccessModal/>}
       </PageWrapper>
     </>
   );
