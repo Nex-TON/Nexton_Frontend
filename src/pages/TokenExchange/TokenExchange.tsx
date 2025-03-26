@@ -109,7 +109,7 @@ const TokenExchange = () => {
               </TokenInput.token>
               <TokenInput.rightitem>
                 <TokenInput.input>{oldNxTonBalance==="0"?"0.000":limitDecimals(oldNxTonBalance, 3)}</TokenInput.input>
-                <TokenInput.convert>${limitDecimals(usdc, 2)}</TokenInput.convert>
+                <TokenInput.convert>${statusData?.status===2||statusData?.status===1?statusData?.amount:limitDecimals(usdc, 2)}</TokenInput.convert>
               </TokenInput.rightitem>
             </TokenInput.container>
           </TokenInput.wrapper>
@@ -123,8 +123,8 @@ const TokenExchange = () => {
                 <img src={IcNewNxton} alt="new nxton icon" /> NxTON
               </TokenInput.token>
               <TokenInput.rightitem>
-                <TokenInput.calculate $isactive={oldNxTonBalance!="0"}>{oldNxTonBalance==="0"?"0.000":limitDecimals(oldNxTonBalance, 3)}</TokenInput.calculate>
-                <TokenInput.convert>${limitDecimals(usdc, 2)}</TokenInput.convert>
+                <TokenInput.calculate $isactive={oldNxTonBalance!="0"||statusData?.status===2}>{oldNxTonBalance==="0"?"0.000":limitDecimals(oldNxTonBalance, 3)}</TokenInput.calculate>
+                <TokenInput.convert>${statusData?.status===2||statusData?.status===1?statusData?.amount:limitDecimals(usdc, 2)}</TokenInput.convert>
               </TokenInput.rightitem>
             </TokenInput.container>
           </TokenInput.wrapper>
@@ -133,7 +133,7 @@ const TokenExchange = () => {
             <br /> for the new NxTON may take approximately 24 hours
           </InfoWrapper>
           <ExchangeButton $unactive={oldNxTonBalance==="0"} $status={statusData?.status} onClick={() => (oldNxTonBalance && !inputError ? toggleModal(true) : "")}>
-            Request new NxTON
+            {statusData?.status===1?"In progress...":statusData?.status===2?"nxTON exchange completed":"Request new NxTON"}
           </ExchangeButton>
         </BottomContainer.wrapper>
         {modal && <ExchangeConfirmModal amount={oldNxTonBalance} toggleModal={toggleModal} handleSubmit={sendSubmit} />}
