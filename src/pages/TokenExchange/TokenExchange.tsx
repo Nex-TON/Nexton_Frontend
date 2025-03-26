@@ -37,7 +37,7 @@ const TokenExchange = () => {
   const setError = useSetRecoilState(globalError);
   const [inputError, setInputError] = useState(null);
   const telegramId = useRecoilValue(telegramAtom);
-  
+
   const onChange = e => {
     setAmount(e.target.value);
   };
@@ -58,7 +58,7 @@ const TokenExchange = () => {
         telegramId,
         address,
         amount,
-      })
+      });
       setSuccess(true);
     } catch (error) {
       console.log("token exchange failed", error);
