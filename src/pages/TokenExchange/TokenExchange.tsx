@@ -44,7 +44,7 @@ const TokenExchange = () => {
     try {
       const data = () => {
         return {
-          value: 0.03,
+          value: 0.1,
           amount: amount,
           response_destination: address,
         };
@@ -56,7 +56,7 @@ const TokenExchange = () => {
       console.log("token exchange failed", error);
       setError(error);
     }
-  }, [tokenBurn, amount]);
+  }, [amount,tokenBurn]);
 
   useEffect(() => {
     const refresh = async () => {
