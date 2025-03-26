@@ -116,16 +116,6 @@ const TokenExchange = () => {
           <BottomContainer.text>
             Please exchange your <br /> existing NxTON for a <span>new one!</span>
           </BottomContainer.text>
-          <BottomContainer.amount>
-            <BottomContainer.balance>{`Balance:${nxTonBalance ? limitDecimals(nxTonBalance, 3) : "-.---"} NxTON`}</BottomContainer.balance>
-            <BottomContainer.maxbutton
-              onClick={() => {
-                setAmount(limitDecimals(nxTonBalance, 3));
-              }}
-            >
-              MAX
-            </BottomContainer.maxbutton>
-          </BottomContainer.amount>
           <TokenInput.wrapper>
             <TokenInput.token>
               <img src={IcOldNxton} alt="old nxton icon" /> NxTON
@@ -138,7 +128,7 @@ const TokenExchange = () => {
           <ArrowWrapper>
             <img src={IcArrowDown} alt="icon arrow down" />
           </ArrowWrapper>
-          <TokenInput.wrapper>
+          <TokenInput.wrapper $new>
             <TokenInput.token>
               <img src={IcNewNxton} alt="new nxton icon" /> NxTON
             </TokenInput.token>
@@ -233,14 +223,17 @@ const TokenInput = {
     color: black;
     ${({ theme }) => theme.fonts.Nexton_Title_Medium_1};
   `,
-  wrapper: styled.div`
+  wrapper: styled.div<{$new?}>`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 1.7rem 2.8rem 1.7rem 1.4rem;
 
-    background: #f9f9ff;
+    border:${({$new})=>$new?"1px solid #1F53FF":"1px solid #E5E5EA"} ;
+
+
+    background: white;
     border-radius: 1.5rem;
     height: 8.2rem;
     width: 100%;
