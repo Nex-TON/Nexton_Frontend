@@ -8,12 +8,18 @@ const ExchangeSuccessModal = transaction => {
   return (
     <ModalWrapper>
       <ModalContainer.wrapper>
-        <ModalContainer.title>Exchange complete!</ModalContainer.title>
+        <ModalContainer.title>
+          Your request has been <br />
+          completed!
+        </ModalContainer.title>
         <ModalContainer.subtitle>
-          You can view the exchanged
-          <br /> NxTON in your wallet.
+          The former nxTON will be burned. The
+          <br /> exchange process may take more <br />
+          than 24 hours. Please wait patiently.
         </ModalContainer.subtitle>
-        <ModalContainer.transaction onClick={() => (window.location.href = `https://testnet.tonviewer.com/${transaction}`)}>
+        <ModalContainer.transaction
+          onClick={() => (window.location.href = `https://testnet.tonviewer.com/${transaction}`)}
+        >
           Open ton viewer <img src={IcArrowRight} alt="right arrow blue" />
         </ModalContainer.transaction>
         <ModalContainer.buttonwrapper onClick={() => navigate("/stake/amount")}>Yes</ModalContainer.buttonwrapper>

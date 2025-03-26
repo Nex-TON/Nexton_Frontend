@@ -2,9 +2,9 @@ import { nextonFetcher } from "@/api/axios";
 import useSWR from "swr";
 import { boolean } from "zod";
 
-export const useExchangeAmount=(telegramId:string,address:string)=>{
+export const useExchangeAmount=(address:string)=>{
     const {data,isLoading,error}=useSWR(
-        `/data/getExchangedAmount?telegramId=${telegramId}&address=${address}`,
+        `/data/getExchangedAmount?address=${address}`,
         nextonFetcher,
         {
             errorRetryCount:3,

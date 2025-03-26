@@ -1,7 +1,6 @@
 import { client } from "./axios";
 
 interface postExchangeAmountProps{
-    telegramId:string,
     address:string,
     amount:string,
 }
