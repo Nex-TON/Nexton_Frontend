@@ -25,7 +25,7 @@ const TokenExchange = () => {
   const navigate = useNavigate();
   const { balance: oldNxTonBalance, refreshData: refreshNxtonData, tokenBurn } = useJettonWallet("oldNxTON");
   const { address } = useTonConnect();
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(0);
   const [modal, toggleModal] = useState(false);
   const [success, setSuccess] = useState(false);
   const { data: tonPriceData, isLoading: tonPriceLoading, error: tonPriceError } = useCoinPrice("ton", "usd");
@@ -34,6 +34,15 @@ const TokenExchange = () => {
   const setError = useSetRecoilState(globalError);
   const [inputError, setInputError] = useState(null);
   const {data:statusData}=useExchangeAmount(address);
+
+  useEffect(()=>{
+    if (statusData?.status===1||statusData?.status===2){
+      setAmount(statusData?.amount);
+    }
+    else{
+      setAmount(Number(oldNxTonBalance))
+    }
+  })
 
   const sendSubmit = useCallback(async () => {
     toggleModal(false);
@@ -67,10 +76,10 @@ const TokenExchange = () => {
 
   useEffect(() => {
     if (tokenRate && tonPriceData) {
-      const numericAmount = oldNxTonBalance ? Number(oldNxTonBalance) : 0;
+      const numericAmount =  amount?amount : 0;
       setUsdc(numericAmount * tokenRate.nxtonToTonRate * tonPriceData.rates.TON.prices.USD);
     }
-  }, [oldNxTonBalance, tokenRate, tonPriceData]);
+  }, [amount, tokenRate, tonPriceData]);
 
   useEffect(() => {
     if (tele) {
@@ -108,8 +117,8 @@ const TokenExchange = () => {
                 <img src={IcOldNxton} alt="old nxton icon" /> NxTON
               </TokenInput.token>
               <TokenInput.rightitem>
-                <TokenInput.input>{oldNxTonBalance==="0"?"0.000":limitDecimals(oldNxTonBalance, 3)}</TokenInput.input>
-                <TokenInput.convert>${statusData?.status===2||statusData?.status===1?statusData?.amount:limitDecimals(usdc, 2)}</TokenInput.convert>
+                <TokenInput.input>{amount?limitDecimals(amount,3):"0.000"}</TokenInput.input>
+                <TokenInput.convert>${amount?limitDecimals(usdc,2):"0.00"}</TokenInput.convert>
               </TokenInput.rightitem>
             </TokenInput.container>
           </TokenInput.wrapper>
@@ -123,8 +132,8 @@ const TokenExchange = () => {
                 <img src={IcNewNxton} alt="new nxton icon" /> NxTON
               </TokenInput.token>
               <TokenInput.rightitem>
-                <TokenInput.calculate $isactive={oldNxTonBalance!="0"||statusData?.status===2}>{oldNxTonBalance==="0"?"0.000":limitDecimals(oldNxTonBalance, 3)}</TokenInput.calculate>
-                <TokenInput.convert>${statusData?.status===2||statusData?.status===1?statusData?.amount:limitDecimals(usdc, 2)}</TokenInput.convert>
+                <TokenInput.calculate $isactive={oldNxTonBalance!="0"||statusData?.status===2}>{amount?limitDecimals(amount,3):"0.000"}</TokenInput.calculate>
+                <TokenInput.convert>${amount?limitDecimals(usdc,2):"0.00"}</TokenInput.convert>
               </TokenInput.rightitem>
             </TokenInput.container>
           </TokenInput.wrapper>
