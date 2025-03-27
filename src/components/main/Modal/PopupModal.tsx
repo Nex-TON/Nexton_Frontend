@@ -3,14 +3,7 @@ import { Container, Content, ContentBox, SubTitle, SubTitleBox, Title } from "@/
 import ModalWrapper from "@/components/common/Modal/ModalWrapper";
 import { useEffect } from "react";
 
-interface PopupProps {
-  toggleModal: () => void;
-  onClose?: () => void;
-}
-
-export const PopupModal = (props: PopupProps) => {
-  const { onClose, toggleModal } = props;
-
+export const PopupModal = () => {
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.ready();
@@ -21,32 +14,20 @@ export const PopupModal = (props: PopupProps) => {
     <ModalWrapper>
       <Container $isDark>
         <WelcomeModalContent>
-          <Title $isDark>We are currently updating!</Title>
+          <Title $isDark>Announcement</Title>
           <SubTitleBox>
             <SubTitle $isDark>
-              We are undergoing security
-              <br />
-              maintenance.
-              <br />
-              Sorry for any inconvenience.
+              We will be undergoing maintenance for<br/> approximately one hour.<br/> Thank you for your understanding.
             </SubTitle>
           </SubTitleBox>
-          <ContentBox>
-            <hr />
-            <Content $isDark>
-              Maintenance Period: <p>March 12 - March 20</p>
-            </Content>
-          </ContentBox>
         </WelcomeModalContent>
 
         <WelcomeButtonWrapper>
           <ButtonWrapper>
             <StonfiLinkButton
               onClick={() => {
-                if (window.Telegram && window.Telegram.WebApp) {                
+                if (window.Telegram && window.Telegram.WebApp) {
                   window.Telegram.WebApp.close();
-                } else {
-                  toggleModal();
                 }
               }}
             >

@@ -151,7 +151,7 @@ function BasicModal(props: BasicModalProps) {
           {type != "blockborrow" && type != "blockunstake" && type != "blockborrow100" && (
             <OpenTonViewer
               onClick={() => {
-                window.location.href = `https://testnet.tonviewer.com/${address}`;
+                window.location.href = `https://tonviewer.com/${address}`;
               }}
             >
               Open ton viewer

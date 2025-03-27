@@ -66,6 +66,7 @@ const DashboardDetail = () => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
+      tele.enableClosingConfirmation();
       tele.onEvent("backButtonClicked", () => {
         navigate("/dashboard");
       });
@@ -78,16 +79,16 @@ const DashboardDetail = () => {
 
   // Set global error state if there is an error
   useEffect(() => {
-    if (performanceError || chartError) {
-      setError(performanceError || chartError);
+    if (chartError) {
+      setError(chartError);
     }
-  }, [performanceError, chartError, setError]);
+  }, [chartError, setError]);
 
   const handleTimeFrameChange = (timeFrame: TimeFrame) => {
     setTimeFrame(timeFrame);
   };
 
-  if (performanceLoading || chartLoading) {
+  if (chartLoading) {
     return (
       <LoaderWrapper>
         <Loader height={50} width={50} />
@@ -179,7 +180,7 @@ const DashboardDetail = () => {
               <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                 TVL
                 <StTooltipContainer
-                  onClick={()=>setShowTvlTooltip(true)}
+                  onClick={() => setShowTvlTooltip(true)}
                   onMouseEnter={() => setShowTvlTooltip(true)}
                   onMouseLeave={() => setShowTvlTooltip(false)}
                 >

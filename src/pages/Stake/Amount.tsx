@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
-import { z } from "zod";
+import { boolean, z } from "zod";
 
 import ProgressBar from "@/components/stake/common/ProgressBar";
 import Step from "@/components/stake/common/Step";
@@ -18,10 +18,11 @@ import { limitDecimals } from "@/utils/limitDecimals";
 import { numberCutter } from "@/utils/numberCutter";
 import TokenFilter from "@/components/stake/Filter/TokenFilter";
 import { TokenFilterModal } from "@/components/stake/Filter/TokenFilterModal";
-import NXTPointImg from "@/assets/image/NXTPoint.png";
+import NXTPointImg from "@/assets/image/button.png";
 import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
+import ExchangePopup from "@/components/stake/common/ExchangePopup";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -33,7 +34,10 @@ const Amount = () => {
   const { data: coinPrice } = useCoinPrice("TON", "USD");
   const [modal, setModal] = useState(false);
   const [tokenSort, setTokenSort] = useState("TON");
+  const { balance: oldNxTonBalance,refreshData:refreshOldData } = useJettonWallet("oldNxTON");
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
+  const [exchangeModal,setExchangeModal]=useState(false);
+
   const handleTokenSelect = selectedToken => {
     setTokenSort(selectedToken); // Update token selection
     setModal(false); // Close modal
@@ -122,7 +126,7 @@ const Amount = () => {
       <AmountWrapper>
         <ProgressBar />
         <Step title="Step 1" />
-        <Title title="Put stake amount" />
+        <Title title="Stake tokens" />
         <BalanceWrapper>
           {tokenSort === "TON" ? (
             <BalanceText>Balance : {balance ? numberCutter(balance) : balance == 0 ? "0.00" : `-.--`}</BalanceText>
@@ -131,6 +135,14 @@ const Amount = () => {
               Balance : {nxTonBalance ? (balance == 0 ? "0.00" : numberCutter(Number(nxTonBalance))) : `-.--`}
             </BalanceText>
           )}
+          <MaxButton
+            onClick={() => {
+              const maxAmount = tokenSort === "TON" ? balance : nxTonBalance;
+              setValue("amount", maxAmount ? limitDecimals(maxAmount, 3) : "0");
+            }}
+          >
+            MAX
+          </MaxButton>
         </BalanceWrapper>
 
         <form style={{ width: "100%" }}>
@@ -179,15 +191,30 @@ const Amount = () => {
         <>
           <Overlay onClick={() => setModal(false)} />
           <ModalWrapper>
-            <TokenFilterModal toggleModal={() => setModal(false)} onSelected={handleTokenSelect} />
+            <TokenFilterModal toggleModal={() => setModal(false)} onSelected={handleTokenSelect} setExchangeModal={setExchangeModal} hasOldNxTon={oldNxTonBalance} setValue={setValue}/>
           </ModalWrapper>
         </>
       )}
+      {exchangeModal&&<ExchangePopup toggleModal={setExchangeModal}/>}
     </>
   );
 };
 
 export default Amount;
+
+const MaxButton = styled.div`
+  width: fit-content;
+  height: fit-content;
+  text-align: end;
+  color: var(--blue, #1f53ff);
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 21px; /* 161.538% */
+  letter-spacing: -0.052px;
+`;
 
 const TextWrapper = styled.div`
   h2 {
@@ -258,8 +285,9 @@ const BalanceWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  width: 85%;
+  width: 100%;
   margin-top: 2.6rem;
+  padding: 0 2.8rem 0 1.4rem;
 `;
 
 const BalanceText = styled.span`

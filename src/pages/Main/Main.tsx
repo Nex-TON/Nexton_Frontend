@@ -29,6 +29,7 @@ import { AgreementModal } from "@/components/main/Modal/AgreementModal";
 import { postAgreement } from "@/api/postAgreement";
 import { useAgreement } from "@/hooks/api/main/useAgreement";
 import { AnnouncementModal } from "@/components/main/Modal/AnnouncementModal";
+// import { PopupModal } from "@/components/main/Modal/PopupModal";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -130,7 +131,10 @@ const Main: React.FC = () => {
   }, [userAgreement]);
 
   useEffect(() => {
-    setAnnouncementModal(true);
+    const hasSeenAnnouncement = localStorage.getItem("hasSeenAnnouncement");
+    if (!hasSeenAnnouncement) {
+      setAnnouncementModal(true);
+    }
   }, []);
 
   //사용자 지갑 주소 전송
@@ -247,6 +251,7 @@ const Main: React.FC = () => {
 
   const toggleAnnouncementModal = useCallback(() => {
     setAnnouncementModal(prev => !prev);
+    localStorage.setItem("hasSeenAnnouncement", "true");
   }, []);
 
   const onAcceptAgreementModal = useCallback(async () => {
@@ -416,6 +421,7 @@ const Main: React.FC = () => {
         theme="light"
         style={{ fontSize: "7rem" }}
       />
+      {/* <PopupModal/> */}
     </>
   );
 };

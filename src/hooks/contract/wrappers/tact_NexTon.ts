@@ -1761,6 +1761,32 @@ function dictValueParserProvideWalletAddress(): DictionaryValue<ProvideWalletAdd
   }
 }
 
+export type StrategyTonDeposit = {
+  $$type: 'StrategyTonDeposit';
+  query_id: bigint;
+  amount: bigint;
+  strategy_handler: Address;
+}
+
+export function storeStrategyTonDeposit(src: StrategyTonDeposit) {
+  return (builder: Builder) => {
+      let b_0 = builder;
+      b_0.storeUint(2889196004, 32);
+      b_0.storeInt(src.query_id, 257);
+      b_0.storeInt(src.amount, 257);
+      b_0.storeAddress(src.strategy_handler);
+  };
+}
+
+export function loadStrategyTonDeposit(slice: Slice) {
+  let sc_0 = slice;
+  if (sc_0.loadUint(32) !== 2889196004) { throw Error('Invalid prefix'); }
+  let _query_id = sc_0.loadIntBig(257);
+  let _amount = sc_0.loadIntBig(257);
+  let _strategy_handler = sc_0.loadAddress();
+  return { $$type: 'StrategyTonDeposit' as const, query_id: _query_id, amount: _amount, strategy_handler: _strategy_handler };
+}
+
 export type TakeWalletAddress = {
   $$type: 'TakeWalletAddress';
   query_id: bigint;
@@ -2032,6 +2058,7 @@ const NexTon_types: ABIType[] = [
   {"name":"SetApr","header":911466692,"fields":[{"name":"apr","type":{"kind":"simple","type":"int","optional":false,"format":257}}]},
   {"name":"MintNFT","header":1,"fields":[{"name":"query_id","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"itemIndex","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"amount","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"NFTMessage","type":{"kind":"simple","type":"cell","optional":false}}]},
   {"name":"TonOwnerWithdraw","header":3183304671,"fields":[{"name":"query_id","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"amount","type":{"kind":"simple","type":"int","optional":false,"format":257}}]},
+  {"name":"StrategyTonDeposit","header":2889196004,"fields":[{"name":"query_id","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"amount","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"strategy_handler","type":{"kind":"simple","type":"address","optional":false}}]},
   {"name":"JettonOwnerWithdraw","header":1477822007,"fields":[{"name":"query_id","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"amount","type":{"kind":"simple","type":"int","optional":false,"format":257}}]},
   {"name":"TonUnstakeNotification","header":103743304,"fields":[{"name":"amount","type":{"kind":"simple","type":"int","optional":false,"format":257}}]},
   {"name":"NxtonUnstakeNotification","header":2411009689,"fields":[{"name":"amount","type":{"kind":"simple","type":"int","optional":false,"format":257}}]},
@@ -2088,6 +2115,7 @@ export const NexTon_getterMapping: { [key: string]: string } = {
 const NexTon_receivers: ABIReceiver[] = [
   {"receiver":"internal","message":{"kind":"empty"}},
   {"receiver":"internal","message":{"kind":"typed","type":"TonDeposit"}},
+  {"receiver":"internal","message":{"kind":"typed","type":"StrategyTonDeposit"}},
   {"receiver":"internal","message":{"kind":"typed","type":"TakeWalletAddress"}},
   {"receiver":"internal","message":{"kind":"typed","type":"TokenNotification"}},
   {"receiver":"internal","message":{"kind":"typed","type":"ClaimNotification"}},
@@ -2135,7 +2163,7 @@ export class NexTon implements Contract {
       this.init = init;
   }
   
-  async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: null | TonDeposit | TakeWalletAddress | TokenNotification | ClaimNotification | UpdateJettonAddress | UpdateNftAddress | TonOwnerWithdraw | JettonOwnerWithdraw | SetLockPeriod | SetApr | TonUnstakeNotification | NxtonUnstakeNotification | Deploy | ChangeOwner | 'Resume' | 'Stop') {
+  async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: null | TonDeposit | StrategyTonDeposit | TakeWalletAddress | TokenNotification | ClaimNotification | UpdateJettonAddress | UpdateNftAddress | TonOwnerWithdraw | JettonOwnerWithdraw | SetLockPeriod | SetApr | TonUnstakeNotification | NxtonUnstakeNotification | Deploy | ChangeOwner | 'Resume' | 'Stop') {
       
       let body: Cell | null = null;
       if (message === null) {
@@ -2147,6 +2175,9 @@ export class NexTon implements Contract {
       if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'TakeWalletAddress') {
           body = beginCell().store(storeTakeWalletAddress(message)).endCell();
       }
+      if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'StrategyTonDeposit') {
+        body = beginCell().store(storeStrategyTonDeposit(message)).endCell();
+    }
       if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'TokenNotification') {
           body = beginCell().store(storeTokenNotification(message)).endCell();
       }

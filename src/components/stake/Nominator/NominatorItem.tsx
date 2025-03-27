@@ -51,11 +51,11 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
         <NominatorItemTopLeft>
           <NominatorItemTitle $inactive={disabled} $selected={isSelected}>
             {icon && <img src={icon} alt="icon" />}{" "}
-            {title === "Bemo Pool" ? "Bemo pool" : title === "Arbitrage Bot" ? "DEX-DEX bot" : "CEX-DEX bot"}
+            {title === "Bemo Pool" ? "Bemo pool" : title === "Arbitrage Bot 1" ? "DEX-DEX bot" : "CEX-DEX bot"}
           </NominatorItemTitle>
           {title != "Bemo Pool" ? (
             <NominatorExchange>
-              <img style={{ height: "17.43px" }} src={title === "Arbitrage Bot" ? hyperliquid : binance} />
+              <img style={{ height: "17.43px" }} src={title === "Arbitrage Bot 1" ? hyperliquid : binance} />
               <VerticalLine />
               <img style={{ height: "17.43px" }} src={stonfi} />
             </NominatorExchange>
