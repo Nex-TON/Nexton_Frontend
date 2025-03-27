@@ -14,7 +14,7 @@ import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { limitDecimals } from "@/utils/limitDecimals";
 import useTonConnect from "@/hooks/contract/useTonConnect";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import {useSetRecoilState } from "recoil";
 import { globalError } from "@/lib/atom/globalError";
 import { postExchangeAmount } from "@/api/postExchangeAmount";
 import { useExchangeAmount } from "@/hooks/api/exchange/useExchangeAmount";
@@ -141,7 +141,7 @@ const TokenExchange = () => {
             * The former NxTON will be burned, and the exchange
             <br /> for the new NxTON may take approximately 24 hours
           </InfoWrapper>
-          <ExchangeButton $unactive={oldNxTonBalance==="0"} $status={statusData?.status} onClick={() => (oldNxTonBalance!=="0" && !inputError&&statusData?.status===0 ? toggleModal(true) : "")}>
+          <ExchangeButton $unactive={oldNxTonBalance==="0"} $status={statusData?.status} onClick={() => (oldNxTonBalance!=="0"&&statusData?.status===0 ? toggleModal(true) : "")}>
             {statusData?.status===1?"In progress...":statusData?.status===2?"NxTON exchange completed":"Request new NxTON"}
           </ExchangeButton>
         </BottomContainer.wrapper>
