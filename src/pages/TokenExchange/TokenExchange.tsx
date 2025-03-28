@@ -32,7 +32,6 @@ const TokenExchange = () => {
   const { data: tokenRate, isLoading, error } = useTokenRate();
   const [usdc, setUsdc] = useState(0);
   const setError = useSetRecoilState(globalError);
-  const [inputError, setInputError] = useState(null);
   const {data:statusData}=useExchangeAmount(address);
 
   useEffect(()=>{
@@ -146,7 +145,7 @@ const TokenExchange = () => {
           </ExchangeButton>
         </BottomContainer.wrapper>
         {modal && <ExchangeConfirmModal amount={oldNxTonBalance} toggleModal={toggleModal} handleSubmit={sendSubmit} />}
-        {success && <ExchangeSuccessModal/>}
+        {success && <ExchangeSuccessModal toggleModal={setSuccess}/>}
       </PageWrapper>
     </>
   );
