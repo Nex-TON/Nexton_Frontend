@@ -1,10 +1,7 @@
 import ModalWrapper from "../common/Modal/ModalWrapper";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import IcArrowRight from "@/assets/icons/Exchange/IcArrowRight_blue.svg";
 
-const ExchangeSuccessModal = () => {
-  const navigate = useNavigate();
+const ExchangeSuccessModal = ({toggleModal}) => {
   return (
     <ModalWrapper>
       <ModalContainer.wrapper>
@@ -17,7 +14,7 @@ const ExchangeSuccessModal = () => {
           <br /> exchange process may take more <br />
           than 24 hours. Please wait patiently.
         </ModalContainer.subtitle>
-        <ModalContainer.buttonwrapper onClick={() => navigate("/stake/amount")}>Yes</ModalContainer.buttonwrapper>
+        <ModalContainer.buttonwrapper onClick={() =>toggleModal(false)}>Yes</ModalContainer.buttonwrapper>
       </ModalContainer.wrapper>
     </ModalWrapper>
   );
