@@ -23,6 +23,7 @@ import Leverage from "@/pages/Stake/Leverage";
 import NFTPreview from "@/pages/Stake/NFTPreview";
 import NominatorList from "@/pages/Stake/NominatorList";
 import Swap from "@/pages/Swap/Swap";
+import UnstakingBetaInfo from "@/pages/Unstaking/UnstakingBetaInfo";
 import UnstakingNftDetail from "@/pages/Unstaking/UnstakingNftDetail";
 import StakeSuccess from "@/pages/Stake/StakeSuccess";
 import SplashScreen from "@/pages/Splash/splash";
@@ -71,6 +72,7 @@ const Router = () => {
         <Route path="/unstaking">
           <Route path=":id" element={<UnstakingNftDetail />} />
           <Route path=":id/view" element={<UnstakingNftDetail view />} />
+          <Route path="beta" element={<UnstakingBetaInfo />} />
         </Route>
         <Route path="/swap" element={<Swap />} />
         <Route path="/nlp" element={<Nlp />} />
