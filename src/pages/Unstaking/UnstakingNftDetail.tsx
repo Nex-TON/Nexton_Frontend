@@ -84,7 +84,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
       const data = () => {
         return {
           queryId: BigInt(Date.now()),
-          value: toNano("0.05"),
+          value: toNano("0.08"),
           newOwner: Address.parse("UQD__________________________________________xYt"), // NULL ADDRESS
           responseAddress: Address.parse(address),
           fwdAmount: BigInt(0),
@@ -92,7 +92,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
       };
 
       // send nft to null address (burn nft)
-      await sendMessage(data(), toNano("0.05"));
+      await sendMessage(data(), toNano("0.08"));
 
       // If sendMessage is successful, then call postStakingInfo
       await postUnstake(newUnstaking);
