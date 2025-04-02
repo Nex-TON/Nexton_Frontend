@@ -38,6 +38,7 @@ function depositTon() {
     },
     strategyDeposit: async (data, value) => {
       const strategy_handler = mapStrategyHandler(data.strategy);
+      console.log(strategy_handler);
       if (nextonContract && strategy_handler) {
         return await nextonContract.send(
           sender,
