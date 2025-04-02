@@ -23,6 +23,7 @@ import Leverage from "@/pages/Stake/Leverage";
 import NFTPreview from "@/pages/Stake/NFTPreview";
 import NominatorList from "@/pages/Stake/NominatorList";
 import Swap from "@/pages/Swap/Swap";
+import UnstakingBetaInfo from "@/pages/Unstaking/UnstakingBetaInfo";
 import UnstakingNftDetail from "@/pages/Unstaking/UnstakingNftDetail";
 import StakeSuccess from "@/pages/Stake/StakeSuccess";
 import SplashScreen from "@/pages/Splash/splash";
