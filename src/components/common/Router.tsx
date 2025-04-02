@@ -30,7 +30,6 @@ import SplashScreen from "@/pages/Splash/splash";
 import ScrollToTop from "./ScrollTo";
 import Onboarding from "@/pages/Onboarding/Onboarding";
 import TokenExchange from "@/pages/TokenExchange/TokenExchange";
-import UnstakingBetaInfo from "@/pages/Unstaking/UnstakingBetaInfo";
 
 const Router = () => {
   return (
