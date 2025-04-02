@@ -125,9 +125,9 @@ const NFTDetail = () => {
           <NFTDetailCardButton
             onClick={() => {
               openModal();
-              checkLendingAvailable?.success
-                ? navigate(`/loan/${id}/borrow/details`)
-                : setModal({ type: "blockborrow", toggled: true });
+              // checkLendingAvailable?.success
+              //   ? navigate(`/loan/${id}/borrow/details`)
+              //   : setModal({ type: "blockborrow", toggled: true });
 
               /*
               if (Number(id) <= 100) {
@@ -185,7 +185,7 @@ const NFTDetail = () => {
       {modal.type === "blockunstake" && modal.toggled && (
         <BasicModal isDark type="blockunstake" toggleModal={toggleModal} navigateOnClose={`/myasset/${id}`} />
       )}
-      {/* {unavailableModal && <LendingUnavailableModal toggleModal={toggleUnavailableModal} />} */}
+      {unavailableModal && <LendingUnavailableModal toggleModal={toggleUnavailableModal} />}
     </>
   );
 };
