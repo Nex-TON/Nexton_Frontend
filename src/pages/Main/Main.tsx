@@ -121,14 +121,37 @@ const Main: React.FC = () => {
   }, []);
 
   // 개인 정보 수집에 동의하지 않은 사용자에게 팝업으로 알림
-  useEffect(() => {
-    if(userAgreement){
-    if (userAgreement?.agreement) {
+  // useEffect(() => {
+  //   if(userAgreement){
+  //   if (userAgreement?.agreement) {
+  //     setAgreementModal(false);
+  //   } else {
+  //     setAgreementModal(true);
+  //   }};
+  // }, [userAgreement]);
+  
+
+  const [toggleChanged, setToggleChanged] = useState(0);
+  useEffect(()=>{
+    const handleStorageChange = () =>{
+      setToggleChanged(prev => prev+1);
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return ()=>window.removeEventListener("storage", handleStorageChange);
+  })
+
+  //menu에서 PrivacyPolicy, TermsOfUse 둘중하나라도 동의취소한 유저에게 개인정보창 보이게 
+  useEffect(()=>{
+    const agreePrivacyPolicy = localStorage.getItem("agreePrivacyPolicy") === "true"
+    const agreeTermsOfUse = localStorage.getItem("agreeTermsOfUse") === "true"
+    console.log("PrivacyPolicy", localStorage.getItem("agreePrivacyPolicy"));
+    console.log("TermsOfUse",localStorage.getItem("agreeTermsOfUse"))
+    if(agreePrivacyPolicy && agreeTermsOfUse){
       setAgreementModal(false);
-    } else {
+    }else{
       setAgreementModal(true);
-    }};
-  }, [userAgreement]);
+    }
+  },[toggleChanged]);
 
   useEffect(() => {
     const hasSeenAnnouncement = localStorage.getItem("hasSeenAnnouncement");
@@ -255,17 +278,27 @@ const Main: React.FC = () => {
   }, []);
 
   const onAcceptAgreementModal = useCallback(async () => {
-    // localStorage.setItem("agreePrivacyPolicy", "true");
-    // localStorage.setItem("agreeTermsOfUse", "true");
+    localStorage.setItem("agreePrivacyPolicy", "true");
+    localStorage.setItem("agreeTermsOfUse", "true");
+    window.dispatchEvent(new Event("storage"));
+
+    if(userAgreement){
+      if(userAgreement?.agreement){
+        setAgreementModal(false);
+        return;
+      }
+    }
+    
     try {
       const response = await postAgreement({
         userId:userId.toString(),
       });
       console.log("이용약관 동의모달", response);
+      setAgreementModal(false);
     } catch (error) {
       console.log("error", error);
     }
-  }, []);
+  }, [userId]);
 
   return (
     <>
