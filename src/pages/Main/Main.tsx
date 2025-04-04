@@ -130,7 +130,7 @@ const Main: React.FC = () => {
   //   }};
   // }, [userAgreement]);
   
-  
+
   const [toggleChanged, setToggleChanged] = useState(0);
   useEffect(()=>{
     const handleStorageChange = () =>{
@@ -281,6 +281,14 @@ const Main: React.FC = () => {
     localStorage.setItem("agreePrivacyPolicy", "true");
     localStorage.setItem("agreeTermsOfUse", "true");
     window.dispatchEvent(new Event("storage"));
+
+    if(userAgreement){
+      if(userAgreement?.agreement){
+        setAgreementModal(false);
+        return;
+      }
+    }
+    
     try {
       const response = await postAgreement({
         userId:userId.toString(),
