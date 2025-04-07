@@ -16,23 +16,39 @@ const AgreementToggle = (props: ToggleProps) => {
     localStorage.setItem("agreeTermsOfUse", "true");
   */
   // 동의 여부에 따라 기본 세팅값
-  useEffect(() => {
-    const agreeState = localStorage.getItem(type);
-    if (agreeState) {
-      setisOn(true);
-    } else {
-      setisOn(false);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const agreeState = localStorage.getItem(type);
+  //   if (agreeState) {
+  //     setisOn(true);
+  //   } else {
+  //     setisOn(false);
+  //   }
+  // }, []);
+  useEffect(()=>{
+    const updateToggleState = () => {
+      const value = localStorage.getItem(type);
+      setisOn(value === "true");
+    };
+    updateToggleState();
+    window.addEventListener("storage", updateToggleState);
+  },[type]);
 
+  // const toggleHandler = () => {
+  //   // isOn의 상태를 변경하는 메소드를 구현
+  //   setisOn(!isOn);
+  //   if (isOn) {
+  //     localStorage.removeItem(type);
+  //   } else {
+  //     localStorage.setItem(type, "true");
+  //   }
+  // };
   const toggleHandler = () => {
-    // isOn의 상태를 변경하는 메소드를 구현
-    setisOn(!isOn);
-    if (isOn) {
-      localStorage.removeItem(type);
-    } else {
-      localStorage.setItem(type, "true");
-    }
+    setisOn(prev => {
+      const next = !prev;
+      localStorage.setItem(type, next ? "true" : "false");
+      window.dispatchEvent(new Event("storage"));
+      return next;
+    });
   };
   return (
     <>
