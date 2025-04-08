@@ -1,19 +1,18 @@
+import { useMemo } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { mutate } from "swr";
-import { useMemo } from "react";
-
-import useJettonWallet from "@/hooks/contract/useJettonWallet";
-import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
-import IcnxTon from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
-import IcUSDT from "@/assets/icons/Stake/Staking_USDT.png";
-import { useEffect, useState } from "react";
-import { useStakeInfo } from "@/hooks/api/useStakeInfo";
-import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 
 import arrow from "@/assets/icons/MyAsset/ic_arrow_Icon.png";
-import { useNavigate } from "react-router-dom";
+import IcnxTon from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
+import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import nxtIcon from "@/assets/icons/Stake/Staking_nxTON.png";
+import IcUSDT from "@/assets/icons/Stake/Staking_USDT.png";
+import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
+import { useStakeInfo } from "@/hooks/api/useStakeInfo";
+import useJettonWallet from "@/hooks/contract/useJettonWallet";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 
 export const TotalBalance = () => {

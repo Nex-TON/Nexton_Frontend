@@ -20,7 +20,7 @@ const ExchangeConfirmModal = ({ amount, toggleModal, handleSubmit }) => {
               toggleModal(false);
             }}
           >
-            Now now
+            Not now
           </ModalContainer.cancel>
           <ModalContainer.submit
             onClick={() => {
