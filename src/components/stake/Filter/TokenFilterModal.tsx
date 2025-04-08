@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import IcTon from "@/assets/icons/Stake/Staking_TON.png";
 import IcNxTon from "@/assets/icons/Stake/nxTON_Pop-up.png";
+import IcUSDT from "@/assets/icons/Stake/Staking_USDT.png";
 import IcArrowRight from "@/assets/icons/Stake/ic_chevron_right.svg";
 
 export const TokenFilterModal = ({ toggleModal, onSelected,setExchangeModal,hasOldNxTon,setValue }) => {
@@ -26,6 +27,21 @@ export const TokenFilterModal = ({ toggleModal, onSelected,setExchangeModal,hasO
             <TokenIcon>
               <img src={IcTon} alt="ton icon" />
               <TokenName>TON</TokenName>
+            </TokenIcon>
+            <RightArrowWrapper>
+              <img src={IcArrowRight} />
+            </RightArrowWrapper>
+          </TokenWrapper>
+          <DivideBar />
+          <TokenWrapper
+            onClick={() => {
+              handleSelection("USDT");
+            }}
+          >
+            <TokenIcon>
+              <img src={IcUSDT} alt="ton icon" />
+              <TokenName>USDT (Tether)</TokenName>
+              <NewIon>NEW</NewIon>
             </TokenIcon>
             <RightArrowWrapper>
               <img src={IcArrowRight} />
