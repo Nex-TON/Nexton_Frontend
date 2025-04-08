@@ -34,8 +34,10 @@ const Amount = () => {
   const { data: coinPrice } = useCoinPrice("TON", "USD");
   const [modal, setModal] = useState(false);
   const [tokenSort, setTokenSort] = useState("TON");
-  const { balance: oldNxTonBalance,refreshData:refreshOldData } = useJettonWallet("oldNxTON");
+  const { balance: oldNxTonBalance,refreshData: refreshOldData } = useJettonWallet("oldNxTON");
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
+  //+USDT
+  const { balance: usdtBalance, refreshData: refreshUsdtData } = useJettonWallet("oldNxTON");
   const [exchangeModal,setExchangeModal]=useState(false);
 
   const handleTokenSelect = selectedToken => {
@@ -72,10 +74,12 @@ const Amount = () => {
     async function handleRefreshTonData() {
       await refreshTonData();
       await refreshNxtonData();
+      //+USDT
+      await refreshUsdtData();
     }
 
     handleRefreshTonData();
-  }, [refreshTonData, tokenSort, refreshNxtonData]);
+  }, [refreshTonData, tokenSort, refreshNxtonData, refreshUsdtData]);
 
   useEffect(() => {
     if (tele) {
@@ -130,14 +134,23 @@ const Amount = () => {
         <BalanceWrapper>
           {tokenSort === "TON" ? (
             <BalanceText>Balance : {balance ? numberCutter(balance) : balance == 0 ? "0.00" : `-.--`}</BalanceText>
-          ) : (
+          ) : tokenSort === "nxTON" ? (
             <BalanceText>
               Balance : {nxTonBalance ? (balance == 0 ? "0.00" : numberCutter(Number(nxTonBalance))) : `-.--`}
+            </BalanceText>
+          ): (
+            <BalanceText>
+              Balance : {usdtBalance ? (balance == 0 ? "0.00" : numberCutter(Number(usdtBalance))) : `-.--`}
             </BalanceText>
           )}
           <MaxButton
             onClick={() => {
-              const maxAmount = tokenSort === "TON" ? balance : nxTonBalance;
+              //const maxAmount = tokenSort === "TON" ? balance : nxTonBalance;
+              let maxAmount;
+              if (tokenSort === "TON") maxAmount = balance;
+              else if (tokenSort === "nxTON") maxAmount = nxTonBalance;
+              else if (tokenSort === "USDT") maxAmount = usdtBalance
+
               setValue("amount", maxAmount ? limitDecimals(maxAmount, 3) : "0");
             }}
           >
