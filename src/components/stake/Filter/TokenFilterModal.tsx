@@ -3,12 +3,12 @@ import IcTon from "@/assets/icons/Stake/Staking_TON.png";
 import IcNxTon from "@/assets/icons/Stake/nxTON_Pop-up.png";
 import IcArrowRight from "@/assets/icons/Stake/ic_chevron_right.svg";
 
-export const TokenFilterModal = ({ toggleModal, onSelected,setExchangeModal,hasOldNxTon,setValue }) => {
+export const TokenFilterModal = ({ toggleModal, onSelected,setExchangeModal,hasNxTon,setValue }) => {
   const handleSelection = token => {
     onSelected(token); // Pass selected token to parent
     toggleModal(); // Close modal
     setValue("amount","0")
-    if (token==="nxTON"&&hasOldNxTon){
+    if (token==="nxTON"&&hasNxTon==="0"){
       setExchangeModal(true)
     }
   };

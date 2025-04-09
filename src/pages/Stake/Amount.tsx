@@ -191,7 +191,7 @@ const Amount = () => {
         <>
           <Overlay onClick={() => setModal(false)} />
           <ModalWrapper>
-            <TokenFilterModal toggleModal={() => setModal(false)} onSelected={handleTokenSelect} setExchangeModal={setExchangeModal} hasOldNxTon={oldNxTonBalance} setValue={setValue}/>
+            <TokenFilterModal toggleModal={() => setModal(false)} onSelected={handleTokenSelect} setExchangeModal={setExchangeModal} hasNxTon={nxTonBalance} setValue={setValue}/>
           </ModalWrapper>
         </>
       )}
