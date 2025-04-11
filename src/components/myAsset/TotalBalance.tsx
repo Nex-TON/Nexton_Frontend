@@ -121,7 +121,7 @@ export const TotalBalance = () => {
                   <p>
                     {Number(usdtBalance) === 0 || Number(usdtBalance) ? Number(usdtBalance)?.toFixed(3) : "0.000"}{" "}
                   </p>
-                  <p>TON</p>
+                  <p>USDT</p>
                 </Balance>
               </>
             )}
@@ -137,7 +137,7 @@ export const TotalBalance = () => {
               <>
                 <Balance>
                   <p>{totalStaked("USDT") === 0 || totalStaked("USDT") ? totalStaked("USDT")?.toFixed(3) : "0.000"}</p>
-                  <p>TON</p>
+                  <p>USDT</p>
                 </Balance>
               </>
             )}
