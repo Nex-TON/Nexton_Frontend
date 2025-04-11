@@ -22,7 +22,7 @@ const ExchangeConfirmModal = ({ toggleModal }) => {
               toggleModal(false);
             }}
           >
-            Now now
+            Not now
           </ModalContainer.cancel>
           <ModalContainer.submit onClick={() => navigate("/exchange")}>Go to Exchange</ModalContainer.submit>
         </ModalContainer.buttonwrapper>
