@@ -45,6 +45,15 @@ const Amount = () => {
     setModal(false); // Close modal
   };
 
+  const mapTokenBalance = (tokenSort: string) => {
+    const tokenBalance: Record<string, number> = {
+      TON: balance,
+      nxTON: Number(nxTonBalance),
+      USDT: Number(usdtBalance),
+    };
+    return tokenBalance[tokenSort] ?? 0;
+  };
+
   const schema = z.object({
     amount: z
       .string()
@@ -52,7 +61,7 @@ const Amount = () => {
       .transform(Number)
       .refine(val => !isNaN(val), "Please enter a valid number")
       .refine(val => val >= 1, "Please stake more than 1 TON")
-      .refine(val => val <= (tokenSort === "TON" ? balance : Number(nxTonBalance)), "The amount exceeds the balance"),
+      .refine(val => val <= mapTokenBalance(tokenSort), "The amount exceeds the balance"),
   });
 
   const {
