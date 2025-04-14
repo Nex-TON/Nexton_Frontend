@@ -217,7 +217,7 @@ const Amount = () => {
               toggleModal={() => setModal(false)}
               onSelected={handleTokenSelect}
               setExchangeModal={setExchangeModal}
-              hasOldNxTon={oldNxTonBalance}
+              hasNxTon={nxTonBalance}
               setValue={setValue}
             />
           </ModalWrapper>

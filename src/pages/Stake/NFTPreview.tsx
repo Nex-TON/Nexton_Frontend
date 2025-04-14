@@ -61,7 +61,7 @@ const NFTPreview = () => {
     setIsLoading(true);
 
     try {
-      if (stakingInfo.nominator === "Arbitrage Bot") {
+      if (["Arbitrage Bot", "Arbitrage Bot 1"].includes(stakingInfo.nominator)) {
         const data = (): TonDeposit => {
           const PROTOCOL_FEE = toNano(0.1);
           return {
