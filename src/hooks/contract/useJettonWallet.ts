@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { useTonClient } from "./useTonClient";
 import { JettonDefaultWallet } from "./wrappers/tact_JettonDefaultWallet";
-import { Address, OpenedContract, fromNano, toNano } from "@ton/core";
+import { Address, OpenedContract, TupleBuilder, fromNano, toNano } from "@ton/core";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import useTonConnect from "./useTonConnect";
 
@@ -11,11 +11,17 @@ export default function useJettonWallet(token = "nxTON") {
   const { sender, address } = useTonConnect();
   const [balance, setBalance] = useState(BigInt(0));
   const [isInitialized, setIsInitialized] = useState(false);
+  const name = token;
 
   const jettonWallet: OpenedContract<JettonDefaultWallet> = useAsyncInitialize(async () => {
     const masterAddress = mapTokenMasterAddress(token);
     if (address && client && masterAddress) {
-      const wallet = client.open(await JettonDefaultWallet.fromInit(Address.parse(address), masterAddress));
+      const tuple = new TupleBuilder();
+      tuple.writeAddress(Address.parse(address));
+      const walletAddress = (
+        await client.runMethod(masterAddress, "get_wallet_address", tuple.build())
+      ).stack.readAddress();
+      const wallet = client.open(await JettonDefaultWallet.fromAddress(walletAddress));
       setIsInitialized(true); // Set wallet as initialized
       return wallet;
     }
@@ -54,7 +60,7 @@ export default function useJettonWallet(token = "nxTON") {
   return {
     address: jettonWallet ? jettonWallet.address : null,
     ownerWallet: address,
-    balance: fromNano(balance),
+    balance: amountToString(name, balance),
     refreshData,
     tokenTransfer: async (to, data) => {
       await jettonWallet.send(
@@ -99,6 +105,24 @@ function mapTokenMasterAddress(token) {
         return Address.parse("EQCdEj1dEh76-Qacc38ZRH2eGtqyp-50fO3_0wBKF8HKT9zh");
       else if (import.meta.env.VITE_TON_NETWORK == "testnet")
         return Address.parse("kQAUupHzEYK1B9yvg9qhaGFJqF-EcAgW58HjDs438pSex9Gu");
+    case "USDT":
+      if (import.meta.env.VITE_TON_NETWORK == "mainnet")
+        return Address.parse("EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs");
+      else if (import.meta.env.VITE_TON_NETWORK == "testnet")
+        return Address.parse("kQBe4gtSQMxM5RpMYLr4ydNY72F8JkY-icZXG1NJcsju8XM7");
   }
   return null;
+}
+
+function amountToString(token: string, amount: bigint) {
+  switch (token) {
+    case "nxTON":
+    case "TON":
+      return fromNano(amount);
+    case "USDT":
+      const divisor = 1000000n;
+      const integerPart = amount / divisor;
+      const fractionalPart = amount % divisor;
+      return integerPart.toString() + "." + fractionalPart.toString().padStart(6, "0");
+  }
 }
