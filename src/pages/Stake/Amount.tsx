@@ -60,7 +60,7 @@ const Amount = () => {
       .min(1, "Please enter amount")
       .transform(Number)
       .refine(val => !isNaN(val), "Please enter a valid number")
-      .refine(val => val >= 1, "Please stake more than 1 TON")
+      .refine(val => val >= 1, `Please stake more than 1 ${tokenSort}`)
       .refine(val => val <= mapTokenBalance(tokenSort), "The amount exceeds the balance"),
   });
 
@@ -117,8 +117,11 @@ const Amount = () => {
       //
       if (coinPrice && amount) {
         if (tokenSort === "TON") return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
-        else
+        else if (tokenSort === "nxTON") {
           return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * (Number(amount) / tokenRate?.tonToNextonRate), 2)}`;
+        } else {
+          return `$${Number(amount)}`;
+        }
       }
       return "$0.00";
     };
@@ -182,7 +185,7 @@ const Amount = () => {
                 tokenSort={tokenSort} // Pass selection handler
               />
             }
-            placeholder={tokenSort === "TON" ? "min 1TON" : "min 1NxTON"}
+            placeholder={tokenSort === "TON" ? "min 1TON" : tokenSort === "USDT" ? "min 1USDT" : "min 1NxTON"}
             balance={balance}
             convertAmount={convertAmount}
           />
