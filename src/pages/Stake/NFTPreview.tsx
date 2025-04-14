@@ -118,16 +118,16 @@ const NFTPreview = () => {
       const data = amount => {
         const PROTOCOL_FEE = toNano(0.1);
         return {
-          value: PROTOCOL_FEE + toNano("0.05"),
+          value: PROTOCOL_FEE + toNano("0.1"),
           amount: amount,
           fwdAmount: PROTOCOL_FEE,
-          fwdPayload: beginCell().storeUint(0, 4).endCell().asSlice(),
+          fwdPayload: beginCell().storeBit(false).endCell().asSlice(),
         };
       };
 
       // First, attempt to send the message to the contract
       const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS;
-      await tokenTransfer(Address.parse(contractAddress), data(toNano(stakingInfo.principal)));
+      await tokenTransfer(Address.parse(contractAddress), data(stakingInfo.principal));
 
       // If sendMessage is successful, then call postStakingInfo
       await postStakingInfo({

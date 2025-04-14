@@ -5,6 +5,7 @@ import { JettonDefaultWallet } from "./wrappers/tact_JettonDefaultWallet";
 import { Address, OpenedContract, TupleBuilder, fromNano, toNano } from "@ton/core";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import useTonConnect from "./useTonConnect";
+import { mapTokenMasterAddress, stringToAmount, amountToString } from "./utils";
 
 export default function useJettonWallet(token = "nxTON") {
   const client = useTonClient();
@@ -69,7 +70,7 @@ export default function useJettonWallet(token = "nxTON") {
         {
           $$type: "TokenTransfer",
           query_id: BigInt(Date.now()),
-          amount: data.amount,
+          amount: stringToAmount(name, data.amount),
           sender: to,
           custom_payload: null,
           response_destination: Address.parse(address),
@@ -85,7 +86,7 @@ export default function useJettonWallet(token = "nxTON") {
         {
           $$type: "TokenBurn",
           query_id: BigInt(Date.now()),
-          amount: toNano(data.amount),
+          amount: stringToAmount(name, data.amount),
           response_destination: Address.parse(data.response_destination),
           custom_payload: null,
         },
@@ -95,34 +96,3 @@ export default function useJettonWallet(token = "nxTON") {
 }
 
 export { useJettonWallet };
-
-function mapTokenMasterAddress(token) {
-  switch (token) {
-    case "nxTON":
-      return Address.parse(import.meta.env.VITE_NXTON_MASTER);
-    case "oldNxTON":
-      if (import.meta.env.VITE_TON_NETWORK == "mainnet")
-        return Address.parse("EQCdEj1dEh76-Qacc38ZRH2eGtqyp-50fO3_0wBKF8HKT9zh");
-      else if (import.meta.env.VITE_TON_NETWORK == "testnet")
-        return Address.parse("kQAUupHzEYK1B9yvg9qhaGFJqF-EcAgW58HjDs438pSex9Gu");
-    case "USDT":
-      if (import.meta.env.VITE_TON_NETWORK == "mainnet")
-        return Address.parse("EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs");
-      else if (import.meta.env.VITE_TON_NETWORK == "testnet")
-        return Address.parse("kQBe4gtSQMxM5RpMYLr4ydNY72F8JkY-icZXG1NJcsju8XM7");
-  }
-  return null;
-}
-
-function amountToString(token: string, amount: bigint) {
-  switch (token) {
-    case "nxTON":
-    case "TON":
-      return fromNano(amount);
-    case "USDT":
-      const divisor = 1000000n;
-      const integerPart = amount / divisor;
-      const fractionalPart = amount % divisor;
-      return integerPart.toString() + "." + fractionalPart.toString().padStart(6, "0");
-  }
-}
