@@ -14,12 +14,11 @@ import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 
-
 export const TotalBalance = () => {
   const { address, balance, refreshTonData } = useTonConnect();
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   const { balance: oldNxTonBalance, refreshData: refreshOldNxtonData } = useJettonWallet("oldNxTON");
-  const { balance: usdtBalance, refreshData: refreshUsdtData } = useJettonWallet();
+  const { balance: usdtBalance, refreshData: refreshUsdtData } = useJettonWallet("USDT");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { nftList, isLoading } = useStakeInfo(address);
   const { borrowList } = useRepayNftList(address);
@@ -52,6 +51,7 @@ export const TotalBalance = () => {
         await Promise.all([
           refreshTonData(),
           refreshNxtonData(),
+          refreshUsdtData(),
           mutate(`/data/getAllStakeInfoByAddress?address=${address}`),
           mutate(`/data/getEarningsbyAddress/${address}`),
         ]);
@@ -63,7 +63,7 @@ export const TotalBalance = () => {
     };
 
     initializeData();
-  }, [address, refreshTonData, refreshNxtonData]);
+  }, [address, refreshTonData, refreshNxtonData, refreshUsdtData]);
 
   return (
     <TotalBalanceWrapper id="specific-element-total-balance">
@@ -118,9 +118,7 @@ export const TotalBalance = () => {
             ) : (
               <>
                 <Balance>
-                  <p>
-                    {Number(usdtBalance) === 0 || Number(usdtBalance) ? Number(usdtBalance)?.toFixed(3) : "0.000"}{" "}
-                  </p>
+                  <p>{Number(usdtBalance) === 0 || Number(usdtBalance) ? Number(usdtBalance)?.toFixed(3) : "0.000"} </p>
                   <p>USDT</p>
                 </Balance>
               </>
