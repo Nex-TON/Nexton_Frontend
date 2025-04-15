@@ -16,13 +16,13 @@ const NFTPreviewInfo = (props: NFTPreviewInfoProps) => {
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Principal</NFTPreviewInfoItemText>
         <NFTPreviewInfoItemValue>
-          <span>{Number(stakingInfo.principal).toLocaleString()}</span> {stakingInfo.tokenSort=="TON"?"TON":"NxTON"}
+          <span>{Number(stakingInfo.principal).toLocaleString()}</span> {stakingInfo.tokenSort}
         </NFTPreviewInfoItemValue>
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>
         <NFTPreviewInfoItemText>Transaction Fee</NFTPreviewInfoItemText>
         <NFTPreviewInfoItemValue>
-          <span>~0.1123</span> {stakingInfo.tokenSort=="TON"?"TON":"NxTON"}
+          <span>~0.1123</span> {"TON"}
         </NFTPreviewInfoItemValue>
       </NFTPreviewInfoItem>
       <NFTPreviewInfoItem>
