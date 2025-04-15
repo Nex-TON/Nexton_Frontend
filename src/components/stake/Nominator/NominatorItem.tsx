@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 
 import IcBemoPool from "@/assets/icons/Stake/ic_bemo_pool.svg";
+import IcEvaaPool from "@/assets/icons/Stake/ic_evaa_pool.svg";
 import { INominatorList } from "@/hooks/api/useNominatorList";
 import { limitDecimals } from "@/utils/limitDecimals";
 import hyperliquid from "@/assets/icons/Dashboard/ic_hyperliquid_letter.svg";
@@ -34,7 +35,7 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
 }) => {
   const isSelected = selectedNominator?.id === id;
 
-  const icon = title === "Bemo Pool" ? IcBemoPool : title === "Evaa Pool" ? null : null;
+  const icon = title === "Bemo Pool" ? IcBemoPool : title === "Evaa Pool" ? IcEvaaPool : null;
 
   const handleClick = () => {
     handleSelectNominator(id);
