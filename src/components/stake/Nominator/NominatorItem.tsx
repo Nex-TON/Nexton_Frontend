@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 
 import IcBemoPool from "@/assets/icons/Stake/ic_bemo_pool.svg";
+import IcEvaaPool from "@/assets/icons/Stake/ic_evaa_pool.png";
 import { INominatorList } from "@/hooks/api/useNominatorList";
 import { limitDecimals } from "@/utils/limitDecimals";
 import hyperliquid from "@/assets/icons/Dashboard/ic_hyperliquid_letter.svg";
@@ -8,6 +9,7 @@ import stonfi from "@/assets/icons/Dashboard/ic_stonfi_letter.svg";
 import binance from "@/assets/icons/Dashboard/ic_binance_letter.svg";
 import binance_small from "@/assets/icons/Main/ic_binance_logo.svg";
 import stonfi_small from "@/assets/icons/Main/ic_stonfi_logo.svg";
+import dedust from "@/assets/icons/Dashboard/ic_dedust_letter.svg";
 
 export type PoolType = "bemo" | "arbitrage" | "nominator";
 
@@ -34,7 +36,7 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
 }) => {
   const isSelected = selectedNominator?.id === id;
 
-  const icon = title === "Bemo Pool" ? IcBemoPool : null;
+  const icon = title === "Bemo Pool" ? IcBemoPool : title === "Evaa Pool" ? IcEvaaPool : null;
 
   const handleClick = () => {
     handleSelectNominator(id);
@@ -51,13 +53,18 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
         <NominatorItemTopLeft>
           <NominatorItemTitle $inactive={disabled} $selected={isSelected}>
             {icon && <img src={icon} alt="icon" />}{" "}
-            {title === "Bemo Pool" ? "Bemo pool" : title === "Arbitrage Bot 1" ? "DEX-DEX bot" : "CEX-DEX bot"}
+            {title === "Bemo Pool" ? "Bemo pool" : (title === "Arbitrage Bot 1" || title === "Arbitrage Bot 3") ? "DEX-DEX bot" : title === "Evaa Pool" ? "Evaa Pool" : "CEX-DEX bot"}
           </NominatorItemTitle>
-          {title != "Bemo Pool" ? (
+          {title !== "Bemo Pool" && title !== "Evaa Pool" ? (
             <NominatorExchange>
-              <img style={{ height: "17.43px" }} src={title === "Arbitrage Bot 1" ? hyperliquid : binance} />
+              <img style={{ height: "17.43px" }} src={(title === "Arbitrage Bot 1" || title === "Arbitrage Bot 3") ? hyperliquid : binance} />
               <VerticalLine />
-              <img style={{ height: "17.43px" }} src={stonfi} />
+              {title === "Arbitrage Bot" || title === "Arbitrage Bot 1" ? (
+                <img style={{ height: "17.43px" }} src={stonfi} />
+              ) : (
+                <img style={{ height: "22px" }} src={dedust} />
+              )}
+              {/* <img style={{ height: "17.43px" }} src={(title === "Arbitrage Bot" || title === "Arbitrage Bot 1") ? stonfi : dedust} /> */}
             </NominatorExchange>
           ) : (
             <NominatorExchange>

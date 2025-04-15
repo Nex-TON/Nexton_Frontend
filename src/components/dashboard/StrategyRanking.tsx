@@ -4,7 +4,7 @@ import styled from "styled-components";
 import stonfi from "@/assets/icons/Dashboard/ic_stonfi_logo.svg";
 import binance from "@/assets/icons/Dashboard/ic_binance_logo.svg";
 import hyperliquid from "@/assets/icons/Dashboard/ic_hyperliquid_logo.svg";
-import stonfi_box from "@/assets/icons/Dashboard/ic_stonfibox_logo.svg";
+import dedust from "@/assets/icons/Dashboard/ic_dedust_logo.svg";
 import IcTooltip from "@/assets/icons/Dashboard/ic_tooltip.svg";
 import { limitDecimals } from "@/utils/limitDecimals";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ const ICON = {
   stonfi,
   binance,
   hyperliquid,
+  dedust
 };
 
 const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLoading,sort }) => {
@@ -96,7 +97,7 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
           <RankingContainer.box>
             <RankingContainer.text>1</RankingContainer.text>
             <RankingContainer.strategy>
-              <img src={stonfi_box} alt="stonfi box icon" />
+              <img src={dedust} alt="stonfi box icon" />
               <img src={binance} alt="binance icon" />
             </RankingContainer.strategy>
             <RankingContainer.text>--.--%</RankingContainer.text>
@@ -107,7 +108,7 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
           <RankingContainer.box>
             <RankingContainer.text>2</RankingContainer.text>
             <RankingContainer.strategy>
-              <img src={stonfi_box} alt="stonfi box icon" />
+              <img src={dedust} alt="stonfi box icon" />
               <img src={hyperliquid} alt="hyperliquid icon" />
             </RankingContainer.strategy>
             <RankingContainer.text>--.--%</RankingContainer.text>
