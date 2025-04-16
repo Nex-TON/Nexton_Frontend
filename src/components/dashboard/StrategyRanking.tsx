@@ -94,7 +94,7 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
             <p>TVL</p>
             <p>Detail</p>
           </RankingContainer.title>
-          <RankingContainer.box>
+          {/* <RankingContainer.box>
             <RankingContainer.text>1</RankingContainer.text>
             <RankingContainer.strategy>
               <img src={dedust} alt="stonfi box icon" />
@@ -115,9 +115,9 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
             <RankingContainer.text>---TON</RankingContainer.text>
             <RankingContainer.text>-</RankingContainer.text>
           </RankingContainer.box>
-          <DivideLine />
-          <RankingContainer.box>
-            <RankingContainer.text>3</RankingContainer.text>
+          <DivideLine /> */}
+          <RankingContainer.box> 
+            <RankingContainer.text>1</RankingContainer.text>
             <RankingContainer.strategy>
               <img src={binance} alt="binance icon" />
               <img src={hyperliquid} alt="hyperliquid icon" />

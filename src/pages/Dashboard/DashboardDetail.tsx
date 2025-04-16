@@ -112,12 +112,7 @@ const DashboardDetail = () => {
               console.log(chartData?.strategyDetails?.strategy2?.strategy);
               if (chartData?.strategyDetails?.strategy1?.strategy === "stonfi" && chartData?.strategyDetails?.strategy2?.strategy === "hyperliquid") {
                 navigate("/dashboard/detail/stonfi-binance");
-              } 
-              // else if (chartData?.strategyDetails?.strategy1?.strategy === "dedust" && chartData?.strategyDetails?.strategy2?.strategy === "binance") {
-              //   navigate("/dashboard/detail/stonfi-hyperliquid");
-              // } else if (chartData?.strategyDetails?.strategy1?.strategy === "dedust" && chartData?.strategyDetails?.strategy2?.strategy === "hyperliquid") {
-              //   navigate("/dashboard/detail/dedust-binance");
-              // }
+              }
             }}
           />
           <ChartNavigator.strategywrapper>
@@ -135,12 +130,7 @@ const DashboardDetail = () => {
             onClick={() => {
               if (chartData?.strategyDetails?.strategy1?.strategy === "stonfi" && chartData?.strategyDetails?.strategy2?.strategy === "binance") {
                 navigate("/dashboard/detail/stonfi-hyperliquid");
-              } 
-              // else if (chartData?.strategyDetails?.strategy1?.strategy === "stonfi" && chartData?.strategyDetails?.strategy2?.strategy === "hyperliquid") {
-              //   navigate("/dashboard/detail/dedust-binance");
-              // } else if (chartData?.strategyDetails?.strategy1?.strategy === "dedust" && chartData?.strategyDetails?.strategy2?.strategy === "binance") {
-              //   navigate("/dashboard/detail/dedust-hyperliquid");
-              // }
+              }
             }}
           />
         </ChartNavigator.wrapper>
