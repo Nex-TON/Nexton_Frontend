@@ -4,7 +4,7 @@ import { NexTon } from "./wrappers/tact_NexTon";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { useTonClient } from "./useTonClient";
 import useTonConnect from "./useTonConnect";
-import { mapStrategyHandler } from "./utils";
+import { mapStrategyFee, mapStrategyHandler } from "./utils";
 
 function depositTon() {
   const contractAddress = `${import.meta.env.VITE_CONTRACT_ADDRESS}`;
@@ -42,7 +42,7 @@ function depositTon() {
       if (nextonContract && strategy_handler) {
         return await nextonContract.send(
           sender,
-          { value: value },
+          { value: data.amount + mapStrategyFee(data.strategy).fee },
           {
             $$type: "StrategyTonDeposit",
             query_id: BigInt(Date.now()),
