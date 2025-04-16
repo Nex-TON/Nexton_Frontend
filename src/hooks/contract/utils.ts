@@ -42,8 +42,10 @@ export function stringToAmount(token: string, amount: string) {
 }
 
 export function mapStrategyHandler(handler) {
-  if (import.meta.env.VITE_TON_NETWORK === "mainnet")
+  if (import.meta.env.VITE_TON_NETWORK === "mainnet") {
     if (handler === "Bemo Pool") return Address.parse("EQDH13TaSeQVHHf9YOeG4y3A0VrkYn8y24WESaJIui3BujDc");
+    if (handler === "Evaa Pool") return Address.parse("EQCbi1QITvphx3b_vSja2CEcP3E8SH_H5gYEi1PdyfhCRdhc");
+  }
   if (import.meta.env.VITE_TON_NETWORK === "testnet") {
     if (handler === "Bemo Pool") return Address.parse("kQDyV2q5-epazG6SffES6v9QPlNzeFC19uy71TPjXwXd0bLg");
     if (handler === "Evaa Pool") return Address.parse("kQBcQ1g65ebK7c8AJXTkgivJkiltU99iPJ5d8wGSYmCafLrK");
