@@ -34,15 +34,24 @@ const Amount = () => {
   const { data: coinPrice } = useCoinPrice("TON", "USD");
   const [modal, setModal] = useState(false);
   const [tokenSort, setTokenSort] = useState("TON");
-  const { balance: oldNxTonBalance,refreshData: refreshOldData } = useJettonWallet("oldNxTON");
+  const { balance: oldNxTonBalance, refreshData: refreshOldData } = useJettonWallet("oldNxTON");
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   //+USDT
-  const { balance: usdtBalance, refreshData: refreshUsdtData } = useJettonWallet("oldNxTON");
-  const [exchangeModal,setExchangeModal]=useState(false);
+  const { balance: usdtBalance, refreshData: refreshUsdtData } = useJettonWallet("USDT");
+  const [exchangeModal, setExchangeModal] = useState(false);
 
   const handleTokenSelect = selectedToken => {
     setTokenSort(selectedToken); // Update token selection
     setModal(false); // Close modal
+  };
+
+  const mapTokenBalance = (tokenSort: string) => {
+    const tokenBalance: Record<string, number> = {
+      TON: balance,
+      nxTON: Number(nxTonBalance),
+      USDT: Number(usdtBalance),
+    };
+    return tokenBalance[tokenSort] ?? 0;
   };
 
   const schema = z.object({
@@ -51,8 +60,8 @@ const Amount = () => {
       .min(1, "Please enter amount")
       .transform(Number)
       .refine(val => !isNaN(val), "Please enter a valid number")
-      .refine(val => val >= 1, "Please stake more than 1 TON")
-      .refine(val => val <= (tokenSort === "TON" ? balance : Number(nxTonBalance)), "The amount exceeds the balance"),
+      .refine(val => val >= 1, `Please stake more than 1 ${tokenSort}`)
+      .refine(val => val <= mapTokenBalance(tokenSort), "The amount exceeds the balance"),
   });
 
   const {
@@ -108,8 +117,11 @@ const Amount = () => {
       //
       if (coinPrice && amount) {
         if (tokenSort === "TON") return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
-        else
+        else if (tokenSort === "nxTON") {
           return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * (Number(amount) / tokenRate?.tonToNextonRate), 2)}`;
+        } else {
+          return `$${Number(amount)}`;
+        }
       }
       return "$0.00";
     };
@@ -138,7 +150,7 @@ const Amount = () => {
             <BalanceText>
               Balance : {nxTonBalance ? (balance == 0 ? "0.00" : numberCutter(Number(nxTonBalance))) : `-.--`}
             </BalanceText>
-          ): (
+          ) : (
             <BalanceText>
               Balance : {usdtBalance ? (balance == 0 ? "0.00" : numberCutter(Number(usdtBalance))) : `-.--`}
             </BalanceText>
@@ -149,7 +161,7 @@ const Amount = () => {
               let maxAmount;
               if (tokenSort === "TON") maxAmount = balance;
               else if (tokenSort === "nxTON") maxAmount = nxTonBalance;
-              else if (tokenSort === "USDT") maxAmount = usdtBalance
+              else if (tokenSort === "USDT") maxAmount = usdtBalance;
 
               setValue("amount", maxAmount ? limitDecimals(maxAmount, 3) : "0");
             }}
@@ -173,7 +185,7 @@ const Amount = () => {
                 tokenSort={tokenSort} // Pass selection handler
               />
             }
-            placeholder={tokenSort === "TON" ? "min 1TON" : "min 1NxTON"}
+            placeholder={tokenSort === "TON" ? "min 1TON" : tokenSort === "USDT" ? "min 1USDT" : "min 1NxTON"}
             balance={balance}
             convertAmount={convertAmount}
           />
@@ -204,11 +216,17 @@ const Amount = () => {
         <>
           <Overlay onClick={() => setModal(false)} />
           <ModalWrapper>
-            <TokenFilterModal toggleModal={() => setModal(false)} onSelected={handleTokenSelect} setExchangeModal={setExchangeModal} hasNxTon={nxTonBalance} setValue={setValue}/>
+            <TokenFilterModal
+              toggleModal={() => setModal(false)}
+              onSelected={handleTokenSelect}
+              setExchangeModal={setExchangeModal}
+              hasNxTon={nxTonBalance}
+              setValue={setValue}
+            />
           </ModalWrapper>
         </>
       )}
-      {exchangeModal&&<ExchangePopup toggleModal={setExchangeModal}/>}
+      {exchangeModal && <ExchangePopup toggleModal={setExchangeModal} />}
     </>
   );
 };

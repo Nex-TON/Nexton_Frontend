@@ -80,13 +80,13 @@ const NftItem = (props: NftItemProps) => {
           <p>{getDDayText(unstakableDate)}</p>
           <p>
             {principal}
-            {tokenSort === "TON" ? "TON" : "NxTON"}
+            {tokenSort}
           </p>
         </TopInfo>
         <BottomInfo>
           <p>{new Date(unstakableDate).toLocaleDateString()}</p>
           <p>
-            {tokenSort === "TON" ? convertAmount(principal) : convertAmount(principal / tokenRate?.tonToNextonRate)}
+            {tokenSort === "TON" ? convertAmount(principal) : tokenSort === "USDT" ? '$1' : convertAmount(principal / tokenRate?.tonToNextonRate)}
           </p>
         </BottomInfo>
       </NFTBottomINfoWrapper>

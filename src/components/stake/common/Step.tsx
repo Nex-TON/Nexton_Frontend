@@ -12,19 +12,19 @@ interface StepProps {
 
 const Step = (props: StepProps) => {
   const { title, step, type } = props;
-  const { principal, nominator,tokenSort } = useRecoilValue(stakingAtom);
+  const { principal, nominator, tokenSort } = useRecoilValue(stakingAtom);
 
   return (
     <StepWrapper step={step}>
       <StepNumber>{title}</StepNumber>
       {type === "nominator" ? (
         <StepNumber>
-          Stake amount {numberCutter(Number(principal))} {tokenSort==="TON"?"TON":"NxTON"}
+          Stake amount {numberCutter(Number(principal))} {tokenSort}
         </StepNumber>
       ) : (
         type === "leverage" && (
           <StepNumber>
-            {numberCutter(Number(principal))} {tokenSort==="TON"?"TON":"NxTON"} / {nominator}
+            {numberCutter(Number(principal))} {tokenSort} / {nominator}
           </StepNumber>
         )
       )}
