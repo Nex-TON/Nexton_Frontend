@@ -35,6 +35,8 @@ const NominatorList = () => {
   const { selectedNominator, handleSelectNominator } = useSelectNominator(nominatorListData);
 
   useEffect(() => {
+    console.log("NominatorList",nominatorListData)
+
     if (tele) {
       tele.ready();
       tele.BackButton.show();
@@ -88,6 +90,8 @@ const NominatorList = () => {
         ? "Arbitrage trading may result in losses due to execution delays, price slippage, fees, and market volatility."
         : selectedNominator?.name === "Arbitrage Bot"
           ? "Centralized exchanges may have security and operational risks."
+          : selectedNominator?.name === "Evaa pool"
+          ? "you will receive an NFT through the Arbitrage Bot."
           : null;
 
   const name = (selectedNominator?.name === "Arbitrage Bot" || selectedNominator?.name === "Arbitrage Bot 3") ? "CEX-DEX" : (selectedNominator?.name === "Arbitrage Bot 1" || selectedNominator?.name === "Arbitrage Bot 2") ? "DEX-DEX" : selectedNominator?.name;
@@ -144,7 +148,23 @@ const NominatorList = () => {
 
                 {nominatorListData.some(item => item.type === "pool") && <PoolTitle>Pool</PoolTitle>}
                 {nominatorListData
-                  .filter(item => item.type === "pool")
+                  .filter(item => item.type === "pool" && item.name === "Evaa Pool")
+                  .map(item => (
+                    <Fragment key={item.id}>
+                      <NominatorItem
+                        id={item.id}
+                        title={item.name}
+                        apy={item.apy}
+                        profitShare={item.profitShare}
+                        tvl={item.tvl}
+                        disabled={item.disabled}
+                        selectedNominator={selectedNominator}
+                        handleSelectNominator={handleSelectNominator}
+                      />
+                    </Fragment>
+                  ))}
+                {nominatorListData
+                  .filter(item => item.type === "pool" && item.name === "Bemo Pool")
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem

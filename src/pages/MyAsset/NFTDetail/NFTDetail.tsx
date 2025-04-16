@@ -5,6 +5,7 @@ import IcTrendRight from "@/assets/icons/Loan/ic_trend_right.svg";
 import IcTrendUp from "@/assets/icons/Loan/ic_trend_up.svg";
 import ExpiredNFTLarge from "@/assets/image/NftExpired.png";
 import OngoingNFTLarge from "@/assets/image/NftOngoing.png";
+import IcUSDT from "@/assets/icons/Stake/Staking_USDT.png";
 import StakingInfo from "@components/loan/common/StakingInfo";
 import { useNFTDetail } from "@/hooks/api/useNFTDetail";
 import { nftInfo } from "@/types/Nft";
@@ -163,7 +164,7 @@ const NFTDetail = () => {
             <NFTDetailItem>
               <NFTDetailItemCaption>Token</NFTDetailItemCaption>
               <NFTDetailItemText>
-                <img src={nftInfo?.tokenSort === "TON" ? IcTonSymbol : IcNxTonSymbol} alt="tonSymbol" />
+                <img src={nftInfo?.tokenSort === "TON" ? IcTonSymbol : nftInfo?.tokenSort === "USDT" ? IcUSDT : IcNxTonSymbol} alt="tonSymbol" />
                 {nftInfo?.tokenSort == "nxTON" ? "NxTON" : `${nftInfo?.tokenSort}`}
               </NFTDetailItemText>
             </NFTDetailItem>

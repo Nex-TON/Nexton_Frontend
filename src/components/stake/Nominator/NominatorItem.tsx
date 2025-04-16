@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-import IcBemoPool from "@/assets/icons/Stake/ic_bemo_pool.svg";
+import IcBemoPool from "@/assets/icons/Stake/ic_bemo_pool.svg"
 import IcEvaaPool from "@/assets/icons/Stake/ic_evaa_pool.png";
 import { INominatorList } from "@/hooks/api/useNominatorList";
 import { limitDecimals } from "@/utils/limitDecimals";
@@ -11,7 +11,7 @@ import binance_small from "@/assets/icons/Main/ic_binance_logo.svg";
 import stonfi_small from "@/assets/icons/Main/ic_stonfi_logo.svg";
 import dedust from "@/assets/icons/Dashboard/ic_dedust_letter.svg";
 
-export type PoolType = "bemo" | "arbitrage" | "nominator";
+export type PoolType = "bemo" | "evaa" | "arbitrage" | "nominator";
 
 interface NominatorItemProps {
   id: number;
@@ -55,22 +55,36 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
             {icon && <img src={icon} alt="icon" />}{" "}
             {title === "Bemo Pool" ? "Bemo pool" : (title === "Arbitrage Bot 1" || title === "Arbitrage Bot 3") ? "DEX-DEX bot" : title === "Evaa Pool" ? "Evaa Pool" : "CEX-DEX bot"}
           </NominatorItemTitle>
-          {title !== "Bemo Pool" && title !== "Evaa Pool" ? (
+          {/* {title != "Bemo Pool" ? (
             <NominatorExchange>
-              <img style={{ height: "17.43px" }} src={(title === "Arbitrage Bot 1" || title === "Arbitrage Bot 3") ? hyperliquid : binance} />
+              <img style={{ height: "17.43px" }} src={title === "Arbitrage Bot 1" ? hyperliquid : binance} />
               <VerticalLine />
-              {title === "Arbitrage Bot" || title === "Arbitrage Bot 1" ? (
-                <img style={{ height: "17.43px" }} src={stonfi} />
-              ) : (
-                <img style={{ height: "22px" }} src={dedust} />
-              )}
-              {/* <img style={{ height: "17.43px" }} src={(title === "Arbitrage Bot" || title === "Arbitrage Bot 1") ? stonfi : dedust} /> */}
+              <img style={{ height: "17.43px" }} src={stonfi} />
             </NominatorExchange>
           ) : (
             <NominatorExchange>
               <p> CEX-DEX bot</p>
               <img src={binance_small} style={{ width: "17.552px", marginRight: "7px" }} />
               <img src={stonfi_small} style={{ width: "17.552px" }} />
+            </NominatorExchange>
+          )} */}
+          {title === "Bemo Pool" ?(
+            <NominatorExchange>
+              <p> CEX-DEX bot</p>
+              <img src={binance_small} style={{ width: "17.552px", marginRight: "7px" }} />
+              <img src={stonfi_small} style={{ width: "17.552px" }} />
+            </NominatorExchange>
+          ): title === "Evaa Pool" ? (
+            <NominatorExchange>
+              <p> CEX-DEX bot</p>
+              <img src={binance_small} style={{ width: "17.552px", marginRight: "7px" }} />
+              <img src={stonfi_small} style={{ width: "17.552px" }} />
+            </NominatorExchange>
+          ):(
+            <NominatorExchange>
+              <img style={{ height: "17.43px" }} src={title === "Arbitrage Bot 1" ? hyperliquid : binance} />
+              <VerticalLine />
+              <img style={{ height: "17.43px" }} src={stonfi} />
             </NominatorExchange>
           )}
         </NominatorItemTopLeft>

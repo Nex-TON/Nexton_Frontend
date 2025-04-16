@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import { isDevMode } from "@/utils/isDevMode";
 import styled from "styled-components";
 
 import ImgBeta from "@/assets/image/UnstakingBetaInfo.png";
@@ -17,12 +18,20 @@ const UnstakingBetaInfo = () => {
           Currently, as this is the Beta version, the unstaking process may take some time. We can provide the TON
           within 36 hours.
         </SubText>
-        <MainButton
+        {isDevMode ? (
+          <button onClick={() => navigate(`/myasset/unstaked#specific-element`)}>Okay</button>
+        ) : (<MainButton
           text="Okay"
           onClick={() => {
             navigate(`/myasset/unstaked#specific-element`);
           }}
-        />
+        />)}
+        {/* <MainButton
+          text="Okay"
+          onClick={() => {
+            navigate(`/myasset/unstaked#specific-element`);
+          }}
+        /> */}
       </ContentWrapper>
     </>
   );
