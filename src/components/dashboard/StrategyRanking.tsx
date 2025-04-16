@@ -76,7 +76,14 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
                   </RankingContainer.strategy>
                   <RankingContainer.text>{item?.apy}%</RankingContainer.text>
                   <RankingContainer.text>{limitDecimals(item?.tvl, 0)}TON</RankingContainer.text>
-                  <RankingContainer.button onClick={() => navigate(`/dashboard/detail/${item?.strategy}`)}>
+                  <RankingContainer.button onClick={() => navigate(`/dashboard/detail/${item?.strategy}`, {
+                    state: {
+                      // previousStrategy: item.previousStrategy,
+                      // nextStrategy: item.nextStrategy,
+                      // rank: item.rank,
+                      rankingList,
+                    },
+                  })}>
                     view
                   </RankingContainer.button>
                 </RankingContainer.box>

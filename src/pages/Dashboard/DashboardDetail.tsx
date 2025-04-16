@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -47,6 +47,16 @@ const DashboardDetail = () => {
   const [showTvlTooltip, setShowTvlTooltip] = useState(false);
 
   const { data: performanceData, isLoading: performanceLoading, error: performanceError } = useBotPerformanceSummary();
+
+  //StragyRanking에서 가져온 정보들
+  const location = useLocation();
+  const rankingList = location.state?.rankingList || [];
+  const currentIndex = rankingList.findIndex(item => item.strategy === strategy);
+  const currentStrategy = rankingList[currentIndex];
+  const previousStrategy = rankingList[currentIndex - 1]?.strategy || null;
+  const nextStrategy = rankingList[currentIndex + 1]?.strategy || null;
+  const rank = currentStrategy?.rank;
+
 
   const {
     data: chartData,
@@ -101,18 +111,27 @@ const DashboardDetail = () => {
   return (
     <>
       <DashboardWrapper>
-        <Title>Strategy {chartData?.strategyDetails?.dexCnt}</Title>
+        <Title>Strategy {rank ?? "?"}</Title>
         <ChartNavigator.wrapper>
           <FaChevronLeft
             size={14}
             style={{ margin: "5px" }}
-            color={chartData?.strategyDetails?.dexCnt == 1 ? "#E1E4E6" : "#2F3038"}
+            color={rank ===1 ? "#E1E4E6" : "#2F3038"}
             onClick={() => {
-              console.log(chartData?.strategyDetails?.strategy1?.strategy);
-              console.log(chartData?.strategyDetails?.strategy2?.strategy);
-              if (chartData?.strategyDetails?.strategy1?.strategy === "stonfi" && chartData?.strategyDetails?.strategy2?.strategy === "hyperliquid") {
-                navigate("/dashboard/detail/stonfi-binance");
+              console.log("왼쪽 눌림", previousStrategy);
+              if (previousStrategy) {
+                navigate(`/dashboard/detail/${previousStrategy}`, {
+                  state: {rankingList},
+                });
               }
+              // if (chartData?.strategyDetails?.strategy1?.strategy === "stonfi" && chartData?.strategyDetails?.strategy2?.strategy === "hyperliquid") {
+              //   navigate("/dashboard/detail/stonfi-binance");
+              // } 
+              // else if (chartData?.strategyDetails?.strategy1?.strategy === "dedust" && chartData?.strategyDetails?.strategy2?.strategy === "binance") {
+              //   navigate("/dashboard/detail/stonfi-hyperliquid");
+              // } else if (chartData?.strategyDetails?.strategy1?.strategy === "dedust" && chartData?.strategyDetails?.strategy2?.strategy === "hyperliquid") {
+              //   navigate("/dashboard/detail/dedust-binance");
+              // }
             }}
           />
           <ChartNavigator.strategywrapper>
@@ -126,11 +145,22 @@ const DashboardDetail = () => {
           <FaChevronRight
             size={14}
             style={{ margin: "5px" }}
-            color={chartData?.strategyDetails?.dexCnt === 1 ? "#2F3038" : "#E1E4E6"}
+            color={ rank !==4 ? "#2F3038" : "#E1E4E6"}
             onClick={() => {
-              if (chartData?.strategyDetails?.strategy1?.strategy === "stonfi" && chartData?.strategyDetails?.strategy2?.strategy === "binance") {
-                navigate("/dashboard/detail/stonfi-hyperliquid");
+              console.log("오른쪽 눌림", nextStrategy);
+              if (nextStrategy) {
+                navigate(`/dashboard/detail/${nextStrategy}`, {
+                  state: {rankingList},
+                });
               }
+              // if (chartData?.strategyDetails?.strategy1?.strategy === "stonfi" && chartData?.strategyDetails?.strategy2?.strategy === "binance") {
+              //   navigate("/dashboard/detail/stonfi-hyperliquid");
+              // } 
+              // else if (chartData?.strategyDetails?.strategy1?.strategy === "stonfi" && chartData?.strategyDetails?.strategy2?.strategy === "hyperliquid") {
+              //   navigate("/dashboard/detail/dedust-binance");
+              // } else if (chartData?.strategyDetails?.strategy1?.strategy === "dedust" && chartData?.strategyDetails?.strategy2?.strategy === "binance") {
+              //   navigate("/dashboard/detail/dedust-hyperliquid");
+              // }
             }}
           />
         </ChartNavigator.wrapper>
