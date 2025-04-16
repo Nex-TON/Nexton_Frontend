@@ -2,10 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 
 import { useTonClient } from "./useTonClient";
 import { JettonDefaultWallet } from "./wrappers/tact_JettonDefaultWallet";
-import { Address, OpenedContract, TupleBuilder, fromNano, toNano } from "@ton/core";
+import { Address, OpenedContract, TupleBuilder, beginCell, fromNano, toNano } from "@ton/core";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import useTonConnect from "./useTonConnect";
-import { mapTokenMasterAddress, stringToAmount, amountToString } from "./utils";
+import { mapTokenMasterAddress, stringToAmount, amountToString, mapStrategyFee, mapStrategyHandler } from "./utils";
 
 export default function useJettonWallet(token = "nxTON") {
   const client = useTonClient();
@@ -89,6 +89,23 @@ export default function useJettonWallet(token = "nxTON") {
           amount: stringToAmount(name, data.amount),
           response_destination: Address.parse(data.response_destination),
           custom_payload: null,
+        },
+      );
+    },
+    strategyDeposit: async (amount: string, strategy: string) => {
+      const fees = mapStrategyFee(strategy);
+      await jettonWallet.send(
+        sender,
+        { value: fees.fee },
+        {
+          $$type: "TokenTransfer",
+          query_id: BigInt(Date.now()),
+          amount: stringToAmount(name, amount),
+          sender: Address.parse(import.meta.env.VITE_CONTRACT_ADDRESS),
+          custom_payload: null,
+          response_destination: Address.parse(address),
+          forward_ton_amount: fees.jettonFwd,
+          forward_payload: beginCell().storeBit(true).storeAddress(mapStrategyHandler(strategy)).endCell().asSlice(),
         },
       );
     },

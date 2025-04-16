@@ -4,6 +4,7 @@ import { NexTon } from "./wrappers/tact_NexTon";
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import { useTonClient } from "./useTonClient";
 import useTonConnect from "./useTonConnect";
+import { mapStrategyHandler } from "./utils";
 
 function depositTon() {
   const contractAddress = `${import.meta.env.VITE_CONTRACT_ADDRESS}`;
@@ -54,13 +55,6 @@ function depositTon() {
       }
     },
   };
-}
-
-function mapStrategyHandler(handler) {
-  if (import.meta.env.VITE_TON_NETWORK === "mainnet")
-    if (handler === "Bemo Pool") return Address.parse("EQDH13TaSeQVHHf9YOeG4y3A0VrkYn8y24WESaJIui3BujDc");
-  if (import.meta.env.VITE_TON_NETWORK === "testnet")
-    if (handler === "Bemo Pool") return Address.parse("kQDyV2q5-epazG6SffES6v9QPlNzeFC19uy71TPjXwXd0bLg");
 }
 
 export { depositTon };
