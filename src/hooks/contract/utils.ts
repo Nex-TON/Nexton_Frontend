@@ -61,7 +61,7 @@ export function mapStrategyFee(handler) {
       };
   if (handler === "Evaa Pool")
     return {
-      fee: toNano(0.5),
+      fee: toNano(0.7),
       jettonFwd: toNano(0.45),
       fwd: toNano(0.45),
     };
