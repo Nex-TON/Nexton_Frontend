@@ -17,6 +17,7 @@ import { stakingAtom } from "@/lib/atom/staking";
 import { telegramAtom } from "@/lib/atom/telegram";
 import { isDevMode } from "@/utils/isDevMode";
 import IcWarning from "@/assets/icons/Stake/ic_warning_black.svg";
+import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 
 import { useSelectNominator } from "./hooks/useSelectNominator";
 
@@ -26,7 +27,9 @@ const NominatorList = () => {
   const navigate = useNavigate();
 
   const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
-  const [, setStakingInfo] = useRecoilState(stakingAtom);
+  const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
+  //const [stakingInfo] = useRecoilState(stakingAtom);
+  const { data: tokenRate } = useTokenRate();
   const setError = useSetRecoilState(globalError);
   const [confirmModal, setConfirmModal] = useState(false);
 
@@ -36,6 +39,7 @@ const NominatorList = () => {
 
   useEffect(() => {
     console.log("NominatorList",nominatorListData)
+    console.log("principal", stakingInfo.principal)
 
     if (tele) {
       tele.ready();
@@ -94,7 +98,7 @@ const NominatorList = () => {
           ? "you will receive an NFT through the Arbitrage Bot."
           : null;
 
-  const name = selectedNominator?.name === "Arbitrage Bot" ? "CEX-DEX" : selectedNominator?.name === "Arbitrage Bot 1" ? "DEX-DEX" : selectedNominator?.name;
+  const name = (selectedNominator?.name === "Arbitrage Bot" || selectedNominator?.name === "Arbitrage Bot 3") ? "CEX-DEX" : (selectedNominator?.name === "Arbitrage Bot 1" || selectedNominator?.name === "Arbitrage Bot 2") ? "DEX-DEX" : selectedNominator?.name;
 
   return (
     <>
@@ -148,23 +152,28 @@ const NominatorList = () => {
 
                 {nominatorListData.some(item => item.type === "pool") && <PoolTitle>Pool</PoolTitle>}
                 {nominatorListData
-                  .filter(item => item.type === "pool" && item.name === "Evaa Pool")
-                  .map(item => (
-                    <Fragment key={item.id}>
-                      <NominatorItem
-                        id={item.id}
-                        title={item.name}
-                        apy={item.apy}
-                        profitShare={item.profitShare}
-                        tvl={item.tvl}
-                        disabled={item.disabled}
-                        selectedNominator={selectedNominator}
-                        handleSelectNominator={handleSelectNominator}
-                      />
-                    </Fragment>
-                  ))}
+                  .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON" )
+                  .map(item => {
+                    console.log("usdtTonRate", tokenRate?.tonUsdtRate)
+                    console.log("tokenSort", stakingInfo.tokenSort)
+                    const tvl = (stakingInfo.tokenSort === "USDT" && tokenRate?.tonUsdtRate) ?  item.tvl/tokenRate?.tonUsdtRate : item.tvl
+                    return(
+                      <Fragment key={item.id}>
+                        <NominatorItem
+                          id={item.id}
+                          title={item.name}
+                          apy={item.apy}
+                          profitShare={item.profitShare}
+                          tvl={tvl}
+                          disabled={item.disabled}
+                          selectedNominator={selectedNominator}
+                          handleSelectNominator={handleSelectNominator}
+                        />
+                      </Fragment>
+                    )
+                  } )}
                 {nominatorListData
-                  .filter(item => item.type === "pool" && item.name === "Bemo Pool")
+                  .filter(item => item.type === "pool" && item.name === "Bemo Pool" && stakingInfo.tokenSort === "TON")
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem

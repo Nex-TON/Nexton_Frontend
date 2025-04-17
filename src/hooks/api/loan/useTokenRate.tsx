@@ -4,6 +4,7 @@ import { nextonFetcher } from "@/api/axios";
 export interface ITokenRate{
     tonToNextonRate:number;
     nxtonToTonRate:number;
+    tonUsdtRate:number;
 }
 
 export const useTokenRate=()=>{

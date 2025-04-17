@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-import IcBemoPool from "@/assets/icons/Stake/ic_bemo_pool.svg";
+import IcBemoPool from "@/assets/icons/Stake/ic_bemo_pool.svg"
 import IcEvaaPool from "@/assets/icons/Stake/ic_evaa_pool.svg";
 import { INominatorList } from "@/hooks/api/useNominatorList";
 import { limitDecimals } from "@/utils/limitDecimals";
@@ -9,6 +9,7 @@ import stonfi from "@/assets/icons/Dashboard/ic_stonfi_letter.svg";
 import binance from "@/assets/icons/Dashboard/ic_binance_letter.svg";
 import binance_small from "@/assets/icons/Main/ic_binance_logo.svg";
 import stonfi_small from "@/assets/icons/Main/ic_stonfi_logo.svg";
+import dedust from "@/assets/icons/Dashboard/ic_dedust_letter.svg";
 
 export type PoolType = "bemo" | "evaa" | "arbitrage" | "nominator";
 
@@ -52,7 +53,7 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
         <NominatorItemTopLeft>
           <NominatorItemTitle $inactive={disabled} $selected={isSelected}>
             {icon && <img src={icon} alt="icon" />}{" "}
-            {title === "Bemo Pool" ? "Bemo pool" : title === "Evaa Pool" ? " EVAA pool" : title === "Arbitrage Bot 1" ? "DEX-DEX bot" : "CEX-DEX bot"}
+            {title === "Bemo Pool" ? "Bemo pool" : (title === "Arbitrage Bot 1" || title === "Arbitrage Bot 3") ? "DEX-DEX bot" : title === "Evaa Pool" ? "Evaa Pool" : "CEX-DEX bot"}
           </NominatorItemTitle>
           {/* {title != "Bemo Pool" ? (
             <NominatorExchange>
