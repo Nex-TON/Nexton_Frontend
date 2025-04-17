@@ -145,16 +145,41 @@ const Amount = () => {
         <Title title="Stake tokens" />
         <BalanceWrapper>
           {tokenSort === "TON" ? (
-            <BalanceText>Balance : {balance ? numberCutter(balance) : balance == 0 ? "0.00" : `-.--`}</BalanceText>
+            <BalanceText>
+              Balance : {mapTokenBalance("TON") === 0
+                ? "0.00"
+                : mapTokenBalance("TON")
+                ? numberCutter(mapTokenBalance("TON"))
+                : "-.--"}
+            </BalanceText>
           ) : tokenSort === "nxTON" ? (
             <BalanceText>
-              Balance : {nxTonBalance ? (balance == 0 ? "0.00" : numberCutter(Number(nxTonBalance))) : `-.--`}
+              Balance : {mapTokenBalance("nxTON") === 0
+                ? "0.00"
+                : mapTokenBalance("nxTON")
+                ? numberCutter(mapTokenBalance("nxTON"))
+                : "-.--"}
             </BalanceText>
           ) : (
             <BalanceText>
-              Balance : {usdtBalance ? (balance == 0 ? "0.00" : numberCutter(Number(usdtBalance))) : `-.--`}
+              Balance : {mapTokenBalance("USDT") === 0
+                ? "0.00"
+                : mapTokenBalance("USDT")
+                ? numberCutter(mapTokenBalance("USDT"))
+                : "-.--"}
             </BalanceText>
           )}
+          {/* {tokenSort === "TON" ? (
+            <BalanceText>Balance : {mapTokenBalance("TON") ? numberCutter(mapTokenBalance("TON")) : mapTokenBalance("TON") == 0 ? "0.00" : `-.--`}</BalanceText>
+          ) : tokenSort === "nxTON" ? (
+            <BalanceText>
+              Balance : {mapTokenBalance("nxTON") ? (mapTokenBalance("nxTON") == 0 ? "0.00" : numberCutter(mapTokenBalance("nxTON"))) : `-.--`}
+            </BalanceText>
+          ) : (
+            <BalanceText>
+              Balance : {mapTokenBalance("USDT") ? (mapTokenBalance("USDT") == 0 ? "0.00" : numberCutter(mapTokenBalance("USDT"))) : `-.--`}
+            </BalanceText>
+          )} */}
           <MaxButton
             onClick={() => {
               //const maxAmount = tokenSort === "TON" ? balance : nxTonBalance;
