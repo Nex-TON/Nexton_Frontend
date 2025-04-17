@@ -150,7 +150,7 @@ const NominatorList = () => {
 
                 {nominatorListData.some(item => item.type === "pool") && <PoolTitle>Pool</PoolTitle>}
                 {nominatorListData
-                  .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON")
+                  .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON" )
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem
