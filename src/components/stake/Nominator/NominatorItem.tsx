@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 import IcBemoPool from "@/assets/icons/Stake/ic_bemo_pool.svg"
-import IcEvaaPool from "@/assets/icons/Stake/ic_evaa_pool.png";
+import IcEvaaPool from "@/assets/icons/Stake/ic_evaa_pool.svg";
 import { INominatorList } from "@/hooks/api/useNominatorList";
 import { limitDecimals } from "@/utils/limitDecimals";
 import hyperliquid from "@/assets/icons/Dashboard/ic_hyperliquid_letter.svg";
