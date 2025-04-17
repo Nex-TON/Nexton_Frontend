@@ -19,6 +19,7 @@ import { isDevMode } from "@/utils/isDevMode";
 import IcWarning from "@/assets/icons/Stake/ic_warning_black.svg";
 
 import { useSelectNominator } from "./hooks/useSelectNominator";
+import { ListItemSecondaryAction } from "@mui/material";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -126,7 +127,7 @@ const NominatorList = () => {
                   </BotTitleWrapper>
                 )}
                 {nominatorListData
-                  .filter(item => item.type === "bot")
+                  .filter(item => item.type === "bot" && (item.name === "Arbitrage Bot 1" || item.name === "Arbitrage Bot"))
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem
@@ -144,7 +145,7 @@ const NominatorList = () => {
 
                 {nominatorListData.some(item => item.type === "pool") && <PoolTitle>Pool</PoolTitle>}
                 {nominatorListData
-                  .filter(item => item.type === "pool")
+                  .filter(item => item.type === "pool" && item.name === "Bemo Pool")
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem
