@@ -26,7 +26,8 @@ const NominatorList = () => {
   const navigate = useNavigate();
 
   const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
-  const [, setStakingInfo] = useRecoilState(stakingAtom);
+  const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
+  //const [stakingInfo] = useRecoilState(stakingAtom);
   const setError = useSetRecoilState(globalError);
   const [confirmModal, setConfirmModal] = useState(false);
 
@@ -36,6 +37,7 @@ const NominatorList = () => {
 
   useEffect(() => {
     console.log("NominatorList",nominatorListData)
+    console.log("principal", stakingInfo.principal)
 
     if (tele) {
       tele.ready();
@@ -148,7 +150,7 @@ const NominatorList = () => {
 
                 {nominatorListData.some(item => item.type === "pool") && <PoolTitle>Pool</PoolTitle>}
                 {nominatorListData
-                  .filter(item => item.type === "pool" && item.name === "Evaa Pool")
+                  .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON")
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem
@@ -164,7 +166,7 @@ const NominatorList = () => {
                     </Fragment>
                   ))}
                 {nominatorListData
-                  .filter(item => item.type === "pool" && item.name === "Bemo Pool")
+                  .filter(item => item.type === "pool" && item.name === "Bemo Pool" && stakingInfo.tokenSort === "TON")
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem
