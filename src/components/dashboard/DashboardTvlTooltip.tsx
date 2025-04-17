@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Tooltip from "../common/Tooltip";
 import IcTon from "@/assets/icons/Dashboard/ic_ton_logo.svg";
 import IcNextonLogo from "@/assets/icons/Dashboard/ic_nxTON_logo.svg";
+import IcUSDTLogo from "@/assets/icons/Dashboard/ic_usdt_logo.svg";
 
 const DashboardTvlTooltip = () => {
   return (
@@ -11,7 +12,9 @@ const DashboardTvlTooltip = () => {
           <img src={IcTon} />
           TON + 
           <img src={IcNextonLogo} style={{marginLeft:"5px"}}/>
-          nxTON
+          nxTON + 
+          <img src={IcUSDTLogo} style={{marginLeft:"5px"}}/>
+          USDT
         </StTooltipContainer>
       </Tooltip>
     </StContainer>
