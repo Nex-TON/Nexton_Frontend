@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -19,6 +19,7 @@ import useTonConnect from "@/hooks/contract/useTonConnect";
 import stonfi from "@/assets/icons/Dashboard/ic_stonfi_letter.svg";
 import binance from "@/assets/icons/Dashboard/ic_binance_letter.svg";
 import hyperliquid from "@/assets/icons/Dashboard/ic_hyperliquid_letter.svg";
+import dedust from "@/assets/icons/Dashboard/ic_dedust_letter.svg";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import IcTooltip from "@/assets/icons/Dashboard/ic_tooltip.svg";
 import DashboardTvlTooltip from "@/components/dashboard/DashboardTvlTooltip";
@@ -47,6 +48,16 @@ const DashboardDetail = () => {
 
   const { data: performanceData, isLoading: performanceLoading, error: performanceError } = useBotPerformanceSummary();
 
+  //StragyRanking에서 가져온 정보들
+  const location = useLocation();
+  const rankingList = location.state?.rankingList || [];
+  const currentIndex = rankingList.findIndex(item => item.strategy === strategy);
+  const currentStrategy = rankingList[currentIndex];
+  const previousStrategy = rankingList[currentIndex - 1]?.strategy || null;
+  const nextStrategy = rankingList[currentIndex + 1]?.strategy || null;
+  const rank = currentStrategy?.rank;
+
+
   const {
     data: chartData,
     isLoading: chartLoading,
@@ -57,6 +68,7 @@ const DashboardDetail = () => {
     stonfi: stonfi,
     binance: binance,
     hyperliquid: hyperliquid, // 추가적인 거래소 여기 추가해줘야됨
+    dedust: dedust
   };
 
   const img1 = strategyIcons[chartData?.strategyDetails?.strategy1?.strategy] || "";
@@ -99,34 +111,56 @@ const DashboardDetail = () => {
   return (
     <>
       <DashboardWrapper>
-        <Title>Strategy {chartData?.strategyDetails?.dexCnt}</Title>
+        <Title>Strategy {rank ?? "?"}</Title>
         <ChartNavigator.wrapper>
           <FaChevronLeft
             size={14}
             style={{ margin: "5px" }}
-            color={chartData?.strategyDetails?.dexCnt == 1 ? "#E1E4E6" : "#2F3038"}
+            color={rank ===1 ? "#E1E4E6" : "#2F3038"}
             onClick={() => {
-              if (chartData?.strategyDetails?.dexCnt === 2) {
-                navigate("/dashboard/detail/stonfi-binance");
+              console.log("왼쪽 눌림", previousStrategy);
+              if (previousStrategy) {
+                navigate(`/dashboard/detail/${previousStrategy}`, {
+                  state: {rankingList},
+                });
               }
+              // if (chartData?.strategyDetails?.strategy1?.strategy === "stonfi" && chartData?.strategyDetails?.strategy2?.strategy === "hyperliquid") {
+              //   navigate("/dashboard/detail/stonfi-binance");
+              // } 
+              // else if (chartData?.strategyDetails?.strategy1?.strategy === "dedust" && chartData?.strategyDetails?.strategy2?.strategy === "binance") {
+              //   navigate("/dashboard/detail/stonfi-hyperliquid");
+              // } else if (chartData?.strategyDetails?.strategy1?.strategy === "dedust" && chartData?.strategyDetails?.strategy2?.strategy === "hyperliquid") {
+              //   navigate("/dashboard/detail/dedust-binance");
+              // }
             }}
           />
           <ChartNavigator.strategywrapper>
             <ChartNavigator.exchange>{chartData?.strategyDetails?.strategy1?.exchange}</ChartNavigator.exchange>
             <DivideLine />
-            <img src={img1} alt="binance letter logo" style={{ marginRight: "2rem" }} />
+            <img src={img1} alt="strategy1 logo" style={{ marginRight: "2rem" }} />
             <ChartNavigator.exchange>{chartData?.strategyDetails?.strategy2?.exchange}</ChartNavigator.exchange>
             <DivideLine />
-            <img src={img2} alt="stonfi letter logo" />
+            <img src={img2} alt="strategy2 logo" />
           </ChartNavigator.strategywrapper>
           <FaChevronRight
             size={14}
             style={{ margin: "5px" }}
-            color={chartData?.strategyDetails?.dexCnt === 1 ? "#2F3038" : "#E1E4E6"}
+            color={ rank !==4 ? "#2F3038" : "#E1E4E6"}
             onClick={() => {
-              if (chartData?.strategyDetails?.dexCnt === 1) {
-                navigate("/dashboard/detail/stonfi-hyperliquid");
+              console.log("오른쪽 눌림", nextStrategy);
+              if (nextStrategy) {
+                navigate(`/dashboard/detail/${nextStrategy}`, {
+                  state: {rankingList},
+                });
               }
+              // if (chartData?.strategyDetails?.strategy1?.strategy === "stonfi" && chartData?.strategyDetails?.strategy2?.strategy === "binance") {
+              //   navigate("/dashboard/detail/stonfi-hyperliquid");
+              // } 
+              // else if (chartData?.strategyDetails?.strategy1?.strategy === "stonfi" && chartData?.strategyDetails?.strategy2?.strategy === "hyperliquid") {
+              //   navigate("/dashboard/detail/dedust-binance");
+              // } else if (chartData?.strategyDetails?.strategy1?.strategy === "dedust" && chartData?.strategyDetails?.strategy2?.strategy === "binance") {
+              //   navigate("/dashboard/detail/dedust-hyperliquid");
+              // }
             }}
           />
         </ChartNavigator.wrapper>

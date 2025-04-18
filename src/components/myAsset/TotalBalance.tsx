@@ -1,23 +1,24 @@
+import { useMemo } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { mutate } from "swr";
-import { useMemo } from "react";
-
-import useJettonWallet from "@/hooks/contract/useJettonWallet";
-import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
-import IcnxTon from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
-import { useEffect, useState } from "react";
-import { useStakeInfo } from "@/hooks/api/useStakeInfo";
-import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 
 import arrow from "@/assets/icons/MyAsset/ic_arrow_Icon.png";
-import { useNavigate } from "react-router-dom";
+import IcnxTon from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
+import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import nxtIcon from "@/assets/icons/Stake/Staking_nxTON.png";
+import IcUSDT from "@/assets/icons/Stake/Staking_USDT.png";
+import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
+import { useStakeInfo } from "@/hooks/api/useStakeInfo";
+import useJettonWallet from "@/hooks/contract/useJettonWallet";
+import useTonConnect from "@/hooks/contract/useTonConnect";
 
 export const TotalBalance = () => {
   const { address, balance, refreshTonData } = useTonConnect();
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
   const { balance: oldNxTonBalance, refreshData: refreshOldNxtonData } = useJettonWallet("oldNxTON");
+  const { balance: usdtBalance, refreshData: refreshUsdtData } = useJettonWallet("USDT");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { nftList, isLoading } = useStakeInfo(address);
   const { borrowList } = useRepayNftList(address);
@@ -50,6 +51,7 @@ export const TotalBalance = () => {
         await Promise.all([
           refreshTonData(),
           refreshNxtonData(),
+          refreshUsdtData(),
           mutate(`/data/getAllStakeInfoByAddress?address=${address}`),
           mutate(`/data/getEarningsbyAddress/${address}`),
         ]);
@@ -61,7 +63,7 @@ export const TotalBalance = () => {
     };
 
     initializeData();
-  }, [address, refreshTonData, refreshNxtonData]);
+  }, [address, refreshTonData, refreshNxtonData, refreshUsdtData]);
 
   return (
     <TotalBalanceWrapper id="specific-element-total-balance">
@@ -97,6 +99,43 @@ export const TotalBalance = () => {
                 <Balance>
                   <p>{totalStaked("TON") === 0 || totalStaked("TON") ? totalStaked("TON")?.toFixed(3) : "0.000"}</p>
                   <p>TON</p>
+                </Balance>
+              </>
+            )}
+          </Balance>
+        </ValueWrapper>
+      </TotalBalanceBoxWrapper>
+      <TotalBalanceBoxWrapper>
+        <TokenTitle>
+          <img src={IcUSDT} alt="new usdt logo" />
+          <h2>USDT (Tether)</h2>{" "}
+        </TokenTitle>
+        <ValueWrapper>
+          <SideText>Balance</SideText>
+          <Balance>
+            {isRefreshing ? (
+              <Balance>-.---</Balance>
+            ) : (
+              <>
+                <Balance>
+                  <p>{Number(usdtBalance) === 0 || Number(usdtBalance) ? Number(usdtBalance)?.toFixed(3) : "0.000"} </p>
+                  <p>USDT</p>
+                </Balance>
+              </>
+            )}
+          </Balance>
+        </ValueWrapper>
+        <DivideLine />
+        <ValueWrapper>
+          <SideText>Staked</SideText>
+          <Balance>
+            {isLoading ? (
+              <Balance>-.---</Balance>
+            ) : (
+              <>
+                <Balance>
+                  <p>{totalStaked("USDT") === 0 || totalStaked("USDT") ? totalStaked("USDT")?.toFixed(3) : "0.000"}</p>
+                  <p>USDT</p>
                 </Balance>
               </>
             )}

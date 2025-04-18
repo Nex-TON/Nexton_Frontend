@@ -17,6 +17,7 @@ import { stakingAtom } from "@/lib/atom/staking";
 import { telegramAtom } from "@/lib/atom/telegram";
 import { isDevMode } from "@/utils/isDevMode";
 import IcWarning from "@/assets/icons/Stake/ic_warning_black.svg";
+import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 
 import { useSelectNominator } from "./hooks/useSelectNominator";
 import { ListItemSecondaryAction } from "@mui/material";
@@ -27,15 +28,22 @@ const NominatorList = () => {
   const navigate = useNavigate();
 
   const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
-  const [, setStakingInfo] = useRecoilState(stakingAtom);
+  const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
+  //const [stakingInfo] = useRecoilState(stakingAtom);
+  const { data: tokenRate } = useTokenRate();
   const setError = useSetRecoilState(globalError);
   const [confirmModal, setConfirmModal] = useState(false);
 
   const { data: nominatorListData, isLoading, error } = useNominatorList(String(telegramId));
 
   const { selectedNominator, handleSelectNominator } = useSelectNominator(nominatorListData);
+  const [minimumTonModal, setMinimumTonModal] = useState(false);
 
   useEffect(() => {
+    //console.log("NominatorList",nominatorListData)
+    //console.log("principal", stakingInfo.principal)
+    console.log("principal",Number(stakingInfo.principal))
+
     if (tele) {
       tele.ready();
       tele.BackButton.show();
@@ -76,6 +84,11 @@ const NominatorList = () => {
   };
 
   const toggleModal = () => {
+    if (selectedNominator?.name === "Evaa pool" && stakingInfo.tokenSort === "TON" && Number(stakingInfo.principal) < 100){
+      setMinimumTonModal(true);
+      setConfirmModal(false);
+      return;
+    }
     if (selectedNominator) {
       setConfirmModal(prev => !prev);
     }
@@ -89,9 +102,11 @@ const NominatorList = () => {
         ? "Arbitrage trading may result in losses due to execution delays, price slippage, fees, and market volatility."
         : selectedNominator?.name === "Arbitrage Bot"
           ? "Centralized exchanges may have security and operational risks."
+          : selectedNominator?.name === "Evaa pool"
+          ? "you will receive an NFT through the Arbitrage Bot."
           : null;
 
-  const name = selectedNominator?.name === "Arbitrage Bot" ? "CEX-DEX" : selectedNominator?.name === "Arbitrage Bot 1" ? "DEX-DEX" : selectedNominator?.name;
+  const name = (selectedNominator?.name === "Arbitrage Bot" || selectedNominator?.name === "Arbitrage Bot 3") ? "CEX-DEX" : (selectedNominator?.name === "Arbitrage Bot 1" || selectedNominator?.name === "Arbitrage Bot 2") ? "DEX-DEX" : selectedNominator?.name;
 
   return (
     <>
@@ -103,6 +118,8 @@ const NominatorList = () => {
           description={description}
         />
       )}
+
+      
 
       <NominatorListWrapper>
         <ProgressBar />
@@ -143,9 +160,30 @@ const NominatorList = () => {
                     </Fragment>
                   ))}
 
-                {nominatorListData.some(item => item.type === "pool") && <PoolTitle>Pool</PoolTitle>}
+                {nominatorListData.some(item => item.type === "pool" && stakingInfo.tokenSort === "TON") && <PoolTitle>Pool</PoolTitle>}
                 {nominatorListData
-                  .filter(item => item.type === "pool" && item.name === "Bemo Pool")
+                  .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON" && stakingInfo.tokenSort !== "USDT")
+                  .map(item => {
+                    console.log("usdtTonRate", tokenRate?.tonUsdtRate)
+                    console.log("tokenSort", stakingInfo.tokenSort)
+                    const tvl = (stakingInfo.tokenSort === "USDT" && tokenRate?.tonUsdtRate) ?  item.tvl/tokenRate?.tonUsdtRate : item.tvl
+                    return(
+                      <Fragment key={item.id}>
+                        <NominatorItem
+                          id={item.id}
+                          title={item.name}
+                          apy={item.apy}
+                          profitShare={item.profitShare}
+                          tvl={tvl}
+                          disabled={item.disabled}
+                          selectedNominator={selectedNominator}
+                          handleSelectNominator={handleSelectNominator}
+                        />
+                      </Fragment>
+                    )
+                  } )}
+                {nominatorListData
+                  .filter(item => item.type === "pool" && item.name === "Bemo Pool" && stakingInfo.tokenSort === "TON")
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem

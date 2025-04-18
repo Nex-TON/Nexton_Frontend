@@ -13,6 +13,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import stonfi from "@/assets/icons/Main/ic_stonfi_logo.svg";
 import binance from "@/assets/icons/Main/ic_binance_logo.svg";
 import hyperliquid from "@/assets/icons/Main/ic_hyperliquid_logo.svg";
+import dedust from "@/assets/icons/Main/ic_dedust_logo.svg";
 
 import {
   // TvlNotice,
@@ -82,6 +83,7 @@ const MainMyAssetInfo = ({
     stonfi: stonfi,
     binance: binance,
     hyperliquid: hyperliquid, // 추가적인 거래소 여기 추가해줘야됨
+    dedust: dedust
   };
 
   const img1 = strategyIcons[performanceData?.summaryData[strategy]?.strategyDetails?.strategy1?.strategy] || "";
@@ -173,9 +175,10 @@ const MainMyAssetInfo = ({
                       size={14}
                       color={strategy == 0 ? "#46494A" : "#C6CACA"}
                       onClick={() => {
-                        if (strategy === 1) {
-                          setStrategy(0);
+                        if (strategy !== 0) {
+                          setStrategy(strategy-1);
                         }
+                        console.log("strategy",strategy);
                       }}
                     />
                     <p>
@@ -186,11 +189,11 @@ const MainMyAssetInfo = ({
                     <img src={img2} />
                     <FaChevronRight
                       size={14}
-                      color={strategy === 1 ? "#46494A" : "#C6CACA"}
+                      color={strategy === 3 ? "#46494A" : "#C6CACA"}
                       onClick={() => {
-                        if (strategy == 0) {
-                          setStrategy(1);
-                        }
+                        if(strategy !==3 ){
+                          setStrategy(strategy+1)
+                        }    
                       }}
                     />
                   </StrategyOption.wrapper>

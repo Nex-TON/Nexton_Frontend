@@ -38,7 +38,7 @@ const NFTPreview = () => {
 
   const [, setInput] = useRecoilState(stakingInputAtom);
   const { sendMessage: sendDepositTon, strategyDeposit } = Contract.depositTon();
-  const { tokenTransfer } = useJettonWallet(stakingInfo.tokenSort);
+  const { tokenTransfer, strategyDeposit: strategyTokenDeposit } = useJettonWallet(stakingInfo.tokenSort);
   const [isLoading, setIsLoading] = useState(false);
 
   const [modal, setModal] = useState<ModalState>({
@@ -47,7 +47,6 @@ const NFTPreview = () => {
   });
 
   const navigate = useNavigate();
-  console.log(stakingInfo);
 
   const toggleModal = () => {
     setModal(prev => ({
@@ -115,19 +114,23 @@ const NFTPreview = () => {
   const handleJettonStake = useCallback(async () => {
     setIsLoading(true);
     try {
-      const data = amount => {
-        const PROTOCOL_FEE = toNano(0.1);
-        return {
-          value: PROTOCOL_FEE + toNano("0.05"),
-          amount: amount,
-          fwdAmount: PROTOCOL_FEE,
-          fwdPayload: beginCell().storeUint(0, 4).endCell().asSlice(),
+      if (["Arbitrage Bot", "Arbitrage Bot 1"].includes(stakingInfo.nominator)) {
+        const data = (amount: string) => {
+          const PROTOCOL_FEE = toNano(0.1);
+          return {
+            value: PROTOCOL_FEE + toNano("0.1"),
+            amount: amount,
+            fwdAmount: PROTOCOL_FEE,
+            fwdPayload: beginCell().storeBit(false).endCell().asSlice(),
+          };
         };
-      };
 
-      // First, attempt to send the message to the contract
-      const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS;
-      await tokenTransfer(Address.parse(contractAddress), data(toNano(stakingInfo.principal)));
+        // First, attempt to send the message to the contract
+        const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS;
+        await tokenTransfer(Address.parse(contractAddress), data(stakingInfo.principal));
+      } else {
+        await strategyTokenDeposit(stakingInfo.principal, stakingInfo.nominator);
+      }
 
       // If sendMessage is successful, then call postStakingInfo
       await postStakingInfo({
