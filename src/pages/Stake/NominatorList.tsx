@@ -36,10 +36,12 @@ const NominatorList = () => {
   const { data: nominatorListData, isLoading, error } = useNominatorList(String(telegramId));
 
   const { selectedNominator, handleSelectNominator } = useSelectNominator(nominatorListData);
+  //const [minimumTonModal, setMinimumTonModal] = useState(false);
 
   useEffect(() => {
-    console.log("NominatorList",nominatorListData)
-    console.log("principal", stakingInfo.principal)
+    //console.log("NominatorList",nominatorListData)
+    //console.log("principal", stakingInfo.principal)
+    console.log("principal",Number(stakingInfo.principal))
 
     if (tele) {
       tele.ready();
@@ -81,6 +83,10 @@ const NominatorList = () => {
   };
 
   const toggleModal = () => {
+    // if (selectedNominator?.name === "Evaa pool" && stakingInfo.tokenSort === "TON" && Number(stakingInfo.principal) < 100){
+    //   setMinimumTonModal(true);
+    //   return
+    // }
     if (selectedNominator) {
       setConfirmModal(prev => !prev);
     }
@@ -110,6 +116,8 @@ const NominatorList = () => {
           description={description}
         />
       )}
+
+      
 
       <NominatorListWrapper>
         <ProgressBar />

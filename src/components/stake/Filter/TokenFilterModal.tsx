@@ -33,7 +33,7 @@ export const TokenFilterModal = ({ toggleModal, onSelected,setExchangeModal,hasN
             </RightArrowWrapper>
           </TokenWrapper>
           <DivideBar />
-          <TokenWrapper
+          {/* <TokenWrapper
             onClick={() => {
               handleSelection("USDT");
             }}
@@ -47,7 +47,7 @@ export const TokenFilterModal = ({ toggleModal, onSelected,setExchangeModal,hasN
               <img src={IcArrowRight} />
             </RightArrowWrapper>
           </TokenWrapper>
-          <DivideBar />
+          <DivideBar /> */}
           <TokenWrapper
             onClick={() => {
               handleSelection("nxTON");
