@@ -36,7 +36,7 @@ const NominatorList = () => {
   const { data: nominatorListData, isLoading, error } = useNominatorList(String(telegramId));
 
   const { selectedNominator, handleSelectNominator } = useSelectNominator(nominatorListData);
-  //const [minimumTonModal, setMinimumTonModal] = useState(false);
+  const [minimumTonModal, setMinimumTonModal] = useState(false);
 
   useEffect(() => {
     //console.log("NominatorList",nominatorListData)
@@ -83,10 +83,11 @@ const NominatorList = () => {
   };
 
   const toggleModal = () => {
-    // if (selectedNominator?.name === "Evaa pool" && stakingInfo.tokenSort === "TON" && Number(stakingInfo.principal) < 100){
-    //   setMinimumTonModal(true);
-    //   return
-    // }
+    if (selectedNominator?.name === "Evaa pool" && stakingInfo.tokenSort === "TON" && Number(stakingInfo.principal) < 100){
+      setMinimumTonModal(true);
+      setConfirmModal(false);
+      return;
+    }
     if (selectedNominator) {
       setConfirmModal(prev => !prev);
     }
@@ -160,7 +161,7 @@ const NominatorList = () => {
 
                 {nominatorListData.some(item => item.type === "pool") && <PoolTitle>Pool</PoolTitle>}
                 {nominatorListData
-                  .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON" )
+                  .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON" && stakingInfo.tokenSort !== "USDT")
                   .map(item => {
                     console.log("usdtTonRate", tokenRate?.tonUsdtRate)
                     console.log("tokenSort", stakingInfo.tokenSort)
