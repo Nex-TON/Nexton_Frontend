@@ -20,6 +20,7 @@ import IcWarning from "@/assets/icons/Stake/ic_warning_black.svg";
 import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 
 import { useSelectNominator } from "./hooks/useSelectNominator";
+import { ListItemSecondaryAction } from "@mui/material";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -143,7 +144,7 @@ const NominatorList = () => {
                   </BotTitleWrapper>
                 )}
                 {nominatorListData
-                  .filter(item => item.type === "bot")
+                  .filter(item => item.type === "bot" && (item.name === "Arbitrage Bot 1" || item.name === "Arbitrage Bot"))
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem
