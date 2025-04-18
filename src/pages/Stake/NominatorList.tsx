@@ -159,7 +159,7 @@ const NominatorList = () => {
                     </Fragment>
                   ))}
 
-                {nominatorListData.some(item => item.type === "pool") && <PoolTitle>Pool</PoolTitle>}
+                {nominatorListData.some(item => item.type === "pool" && stakingInfo.tokenSort === "TON") && <PoolTitle>Pool</PoolTitle>}
                 {nominatorListData
                   .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON" && stakingInfo.tokenSort !== "USDT")
                   .map(item => {
