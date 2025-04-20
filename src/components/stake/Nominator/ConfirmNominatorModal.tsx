@@ -1,5 +1,6 @@
 import IcClose from "@/assets/icons/Modal/ic_close.svg";
-import { Button, Container, ModalHeader, SubTitle, SubTitleBox, Title } from "@/components/common/Modal/Modal.styled";
+import IcInform from "@/assets/icons/Modal/ic_inform.svg";
+import { Button, Container, ModalHeader, ModalHeader2, SubTitle, SubTitleBox, Title } from "@/components/common/Modal/Modal.styled";
 import ModalWrapper from "@/components/common/Modal/ModalWrapper";
 
 interface ConfirmNominatorModalProps {
@@ -7,29 +8,50 @@ interface ConfirmNominatorModalProps {
   toggleModal: () => void;
   name: string;
   description: string;
+  isMinimumTonModal?: boolean;
 }
 
 export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
-  const { onConfirm, toggleModal, name, description} = props;
-  const comment = name === "Bemo Pool" || name === "Evaa Pool" ? `in the ${name}?` : `in a ${name} strategy?`;
+  const { onConfirm, toggleModal, name, description, isMinimumTonModal} = props;
+  const comment = isMinimumTonModal ? null : name === "Bemo Pool" || name === "Evaa Pool" ? `in the ${name}?` : `in a ${name} strategy?`;
 
   return (
     <ModalWrapper>
       <Container $isDark $disablePaddingTop>
-        <ModalHeader>
-          <img
-            src={IcClose}
-            alt="close"
-            onClick={() => {
-              toggleModal();
-            }}
-          />
-        </ModalHeader>
-
-        <Title $isDark style={{ width: "90%", textAlign: "center" }}>
-              Would you like to invest<br/> 
+        {isMinimumTonModal ? (
+          <>
+            <ModalHeader2>
+              <img
+                src={IcInform}
+                alt="infrom"
+                onClick={() => {}}
+              />
+            </ModalHeader2>
+            <Title $isDark style={{ width: "90%", textAlign: "center" }}>
+              Staking Amount Too Low<br/> 
               {comment}     
-        </Title>
+            </Title>
+          </>
+        ):(
+         <>
+          <ModalHeader>
+            <img
+              src={IcClose}
+              alt="close"
+              onClick={() => {
+                toggleModal();
+              }}
+            />
+          </ModalHeader>
+
+          <Title $isDark style={{ width: "90%", textAlign: "center" }}>
+            Would you like to invest<br/> 
+            {comment}     
+          </Title>
+         </>
+        )
+
+        }
 
         <SubTitleBox $marginBottom>
           {name !== "Bemo Pool" && name !== "Evaa Pool" ? (
@@ -45,7 +67,13 @@ export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
               Additionally, Arbitrage trading may<br/> result in losses due to execution delays,<br/> price slippage, fees, and market volatility.
             </SubTitle>
           </>
-          ):(
+          ):isMinimumTonModal ? (
+            <>
+              <SubTitle $isDark style={{ width: "100%", textAlign: "center", marginBottom: "2rem" }}>
+                You need at least 100 TON to stake<br/> in the EVAA pool.<br/> Please increase the amount and try again.
+              </SubTitle>
+            </>
+          ): (
             <>
             <SubTitle $isDark style={{ width: "100%", textAlign: "center", marginBottom: "2rem" }}>
               Currently, staking in the Evaa Pool issues<br/> LST; however, there may be delays when<br/> entering the vault.
@@ -59,7 +87,18 @@ export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
           </>
           )}
         </SubTitleBox>
-        <Button onClick={onConfirm}>Okay</Button>
+        {/* <Button onClick={onConfirm}>Okay</Button> */}
+        <Button 
+          onClick={()=>{
+            if (isMinimumTonModal){
+              toggleModal();
+            }else{
+              onConfirm();
+            }
+          }}
+        >
+          {isMinimumTonModal ? "Got it" : "Okay"}
+        </Button>
       </Container>
     </ModalWrapper>
   );
