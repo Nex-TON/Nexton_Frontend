@@ -40,8 +40,7 @@ const NominatorList = () => {
 
   useEffect(() => {
     //console.log("NominatorList",nominatorListData)
-    //console.log("principal", stakingInfo.principal)
-    console.log("principal",Number(stakingInfo.principal))
+    //console.log("principal",Number(stakingInfo.principal))
 
     if (tele) {
       tele.ready();
@@ -83,12 +82,12 @@ const NominatorList = () => {
   };
 
   const toggleModal = () => {
-    if (selectedNominator?.name === "Evaa pool" && stakingInfo.tokenSort === "TON" && Number(stakingInfo.principal) < 100){
+    if (selectedNominator?.name === "Evaa Pool" && Number(stakingInfo.principal) < 100){
       setMinimumTonModal(true);
-      setConfirmModal(false);
+      setConfirmModal(prev => !prev);
       return;
-    }
-    if (selectedNominator) {
+    } else if (selectedNominator){
+      setMinimumTonModal(false);
       setConfirmModal(prev => !prev);
     }
   };
@@ -109,7 +108,7 @@ const NominatorList = () => {
 
   return (
     <>
-      {confirmModal && (
+      {confirmModal && !minimumTonModal &&(
         <ConfirmNominatorModal
           toggleModal={toggleModal}
           onConfirm={handleConfirmNominator}
@@ -118,7 +117,15 @@ const NominatorList = () => {
         />
       )}
 
-      
+      {confirmModal && minimumTonModal &&(
+        <ConfirmNominatorModal
+          toggleModal={toggleModal}
+          onConfirm={()=>{}}
+          name="Evaa Pool"
+          description=""
+          isMinimumTonModal
+        />
+      )}
 
       <NominatorListWrapper>
         <ProgressBar />
@@ -163,8 +170,8 @@ const NominatorList = () => {
                 {nominatorListData
                   .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON" && stakingInfo.tokenSort !== "USDT")
                   .map(item => {
-                    console.log("usdtTonRate", tokenRate?.tonUsdtRate)
-                    console.log("tokenSort", stakingInfo.tokenSort)
+                    //console.log("usdtTonRate", tokenRate?.tonUsdtRate)
+                    //console.log("tokenSort", stakingInfo.tokenSort)
                     const tvl = (stakingInfo.tokenSort === "USDT" && tokenRate?.tonUsdtRate) ?  item.tvl/tokenRate?.tonUsdtRate : item.tvl
                     return(
                       <Fragment key={item.id}>
