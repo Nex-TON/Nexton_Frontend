@@ -1,5 +1,6 @@
 import IcClose from "@/assets/icons/Modal/ic_close.svg";
-import { Button, Container, ModalHeader, SubTitle, SubTitleBox, Title } from "@/components/common/Modal/Modal.styled";
+import IcInform from "@/assets/icons/Modal/ic_inform.svg";
+import { Button, Container, ModalHeader, ModalHeader2, SubTitle, SubTitleBox, Title } from "@/components/common/Modal/Modal.styled";
 import ModalWrapper from "@/components/common/Modal/ModalWrapper";
 
 interface ConfirmNominatorModalProps {
@@ -12,22 +13,20 @@ interface ConfirmNominatorModalProps {
 
 export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
   const { onConfirm, toggleModal, name, description, isMinimumTonModal} = props;
-  const comment = name === "Bemo Pool" || name === "Evaa Pool" ? `in the ${name}?` : `in a ${name} strategy?`;
+  const comment = isMinimumTonModal ? null : name === "Bemo Pool" || name === "Evaa Pool" ? `in the ${name}?` : `in a ${name} strategy?`;
 
   return (
     <ModalWrapper>
       <Container $isDark $disablePaddingTop>
         {isMinimumTonModal ? (
           <>
-            <ModalHeader>
+            <ModalHeader2>
               <img
-                src={IcClose}
-                alt="close"
-                onClick={() => {
-                  toggleModal();
-                }}
+                src={IcInform}
+                alt="infrom"
+                onClick={() => {}}
               />
-            </ModalHeader>
+            </ModalHeader2>
             <Title $isDark style={{ width: "90%", textAlign: "center" }}>
               Staking Amount Too Low<br/> 
               {comment}     
