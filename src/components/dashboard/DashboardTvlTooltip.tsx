@@ -24,8 +24,8 @@ export default DashboardTvlTooltip;
 
 const StTooltipContainer = styled.div`
   img {
-    height: 22px;
-    width: 22px;
+    height: 18px;
+    width: 18px;
     margin-right: 2px;
   }
 
@@ -36,7 +36,7 @@ const StTooltipContainer = styled.div`
 
   color: var(--Neutral-Neutural-100, #fff);
   font-family: Montserrat;
-  font-size: 13px;
+  font-size: 8px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 138.462% */
