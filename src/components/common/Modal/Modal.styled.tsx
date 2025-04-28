@@ -30,6 +30,15 @@ export const ModalHeader = styled.div`
   // margin-bottom: 3.8rem;
 `;
 
+export const ModalHeader2 = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  margin: 1rem;
+`;
+
 export const OpenTonViewerBox = styled.div`
   display: flex;
   justify-content: center;

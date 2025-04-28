@@ -41,8 +41,7 @@ const NominatorList = () => {
 
   useEffect(() => {
     //console.log("NominatorList",nominatorListData)
-    //console.log("principal", stakingInfo.principal)
-    console.log("principal",Number(stakingInfo.principal))
+    //console.log("principal",Number(stakingInfo.principal))
 
     if (tele) {
       tele.ready();
@@ -84,15 +83,27 @@ const NominatorList = () => {
   };
 
   const toggleModal = () => {
-    if (selectedNominator?.name === "Evaa pool" && stakingInfo.tokenSort === "TON" && Number(stakingInfo.principal) < 100){
-      setMinimumTonModal(true);
-      setConfirmModal(false);
-      return;
-    }
-    if (selectedNominator) {
+    if (selectedNominator){
+      //setConfirmModal(true);
+      setMinimumTonModal(false);
       setConfirmModal(prev => !prev);
     }
   };
+
+  // const handleCloseModal = () =>{
+  //   setConfirmModal(false);
+  //   setMinimumTonModal(false);
+  // }
+
+  //만약 100톤 이하면 minimumTonModal 뜨도록
+  const handleConfirmClick = () =>{
+    if (selectedNominator?.name === "Evaa Pool" && Number(stakingInfo.principal) < 100){
+      setMinimumTonModal(true);
+      return;
+    }else{
+      handleConfirmNominator();
+    }
+  }
 
   // * temp. hardcoded (No info from BE -> will be redesigned soon)
   const description =
@@ -113,13 +124,13 @@ const NominatorList = () => {
       {confirmModal && (
         <ConfirmNominatorModal
           toggleModal={toggleModal}
-          onConfirm={handleConfirmNominator}
+          onConfirm={handleConfirmClick}
           name={name}
           description={description}
+          isMinimumTonModal = {minimumTonModal}
         />
       )}
 
-      
 
       <NominatorListWrapper>
         <ProgressBar />
@@ -164,8 +175,8 @@ const NominatorList = () => {
                 {nominatorListData
                   .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON" && stakingInfo.tokenSort !== "USDT")
                   .map(item => {
-                    console.log("usdtTonRate", tokenRate?.tonUsdtRate)
-                    console.log("tokenSort", stakingInfo.tokenSort)
+                    //console.log("usdtTonRate", tokenRate?.tonUsdtRate)
+                    //console.log("tokenSort", stakingInfo.tokenSort)
                     const tvl = (stakingInfo.tokenSort === "USDT" && tokenRate?.tonUsdtRate) ?  item.tvl/tokenRate?.tonUsdtRate : item.tvl
                     return(
                       <Fragment key={item.id}>
