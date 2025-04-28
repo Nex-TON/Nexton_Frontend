@@ -181,7 +181,7 @@ const MainMyAssetInfo = ({
                         if(strategy === 1){
                           setStrategy(strategy-1);
                         }
-                        //console.log("strategy",strategy);
+
                       }}
                     />
                     <p>

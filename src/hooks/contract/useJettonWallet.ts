@@ -105,7 +105,12 @@ export default function useJettonWallet(token = "nxTON") {
           custom_payload: null,
           response_destination: Address.parse(address),
           forward_ton_amount: fees.jettonFwd,
-          forward_payload: beginCell().storeBit(true).storeAddress(mapStrategyHandler(strategy)).endCell().asSlice(),
+          forward_payload: beginCell()
+            .storeBit(false)
+            .storeBit(true)
+            .storeAddress(mapStrategyHandler(strategy))
+            .endCell()
+            .asSlice(),
         },
       );
     },

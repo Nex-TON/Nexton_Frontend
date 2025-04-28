@@ -80,13 +80,20 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
               <img src={binance_small} style={{ width: "17.552px", marginRight: "7px" }} />
               <img src={stonfi_small} style={{ width: "17.552px" }} />
             </NominatorExchange>
-          ):(
+          ): (title === "Arbitrage Bot") || (title === "Arbitrage Bot 1") ? (
             <NominatorExchange>
               <img style={{ height: "17.43px" }} src={title === "Arbitrage Bot 1" ? hyperliquid : binance} />
               <VerticalLine />
               <img style={{ height: "17.43px" }} src={stonfi} />
             </NominatorExchange>
-          )}
+          ):(
+            <NominatorExchange>
+              <img style={{ height: "17.43px" }} src={title === "Arbitrage Bot 3" ? hyperliquid : binance} />
+              <VerticalLine />
+              <img style={{ height: "17.43px" }} src={dedust} />
+            </NominatorExchange>
+          )
+        }
         </NominatorItemTopLeft>
         <DivideLine />
       </NominatorItemTop>

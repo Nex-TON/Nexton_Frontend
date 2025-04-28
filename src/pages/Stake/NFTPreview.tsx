@@ -121,7 +121,7 @@ const NFTPreview = () => {
             value: PROTOCOL_FEE + toNano("0.1"),
             amount: amount,
             fwdAmount: PROTOCOL_FEE,
-            fwdPayload: beginCell().storeBit(false).endCell().asSlice(),
+            fwdPayload: beginCell().storeBit(false).storeBit(false).endCell().asSlice(),
           };
         };
 
