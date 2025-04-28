@@ -178,10 +178,6 @@ const MainMyAssetInfo = ({
                         if (strategy !== 0) {
                           setStrategy(strategy-1);
                         }
-                        // if(strategy === 1){
-                        //   setStrategy(strategy-1);
-                        // }
-                        //console.log("strategy",strategy);
                       }}
                     />
                     <p>
@@ -197,9 +193,6 @@ const MainMyAssetInfo = ({
                         if(strategy !==3 ){
                           setStrategy(strategy+1)
                         }    
-                        // if(strategy === 0){
-                        //   setStrategy(strategy+1)
-                        // }
                       }}
                     />
                   </StrategyOption.wrapper>
