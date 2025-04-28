@@ -66,6 +66,7 @@ const NominatorList = () => {
   }, []);
 
   useEffect(() => {
+
     if (error) {
       setError(error);
     }
@@ -97,10 +98,14 @@ const NominatorList = () => {
 
   //만약 100톤 이하면 minimumTonModal 뜨도록
   const handleConfirmClick = () =>{
-    if (selectedNominator?.name === "Evaa Pool" && Number(stakingInfo.principal) < 2){
+    if(selectedNominator.name === "Evaa Pool" && stakingInfo.tokenSort === "TON" && Number(stakingInfo.principal) < 100){
       setMinimumTonModal(true);
-      return;
+        return;
+    }else if (selectedNominator?.name === "Evaa Pool" && stakingInfo.tokenSort === "USDT" &&Number(stakingInfo.principal) < 100){
+      setMinimumTonModal(true);
+        return;
     }else{
+      setMinimumTonModal(false)
       handleConfirmNominator();
     }
   }
@@ -128,6 +133,7 @@ const NominatorList = () => {
           name={name}
           description={description}
           isMinimumTonModal = {minimumTonModal}
+          tokenSort={stakingInfo.tokenSort}
         />
       )}
 
