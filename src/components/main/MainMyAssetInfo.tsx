@@ -175,9 +175,13 @@ const MainMyAssetInfo = ({
                       size={14}
                       color={strategy == 0 ? "#46494A" : "#C6CACA"}
                       onClick={() => {
-                        if (strategy !== 0) {
+                        // if (strategy !== 0) {
+                        //   setStrategy(strategy-1);
+                        // }
+                        if(strategy === 1){
                           setStrategy(strategy-1);
                         }
+
                       }}
                     />
                     <p>
@@ -188,11 +192,14 @@ const MainMyAssetInfo = ({
                     <img src={img2} />
                     <FaChevronRight
                       size={14}
-                      color={strategy === 3 ? "#46494A" : "#C6CACA"}
+                      color={strategy === 1 ? "#46494A" : "#C6CACA"}
                       onClick={() => {
-                        if(strategy !==3 ){
+                        // if(strategy !==3 ){
+                        //   setStrategy(strategy+1)
+                        // }    
+                        if(strategy === 0){
                           setStrategy(strategy+1)
-                        }    
+                        }
                       }}
                     />
                   </StrategyOption.wrapper>
