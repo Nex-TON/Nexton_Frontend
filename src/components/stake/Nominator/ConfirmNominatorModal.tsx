@@ -70,7 +70,7 @@ export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
           ):isMinimumTonModal ? (
             <>
               <SubTitle $isDark style={{ width: "100%", textAlign: "center", marginBottom: "2rem" }}>
-                You need at least 100 TON to stake<br/> in the EVAA pool.<br/> Please increase the amount and try again.
+                You need at least 2 TON to stake<br/> in the EVAA pool.<br/> Please increase the amount and try again.
               </SubTitle>
             </>
           ): (
@@ -82,7 +82,7 @@ export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
               Please also note that arbitrage trading<br/> carries risks such as execution delays,<br/> price slippage, fees, and market volatility.
             </SubTitle>
             <SubTitle $isDark style={{ width: "100%", textAlign: "center" }}>
-              A minimum of 100 TON is required to<br/> stake in this pool.
+              A minimum of 2 TON is required to<br/> stake in this pool.
             </SubTitle>
           </>
           )}
