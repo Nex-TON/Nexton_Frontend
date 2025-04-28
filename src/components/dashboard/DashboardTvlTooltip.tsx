@@ -46,5 +46,5 @@ const StContainer = styled.div`
   position: absolute;
   bottom: 2.6rem;
   left: 0;
-  transform: translateX(calc(-37% + 1.1rem));
+  transform: translateX(calc(-30%));
 `;
