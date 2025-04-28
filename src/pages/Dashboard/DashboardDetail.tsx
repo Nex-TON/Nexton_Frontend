@@ -214,7 +214,7 @@ const DashboardDetail = () => {
               <h3 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                 TVL
                 <StTooltipContainer
-                  onClick={() => setShowTvlTooltip(true)}
+                  onClick={() => setShowTvlTooltip(!showTvlTooltip)}
                   onMouseEnter={() => setShowTvlTooltip(true)}
                   onMouseLeave={() => setShowTvlTooltip(false)}
                 >
