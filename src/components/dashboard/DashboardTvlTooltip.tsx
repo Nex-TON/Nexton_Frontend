@@ -9,11 +9,11 @@ const DashboardTvlTooltip = () => {
     <StContainer>
       <Tooltip>
         <StTooltipContainer>
-          <img src={IcTon} />
+          <img src={IcTon} style={{width: 12}}/>
           TON + 
-          <img src={IcNextonLogo} style={{marginLeft:"5px"}}/>
+          <img src={IcNextonLogo} style={{marginLeft:"4px", width: 12}}/>
           nxTON + 
-          <img src={IcUSDTLogo} style={{marginLeft:"5px"}}/>
+          <img src={IcUSDTLogo} style={{marginLeft:"4px", width: 12}}/>
           USDT
         </StTooltipContainer>
       </Tooltip>

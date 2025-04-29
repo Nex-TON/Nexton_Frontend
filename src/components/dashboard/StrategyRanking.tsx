@@ -62,7 +62,9 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
             <p>TVL</p>
             <p>Detail</p>
           </RankingContainer.title>
-          {rankingList?.map((item, idx) => {
+          {rankingList
+          ?.filter(item => item?.strategyDetails?.strategy1?.strategy !== 'dedust' && item?.strategyDetails?.strategy2?.strategy !== 'dedust')
+          .map((item, idx) => {
             const strategy1 = item?.strategyDetails?.strategy1?.strategy;
             const strategy2 = item?.strategyDetails?.strategy2?.strategy;
             console.log("test", strategy1, strategy2);
@@ -101,7 +103,7 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
             <p>TVL</p>
             <p>Detail</p>
           </RankingContainer.title>
-          {/* <RankingContainer.box>
+          <RankingContainer.box>
             <RankingContainer.text>1</RankingContainer.text>
             <RankingContainer.strategy>
               <img src={dedust} alt="stonfi box icon" />
@@ -122,7 +124,7 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
             <RankingContainer.text>---TON</RankingContainer.text>
             <RankingContainer.text>-</RankingContainer.text>
           </RankingContainer.box>
-          <DivideLine /> */}
+          <DivideLine />
           <RankingContainer.box> 
             <RankingContainer.text>1</RankingContainer.text>
             <RankingContainer.strategy>
