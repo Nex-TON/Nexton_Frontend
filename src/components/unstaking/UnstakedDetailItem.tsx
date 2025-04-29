@@ -25,7 +25,7 @@ const UnstakedDetailItem = ({ item }: { item: IUnstakedListData }) => {
 
         <UnstakingDetailContentBoxItem>
           <span>Value</span>
-          <p>{limitDecimals(unstakedAmount, 3)} TON</p>
+          <p>{limitDecimals(unstakedAmount, 3)} {tokenSort}</p>
         </UnstakingDetailContentBoxItem>
 
         <UnstakingDetailContentBoxDivider />
