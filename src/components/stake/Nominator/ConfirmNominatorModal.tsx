@@ -72,8 +72,8 @@ export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
             <>
               <SubTitle $isDark style={{ width: "100%", textAlign: "center", marginBottom: "2rem" }}>
               { tokenSort === "TON" 
-                ? <>You need at least 100 TON to stake<br/> in the EVAA pool.<br/> Please increase the amount and try again.</>
-                : <>You need at least 100 USDT to stake<br/> in the EVAA pool.<br/> Please increase the amount and try again.</>
+                ? <>You need at least 2 TON to stake<br/> in the EVAA pool.<br/> Please increase the amount and try again.</>
+                : <>You need at least 2 USDT to stake<br/> in the EVAA pool.<br/> Please increase the amount and try again.</>
               }
               </SubTitle>
             </>
@@ -87,8 +87,8 @@ export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
             </SubTitle>
             <SubTitle $isDark style={{ width: "100%", textAlign: "center" }}>
               { tokenSort === "TON" 
-                ? <>A minimum of 100 TON is required to<br/> stake in this pool.</>
-                : <>A minimum of 100 USDT is required to<br/> stake in this pool.</>
+                ? <>A minimum of 2 TON is required to<br/> stake in this pool.</>
+                : <>A minimum of 2 USDT is required to<br/> stake in this pool.</>
               }
             </SubTitle>
           </>
