@@ -8,7 +8,7 @@ export const TokenFilterModal = ({ toggleModal, onSelected,setExchangeModal,hasN
   const handleSelection = token => {
     onSelected(token); // Pass selected token to parent
     toggleModal(); // Close modal
-    setValue("amount","0")
+    setValue("amount","")
     if (token==="nxTON"&&hasNxTon==="0"){
       setExchangeModal(true)
     }
