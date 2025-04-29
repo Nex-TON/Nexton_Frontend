@@ -98,10 +98,10 @@ const NominatorList = () => {
 
   //만약 100톤 이하면 minimumTonModal 뜨도록
   const handleConfirmClick = () =>{
-    if(selectedNominator.name === "Evaa Pool" && stakingInfo.tokenSort === "TON" && Number(stakingInfo.principal) < 100){
+    if(selectedNominator.name === "Evaa Pool" && stakingInfo.tokenSort === "TON" && Number(stakingInfo.principal) < 2){
       setMinimumTonModal(true);
         return;
-    }else if (selectedNominator?.name === "Evaa Pool" && stakingInfo.tokenSort === "USDT" &&Number(stakingInfo.principal) < 100){
+    }else if (selectedNominator?.name === "Evaa Pool" && stakingInfo.tokenSort === "USDT" &&Number(stakingInfo.principal) < 2){
       setMinimumTonModal(true);
         return;
     }else{
