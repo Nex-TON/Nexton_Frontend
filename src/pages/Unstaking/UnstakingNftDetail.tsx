@@ -51,6 +51,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
   });
 
   useEffect(() => {
+    console.log("unstakingToken",unstakingDetail.tokenSort)
     if (tele) {
       tele.ready();
       tele.BackButton.show();
@@ -143,11 +144,11 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
               <NFTDetailItemBox>
                 <NFTDetailItem>
                   <NFTDetailItemCaption>Principal</NFTDetailItemCaption>
-                  <NFTDetailItemText>{limitDecimals(unstakingDetail?.principal, 3)} TON</NFTDetailItemText>
+                  <NFTDetailItemText>{limitDecimals(unstakingDetail?.principal, 3)} {unstakingDetail.tokenSort}</NFTDetailItemText>
                 </NFTDetailItem>
                 <NFTDetailItem>
                   <NFTDetailItemCaption>Rewards</NFTDetailItemCaption>
-                  <NFTDetailItemText>{limitDecimals(unstakingDetail?.rewards, 3)} TON</NFTDetailItemText>
+                  <NFTDetailItemText>{limitDecimals(unstakingDetail?.rewards, 3)} {unstakingDetail.tokenSort}</NFTDetailItemText>
                 </NFTDetailItem>
               </NFTDetailItemBox>
 
