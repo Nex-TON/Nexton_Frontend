@@ -58,7 +58,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
         navigate(`/myasset/nftlist`);
       });
     }
-
+    //console.log("unstakingToken222",unstakingDetail?.tokenSort)
     return () => {
       tele.offEvent("backButtonClicked");
     };
@@ -143,11 +143,11 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
               <NFTDetailItemBox>
                 <NFTDetailItem>
                   <NFTDetailItemCaption>Principal</NFTDetailItemCaption>
-                  <NFTDetailItemText>{limitDecimals(unstakingDetail?.principal, 3)} TON</NFTDetailItemText>
+                  <NFTDetailItemText>{limitDecimals(unstakingDetail?.principal, 3)} {unstakingDetail?.tokenSort}</NFTDetailItemText>
                 </NFTDetailItem>
                 <NFTDetailItem>
                   <NFTDetailItemCaption>Rewards</NFTDetailItemCaption>
-                  <NFTDetailItemText>{limitDecimals(unstakingDetail?.rewards, 3)} TON</NFTDetailItemText>
+                  <NFTDetailItemText>{limitDecimals(unstakingDetail?.rewards, 3)} {unstakingDetail?.tokenSort}</NFTDetailItemText>
                 </NFTDetailItem>
               </NFTDetailItemBox>
 
