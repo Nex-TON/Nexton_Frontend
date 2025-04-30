@@ -147,7 +147,7 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
                 </NFTDetailItem>
                 <NFTDetailItem>
                   <NFTDetailItemCaption>Rewards</NFTDetailItemCaption>
-                  <NFTDetailItemText>{limitDecimals(unstakingDetail?.rewards, 3)} {unstakingDetail?.tokenSort}</NFTDetailItemText>
+                  <NFTDetailItemText>{limitDecimals(unstakingDetail?.rewards, 3)} TON</NFTDetailItemText>
                 </NFTDetailItem>
               </NFTDetailItemBox>
 
