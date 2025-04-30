@@ -92,7 +92,7 @@ function BasicModal(props: BasicModalProps) {
       case "blockborrow":
         return (
           <>
-            <Title $isDark={isDark}>{MODAL_TEXT[type].title}</Title>
+            <Title $isDark={isDark}><br/>{MODAL_TEXT[type].title}</Title>
             <SubTitleBox>
               <SubTitle $isDark={isDark}>{MODAL_TEXT[type].desc}</SubTitle>
               <SubTitle $isDark={isDark}>{MODAL_TEXT[type].descBr}</SubTitle>
