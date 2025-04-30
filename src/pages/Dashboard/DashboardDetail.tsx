@@ -203,7 +203,7 @@ const DashboardDetail = () => {
               <h3>Daily PNL</h3>
               <p>
                 {chartData?.dailyPnlRate > 0 ? "+" : ""}
-                {chartData?.dailyPnlRate}%
+                {chartData?.dailyPnlRate.toFixed(2)}%
               </p>
             </PerformanceItem>
           </PerformanceItemWrapper>
