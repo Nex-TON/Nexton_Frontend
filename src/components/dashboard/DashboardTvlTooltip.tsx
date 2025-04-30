@@ -24,8 +24,8 @@ export default DashboardTvlTooltip;
 
 const StTooltipContainer = styled.div`
   img {
-    height: 19px;
-    width: 19px;
+    height: 22px;
+    width: 22px;
     margin-right: 2px;
   }
 
@@ -36,15 +36,15 @@ const StTooltipContainer = styled.div`
 
   color: var(--Neutral-Neutural-100, #fff);
   font-family: Montserrat;
-  font-size: 11px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 500;
-  line-height: 16px; /* 138.462% */
+  line-height: 18px; /* 138.462% */
   white-space: nowrap;
 `;
 const StContainer = styled.div`
   position: absolute;
   bottom: 2.6rem;
   left: 0;
-  transform: translateX(calc(-30%));
+  transform: translateX(calc(-37% + 1.1rem));
 `;
