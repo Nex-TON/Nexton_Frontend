@@ -232,7 +232,7 @@ const MainMyAssetInfo = ({
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
-                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard" style={{position:"absolute", left:"81.5%"}}>
+                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard" style={{position:"absolute", left:"65%"}}>
                       <span
                         style={{ gap: "6px", alignItems: "center", display: "flex", justifyContent: "" }}
                         id="mainmyassetinfodashboard"
