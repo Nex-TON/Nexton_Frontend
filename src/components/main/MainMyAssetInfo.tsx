@@ -224,7 +224,7 @@ const MainMyAssetInfo = ({
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
-                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
+                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard" style={{position:"absolute", right:"50%"}}>
                       <span id="mainmyassetinfodashboard">Daily PNL</span>
                       <h4 id="mainmyassetinfodashboard">
                         {performanceData
@@ -232,7 +232,7 @@ const MainMyAssetInfo = ({
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
-                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
+                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard" style={{position:"absolute", left:"81.5%"}}>
                       <span
                         style={{ gap: "6px", alignItems: "center", display: "flex", justifyContent: "" }}
                         id="mainmyassetinfodashboard"
