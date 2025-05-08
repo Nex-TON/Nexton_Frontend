@@ -8,6 +8,10 @@ export function transformNominatorName(name: string): string {
             return "CEX-DEX";
         case "Arbitrage Bot 1":
             return "DEX-DEX";
+        case "Arbitrage Bot 2":
+            return "CEX-DEX";
+        case "Arbitrage Bot 3":
+            return "DEX-DEX"
         default:
             return name;
     }
