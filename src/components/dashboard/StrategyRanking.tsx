@@ -126,7 +126,7 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
           </RankingContainer.box>
           <DivideLine />
           <RankingContainer.box> 
-            <RankingContainer.text>1</RankingContainer.text>
+            <RankingContainer.text>3</RankingContainer.text>
             <RankingContainer.strategy>
               <img src={binance} alt="binance icon" />
               <img src={hyperliquid} alt="hyperliquid icon" />
