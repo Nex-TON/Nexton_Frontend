@@ -34,14 +34,15 @@ export const TotalBalance = () => {
           }
           return acc;
         }, 0) || 0;
-      const borrowTotal =
-        borrowList?.reduce((acc, borrow) => {
-          if (borrow.tokenSort === `${tokenSort}` && borrow.status === 0) {
-            return acc + borrow.principal / borrow.loanToValue;
-          }
-          return acc;
-        }, 0) || 0;
-      return nftTotal + borrowTotal;
+      // const borrowTotal =
+      //   borrowList?.reduce((acc, borrow) => {
+      //     if (borrow.tokenSort === `${tokenSort}` && borrow.status === 0) {
+      //       return acc + borrow.principal / borrow.loanToValue;
+      //     }
+      //     return acc;
+      //   }, 0) || 0;
+      // return nftTotal + borrowTotal;
+      return nftTotal;
     };
   }, [nftList]);
   useEffect(() => {

@@ -175,12 +175,12 @@ const MainMyAssetInfo = ({
                       size={14}
                       color={strategy == 0 ? "#46494A" : "#C6CACA"}
                       onClick={() => {
-                        // if (strategy !== 0) {
-                        //   setStrategy(strategy-1);
-                        // }
-                        if(strategy === 1){
+                        if (strategy !== 0) {
                           setStrategy(strategy-1);
                         }
+                        // if(strategy === 1){
+                        //   setStrategy(strategy-1);
+                        // }
 
                       }}
                     />
@@ -192,14 +192,11 @@ const MainMyAssetInfo = ({
                     <img src={img2} />
                     <FaChevronRight
                       size={14}
-                      color={strategy === 1 ? "#46494A" : "#C6CACA"}
+                      color={strategy === 3 ? "#46494A" : "#C6CACA"}
                       onClick={() => {
-                        // if(strategy !==3 ){
-                        //   setStrategy(strategy+1)
-                        // }    
-                        if(strategy === 0){
+                        if(strategy !==3 ){
                           setStrategy(strategy+1)
-                        }
+                        }    
                       }}
                     />
                   </StrategyOption.wrapper>
@@ -227,7 +224,7 @@ const MainMyAssetInfo = ({
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
-                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
+                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard" style={{position:"absolute", right:"50%"}}>
                       <span id="mainmyassetinfodashboard">Daily PNL</span>
                       <h4 id="mainmyassetinfodashboard">
                         {performanceData
@@ -235,7 +232,7 @@ const MainMyAssetInfo = ({
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
-                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard">
+                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard" style={{position:"absolute", left:"65%"}}>
                       <span
                         style={{ gap: "6px", alignItems: "center", display: "flex", justifyContent: "" }}
                         id="mainmyassetinfodashboard"
