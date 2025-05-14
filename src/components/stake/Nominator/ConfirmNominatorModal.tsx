@@ -54,7 +54,7 @@ export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
 
         }
 
-        <SubTitleBox $marginBottom>
+        {/* <SubTitleBox $marginBottom>
           {name !== "Bemo Pool" && name !== "Evaa Pool" ? (
           <SubTitle $isDark style={{ width: "90%", textAlign: "center" }}>
             {description}
@@ -93,7 +93,50 @@ export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
             </SubTitle>
           </>
           )}
+        </SubTitleBox> */}
+
+        <SubTitleBox $marginBottom>
+          { isMinimumTonModal ? (
+              <>
+                <SubTitle $isDark style={{ width: "100%", textAlign: "center", marginBottom: "2rem" }}>
+                  { tokenSort === "TON" 
+                    ? <>You need at least 2 TON to stake<br/> in the EVAA pool.<br/> Please increase the amount and try again.</>
+                    : <>You need at least 2 USDT to stake<br/> in the EVAA pool.<br/> Please increase the amount and try again.</>
+                  }
+                </SubTitle>
+              </>
+            ) : (name === "Bemo Pool") ? (
+              <>
+                <SubTitle $isDark style={{ width: "100%", textAlign: "center", marginBottom: "2rem" }}>
+                  Currently, staking in the Bemo Pool<br/> issues LST, but the process of entering<br/> the vault may be delayed.
+                </SubTitle>
+                <SubTitle $isDark style={{ width: "100%", textAlign: "center" }}>
+                  Additionally, Arbitrage trading may<br/> result in losses due to execution delays,<br/> price slippage, fees, and market volatility.
+                </SubTitle>
+              </>
+            ) : (name === "Evaa Pool") ? (
+              <>
+                <SubTitle $isDark style={{ width: "100%", textAlign: "center", marginBottom: "2rem" }}>
+                  Currently, staking in the Evaa Pool issues<br/> LST; however, there may be delays when<br/> entering the vault.
+                </SubTitle>
+                <SubTitle $isDark style={{ width: "100%", textAlign: "center", marginBottom: "2rem" }}>
+                  Please also note that arbitrage trading<br/> carries risks such as execution delays,<br/> price slippage, fees, and market volatility.
+                </SubTitle>
+                <SubTitle $isDark style={{ width: "100%", textAlign: "center" }}>
+                  { tokenSort === "TON" 
+                    ? <>A minimum of 2 TON is required to<br/> stake in this pool.</>
+                    : <>A minimum of 2 USDT is required to<br/> stake in this pool.</>
+                  }
+                </SubTitle>
+              </>
+            ) : (
+              <SubTitle $isDark style={{ width: "90%", textAlign: "center" }}>
+                {description}
+              </SubTitle>
+            )
+          }
         </SubTitleBox>
+
         {/* <Button onClick={onConfirm}>Okay</Button> */}
         <Button 
           onClick={()=>{

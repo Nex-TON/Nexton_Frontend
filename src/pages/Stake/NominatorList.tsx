@@ -40,7 +40,7 @@ const NominatorList = () => {
   const [minimumTonModal, setMinimumTonModal] = useState(false);
 
   useEffect(() => {
-    //console.log("NominatorList",nominatorListData)
+    console.log("NominatorListDisabled",nominatorListData)
     //console.log("principal",Number(stakingInfo.principal))
 
     if (tele) {
@@ -66,7 +66,6 @@ const NominatorList = () => {
   }, []);
 
   useEffect(() => {
-
     if (error) {
       setError(error);
     }
@@ -98,10 +97,10 @@ const NominatorList = () => {
 
   //만약 100톤 이하면 minimumTonModal 뜨도록
   const handleConfirmClick = () =>{
-    if(selectedNominator.name === "Evaa Pool" && stakingInfo.tokenSort === "TON" && Number(stakingInfo.principal) < 2){
+    if(selectedNominator.name === "Evaa Pool" && stakingInfo.tokenSort === "TON" && Number(stakingInfo.principal) < 100){
       setMinimumTonModal(true);
         return;
-    }else if (selectedNominator?.name === "Evaa Pool" && stakingInfo.tokenSort === "USDT" &&Number(stakingInfo.principal) < 2){
+    }else if (selectedNominator?.name === "Evaa Pool" && stakingInfo.tokenSort === "USDT" &&Number(stakingInfo.principal) < 100){
       setMinimumTonModal(true);
         return;
     }else{
@@ -111,18 +110,46 @@ const NominatorList = () => {
   }
 
   // * temp. hardcoded (No info from BE -> will be redesigned soon)
-  const description =
-    selectedNominator?.name === "Bemo pool"
-      ? "you will receive an NFT through the Arbitrage Bot."
-      : selectedNominator?.name === "Arbitrage Bot 1" || selectedNominator?.name === "Arbitrage Bot 3"
-        ? "Arbitrage trading may result in losses due to execution delays, price slippage, fees, and market volatility."
-        : selectedNominator?.name === "Arbitrage Bot" || selectedNominator?.name === "Arbitrage Bot 2"
-          ? "Centralized exchanges may have security and operational risks."
-          : selectedNominator?.name === "Evaa pool"
-          ? "you will receive an NFT through the Arbitrage Bot."
-          : null;
+  // const description =
+  //   selectedNominator?.name === "Bemo pool" || selectedNominator?.name === "Evaa pool"
+  //     ? "you will receive an NFT through the Arbitrage Bot."
+  //     : selectedNominator?.name === "Arbitrage Bot 1" || selectedNominator?.name === "Arbitrage Bot 3"
+  //       ? "Arbitrage trading may result in losses due to execution delays, price slippage, fees, and market volatility."
+  //       : selectedNominator?.name === "Arbitrage Bot" || selectedNominator?.name === "Arbitrage Bot 2"
+  //         ? "Centralized exchanges may have security and operational risks."
+  //         : null;
 
-  const name = (selectedNominator?.name === "Arbitrage Bot" || selectedNominator?.name === "Arbitrage Bot 2") ? "CEX-DEX" : (selectedNominator?.name === "Arbitrage Bot 1" || selectedNominator?.name === "Arbitrage Bot 3") ? "DEX-DEX" : selectedNominator?.name;
+  const setNominatorDescription: { [key: string]: string} = {
+    "Bemo pool": "you will receive an NFT through the Arbitrage Bot.",
+    "Evaa pool": "you will receive an NFT through the Arbitrage Bot.",
+    "Arbitrage Bot": "Centralized exchanges may have security and operational risks.",
+    "Arbitrage Bot 1": "Arbitrage trading may result in losses due to execution delays, price slippage, fees, and market volatility.",
+    "Arbitrage Bot 2": "Centralized exchanges may have security and operational risks.",
+    "Arbitrage Bot 3": "Arbitrage trading may result in losses due to execution delays, price slippage, fees, and market volatility."
+  }
+
+  const description = selectedNominator?.name 
+    ? setNominatorDescription[selectedNominator.name] ?? null 
+    : null;
+
+
+  
+  //const name = (selectedNominator?.name === "Arbitrage Bot" || selectedNominator?.name === "Arbitrage Bot 2") ? "CEX-DEX" : (selectedNominator?.name === "Arbitrage Bot 1" || selectedNominator?.name === "Arbitrage Bot 3") ? "DEX-DEX" : selectedNominator?.name;
+  
+  const setNominatorName = (name: string) => {
+    switch(name){
+      case "Arbitrage Bot":
+        return "CEX-DEX"
+      case "Arbitrage Bot 1":
+        return "DEX-DEX"
+      case "Arbitrage Bot 2":
+        return "CEX-DEX"
+      case "Arbitrage Bot 3":
+        return "DEX-DEX"
+      default:
+        return name
+    }
+  }
 
   return (
     <>
@@ -130,7 +157,7 @@ const NominatorList = () => {
         <ConfirmNominatorModal
           toggleModal={toggleModal}
           onConfirm={handleConfirmClick}
-          name={name}
+          name={setNominatorName(selectedNominator?.name)}
           description={description}
           isMinimumTonModal = {minimumTonModal}
           tokenSort={stakingInfo.tokenSort}
@@ -161,7 +188,7 @@ const NominatorList = () => {
                   </BotTitleWrapper>
                 )}
                 {nominatorListData
-                  .filter(item => item.type === "bot")
+                  ?.filter(item => item.type === "bot")
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem
@@ -177,12 +204,11 @@ const NominatorList = () => {
                     </Fragment>
                   ))}
 
-                {nominatorListData.some(item => item.type === "pool" && (stakingInfo.tokenSort === "TON" || stakingInfo.tokenSort === "USDT")) && <PoolTitle>Pool</PoolTitle>}
+                {nominatorListData.some(item => item.type === "pool" && item.availableToken?.includes(stakingInfo.tokenSort)) && <PoolTitle>Pool</PoolTitle>}
                 {nominatorListData
-                  .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON")
+                  .filter(item => item.type === "pool" && item.availableToken.includes(stakingInfo.tokenSort))
+                  .reverse()
                   .map(item => {
-                    //console.log("usdtTonRate", tokenRate?.tonUsdtRate)
-                    //console.log("tokenSort", stakingInfo.tokenSort)
                     const tvl = (stakingInfo.tokenSort === "USDT" && tokenRate?.tonUsdtRate) ?  item.tvl/tokenRate?.tonUsdtRate : item.tvl
                     return(
                       <Fragment key={item.id}>
@@ -198,9 +224,10 @@ const NominatorList = () => {
                         />
                       </Fragment>
                     )
-                  } )}
-                {nominatorListData
-                  .filter(item => item.type === "pool" && item.name === "Bemo Pool" && stakingInfo.tokenSort === "TON")
+                  }
+                )}
+                {/* {nominatorListData
+                  ?.filter(item => item.type === "pool" && item.name === "Bemo Pool" && stakingInfo.tokenSort === "TON")
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem
@@ -214,7 +241,7 @@ const NominatorList = () => {
                         handleSelectNominator={handleSelectNominator}
                       />
                     </Fragment>
-                  ))}
+                  ))} */}
               </>
             )}
           </>
