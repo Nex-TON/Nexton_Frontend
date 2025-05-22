@@ -90,10 +90,10 @@ const BorrowVerify = () => {
       const data = () => {
         return {
           queryId: BigInt(Date.now()),
-          value: toNano("0.102"),
-          newOwner: Address.parse(import.meta.env.VITE_LEND_CONTRACT),
+          value: toNano("0.132"),
+          newOwner: Address.parse(import.meta.env.VITE_NFT_CONTAINER),
           responseAddress: Address.parse(address),
-          fwdAmount: toNano("0.052"),
+          fwdAmount: toNano("0.062"),
         };
       };
 
