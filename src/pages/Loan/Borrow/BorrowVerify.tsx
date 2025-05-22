@@ -90,7 +90,7 @@ const BorrowVerify = () => {
       const data = () => {
         return {
           queryId: BigInt(Date.now()),
-          value: toNano("0.112"),
+          value: toNano("0.132"),
           newOwner: Address.parse(import.meta.env.VITE_NFT_CONTAINER),
           responseAddress: Address.parse(address),
           fwdAmount: toNano("0.062"),
