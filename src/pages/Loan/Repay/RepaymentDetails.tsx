@@ -127,16 +127,7 @@ const RepaymentDetails = () => {
   const handleRepay = useCallback(async () => {
     setIsLoading(true);
     try {
-      const data = () => {
-        return {
-          query_id: BigInt(Date.now()),
-          amount: borrowDetail?.repayAmount,
-          value: toNano("0.1"),
-          forward_ton_amount: toNano("0.05"),
-        };
-      };
-
-      await sendMessage(data());
+      await sendMessage({amount: borrowDetail?.repayAmount});
       let timeRotate = 0;
       while (true) {
         const response = await axios.get(`/data/validate-repaying?nftId=${Number(id)}&address=${address}`, {

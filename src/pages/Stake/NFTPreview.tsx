@@ -61,19 +61,10 @@ const NFTPreview = () => {
 
     try {
       if (["Arbitrage Bot", "Arbitrage Bot 1", "Arbitrage Bot 2", "Arbitrage Bot 3"].includes(stakingInfo.nominator)) {
-        const data = (): TonDeposit => {
-          const PROTOCOL_FEE = toNano(0.1);
-          return {
-            $$type: "TonDeposit",
-            query_id: BigInt(Date.now()),
-            amount: toNano(stakingInfo.principal) - PROTOCOL_FEE, // ❗NOTE❗: Not used in the current contract version
-            // lockPeriod: BigInt(stakingInfo.lockup),
-            // leverage: BigInt(stakingInfo.leverage),
-          };
-        };
-
+        const PROTOCOL_FEE = toNano(0.1);
+        
         // First, attempt to send the message to the contract
-        await sendDepositTon(data(), stakingInfo.principal);
+        await sendDepositTon({amount: toNano(stakingInfo.principal) - PROTOCOL_FEE }, stakingInfo.principal);
       } else {
         const data = {
           amount: toNano(stakingInfo.principal),
