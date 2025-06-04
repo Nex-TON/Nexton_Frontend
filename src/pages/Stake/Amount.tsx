@@ -36,8 +36,9 @@ const Amount = () => {
   const [tokenSort, setTokenSort] = useState("TON");
   const { balance: oldNxTonBalance, refreshData: refreshOldData } = useJettonWallet("oldNxTON");
   const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
-  //+USDT
   const { balance: usdtBalance, refreshData: refreshUsdtData } = useJettonWallet("USDT");
+  //+bmTON
+  //const { balance: bmTonBalance, refreshData: refreshBmtonData} = useJettonWallet("bmTON");
   const [exchangeModal, setExchangeModal] = useState(false);
 
   const handleTokenSelect = selectedToken => {
@@ -50,6 +51,7 @@ const Amount = () => {
       TON: balance,
       nxTON: Number(nxTonBalance),
       USDT: Number(usdtBalance),
+      //bmTON: Number(bmTonBalance)
     };
     return tokenBalance[tokenSort] ?? 0;
   };
@@ -83,12 +85,14 @@ const Amount = () => {
     async function handleRefreshTonData() {
       await refreshTonData();
       await refreshNxtonData();
-      //+USDT
       await refreshUsdtData();
+      //+bmTON
+      //await refreshBmtonData();
     }
 
     handleRefreshTonData();
   }, [refreshTonData, tokenSort, refreshNxtonData, refreshUsdtData]);
+  // }, [refreshTonData, tokenSort, refreshNxtonData, refreshUsdtData, refreshBmtonData]);
 
   useEffect(() => {
     if (tele) {
@@ -119,6 +123,8 @@ const Amount = () => {
         if (tokenSort === "TON") return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
         else if (tokenSort === "nxTON") {
           return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * (Number(amount) / tokenRate?.tonToNextonRate), 2)}`;
+        // } else if(tokenSort === "bmTON"){
+        //   return
         } else {
           return `$${Number(amount)}`;
         }
@@ -160,12 +166,20 @@ const Amount = () => {
                 ? numberCutter(mapTokenBalance("nxTON"))
                 : "-.--"}
             </BalanceText>
-          ) : (
+          ) : tokenSort === "USDT" ? (
             <BalanceText>
               Balance : {mapTokenBalance("USDT") === 0
                 ? "0.00"
                 : mapTokenBalance("USDT")
                 ? numberCutter(mapTokenBalance("USDT"))
+                : "-.--"}
+            </BalanceText>
+          ) : (
+            <BalanceText>
+              Balance : {mapTokenBalance("bmTON") === 0
+                ? "0.00"
+                : mapTokenBalance("bmTON")
+                ? numberCutter(mapTokenBalance("bmTON"))
                 : "-.--"}
             </BalanceText>
           )}
@@ -187,6 +201,7 @@ const Amount = () => {
               if (tokenSort === "TON") maxAmount = balance;
               else if (tokenSort === "nxTON") maxAmount = nxTonBalance;
               else if (tokenSort === "USDT") maxAmount = usdtBalance;
+              // else if (tokenSort === "bmTON") maxAmount = bmTonBalance;
 
               setValue("amount", maxAmount ? limitDecimals(maxAmount, 3) : "0");
             }}
@@ -210,7 +225,8 @@ const Amount = () => {
                 tokenSort={tokenSort} // Pass selection handler
               />
             }
-            placeholder={tokenSort === "TON" ? "min 1TON" : tokenSort === "USDT" ? "min 1USDT" : "min 1NxTON"}
+            // placeholder={tokenSort === "TON" ? "min 1TON" : tokenSort === "USDT" ? "min 1USDT" : "min 1NxTON"}
+            placeholder = {"min 1"+{tokenSort}}
             balance={balance}
             convertAmount={convertAmount}
           />
