@@ -13,7 +13,7 @@ export function mapTokenMasterAddress(token: string) {
       if (import.meta.env.VITE_TON_NETWORK == "mainnet")
         return Address.parse("EQCSxGZPHqa3TtnODgMan8CEM0jf6HpY-uon_NMeFgjKqkEY");
       else if (import.meta.env.VITE_TON_NETWORK == "testnet")
-        return Address.parse("kQDpsupsgWJYYSdsTrg_is5Z8hkfHJqlH5zGqby7oWunvwPz");
+        return Address.parse("kQBT-rBBCBEc3NMdLONnAygrHEFvEwamq7V8nq9Ngte3tZhJ");
     case "USDT":
       if (import.meta.env.VITE_TON_NETWORK == "mainnet")
         return Address.parse("EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs");
