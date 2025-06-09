@@ -27,18 +27,17 @@ import ExchangePopup from "@/components/stake/common/ExchangePopup";
 const tele = (window as any).Telegram.WebApp;
 
 const Amount = () => {
-  const { address, balance, connected, refreshTonData } = useTonConnect();
+  const { address, balance, connected } = useTonConnect();
   const { data: tokenRate } = useTokenRate();
   const navigate = useNavigate();
   const [, setStakingInfo] = useRecoilState(stakingAtom);
   const { data: coinPrice } = useCoinPrice("TON", "USD");
   const [modal, setModal] = useState(false);
   const [tokenSort, setTokenSort] = useState("TON");
-  const { balance: oldNxTonBalance, refreshData: refreshOldData } = useJettonWallet("oldNxTON");
-  const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
-  const { balance: usdtBalance, refreshData: refreshUsdtData } = useJettonWallet("USDT");
+  const { balance: nxTonBalance } = useJettonWallet();
+  const { balance: usdtBalance } = useJettonWallet("USDT");
   //+bmTON
-  //const { balance: bmTonBalance, refreshData: refreshBmtonData} = useJettonWallet("bmTON");
+  const { balance: bmTonBalance } = useJettonWallet("bmTON");
   const [exchangeModal, setExchangeModal] = useState(false);
 
   const handleTokenSelect = selectedToken => {
@@ -51,7 +50,7 @@ const Amount = () => {
       TON: balance,
       nxTON: Number(nxTonBalance),
       USDT: Number(usdtBalance),
-      //bmTON: Number(bmTonBalance)
+      bmTON: Number(bmTonBalance),
     };
     return tokenBalance[tokenSort] ?? 0;
   };
@@ -82,19 +81,6 @@ const Amount = () => {
   });
 
   useEffect(() => {
-    async function handleRefreshTonData() {
-      await refreshTonData();
-      await refreshNxtonData();
-      await refreshUsdtData();
-      //+bmTON
-      //await refreshBmtonData();
-    }
-
-    handleRefreshTonData();
-  }, [refreshTonData, tokenSort, refreshNxtonData, refreshUsdtData]);
-  // }, [refreshTonData, tokenSort, refreshNxtonData, refreshUsdtData, refreshBmtonData]);
-
-  useEffect(() => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
@@ -115,6 +101,7 @@ const Amount = () => {
       });
     }
   }, [connected, setError]);
+
   // Conversion function
   const convertAmount = useMemo(() => {
     return (amount: string | number) => {
@@ -123,8 +110,6 @@ const Amount = () => {
         if (tokenSort === "TON") return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
         else if (tokenSort === "nxTON") {
           return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * (Number(amount) / tokenRate?.tonToNextonRate), 2)}`;
-        // } else if(tokenSort === "bmTON"){
-        //   return
         } else {
           return `$${Number(amount)}`;
         }
@@ -152,35 +137,39 @@ const Amount = () => {
         <BalanceWrapper>
           {tokenSort === "TON" ? (
             <BalanceText>
-              Balance : {mapTokenBalance("TON") === 0
+              Balance :{" "}
+              {mapTokenBalance("TON") === 0
                 ? "0.00"
                 : mapTokenBalance("TON")
-                ? numberCutter(mapTokenBalance("TON"))
-                : "-.--"}
+                  ? numberCutter(mapTokenBalance("TON"))
+                  : "-.--"}
             </BalanceText>
           ) : tokenSort === "nxTON" ? (
             <BalanceText>
-              Balance : {mapTokenBalance("nxTON") === 0
+              Balance :{" "}
+              {mapTokenBalance("nxTON") === 0
                 ? "0.00"
                 : mapTokenBalance("nxTON")
-                ? numberCutter(mapTokenBalance("nxTON"))
-                : "-.--"}
+                  ? numberCutter(mapTokenBalance("nxTON"))
+                  : "-.--"}
             </BalanceText>
           ) : tokenSort === "USDT" ? (
             <BalanceText>
-              Balance : {mapTokenBalance("USDT") === 0
+              Balance :{" "}
+              {mapTokenBalance("USDT") === 0
                 ? "0.00"
                 : mapTokenBalance("USDT")
-                ? numberCutter(mapTokenBalance("USDT"))
-                : "-.--"}
+                  ? numberCutter(mapTokenBalance("USDT"))
+                  : "-.--"}
             </BalanceText>
           ) : (
             <BalanceText>
-              Balance : {mapTokenBalance("bmTON") === 0
+              Balance :{" "}
+              {mapTokenBalance("bmTON") === 0
                 ? "0.00"
                 : mapTokenBalance("bmTON")
-                ? numberCutter(mapTokenBalance("bmTON"))
-                : "-.--"}
+                  ? numberCutter(mapTokenBalance("bmTON"))
+                  : "-.--"}
             </BalanceText>
           )}
           {/* {tokenSort === "TON" ? (
@@ -225,7 +214,7 @@ const Amount = () => {
                 tokenSort={tokenSort} // Pass selection handler
               />
             }
-            placeholder = {"min 1"+ tokenSort}
+            placeholder={"min 1" + tokenSort}
             balance={balance}
             convertAmount={convertAmount}
           />
