@@ -2,6 +2,7 @@ import styled from "styled-components";
 import IcTon from "@/assets/icons/Stake/Staking_TON.png";
 import IcNxTon from "@/assets/icons/Stake/nxTON_Pop-up.png";
 import IcUSDT from "@/assets/icons/Stake/Staking_USDT.png";
+import IcBmTon from "@/assets/icons/Stake/Staking_BmTON.svg";
 import IcArrowRight from "@/assets/icons/Stake/ic_chevron_right.svg";
 
 export const TokenFilterModal = ({ toggleModal, onSelected,setExchangeModal,hasNxTon,setValue }) => {
@@ -56,6 +57,21 @@ export const TokenFilterModal = ({ toggleModal, onSelected,setExchangeModal,hasN
             <TokenIcon>
               <img src={IcNxTon} alt="ton icon" />
               <TokenName>NxTON</TokenName>
+              <NewIon>NEW</NewIon>
+            </TokenIcon>
+            <RightArrowWrapper>
+              <img src={IcArrowRight} />
+            </RightArrowWrapper>
+          </TokenWrapper>
+          <DivideBar />
+          <TokenWrapper
+            onClick={() => {
+              handleSelection("bmTON");
+            }}
+          >
+            <TokenIcon>
+              <img src={IcBmTon} alt="ton icon" />
+              <TokenName>bmTON</TokenName>
               <NewIon>NEW</NewIon>
             </TokenIcon>
             <RightArrowWrapper>
