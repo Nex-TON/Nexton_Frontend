@@ -15,10 +15,10 @@ import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 
 export const TotalBalance = () => {
-  const { address, balance, refreshTonData } = useTonConnect();
-  const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
-  const { balance: oldNxTonBalance, refreshData: refreshOldNxtonData } = useJettonWallet("oldNxTON");
-  const { balance: usdtBalance, refreshData: refreshUsdtData } = useJettonWallet("USDT");
+  const { address, balance } = useTonConnect();
+  const { balance: nxTonBalance } = useJettonWallet();
+  const { balance: oldNxTonBalance } = useJettonWallet("oldNxTON");
+  const { balance: usdtBalance } = useJettonWallet("USDT");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { nftList, isLoading } = useStakeInfo(address);
   const { borrowList } = useRepayNftList(address);
@@ -45,14 +45,12 @@ export const TotalBalance = () => {
       return nftTotal;
     };
   }, [nftList]);
+
   useEffect(() => {
     const initializeData = async () => {
       setIsRefreshing(true);
       try {
         await Promise.all([
-          refreshTonData(),
-          refreshNxtonData(),
-          refreshUsdtData(),
           mutate(`/data/getAllStakeInfoByAddress?address=${address}`),
           mutate(`/data/getEarningsbyAddress/${address}`),
         ]);
@@ -64,7 +62,7 @@ export const TotalBalance = () => {
     };
 
     initializeData();
-  }, [address, refreshTonData, refreshNxtonData, refreshUsdtData]);
+  }, [address]);
 
   return (
     <TotalBalanceWrapper id="specific-element-total-balance">
