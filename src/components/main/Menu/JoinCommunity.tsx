@@ -8,7 +8,7 @@ import IcMenuTwitter from "@/assets/icons/Menu/ic_menu_twitter.svg";
 import IcMenuTelegram from "@/assets/icons/Menu/ic_menu_telegram.svg";
 import IcMenuSupport from "@/assets/icons/Menu/ic_menu_support.svg";
 import IcMenuGitbook from "@/assets/icons/Menu/ic_menu_gitbook.svg";
-import IcMenuMedium from "@/assets/icons/Menu/ic_menu_gitbook.svg";
+import IcMenuMedium from "@/assets/icons/Menu/ic_menu_medium.svg";
 import IcAudit from "@/assets/icons/Menu/ic_menu_audit.svg";
 
 
