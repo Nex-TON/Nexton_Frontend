@@ -35,7 +35,7 @@ const SplashScreen = () => {
     <SplashWrapper>
       <ScreenWrapper>
         <img src={NextonLogo} alt="splash logo" />
-        <RightText>Blockwave Labs Inc. All rights reserved</RightText>
+        <RightText>ⓒ 2025. Blockwave Labs Inc. All rights reserved</RightText>
       </ScreenWrapper>
     </SplashWrapper>
   );
