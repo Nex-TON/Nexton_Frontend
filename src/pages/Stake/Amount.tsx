@@ -54,6 +54,17 @@ const Amount = () => {
     };
     return tokenBalance[tokenSort] ?? 0;
   };
+  
+  const mapTokenMasterAddress = (tokenSort: string) =>{
+    const tokenAddress: Record<string, string> = {
+      bmTON:"EQCSxGZPHqa3TtnODgMan8CEM0jf6HpY-uon_NMeFgjKqkEY"
+    };
+    return tokenAddress[tokenSort] ?? "";
+  }
+  const bmTonAddress = mapTokenMasterAddress("bmTON")
+  const {data: bmTONPrice} = useCoinPrice(bmTonAddress, "USD")
+  console.log("bmTONPrice",bmTONPrice)
+  console.log("tonPrice",coinPrice)
 
   const schema = z.object({
     amount: z
@@ -120,8 +131,8 @@ const Amount = () => {
         if (tokenSort === "TON") return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
         else if (tokenSort === "nxTON") {
           return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * (Number(amount) / tokenRate?.tonToNextonRate), 2)}`;
-        // } else if(tokenSort === "bmTON"){
-        //   return
+        } else if(tokenSort === "bmTON"){
+          return `$${limitDecimals(bmTONPrice?.rates?.[bmTonAddress]?.prices?.USD * Number(amount), 2)}`;
         } else {
           return `$${Number(amount)}`;
         }

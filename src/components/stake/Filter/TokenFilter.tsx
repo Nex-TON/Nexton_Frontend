@@ -31,9 +31,12 @@ const TokenFilter = ({ toggleModal, tokenSort }) => {
             <TooltipImage src={NewTooltip} alt="New Tooltip" />
             <TokenName>USDT</TokenName>
           </TooltipExist>
-        ) : (
+        ) : tokenSort === "bmTON" ? (
           <TokenName>bmTON</TokenName>
-        )}
+        ) : (
+          <TokenName>TON</TokenName>
+        )
+      }
         <RightArrowWrapper>
           <img src={IcArrowRight} />
         </RightArrowWrapper>
