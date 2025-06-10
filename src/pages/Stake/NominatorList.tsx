@@ -41,7 +41,8 @@ const NominatorList = () => {
 
   useEffect(() => {
     //console.log("NominatorList",nominatorListData)
-    //console.log("principal",Number(stakingInfo.principal))
+    // console.log("principal",Number(stakingInfo.principal))
+    // console.log("tokenSort",stakingInfo.tokenSort)
 
     if (tele) {
       tele.ready();
@@ -98,10 +99,10 @@ const NominatorList = () => {
 
   //만약 100톤 이하면 minimumTonModal 뜨도록
   const handleConfirmClick = () =>{
-    if(selectedNominator.name === "Evaa Pool" && stakingInfo.tokenSort === "TON" && Number(stakingInfo.principal) < 2){
+    if(selectedNominator.name === "Evaa Pool" && stakingInfo.tokenSort === "TON" && Number(stakingInfo.principal) < 100){
       setMinimumTonModal(true);
         return;
-    }else if (selectedNominator?.name === "Evaa Pool" && stakingInfo.tokenSort === "USDT" &&Number(stakingInfo.principal) < 2){
+    }else if (selectedNominator?.name === "Evaa Pool" && stakingInfo.tokenSort === "USDT" &&Number(stakingInfo.principal) < 100){
       setMinimumTonModal(true);
         return;
     }else{
@@ -179,7 +180,7 @@ const NominatorList = () => {
 
                 {nominatorListData.some(item => item.type === "pool" && (stakingInfo.tokenSort === "TON" || stakingInfo.tokenSort === "USDT")) && <PoolTitle>Pool</PoolTitle>}
                 {nominatorListData
-                  .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON")
+                  .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON" && stakingInfo.tokenSort !== "bmTON")
                   .map(item => {
                     //console.log("usdtTonRate", tokenRate?.tonUsdtRate)
                     //console.log("tokenSort", stakingInfo.tokenSort)
