@@ -11,15 +11,7 @@ import SwapRatio from "./SwapRatio";
 
 const SwapSection = () => {
   const [switchToken, setSwitchToken] = useState(false);
-  const { balance, refreshTonData } = useTonConnect();
-
-  useEffect(() => {
-    async function handleRefreshTonData() {
-      await refreshTonData();
-    }
-
-    handleRefreshTonData();
-  }, [refreshTonData]);
+  const { balance } = useTonConnect();
 
   const handleSwitchToken = () => {
     setSwitchToken(prev => !prev);

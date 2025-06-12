@@ -115,6 +115,5 @@ export const useWalletData = () => {
     address: activeWallet?.address || null,
     balance: activeWallet?.balance || 0,
     sender: activeWallet?.sender || null,
-    refreshTonData: activeWallet?.refreshTonData,
   };
 };

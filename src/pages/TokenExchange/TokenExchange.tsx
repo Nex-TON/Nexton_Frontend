@@ -14,7 +14,7 @@ import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { limitDecimals } from "@/utils/limitDecimals";
 import useTonConnect from "@/hooks/contract/useTonConnect";
-import {useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { globalError } from "@/lib/atom/globalError";
 import { postExchangeAmount } from "@/api/postExchangeAmount";
 import { useExchangeAmount } from "@/hooks/api/exchange/useExchangeAmount";
@@ -23,7 +23,7 @@ const tele = (window as any).Telegram.WebApp;
 
 const TokenExchange = () => {
   const navigate = useNavigate();
-  const { balance: oldNxTonBalance, refreshData: refreshNxtonData, tokenBurn } = useJettonWallet("oldNxTON");
+  const { balance: oldNxTonBalance, tokenBurn } = useJettonWallet("oldNxTON");
   const { address } = useTonConnect();
   const [amount, setAmount] = useState(0);
   const [modal, toggleModal] = useState(false);
@@ -32,16 +32,15 @@ const TokenExchange = () => {
   const { data: tokenRate, isLoading, error } = useTokenRate();
   const [usdc, setUsdc] = useState(0);
   const setError = useSetRecoilState(globalError);
-  const {data:statusData}=useExchangeAmount(address);
+  const { data: statusData } = useExchangeAmount(address);
 
-  useEffect(()=>{
-    if (statusData?.status===1||statusData?.status===2){
+  useEffect(() => {
+    if (statusData?.status === 1 || statusData?.status === 2) {
       setAmount(statusData?.amount);
+    } else {
+      setAmount(Number(oldNxTonBalance));
     }
-    else{
-      setAmount(Number(oldNxTonBalance))
-    }
-  })
+  });
 
   const sendSubmit = useCallback(async () => {
     toggleModal(false);
@@ -67,15 +66,8 @@ const TokenExchange = () => {
   }, [amount, tokenBurn]);
 
   useEffect(() => {
-    const refresh = async () => {
-      await refreshNxtonData();
-    };
-    refresh();
-  }, [refreshNxtonData]);
-
-  useEffect(() => {
     if (tokenRate && tonPriceData) {
-      const numericAmount =  amount?amount : 0;
+      const numericAmount = amount ? amount : 0;
       setUsdc(numericAmount * tokenRate.nxtonToTonRate * tonPriceData.rates.TON.prices.USD);
     }
   }, [amount, tokenRate, tonPriceData]);
@@ -116,8 +108,8 @@ const TokenExchange = () => {
                 <img src={IcOldNxton} alt="old nxton icon" /> NxTON
               </TokenInput.token>
               <TokenInput.rightitem>
-                <TokenInput.input>{amount?limitDecimals(amount,3):"0.000"}</TokenInput.input>
-                <TokenInput.convert>${amount?limitDecimals(usdc,2):"0.00"}</TokenInput.convert>
+                <TokenInput.input>{amount ? limitDecimals(amount, 3) : "0.000"}</TokenInput.input>
+                <TokenInput.convert>${amount ? limitDecimals(usdc, 2) : "0.00"}</TokenInput.convert>
               </TokenInput.rightitem>
             </TokenInput.container>
           </TokenInput.wrapper>
@@ -131,8 +123,10 @@ const TokenExchange = () => {
                 <img src={IcNewNxton} alt="new nxton icon" /> NxTON
               </TokenInput.token>
               <TokenInput.rightitem>
-                <TokenInput.calculate $isactive={oldNxTonBalance!="0"||statusData?.status===2}>{amount?limitDecimals(amount,3):"0.000"}</TokenInput.calculate>
-                <TokenInput.convert>${amount?limitDecimals(usdc,2):"0.00"}</TokenInput.convert>
+                <TokenInput.calculate $isactive={oldNxTonBalance != "0" || statusData?.status === 2}>
+                  {amount ? limitDecimals(amount, 3) : "0.000"}
+                </TokenInput.calculate>
+                <TokenInput.convert>${amount ? limitDecimals(usdc, 2) : "0.00"}</TokenInput.convert>
               </TokenInput.rightitem>
             </TokenInput.container>
           </TokenInput.wrapper>
@@ -140,12 +134,20 @@ const TokenExchange = () => {
             * The former NxTON will be burned, and the exchange
             <br /> for the new NxTON may take approximately 24 hours
           </InfoWrapper>
-          <ExchangeButton $unactive={oldNxTonBalance==="0"} $status={statusData?.status} onClick={() => (oldNxTonBalance!=="0"&&statusData?.status===0 ? toggleModal(true) : "")}>
-            {statusData?.status===1?"In progress...":statusData?.status===2?"NxTON exchange completed":"Request new NxTON"}
+          <ExchangeButton
+            $unactive={oldNxTonBalance === "0"}
+            $status={statusData?.status}
+            onClick={() => (oldNxTonBalance !== "0" && statusData?.status === 0 ? toggleModal(true) : "")}
+          >
+            {statusData?.status === 1
+              ? "In progress..."
+              : statusData?.status === 2
+                ? "NxTON exchange completed"
+                : "Request new NxTON"}
           </ExchangeButton>
         </BottomContainer.wrapper>
         {modal && <ExchangeConfirmModal amount={oldNxTonBalance} toggleModal={toggleModal} handleSubmit={sendSubmit} />}
-        {success && <ExchangeSuccessModal toggleModal={setSuccess}/>}
+        {success && <ExchangeSuccessModal toggleModal={setSuccess} />}
       </PageWrapper>
     </>
   );
@@ -204,7 +206,7 @@ const TokenInput = {
     ${({ theme }) => theme.fonts.Nexton_Title_Medium};
     width: 100px;
     text-align: end;
-    color: ${({$isactive})=>$isactive?"#1F53FF":"#000"};
+    color: ${({ $isactive }) => ($isactive ? "#1F53FF" : "#000")};
   `,
   convert: styled.div`
     text-align: end;
@@ -296,7 +298,7 @@ const BottomContainer = {
   `,
 };
 
-const ExchangeButton = styled.div<{$unactive,$status}>`
+const ExchangeButton = styled.div<{ $unactive; $status }>`
   display: flex;
   justify-content: center;
   cursor: pointer;
@@ -305,19 +307,19 @@ const ExchangeButton = styled.div<{$unactive,$status}>`
   height: auto;
   padding: 17px 0;
   ${({ theme }) => theme.fonts.Nexton_Body_Text_Large_2};
-  color: ${({$unactive,$status})=>{
-    if($unactive||($status===1)){
-      return "#B9B9BA"
-    }else {
-      return "#FFF"
+  color: ${({ $unactive, $status }) => {
+    if ($unactive || $status === 1) {
+      return "#B9B9BA";
+    } else {
+      return "#FFF";
     }
   }};
-  background:${({$unactive,$status})=>{
-    if($unactive||$status===1){
+  background: ${({ $unactive, $status }) => {
+    if ($unactive || $status === 1) {
       return "#E1E4E6";
-    }else if($status===2){
+    } else if ($status === 2) {
       return "#34C759";
-    }else{
+    } else {
       return "#1F53FF";
     }
   }};
