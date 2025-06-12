@@ -4,6 +4,7 @@ import IcArrowRight from "@/assets/icons/Stake/ic_chevron_right.svg";
 import IcTon from "@/assets/icons/Stake/Staking_TON.png";
 import IcNxTon from "@/assets/icons/Main/ic_new_nxTon.svg";
 import IcUSDT from "@/assets/icons/Stake/Staking_USDT.png";
+import IcBmTon from "@/assets/icons/Stake/Staking_BmTON2.svg";
 import NewTooltip from "@/assets/image/NewTooltip.svg";
 
 const TokenFilter = ({ toggleModal, tokenSort }) => {
@@ -11,7 +12,14 @@ const TokenFilter = ({ toggleModal, tokenSort }) => {
     <>
       <TokenFilterWrapper onClick={toggleModal}>
         <TokenFilterIcon>
-          {tokenSort === "TON" ? <img src={IcTon} alt="ton icon" /> : tokenSort === "nxTON" ? <img src={IcNxTon} alt="nxTon icon" /> :<img src={IcUSDT} alt="usdt icon" /> }
+          {tokenSort === "TON" 
+            ? <img src={IcTon} alt="ton icon" /> 
+            : tokenSort === "nxTON" 
+              ? <img src={IcNxTon} alt="nxTon icon" /> 
+              : tokenSort === "USDT"
+                ?<img src={IcUSDT} alt="usdt icon" />
+                :<img src={IcBmTon} alt="bmTon icon" />
+          }
         </TokenFilterIcon>
         { tokenSort === "nxTON" ? (
           <TooltipExist>
@@ -23,9 +31,12 @@ const TokenFilter = ({ toggleModal, tokenSort }) => {
             <TooltipImage src={NewTooltip} alt="New Tooltip" />
             <TokenName>USDT</TokenName>
           </TooltipExist>
+        ) : tokenSort === "bmTON" ? (
+          <TokenName>bmTON</TokenName>
         ) : (
           <TokenName>TON</TokenName>
-        )}
+        )
+      }
         <RightArrowWrapper>
           <img src={IcArrowRight} />
         </RightArrowWrapper>

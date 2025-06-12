@@ -41,7 +41,8 @@ const NominatorList = () => {
 
   useEffect(() => {
     //console.log("NominatorList",nominatorListData)
-    //console.log("principal",Number(stakingInfo.principal))
+    // console.log("principal",Number(stakingInfo.principal))
+    // console.log("tokenSort",stakingInfo.tokenSort)
 
     if (tele) {
       tele.ready();
@@ -179,7 +180,7 @@ const NominatorList = () => {
 
                 {nominatorListData.some(item => item.type === "pool" && (stakingInfo.tokenSort === "TON" || stakingInfo.tokenSort === "USDT")) && <PoolTitle>Pool</PoolTitle>}
                 {nominatorListData
-                  .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON")
+                  .filter(item => item.type === "pool" && item.name === "Evaa Pool" && stakingInfo.tokenSort !== "nxTON" && stakingInfo.tokenSort !== "bmTON")
                   .map(item => {
                     //console.log("usdtTonRate", tokenRate?.tonUsdtRate)
                     //console.log("tokenSort", stakingInfo.tokenSort)

@@ -38,6 +38,7 @@ const Amount = () => {
   const { balance: usdtBalance } = useJettonWallet("USDT");
   //+bmTON
   const { balance: bmTonBalance } = useJettonWallet("bmTON");
+
   const [exchangeModal, setExchangeModal] = useState(false);
 
   const handleTokenSelect = selectedToken => {
@@ -54,6 +55,17 @@ const Amount = () => {
     };
     return tokenBalance[tokenSort] ?? 0;
   };
+  
+  const mapTokenMasterAddress = (tokenSort: string) =>{
+    const tokenAddress: Record<string, string> = {
+      bmTON:"EQCSxGZPHqa3TtnODgMan8CEM0jf6HpY-uon_NMeFgjKqkEY"
+    };
+    return tokenAddress[tokenSort] ?? "";
+  }
+  const bmTonAddress = mapTokenMasterAddress("bmTON")
+  const {data: bmTONPrice} = useCoinPrice(bmTonAddress, "USD")
+  console.log("bmTONPrice",bmTONPrice)
+  console.log("tonPrice",coinPrice)
 
   const schema = z.object({
     amount: z
@@ -110,6 +122,8 @@ const Amount = () => {
         if (tokenSort === "TON") return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
         else if (tokenSort === "nxTON") {
           return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * (Number(amount) / tokenRate?.tonToNextonRate), 2)}`;
+        } else if(tokenSort === "bmTON"){
+          return `$${limitDecimals(bmTONPrice?.rates?.[bmTonAddress]?.prices?.USD * Number(amount), 2)}`;
         } else {
           return `$${Number(amount)}`;
         }
@@ -190,7 +204,7 @@ const Amount = () => {
               if (tokenSort === "TON") maxAmount = balance;
               else if (tokenSort === "nxTON") maxAmount = nxTonBalance;
               else if (tokenSort === "USDT") maxAmount = usdtBalance;
-              // else if (tokenSort === "bmTON") maxAmount = bmTonBalance;
+              else if (tokenSort === "bmTON") maxAmount = bmTonBalance;
 
               setValue("amount", maxAmount ? limitDecimals(maxAmount, 3) : "0");
             }}
