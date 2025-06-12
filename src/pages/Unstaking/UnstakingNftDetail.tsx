@@ -16,7 +16,6 @@ import { UnstakingProps } from "@/types/staking";
 import { isDevMode } from "@/utils/isDevMode";
 import { limitDecimals } from "@/utils/limitDecimals";
 import * as Contract from "@/hooks/contract/transferNFT";
-//import { useWalletData } from "@/context/WalletConnectionProvider";
 
 import {
   NFTDetailContentBox,
@@ -143,11 +142,15 @@ const UnstakingNftDetail = ({ view }: { view?: boolean }) => {
               <NFTDetailItemBox>
                 <NFTDetailItem>
                   <NFTDetailItemCaption>Principal</NFTDetailItemCaption>
-                  <NFTDetailItemText>{limitDecimals(unstakingDetail?.principal, 3)} {unstakingDetail?.tokenSort}</NFTDetailItemText>
+                  <NFTDetailItemText>
+                    {limitDecimals(unstakingDetail?.principal, 3)} {unstakingDetail?.tokenSort}
+                  </NFTDetailItemText>
                 </NFTDetailItem>
                 <NFTDetailItem>
                   <NFTDetailItemCaption>Rewards</NFTDetailItemCaption>
-                  <NFTDetailItemText>{limitDecimals(unstakingDetail?.rewards, 3)} {unstakingDetail?.tokenSort}</NFTDetailItemText>
+                  <NFTDetailItemText>
+                    {limitDecimals(unstakingDetail?.rewards, 3)} {unstakingDetail?.tokenSort}
+                  </NFTDetailItemText>
                 </NFTDetailItem>
               </NFTDetailItemBox>
 

@@ -53,7 +53,6 @@ const MainMyAssetInfo = ({
   connected,
   address,
   balance,
-  refreshTonData,
   totalStaked,
   isLoading,
   isError,
@@ -62,7 +61,6 @@ const MainMyAssetInfo = ({
   connected: boolean;
   address: string;
   balance: number;
-  refreshTonData: () => Promise<void>;
   totalStaked: number;
   isLoading: boolean;
   isError: boolean;
@@ -83,7 +81,7 @@ const MainMyAssetInfo = ({
     stonfi: stonfi,
     binance: binance,
     hyperliquid: hyperliquid, // 추가적인 거래소 여기 추가해줘야됨
-    dedust: dedust
+    dedust: dedust,
   };
 
   const img1 = strategyIcons[performanceData?.summaryData[strategy]?.strategyDetails?.strategy1?.strategy] || "";
@@ -119,10 +117,8 @@ const MainMyAssetInfo = ({
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
-
     try {
       await Promise.all([
-        refreshTonData(),
         mutate(`/data/getAllStakeInfoByAddress?address=${address}`),
         mutate(`/data/getEarningsbyAddress/${address}`),
       ]);
@@ -169,44 +165,47 @@ const MainMyAssetInfo = ({
               <DashboardBottomLeftTitleBox id="mainmyassetinfodashboard">
                 <DashboardBottomLeftTitle id="mainmyassetinfodashboard">
                   Arbitrage Bot
-                  {performanceLoading?(<Loader/>):(
-                  <StrategyOption.wrapper>
-                    <FaChevronLeft
-                      size={14}
-                      color={strategy == 0 ? "#46494A" : "#C6CACA"}
-                      onClick={() => {
-                        if (strategy !== 0) {
-                          setStrategy(strategy-1);
-                        }
-                        // if(strategy === 1){
-                        //   setStrategy(strategy-1);
-                        // }
-
-                      }}
-                    />
-                    <p>
-                      {performanceData?.summaryData[strategy]?.strategyDetails?.strategy1?.exchange} -{" "}
-                      {performanceData?.summaryData[strategy]?.strategyDetails?.strategy2?.exchange} bot
-                    </p>
-                    <img src={img1} style={{marginRight:"3px"}}/>
-                    <img src={img2} />
-                    <FaChevronRight
-                      size={14}
-                      color={strategy === 3 ? "#46494A" : "#C6CACA"}
-                      onClick={() => {
-                        if(strategy !==3 ){
-                          setStrategy(strategy+1)
-                        }    
-                      }}
-                    />
-                  </StrategyOption.wrapper>
-                )}
+                  {performanceLoading ? (
+                    <Loader />
+                  ) : (
+                    <StrategyOption.wrapper>
+                      <FaChevronLeft
+                        size={14}
+                        color={strategy == 0 ? "#46494A" : "#C6CACA"}
+                        onClick={() => {
+                          if (strategy !== 0) {
+                            setStrategy(strategy - 1);
+                          }
+                          // if(strategy === 1){
+                          //   setStrategy(strategy-1);
+                          // }
+                        }}
+                      />
+                      <p>
+                        {performanceData?.summaryData[strategy]?.strategyDetails?.strategy1?.exchange} -{" "}
+                        {performanceData?.summaryData[strategy]?.strategyDetails?.strategy2?.exchange} bot
+                      </p>
+                      <img src={img1} style={{ marginRight: "3px" }} />
+                      <img src={img2} />
+                      <FaChevronRight
+                        size={14}
+                        color={strategy === 3 ? "#46494A" : "#C6CACA"}
+                        onClick={() => {
+                          if (strategy !== 3) {
+                            setStrategy(strategy + 1);
+                          }
+                        }}
+                      />
+                    </StrategyOption.wrapper>
+                  )}
                 </DashboardBottomLeftTitle>
 
                 <APYBox onClick={() => navigate("/dashboard")} id="mainmyassetinfodashboard">
                   <span id="mainmyassetinfodashboard">APY</span>
                   <h4 id="mainmyassetinfodashboard">
-                    {performanceData?.summaryData[strategy]?.apy ? `${performanceData?.summaryData[strategy]?.apy.toFixed(2)}%` : "-"}
+                    {performanceData?.summaryData[strategy]?.apy
+                      ? `${performanceData?.summaryData[strategy]?.apy.toFixed(2)}%`
+                      : "-"}
                   </h4>
                 </APYBox>
               </DashboardBottomLeftTitleBox>
@@ -224,7 +223,10 @@ const MainMyAssetInfo = ({
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
-                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard" style={{position:"absolute", right:"50%"}}>
+                    <DashboardBottomLeftDataItem
+                      id="mainmyassetinfodashboard"
+                      style={{ position: "absolute", right: "50%" }}
+                    >
                       <span id="mainmyassetinfodashboard">Daily PNL</span>
                       <h4 id="mainmyassetinfodashboard">
                         {performanceData
@@ -232,7 +234,10 @@ const MainMyAssetInfo = ({
                           : "-"}
                       </h4>
                     </DashboardBottomLeftDataItem>
-                    <DashboardBottomLeftDataItem id="mainmyassetinfodashboard" style={{position:"absolute", left:"65%"}}>
+                    <DashboardBottomLeftDataItem
+                      id="mainmyassetinfodashboard"
+                      style={{ position: "absolute", left: "65%" }}
+                    >
                       <span
                         style={{ gap: "6px", alignItems: "center", display: "flex", justifyContent: "" }}
                         id="mainmyassetinfodashboard"
@@ -364,11 +369,11 @@ const StrategyOption = {
       font-style: normal;
       font-weight: 500;
       line-height: 18px; /* 138.462% */
-    };
+    }
     img {
       width: 20px;
       height: 20px;
-    };
+    }
   `,
 };
 

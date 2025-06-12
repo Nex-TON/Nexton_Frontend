@@ -24,17 +24,19 @@ export function mapTokenMasterAddress(token: string) {
 }
 
 export function amountToString(token: string, amount: bigint) {
-  switch (token) {
-    case "bmTON":
-    case "nxTON":
-    case "TON":
-      return fromNano(amount);
-    case "USDT":
-      const divisor = 1000000n;
-      const integerPart = amount / divisor;
-      const fractionalPart = amount % divisor;
-      return integerPart.toString() + "." + fractionalPart.toString().padStart(6, "0");
-  }
+  if (amount && token) {
+    switch (token) {
+      case "bmTON":
+      case "nxTON":
+      case "TON":
+        return fromNano(amount);
+      case "USDT":
+        const divisor = 1000000n;
+        const integerPart = amount / divisor;
+        const fractionalPart = amount % divisor;
+        return integerPart.toString() + "." + fractionalPart.toString().padStart(6, "0");
+    }
+  } else return "";
 }
 
 export function stringToAmount(token: string, amount: string) {

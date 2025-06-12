@@ -44,7 +44,7 @@ const Main: React.FC = () => {
     setIsFbOpen(false);
   };
 
-  const { address, balance, refreshTonData, connected, tonConnectUI } = useTonConnect();
+  const { address, balance, connected, tonConnectUI } = useTonConnect();
 
   const { nftList, isLoading, isError } = useStakeInfo(address);
   const { borrowList } = useRepayNftList(address);
@@ -73,9 +73,6 @@ const Main: React.FC = () => {
         if (!address) {
           mutate(`/data/getAllStakeInfoByAddress?address=${address}`);
         }
-        if (connected) {
-          await refreshTonData();
-        }
       } catch (error) {
         console.error("An error occurred during the refresh operation:", error);
       } finally {
@@ -92,7 +89,7 @@ const Main: React.FC = () => {
     return () => {
       clearInterval(timer);
     };
-  }, [refreshTonData, address]);
+  }, [address]);
 
   // Show welcome modal if user hasn't visited before
   useEffect(() => {
@@ -129,29 +126,28 @@ const Main: React.FC = () => {
   //     setAgreementModal(true);
   //   }};
   // }, [userAgreement]);
-  
 
   const [toggleChanged, setToggleChanged] = useState(0);
-  useEffect(()=>{
-    const handleStorageChange = () =>{
-      setToggleChanged(prev => prev+1);
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setToggleChanged(prev => prev + 1);
     };
     window.addEventListener("storage", handleStorageChange);
-    return ()=>window.removeEventListener("storage", handleStorageChange);
-  })
+    return () => window.removeEventListener("storage", handleStorageChange);
+  });
 
-  //menu에서 PrivacyPolicy, TermsOfUse 둘중하나라도 동의취소한 유저에게 개인정보창 보이게 
-  useEffect(()=>{
-    const agreePrivacyPolicy = localStorage.getItem("agreePrivacyPolicy") === "true"
-    const agreeTermsOfUse = localStorage.getItem("agreeTermsOfUse") === "true"
+  //menu에서 PrivacyPolicy, TermsOfUse 둘중하나라도 동의취소한 유저에게 개인정보창 보이게
+  useEffect(() => {
+    const agreePrivacyPolicy = localStorage.getItem("agreePrivacyPolicy") === "true";
+    const agreeTermsOfUse = localStorage.getItem("agreeTermsOfUse") === "true";
     console.log("PrivacyPolicy", localStorage.getItem("agreePrivacyPolicy"));
-    console.log("TermsOfUse",localStorage.getItem("agreeTermsOfUse"))
-    if(agreePrivacyPolicy && agreeTermsOfUse){
+    console.log("TermsOfUse", localStorage.getItem("agreeTermsOfUse"));
+    if (agreePrivacyPolicy && agreeTermsOfUse) {
       setAgreementModal(false);
-    }else{
+    } else {
       setAgreementModal(true);
     }
-  },[toggleChanged]);
+  }, [toggleChanged]);
 
   useEffect(() => {
     const hasSeenAnnouncement = localStorage.getItem("hasSeenAnnouncement");
@@ -238,7 +234,7 @@ const Main: React.FC = () => {
   // Calculate the total amount staked
   const totalStaked = useMemo(() => {
     const nftTotal =
-      (nftList||[])?.reduce((acc, nft) => {
+      (nftList || [])?.reduce((acc, nft) => {
         if (nft.tokenSort === "TON") {
           return acc + nft.principal;
         }
@@ -246,7 +242,7 @@ const Main: React.FC = () => {
       }, 0) || 0;
 
     const borrowTotal =
-      (borrowList||[])?.reduce((acc, borrow) => {
+      (borrowList || [])?.reduce((acc, borrow) => {
         if (borrow.tokenSort === "TON" && borrow.status === 0) {
           return acc + borrow.principal / borrow.loanToValue;
         }
@@ -282,16 +278,16 @@ const Main: React.FC = () => {
     localStorage.setItem("agreeTermsOfUse", "true");
     window.dispatchEvent(new Event("storage"));
 
-    if(userAgreement){
-      if(userAgreement?.agreement){
+    if (userAgreement) {
+      if (userAgreement?.agreement) {
         setAgreementModal(false);
         return;
       }
     }
-    
+
     try {
       const response = await postAgreement({
-        userId:userId.toString(),
+        userId: userId.toString(),
       });
       console.log("이용약관 동의모달", response);
       setAgreementModal(false);
@@ -313,7 +309,6 @@ const Main: React.FC = () => {
           connected={connected}
           address={address}
           balance={balance}
-          refreshTonData={refreshTonData}
           totalStaked={totalStaked}
           isLoading={isLoading || isRefreshing}
           isError={isError}
