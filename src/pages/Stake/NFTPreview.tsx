@@ -30,8 +30,6 @@ interface ModalState {
   toggled: boolean;
 }
 const NFTPreview = () => {
-  const { refreshTonData } = useTonConnect();
-
   const stakingInfo = useRecoilValue(stakingAtom);
   const stakeInfoReset = useResetRecoilState(stakingAtom);
   const setError = useSetRecoilState(globalError);
@@ -62,9 +60,9 @@ const NFTPreview = () => {
     try {
       if (["Arbitrage Bot", "Arbitrage Bot 1", "Arbitrage Bot 2", "Arbitrage Bot 3"].includes(stakingInfo.nominator)) {
         const PROTOCOL_FEE = toNano(0.1);
-        
+
         // First, attempt to send the message to the contract
-        await sendDepositTon({amount: toNano(stakingInfo.principal) - PROTOCOL_FEE }, stakingInfo.principal);
+        await sendDepositTon({ amount: toNano(stakingInfo.principal) - PROTOCOL_FEE }, stakingInfo.principal);
       } else {
         const data = {
           amount: toNano(stakingInfo.principal),
@@ -105,7 +103,7 @@ const NFTPreview = () => {
   const handleJettonStake = useCallback(async () => {
     setIsLoading(true);
     try {
-      if (["Arbitrage Bot", "Arbitrage Bot 1",  "Arbitrage Bot 2", "Arbitrage Bot 3"].includes(stakingInfo.nominator)) {
+      if (["Arbitrage Bot", "Arbitrage Bot 1", "Arbitrage Bot 2", "Arbitrage Bot 3"].includes(stakingInfo.nominator)) {
         const data = (amount: string) => {
           const PROTOCOL_FEE = toNano(0.1);
           return {
@@ -207,8 +205,6 @@ const NFTPreview = () => {
 
             // Refresh the MyAssets data
             mutate(`/data/getAllStakeInfoByAddress?address=${stakingInfo.address}`);
-            await refreshTonData();
-
             navigate("/stake/success", {
               state: { isStakeSuccess: true, lockPeriod: stakingInfo.lockup, stakingInfo: stakingInfo },
             });
