@@ -31,7 +31,10 @@ const NextonNews = () => {
         <SliderWrapper>
           <Slider {...settings}>
             <SliderItem>
-              <NewsTokenExchange/>
+              <NewsReferralGuide />
+            </SliderItem>
+            <SliderItem>
+              <NewsTokenExchange />
             </SliderItem>
             <SliderItem>
               <NewsTomo />
@@ -56,9 +59,6 @@ const NextonNews = () => {
                 </TextWrapper>
                 <IllustImg src={BannerIllust} alt="banner illust" id="main page carousel" />
               </ContainerWrapper>
-            </SliderItem>
-            <SliderItem>
-              <NewsReferralGuide/>
             </SliderItem>
           </Slider>
         </SliderWrapper>
@@ -144,8 +144,9 @@ const SliderWrapper = styled.div`
   }
   .slick-slide {
     width: 100%;
-    transform: translateX(-3.6%); 
-  }`;
+    transform: translateX(-3.6%);
+  }
+`;
 
 const SliderItem = styled.div`
   width: 100%;

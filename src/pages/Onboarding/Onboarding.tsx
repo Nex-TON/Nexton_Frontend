@@ -203,9 +203,9 @@ const NextButton = styled.div`
   border-radius: 1.2rem;
 
   //font
-  color: var(--iOS-Light-Button-Text-Color, #fff);
+  color: white;
   text-align: center;
-  font-family: "SF Pro";
+  font-family: "SFPro";
   font-size: 17px;
   font-style: normal;
   font-weight: 400;
