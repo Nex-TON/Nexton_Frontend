@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import NewsTokenExchange from "./NewsTokenExchange";
+import NewsReferralGuide from "./NewsReferralGuide";
 
 const NextonNews = () => {
   const settings = {
@@ -30,7 +31,10 @@ const NextonNews = () => {
         <SliderWrapper>
           <Slider {...settings}>
             <SliderItem>
-              <NewsTokenExchange/>
+              <NewsReferralGuide />
+            </SliderItem>
+            <SliderItem>
+              <NewsTokenExchange />
             </SliderItem>
             <SliderItem>
               <NewsTomo />
@@ -140,8 +144,9 @@ const SliderWrapper = styled.div`
   }
   .slick-slide {
     width: 100%;
-    transform: translateX(-3.6%); 
-  }`;
+    transform: translateX(-3.6%);
+  }
+`;
 
 const SliderItem = styled.div`
   width: 100%;
