@@ -4,7 +4,7 @@ import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 
-import IcArrorRight from "@/assets/icons/Stake/ic_arrow_right.svg";
+import IcArrorRight from "@/assets/icons/Stake/ic_arrow_right_black.svg";
 import Loader from "@/components/common/Loader";
 import ProgressBar from "@/components/stake/common/ProgressBar";
 import Step from "@/components/stake/common/Step";

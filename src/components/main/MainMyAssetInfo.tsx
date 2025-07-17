@@ -8,7 +8,7 @@ import IcRefresh from "@/assets/icons/MyAsset/ic_refresh.svg";
 import MyAssetNotConnected from "@/assets/image/MyAssetNotConnected.svg";
 import { useBotPerformanceSummary } from "@/hooks/api/dashboard/useBotPerformanceSummary";
 import { useEarningsbyAddress } from "@/hooks/api/dashboard/useEarningsbyAddress";
-import IcArrowRightGrey from "@/assets/icons/Stake/ic_arrow_right.svg";
+import IcArrowRightGrey from "@/assets/icons/Stake/ic_chevron_right.svg";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import stonfi from "@/assets/icons/Main/ic_stonfi_logo.svg";
 import binance from "@/assets/icons/Main/ic_binance_logo.svg";
