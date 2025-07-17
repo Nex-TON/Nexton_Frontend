@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-import IcBemoPool from "@/assets/icons/Stake/ic_bemo_pool.svg"
+import IcBemoPool from "@/assets/icons/Stake/ic_bemo_pool.svg";
 import IcEvaaPool from "@/assets/icons/Stake/ic_evaa_pool.svg";
 import { INominatorList } from "@/hooks/api/useNominatorList";
 import { limitDecimals } from "@/utils/limitDecimals";
@@ -10,6 +10,7 @@ import binance from "@/assets/icons/Dashboard/ic_binance_letter.svg";
 import binance_small from "@/assets/icons/Main/ic_binance_logo.svg";
 import stonfi_small from "@/assets/icons/Main/ic_stonfi_logo.svg";
 import dedust from "@/assets/icons/Dashboard/ic_dedust_letter.svg";
+import Tooltip from "@/components/stake/common/Tooltip";
 
 export type PoolType = "bemo" | "evaa" | "arbitrage" | "nominator";
 
@@ -22,6 +23,7 @@ interface NominatorItemProps {
   disabled?: boolean;
   selectedNominator: INominatorList;
   handleSelectNominator: (index: number) => void;
+  mystrategy?: boolean;
 }
 
 const NominatorItem: React.FC<NominatorItemProps> = ({
@@ -33,8 +35,9 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
   disabled,
   selectedNominator,
   handleSelectNominator,
+  mystrategy,
 }) => {
-  const isSelected = selectedNominator?.id === id;
+  const isSelected = selectedNominator?.id === id && !mystrategy;
 
   const icon = title === "Bemo Pool" ? IcBemoPool : title === "Evaa Pool" ? IcEvaaPool : null;
 
@@ -47,13 +50,25 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
       id={`${title}`}
       $disabled={disabled}
       $active={isSelected}
+      $isMyStrategy={mystrategy}
       onClick={() => (!disabled ? handleClick() : null)}
     >
       <NominatorItemTop $active={isSelected} $disabled={disabled}>
         <NominatorItemTopLeft>
+          {mystrategy && title === "Arbitrage Bot" && (
+            <Tooltip>
+              <TooltipText>This is the most selected strategy!</TooltipText>
+            </Tooltip>
+          )}
           <NominatorItemTitle $inactive={disabled} $selected={isSelected}>
             {icon && <img src={icon} alt="icon" />}{" "}
-            {title === "Bemo Pool" ? "Bemo pool" : (title === "Arbitrage Bot 1" || title === "Arbitrage Bot 3") ? "DEX-DEX bot" : title === "Evaa Pool" ? "Evaa Pool" : "CEX-DEX bot"}
+            {title === "Bemo Pool"
+              ? "Bemo pool"
+              : title === "Arbitrage Bot 1" || title === "Arbitrage Bot 3"
+                ? "DEX-DEX bot"
+                : title === "Evaa Pool"
+                  ? "Evaa Pool"
+                  : "CEX-DEX bot"}
           </NominatorItemTitle>
           {/* {title != "Bemo Pool" ? (
             <NominatorExchange>
@@ -68,32 +83,31 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
               <img src={stonfi_small} style={{ width: "17.552px" }} />
             </NominatorExchange>
           )} */}
-          {title === "Bemo Pool" ?(
+          {title === "Bemo Pool" ? (
             <NominatorExchange>
               <p> CEX-DEX bot</p>
               <img src={binance_small} style={{ width: "17.552px", marginRight: "7px" }} />
               <img src={stonfi_small} style={{ width: "17.552px" }} />
             </NominatorExchange>
-          ): title === "Evaa Pool" ? (
+          ) : title === "Evaa Pool" ? (
             <NominatorExchange>
               <p> CEX-DEX bot</p>
               <img src={binance_small} style={{ width: "17.552px", marginRight: "7px" }} />
               <img src={stonfi_small} style={{ width: "17.552px" }} />
             </NominatorExchange>
-          ): (title === "Arbitrage Bot") || (title === "Arbitrage Bot 1") ? (
+          ) : title === "Arbitrage Bot" || title === "Arbitrage Bot 1" ? (
             <NominatorExchange>
               <img style={{ height: "17.43px" }} src={title === "Arbitrage Bot 1" ? hyperliquid : binance} />
               <VerticalLine />
               <img style={{ height: "17.43px" }} src={stonfi} />
             </NominatorExchange>
-          ):(
+          ) : (
             <NominatorExchange>
               <img style={{ height: "17.43px" }} src={title === "Arbitrage Bot 3" ? hyperliquid : binance} />
               <VerticalLine />
               <img style={{ height: "17.43px" }} src={dedust} />
             </NominatorExchange>
-          )
-        }
+          )}
         </NominatorItemTopLeft>
         <DivideLine />
       </NominatorItemTop>
@@ -134,6 +148,15 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
 
 export default NominatorItem;
 
+const TooltipText = styled.div`
+  color: var(--Neutral-Neutural-100, #fff);
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px; /* 138.462% */
+`;
+
 const DivideLine = styled.div`
   width: 100%;
   padding: 0 2rem;
@@ -166,7 +189,7 @@ const NominatorExchange = styled.div`
   }
 `;
 
-const NominatorItemWrapper = styled.div<{ $active: boolean; $disabled?: boolean }>`
+const NominatorItemWrapper = styled.div<{ $active: boolean; $disabled?: boolean; $isMyStrategy?: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -174,6 +197,7 @@ const NominatorItemWrapper = styled.div<{ $active: boolean; $disabled?: boolean 
 
   width: 100%;
   height: auto;
+  border: ${({ $isMyStrategy }) => $isMyStrategy && "1px solid var(--blue, #1F53FF)"};
 
   /* padding: 2rem 2.4rem; */
   border-radius: 1.5rem;
@@ -239,17 +263,10 @@ const NominatorItemTop = styled.div<{ $active; $disabled }>`
 
 const NominatorItemTopLeft = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-`;
-
-const NominatorItemTopRight = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: end;
-  flex-direction: column;
-  gap: 1rem;
 `;
 
 const NominatorComingSoon = styled.div`

@@ -79,6 +79,7 @@ const Amount = () => {
     handleSubmit,
     setValue,
     setError,
+    clearErrors,
     control,
     formState: { errors },
   } = useForm({
@@ -139,7 +140,7 @@ const Amount = () => {
       leverage:1,
       lockup: getLockUpDate(data.amount, 1)
     }));
-    navigate("/stake/nominator");
+    navigate("/stake/mystrategy");
   };
 
   return (
@@ -225,9 +226,9 @@ const Amount = () => {
           />
 
           {!isDevMode ? (
-            <MainButton text="NEXT" onClick={handleSubmit(onSubmit)} />
+            <MainButton text="Continue" onClick={handleSubmit(onSubmit)} />
           ) : (
-            <button onClick={handleSubmit(onSubmit)}>next</button>
+            <button onClick={handleSubmit(onSubmit)}>Continue</button>
           )}
         </form>
         {tokenSort === "nxTON" && (

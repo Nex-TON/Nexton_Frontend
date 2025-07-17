@@ -7,6 +7,10 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { stakingAtom } from "@/lib/atom/staking";
 import { getLockUpDate } from "@/utils/getLockupDate";
 
+import IcDashboard from "@/assets/icons/stake/ic_dashboard.svg";
+import IcRight from "@/assets/icons/stake/ic_arrow_right.svg";
+import { useNavigate } from "react-router-dom";
+
 interface TokenInputProps extends NumericFormatProps {
   name: string;
   setValue: (name: string, value: string) => void;
@@ -40,6 +44,7 @@ const TokenInput = ({
   const stakingInfo = useRecoilValue(stakingAtom);
   const [, setStakingInfo] = useRecoilState(stakingAtom);
   const [isTouched, setIsTouched] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -48,7 +53,7 @@ const TokenInput = ({
           <Controller
             name={name}
             control={control}
-            render={({ field: { onChange, ref, value = "", ...rest } }) => (
+            render={({ field: { onChange, ref, value = "", ...rest }}) => (
               <Input
                 {...rest}
                 {...props}
@@ -76,16 +81,19 @@ const TokenInput = ({
                 disabled={disabled}
                 autoComplete="off"
                 $customWidth={inputValue.length || 1}
-                $error={Boolean(error) && isTouched && !inputValue}
-              />
+                $error={Boolean(error) && isTouched}
+                />
             )}
           />
-          <TokenName $error={Boolean(error) && isTouched && !inputValue}>
+          <TokenName $error={Boolean(error) && isTouched }>
             {tokenSort === "nxTON" ? "NxTON" : tokenSort}
           </TokenName>
         </AmountWrapper>
         <ConvertedValue $isZero={convertedValue === "$0.00"}>{isConverting ? "..." : convertedValue}</ConvertedValue>
         <NFTPreviewInfo stakingInfo={stakingInfo} />
+        <DashboardRouter onClick={() => navigate("/dashboard")}>
+          <img src={IcDashboard} alt="dashboard icon" /> <p>Go to Dashbaord</p> <img src={IcRight} alt="right arrow" />
+        </DashboardRouter>
       </LeverageInputWrapper>
     </>
   );
@@ -93,6 +101,25 @@ const TokenInput = ({
 
 export default TokenInput;
 
+const DashboardRouter = styled.div`
+  margin-top: -40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  p {
+    color: var(--Neutral-Neutural-20, #303234);
+    font-family: "Montserrat";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 22px; /* 157.143% */
+  }
+  img {
+    width: 24px;
+    height: 24px;
+  }
+`;
 const DivideLine = styled.div`
   background-color: #e5e5ea;
   height: 1px;
