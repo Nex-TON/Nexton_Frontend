@@ -7,7 +7,7 @@ import { styled } from "styled-components";
 import Loader from "@/components/common/Loader";
 import ProgressBar from "@/components/stake/common/ProgressBar";
 import { ConfirmNominatorModal } from "@/components/stake/Nominator/ConfirmNominatorModal";
-import IcRight from "@/assets/icons/stake/ic_arrow_right_black.svg";
+import IcRight from "@/assets/icons/Stake/ic_arrow_right_black.svg"
 import { useNominatorList } from "@/hooks/api/useNominatorList";
 import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom } from "@/lib/atom/staking";
