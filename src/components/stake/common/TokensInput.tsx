@@ -7,8 +7,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { stakingAtom } from "@/lib/atom/staking";
 import { getLockUpDate } from "@/utils/getLockupDate";
 
-import IcDashboard from "@/assets/icons/stake/ic_dashboard.svg";
-import IcRight from "@/assets/icons/stake/ic_arrow_right.svg";
+import IcDashboard from "@/assets/icons/Stake/ic_dashboard.svg";
+import IcRight from "@/assets/icons/Stake/ic_arrow_right.svg";
 import { useNavigate } from "react-router-dom";
 
 interface TokenInputProps extends NumericFormatProps {
