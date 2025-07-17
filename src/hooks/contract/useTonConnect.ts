@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Address } from "@ton/core";
-import { toUserFriendlyAddress, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+import useSWR from "swr";
+import { useTonConnectUI, useTonWallet, useTonAddress } from "@tonconnect/ui-react";
 
 import { useTonClient } from "./useTonClient";
 
@@ -8,23 +9,15 @@ export default function useTonConnect() {
   const client = useTonClient();
   const [tonConnectUI] = useTonConnectUI();
   const wallet = useTonWallet();
-  const [address, setAddress] = useState("");
-  const [balance, setBalance] = useState<number>();
-
-  const getAddress = useCallback(() => {
-    const addr = wallet?.account?.address;
-    if (addr) {
-      setAddress(toUserFriendlyAddress(addr, true));
-    }
-  }, [wallet?.account?.address]);
+  const address = useTonAddress();
 
   const getBalance = useCallback(async () => {
-    if (client && wallet?.account?.address) {
+    if (client && address) {
       try {
-        const addr = Address.parse(wallet.account.address);
+        const addr = Address.parse(address);
         const newBalance = await client.getBalance(addr);
         const formattedBalance = Number(newBalance) / 10 ** 9;
-        setBalance(formattedBalance);
+        return formattedBalance;
       } catch (error) {
         console.error("Failed to fetch balance:", error);
         if (error.code === "ERR_BAD_RESPONSE") {
@@ -34,16 +27,14 @@ export default function useTonConnect() {
         // TODO: Optionally handle the error by updating the UI or re-trying the fetch
       }
     }
-  }, [client, wallet?.account?.address]);
+    throw Error("getBalance parameter uninitialized");
+  }, [client, address]);
 
-  const refreshTonData = useCallback(async () => {
-    getAddress();
-    await getBalance();
-  }, [getAddress, getBalance]);
-
-  useEffect(() => {
-    getAddress();
-  }, [wallet?.account?.address, getAddress]);
+  const { data: balance } = useSWR(address ? address : null, getBalance, {
+    errorRetryInterval: 200,
+    dedupingInterval: 5000,
+    refreshInterval: 10000,
+  });
 
   return {
     tonConnectUI,
@@ -65,8 +56,7 @@ export default function useTonConnect() {
     connected: wallet?.account.address ? true : false,
     pureAddress: wallet?.account.address,
     network: wallet?.account.chain,
-    balance,
-    address,
-    refreshTonData,
+    balance: balance,
+    address: address,
   };
 }

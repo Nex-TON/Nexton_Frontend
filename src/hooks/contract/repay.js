@@ -37,8 +37,8 @@ function repay(id) {
         const lendContractAddress = Address.parse(import.meta.env.VITE_LEND_CONTRACT);
         await jettonWallet.tokenTransfer(lendContractAddress, {
           amount: param.amount,
-          fwdAmount: param.forward_ton_amount,
-          value: param.value,
+          fwdAmount: toNano("0.05"),
+          value: toNano("0.1"),
           fwdPayload: beginCell().storeAddress(nftAddress).asSlice(),
         });
       } else {

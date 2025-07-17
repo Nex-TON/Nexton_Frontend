@@ -9,21 +9,26 @@ import IcnxTon from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
 import IcTon from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import nxtIcon from "@/assets/icons/Stake/Staking_nxTON.png";
 import IcUSDT from "@/assets/icons/Stake/Staking_USDT.png";
+import IcBmTon from "@/assets/icons/Stake/Staking_BmTON2.svg";
 import { useRepayNftList } from "@/hooks/api/loan/useRepayNftList";
 import { useStakeInfo } from "@/hooks/api/useStakeInfo";
 import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 
 export const TotalBalance = () => {
-  const { address, balance, refreshTonData } = useTonConnect();
-  const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
-  const { balance: oldNxTonBalance, refreshData: refreshOldNxtonData } = useJettonWallet("oldNxTON");
-  const { balance: usdtBalance, refreshData: refreshUsdtData } = useJettonWallet("USDT");
+
+  const { address, balance } = useTonConnect();
+  const { balance: nxTonBalance } = useJettonWallet();
+  const { balance: oldNxTonBalance } = useJettonWallet("oldNxTON");
+  const { balance: usdtBalance } = useJettonWallet("USDT");
+  const { balance: bmTonBalance } = useJettonWallet("bmTON");
+
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { nftList, isLoading } = useStakeInfo(address);
   const { borrowList } = useRepayNftList(address);
   const navigate = useNavigate();
 
+  //console.log("nftList",nftList);
   //nft list 에서 TON, NxTON staked된거 총량 가져옴
   const totalStaked = useMemo(() => {
     return tokenSort => {
@@ -45,14 +50,12 @@ export const TotalBalance = () => {
       return nftTotal;
     };
   }, [nftList]);
+
   useEffect(() => {
     const initializeData = async () => {
       setIsRefreshing(true);
       try {
         await Promise.all([
-          refreshTonData(),
-          refreshNxtonData(),
-          refreshUsdtData(),
           mutate(`/data/getAllStakeInfoByAddress?address=${address}`),
           mutate(`/data/getEarningsbyAddress/${address}`),
         ]);
@@ -64,7 +67,8 @@ export const TotalBalance = () => {
     };
 
     initializeData();
-  }, [address, refreshTonData, refreshNxtonData, refreshUsdtData]);
+  }, [address]);
+
 
   return (
     <TotalBalanceWrapper id="specific-element-total-balance">
@@ -137,6 +141,44 @@ export const TotalBalance = () => {
                 <Balance>
                   <p>{totalStaked("USDT") === 0 || totalStaked("USDT") ? totalStaked("USDT")?.toFixed(3) : "0.000"}</p>
                   <p>USDT</p>
+                </Balance>
+              </>
+            )}
+          </Balance>
+        </ValueWrapper>
+      </TotalBalanceBoxWrapper>
+      {/* bmTON */}
+      <TotalBalanceBoxWrapper>
+        <TokenTitle>
+          <img src={IcBmTon} alt="new bmTON logo" />
+          <h2>bmTON</h2>{" "}
+        </TokenTitle>
+        <ValueWrapper>
+          <SideText>Balance</SideText>
+          <Balance>
+            {isRefreshing ? (
+              <Balance>-.---</Balance>
+            ) : (
+              <>
+                <Balance>
+                  <p>{Number(bmTonBalance) === 0 || Number(bmTonBalance) ? Number(bmTonBalance)?.toFixed(3) : "0.000"} </p>
+                  <p>bmTON</p>
+                </Balance>
+              </>
+            )}
+          </Balance>
+        </ValueWrapper>
+        <DivideLine />
+        <ValueWrapper>
+          <SideText>Staked</SideText>
+          <Balance>
+            {isLoading ? (
+              <Balance>-.---</Balance>
+            ) : (
+              <>
+                <Balance>
+                  <p>{totalStaked("bmTON") === 0 || totalStaked("bmTON") ? totalStaked("bmTON")?.toFixed(3) : "0.000"}</p>
+                  <p>bmTON</p>
                 </Balance>
               </>
             )}

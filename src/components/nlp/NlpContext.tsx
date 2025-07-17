@@ -15,15 +15,7 @@ interface NlpContextProps {
 
 const NlpContext = (props: NlpContextProps) => {
   const { input, setInput } = props;
-  const { balance, refreshTonData } = useTonConnect();
-
-  useEffect(() => {
-    async function handleRefreshTonData() {
-      await refreshTonData();
-    }
-
-    handleRefreshTonData();
-  }, [refreshTonData]);
+  const { balance } = useTonConnect();
 
   return (
     <NlpContextWrapper>

@@ -9,15 +9,7 @@ import SwapBox from "../common/SwapBox";
 import LiquidityPair from "./LiquidityPair";
 
 const LiquiditySection = () => {
-  const { balance, refreshTonData } = useTonConnect();
-
-  useEffect(() => {
-    async function handleRefreshTonData() {
-      await refreshTonData();
-    }
-
-    handleRefreshTonData();
-  }, [refreshTonData]);
+  const { balance } = useTonConnect();
 
   return (
     <LiquiditySectionWrapper>

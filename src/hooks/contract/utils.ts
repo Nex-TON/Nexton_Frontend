@@ -1,6 +1,6 @@
 import { Address, fromNano, toNano } from "@ton/core";
 
-export function mapTokenMasterAddress(token) {
+export function mapTokenMasterAddress(token: string) {
   switch (token) {
     case "nxTON":
       return Address.parse(import.meta.env.VITE_NXTON_MASTER);
@@ -9,6 +9,11 @@ export function mapTokenMasterAddress(token) {
         return Address.parse("EQCdEj1dEh76-Qacc38ZRH2eGtqyp-50fO3_0wBKF8HKT9zh");
       else if (import.meta.env.VITE_TON_NETWORK == "testnet")
         return Address.parse("kQAUupHzEYK1B9yvg9qhaGFJqF-EcAgW58HjDs438pSex9Gu");
+    case "bmTON":
+      if (import.meta.env.VITE_TON_NETWORK == "mainnet")
+        return Address.parse("EQCSxGZPHqa3TtnODgMan8CEM0jf6HpY-uon_NMeFgjKqkEY");
+      else if (import.meta.env.VITE_TON_NETWORK == "testnet")
+        return Address.parse("kQBT-rBBCBEc3NMdLONnAygrHEFvEwamq7V8nq9Ngte3tZhJ");
     case "USDT":
       if (import.meta.env.VITE_TON_NETWORK == "mainnet")
         return Address.parse("EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs");
@@ -19,22 +24,26 @@ export function mapTokenMasterAddress(token) {
 }
 
 export function amountToString(token: string, amount: bigint) {
-  switch (token) {
-    case "nxTON":
-    case "TON":
-      return fromNano(amount);
-    case "USDT":
-      const divisor = 1000000n;
-      const integerPart = amount / divisor;
-      const fractionalPart = amount % divisor;
-      return integerPart.toString() + "." + fractionalPart.toString().padStart(6, "0");
-  }
+  if (amount && token) {
+    switch (token) {
+      case "bmTON":
+      case "nxTON":
+      case "TON":
+        return fromNano(amount);
+      case "USDT":
+        const divisor = 1000000n;
+        const integerPart = amount / divisor;
+        const fractionalPart = amount % divisor;
+        return integerPart.toString() + "." + fractionalPart.toString().padStart(6, "0");
+    }
+  } else return "";
 }
 
 export function stringToAmount(token: string, amount: string) {
   switch (token) {
     case "nxTON":
     case "TON":
+    case "bmTON":
       return toNano(amount);
     case "USDT":
       return toNano(amount) / 1000n;

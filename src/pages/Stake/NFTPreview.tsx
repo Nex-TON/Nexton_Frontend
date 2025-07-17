@@ -16,12 +16,10 @@ import { ConfirmStakeModal } from "@/components/stake/NFTPreview/ConfirmStakeMod
 import NftPreviewImage from "@/components/stake/NFTPreview/NftPreviewImage";
 import NFTPreviewInfo from "@/components/stake/NFTPreview/NFTPreviewInfo";
 import * as Contract from "@/hooks/contract/depositTon";
-import { TonDeposit } from "@/hooks/contract/wrappers/tact_NexTon";
 import { useJettonWallet } from "@/hooks/contract/useJettonWallet";
 import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom, stakingInputAtom } from "@/lib/atom/staking";
 import { isDevMode } from "@/utils/isDevMode";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -30,8 +28,6 @@ interface ModalState {
   toggled: boolean;
 }
 const NFTPreview = () => {
-  const { refreshTonData } = useTonConnect();
-
   const stakingInfo = useRecoilValue(stakingAtom);
   const stakeInfoReset = useResetRecoilState(stakingAtom);
   const setError = useSetRecoilState(globalError);
@@ -61,19 +57,10 @@ const NFTPreview = () => {
 
     try {
       if (["Arbitrage Bot", "Arbitrage Bot 1", "Arbitrage Bot 2", "Arbitrage Bot 3"].includes(stakingInfo.nominator)) {
-        const data = (): TonDeposit => {
-          const PROTOCOL_FEE = toNano(0.1);
-          return {
-            $$type: "TonDeposit",
-            query_id: BigInt(Date.now()),
-            amount: toNano(stakingInfo.principal) - PROTOCOL_FEE, // ❗NOTE❗: Not used in the current contract version
-            // lockPeriod: BigInt(stakingInfo.lockup),
-            // leverage: BigInt(stakingInfo.leverage),
-          };
-        };
+        const PROTOCOL_FEE = toNano(0.1);
 
         // First, attempt to send the message to the contract
-        await sendDepositTon(data(), stakingInfo.principal);
+        await sendDepositTon({ amount: toNano(stakingInfo.principal) - PROTOCOL_FEE }, stakingInfo.principal);
       } else {
         const data = {
           amount: toNano(stakingInfo.principal),
@@ -114,7 +101,7 @@ const NFTPreview = () => {
   const handleJettonStake = useCallback(async () => {
     setIsLoading(true);
     try {
-      if (["Arbitrage Bot", "Arbitrage Bot 1",  "Arbitrage Bot 2", "Arbitrage Bot 3"].includes(stakingInfo.nominator)) {
+      if (["Arbitrage Bot", "Arbitrage Bot 1", "Arbitrage Bot 2", "Arbitrage Bot 3"].includes(stakingInfo.nominator)) {
         const data = (amount: string) => {
           const PROTOCOL_FEE = toNano(0.1);
           return {
@@ -157,7 +144,7 @@ const NFTPreview = () => {
       tele.BackButton.show();
       tele.enableClosingConfirmation();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/stake/leverage");
+        navigate("/stake/nominator");
       });
     }
     window.scrollTo(0, 0);
@@ -216,8 +203,6 @@ const NFTPreview = () => {
 
             // Refresh the MyAssets data
             mutate(`/data/getAllStakeInfoByAddress?address=${stakingInfo.address}`);
-            await refreshTonData();
-
             navigate("/stake/success", {
               state: { isStakeSuccess: true, lockPeriod: stakingInfo.lockup, stakingInfo: stakingInfo },
             });

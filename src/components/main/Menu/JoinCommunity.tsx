@@ -8,6 +8,7 @@ import IcMenuTwitter from "@/assets/icons/Menu/ic_menu_twitter.svg";
 import IcMenuTelegram from "@/assets/icons/Menu/ic_menu_telegram.svg";
 import IcMenuSupport from "@/assets/icons/Menu/ic_menu_support.svg";
 import IcMenuGitbook from "@/assets/icons/Menu/ic_menu_gitbook.svg";
+import IcMenuMedium from "@/assets/icons/Menu/ic_menu_medium.svg";
 import IcAudit from "@/assets/icons/Menu/ic_menu_audit.svg";
 
 
@@ -69,6 +70,16 @@ const JoinCommunity = () => {
             Audit of NEXTON
           </div>
           <img src={IcNftMoreArrow} alt="moreArrow" width={10} id="menu page audit button" />
+        </JoinCommunityButton>
+        <JoinCommunityButton
+          onClick={() => handleNewTap("https://medium.com/@nextonnode")}
+          id="menu page audit of nexton"
+        >
+          <div id="menu page audit button">
+            <img src={IcMenuMedium} alt="medium" id="menu page medium button" />
+            Medium
+          </div>
+          <img src={IcNftMoreArrow} alt="moreArrow" width={10} id="menu page medium button" />
         </JoinCommunityButton>
         <JoinCommunityButton $inactive>
           <div>

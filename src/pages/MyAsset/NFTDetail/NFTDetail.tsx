@@ -15,7 +15,6 @@ import { useCheckLendingAvailable } from "@/hooks/api/loan/useCheckLendingAvaila
 import IcTonSymbol from "@/assets/icons/MyAsset/ic_tonSymbol.svg";
 import IcNxTonSymbol from "@/assets/icons/MyAsset/ic_nxTonSymbol.svg";
 import BasicModal from "@/components/common/Modal/BasicModal";
-import { useWalletData } from "@/context/WalletConnectionProvider";
 import { LendingUnavailableModal } from "@/components/loan/Modal/LendingUnavailable";
 
 import {
@@ -61,8 +60,8 @@ const NFTDetail = () => {
   }, []);
 
   const toggleUnavailableModal = useCallback(() => {
-      setUnavailableModal(prev => !prev);
-    }, []);
+    setUnavailableModal(prev => !prev);
+  }, []);
 
   useEffect(() => {
     if (tele) {
@@ -164,7 +163,12 @@ const NFTDetail = () => {
             <NFTDetailItem>
               <NFTDetailItemCaption>Token</NFTDetailItemCaption>
               <NFTDetailItemText>
-                <img src={nftInfo?.tokenSort === "TON" ? IcTonSymbol : nftInfo?.tokenSort === "USDT" ? IcUSDT : IcNxTonSymbol} alt="tonSymbol" />
+                <img
+                  src={
+                    nftInfo?.tokenSort === "TON" ? IcTonSymbol : nftInfo?.tokenSort === "USDT" ? IcUSDT : IcNxTonSymbol
+                  }
+                  alt="tonSymbol"
+                />
                 {nftInfo?.tokenSort == "nxTON" ? "NxTON" : `${nftInfo?.tokenSort}`}
               </NFTDetailItemText>
             </NFTDetailItem>

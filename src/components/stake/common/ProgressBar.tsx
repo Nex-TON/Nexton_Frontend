@@ -9,11 +9,12 @@ const stageColors = {
 };
 
 const stages = {
-  "/stake/amount": ["current", "default", "default", "default"],
-  "/stake/nominator": ["completed", "current", "default", "default"],
-  "/stake/leverage": ["completed", "completed", "current", "default"],
-  "/stake/preview": ["completed", "completed", "completed", "completed"],
-  default: ["default", "default", "default", "default"],
+  "/stake/amount": ["current", "default", "default"],
+  "/stake/nominator": ["completed", "current", "default"],
+  "/stake/mystrategy": ["completed", "current", "default"],
+  // "/stake/leverage": ["completed", "completed", "current", "default"],
+  "/stake/preview": ["completed", "completed", "completed"],
+  default: ["default", "default", "default"],
 };
 
 const ProgressBar = () => {
