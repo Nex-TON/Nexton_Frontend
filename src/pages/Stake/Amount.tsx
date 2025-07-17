@@ -226,7 +226,7 @@ const Amount = () => {
           />
 
           {!isDevMode ? (
-            <MainButton text="Continue" onClick={handleSubmit(onSubmit)} disabled={true}/>
+            <MainButton text="Continue" onClick={handleSubmit(onSubmit)}/>
           ) : (
             <button onClick={handleSubmit(onSubmit)}>Continue</button>
           )}
