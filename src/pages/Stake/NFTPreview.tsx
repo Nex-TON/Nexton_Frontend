@@ -16,12 +16,10 @@ import { ConfirmStakeModal } from "@/components/stake/NFTPreview/ConfirmStakeMod
 import NftPreviewImage from "@/components/stake/NFTPreview/NftPreviewImage";
 import NFTPreviewInfo from "@/components/stake/NFTPreview/NFTPreviewInfo";
 import * as Contract from "@/hooks/contract/depositTon";
-import { TonDeposit } from "@/hooks/contract/wrappers/tact_NexTon";
 import { useJettonWallet } from "@/hooks/contract/useJettonWallet";
 import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom, stakingInputAtom } from "@/lib/atom/staking";
 import { isDevMode } from "@/utils/isDevMode";
-import useTonConnect from "@/hooks/contract/useTonConnect";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -146,7 +144,7 @@ const NFTPreview = () => {
       tele.BackButton.show();
       tele.enableClosingConfirmation();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/stake/leverage");
+        navigate("/stake/nominator");
       });
     }
     window.scrollTo(0, 0);

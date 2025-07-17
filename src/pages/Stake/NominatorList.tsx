@@ -80,7 +80,7 @@ const NominatorList = () => {
         nominator: selectedNominator.name,
         telegramId,
       }));
-      navigate("/stake/leverage");
+      navigate("/stake/preview");
     }
   };
 

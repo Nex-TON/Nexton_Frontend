@@ -1,13 +1,15 @@
-import {useState } from "react";
+import { useState } from "react";
 import { Controller } from "react-hook-form";
 import { NumericFormat, NumericFormatProps } from "react-number-format";
 import styled from "styled-components";
-import IcError from "@/assets/icons/Stake/ic_error.svg";
+import NFTPreviewInfo from "../NFTPreview/NFTPreviewInfo";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { stakingAtom } from "@/lib/atom/staking";
+import { getLockUpDate } from "@/utils/getLockupDate";
 
 interface TokenInputProps extends NumericFormatProps {
   name: string;
   setValue: (name: string, value: string) => void;
-  tokenLabel: any;
   control: any;
   balance: number;
   convertAmount: (amount: string | number) => string;
@@ -15,11 +17,12 @@ interface TokenInputProps extends NumericFormatProps {
   disabled?: boolean;
   saveAs?: "floatValue" | "formattedValue";
   disableMax?: boolean;
+  tokenSort?: string; // Added tokenSort prop to display the token type
+  address: string; // Added address prop to set the staking info
 }
 const TokenInput = ({
   name,
   setValue,
-  tokenLabel,
   control,
   balance,
   convertAmount,
@@ -27,149 +30,147 @@ const TokenInput = ({
   disabled,
   saveAs = "formattedValue",
   disableMax = false,
+  tokenSort,
+  address,
   ...props
 }: TokenInputProps) => {
   const [convertedValue, setConvertedValue] = useState<string>("$0.00");
   const [isConverting, setIsConverting] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState("");
+  const stakingInfo = useRecoilValue(stakingAtom);
+  const [, setStakingInfo] = useRecoilState(stakingAtom);
+  const [isTouched, setIsTouched] = useState(false);
 
   return (
     <>
-      <LeverageInputWrapper $error={Boolean(error)}>
-        <LeftSection>
-        <TokenLabel>{tokenLabel}</TokenLabel>
-          {/* <MaxWrapper
-            type="button"
-            disabled={!balance}
-            onClick={() => {
-              setValue(name, String(numberCutter(balance)));
-              setConvertedValue(convertAmount(String(numberCutter(balance))));
-            }}
-          >
-            MAX
-          </MaxWrapper> */}
-        </LeftSection>
-        <RightSection>
+      <LeverageInputWrapper>
+        <AmountWrapper>
           <Controller
             name={name}
             control={control}
-            render={({ field: { onChange, ref, ...rest } }) => (
+            render={({ field: { onChange, ref, value = "", ...rest } }) => (
               <Input
                 {...rest}
                 {...props}
                 id={name}
                 onValueChange={e => {
+                  const rawValue = e.value;
+                  setIsTouched(true);
                   setIsConverting(true);
                   console.log(e[saveAs]);
+                  setInputValue(String(e[saveAs]) || "");
                   onChange(e[saveAs]);
                   setConvertedValue(convertAmount(e[saveAs]));
                   setIsConverting(false);
+                  setStakingInfo(prev => ({
+                    ...prev,
+                    address: address,
+                    principal: rawValue,
+                    tokenSort: tokenSort,
+                    leverage: 1,
+                    lockup: getLockUpDate(rawValue, 1),
+                  }));
                 }}
+                value={value}
                 getInputRef={ref}
                 disabled={disabled}
                 autoComplete="off"
+                $customWidth={inputValue.length || 1}
+                $error={Boolean(error) && isTouched && !inputValue}
               />
             )}
           />
-          <ConvertedValue $isZero={convertedValue === "$0.00"}>{isConverting ? "..." : convertedValue}</ConvertedValue>
-        </RightSection>
+          <TokenName $error={Boolean(error) && isTouched && !inputValue}>
+            {tokenSort === "nxTON" ? "NxTON" : tokenSort}
+          </TokenName>
+        </AmountWrapper>
+        <ConvertedValue $isZero={convertedValue === "$0.00"}>{isConverting ? "..." : convertedValue}</ConvertedValue>
+        <NFTPreviewInfo stakingInfo={stakingInfo} />
       </LeverageInputWrapper>
-      {error && (
-        <ErrorWrapper>
-          <img src={IcError} alt="error" />
-          <span>{error}</span>
-        </ErrorWrapper>
-      )}
     </>
   );
 };
 
 export default TokenInput;
 
-const Input = styled(NumericFormat)`
+const DivideLine = styled.div`
+  background-color: #e5e5ea;
+  height: 1px;
   width: 100%;
-  text-align:end;
-  border: none;
+`;
 
+const TokenName = styled.div<{ $error?: boolean }>`
+  color: ${({ $error }) => ($error ? "#FF7979" : "#767680")};
+  text-align: center;
+  font-family: "Montserrat";
+  font-size: 46px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px; /* 56.522% */
+  letter-spacing: -0.46px;
+`;
+
+const Input = styled(NumericFormat)<{ $customWidth?: number; $error?: boolean }>`
+  width: ${({ $customWidth }) => `calc(${$customWidth}ch + 0.5rem)`};
+  min-width: 3.1rem;
+  max-width: unset;
+
+  height: 3.5rem;
+  border: none;
   background-color: transparent;
-  ${({ theme }) => theme.fonts.Telegram_Title_3_1};
-  color: #45464f;
+  color: ${({ $error }) => ($error ? "#FF7979" : "#2F3038")};
+  font-family: "Montserrat";
+  font-size: 46px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+  letter-spacing: -0.46px;
+  padding: 0;
+  outline: none;
+  text-align: center;
+
+  display: inline-block;
 
   &::placeholder {
-    text-align: end;
-    color: #e5e5ea;
+    color: ${({ $error }) => ($error ? "#FF7979" : "#abaab4")};
+    font-family: "Montserrat";
+    font-size: 46px;
+    text-align: center;
   }
 
   outline: none;
 `;
 
-const LeverageInputWrapper = styled.div<{ $error: boolean }>`
+const LeverageInputWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
 
   width: 100%;
-  margin-top: 1.4rem;
-  padding: 1.7rem 2.05rem 1.8rem 2rem;
+  height: fit-content;
+  margin-top: 2.6rem;
+  padding: 6.5rem 0 2.9rem 0;
 
-  border: ${({ $error }) => $error && `0.1rem solid #FF7979`};
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   background-color: #f9f9ff;
 `;
 
 const ConvertedValue = styled.span<{ $isZero: boolean }>`
   color: ${({ $isZero }) => ($isZero ? "#e5e5ea" : "#8E8E93")};
-  font-family: Montserrat;
+  font-family: "Montserrat";
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
+  margin-top: 1.5rem;
   line-height: 22px; /* 157.143% */
 `;
 
-const RightSection = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  flex-direction: column;
-  gap: 0.2rem;
-`;
-
-const LeftSection = styled.div`
-  display: flex;
-  align-items: start;
-  justify-content: center;
-  gap: 1.5rem;
-`;
-
-const MaxWrapper = styled.button`
-  padding: 0.4rem 0.8rem;
-
-  border: none;
-  border-radius: 0.4rem;
-  background-color: #ccf3ff;
-  ${({ theme }) => theme.fonts.Telegram_Footnote};
-  color: #20a9f6;
-
-  outline: none;
-  cursor: pointer;
-`;
-
-const TokenLabel = styled.span`
-  color: #0b0b0b;
-
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_2};
-`;
-
-const ErrorWrapper = styled.div`
+const AmountWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-
-  width: 85%;
-  padding-left: 2.3rem;
-  margin-top: 1rem;
-
-  span {
-    color: #ff7979;
-    ${({ theme }) => theme.fonts.Telegram_Caption_1};
-  }
+  justify-content: center;
+  flex-direction: row;
+  gap: 1.1rem;
+  width: 80%;
 `;

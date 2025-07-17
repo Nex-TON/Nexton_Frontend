@@ -5,11 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
-import { boolean, z } from "zod";
+import { z } from "zod";
 
 import ProgressBar from "@/components/stake/common/ProgressBar";
-import Step from "@/components/stake/common/Step";
-import Title from "@/components/stake/common/Title";
 import TokenInput from "@/components/stake/common/TokensInput";
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { stakingAtom } from "@/lib/atom/staking";
@@ -23,6 +21,8 @@ import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 import ExchangePopup from "@/components/stake/common/ExchangePopup";
+import IcWallet from "@/assets/icons/Stake/ic_wallet.svg";
+import { getLockUpDate } from "@/utils/getLockupDate";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -55,17 +55,15 @@ const Amount = () => {
     };
     return tokenBalance[tokenSort] ?? 0;
   };
-  
-  const mapTokenMasterAddress = (tokenSort: string) =>{
+
+  const mapTokenMasterAddress = (tokenSort: string) => {
     const tokenAddress: Record<string, string> = {
-      bmTON:"EQCSxGZPHqa3TtnODgMan8CEM0jf6HpY-uon_NMeFgjKqkEY"
+      bmTON: "EQCSxGZPHqa3TtnODgMan8CEM0jf6HpY-uon_NMeFgjKqkEY",
     };
     return tokenAddress[tokenSort] ?? "";
-  }
-  const bmTonAddress = mapTokenMasterAddress("bmTON")
-  const {data: bmTONPrice} = useCoinPrice(bmTonAddress, "USD")
-  console.log("bmTONPrice",bmTONPrice)
-  console.log("tonPrice",coinPrice)
+  };
+  const bmTonAddress = mapTokenMasterAddress("bmTON");
+  const { data: bmTONPrice } = useCoinPrice(bmTonAddress, "USD");
 
   const schema = z.object({
     amount: z
@@ -119,16 +117,16 @@ const Amount = () => {
     return (amount: string | number) => {
       //
       if (coinPrice && amount) {
-        if (tokenSort === "TON") return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
+        if (tokenSort === "TON") return `≈ $${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
         else if (tokenSort === "nxTON") {
-          return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * (Number(amount) / tokenRate?.tonToNextonRate), 2)}`;
-        } else if(tokenSort === "bmTON"){
-          return `$${limitDecimals(bmTONPrice?.rates?.[bmTonAddress]?.prices?.USD * Number(amount), 2)}`;
+          return `≈ $${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * (Number(amount) / tokenRate?.tonToNextonRate), 2)}`;
+        } else if (tokenSort === "bmTON") {
+          return `≈ $${limitDecimals(bmTONPrice?.rates?.[bmTonAddress]?.prices?.USD * Number(amount), 2)}`;
         } else {
-          return `$${Number(amount)}`;
+          return `≈ $${Number(amount)}`;
         }
       }
-      return "$0.00";
+      return "≈ $0.00";
     };
   }, [coinPrice, tokenSort]);
 
@@ -138,6 +136,8 @@ const Amount = () => {
       address: address,
       principal: data.amount,
       tokenSort: tokenSort,
+      leverage:1,
+      lockup: getLockUpDate(data.amount, 1)
     }));
     navigate("/stake/nominator");
   };
@@ -146,58 +146,53 @@ const Amount = () => {
     <>
       <AmountWrapper>
         <ProgressBar />
-        <Step title="Step 1" />
-        <Title title="Stake tokens" />
         <BalanceWrapper>
+          <TokenFilter
+            toggleModal={() => setModal(true)}
+            tokenSort={tokenSort} // Pass selection handler
+          />
           {tokenSort === "TON" ? (
             <BalanceText>
-              Balance :{" "}
+              <img src={IcWallet} alt="wallet" />
               {mapTokenBalance("TON") === 0
                 ? "0.00"
                 : mapTokenBalance("TON")
                   ? numberCutter(mapTokenBalance("TON"))
-                  : "-.--"}
+                  : "-.--"}{" "}
+              TON
             </BalanceText>
           ) : tokenSort === "nxTON" ? (
             <BalanceText>
-              Balance :{" "}
+              <img src={IcWallet} alt="wallet" />
               {mapTokenBalance("nxTON") === 0
                 ? "0.00"
                 : mapTokenBalance("nxTON")
                   ? numberCutter(mapTokenBalance("nxTON"))
-                  : "-.--"}
+                  : "-.--"}{" "}
+              nxTON
             </BalanceText>
           ) : tokenSort === "USDT" ? (
             <BalanceText>
-              Balance :{" "}
+              <img src={IcWallet} alt="wallet" />
               {mapTokenBalance("USDT") === 0
                 ? "0.00"
                 : mapTokenBalance("USDT")
                   ? numberCutter(mapTokenBalance("USDT"))
-                  : "-.--"}
+                  : "-.--"}{" "}
+              USDT
             </BalanceText>
           ) : (
             <BalanceText>
-              Balance :{" "}
+              <img src={IcWallet} alt="wallet" />
               {mapTokenBalance("bmTON") === 0
                 ? "0.00"
                 : mapTokenBalance("bmTON")
                   ? numberCutter(mapTokenBalance("bmTON"))
-                  : "-.--"}
+                  : "-.--"}{" "}
+              bmTON
             </BalanceText>
           )}
-          {/* {tokenSort === "TON" ? (
-            <BalanceText>Balance : {mapTokenBalance("TON") ? numberCutter(mapTokenBalance("TON")) : mapTokenBalance("TON") == 0 ? "0.00" : `-.--`}</BalanceText>
-          ) : tokenSort === "nxTON" ? (
-            <BalanceText>
-              Balance : {mapTokenBalance("nxTON") ? (mapTokenBalance("nxTON") == 0 ? "0.00" : numberCutter(mapTokenBalance("nxTON"))) : `-.--`}
-            </BalanceText>
-          ) : (
-            <BalanceText>
-              Balance : {mapTokenBalance("USDT") ? (mapTokenBalance("USDT") == 0 ? "0.00" : numberCutter(mapTokenBalance("USDT"))) : `-.--`}
-            </BalanceText>
-          )} */}
-          <MaxButton
+          {/* <MaxButton
             onClick={() => {
               //const maxAmount = tokenSort === "TON" ? balance : nxTonBalance;
               let maxAmount;
@@ -210,7 +205,7 @@ const Amount = () => {
             }}
           >
             MAX
-          </MaxButton>
+          </MaxButton> */}
         </BalanceWrapper>
 
         <form style={{ width: "100%" }}>
@@ -222,15 +217,11 @@ const Amount = () => {
             setValue={setValue}
             error={errors.amount?.message as string}
             disabled={!connected}
-            tokenLabel={
-              <TokenFilter
-                toggleModal={() => setModal(true)}
-                tokenSort={tokenSort} // Pass selection handler
-              />
-            }
-            placeholder={"min 1" + tokenSort}
+            placeholder={"0"}
             balance={balance}
             convertAmount={convertAmount}
+            tokenSort={tokenSort}
+            address={address}
           />
 
           {!isDevMode ? (
@@ -358,18 +349,22 @@ const BalanceWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   width: 100%;
-  margin-top: 2.6rem;
-  padding: 0 2.8rem 0 1.4rem;
 `;
 
 const BalanceText = styled.span`
   color: #333;
   font-family: Montserrat;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   font-size: 1.3rem;
   font-style: normal;
   font-weight: 500;
   line-height: 1.8rem; /* 138.462% */
   letter-spacing: -0.024rem;
+  img {
+    width: 18px;
+    height: 18px;
+  }
 `;
