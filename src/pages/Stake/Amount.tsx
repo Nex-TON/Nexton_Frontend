@@ -92,6 +92,17 @@ const Amount = () => {
   });
 
   useEffect(() => {
+  if (tele) {
+    if (errors.amount?.message) {
+      tele.MainButton.disable();
+    } else {
+      tele.MainButton.enable();
+    }
+  }
+}, [errors.amount?.message]);
+
+
+  useEffect(() => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
@@ -228,7 +239,7 @@ const Amount = () => {
           {!isDevMode ? (
             <MainButton text="Continue" onClick={handleSubmit(onSubmit)}/>
           ) : (
-            <button onClick={handleSubmit(onSubmit)}>Continue</button>
+            <button onClick={handleSubmit(onSubmit)}>"Continue"</button>
           )}
         </form>
         {tokenSort === "nxTON" && (
