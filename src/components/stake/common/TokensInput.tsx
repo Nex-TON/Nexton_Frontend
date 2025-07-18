@@ -137,8 +137,9 @@ const Input = styled(NumericFormat)<{ $customWidth?: number; $error?: boolean }>
   min-width: 3.1rem;
   max-width: unset;
 
-  height: 4.0rem;
+  height: 100%;
   border: none;
+  box-sizing:border-box;
   background-color: transparent;
   color: ${({ $error }) => ($error ? "#FF7979" : "#2F3038")};
   font-family: "Montserrat";
@@ -151,7 +152,9 @@ const Input = styled(NumericFormat)<{ $customWidth?: number; $error?: boolean }>
   outline: none;
   text-align: center;
 
-  display: inline-block;
+  display: flex;
+  align-items:center;
+  justify-content:center;
 
   &::placeholder {
     color: ${({ $error }) => ($error ? "#FF7979" : "#abaab4")};
@@ -195,5 +198,6 @@ const AmountWrapper = styled.div`
   justify-content: center;
   flex-direction: row;
   gap: 1.1rem;
+  height: 4.6rem;
   width: 80%;
 `;
