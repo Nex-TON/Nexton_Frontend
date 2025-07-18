@@ -120,11 +120,6 @@ const DashboardRouter = styled.div`
     height: 24px;
   }
 `;
-const DivideLine = styled.div`
-  background-color: #e5e5ea;
-  height: 1px;
-  width: 100%;
-`;
 
 const TokenName = styled.div<{ $error?: boolean }>`
   color: ${({ $error }) => ($error ? "#FF7979" : "#767680")};
@@ -133,7 +128,7 @@ const TokenName = styled.div<{ $error?: boolean }>`
   font-size: 46px;
   font-style: normal;
   font-weight: 500;
-  line-height: 26px; /* 56.522% */
+  line-height: 46px; /* 56.522% */
   letter-spacing: -0.46px;
 `;
 
@@ -142,7 +137,7 @@ const Input = styled(NumericFormat)<{ $customWidth?: number; $error?: boolean }>
   min-width: 3.1rem;
   max-width: unset;
 
-  height: 5rem;
+  height: 4.6rem;
   border: none;
   background-color: transparent;
   color: ${({ $error }) => ($error ? "#FF7979" : "#2F3038")};
