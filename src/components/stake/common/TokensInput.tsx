@@ -102,6 +102,7 @@ const TokenInput = ({
 export default TokenInput;
 
 const DashboardRouter = styled.div`
+  cursor: pointer;
   margin-top: -40px;
   display: flex;
   flex-direction: row;
@@ -125,6 +126,9 @@ const TokenName = styled.div<{ $error?: boolean }>`
   color: ${({ $error }) => ($error ? "#FF7979" : "#767680")};
   text-align: center;
   font-family: "Montserrat";
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 46px;
   font-style: normal;
   font-weight: 500;
@@ -152,7 +156,9 @@ const Input = styled(NumericFormat)<{ $customWidth?: number; $error?: boolean }>
   outline: none;
   text-align: center;
   
-  display: inline-block;
+  display: flex;
+  justify-content:center;
+  align-items:center;
   vertical-align: middle;
 
   &::placeholder {
