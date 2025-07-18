@@ -10,6 +10,7 @@ export interface INominatorList {
   tvl: number;
   type: "pool" | "bot";
   disabled?: boolean;
+  availableToken:[];
 }
 
 export const useNominatorList = (telegramId: string) => {

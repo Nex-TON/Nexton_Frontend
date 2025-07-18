@@ -23,6 +23,7 @@ import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 import ExchangePopup from "@/components/stake/common/ExchangePopup";
 import IcWallet from "@/assets/icons/Stake/ic_wallet.svg";
 import { getLockUpDate } from "@/utils/getLockupDate";
+import IcWarning from "@/assets/icons/Stake/ic_warning_black.svg";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -153,7 +154,18 @@ const Amount = () => {
             tokenSort={tokenSort} // Pass selection handler
           />
           {tokenSort === "TON" ? (
-            <BalanceText>
+            <BalanceText
+              onClick={() => {
+                //const maxAmount = tokenSort === "TON" ? balance : nxTonBalance;
+                let maxAmount;
+                if (tokenSort === "TON") maxAmount = balance;
+                else if (tokenSort === "nxTON") maxAmount = nxTonBalance;
+                else if (tokenSort === "USDT") maxAmount = usdtBalance;
+                else if (tokenSort === "bmTON") maxAmount = bmTonBalance;
+
+                setValue("amount", maxAmount ? limitDecimals(maxAmount, 3) : "0");
+              }}
+            >
               <img src={IcWallet} alt="wallet" />
               {mapTokenBalance("TON") === 0
                 ? "0.00"
@@ -224,6 +236,17 @@ const Amount = () => {
             tokenSort={tokenSort}
             address={address}
           />
+          <WarningWrapper>
+            <WarningHeader>
+              <img src={IcWarning} />
+              Please be cautious before investing!
+            </WarningHeader>
+            <WarningLetter>
+              Centralized exchanges may have security and operational risks. Additionally, due to the nature of
+              arbitrage trading, there is a possibility of negative returns depending on market conditions and execution
+              delays.
+            </WarningLetter>
+          </WarningWrapper>
 
           {!isDevMode ? (
             <MainButton
@@ -270,6 +293,41 @@ const Amount = () => {
 };
 
 export default Amount;
+
+const WarningLetter = styled.div`
+  color: var(--Neutral-Neutural-50, #76797a);
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 19.5px */
+  letter-spacing: -0.46px;
+`;
+
+const WarningHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  img {
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
+  }
+  color: var(--Neutral-Neutural-0, #000);
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 130%; /* 16.9px */
+  letter-spacing: -0.46px;
+`;
+
+const WarningWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  margin: 6.2rem 0 46px 0;
+`;
 
 const MaxButton = styled.div`
   width: fit-content;
