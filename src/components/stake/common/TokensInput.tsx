@@ -151,6 +151,7 @@ const Input = styled(NumericFormat)<{ $customWidth?: number; $error?: boolean }>
   padding: 0;
   outline: none;
   text-align: center;
+  vertical-align:middle;
 
   display: flex;
   align-items:center;
