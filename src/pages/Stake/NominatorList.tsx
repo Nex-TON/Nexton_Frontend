@@ -190,40 +190,10 @@ const NominatorList = () => {
                   ))}
 
                 {nominatorListData.some(
-                  item => item.type === "pool" && (stakingInfo.tokenSort === "TON" || stakingInfo.tokenSort === "USDT"),
+                  item => item.type === "pool" ,
                 ) && <PoolTitle>Pool</PoolTitle>}
                 {nominatorListData
-                  .filter(
-                    item =>
-                      item.type === "pool" &&
-                      item.name === "Evaa Pool" &&
-                      stakingInfo.tokenSort !== "nxTON" &&
-                      stakingInfo.tokenSort !== "bmTON",
-                  )
-                  .map(item => {
-                    //console.log("usdtTonRate", tokenRate?.tonUsdtRate)
-                    //console.log("tokenSort", stakingInfo.tokenSort)
-                    const tvl =
-                      stakingInfo.tokenSort === "USDT" && tokenRate?.tonUsdtRate
-                        ? item.tvl / tokenRate?.tonUsdtRate
-                        : item.tvl;
-                    return (
-                      <Fragment key={item.id}>
-                        <NominatorItem
-                          id={item.id}
-                          title={item.name}
-                          apy={item.apy}
-                          profitShare={item.profitShare}
-                          tvl={tvl}
-                          disabled={item.disabled}
-                          selectedNominator={selectedNominator}
-                          handleSelectNominator={handleSelectNominator}
-                        />
-                      </Fragment>
-                    );
-                  })}
-                {nominatorListData
-                  .filter(item => item.type === "pool" && item.name === "Bemo Pool" && stakingInfo.tokenSort === "TON")
+                  .filter(item => item.type === "pool"&& (item.availableToken.includes(stakingInfo.tokenSort)))
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem
