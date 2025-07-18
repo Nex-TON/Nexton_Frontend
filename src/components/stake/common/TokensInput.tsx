@@ -151,11 +151,9 @@ const Input = styled(NumericFormat)<{ $customWidth?: number; $error?: boolean }>
   padding: 0;
   outline: none;
   text-align: center;
-  vertical-align:middle;
-
-  display: flex;
-  align-items:center;
-  justify-content:center;
+  
+  display: inline-block;
+  vertical-align: middle;
 
   &::placeholder {
     color: ${({ $error }) => ($error ? "#FF7979" : "#abaab4")};
