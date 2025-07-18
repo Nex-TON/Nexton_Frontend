@@ -137,7 +137,7 @@ const Input = styled(NumericFormat)<{ $customWidth?: number; $error?: boolean }>
   min-width: 3.1rem;
   max-width: unset;
 
-  height: 4.6rem;
+  height: 4.0rem;
   border: none;
   background-color: transparent;
   color: ${({ $error }) => ($error ? "#FF7979" : "#2F3038")};

@@ -80,7 +80,6 @@ const Amount = () => {
     handleSubmit,
     setValue,
     setError,
-    clearErrors,
     control,
     formState: { errors },
   } = useForm({
