@@ -14,16 +14,16 @@ const ICON = {
   stonfi,
   binance,
   hyperliquid,
-  dedust
+  dedust,
 };
 
-const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLoading,sort }) => {
+const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLoading, sort }) => {
   //   mock
   // const rankingData = MOCK_RANKING;
   const navigate = useNavigate();
   const [showTooltip, setShowTooltip] = useState(false);
   const tooltipRef = useRef<HTMLDivElement>(null);
-  
+
   return (
     <>
       <RankingWrapper ref={tooltipRef}>
@@ -49,9 +49,13 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
         </RankingTab.wrapper>
         <RankingContainer.status>
           Running bot
-          <RankingContainer.tooltipwrapper onClick={() => setShowTooltip(prev => !prev)} onMouseEnter={()=>setShowTooltip(true)} onMouseLeave={()=>setShowTooltip(false)}>
+          <RankingContainer.tooltipwrapper
+            onClick={() => setShowTooltip(prev => !prev)}
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
+          >
             <img src={IcTooltip} alt="dashboard tooltip" />
-            {showTooltip && <DashboaardRunningBotTooltip sort={sort}/>}
+            {showTooltip && <DashboaardRunningBotTooltip sort={sort} />}
           </RankingContainer.tooltipwrapper>
         </RankingContainer.status>
         <RankingContainer.wrapper $active>
@@ -76,14 +80,18 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
                   </RankingContainer.strategy>
                   <RankingContainer.text>{item?.apy}%</RankingContainer.text>
                   <RankingContainer.text>{limitDecimals(item?.tvl, 0)}TON</RankingContainer.text>
-                  <RankingContainer.button onClick={() => navigate(`/dashboard/detail/${item?.strategy}`, {
-                    state: {
-                      // previousStrategy: item.previousStrategy,
-                      // nextStrategy: item.nextStrategy,
-                      // rank: item.rank,
-                      rankingList,
-                    },
-                  })}>
+                  <RankingContainer.button
+                    onClick={() =>
+                      navigate(`/dashboard/detail/${item?.strategy}`, {
+                        state: {
+                          // previousStrategy: item.previousStrategy,
+                          // nextStrategy: item.nextStrategy,
+                          // rank: item.rank,
+                          rankingList,
+                        },
+                      })
+                    }
+                  >
                     view
                   </RankingContainer.button>
                 </RankingContainer.box>
@@ -101,37 +109,48 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
             <p>TVL</p>
             <p>Detail</p>
           </RankingContainer.title>
-          {/* <RankingContainer.box>
+          <RankingContainer.box>
             <RankingContainer.text>1</RankingContainer.text>
             <RankingContainer.strategy>
-              <img src={dedust} alt="stonfi box icon" />
-              <img src={binance} alt="binance icon" />
+              <img src={binance} alt="binance box icon" />
+              <img src={hyperliquid} alt="hyperliquid icon" />
             </RankingContainer.strategy>
-            <RankingContainer.text>--.--%</RankingContainer.text>
-            <RankingContainer.text>---TON</RankingContainer.text>
-            <RankingContainer.text>-</RankingContainer.text>
+            <RankingContainer.text>--</RankingContainer.text>
+            <RankingContainer.text>--</RankingContainer.text>
+            <RankingContainer.text>--</RankingContainer.text>
           </RankingContainer.box>
           <DivideLine />
           <RankingContainer.box>
             <RankingContainer.text>2</RankingContainer.text>
             <RankingContainer.strategy>
-              <img src={dedust} alt="stonfi box icon" />
+              <img src={stonfi} alt="stonfi box icon" />
               <img src={hyperliquid} alt="hyperliquid icon" />
             </RankingContainer.strategy>
-            <RankingContainer.text>--.--%</RankingContainer.text>
-            <RankingContainer.text>---TON</RankingContainer.text>
-            <RankingContainer.text>-</RankingContainer.text>
+            <RankingContainer.text>--</RankingContainer.text>
+            <RankingContainer.text>--</RankingContainer.text>
+            <RankingContainer.text>--</RankingContainer.text>
           </RankingContainer.box>
-          <DivideLine /> */}
-          <RankingContainer.box> 
-            <RankingContainer.text>1</RankingContainer.text>
+          <DivideLine />
+          <RankingContainer.box>
+            <RankingContainer.text>3</RankingContainer.text>
             <RankingContainer.strategy>
-              <img src={binance} alt="binance icon" />
+              <img src={dedust} alt="dedust icon" />
               <img src={hyperliquid} alt="hyperliquid icon" />
             </RankingContainer.strategy>
-            <RankingContainer.text>--.--%</RankingContainer.text>
-            <RankingContainer.text>---TON</RankingContainer.text>
-            <RankingContainer.text>-</RankingContainer.text>
+            <RankingContainer.text>--</RankingContainer.text>
+            <RankingContainer.text>--</RankingContainer.text>
+            <RankingContainer.text>--</RankingContainer.text>
+          </RankingContainer.box>
+          <DivideLine />
+          <RankingContainer.box>
+            <RankingContainer.text>4</RankingContainer.text>
+            <RankingContainer.strategy>
+              <img src={dedust} alt="dedust icon" />
+              <img src={binance} alt="binance icon" />
+            </RankingContainer.strategy>
+            <RankingContainer.text>--</RankingContainer.text>
+            <RankingContainer.text>--</RankingContainer.text>
+            <RankingContainer.text>--</RankingContainer.text>
           </RankingContainer.box>
         </RankingContainer.wrapper>
       </RankingWrapper>
@@ -161,7 +180,7 @@ const RankingContainer = {
   `,
   text: styled.p`
     ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
-    color: black;
+    color: #C6C5D0;
   `,
   strategy: styled.div`
     display: flex;
@@ -174,20 +193,20 @@ const RankingContainer = {
     }
   `,
   box: styled.div<{ $active? }>`
-  width: 100%;
-  display: grid;
-  grid-template-columns: 10% 20% 20% 30% 20%; /* ✅ title과 동일한 컬럼 */
-  align-items: center;
-  text-align: center;
-  padding: ${({ $active }) => ($active ? "15px 19px" : "14px 20px")}; /* ✅ 간격 조정 */
-  background: ${({ $active }) => ($active ? "#fff" : "transparent")};
-  border-radius: 1rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10% 30% 20% 20% 20%; /* ✅ title과 동일한 컬럼 */
+    align-items: center;
+    text-align: center;
+    padding: ${({ $active }) => ($active ? "15px 19px" : "14px 20px")}; /* ✅ 간격 조정 */
+    background: ${({ $active }) => ($active ? "#fff" : "transparent")};
+    border-radius: 1rem;
 
-  img {
-    width: 32px;
-    height: 32px;
-  }
-`,
+    img {
+      width: 32px;
+      height: 32px;
+    }
+  `,
   wrapper: styled.div<{ $active? }>`
     width: 100%;
     gap: 1rem;
@@ -215,7 +234,7 @@ const RankingContainer = {
   title: styled.div<{ $active? }>`
     width: 100%;
     display: grid;
-    grid-template-columns: 10% 20% 20% 30% 20%; /* ✅ 컬럼 너비 통일 */
+    grid-template-columns: 10% 30% 20% 20% 20%; /* ✅ 컬럼 너비 통일 */
     align-items: center;
     text-align: center;
     padding: ${({ $active }) => ($active ? "27.25px 19px 16px 19px" : "20px 20px 17px 20px")};
