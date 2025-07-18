@@ -150,7 +150,7 @@ const Input = styled(NumericFormat)<{ $customWidth?: number; $error?: boolean }>
   font-size: 46px;
   font-style: normal;
   font-weight: 500;
-  line-height: 26px;
+  line-height: 46px;
   letter-spacing: -0.46px;
   padding: 0;
   outline: none;
@@ -162,6 +162,7 @@ const Input = styled(NumericFormat)<{ $customWidth?: number; $error?: boolean }>
     color: ${({ $error }) => ($error ? "#FF7979" : "#abaab4")};
     font-family: "Montserrat";
     font-size: 46px;
+    line-height:46px;
     text-align: center;
   }
 
