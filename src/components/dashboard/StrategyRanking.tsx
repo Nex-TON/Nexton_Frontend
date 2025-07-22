@@ -73,13 +73,13 @@ const StrategyRanking = ({ option, handleOption, rankingList, rankingTotal, isLo
             return (
               <>
                 <RankingContainer.box $active>
-                  <RankingContainer.text>{idx + 1}</RankingContainer.text>
+                  <RankingContainer.subtext>{idx + 1}</RankingContainer.subtext>
                   <RankingContainer.strategy>
                     <img src={ICON[strategy1]} alt={strategy1} />
                     <img src={ICON[strategy2]} alt={ICON[strategy2]} />
                   </RankingContainer.strategy>
-                  <RankingContainer.text>{item?.apy}%</RankingContainer.text>
-                  <RankingContainer.text>{limitDecimals(item?.tvl, 0)}TON</RankingContainer.text>
+                  <RankingContainer.subtext>{item?.apy}%</RankingContainer.subtext>
+                  <RankingContainer.subtext>{limitDecimals(item?.tvl, 0)}TON</RankingContainer.subtext>
                   <RankingContainer.button
                     onClick={() =>
                       navigate(`/dashboard/detail/${item?.strategy}`, {
@@ -178,7 +178,11 @@ const RankingContainer = {
     color: #1f53ff;
     text-decoration: underline;
   `,
-  text: styled.p`
+  subtext: styled.p`
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
+    color: #46494A;
+  `,
+  text:styled.p`
     ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3};
     color: #C6C5D0;
   `,

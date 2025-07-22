@@ -67,14 +67,14 @@ const DashboardDetail = () => {
     stonfi: stonfi,
     binance: binance,
     hyperliquid: hyperliquid, // 추가적인 거래소 여기 추가해줘야됨
-    dedust: dedust
+    dedust: dedust,
   };
 
   const img1 = strategyIcons[chartData?.strategyDetails?.strategy1?.strategy] || "";
   const img2 = strategyIcons[chartData?.strategyDetails?.strategy2?.strategy] || "";
 
   useEffect(() => {
-    console.log("rankingList",rankingList)
+    console.log("rankingList", rankingList);
     if (tele) {
       tele.ready();
       tele.BackButton.show();
@@ -111,30 +111,21 @@ const DashboardDetail = () => {
   return (
     <>
       <DashboardWrapper>
-        <Title>
-          Strategy {rank ?? "?"}
-        </Title>
+        <Title>Strategy</Title>
         <ChartNavigator.wrapper>
           <FaChevronLeft
             size={14}
             style={{ margin: "5px" }}
-            color={rank === 1 ? "#E1E4E6" : "#2F3038"}
-            onClick={() => {
-              //console.log("왼쪽 눌림", previousStrategy);
-              if (previousStrategy) {
-                navigate(`/dashboard/detail/${previousStrategy}`, {
-                  state: {rankingList},
-                });
-              }
-              // if (chartData?.strategyDetails?.strategy1?.strategy === "stonfi" && chartData?.strategyDetails?.strategy2?.strategy === "hyperliquid") {
-              //   navigate("/dashboard/detail/stonfi-binance");
-              // } 
-              // else if (chartData?.strategyDetails?.strategy1?.strategy === "dedust" && chartData?.strategyDetails?.strategy2?.strategy === "binance") {
-              //   navigate("/dashboard/detail/stonfi-hyperliquid");
-              // } else if (chartData?.strategyDetails?.strategy1?.strategy === "dedust" && chartData?.strategyDetails?.strategy2?.strategy === "hyperliquid") {
-              //   navigate("/dashboard/detail/dedust-binance");
-              // }
-            }}
+            color="#E1E4E6"
+            // color={rank === 1 ? "#E1E4E6" : "#2F3038"}
+            // onClick={() => {
+            //   //console.log("왼쪽 눌림", previousStrategy);
+            //   if (previousStrategy) {
+            //     navigate(`/dashboard/detail/${previousStrategy}`, {
+            //       state: {rankingList},
+            //     });
+            //   }
+            // }}
           />
           <ChartNavigator.strategywrapper>
             <ChartNavigator.exchange>{chartData?.strategyDetails?.strategy1?.exchange}</ChartNavigator.exchange>
@@ -147,23 +138,16 @@ const DashboardDetail = () => {
           <FaChevronRight
             size={14}
             style={{ margin: "5px" }}
-            color={ rank ===4 ? "#E1E4E6" : "#2F3038"}
-            onClick={() => {
-              console.log("오른쪽 눌림", nextStrategy);
-              if (nextStrategy) {
-                navigate(`/dashboard/detail/${nextStrategy}`, {
-                  state: {rankingList},
-                });
-              }
-              // if (chartData?.strategyDetails?.strategy1?.strategy === "stonfi" && chartData?.strategyDetails?.strategy2?.strategy === "binance") {
-              //   navigate("/dashboard/detail/stonfi-hyperliquid");
-              // } 
-              // else if (chartData?.strategyDetails?.strategy1?.strategy === "stonfi" && chartData?.strategyDetails?.strategy2?.strategy === "hyperliquid") {
-              //   navigate("/dashboard/detail/dedust-binance");
-              // } else if (chartData?.strategyDetails?.strategy1?.strategy === "dedust" && chartData?.strategyDetails?.strategy2?.strategy === "binance") {
-              //   navigate("/dashboard/detail/dedust-hyperliquid");
-              // }
-            }}
+            color="#E1E4E6"
+            // color={ rank ===4 ? "#E1E4E6" : "#2F3038"}
+            // onClick={() => {
+            //   console.log("오른쪽 눌림", nextStrategy);
+            //   if (nextStrategy) {
+            //     navigate(`/dashboard/detail/${nextStrategy}`, {
+            //       state: {rankingList},
+            //     });
+            //   }
+            // }}
           />
         </ChartNavigator.wrapper>
         <ChartWrapper>

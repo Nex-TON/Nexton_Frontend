@@ -171,15 +171,13 @@ const MainMyAssetInfo = ({
                     <StrategyOption.wrapper>
                       <FaChevronLeft
                         size={14}
-                        color={strategy == 0 ? "#46494A" : "#C6CACA"}
-                        onClick={() => {
-                          if (strategy !== 0) {
-                            setStrategy(strategy - 1);
-                          }
-                          // if(strategy === 1){
-                          //   setStrategy(strategy-1);
-                          // }
-                        }}
+                        color="#46494A"
+                        // color={strategy == 0 ? "#46494A" : "#C6CACA"}
+                        // onClick={() => {
+                        //   if (strategy !== 0) {
+                        //     setStrategy(strategy - 1);
+                        //   }
+                        // }}
                       />
                       <p>
                         {performanceData?.summaryData[strategy]?.strategyDetails?.strategy1?.exchange} -{" "}
@@ -189,12 +187,13 @@ const MainMyAssetInfo = ({
                       <img src={img2} />
                       <FaChevronRight
                         size={14}
-                        color={strategy === 3 ? "#46494A" : "#C6CACA"}
-                        onClick={() => {
-                          if (strategy !== 3) {
-                            setStrategy(strategy + 1);
-                          }
-                        }}
+                        color="#46494A"
+                        // color={strategy === 3 ? "#46494A" : "#C6CACA"}
+                        // onClick={() => {
+                        //   if (strategy !== 3) {
+                        //     setStrategy(strategy + 1);
+                        //   }
+                        // }}
                       />
                     </StrategyOption.wrapper>
                   )}
