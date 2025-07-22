@@ -4,8 +4,13 @@ import { styled } from "styled-components";
 
 import IcWalletDisconnect from "@/assets/icons/Landing/ic_landing_wallet_disconnect.svg";
 import IcMenuButton from "@/assets/icons/Menu/ic_menu_button.svg";
+import IcCopy from "@/assets/icons/ic_copy_black.svg";
 
 import DisconnectModal from "../main/Modal/DisconnectModal";
+import useTonConnect from "@/hooks/contract/useTonConnect";
+import { copyText } from "@/utils/copyText";
+import "react-toastify/dist/ReactToastify.css";
+import { Slide, toast, ToastContainer } from "react-toastify";
 
 interface HeaderProps {
   isOpen: boolean;
@@ -19,6 +24,27 @@ const Header = (props: HeaderProps) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const {address}=useTonConnect();
+
+  const handleCopyAddress=async()=>{
+    if(address){
+      copyText(address)
+
+      toast("🚀 Wallet Address copied!", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Slide,
+    });
+    }
+    
+
+  }
 
   const handleModalState = () => {
     setIsOpenModal(!isOpenModal);
@@ -40,6 +66,12 @@ const Header = (props: HeaderProps) => {
           {text}
         </HeaderTitle>
         <HeaderRightBox>
+          {pathname === "/main"&&connected && (
+            <CopyAddress
+            onClick={handleCopyAddress}>
+              <img src={IcCopy} />
+            </CopyAddress>
+          )}
           {pathname === "/main" && (
             <DisconnectButton $connect={connected}>
               {connected ? (
@@ -59,6 +91,21 @@ const Header = (props: HeaderProps) => {
 };
 
 export default Header;
+
+const CopyAddress = styled.div`
+  width: 30px;
+  height: 30px;
+  padding: 3px;
+
+  border: none;
+  border-radius: 10px;
+  background-color: #f1f4f4;
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+`;
 
 const HeaderWrapper = styled.header<{
   $isOpen: boolean;
