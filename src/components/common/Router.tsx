@@ -19,7 +19,7 @@ import UnstakedList from "@/pages/MyAsset/UnstakedList";
 import Nlp from "@/pages/Nlp/Nlp";
 import Referral from "@/pages/Referral/Referral";
 import Amount from "@/pages/Stake/Amount";
-import Leverage from "@/pages/Stake/Leverage";
+// import Leverage from "@/pages/Stake/Leverage";
 import NFTPreview from "@/pages/Stake/NFTPreview";
 import NominatorList from "@/pages/Stake/NominatorList";
 import Swap from "@/pages/Swap/Swap";
@@ -30,6 +30,7 @@ import SplashScreen from "@/pages/Splash/splash";
 import ScrollToTop from "./ScrollTo";
 import Onboarding from "@/pages/Onboarding/Onboarding";
 import TokenExchange from "@/pages/TokenExchange/TokenExchange";
+import MyStrategy from "@/pages/Stake/MyStrategy";
 
 const Router = () => {
   return (
@@ -48,7 +49,8 @@ const Router = () => {
         </Route>
         <Route path="/stake">
           <Route path="amount" element={<Amount />} />
-          <Route path="leverage" element={<Leverage />} />
+          {/* <Route path="leverage" element={<Leverage />} /> */}
+          <Route path="mystrategy" element={<MyStrategy />} />
           <Route path="nominator" element={<NominatorList />} />
           <Route path="preview" element={<NFTPreview />} />
           <Route path="success" element={<StakeSuccess />} />

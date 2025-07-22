@@ -4,6 +4,8 @@ import path from "path";
 import rollupNodePolyFill from "rollup-plugin-node-polyfills";
 import { defineConfig } from "vite";
 
+const isProdMode = process.env.VERCEL_ENV === "production";
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
@@ -32,6 +34,12 @@ export default defineConfig({
     },
   },
   build: {
+    terserOptions: {
+      compress: {
+        drop_console: isProdMode,
+        drop_debugger: isProdMode,
+      },
+    },
     rollupOptions: {
       plugins: [rollupNodePolyFill()],
     },

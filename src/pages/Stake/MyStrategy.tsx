@@ -1,37 +1,31 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 
-import IcArrorRight from "@/assets/icons/Stake/ic_arrow_right_black.svg";
 import Loader from "@/components/common/Loader";
 import ProgressBar from "@/components/stake/common/ProgressBar";
-import Step from "@/components/stake/common/Step";
-import Title from "@/components/stake/common/Title";
 import { ConfirmNominatorModal } from "@/components/stake/Nominator/ConfirmNominatorModal";
-import NominatorItem from "@/components/stake/Nominator/NominatorItem";
+import IcRight from "@/assets/icons/Stake/ic_arrow_right_black.svg"
 import { useNominatorList } from "@/hooks/api/useNominatorList";
 import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom } from "@/lib/atom/staking";
 import { telegramAtom } from "@/lib/atom/telegram";
 import { isDevMode } from "@/utils/isDevMode";
 import IcWarning from "@/assets/icons/Stake/ic_warning_black.svg";
-import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 
 import { useSelectNominator } from "./hooks/useSelectNominator";
+import NominatorItem from "@/components/stake/Nominator/NominatorItem";
 import { nominatorAtom } from "@/lib/nominator";
 
 const tele = (window as any).Telegram.WebApp;
 
-const NominatorList = () => {
+const MyStrategy = () => {
   const navigate = useNavigate();
 
   const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
   const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
-  const [nominatorInfo,setNominatorInfo] = useRecoilState(nominatorAtom);
-  //const [stakingInfo] = useRecoilState(stakingAtom);
-  const { data: tokenRate } = useTokenRate();
   const setError = useSetRecoilState(globalError);
   const [confirmModal, setConfirmModal] = useState(false);
 
@@ -39,18 +33,28 @@ const NominatorList = () => {
 
   const { selectedNominator, handleSelectNominator } = useSelectNominator(nominatorListData);
   const [minimumTonModal, setMinimumTonModal] = useState(false);
+  const [nominatorInfo, setNominatorInfo] = useRecoilState(nominatorAtom);
+  const [selectedBot, setSelectedBot] = useState<(typeof nominatorListData)[number] | undefined>(undefined);
 
   useEffect(() => {
-    //console.log("NominatorList",nominatorListData)
-    // console.log("principal",Number(stakingInfo.principal))
-    // console.log("tokenSort",stakingInfo.tokenSort)
+    let bot = nominatorInfo.name
+      ? nominatorListData?.find(item => item.name === nominatorInfo.name)
+      : nominatorListData?.find(item => item.name === "Arbitrage Bot");
 
+    setSelectedBot(bot);
+
+    if (bot?.id) {
+      handleSelectNominator(bot.id);
+    }
+  }, [nominatorInfo, nominatorListData]);
+
+  useEffect(() => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.enableClosingConfirmation();
       tele.onEvent("backButtonClicked", () => {
-        navigate("/stake/mystrategy");
+        navigate("/stake/amount");
       });
     }
 
@@ -75,11 +79,12 @@ const NominatorList = () => {
 
   const handleConfirmNominator = () => {
     if (selectedNominator) {
-      setNominatorInfo({
-        id: selectedNominator.id,
-        name: selectedNominator.name,
-      });
-      navigate("/stake/mystrategy");
+      setStakingInfo(prev => ({
+        ...prev,
+        nominator: selectedNominator.name,
+        telegramId,
+      }));
+      navigate("/stake/preview");
     }
   };
 
@@ -152,8 +157,7 @@ const NominatorList = () => {
 
       <NominatorListWrapper>
         <ProgressBar />
-        <Step title="Step 2" type="nominator" />
-        <Title title="Select Your Strategy" />
+        <Title>Your Strategy</Title>
       </NominatorListWrapper>
       <NominatorItemList>
         {isLoading ? (
@@ -161,57 +165,21 @@ const NominatorList = () => {
             <Loader height={40} width={40} />
           </LoaderWrapper>
         ) : (
-          <>
-            {nominatorListData && (
-              <>
-                {nominatorListData.some(item => item.type === "bot") && (
-                  <BotTitleWrapper>
-                    <TitleH3>Strategy</TitleH3>
-                    <DashboardLink onClick={() => navigate("/dashboard")} id="nominator list dashboard button">
-                      Go to Dashboard <img src={IcArrorRight} alt="arrow_right" />
-                    </DashboardLink>
-                  </BotTitleWrapper>
-                )}
-                {nominatorListData
-                  .filter(item => item.type === "bot")
-                  .map(item => (
-                    <Fragment key={item.id}>
-                      <NominatorItem
-                        id={item.id}
-                        title={item.name}
-                        apy={item.apy}
-                        profitShare={item.profitShare}
-                        tvl={item.tvl}
-                        disabled={item.disabled}
-                        selectedNominator={selectedNominator}
-                        handleSelectNominator={handleSelectNominator}
-                      />
-                    </Fragment>
-                  ))}
-
-                {nominatorListData.some(
-                  item => item.type === "pool" ,
-                ) && <PoolTitle>Pool</PoolTitle>}
-                {nominatorListData
-                  .filter(item => item.type === "pool"&& (item.availableToken.includes(stakingInfo.tokenSort)))
-                  .map(item => (
-                    <Fragment key={item.id}>
-                      <NominatorItem
-                        id={item.id}
-                        title={item.name}
-                        apy={item.apy}
-                        profitShare={item.profitShare}
-                        tvl={item.tvl}
-                        disabled={item.disabled}
-                        selectedNominator={selectedNominator}
-                        handleSelectNominator={handleSelectNominator}
-                      />
-                    </Fragment>
-                  ))}
-              </>
-            )}
-          </>
+          <NominatorItem
+            id={selectedBot?.id}
+            title={selectedBot?.name}
+            apy={selectedBot?.apy}
+            profitShare={selectedBot?.profitShare}
+            tvl={selectedBot?.tvl}
+            disabled={selectedBot?.disabled}
+            selectedNominator={selectedBot}
+            handleSelectNominator={handleSelectNominator}
+            mystrategy={true}
+          />
         )}
+        <NominatorRouter onClick={() => navigate("/stake/nominator")}>
+          Choose Other Strategies <img src={IcRight} alt="right arrow" />
+        </NominatorRouter>
         <WarningWrapper>
           <WarningHeader>
             <img src={IcWarning} />
@@ -225,16 +193,40 @@ const NominatorList = () => {
       </NominatorItemList>
 
       {!isDevMode ? (
-        <MainButton text="Selected" onClick={handleConfirmNominator} />
+        <MainButton text="Staking Now" onClick={toggleModal} />
       ) : (
         /* Used for testing */
-        <button onClick={handleConfirmNominator}>Selected</button>
+        <button onClick={toggleModal}>Staking Now</button>
       )}
     </>
   );
 };
 
-export default NominatorList;
+export default MyStrategy;
+
+const NominatorRouter = styled.div`
+  margin-top: 4.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium_3}
+`;
+const Title = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--Neutral-variant-Neutral-variant-30, #333);
+  text-align: center;
+  font-family: "Montserrat";
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%; /* 22px */
+  letter-spacing: -0.44px;
+`;
 const WarningLetter = styled.div`
   color: var(--Neutral-Neutural-50, #76797a);
   font-family: Montserrat;
@@ -267,7 +259,7 @@ const WarningWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  margin: 32.5px 0 46px 0;
+  margin: 6.2rem 0 46px 0;
 `;
 
 const NominatorListWrapper = styled.div`
@@ -293,8 +285,6 @@ const NominatorItemList = styled.div`
   width: 100%;
   margin-top: 3.3rem;
   padding: 2rem 2rem 1.4rem 2rem;
-
-  background-color: #f2f2f7;
 `;
 
 const TitleH3 = styled.h3`

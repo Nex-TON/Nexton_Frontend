@@ -6,11 +6,11 @@ import { Address, OpenedContract, TupleBuilder, beginCell, fromNano, toNano } fr
 import { useAsyncInitialize } from "./useAsyncInitialize";
 import useTonConnect from "./useTonConnect";
 import { mapTokenMasterAddress, stringToAmount, amountToString, mapStrategyFee, mapStrategyHandler } from "./utils";
+import useSWR from "swr";
 
 export default function useJettonWallet(token = "nxTON") {
   const client = useTonClient();
   const { sender, address } = useTonConnect();
-  const [balance, setBalance] = useState(BigInt(0));
   const [isInitialized, setIsInitialized] = useState(false);
   const name = token;
 
@@ -30,39 +30,22 @@ export default function useJettonWallet(token = "nxTON") {
 
   const getBalance = useCallback(async () => {
     if (jettonWallet && isInitialized) {
-      try {
-        const result = await jettonWallet.getGetWalletData();
-        setBalance(result.balance);
-      } catch (error) {
-        if (error.message === "Unable to execute get method. Got exit_code: -13") {
-          setBalance(BigInt(0));
-          console.log("Jetton Wallet Uninitialized");
-          return;
-        }
-        console.log("Failed to fetch token balance", error);
-        if (error.code === "ERR_BAD_RESPONSE") {
-          // Retry the fetch
-          setTimeout(async () => await getBalance(), 2000);
-        }
-      }
+      const result = await jettonWallet.getGetWalletData();
+      return result.balance;
     }
-  }, [client, jettonWallet]);
+    return 0n;
+  }, [jettonWallet, isInitialized]);
 
-  const refreshData = useCallback(async () => {
-    await getBalance();
-  }, [jettonWallet, getBalance]);
-
-  useEffect(() => {
-    if (isInitialized) {
-      getBalance(); // Refresh balance once wallet is initialized
-    }
-  }, [isInitialized, getBalance]);
+  const { data: balance } = useSWR(jettonWallet ? jettonWallet.address : null, getBalance, {
+    errorRetryInterval: 1000,
+    dedupingInterval: 5000,
+    refreshInterval: 10000,
+  });
 
   return {
     address: jettonWallet ? jettonWallet.address : null,
     ownerWallet: address,
-    balance: amountToString(name, balance),
-    refreshData,
+    balance: balance ? amountToString(name, balance) : "0",
     tokenTransfer: async (to, data) => {
       await jettonWallet.send(
         sender,

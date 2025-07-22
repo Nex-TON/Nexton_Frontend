@@ -5,11 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useRecoilState } from "recoil";
 import { styled } from "styled-components";
-import { boolean, z } from "zod";
+import { z } from "zod";
 
 import ProgressBar from "@/components/stake/common/ProgressBar";
-import Step from "@/components/stake/common/Step";
-import Title from "@/components/stake/common/Title";
 import TokenInput from "@/components/stake/common/TokensInput";
 import { useCoinPrice } from "@/hooks/api/useCoinPrice";
 import { stakingAtom } from "@/lib/atom/staking";
@@ -23,21 +21,25 @@ import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import { useTokenRate } from "@/hooks/api/loan/useTokenRate";
 import ExchangePopup from "@/components/stake/common/ExchangePopup";
+import IcWallet from "@/assets/icons/Stake/ic_wallet.svg";
+import { getLockUpDate } from "@/utils/getLockupDate";
+import IcWarning from "@/assets/icons/Stake/ic_warning_black.svg";
 
 const tele = (window as any).Telegram.WebApp;
 
 const Amount = () => {
-  const { address, balance, connected, refreshTonData } = useTonConnect();
+  const { address, balance, connected } = useTonConnect();
   const { data: tokenRate } = useTokenRate();
   const navigate = useNavigate();
   const [, setStakingInfo] = useRecoilState(stakingAtom);
   const { data: coinPrice } = useCoinPrice("TON", "USD");
   const [modal, setModal] = useState(false);
   const [tokenSort, setTokenSort] = useState("TON");
-  const { balance: oldNxTonBalance, refreshData: refreshOldData } = useJettonWallet("oldNxTON");
-  const { balance: nxTonBalance, refreshData: refreshNxtonData } = useJettonWallet();
-  //+USDT
-  const { balance: usdtBalance, refreshData: refreshUsdtData } = useJettonWallet("USDT");
+  const { balance: nxTonBalance } = useJettonWallet();
+  const { balance: usdtBalance } = useJettonWallet("USDT");
+  //+bmTON
+  const { balance: bmTonBalance } = useJettonWallet("bmTON");
+
   const [exchangeModal, setExchangeModal] = useState(false);
 
   const handleTokenSelect = selectedToken => {
@@ -50,9 +52,19 @@ const Amount = () => {
       TON: balance,
       nxTON: Number(nxTonBalance),
       USDT: Number(usdtBalance),
+      bmTON: Number(bmTonBalance),
     };
     return tokenBalance[tokenSort] ?? 0;
   };
+
+  const mapTokenMasterAddress = (tokenSort: string) => {
+    const tokenAddress: Record<string, string> = {
+      bmTON: "EQCSxGZPHqa3TtnODgMan8CEM0jf6HpY-uon_NMeFgjKqkEY",
+    };
+    return tokenAddress[tokenSort] ?? "";
+  };
+  const bmTonAddress = mapTokenMasterAddress("bmTON");
+  const { data: bmTONPrice } = useCoinPrice(bmTonAddress, "USD");
 
   const schema = z.object({
     amount: z
@@ -80,17 +92,6 @@ const Amount = () => {
   });
 
   useEffect(() => {
-    async function handleRefreshTonData() {
-      await refreshTonData();
-      await refreshNxtonData();
-      //+USDT
-      await refreshUsdtData();
-    }
-
-    handleRefreshTonData();
-  }, [refreshTonData, tokenSort, refreshNxtonData, refreshUsdtData]);
-
-  useEffect(() => {
     if (tele) {
       tele.ready();
       tele.BackButton.show();
@@ -111,19 +112,22 @@ const Amount = () => {
       });
     }
   }, [connected, setError]);
+
   // Conversion function
   const convertAmount = useMemo(() => {
     return (amount: string | number) => {
       //
       if (coinPrice && amount) {
-        if (tokenSort === "TON") return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
+        if (tokenSort === "TON") return `≈ $${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * Number(amount), 2)}`;
         else if (tokenSort === "nxTON") {
-          return `$${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * (Number(amount) / tokenRate?.tonToNextonRate), 2)}`;
+          return `≈ $${limitDecimals(coinPrice?.rates?.TON?.prices?.USD * (Number(amount) / tokenRate?.tonToNextonRate), 2)}`;
+        } else if (tokenSort === "bmTON") {
+          return `≈ $${limitDecimals(bmTONPrice?.rates?.[bmTonAddress]?.prices?.USD * Number(amount), 2)}`;
         } else {
-          return `$${Number(amount)}`;
+          return `≈ $${Number(amount)}`;
         }
       }
-      return "$0.00";
+      return "≈ $0.00";
     };
   }, [coinPrice, tokenSort]);
 
@@ -133,66 +137,87 @@ const Amount = () => {
       address: address,
       principal: data.amount,
       tokenSort: tokenSort,
+      leverage: 1,
+      lockup: getLockUpDate(data.amount, 1),
     }));
-    navigate("/stake/nominator");
+    navigate("/stake/mystrategy");
   };
 
   return (
     <>
       <AmountWrapper>
         <ProgressBar />
-        <Step title="Step 1" />
-        <Title title="Stake tokens" />
         <BalanceWrapper>
+          <TokenFilter
+            toggleModal={() => setModal(true)}
+            tokenSort={tokenSort} // Pass selection handler
+          />
           {tokenSort === "TON" ? (
-            <BalanceText>
-              Balance : {mapTokenBalance("TON") === 0
+            <BalanceText
+              onClick={() => {
+                //const maxAmount = tokenSort === "TON" ? balance : nxTonBalance;
+                let maxAmount;
+                if (tokenSort === "TON") maxAmount = balance;
+                else if (tokenSort === "nxTON") maxAmount = nxTonBalance;
+                else if (tokenSort === "USDT") maxAmount = usdtBalance;
+                else if (tokenSort === "bmTON") maxAmount = bmTonBalance;
+
+                setValue("amount", maxAmount ? limitDecimals(maxAmount, 3) : "0");
+              }}
+            >
+              <img src={IcWallet} alt="wallet" />
+              {mapTokenBalance("TON") === 0
                 ? "0.00"
                 : mapTokenBalance("TON")
-                ? numberCutter(mapTokenBalance("TON"))
-                : "-.--"}
+                  ? numberCutter(mapTokenBalance("TON"))
+                  : "-.--"}{" "}
+              TON
             </BalanceText>
           ) : tokenSort === "nxTON" ? (
             <BalanceText>
-              Balance : {mapTokenBalance("nxTON") === 0
+              <img src={IcWallet} alt="wallet" />
+              {mapTokenBalance("nxTON") === 0
                 ? "0.00"
                 : mapTokenBalance("nxTON")
-                ? numberCutter(mapTokenBalance("nxTON"))
-                : "-.--"}
+                  ? numberCutter(mapTokenBalance("nxTON"))
+                  : "-.--"}{" "}
+              nxTON
             </BalanceText>
-          ) : (
+          ) : tokenSort === "USDT" ? (
             <BalanceText>
-              Balance : {mapTokenBalance("USDT") === 0
+              <img src={IcWallet} alt="wallet" />
+              {mapTokenBalance("USDT") === 0
                 ? "0.00"
                 : mapTokenBalance("USDT")
-                ? numberCutter(mapTokenBalance("USDT"))
-                : "-.--"}
-            </BalanceText>
-          )}
-          {/* {tokenSort === "TON" ? (
-            <BalanceText>Balance : {mapTokenBalance("TON") ? numberCutter(mapTokenBalance("TON")) : mapTokenBalance("TON") == 0 ? "0.00" : `-.--`}</BalanceText>
-          ) : tokenSort === "nxTON" ? (
-            <BalanceText>
-              Balance : {mapTokenBalance("nxTON") ? (mapTokenBalance("nxTON") == 0 ? "0.00" : numberCutter(mapTokenBalance("nxTON"))) : `-.--`}
+                  ? numberCutter(mapTokenBalance("USDT"))
+                  : "-.--"}{" "}
+              USDT
             </BalanceText>
           ) : (
             <BalanceText>
-              Balance : {mapTokenBalance("USDT") ? (mapTokenBalance("USDT") == 0 ? "0.00" : numberCutter(mapTokenBalance("USDT"))) : `-.--`}
+              <img src={IcWallet} alt="wallet" />
+              {mapTokenBalance("bmTON") === 0
+                ? "0.00"
+                : mapTokenBalance("bmTON")
+                  ? numberCutter(mapTokenBalance("bmTON"))
+                  : "-.--"}{" "}
+              bmTON
             </BalanceText>
-          )} */}
-          <MaxButton
+          )}
+          {/* <MaxButton
             onClick={() => {
               //const maxAmount = tokenSort === "TON" ? balance : nxTonBalance;
               let maxAmount;
               if (tokenSort === "TON") maxAmount = balance;
               else if (tokenSort === "nxTON") maxAmount = nxTonBalance;
               else if (tokenSort === "USDT") maxAmount = usdtBalance;
+              else if (tokenSort === "bmTON") maxAmount = bmTonBalance;
 
               setValue("amount", maxAmount ? limitDecimals(maxAmount, 3) : "0");
             }}
           >
             MAX
-          </MaxButton>
+          </MaxButton> */}
         </BalanceWrapper>
 
         <form style={{ width: "100%" }}>
@@ -204,21 +229,31 @@ const Amount = () => {
             setValue={setValue}
             error={errors.amount?.message as string}
             disabled={!connected}
-            tokenLabel={
-              <TokenFilter
-                toggleModal={() => setModal(true)}
-                tokenSort={tokenSort} // Pass selection handler
-              />
-            }
-            placeholder={tokenSort === "TON" ? "min 1TON" : tokenSort === "USDT" ? "min 1USDT" : "min 1NxTON"}
+            placeholder={"0"}
             balance={balance}
             convertAmount={convertAmount}
+            tokenSort={tokenSort}
+            address={address}
           />
+          <WarningWrapper>
+            <WarningHeader>
+              <img src={IcWarning} />
+              Please be cautious before investing!
+            </WarningHeader>
+            <WarningLetter>
+              Centralized exchanges may have security and operational risks. Additionally, due to the nature of
+              arbitrage trading, there is a possibility of negative returns depending on market conditions and execution
+              delays.
+            </WarningLetter>
+          </WarningWrapper>
 
           {!isDevMode ? (
-            <MainButton text="NEXT" onClick={handleSubmit(onSubmit)} />
+            <MainButton
+              text={errors.amount?.message ? errors.amount.message : "Continue"}
+              onClick={handleSubmit(onSubmit)}
+            />
           ) : (
-            <button onClick={handleSubmit(onSubmit)}>next</button>
+            <button onClick={handleSubmit(onSubmit)}>{errors.amount?.message || "Continue"}</button>
           )}
         </form>
         {tokenSort === "nxTON" && (
@@ -257,6 +292,41 @@ const Amount = () => {
 };
 
 export default Amount;
+
+const WarningLetter = styled.div`
+  color: var(--Neutral-Neutural-50, #76797a);
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 19.5px */
+  letter-spacing: -0.46px;
+`;
+
+const WarningHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  img {
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
+  }
+  color: var(--Neutral-Neutural-0, #000);
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 130%; /* 16.9px */
+  letter-spacing: -0.46px;
+`;
+
+const WarningWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  margin: 6.2rem 0 46px 0;
+`;
 
 const MaxButton = styled.div`
   width: fit-content;
@@ -340,18 +410,22 @@ const BalanceWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   width: 100%;
-  margin-top: 2.6rem;
-  padding: 0 2.8rem 0 1.4rem;
 `;
 
 const BalanceText = styled.span`
   color: #333;
   font-family: Montserrat;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   font-size: 1.3rem;
   font-style: normal;
   font-weight: 500;
   line-height: 1.8rem; /* 138.462% */
   letter-spacing: -0.024rem;
+  img {
+    width: 18px;
+    height: 18px;
+  }
 `;

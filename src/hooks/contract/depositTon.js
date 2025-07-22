@@ -22,7 +22,11 @@ function depositTon() {
     address: nextonContract?.address.toString(),
     sendMessage: async (data, value) => {
       if (nextonContract) {
-        return await nextonContract.send(sender, { value: toNano(value) }, data);
+        return await nextonContract.send(sender, { value: toNano(value) }, {
+            $$type: "TonDeposit",
+            query_id: BigInt(Date.now()),
+            amount: data.amount
+          },);
       } else {
         return () => {};
       }

@@ -2,6 +2,8 @@ import useSWR from "swr";
 
 import { nextonFetcher } from "@/api/axios";
 
+export type AvailableToken="USDT"|"TON"|"nxTON"|"bmTON"
+
 export interface INominatorList {
   id: number;
   name: string;
@@ -10,6 +12,7 @@ export interface INominatorList {
   tvl: number;
   type: "pool" | "bot";
   disabled?: boolean;
+  availableToken:string[];
 }
 
 export const useNominatorList = (telegramId: string) => {
