@@ -75,7 +75,7 @@ const ActionCards = () => {
               <p>
                 Based on <img src={TonIc} /> TON
               </p>
-              <p>blockwave labs © 2024</p>
+              <p>blockwave labs © 2025</p>
             </CopyRight>
             <Desclaimer>
               Disclaimer: This service is in beta version. The functionality of this service may be updated in the
