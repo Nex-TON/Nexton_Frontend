@@ -4,9 +4,13 @@ import IcNxTon from "@/assets/icons/Stake/nxTON_Pop-up.png";
 import IcUSDT from "@/assets/icons/Stake/Staking_USDT.png";
 import IcBmTon from "@/assets/icons/Stake/Staking_BmTON.svg";
 import IcEclipse from "@/assets/icons/Stake/ic_eclipse.svg";
-import IcClose from "@/assets/icons/Stake/ic_close.svg"; 
+import IcClose from "@/assets/icons/Stake/ic_close.svg";
+import { useRecoilState } from "recoil";
+import { stakingAtom } from "@/lib/atom/staking";
 
 export const TokenFilterModal = ({ toggleModal, onSelected, setExchangeModal, hasNxTon, setValue }) => {
+  const [, setStakingInfo] = useRecoilState(stakingAtom);
+
   const handleSelection = token => {
     onSelected(token); // Pass selected token to parent
     toggleModal(); // Close modal
@@ -14,6 +18,10 @@ export const TokenFilterModal = ({ toggleModal, onSelected, setExchangeModal, ha
     if (token === "nxTON" && hasNxTon === "0") {
       setExchangeModal(true);
     }
+    setStakingInfo(prev => ({
+          ...prev,
+          tokenSort: token,
+        }));
   };
 
   return (
@@ -63,7 +71,7 @@ export const TokenFilterModal = ({ toggleModal, onSelected, setExchangeModal, ha
               onClick={() => {
                 handleSelection("nxTON");
               }}
-              style={{marginBottom:'1.7rem'}}
+              style={{ marginBottom: "1.7rem" }}
             >
               <TokenIcon>
                 <img src={IcNxTon} alt="ton icon" />
@@ -92,9 +100,9 @@ export const TokenFilterModal = ({ toggleModal, onSelected, setExchangeModal, ha
     </>
   );
 };
-const CloseTap=styled.div`
-  padding:0 1.3rem 0 1.3rem;
-  display: flex; 
+const CloseTap = styled.div`
+  padding: 0 1.3rem 0 1.3rem;
+  display: flex;
   justify-content: flex-end;
 `;
 const TokenInnerWrapper = styled.div`
@@ -120,7 +128,7 @@ const DivideBar = styled.div`
   background: #e5e5ea;
   width: 100%;
   height: 0.1rem;
-  margin:1.1rem 0 2.4rem 0
+  margin: 1.1rem 0 2.4rem 0;
 `;
 
 const RightArrowWrapper = styled.div`
@@ -158,7 +166,7 @@ const TokenSelectWrapper = styled.div`
 `;
 
 const Title = styled.div`
-margin-bottom: 1.9rem;
+  margin-bottom: 1.9rem;
   color: #333;
   text-align: start;
   ${({ theme }) => theme.fonts.Nexton_Title_Small};
