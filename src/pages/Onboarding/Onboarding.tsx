@@ -205,7 +205,7 @@ const NextButton = styled.div`
   //font
   color: white;
   text-align: center;
-  font-family: "SFPro";
+  font-family: "SF Pro Display";
   font-size: 17px;
   font-style: normal;
   font-weight: 400;
