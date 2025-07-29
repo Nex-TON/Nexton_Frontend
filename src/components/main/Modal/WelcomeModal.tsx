@@ -17,7 +17,7 @@ export const WelcomeModal = (props: WelcomeModalProps) => {
       <Container $isDark>
         <WelcomeModalContent>
           <img style={{ marginBottom: "1.2rem" }} src={IcNotification} alt="notification" />
-          <Title $isDark>This service is in alpha version.</Title>
+          <Title $isDark>This service is in beta version.</Title>
           <SubTitleBox>
             <SubTitle $isDark>The functionality of this service may be updated in the future.</SubTitle>
           </SubTitleBox>
