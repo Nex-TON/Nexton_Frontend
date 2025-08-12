@@ -29,14 +29,14 @@ const ImageWrapper = styled.div`
 `;
 
 const Title = styled.div`
-  color: #fff;
-  font-family: Montserrat;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 150%; /* 27px */
-  text-align: start;
-  margin-top: 1rem;
+  color: #FFF;
+text-align: center;
+font-family: Montserrat;
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+letter-spacing: -0.442px;
 `;
 
 const TextWrapper = styled.div`
@@ -55,7 +55,7 @@ const ContainerWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 12px;
-  padding-top: 17px;
+padding: 27px 31px 41.393px 31px;
   background: #0a0b0d;
   display: flex;
   background-position: center;
