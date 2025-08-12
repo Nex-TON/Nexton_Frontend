@@ -26,6 +26,8 @@ const ImageWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 12px;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Title = styled.div`
