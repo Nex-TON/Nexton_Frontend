@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import NewsTokenExchange from "./NewsTokenExchange";
 import NewsReferralGuide from "./NewsReferralGuide";
+import NewsPiggycell from "./NewsPiggycell";
 
 const NextonNews = () => {
   const settings = {
@@ -30,6 +31,9 @@ const NextonNews = () => {
         <Title>Latest News</Title>
         <SliderWrapper>
           <Slider {...settings}>
+            <SliderItem>
+              <NewsPiggycell />
+            </SliderItem>
             <SliderItem>
               <NewsReferralGuide />
             </SliderItem>
