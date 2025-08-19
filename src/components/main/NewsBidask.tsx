@@ -6,7 +6,7 @@ import Cross from "@/assets/icons/ic_cross.svg";
 const NewsBidask = () => {
   return (
     <ContainerWrapper
-      onClick={() => window.open("https://x.com/NextonNode/status/1952293620666540364")}
+      // onClick={() => window.open("")}
     >
       <TextWrapper>
         <Title>PARTNERSHIP ANNOUNCEMENT</Title>
