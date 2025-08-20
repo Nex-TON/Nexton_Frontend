@@ -11,6 +11,7 @@ import Slider from "react-slick";
 import NewsTokenExchange from "./NewsTokenExchange";
 import NewsReferralGuide from "./NewsReferralGuide";
 import NewsPiggycell from "./NewsPiggycell";
+import NewsBidask from "./NewsBidask";
 
 const NextonNews = () => {
   const settings = {
@@ -31,6 +32,9 @@ const NextonNews = () => {
         <Title>Latest News</Title>
         <SliderWrapper>
           <Slider {...settings}>
+            <SliderItem>
+              <NewsBidask />
+            </SliderItem>
             <SliderItem>
               <NewsPiggycell />
             </SliderItem>

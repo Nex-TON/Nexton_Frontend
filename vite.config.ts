@@ -3,12 +3,13 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import rollupNodePolyFill from "rollup-plugin-node-polyfills";
 import { defineConfig } from "vite";
+import svgr from 'vite-plugin-svgr'
 
 const isProdMode = process.env.VERCEL_ENV === "production";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(),svgr()],
   optimizeDeps: {
     esbuildOptions: {
       // Node.js global to browser globalThis

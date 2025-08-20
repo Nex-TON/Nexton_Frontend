@@ -260,6 +260,13 @@ const fonts = {
     font-weight: 500;
     line-height: 2rem;
   `,
+  Nexton_Body_Text_Small_3: css`
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 18px */
+  `,
   Nexton_Label_Large: css`
     font-family: "Montserrat";
     font-size: 1.2rem;
