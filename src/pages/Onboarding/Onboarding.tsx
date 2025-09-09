@@ -1,14 +1,15 @@
 import styled, { keyframes } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import OnboardingIllust1 from "@/assets/image/Onboarding/onboarding1_illust.svg";
 import OnboardingIllust2 from "@/assets/image/Onboarding/onboarding2_illust.svg";
 import OnboardingIllust3 from "@/assets/image/Onboarding/onboarding3_illust.svg";
 
-import BackgroundCircle1 from "@/assets/image/Onboarding/onboarding1_circle.svg";
-import BackgroundCircle2 from "@/assets/image/Onboarding/onboarding2_circle.svg";
-import BackgroundCircle3 from "@/assets/image/Onboarding/onboarding3_circle.svg";
+import OnboardingBackground from "@/assets/image/Onboarding/OnboardingBackground.svg";
+
+import IcCheck from "@/assets/icons/Onboarding/IcCheck.svg?react";
+import { postAgreement } from "@/api/postAgreement";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -17,11 +18,28 @@ const Onboarding = () => {
   const navigate = useNavigate();
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const [agree, setAgree] = useState(false);
+  const userId = tele?.initDataUnsafe?.user?.id; //number
+
+  const handleSubmitAgreement = useCallback(async () => {
+    localStorage.setItem("agreePrivacyPolicy", "true");
+    localStorage.setItem("agreeTermsOfUse", "true");
+    window.dispatchEvent(new Event("storage"));
+
+    try {
+      const response = await postAgreement({
+        userId: userId.toString(),
+      });
+    } catch (error) {
+      console.log("error", error);
+    }
+    navigate("/main");
+  }, [userId]);
 
   const TextSlide = [
     {
       image: OnboardingIllust1,
-      circle: BackgroundCircle1,
+      background: OnboardingBackground,
       title1: "Stake your TON",
       title2: "with NEXTON!",
       description1: "Stake your TON.",
@@ -29,7 +47,7 @@ const Onboarding = () => {
     },
     {
       image: OnboardingIllust2,
-      circle: BackgroundCircle2,
+      background: OnboardingBackground,
       title1: "Liquid Stake TON,",
       title2: "Earn with Arb Bot!",
       description1: "Liquid stake TON,",
@@ -37,7 +55,7 @@ const Onboarding = () => {
     },
     {
       image: OnboardingIllust3,
-      circle: BackgroundCircle3,
+      background: OnboardingBackground,
       title1: "Unlock NFT in 15 Days,",
       title2: "Start Earning!",
       description1: "Unlock your NFT after 15 days",
@@ -50,9 +68,6 @@ const Onboarding = () => {
       TextSlide.forEach(slide => {
         const img = new Image();
         img.src = slide.image;
-
-        const circleImg=new Image();
-        circleImg.src=slide.circle;
       });
     };
     preloadImages();
@@ -90,8 +105,8 @@ const Onboarding = () => {
     <>
       <OnboardingWrapper onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
         <SkipButton onClick={() => navigate("/main")}>Skip</SkipButton>
-        <BackgroundImage index={currentSlide}>
-          <img src={TextSlide[currentSlide].circle} />
+        <BackgroundImage>
+          <img src={TextSlide[currentSlide].background} />
         </BackgroundImage>
         <IllustWrapper index={currentSlide}>
           <img src={TextSlide[currentSlide].image} />
@@ -107,6 +122,25 @@ const Onboarding = () => {
             <br />
             {TextSlide[currentSlide].description2}
           </p>
+          {currentSlide === 2 && (
+            <TermPolicy onClick={() => setAgree(!agree)}>
+              <IcCheck
+                style={{ marginRight: "11px" }}
+                width="24px"
+                height="24px"
+                fill={agree ? "#1F53FF" : "none"}
+                stroke={agree ? "white" : "black"}
+              />
+              I accept the
+              <span onClick={() => window.open("https://blockwavelabs.notion.site/nexton-terms-of-use", "_blank")}>
+                Terms of Use
+              </span>
+              and
+              <span onClick={() => window.open("https://blockwavelabs.notion.site/nexton-privacy-policy", "_blank")}>
+                Privacy Policy
+              </span>
+            </TermPolicy>
+          )}
           <BottomStatusWrapper>
             <ProgressDot>
               {TextSlide.map((_, index) =>
@@ -120,7 +154,7 @@ const Onboarding = () => {
                     setCurrentSlide(currentSlide + 1);
                   }, 400);
                 } else {
-                  navigate("/main");
+                  handleSubmitAgreement();
                 }
               }}
             >
@@ -133,6 +167,27 @@ const Onboarding = () => {
   );
 };
 export default Onboarding;
+
+const TermPolicy = styled.div`
+  ${({ theme }) => theme.fonts.Nexton_Body_Text_Small_3};
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-bottom: 1.7rem;
+
+  span {
+    ${({ theme }) => theme.fonts.Nexton_Body_Text_Small_3};
+    color: #1f53ff;
+    margin: 0 3px;
+
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: none;
+    text-underline-position: from-font;
+    cursor: pointer;
+  }
+`;
 
 const expand = keyframes`
     from{
@@ -160,12 +215,12 @@ const SkipButton = styled.div`
   color: white;
   position: absolute;
   top: 3rem;
-  right: 2rem;
+  left: 2rem;
   ${({ theme }) => theme.fonts.Nexton_Title_Large_Small};
   animation: ${expand} 0.5s ease forwards;
 
   display: flex;
-  justify-content: end;
+  justify-content: start;
   align-items: start;
 `;
 
@@ -205,7 +260,7 @@ const NextButton = styled.div`
   //font
   color: white;
   text-align: center;
-  font-family: "SFPro";
+  font-family: "SF Pro Display";
   font-size: 17px;
   font-style: normal;
   font-weight: 400;
@@ -219,13 +274,14 @@ const ProgressDot = styled.div`
   gap: 0.5rem;
 `;
 
-const BackgroundImage = styled.div<{ index: number }>`
-  transition: all 800ms ease;
+const BackgroundImage = styled.div`
+  width: 100%;
+  img {
+    width: 100%;
+  }
 
   position: absolute;
-  right: ${props => (props.index === 0 ? "0" : props.index === 1 ? "none" : "0")};
-  left: ${props => (props.index === 0 ? "none" : props.index === 1 ? "0" : "none")};
-  bottom: ${props => (props.index === 0 ? "16rem" : props.index === 1 ? "19rem" : "22rem")};
+  bottom: 23.8rem;
 `;
 
 const BottomBoxWrapper = styled.div`
@@ -255,12 +311,14 @@ const BottomBoxWrapper = styled.div`
 `;
 
 const IllustWrapper = styled.div<{ index: number }>`
-  transition: all 800ms ease;
+  display: flex;
 
   right: ${props => (props.index === 0 ? "3.4rem" : "none")};
-  left: ${props => (props.index === 1 ? "4.3rem" : "none")};
+  left: ${props => (props.index === 1 ? "4.3rem" : props.index === 2 ? "50%" : "none")};
+  transform: ${props => (props.index === 2 ? "translateX(-50%)" : "none")};
+
   position: absolute;
-  bottom: ${props => (props.index === 1 ? "30.4rem" : "28rem")};
+  bottom: ${props => (props.index === 1 ? "30.4rem" : props.index === 0 ? "23.8rem" : "23rem")};
   img {
     @media (min-height: 640px) and (max-height: 719px) {
       height: ${props => (props.index === 0 ? "350px" : props.index === 1 ? "333.621px" : "360.884px")};
@@ -275,7 +333,7 @@ const IllustWrapper = styled.div<{ index: number }>`
 `;
 
 const OnboardingWrapper = styled.div`
-  background-color: #668aff;
+  background-color: #d0dbff;
   width: 100%;
   max-width: 76.8rem;
   height: 100vh;

@@ -178,7 +178,7 @@ const MyTokensDisclaimer = styled.div`
 const Desclaimer = styled.div`
   color: var(--Neutral-Neutural-60, #909394);
 
-  font-family: "SF Pro";
+  font-family: "SF Pro Display";
   font-size: 11px;
   font-style: normal;
   font-weight: 400;
@@ -188,7 +188,7 @@ const Desclaimer = styled.div`
     cursor: pointer;
 
     color: var(--Neutral-Neutural-60, #909394);
-    font-family: "SF Pro";
+    font-family: "SF Pro Display";
     font-size: 11px;
     font-style: normal;
     font-weight: 400;

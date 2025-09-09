@@ -204,20 +204,6 @@ const Amount = () => {
               bmTON
             </BalanceText>
           )}
-          {/* <MaxButton
-            onClick={() => {
-              //const maxAmount = tokenSort === "TON" ? balance : nxTonBalance;
-              let maxAmount;
-              if (tokenSort === "TON") maxAmount = balance;
-              else if (tokenSort === "nxTON") maxAmount = nxTonBalance;
-              else if (tokenSort === "USDT") maxAmount = usdtBalance;
-              else if (tokenSort === "bmTON") maxAmount = bmTonBalance;
-
-              setValue("amount", maxAmount ? limitDecimals(maxAmount, 3) : "0");
-            }}
-          >
-            MAX
-          </MaxButton> */}
         </BalanceWrapper>
 
         <form style={{ width: "100%" }}>

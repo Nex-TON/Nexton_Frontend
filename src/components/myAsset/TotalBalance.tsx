@@ -16,7 +16,6 @@ import useJettonWallet from "@/hooks/contract/useJettonWallet";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 
 export const TotalBalance = () => {
-
   const { address, balance } = useTonConnect();
   const { balance: nxTonBalance } = useJettonWallet();
   const { balance: oldNxTonBalance } = useJettonWallet("oldNxTON");
@@ -68,7 +67,6 @@ export const TotalBalance = () => {
 
     initializeData();
   }, [address]);
-
 
   return (
     <TotalBalanceWrapper id="specific-element-total-balance">
@@ -161,7 +159,9 @@ export const TotalBalance = () => {
             ) : (
               <>
                 <Balance>
-                  <p>{Number(bmTonBalance) === 0 || Number(bmTonBalance) ? Number(bmTonBalance)?.toFixed(3) : "0.000"} </p>
+                  <p>
+                    {Number(bmTonBalance) === 0 || Number(bmTonBalance) ? Number(bmTonBalance)?.toFixed(3) : "0.000"}{" "}
+                  </p>
                   <p>bmTON</p>
                 </Balance>
               </>
@@ -177,7 +177,9 @@ export const TotalBalance = () => {
             ) : (
               <>
                 <Balance>
-                  <p>{totalStaked("bmTON") === 0 || totalStaked("bmTON") ? totalStaked("bmTON")?.toFixed(3) : "0.000"}</p>
+                  <p>
+                    {totalStaked("bmTON") === 0 || totalStaked("bmTON") ? totalStaked("bmTON")?.toFixed(3) : "0.000"}
+                  </p>
                   <p>bmTON</p>
                 </Balance>
               </>
@@ -282,8 +284,13 @@ const TokenTitle = styled.div`
   align-items: center;
   gap: 1.1rem;
   h2 {
-    color: black;
-    ${({ theme }) => theme.fonts.Telegram_Title_3_1}
+    color: var(--Neutral-Neutural-20, #303234);
+    font-family: "Montserrat";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; /* 24px */
+    letter-spacing: -0.46px;
   }
   img {
     width: 33px;
