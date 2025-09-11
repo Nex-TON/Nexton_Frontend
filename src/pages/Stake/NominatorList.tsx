@@ -227,6 +227,26 @@ const NominatorList = () => {
                       />
                     </Fragment>
                   ))}
+
+                  {nominatorListData.some(
+                    item => item.type === "vault",
+                  ) && <VaultTitle>Vault</VaultTitle>}
+                  {nominatorListData
+                    .filter(item => item.type === "vault" && (item.availableToken.includes(stakingInfo.tokenSort)))
+                    .map(item => (
+                      <Fragment key={item.id}>
+                        <NominatorItem
+                          id={item.id}
+                          title={item.name}
+                          apy={item.apy}
+                          profitShare={item.profitShare}
+                          tvl={item.tvl}
+                          disabled={item.disabled}
+                          selectedNominator={selectedNominator}
+                          handleSelectNominator={handleSelectNominator}
+                        />
+                      </Fragment>
+                    ))}
               </>
             )}
           </>
@@ -328,6 +348,10 @@ const TitleH3 = styled.h3`
 `;
 
 const PoolTitle = styled(TitleH3)`
+  margin-top: 4rem;
+`;
+
+const VaultTitle = styled(TitleH3)`
   margin-top: 4rem;
 `;
 

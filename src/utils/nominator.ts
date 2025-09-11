@@ -4,6 +4,8 @@ export function transformNominatorName(name: string): string {
             return "Bemo Pool (CEX-DEX)";
         case "Evaa Pool":
             return "Evaa Pool (CEX-DEX)";
+        case "Bidask":
+            return "BidAsk Arbitrage Vault";
         case "Arbitrage Bot":
             return "CEX-DEX";
         case "Arbitrage Bot 1":

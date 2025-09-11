@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 
 import IcBemoPool from "@/assets/icons/Stake/ic_bemo_pool.svg";
 import IcEvaaPool from "@/assets/icons/Stake/ic_evaa_pool.svg";
+import IcBidaskVault from "@/assets/icons/Stake/ic_bidask_vault.svg";
 import { INominatorList } from "@/hooks/api/useNominatorList";
 import { limitDecimals } from "@/utils/limitDecimals";
 import hyperliquid from "@/assets/icons/Dashboard/ic_hyperliquid_letter.svg";
@@ -13,7 +14,7 @@ import dedust from "@/assets/icons/Dashboard/ic_dedust_letter.svg";
 import Tooltip from "@/components/stake/common/Tooltip";
 import IcBidask from "@/assets/icons/Dashboard/ic_bidask_logo.svg";
 
-export type PoolType = "bemo" | "evaa" | "arbitrage" | "nominator" | "bidask";
+export type PoolType = "bemo" | "evaa" | "arbitrage" | "nominator" | "vault";
 
 interface NominatorItemProps {
   id: number;
@@ -41,7 +42,7 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
   const isSelected = selectedNominator?.id === id && !mystrategy;
 
   const icon =
-    title === "Bemo Pool" ? IcBemoPool : title === "Evaa Pool" ? IcEvaaPool : title === "Bidask" ? IcBidask : null;
+    title === "Bemo Pool" ? IcBemoPool : title === "Evaa Pool" ? IcEvaaPool :title === "Bidask" ? IcBidask : null;
 
   const handleClick = () => {
     handleSelectNominator(id);
@@ -106,7 +107,7 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
               <img style={{ height: "17.43px" }} src={stonfi} />
             </NominatorExchange>
           ) : title === "Bidask" ? (
-            <></>
+            <NominatorExchange />
           ) : (
             <NominatorExchange>
               <img style={{ height: "17.43px" }} src={title === "Arbitrage Bot 3" ? hyperliquid : binance} />
