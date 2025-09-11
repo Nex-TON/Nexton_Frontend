@@ -56,8 +56,8 @@ const NFTPreview = () => {
     setIsLoading(true);
 
     try {
-      if (["Arbitrage Bot", "Arbitrage Bot 1", "Arbitrage Bot 2", "Arbitrage Bot 3"].includes(stakingInfo.nominator)) {
-        const PROTOCOL_FEE = toNano(0.1);
+      if (["Arbitrage Bot", "Arbitrage Bot 1", "Arbitrage Bot 2", "Arbitrage Bot 3", "Bidask"].includes(stakingInfo.nominator)) {
+        const PROTOCOL_FEE = stakingInfo.nominator === "Bidask" ? toNano(0.5) : toNano(0.1);
 
         // First, attempt to send the message to the contract
         await sendDepositTon({ amount: toNano(stakingInfo.principal) - PROTOCOL_FEE }, stakingInfo.principal);

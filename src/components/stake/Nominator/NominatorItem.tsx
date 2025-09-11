@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 
 import IcBemoPool from "@/assets/icons/Stake/ic_bemo_pool.svg";
 import IcEvaaPool from "@/assets/icons/Stake/ic_evaa_pool.svg";
+import IcBidaskVault from "@/assets/icons/Stake/ic_bidask_vault.svg";
 import { INominatorList } from "@/hooks/api/useNominatorList";
 import { limitDecimals } from "@/utils/limitDecimals";
 import hyperliquid from "@/assets/icons/Dashboard/ic_hyperliquid_letter.svg";
@@ -11,8 +12,9 @@ import binance_small from "@/assets/icons/Main/ic_binance_logo.svg";
 import stonfi_small from "@/assets/icons/Main/ic_stonfi_logo.svg";
 import dedust from "@/assets/icons/Dashboard/ic_dedust_letter.svg";
 import Tooltip from "@/components/stake/common/Tooltip";
+import IcBidask from "@/assets/icons/Dashboard/ic_bidask_logo.svg";
 
-export type PoolType = "bemo" | "evaa" | "arbitrage" | "nominator";
+export type PoolType = "bemo" | "evaa" | "arbitrage" | "nominator" | "vault";
 
 interface NominatorItemProps {
   id: number;
@@ -39,7 +41,8 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
 }) => {
   const isSelected = selectedNominator?.id === id && !mystrategy;
 
-  const icon = title === "Bemo Pool" ? IcBemoPool : title === "Evaa Pool" ? IcEvaaPool : null;
+  const icon =
+    title === "Bemo Pool" ? IcBemoPool : title === "Evaa Pool" ? IcEvaaPool :title === "Bidask" ? IcBidask : null;
 
   const handleClick = () => {
     handleSelectNominator(id);
@@ -68,7 +71,9 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
                 ? "DEX-DEX bot"
                 : title === "Evaa Pool"
                   ? "Evaa Pool"
-                  : "CEX-DEX bot"}
+                  : title === "Bidask"
+                    ? "BidAsk Arbitrage Vault"
+                    : "CEX-DEX bot"}
           </NominatorItemTitle>
           {/* {title != "Bemo Pool" ? (
             <NominatorExchange>
@@ -101,6 +106,8 @@ const NominatorItem: React.FC<NominatorItemProps> = ({
               <VerticalLine />
               <img style={{ height: "17.43px" }} src={stonfi} />
             </NominatorExchange>
+          ) : title === "Bidask" ? (
+            <NominatorExchange />
           ) : (
             <NominatorExchange>
               <img style={{ height: "17.43px" }} src={title === "Arbitrage Bot 3" ? hyperliquid : binance} />

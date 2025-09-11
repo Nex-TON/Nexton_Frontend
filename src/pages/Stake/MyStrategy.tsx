@@ -7,7 +7,7 @@ import { styled } from "styled-components";
 import Loader from "@/components/common/Loader";
 import ProgressBar from "@/components/stake/common/ProgressBar";
 import { ConfirmNominatorModal } from "@/components/stake/Nominator/ConfirmNominatorModal";
-import IcRight from "@/assets/icons/Stake/ic_arrow_right_black.svg"
+import IcRight from "@/assets/icons/Stake/ic_arrow_right_black.svg";
 import { useNominatorList } from "@/hooks/api/useNominatorList";
 import { globalError } from "@/lib/atom/globalError";
 import { stakingAtom } from "@/lib/atom/staking";
@@ -133,14 +133,18 @@ const MyStrategy = () => {
           ? "Centralized exchanges may have security and operational risks."
           : selectedNominator?.name === "Evaa pool"
             ? "you will receive an NFT through the Arbitrage Bot."
-            : null;
+            : selectedNominator?.name === "Bidask"
+              ? "Please note that this action cannot be canceled"
+              : null;
 
   const name =
     selectedNominator?.name === "Arbitrage Bot" || selectedNominator?.name === "Arbitrage Bot 2"
       ? "CEX-DEX"
       : selectedNominator?.name === "Arbitrage Bot 1" || selectedNominator?.name === "Arbitrage Bot 3"
         ? "DEX-DEX"
-        : selectedNominator?.name;
+        : selectedNominator?.name === "Bidask"
+          ? "Bidask Vault"
+          : selectedNominator?.name;
 
   return (
     <>

@@ -14,7 +14,7 @@ interface ConfirmNominatorModalProps {
 
 export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
   const { onConfirm, toggleModal, name, description, isMinimumTonModal, tokenSort} = props;
-  const comment = isMinimumTonModal ? null : name === "Bemo Pool" || name === "Evaa Pool" ? `in the ${name}?` : `in a ${name} strategy?`;
+  const comment = isMinimumTonModal ? null : name === "Bemo Pool" || name === "Evaa Pool" ? `in the ${name}?` : name === "Bidask Vault" ? `on ${name}?` : `in a ${name} strategy?`;
 
   return (
     <ModalWrapper>
@@ -55,7 +55,7 @@ export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
         }
 
         <SubTitleBox $marginBottom>
-          {name !== "Bemo Pool" && name !== "Evaa Pool" ? (
+          {name !== "Bemo Pool" && name !== "Evaa Pool" && name !== "Bidask" ? (
           <SubTitle $isDark style={{ width: "90%", textAlign: "center" }}>
             {description}
           </SubTitle>
@@ -77,7 +77,13 @@ export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
               }
               </SubTitle>
             </>
-          ): (
+          ): (name === "Bidask") ? (
+            <>
+            <SubTitle $isDark style={{ width: "100%", textAlign: "center" }}>
+              Please note that this action<br /> cannot be canceled.
+            </SubTitle>
+            </>
+          ) : (
             <>
             <SubTitle $isDark style={{ width: "100%", textAlign: "center", marginBottom: "2rem" }}>
               Currently, staking in the Evaa Pool issues<br/> LST; however, there may be delays when<br/> entering the vault.
