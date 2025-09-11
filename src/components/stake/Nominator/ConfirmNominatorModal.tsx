@@ -14,7 +14,7 @@ interface ConfirmNominatorModalProps {
 
 export const ConfirmNominatorModal = (props: ConfirmNominatorModalProps) => {
   const { onConfirm, toggleModal, name, description, isMinimumTonModal, tokenSort} = props;
-  const comment = isMinimumTonModal ? null : name === "Bemo Pool" || name === "Evaa Pool" ? `in the ${name}?` : name === "Bidask" ? `on ${name} Vault?` : `in a ${name} strategy?`;
+  const comment = isMinimumTonModal ? null : name === "Bemo Pool" || name === "Evaa Pool" ? `in the ${name}?` : name === "Bidask Vault" ? `on ${name}?` : `in a ${name} strategy?`;
 
   return (
     <ModalWrapper>
