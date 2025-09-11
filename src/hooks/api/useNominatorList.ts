@@ -10,7 +10,7 @@ export interface INominatorList {
   apy: number;
   profitShare: number;
   tvl: number;
-  type: "pool" | "bot";
+  type: "pool" | "bot"|"vault";
   disabled?: boolean;
   availableToken:string[];
 }

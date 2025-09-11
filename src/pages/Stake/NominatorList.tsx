@@ -29,7 +29,7 @@ const NominatorList = () => {
 
   const [telegramId, setTelegramId] = useRecoilState(telegramAtom);
   const [stakingInfo, setStakingInfo] = useRecoilState(stakingAtom);
-  const [nominatorInfo,setNominatorInfo] = useRecoilState(nominatorAtom);
+  const [nominatorInfo, setNominatorInfo] = useRecoilState(nominatorAtom);
   //const [stakingInfo] = useRecoilState(stakingAtom);
   const { data: tokenRate } = useTokenRate();
   const setError = useSetRecoilState(globalError);
@@ -128,14 +128,18 @@ const NominatorList = () => {
           ? "Centralized exchanges may have security and operational risks."
           : selectedNominator?.name === "Evaa pool"
             ? "you will receive an NFT through the Arbitrage Bot."
-            : null;
+            : selectedNominator?.name === "Bidask"
+              ? "Please note that this action cannot be canceled"
+              : null;
 
   const name =
     selectedNominator?.name === "Arbitrage Bot" || selectedNominator?.name === "Arbitrage Bot 2"
       ? "CEX-DEX"
       : selectedNominator?.name === "Arbitrage Bot 1" || selectedNominator?.name === "Arbitrage Bot 3"
         ? "DEX-DEX"
-        : selectedNominator?.name;
+        : selectedNominator?.name === "Bidask"
+          ? "Bidask Vault"
+          : selectedNominator?.name;
 
   return (
     <>
@@ -189,11 +193,26 @@ const NominatorList = () => {
                     </Fragment>
                   ))}
 
-                {nominatorListData.some(
-                  item => item.type === "pool" ,
-                ) && <PoolTitle>Pool</PoolTitle>}
+                {nominatorListData.some(item => item.type === "vault") && <PoolTitle>Vault</PoolTitle>}
                 {nominatorListData
-                  .filter(item => item.type === "pool"&& (item.availableToken.includes(stakingInfo.tokenSort)))
+                  .filter(item => item.type === "vault" && item.availableToken.includes(stakingInfo.tokenSort))
+                  .map(item => (
+                    <Fragment key={item.id}>
+                      <NominatorItem
+                        id={item.id}
+                        title={item.name}
+                        apy={item.apy}
+                        profitShare={item.profitShare}
+                        tvl={item.tvl}
+                        disabled={item.disabled}
+                        selectedNominator={selectedNominator}
+                        handleSelectNominator={handleSelectNominator}
+                      />
+                    </Fragment>
+                  ))}
+                {nominatorListData.some(item => item.type === "pool") && <PoolTitle>Pool</PoolTitle>}
+                {nominatorListData
+                  .filter(item => item.type === "pool" && item.availableToken.includes(stakingInfo.tokenSort))
                   .map(item => (
                     <Fragment key={item.id}>
                       <NominatorItem
