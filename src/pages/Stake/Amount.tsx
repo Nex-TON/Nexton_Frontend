@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 import { z } from "zod";
 
@@ -24,6 +24,7 @@ import ExchangePopup from "@/components/stake/common/ExchangePopup";
 import IcWallet from "@/assets/icons/Stake/ic_wallet.svg";
 import { getLockUpDate } from "@/utils/getLockupDate";
 import IcWarning from "@/assets/icons/Stake/ic_warning_black.svg";
+import { nominatorAtom } from "@/lib/nominator";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -41,6 +42,7 @@ const Amount = () => {
   const { balance: bmTonBalance } = useJettonWallet("bmTON");
 
   const [exchangeModal, setExchangeModal] = useState(false);
+  const setNominator=useSetRecoilState(nominatorAtom);
 
   const handleTokenSelect = selectedToken => {
     setTokenSort(selectedToken); // Update token selection
@@ -140,6 +142,7 @@ const Amount = () => {
       leverage: 1,
       lockup: getLockUpDate(data.amount, 1),
     }));
+    setNominator({name:"",id:null})
     navigate("/stake/mystrategy");
   };
 
