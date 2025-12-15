@@ -12,7 +12,7 @@ It acts as client Part of the project
 ## Prerequisites
 Before you begin, ensure you have the following installed:
 - Node.js (version 14 or above recommended)
-- Yarn (version 1.22 or above)
+- pnpm
 - Git
 
 ## Dependencies
@@ -54,14 +54,13 @@ cd Nexton_Frontend
 **Step2**
 
 ```
-yarn
+pnpm i
 ```
 
 **Step3**
 
 ```
-yarn vite
-yarn vite --host // for mobile
+npx vite
 ```
 
 ## UI Screenshots
