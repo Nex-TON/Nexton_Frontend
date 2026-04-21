@@ -10,16 +10,18 @@ const RiskDisclosure = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const handleBack = () => {
+      navigate("/loan");
+    };
+
     if (tele) {
       tele.ready();
       tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/loan");
-      });
+      tele.onEvent("backButtonClicked",handleBack);
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked", handleBack);
     };
   }, []);
 

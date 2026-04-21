@@ -59,12 +59,14 @@ const Referral = () => {
   } = useReferralPoints(userInfo?.userId, walletAddress || "");
 
   useEffect(() => {
+    const handleBack = () => {
+      navigate("/main");
+    };
+
     if (tele) {
       tele.ready();
       tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/main");
-      });
+      tele.onEvent("backButtonClicked", handleBack);
 
       const tgUser = tele.initDataUnsafe?.user;
       if (tgUser && walletAddress !== "") {
@@ -74,7 +76,7 @@ const Referral = () => {
       }
     }
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked", handleBack);
     };
   }, [walletAddress]);
 

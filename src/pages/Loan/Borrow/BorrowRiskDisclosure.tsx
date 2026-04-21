@@ -25,16 +25,20 @@ const BorrowRiskDisclosure = () => {
   };
 
   useEffect(() => {
-    if (tele) {
-      tele.ready();
-      tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        navigate(`/loan/${id}/borrow/details`);
+    const handleBack=()=>{
+      navigate(`/loan/${id}/borrow/details`,{
+        state:{borrowAmount} // 뒤로갈 때도 값을 유지해서 전달
       });
     }
 
+    if (tele) {
+      tele.ready();
+      tele.BackButton.show();
+      tele.onEvent("backButtonClicked", handleBack);
+    }
+
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked", handleBack);
     };
   }, []);
 

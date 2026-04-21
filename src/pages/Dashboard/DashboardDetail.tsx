@@ -74,18 +74,19 @@ const DashboardDetail = () => {
   const img2 = strategyIcons[chartData?.strategyDetails?.strategy2?.strategy] || "";
 
   useEffect(() => {
-    console.log("rankingList", rankingList);
+    const handleBack = () => {
+      navigate("/dashboard");
+    };
+
     if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.enableClosingConfirmation();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/dashboard");
-      });
+      tele.onEvent("backButtonClicked", handleBack);
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked", handleBack );
     };
   }, []);
 

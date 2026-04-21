@@ -44,14 +44,15 @@ const NominatorList = () => {
     //console.log("NominatorList",nominatorListData)
     // console.log("principal",Number(stakingInfo.principal))
     // console.log("tokenSort",stakingInfo.tokenSort)
+    const handleBack=()=>{
+        navigate("/stake/mystrategy");
+    };
 
     if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.enableClosingConfirmation();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/stake/mystrategy");
-      });
+      tele.onEvent("backButtonClicked", handleBack);
     }
 
     const tgId = tele?.initDataUnsafe?.user?.id;
@@ -63,7 +64,7 @@ const NominatorList = () => {
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked", handleBack );
     };
   }, []);
 

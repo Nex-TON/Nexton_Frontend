@@ -49,14 +49,16 @@ const MyStrategy = () => {
   }, [nominatorInfo, nominatorListData]);
 
   useEffect(() => {
+    const handleBack=()=>{
+      navigate("stake/amount");
+    }
+
     if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.enableClosingConfirmation();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/stake/amount");
-      });
-    }
+      tele.onEvent("backButtonClicked",handleBack);
+    };
 
     const tgId = tele?.initDataUnsafe?.user?.id;
     if (tgId) {
@@ -67,7 +69,7 @@ const MyStrategy = () => {
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked", handleBack);
     };
   }, []);
 

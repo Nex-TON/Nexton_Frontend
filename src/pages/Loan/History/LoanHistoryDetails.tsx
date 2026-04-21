@@ -40,16 +40,18 @@ const LoanHistoryDetails = () => {
   const id=useParams();
 
   useEffect(() => {
+    const handleBack = () => {
+      navigate("/loan/history");
+    };
+
     if (tele) {
       tele.ready();
       tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/loan/history");
-      });
+      tele.onEvent("backButtonClicked", () => handleBack);
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked",handleBack);
     };
   }, []);
 

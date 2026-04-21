@@ -34,17 +34,19 @@ const Leverage = () => {
   };
 
   useEffect(() => {
+    const handleBack=()=>{
+      navigate("/stake/nominator");
+    };
+
     if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.enableClosingConfirmation();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/stake/nominator");
-      });
+      tele.onEvent("backButtonClicked", handleBack);
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked",handleBack);
     };
   }, []);
 

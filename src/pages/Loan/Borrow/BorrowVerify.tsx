@@ -70,16 +70,18 @@ const BorrowVerify = () => {
   };
 
   useEffect(() => {
+    const handleBack = () => {
+      navigate(`/loan/${id}/borrow/risk-disclosure`);
+    };
+
     if (tele) {
       tele.ready();
       tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        navigate(`/loan/${id}/borrow/risk-disclosure`);
-      });
+      tele.onEvent("backButtonClicked", handleBack);
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked", handleBack);
     };
   }, []);
 

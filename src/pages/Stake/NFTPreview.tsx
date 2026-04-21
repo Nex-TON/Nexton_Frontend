@@ -139,18 +139,20 @@ const NFTPreview = () => {
   }, [stakingInfo, tokenTransfer, setError]);
 
   useEffect(() => {
+    const handleBack=()=>{
+      navigate("/stake/nominator");
+    };
+
     if (tele) {
       tele.ready();
       tele.BackButton.show();
       tele.enableClosingConfirmation();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/stake/nominator");
-      });
+      tele.onEvent("backButtonClicked",handleBack);
     }
     window.scrollTo(0, 0);
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked", handleBack);
     };
   }, [navigate]);
 

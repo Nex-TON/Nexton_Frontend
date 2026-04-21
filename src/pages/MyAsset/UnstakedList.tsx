@@ -22,12 +22,14 @@ const UnstakedList = () => {
   console.log("useUnstakedList: ", data);
 
   useEffect(() => {
+    const handleBack = () => {  
+      navigate("/main");
+    };
+
     if (tele) {
       tele.ready();
       tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/main");
-      });
+      tele.onEvent("backButtonClicked", handleBack);
 
       const tgId = tele?.initDataUnsafe?.user?.id;
       if (tgId) {
@@ -39,7 +41,7 @@ const UnstakedList = () => {
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked", handleBack);
     };
   }, []);
 

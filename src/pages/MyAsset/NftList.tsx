@@ -17,19 +17,21 @@ const NftList = () => {
   
 
   useEffect(() => {
+    const handleBack = () => {
+      navigate("/main");
+    };
+
     const tele = (window as any).Telegram.WebApp;
     if (tele) {
       tele.ready();
       tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/main");
-      });
+      tele.onEvent("backButtonClicked",handleBack);
     }
 
     return () => {
       const tele = (window as any).Telegram.WebApp;
       if (tele) {
-        tele.offEvent("backButtonClicked");
+        tele.offEvent("backButtonClicked",handleBack);
       }
     };
   }, []);

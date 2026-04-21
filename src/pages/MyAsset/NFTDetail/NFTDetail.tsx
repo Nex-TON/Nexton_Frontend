@@ -64,16 +64,17 @@ const NFTDetail = () => {
   }, []);
 
   useEffect(() => {
+    const handleBack = () => {
+        navigate("/myasset/nftlist");
+  };
     if (tele) {
       tele.ready();
       tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/myasset/nftlist");
-      });
+      tele.onEvent("backButtonClicked",handleBack);
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked", handleBack);
     };
   }, []);
 

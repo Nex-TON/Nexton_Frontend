@@ -18,16 +18,18 @@ const UnstakingDetailHeader = (props: UnstakingDetailHeaderProps) => {
   const [isOpenDesc, setIsOpenDesc] = useState(false);
 
   useEffect(() => {
+    const handleBack=()=>{
+      navigate("/myasset/unstaking");
+    }
+
     if (tele) {
       tele.ready();
       tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/myasset/unstaking");
-      });
+      tele.onEvent("backButtonClicked", handleBack);
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked", handleBack);
     };
   }, []);
 

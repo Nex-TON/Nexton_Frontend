@@ -15,17 +15,19 @@ const StakingNftDetail = () => {
   const { nftDetail } = useNFTDetail(Number(id));
 
   useEffect(() => {
+    const handleBack = () => {
+      const { prev } = location.state;
+      navigate(prev ? prev : "/myasset/nftlist");
+    };
+
     if (tele) {
       tele.ready();
       tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        const { prev } = location.state;
-        navigate(prev ? prev : "/myasset/nftlist");
-      });
+      tele.onEvent("backButtonClicked", handleBack);
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked", handleBack);
     };
   }, []);
 

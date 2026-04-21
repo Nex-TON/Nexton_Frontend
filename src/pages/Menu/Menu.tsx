@@ -13,16 +13,18 @@ const Menu = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const handleBack = () => {
+      navigate("/main");
+    };
+
     if (tele) {
       tele.ready();
       tele.BackButton.show();
-      tele.onEvent("backButtonClicked", () => {
-        navigate("/main");
-      });
+      tele.onEvent("backButtonClicked", handleBack);
     }
 
     return () => {
-      tele.offEvent("backButtonClicked");
+      tele.offEvent("backButtonClicked", handleBack);
     };
   }, []);
 
